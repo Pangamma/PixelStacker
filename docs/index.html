@@ -1,28 +1,580 @@
-<!DOCTYPE html>
-<html>
+
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 	<head>
-		<title>Hank Quinlan, Horrible Cop</title>
+		<!--
+
+   _____               _   _                   _______                  _           _ 
+  / ____|             | | (_)                 |__   __|                | |         | |
+ | |  __ _ __ ___  ___| |_ _ _ __   __ _ ___     | |_ __ __ ___   _____| | ___ _ __| |
+ | | |_ | '__/ _ \/ _ \ __| | '_ \ / _` / __|    | | '__/ _` \ \ / / _ \ |/ _ \ '__| |
+ | |__| | | |  __/  __/ |_| | | | | (_| \__ \    | | | | (_| |\ V /  __/ |  __/ |  |_|
+  \_____|_|  \___|\___|\__|_|_| |_|\__, |___/    |_|_|  \__,_| \_/ \___|_|\___|_|  (_)
+                                    __/ |                                             
+                                   |___/      
+
+   I see you are curious about the source code! If that is the case, feel free to find
+   me in my other projects as well. Go ahead. Contact me on Discord at Taylor#7048.
+   Tell me you found the secret message. Ask me any questions you want.
+-->
+                                                                           
+	<script src="/cdn-cgi/apps/head/qPGF9cz801uErOmsTFTPgxvaCRc.js"></script><script type="text/javascript">
+		console.log('%c___','background: url("https://taylorlove.info/assets/img/me_and_gf.png") no-repeat; font-size:330px; color:transparent;');
+		 console.log('%cGreetings Traveler!', 'font-size:36px');
+		 console.log('%cLooks like you are using the dev tools. Let me know if you have any\n\
+questions, and I will be happy to assist you. You can even hire me!','font-size:14px; color:red;');		 
+	console.log('%chttps://www.linkedin.com/in/tayloralove/','font-size:14px; font-weight:bold; color:#0078D7;');
+
+	</script>		<title>PixelStacker by Taylor Love</title>
+		<meta charset="utf-8"/>
+		<meta http-equiv="x-ua-compatible" content="ie=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="description" content="Taylor's tool for building pixelart in Minecraft"/>
+		<meta name="keywords" content="pixelart,Minecraft,pangamma,woolcity,spritecraft,1.13.2,1.12,1.13.1"/>
+		<meta name="author" content="Taylor A Love"/>
+		<meta property="og:image" content="https://taylorlove.info/pagen/assets/img/feature_07.png" />
+		<link rel="image_src" href="https://taylorlove.info/pagen/assets/img/feature_07.png" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<!-- Meta additions -->
+
+		<!-- Stylesheet requirements -->
+		<link rel="stylesheet" href="/assets/bootstrap/css?1573108307"/>
+		<link rel="stylesheet" href="./assets/css/style.css?1573108307" />
 	</head>
 	<body>
-		<nav>
-    		<ul>
-        		<li><a href="/">Home</a></li>
-	        	<li><a href="/about">About</a></li>
-        		<li><a href="/cv">CV</a></li>
-        		<li><a href="/blog">Blog</a></li>
-    		</ul>
-		</nav>
-		<div class="container">
-    		<div class="blurb">
-        		<h1>Hi there, I'm Hank Quinlan!</h1>
-				<p>I'm best known as thsssse horrible cop from <em>A Tousl</em> Don'tse. <a href="/about">Read more about my life...</a></p>
-    		</div><!-- /.blurb -->
-		</div><!-- /.container -->
-		<footer>
-    		<ul>
-        		<li><a href="mailto:hankquinlanhub@gmail.com">email</a></li>
-        		<li><a href="https://github.com/hankquinlan">github.com/hankquinlan</a></li>
-			</ul>
-		</footer>
+		<!-- Accessibility requirement -->
+		<a class="m-skip-to-main" href="#mainContent" tabindex="0">Skip to main content</a>
+		<a class="m-skip-to-main" href="#regionAbout" tabindex="0">Skip to About</a>
+		<a class="m-skip-to-main" href="#regionFeatures" tabindex="0">Skip to Features</a>
+
+
+		<!-- Main page content should be wrapped with semantically meaningful html elements (e.g.: article, main) whenever possible. A div element can be used as long as it also contains a role="main" for Accessibility. -->
+
+		<section data-grid="col-12" class="m-highlight-feature f-align-left" role="banner">
+			<picture class="c-image">
+				<source srcset="./assets/img/banner_1600x600.png" media="(min-width: 1779px)"/>
+				<source srcset="./assets/img/banner_1600x600.png" media="(min-width:1400px)"/>
+				<source srcset="./assets/img/banner_1259x472.png" media="(min-width:1084px)"/>
+				<source srcset="./assets/img/banner_1083x609.png" media="(min-width:768px)"/>
+				<source srcset="./assets/img/banner_767x431.png" media="(min-width:540px)"/>
+				<source srcset="./assets/img/banner_539x303.png" media="(min-width:0)"/>
+				<img srcset="./assets/img/banner_1259x472.png" src="./assets/img/banner_1259x472.png" alt="" role="presentation"/>
+			</picture>
+			<div>
+				<h1 class="c-heading">Pangamma's PixelStacker</h1>
+				<p class="c-paragraph">
+					A program built to make multi layer pixel art using blocks from Minecraft.
+					It incorporates the use of stained glass <i>stacked</i> on top of other
+					blocks in-game. The result is better blending and more color selections.
+				</p>
+				<br/>
+				<br/> 
+				<a href="https://mvc.lumengaming.com/v/pixelstack_full" 
+				   class="c-call-to-action c-glyph" title="Download PixelStacker">
+					<span>Download PixelStacker</span>
+				</a>
+			</div>
+		</section>
+		<section id="regionAbout" data-grid="container pad-12x stack-2" role="region" title="About the developer" class="context-persona-module" style="padding-bottom:18px;">
+			<div data-grid="col-3">
+				<center>
+					<div class="m-persona-1">
+						<div>
+							<picture role="img" aria-label="Profile picture for Taylor Love">
+								<img class="c-image" src="./assets/img/taylorlove.jpg" alt="Profile picture for Taylor Love" id="personaSize1"/>
+							</picture>
+						</div>
+						<div>
+							<h2 class="c-heading">Taylor Love</h2>
+							<p class="c-subheading">Author and Developer</p>
+						</div>
+					</div>
+				</center>
+			</div>
+			<div data-grid="col-6 pad-12x">
+				<h2 class="c-heading-2">About the Project</h2><br/>
+				<p class="c-paragraph">
+					It is my hope that you enjoy this program. I made this program
+					as a proof of concept for creating high quality pixelart. This
+					program provides a few viewing options to help you actually 
+					build the art in-game. You can also save to PNG or Schematic
+					format. Most importantly. You can use the double layer mode 
+					which combines stained glass panels with newer Minecraft blocks
+					to create an even larger color pallet.<br/><br/>
+
+					Below this are a few more details you may find useful.<br/><br/>
+				</p>
+			</div>
+			<div data-grid="col-3 pad-12x">
+				<center>
+				<h2 class="c-heading-2">Like my work?</h2><br/>
+				<p class="c-paragraph">
+					<a href="https://www.paypal.me/TaylorLove" class="c-call-to-action c-glyph">Buy me a pizza!</a><br/>
+					<a href="https://lumengaming.com/index.php?threads/all-about-the-woolcity-project-freebuild.125/" class="c-call-to-action c-glyph">Visit the WoolCity project!</a><br/>
+				</p>
+				<p class="c-paragraph">
+					<h3 class="c-heading-4">Follow me!</h3>
+					<a href="https://www.planetminecraft.com/member/pangamma2"><img src="./assets/img/planetminecraft_logo.png" alt="Follow me on planet Minecraft"/></a><br/>
+					<a href="https://www.youtube.com/user/pangamma"><img src="./assets/img/follow_youtube.png" alt="Follow me on Youtube"/></a><br/>
+					<img src="./assets/img/follow_discord.png" alt="Talk to me on Discord"/>Taylor#7048<br/>
+				</p>
+				</center>
+			</div>
+				
+		</section>
+		<div data-grid="container">
+			<hr class="c-subdivider f-pad-vertical-6x">
+		</div>
+		<section id="regionFeatures" data-grid="container" class="skill-level-color" role="region" title="Features">
+			<div data-grid="col-12 pad-12x">
+				<h1 class="c-heading-2" data-grid="col-8">Features</h1>
+			</div>
+			<div data-grid="col-12" ms.cmpgrp="projects">
+				<div data-grid="col-12 pad-12x" class="row">
+						<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_01.png" 
+			   aria-label="The Viewer"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_01.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_01.png" tabindex="-1"
+				   aria-label="The Viewer" >
+					<h2 class="c-heading-4">The Viewer</h2>
+					<p class="c-paragraph">Enjoy the nice image viewer GUI. You can pan by dragging with a mouse. Zoom by scrolling</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_01.png" 
+			   aria-label="The Viewer"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_01.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_02.png" 
+			   aria-label="Rendered Viewer"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_02.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_02.png" tabindex="-1"
+				   aria-label="Rendered Viewer" >
+					<h2 class="c-heading-4">Rendered Viewer</h2>
+					<p class="c-paragraph">After rendering the image (CTRL + R), you can see the blocks that are chosen for the build.</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_02.png" 
+			   aria-label="Rendered Viewer"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_02.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_03.png" 
+			   aria-label="Options"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_03.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_03.png" tabindex="-1"
+				   aria-label="Options" >
+					<h2 class="c-heading-4">Options</h2>
+					<p class="c-paragraph">Choose from all the latest and greatest Minecraft blocks for colors. Toggle side/top views, change the grid size, and even double-layer mode.</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_03.png" 
+			   aria-label="Options"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_03.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+					</div>
+
+				<div data-grid="col-12 pad-12x" class="row">
+						<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_04.png" 
+			   aria-label="View Grid"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_04.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_04.png" tabindex="-1"
+				   aria-label="View Grid" >
+					<h2 class="c-heading-4">View Grid</h2>
+					<p class="c-paragraph">Losing track of where you are sucks. Toggle the grid view (CTRL + G) if you want help, and if you want to adjust the grid size, you can do that in the options menu.</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_04.png" 
+			   aria-label="View Grid"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_04.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_05.png" 
+			   aria-label="View Texture"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_05.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_05.png" tabindex="-1"
+				   aria-label="View Texture" >
+					<h2 class="c-heading-4">View Texture</h2>
+					<p class="c-paragraph">Sometimes you just want to see how the program simplifies your build. You can disable textures to see the build painted with average color codes instead of texture images.</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_05.png" 
+			   aria-label="View Texture"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_05.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_06.png" 
+			   aria-label="View Outline"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_06.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_06.png" tabindex="-1"
+				   aria-label="View Outline" >
+					<h2 class="c-heading-4">View Outline</h2>
+					<p class="c-paragraph">Seeing the outline helps if you're working with partially transparent images. It helps you visualize the boundaries of your pixel art.</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_06.png" 
+			   aria-label="View Outline"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_06.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+					</div>
+				<div data-grid="col-12 pad-12x" class="row">
+						<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_07_lg.png" 
+			   aria-label="Double Layer Mode"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_07.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_07_lg.png" tabindex="-1"
+				   aria-label="Double Layer Mode" >
+					<h2 class="c-heading-4">Double Layer Mode</h2>
+					<p class="c-paragraph">By using stained glass panes you can create all kinds of color combinations. It makes a huge difference because you are essentially multipling the available color pool by 16. The results are impressive!</p>
+				</a>
+									<p class="c-paragraph">
+						<a href="./assets/img/feature_07_lg.png" class="c-hyperlink" 
+						   aria-label="View Output Double Layer Mode">
+							   View Output						</a>
+					</p>
+							</div>
+			<a href="./assets/img/feature_07_lg.png" 
+			   aria-label="Double Layer Mode"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_07.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_08.png" 
+			   aria-label="WorldEdit Origin Editor"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_08.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_08.png" tabindex="-1"
+				   aria-label="WorldEdit Origin Editor" >
+					<h2 class="c-heading-4">WorldEdit Origin Editor</h2>
+					<p class="c-paragraph">Double click to set the WorldEdit origin. The origin will show up as the red dot. If you try to paste a schematic, the schematic will be pasted relative to the red dot.</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_08.png" 
+			   aria-label="WorldEdit Origin Editor"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_08.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_09.png" 
+			   aria-label="Save and Export"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_09.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_09.png" tabindex="-1"
+				   aria-label="Save and Export" >
+					<h2 class="c-heading-4">Save and Export</h2>
+					<p class="c-paragraph">You can save as a schematic, or as a PNG file. Schematics will always face north. Ideal for dynmaps.</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_09.png" 
+			   aria-label="Save and Export"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_09.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+					</div>
+				<div data-grid="col-12 pad-12x" class="row">
+						<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_10.png" 
+			   aria-label="Pallette Viewer"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_10.png?n=2" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_10.png" tabindex="-1"
+				   aria-label="Pallette Viewer" >
+					<h2 class="c-heading-4">Pallette Viewer</h2>
+					<p class="c-paragraph">Show a hybrid view that combines texture mode and smooth mode. Useful for if you want to see what average color is being used for the matching algorithm.</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_10.png" 
+			   aria-label="Pallette Viewer"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_10.png?n=2" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_11_big.png" 
+			   aria-label="Quantizer Engine"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_11.png?n=2" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_11_big.png" tabindex="-1"
+				   aria-label="Quantizer Engine" >
+					<h2 class="c-heading-4">Quantizer Engine</h2>
+					<p class="c-paragraph">Drastically improve rendering speed by reducing the total number of colors used in the rendering process. You can use this for some cool effects. Many algorithms to choose from. </p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_11_big.png" 
+			   aria-label="Quantizer Engine"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_11.png?n=2" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="./assets/img/feature_12.png" 
+			   aria-label="Dithering"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/feature_12.png?n=2" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="./assets/img/feature_12.png" tabindex="-1"
+				   aria-label="Dithering" >
+					<h2 class="c-heading-4">Dithering</h2>
+					<p class="c-paragraph">If you are a fan of dithering, then you will enjoy choosing between 15 different dithering algorithms.</p>
+				</a>
+							</div>
+			<a href="./assets/img/feature_12.png" 
+			   aria-label="Dithering"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/feature_12.png?n=2" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+					</div>
+			</div>
+		</section>
+		<div data-grid="container">
+			<hr class="c-subdivider f-pad-vertical-6x" style="margin-top:36px;">
+		</div>
+		<section data-grid="container" class="skill-level-color" role="region" title="Show Case">
+			<div data-grid="col-12 pad-12x">
+				<h1 class="c-heading-2" data-grid="col-8">Show Case</h1>
+				<div data-grid="col-8">
+					<p>	Check out what people have built using this tool. Every 
+						build is different. See the different styles available. 
+						Get to know what the tool is capable of. Got a cool build?
+						Send me some pictures and a project link. You could get featured!
+					</p>
+				</div>
+			</div>
+			<div data-grid="col-12" ms.cmpgrp="projects">
+				<div data-grid="col-12 pad-12x" class="row">
+						<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="http://www.minecraft-schematics.com/schematic/10175/" 
+			   aria-label="Panty and Stocking"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/showcase_01.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="http://www.minecraft-schematics.com/schematic/10175/" tabindex="-1"
+				   aria-label="Panty and Stocking" >
+					<h2 class="c-heading-4">Panty and Stocking</h2>
+					<p class="c-paragraph">After months of having these girls on my wishlist for pixel art, I was finally able to do them justice by using the double layer glass pane technique.</p>
+				</a>
+									<p class="c-paragraph">
+						<a href="http://www.minecraft-schematics.com/schematic/10175/" class="c-hyperlink" 
+						   aria-label="Check it out! Panty and Stocking">
+							   Check it out!						</a>
+					</p>
+							</div>
+			<a href="http://www.minecraft-schematics.com/schematic/10175/" 
+			   aria-label="Panty and Stocking"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/showcase_01.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="http://www.minecraft-schematics.com/schematic/10295/" 
+			   aria-label="Dark Magician Girl"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/showcase_02.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="http://www.minecraft-schematics.com/schematic/10295/" tabindex="-1"
+				   aria-label="Dark Magician Girl" >
+					<h2 class="c-heading-4">Dark Magician Girl</h2>
+					<p class="c-paragraph">A true test of proper color blending. The quality is so high, you have to question if it is still pixel art, or if it is just art at this point.</p>
+				</a>
+									<p class="c-paragraph">
+						<a href="http://www.minecraft-schematics.com/schematic/10295/" class="c-hyperlink" 
+						   aria-label="Check it out! Dark Magician Girl">
+							   Check it out!						</a>
+					</p>
+							</div>
+			<a href="http://www.minecraft-schematics.com/schematic/10295/" 
+			   aria-label="Dark Magician Girl"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/showcase_02.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+		<div data-grid="col-4">
+		<div class="c-content-placement context-article">
+			<a href="http://www.minecraft-schematics.com/schematic/10296/" 
+			   aria-label="Pink Girl"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="hide-on-mobile">
+				<picture>
+					<img src="./assets/img/showcase_03.png" alt="" role="presentation">
+				</picture>
+			</a>
+			<div>
+				<a href="http://www.minecraft-schematics.com/schematic/10296/" tabindex="-1"
+				   aria-label="Pink Girl" >
+					<h2 class="c-heading-4">Pink Girl</h2>
+					<p class="c-paragraph">I love how this one turned out. Crisp, beautiful colors. The colors are simplified, but that just makes it look even better.</p>
+				</a>
+									<p class="c-paragraph">
+						<a href="http://www.minecraft-schematics.com/schematic/10296/" class="c-hyperlink" 
+						   aria-label="Check it out! Pink Girl">
+							   Check it out!						</a>
+					</p>
+							</div>
+			<a href="http://www.minecraft-schematics.com/schematic/10296/" 
+			   aria-label="Pink Girl"
+			   tabindex="-1" role="presentation" aria-hidden="true" class="show-on-mobile">
+				<br/>
+				<picture>
+					<img src="./assets/img/showcase_03.png" alt="" role="presentation" style="position:relative;width:100%;">
+				</picture>
+			</a>
+		</div>
+	</div>
+					</div>
+			</div>
+		</section>
+		<br/><br/><br/>
+		<!-- JavaScript requirements -->
+		<noscript></noscript>
 	</body>
 </html>
+
+
+
