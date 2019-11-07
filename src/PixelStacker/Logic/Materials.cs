@@ -428,13 +428,13 @@ namespace PixelStacker.Logic
                         new Material("Ores", "Emerald Ore", $"minecraft:{nameof(Textures.emerald_ore)}",129,0, Textures.emerald_ore),
                         new Material("Ores", "Quartz Ore", $"minecraft:{nameof(Textures.nether_quartz_ore)}",153,0, Textures.nether_quartz_ore),
 
-                        new Material("Common", "Bone Block", $"minecraft:bone_block[axis=x]",216,0, Textures.bone_block_side),
+                        new Material("Common", "Bone Block", $"minecraft:bone_block[axis=x]",216,0, Textures.bone_block_side, false, "minecraft:bone_block"),
                         new Material("Common", "Bricks", $"minecraft:{nameof(Textures.bricks)}",45,0, Textures.bricks),
                         new Material("Common", "chiseled_quartz_block", $"minecraft:chiseled_quartz_block",155,0, Textures.chiseled_quartz_block_top, Textures.chiseled_quartz_block),
                         new Material("Common", nameof(Textures.cracked_stone_bricks), $"minecraft:{nameof(Textures.cracked_stone_bricks)}",98,2, Textures.cracked_stone_bricks),
                         new Material("Common", nameof(Textures.stone_bricks), $"minecraft:{nameof(Textures.stone_bricks)}",98,0, Textures.stone_bricks),
                         new Material("Common", "end_stone_bricks", $"minecraft:{nameof(Textures.end_stone_bricks)}",206,0, Textures.end_stone_bricks),
-                        new Material("Common", "gravel", $"minecraft:{nameof(Textures.gravel)}",13,0, Textures.gravel),
+                        new Material("Common", "gravel", $"minecraft:{nameof(Textures.gravel)}",13,0, Textures.gravel, false, "minecraft:gravel"),
                         new Material("Common", "mossy_cobblestone", $"minecraft:{nameof(Textures.mossy_cobblestone)}",48,0, Textures.mossy_cobblestone),
                         new Material("Common", "mossy_stone_bricks", $"minecraft:{nameof(Textures.mossy_stone_bricks)}",98,1, Textures.mossy_stone_bricks),
                     };
