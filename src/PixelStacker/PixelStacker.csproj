@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\MSBuild.AutoILMerge.Task.1.1.1\build\MSBuild.AutoILMerge.Task.props" Condition="Exists('..\packages\MSBuild.AutoILMerge.Task.1.1.1\build\MSBuild.AutoILMerge.Task.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D21DE6D2-34FE-468C-A322-C3F48681BE16}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PixelStacker</RootNamespace>
+    <AssemblyName>PixelStacker</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>https://taylorlove.info/pixelstacker</SupportUrl>
+    <PublisherName>Taylor Love</PublisherName>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;FULL_VERSION</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Full|AnyCPU'">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release Full\</OutputPath>
+    <DefineConstants>FULL_VERSION</DefineConstants>
+    <DebugType>none</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ColorMine, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ColorMine.1.1.3.0\lib\ColorMine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FastBitmapLib, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastBitmapLib.2.0.0\lib\net452\FastBitmapLib.dll</HintPath>
+    </Reference>
+    <Reference Include="fNbt, Version=0.6.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\fNbt.0.6.4\lib\net35-client\fNbt.dll</HintPath>
+    </Reference>
+    <Reference Include="MSBuild.AutoILMerge.Task, Version=1.0.0.0, Culture=en-US, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSBuild.AutoILMerge.Task.1.1.1\lib\net40\MSBuild.AutoILMerge.Task.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Logic\Great\ImageExtensions.cs" />
+    <Compile Include="Logic\Great\OrderedDictionary.cs" />
+    <Compile Include="Logic\Great\UIExtensions.cs" />
+    <Compile Include="Logic\Great\UpdateChecker.cs" />
+    <Compile Include="Logic\PanZoomSettings.cs" />
+    <Compile Include="Logic\SchemFormatter.cs" />
+    <Compile Include="Logic\WIP\Blueprint.cs" />
+    <Compile Include="Logic\BlueprintPA.cs" />
+    <Compile Include="Logic\Great\Constants.cs" />
+    <Compile Include="Logic\Great\Extensions.cs" />
+    <Compile Include="Logic\Great\Material.cs" />
+    <Compile Include="Logic\Materials.cs" />
+    <Compile Include="Logic\Great\Options.cs" />
+    <Compile Include="Logic\ProgressReport.cs" />
+    <Compile Include="Logic\ResourceLock.cs" />
+    <Compile Include="Logic\SchematicFormatter.cs" />
+    <Compile Include="PreRender\ColorCaches\BaseColorCache.cs" />
+    <Compile Include="PreRender\ColorCaches\Common\ColorModel.cs" />
+    <Compile Include="PreRender\ColorCaches\EuclideanDistance\EuclideanDistanceColorCache.cs" />
+    <Compile Include="PreRender\ColorCaches\IColorCache.cs" />
+    <Compile Include="PreRender\ColorCaches\LocalitySensitiveHash\LshBucketInfo.cs" />
+    <Compile Include="PreRender\ColorCaches\LocalitySensitiveHash\LshColorCache.cs" />
+    <Compile Include="PreRender\ColorCaches\Octree\OctreeCacheNode.cs" />
+    <Compile Include="PreRender\ColorCaches\Octree\OctreeColorCache.cs" />
+    <Compile Include="PreRender\Ditherers\BaseColorDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\AtkinsonDithering.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\BaseErrorDiffusionDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\BurkesDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\FanDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\FilterLiteSierra.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\FloydSteinbergDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\JarvisJudiceNinkeDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\ShiauDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\SierraDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\StuckiDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\ErrorDiffusion\TwoRowSierraDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\IColorDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\Ordered\BaseOrderedDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\Ordered\BayerDitherer4.cs" />
+    <Compile Include="PreRender\Ditherers\Ordered\BayerDitherer8.cs" />
+    <Compile Include="PreRender\Ditherers\Ordered\ClusteredDotDitherer.cs" />
+    <Compile Include="PreRender\Ditherers\Ordered\DotHalfToneDitherer.cs" />
+    <Compile Include="PreRender\Extensions\Extend.IEnumerable.cs" />
+    <Compile Include="PreRender\Extensions\Extend.Image.cs" />
+    <Compile Include="PreRender\Extensions\Extend.PixelFormat.cs" />
+    <Compile Include="PreRender\Helpers\ColorModelHelper.cs" />
+    <Compile Include="PreRender\Helpers\FastRandom.cs" />
+    <Compile Include="PreRender\Helpers\Guard.cs" />
+    <Compile Include="PreRender\Helpers\ImageBuffer.cs" />
+    <Compile Include="PreRender\Helpers\Pixel.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\IIndexedPixel.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\Indexed\PixelData1Indexed.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\Indexed\PixelData4Indexed.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\Indexed\PixelData8Indexed.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\INonIndexedPixel.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\NonIndexed\PixelDataArgb1555.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\NonIndexed\PixelDataArgb64.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\NonIndexed\PixelDataArgb8888.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\NonIndexed\PixelDataGray16.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\NonIndexed\PixelDataRgb48.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\NonIndexed\PixelDataRgb555.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\NonIndexed\PixelDataRgb565.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\NonIndexed\PixelDataRgb888.cs" />
+    <Compile Include="PreRender\Helpers\Pixels\NonIndexed\PixelDataRgb8888.cs" />
+    <Compile Include="PreRender\Helpers\PixelTransform.cs" />
+    <Compile Include="PreRender\Helpers\QuantizationHelper.cs" />
+    <Compile Include="PreRender\PathProviders\IPathProvider.cs" />
+    <Compile Include="PreRender\PathProviders\ReversedPathProvider.cs" />
+    <Compile Include="PreRender\PathProviders\SerpentinePathProvider.cs" />
+    <Compile Include="PreRender\PathProviders\StandardPathProvider.cs" />
+    <Compile Include="PreRender\QuantizerEngine.cs" />
+    <Compile Include="PreRender\Quantizers\BaseColorCacheQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\BaseColorQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\DistinctSelection\DistinctBucket.cs" />
+    <Compile Include="PreRender\Quantizers\DistinctSelection\DistinctColorInfo.cs" />
+    <Compile Include="PreRender\Quantizers\DistinctSelection\DistinctSelectionQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\IColorQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\MedianCut\MedianCutCube.cs" />
+    <Compile Include="PreRender\Quantizers\MedianCut\MedianCutQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\NeuQuant\NeuralColorQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\Octree\OctreeNode.cs" />
+    <Compile Include="PreRender\Quantizers\Octree\OctreeQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\OptimalPalette\OptimalPaletteQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\Popularity\PopularityColorSlot.cs" />
+    <Compile Include="PreRender\Quantizers\Popularity\PopularityQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\Uniform\UniformColorSlot.cs" />
+    <Compile Include="PreRender\Quantizers\Uniform\UniformQuantizer.cs" />
+    <Compile Include="PreRender\Quantizers\XiaolinWu\WuColorCube.cs" />
+    <Compile Include="PreRender\Quantizers\XiaolinWu\WuColorQuantizer.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Textures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Textures.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaterialPickerOption.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialPickerOption.Designer.cs">
+      <DependentUpon>MaterialPickerOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaterialPickerWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialPickerWindow.Designer.cs">
+      <DependentUpon>MaterialPickerWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OtherOptionsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OtherOptionsWindow.Designer.cs">
+      <DependentUpon>OtherOptionsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ImagePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ImagePanel.Designer.cs">
+      <DependentUpon>ImagePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FastPixelBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FastPixelBox.Designer.cs">
+      <DependentUpon>FastPixelBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaterialList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialList.Designer.cs">
+      <DependentUpon>MaterialList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaterialListItemToggle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialListItemToggle.Designer.cs">
+      <DependentUpon>MaterialListItemToggle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaterialOptionsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialOptionsWindow.Designer.cs">
+      <DependentUpon>MaterialOptionsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PreRenderOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PreRenderOptionsForm.Designer.cs">
+      <DependentUpon>PreRenderOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\RenderedImagePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\RenderedImagePanel.Designer.cs">
+      <DependentUpon>RenderedImagePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TransparentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TransparentControl.Designer.cs">
+      <DependentUpon>TransparentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\Great\TaskManager.cs" />
+    <EmbeddedResource Include="Properties\Textures.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Textures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ImagePanel.resx">
+      <DependentUpon>ImagePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FastPixelBox.resx">
+      <DependentUpon>FastPixelBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaterialList.resx">
+      <DependentUpon>MaterialList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaterialListItemToggle.resx">
+      <DependentUpon>MaterialListItemToggle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaterialOptionsWindow.resx">
+      <DependentUpon>MaterialOptionsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaterialPickerOption.resx">
+      <DependentUpon>MaterialPickerOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaterialPickerWindow.resx">
+      <DependentUpon>MaterialPickerWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OtherOptionsWindow.resx">
+      <DependentUpon>OtherOptionsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PreRenderOptionsForm.resx">
+      <DependentUpon>PreRenderOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\RenderedImagePanel.resx">
+      <DependentUpon>RenderedImagePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ILMerge.props" />
+    <None Include="packages.config" />
+    <Compile Include="PreRender\Extensions\Extend.Color.cs" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="content\ILMergeOrder.txt" />
+    <Content Include="ILMergeInternalizeExcludeList.txt" />
+    <Content Include="ILMergeOrder.txt" />
+    <None Include="Resources\Images\pixelart\pink-girl.png" />
+    <Content Include="logo.ico" />
+    <Content Include="Resources\Images\pixelart\birdshark.png" />
+    <None Include="Resources\Images\UI\pixelstackerlogo.png" />
+    <None Include="Resources\Images\UI\pixelstackerlogo_400x400.png" />
+    <None Include="Resources\Images\UI\wool.png" />
+    <None Include="Resources\Images\UI\logo.ico" />
+    <Content Include="Resources\Images\pixelart\hyrule.png" />
+    <Content Include="Resources\Images\pixelart\nerfman.png" />
+    <Content Include="Resources\Images\pixelart\psg.png" />
+    <Content Include="Resources\Images\pixelart\weird-intro.png" />
+    <Content Include="Resources\Images\pixelart\YellowHeart.png" />
+    <None Include="Resources\Images\Textures\Common\bone_block_side.png" />
+    <None Include="Resources\Images\Textures\Common\bone_block_top.png" />
+    <None Include="Resources\Images\Textures\Common\bricks.png" />
+    <None Include="Resources\Images\Textures\Common\chiseled_quartz_block.png" />
+    <None Include="Resources\Images\Textures\Common\chiseled_quartz_block_top.png" />
+    <None Include="Resources\Images\Textures\Common\cracked_stone_bricks.png" />
+    <None Include="Resources\Images\Textures\Common\end_stone_bricks.png" />
+    <None Include="Resources\Images\Textures\Common\gravel.png" />
+    <None Include="Resources\Images\Textures\Common\mossy_cobblestone.png" />
+    <None Include="Resources\Images\Textures\Common\mossy_stone_bricks.png" />
+    <None Include="Resources\Images\Textures\Common\stone_bricks.png" />
+    <None Include="Resources\Images\Textures\Common\stone.png" />
+    <None Include="Resources\Images\Textures\Common\smooth_stone_slab_side.png" />
+    <None Include="Resources\Images\Textures\Common\smooth_stone.png" />
+    <Content Include="Resources\Images\Textures\Good\andesite.png" />
+    <Content Include="Resources\Images\Textures\Good\blue_ice.png" />
+    <Content Include="Resources\Images\Textures\Good\diorite.png" />
+    <Content Include="Resources\Images\Textures\Good\granite.png" />
+    <Content Include="Resources\Images\Textures\Good\hay_block_top.png" />
+    <Content Include="Resources\Images\Textures\Good\mushroom_block_inside.png" />
+    <Content Include="Resources\Images\Textures\Good\nether_wart_block.png" />
+    <Content Include="Resources\Images\Textures\Good\packed_ice.png" />
+    <Content Include="Resources\Images\Textures\Good\prismarine.png" />
+    <Content Include="Resources\Images\Textures\Good\quartz_block_top.png" />
+    <Content Include="Resources\Images\Textures\Good\red_sandstone_top.png" />
+    <Content Include="Resources\Images\Textures\Good\sandstone_top.png" />
+    <Content Include="Resources\Images\Textures\Good\snow.png" />
+    <Content Include="Resources\Images\Textures\Good\soul_sand.png" />
+    <Content Include="Resources\Images\Textures\Good\sponge.png" />
+    <Content Include="Resources\Images\Textures\Good\stone.png" />
+    <Content Include="Resources\Images\Textures\Coral\dried_kelp_side.png" />
+    <Content Include="Resources\Images\Textures\Coral\dried_kelp_top.png" />
+    <Content Include="Resources\Images\Textures\Hidden\air.png" />
+    <Content Include="Resources\Images\Textures\Okay\bedrock.png" />
+    <Content Include="Resources\Images\Textures\Okay\brown_mushroom_block.png" />
+    <Content Include="Resources\Images\Textures\Okay\coarse_dirt.png" />
+    <Content Include="Resources\Images\Textures\Okay\cobblestone.png" />
+    <Content Include="Resources\Images\Textures\Okay\dark_prismarine.png" />
+    <Content Include="Resources\Images\Textures\Okay\dirt.png" />
+    <Content Include="Resources\Images\Textures\Okay\end_stone.png" />
+    <Content Include="Resources\Images\Textures\Okay\magma.png" />
+    <Content Include="Resources\Images\Textures\Okay\mushroom_stem.png" />
+    <Content Include="Resources\Images\Textures\Okay\netherrack.png" />
+    <Content Include="Resources\Images\Textures\Okay\nether_bricks.png" />
+    <Content Include="Resources\Images\Textures\Okay\obsidian.png" />
+    <Content Include="Resources\Images\Textures\Okay\prismarine_bricks.png" />
+    <Content Include="Resources\Images\Textures\Okay\purpur_block.png" />
+    <Content Include="Resources\Images\Textures\Okay\red_mushroom_block.png" />
+    <Content Include="Resources\Images\Textures\Okay\red_nether_bricks.png" />
+    <Content Include="Resources\Images\Textures\Ores\coal_block.png" />
+    <Content Include="Resources\Images\Textures\Ores\coal_ore.png" />
+    <Content Include="Resources\Images\Textures\Ores\diamond_block.png" />
+    <Content Include="Resources\Images\Textures\Ores\diamond_ore.png" />
+    <Content Include="Resources\Images\Textures\Ores\emerald_block.png" />
+    <Content Include="Resources\Images\Textures\Ores\emerald_ore.png" />
+    <Content Include="Resources\Images\Textures\Ores\gold_block.png" />
+    <Content Include="Resources\Images\Textures\Ores\gold_ore.png" />
+    <Content Include="Resources\Images\Textures\Ores\iron_block.png" />
+    <Content Include="Resources\Images\Textures\Ores\iron_ore.png" />
+    <Content Include="Resources\Images\Textures\Ores\lapis_block.png" />
+    <Content Include="Resources\Images\Textures\Ores\lapis_ore.png" />
+    <Content Include="Resources\Images\Textures\Ores\nether_quartz_ore.png" />
+    <Content Include="Resources\Images\Textures\Ores\redstone_block.png" />
+    <Content Include="Resources\Images\Textures\Ores\redstone_ore.png" />
+    <Content Include="Resources\Images\Textures\Wood\acacia_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\acacia_log_top.png" />
+    <Content Include="Resources\Images\Textures\Wood\acacia_planks.png" />
+    <Content Include="Resources\Images\Textures\Wood\birch_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\birch_planks.png" />
+    <Content Include="Resources\Images\Textures\Concrete\black_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\black_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\black_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\black_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\black_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\black_wool.png" />
+    <Content Include="Resources\Images\Textures\Concrete\blue_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\blue_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\blue_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\blue_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\blue_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\blue_wool.png" />
+    <Content Include="Resources\Images\Textures\Coral\brain_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Concrete\brown_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\brown_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\brown_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\brown_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\brown_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\brown_wool.png" />
+    <Content Include="Resources\Images\Textures\Coral\bubble_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\clay.png" />
+    <Content Include="Resources\Images\Textures\Concrete\cyan_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\cyan_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\cyan_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\cyan_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\cyan_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\cyan_wool.png" />
+    <Content Include="Resources\Images\Textures\Wood\dark_oak_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\dark_oak_planks.png" />
+    <Content Include="Resources\Images\Textures\Coral\dead_brain_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Coral\dead_bubble_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Coral\dead_fire_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Coral\dead_horn_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Coral\dead_tube_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Coral\fire_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Glass\glass.png" />
+    <Content Include="Resources\Images\Textures\Concrete\gray_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\gray_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\gray_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\gray_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\gray_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\gray_wool.png" />
+    <Content Include="Resources\Images\Textures\Concrete\green_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\green_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\green_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\green_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\green_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\green_wool.png" />
+    <Content Include="Resources\Images\Textures\Coral\horn_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Wood\jungle_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\jungle_planks.png" />
+    <Content Include="Resources\Images\Textures\Concrete\light_blue_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\light_blue_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\light_blue_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\light_blue_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\light_blue_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\light_blue_wool.png" />
+    <Content Include="Resources\Images\Textures\Concrete\light_gray_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\light_gray_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\light_gray_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\light_gray_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\light_gray_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\light_gray_wool.png" />
+    <Content Include="Resources\Images\Textures\Concrete\lime_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\lime_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\lime_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\lime_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\lime_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\lime_wool.png" />
+    <Content Include="Resources\Images\Textures\Concrete\magenta_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\magenta_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\magenta_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\magenta_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\magenta_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\magenta_wool.png" />
+    <Content Include="Resources\Images\Textures\Wood\oak_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\oak_planks.png" />
+    <Content Include="Resources\Images\Textures\Concrete\orange_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\orange_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\orange_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\orange_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\orange_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\orange_wool.png" />
+    <Content Include="Resources\Images\Textures\Concrete\pink_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\pink_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\pink_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\pink_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\pink_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\pink_wool.png" />
+    <Content Include="Resources\Images\Textures\Concrete\purple_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\purple_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\purple_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\purple_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\purple_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\purple_wool.png" />
+    <Content Include="Resources\Images\Textures\Concrete\red_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\red_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\red_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Powder\red_sand.png" />
+    <Content Include="Resources\Images\Textures\Glass\red_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\red_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\red_wool.png" />
+    <Content Include="Resources\Images\Textures\Powder\sand.png" />
+    <Content Include="Resources\Images\Textures\Wood\spruce_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\spruce_planks.png" />
+    <Content Include="Resources\Images\Textures\Wood\stripped_acacia_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\stripped_birch_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\stripped_dark_oak_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\stripped_jungle_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\stripped_oak_log.png" />
+    <Content Include="Resources\Images\Textures\Wood\stripped_spruce_log.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\terracotta.png" />
+    <Content Include="Resources\Images\Textures\Coral\tube_coral_block.png" />
+    <Content Include="Resources\Images\Textures\Concrete\white_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\white_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\white_glazed_terracotta.png" />
+    <None Include="Resources\Images\Textures\Glass\white_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\white_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\white_wool.png" />
+    <Content Include="Resources\Images\Textures\Concrete\yellow_concrete.png" />
+    <Content Include="Resources\Images\Textures\Powder\yellow_concrete_powder.png" />
+    <Content Include="Resources\Images\Textures\GlazedTerracotta\yellow_glazed_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Glass\yellow_stained_glass.png" />
+    <Content Include="Resources\Images\Textures\Terracotta\yellow_terracotta.png" />
+    <Content Include="Resources\Images\Textures\Wool\yellow_wool.png" />
+    <Content Include="wool.ico" />
+    <None Include="Resources\Images\UI\pixelstackerlogo.pdn" />
+    <None Include="Resources\Images\UI\wool.ico" />
+    <None Include="Resources\Images\UI\cursor_handopen.png" />
+    <None Include="Resources\Images\UI\cursor_handclosed.png" />
+    <None Include="Resources\Images\UI\bg_imagepanel.png" />
+    <None Include="Resources\Images\pixelart\colorwheel.png" />
+    <None Include="Resources\Images\pixelart\avatar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuild.AutoILMerge.Task.1.1.1\build\MSBuild.AutoILMerge.Task.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.AutoILMerge.Task.1.1.1\build\MSBuild.AutoILMerge.Task.props'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.AutoILMerge.Task.1.1.1\build\MSBuild.AutoILMerge.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.AutoILMerge.Task.1.1.1\build\MSBuild.AutoILMerge.Task.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSBuild.AutoILMerge.Task.1.1.1\build\MSBuild.AutoILMerge.Task.targets" Condition="Exists('..\packages\MSBuild.AutoILMerge.Task.1.1.1\build\MSBuild.AutoILMerge.Task.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <target name="AfterBuild" condition=" '$(Configuration)' == 'Release' ">
+    <createitem include="@(ReferenceCopyLocalPaths)" condition="'%(Extension)'=='.dll'">
+      <output itemname="AssembliesToMerge" taskparameter="Include" />
+	</createitem>
+    <exec command=""$(MSBuildProjectPath)..\..\..\..\Tools\ILMerge.exe" /internalize:"$(MSBuildProjectPath)ilmerge.exclude" /ndebug /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:v4,$(MSBuildToolsPath) "@(IntermediateAssembly)" @(AssembliesToMerge->'"%(FullPath)"', ' ')" />
+    <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+  </target>
+  -->
+</Project>

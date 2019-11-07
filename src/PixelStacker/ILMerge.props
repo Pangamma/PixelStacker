@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--                                                                                   -->
+    <!-- ILMerge project-specific settings. Almost never need to be set explicitly.       -->
+    <!-- for details, see http://research.microsoft.com/en-us/people/mbarnett/ilmerge.aspx -->
+    <!--                                                                                   -->
+    <!-- *** set this file to Type=None, CopyToOutput=Never ***                            -->
+
+    <!-- If True, all copy local dependencies will also be merged from referenced projects whether they are referenced in the current project explicitly or not -->
+    <ILMergeTransitive>true</ILMergeTransitive>
+
+    <!-- Extra ILMerge library paths (semicolon-separated). Dont put your package dependencies here, they will be added automagically -->
+    <ILMergeLibraryPath></ILMergeLibraryPath>
+
+    <!-- The solution NuGet package directory if not standard 'SOLUTION\packages' -->
+    <ILMergePackagesPath></ILMergePackagesPath>
+
+    <!-- The merge order file name if differs from standard 'ILMergeOrder.txt' -->
+    <ILMergeOrderFile></ILMergeOrderFile>
+
+    <!-- The strong key file name if not specified in the project -->
+    <ILMergeKeyFile></ILMergeKeyFile>
+
+    <!-- The assembly version if differs for the version of the main assembly -->
+    <ILMergeAssemblyVersion></ILMergeAssemblyVersion>
+
+    <!-- If True, all types from the merged assembly dependencies are marked as internal in the resulting file -->
+    <ILMergeInternalize>false</ILMergeInternalize>
+   
+    <!-- The file containing the list of type to exclude from internalization if different from ILMergeInternalizeExcludeList.txt (only relevant when "ILMergeInternalize" is true) -->
+    <ILMergeInternalizeExcludeFile></ILMergeInternalizeExcludeFile>
+
+    <!-- Configures the /allowDup swith for ilmerge.exe. Use "*" or comma-separated type names -->
+    <AllowDuplicateType></AllowDuplicateType>
+  </PropertyGroup>
+</Project>
