@@ -35,7 +35,7 @@ namespace PixelStacker.Logic
             if (Materials.ColorMap.Count == 0)
             {
                 TaskManager.SafeReport(0, "Compiling the color map");
-                Materials.CompileColorMap(_worker);
+                Materials.CompileColorMap(_worker, false);
             }
             TaskManager.SafeReport(100, "Colormap is compiled");
             _worker.SafeThrowIfCancellationRequested();
@@ -72,6 +72,7 @@ namespace PixelStacker.Logic
                 });
             }
 
+            Materials.BestMatchCache.Save();
 
             return new BlueprintPA()
             {

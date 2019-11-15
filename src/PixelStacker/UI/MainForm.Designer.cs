@@ -130,7 +130,7 @@
             this.toggleGridToolStripMenuItem.Enabled = false;
             this.toggleGridToolStripMenuItem.Name = "toggleGridToolStripMenuItem";
             this.toggleGridToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.toggleGridToolStripMenuItem.Text = "Toggle Grid";
             this.toggleGridToolStripMenuItem.Click += new System.EventHandler(this.toggleGridToolStripMenuItem_Click);
             // 
@@ -139,7 +139,7 @@
             this.toggleSolidColorsToolStripMenuItem.Enabled = false;
             this.toggleSolidColorsToolStripMenuItem.Name = "toggleSolidColorsToolStripMenuItem";
             this.toggleSolidColorsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.toggleSolidColorsToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.toggleSolidColorsToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.toggleSolidColorsToolStripMenuItem.Text = "Toggle Hide Texture";
             this.toggleSolidColorsToolStripMenuItem.Click += new System.EventHandler(this.toggleSolidColorsToolStripMenuItem_Click);
             // 
@@ -148,7 +148,7 @@
             this.toggleBorderToolStripMenuItem.Enabled = false;
             this.toggleBorderToolStripMenuItem.Name = "toggleBorderToolStripMenuItem";
             this.toggleBorderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.toggleBorderToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.toggleBorderToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.toggleBorderToolStripMenuItem.Text = "Toggle Border";
             this.toggleBorderToolStripMenuItem.Click += new System.EventHandler(this.toggleBorderToolStripMenuItem_Click);
             // 
@@ -157,7 +157,7 @@
             this.togglePaletteToolStripMenuItem.Enabled = false;
             this.togglePaletteToolStripMenuItem.Name = "togglePaletteToolStripMenuItem";
             this.togglePaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.togglePaletteToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.togglePaletteToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.togglePaletteToolStripMenuItem.Text = "Toggle Palette";
             this.togglePaletteToolStripMenuItem.Click += new System.EventHandler(this.togglePaletteToolStripMenuItem_Click);
             // 
@@ -166,7 +166,7 @@
             this.toggleProgressToolStripMenuItem.Name = "toggleProgressToolStripMenuItem";
             this.toggleProgressToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.P)));
-            this.toggleProgressToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.toggleProgressToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.toggleProgressToolStripMenuItem.Text = "Toggle Progress";
             this.toggleProgressToolStripMenuItem.Click += new System.EventHandler(this.toggleProgressToolStripMenuItem_Click);
             // 
@@ -178,7 +178,7 @@
             this.down1LayerToolStripMenuItem});
             this.layerFilteringToolStripMenuItem.Enabled = false;
             this.layerFilteringToolStripMenuItem.Name = "layerFilteringToolStripMenuItem";
-            this.layerFilteringToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.layerFilteringToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.layerFilteringToolStripMenuItem.Text = "Layer Filtering";
             // 
             // toggleLayerFilterToolStripMenuItem
@@ -216,7 +216,7 @@
             this.mi_preRender,
             this.previewSchematicToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // optionsToolStripMenuItem
@@ -286,7 +286,8 @@
             // dlgSave
             // 
             this.dlgSave.DefaultExt = "schem";
-            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv";
+            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv|Colo" +
+    "r Palette|*.png";
             this.dlgSave.ShowHelp = true;
             this.dlgSave.Title = "Save";
             this.dlgSave.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSave_FileOk);

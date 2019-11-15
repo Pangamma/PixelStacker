@@ -84,7 +84,7 @@ namespace PixelStacker
             this.PreRenderedImage = null;
             ShowImagePanel();
         }
-        
+
         public void PreRenderImage(bool clearCache, CancellationToken? cancelToken)
         {
             if (clearCache)
@@ -132,7 +132,7 @@ namespace PixelStacker
                     {
                         throw;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
@@ -140,20 +140,17 @@ namespace PixelStacker
                 else
                 {
                     // We can simplify this so that we cut total color counts down massively.
-                    int factor = 5;
                     srcImage.ToEditStream(cancelToken, (int x, int y, Color c) =>
                     {
                         int a, r, b, g = 0;
                         a = (c.A < 32) ? 0 : 255;
-                        r = (int)Math.Round(Convert.ToDouble(c.R) / factor, 0) * factor;
-                        g = (int)Math.Round(Convert.ToDouble(c.G) / factor, 0) * factor;
-                        b = (int)Math.Round(Convert.ToDouble(c.B) / factor, 0) * factor;
+                        r = (int)Math.Round(Convert.ToDouble(c.R) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
+                        g = (int)Math.Round(Convert.ToDouble(c.G) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
+                        b = (int)Math.Round(Convert.ToDouble(c.B) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
                         return Color.FromArgb(a, r, g, b);
                     });
 
                     img = srcImage;
-                    //img = srcImage.To32bppBitmap();
-                    //srcImage.DisposeSafely();
                 }
 
                 // Resize based on new size
@@ -167,7 +164,8 @@ namespace PixelStacker
                 }
 
                 this.PreRenderedImage = img;
-                this.InvokeEx((c) => {
+                this.InvokeEx((c) =>
+                {
                     c.imagePanelMain.SetImage(PreRenderedImage);
                     c.ShowImagePanel();
                 });
@@ -210,7 +208,8 @@ namespace PixelStacker
 
         public async Task RenderImageAndShowIt()
         {
-            await TaskManager.Get.StartAsync((token) => {
+            await TaskManager.Get.StartAsync((token) =>
+            {
                 TaskManager.SafeReport(0, "Optimizing...");
 
                 PreRenderImage(false, token);
@@ -236,9 +235,6 @@ namespace PixelStacker
                         x.LoadedBlueprint = blueprint;
                         x.ShowRenderedImagePanel();
                         x.renderedImagePanel.SetBluePrint(blueprint, renderedImage, textureSize);
-                        //x.renderedImagePanel.SetRenderedImage(renderedImage);
-                        //x.renderedImagePanel.RenderBitmap(_worker);
-                        //x.renderedImagePanel.Refresh();
                         TaskManager.SafeReport(0, "Finished.");
                     });
                 }
@@ -253,7 +249,6 @@ namespace PixelStacker
             if (Options.Get.Rendered_IsSolidColors) Options.Get.Rendered_IsColorPalette = false;
             Options.Save();
             SetViewModeCheckBoxStates();
-            //await this.RenderImageAndShowIt();
             await this.renderedImagePanel.ForceReRender();
         }
 
@@ -271,7 +266,6 @@ namespace PixelStacker
             if (Options.Get.Rendered_IsColorPalette) Options.Get.Rendered_IsSolidColors = false;
             Options.Save();
             SetViewModeCheckBoxStates();
-            //await this.RenderImageAndShowIt();
             await this.renderedImagePanel.ForceReRender();
         }
 
@@ -281,6 +275,8 @@ namespace PixelStacker
             {
                 SaveFileDialog dlg = (SaveFileDialog)sender;
                 string fName = dlg.FileName;
+                int chosenFilterIndex = dlg.FilterIndex;
+
                 if (fName.ToLower().EndsWith(".schem"))
                 {
                     SchemFormatter.writeBlueprint(fName, this.LoadedBlueprint);
@@ -291,9 +287,20 @@ namespace PixelStacker
                 }
                 else if (fName.ToLower().EndsWith(".png"))
                 {
-                    if (this.renderedImagePanel != null)
+                    if (chosenFilterIndex == 5)
                     {
-                        this.renderedImagePanel.SaveToPNG(fName);
+                        var saver = new ColorPaletteSaveOptions((ColorPaletteStyle style) =>
+                        {
+                            ColorPaletteFormatter.writeBlueprint(fName, this.LoadedBlueprint, style);
+                        });
+                        saver.ShowDialog(this);
+                    }
+                    else
+                    {
+                        if (this.renderedImagePanel != null)
+                        {
+                            this.renderedImagePanel.SaveToPNG(fName);
+                        }
                     }
                 }
                 else if (fName.ToLower().EndsWith(".csv"))
@@ -303,11 +310,11 @@ namespace PixelStacker
                     int xM = this.LoadedBlueprint.Mapper.GetXLength(isv);
                     int yM = this.LoadedBlueprint.Mapper.GetYLength(isv);
                     int zM = this.LoadedBlueprint.Mapper.GetZLength(isv);
-                    for(int x = 0; x < xM; x++)
+                    for (int x = 0; x < xM; x++)
                     {
-                        for(int y = 0; y < yM; y++)
+                        for (int y = 0; y < yM; y++)
                         {
-                            for(int z = 0; z < zM; z++)
+                            for (int z = 0; z < zM; z++)
                             {
                                 Material m = this.LoadedBlueprint.Mapper.GetMaterialAt(isv, x, y, z);
                                 if (m != Materials.Air)
@@ -325,10 +332,10 @@ namespace PixelStacker
 
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine("\"Material\",\"Block Count\",\"Full Stacks needed\"");
-                    sb.AppendLine("\"Total\","+materialCounts.Values.Sum());
+                    sb.AppendLine("\"Total\"," + materialCounts.Values.Sum());
                     foreach (var kvp in materialCounts.OrderByDescending(x => x.Value))
                     {
-                        sb.AppendLine($"\"{kvp.Key.GetBlockNameAndData(isv).Replace("\"","\"\"")}\",{kvp.Value},{kvp.Value/64} stacks and {kvp.Value % 64} remaining blocks");
+                        sb.AppendLine($"\"{kvp.Key.GetBlockNameAndData(isv).Replace("\"", "\"\"")}\",{kvp.Value},{kvp.Value / 64} stacks and {kvp.Value % 64} remaining blocks");
                     }
                     File.WriteAllText(fName, sb.ToString());
                 }
@@ -389,22 +396,22 @@ namespace PixelStacker
             this.layerFilteringToolStripMenuItem.Enabled = Constants.IsFullVersion;
             this.togglePaletteToolStripMenuItem.Enabled = Constants.IsFullVersion;
         }
-        
+
         private void drawGrid(Bitmap bm, Graphics g, int blockSize, Pen p)
         {
             int numHorizBlocks = (bm.Width / blockSize);
             int numVertBlocks = (bm.Height / blockSize);
             g.DrawLine(p, 0, 0, 0, bm.Height * Constants.TextureSize);
-            g.DrawLine(p, 0, bm.Height*Constants.TextureSize, bm.Width*Constants.TextureSize, bm.Height*Constants.TextureSize);
-            g.DrawLine(p, bm.Width*Constants.TextureSize, bm.Height*Constants.TextureSize, bm.Width*Constants.TextureSize, 0);
-            g.DrawLine(p, bm.Width*Constants.TextureSize, 0, 0, 0);
+            g.DrawLine(p, 0, bm.Height * Constants.TextureSize, bm.Width * Constants.TextureSize, bm.Height * Constants.TextureSize);
+            g.DrawLine(p, bm.Width * Constants.TextureSize, bm.Height * Constants.TextureSize, bm.Width * Constants.TextureSize, 0);
+            g.DrawLine(p, bm.Width * Constants.TextureSize, 0, 0, 0);
             for (int x = 0; x < numHorizBlocks; x++)
             {
-                g.DrawLine(p, x*blockSize*Constants.TextureSize, 0, x * blockSize * Constants.TextureSize, bm.Height*Constants.TextureSize);
+                g.DrawLine(p, x * blockSize * Constants.TextureSize, 0, x * blockSize * Constants.TextureSize, bm.Height * Constants.TextureSize);
             }
             for (int y = 0; y < numVertBlocks; y++)
             {
-                g.DrawLine(p, 0, y * blockSize * Constants.TextureSize, bm.Width*Constants.TextureSize, y * blockSize * Constants.TextureSize);
+                g.DrawLine(p, 0, y * blockSize * Constants.TextureSize, bm.Width * Constants.TextureSize, y * blockSize * Constants.TextureSize);
             }
         }
         #endregion
@@ -423,7 +430,8 @@ namespace PixelStacker
 
         private async void mi_preRender_Click(object sender, EventArgs e)
         {
-            await TaskManager.Get.StartAsync((token) => {
+            await TaskManager.Get.StartAsync((token) =>
+            {
                 PreRenderImage(true, token);
             });
         }

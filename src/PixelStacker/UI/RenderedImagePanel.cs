@@ -603,12 +603,6 @@ namespace PixelStacker.UI
                 g.FillRectangle(p.Brush, 0, 0, this.Width, this.Height);
             }
             g.ResetClip();
-            //Pen p = new Pen(c, gridSize == 1 ? 2 : GetGridWidth());
-            //g.DrawLine(p, MainForm.PanZoomSettings.imageX, MainForm.PanZoomSettings.imageY, MainForm.PanZoomSettings.imageX, getRoundedZoomDistance(MainForm.PanZoomSettings.imageY, this.image.Height));
-            //g.DrawLine(p, MainForm.PanZoomSettings.imageX, getRoundedZoomDistance(MainForm.PanZoomSettings.imageY, this.image.Height), getRoundedZoomDistance(MainForm.PanZoomSettings.imageX, this.image.Width), getRoundedZoomDistance(MainForm.PanZoomSettings.imageY, this.image.Height));
-            //g.DrawLine(p, getRoundedZoomDistance(MainForm.PanZoomSettings.imageX, this.image.Width), getRoundedZoomDistance(MainForm.PanZoomSettings.imageY, this.image.Height), getRoundedZoomDistance(MainForm.PanZoomSettings.imageX, this.image.Width), MainForm.PanZoomSettings.imageY);
-            //g.DrawLine(p, getRoundedZoomDistance(MainForm.PanZoomSettings.imageX, this.image.Width), MainForm.PanZoomSettings.imageY, MainForm.PanZoomSettings.imageX, MainForm.PanZoomSettings.imageY);
-
         }
 
         private void drawGrid(Graphics g, int gridSize, Color c)

@@ -12,6 +12,9 @@ using PixelStacker.PreRender.Extensions;
 using System.ComponentModel;
 using System.Threading;
 using PixelStacker.UI;
+using System.IO;
+using Newtonsoft.Json;
+using PixelStacker.Logic.Great;
 
 namespace PixelStacker.Logic
 {
@@ -21,7 +24,7 @@ namespace PixelStacker.Logic
         public static Dictionary<Color, Material[]> ColorMap = new Dictionary<Color, Material[]>();
         // Maps best matches to the set of quantized colors available.
         // [Src color] --> [ColorMap.Key]
-        public static Dictionary<Color, Color> BestMatchCache = new Dictionary<Color, Color>();
+        public static BestMatchCacheMap BestMatchCache = new BestMatchCacheMap().Load();
 
         // Color blending is just a linear interpolation per channel, right?
         // So the math is pretty simple. If you have RGBA1 over RGB2, the 
@@ -38,15 +41,16 @@ namespace PixelStacker.Logic
             return Color.FromArgb(255, R, G, B);
         }
 
-        public static void CompileColorMap(CancellationToken worker)
+        public static void CompileColorMap(CancellationToken worker, bool isClearBestMatchCache)
         {
             int n = 0;
             int maxN = Materials.List.Where(x => x.IsEnabled).Count();
             if (Options.Get.IsMultiLayer) maxN *= 16;
+            Dictionary<Color, List<Material[]>> collisions = new Dictionary<Color, List<Material[]>>();
 
             bool isSide = Options.Get.IsSideView;
             bool isMultiLayer = Options.Get.IsMultiLayer;
-            BestMatchCache.Clear();
+            if (isClearBestMatchCache) { BestMatchCache.Clear(); }
             TaskManager.SafeReport(0, "Compiling Color Map based on selected materials.");
             Air = Materials.List.FirstOrDefault(m => m.Label == "Air");
 
@@ -64,7 +68,7 @@ namespace PixelStacker.Logic
                         if (worker.SafeIsCancellationRequested())
                         {
                             ColorMap.Clear();
-                            BestMatchCache.Clear();
+                            if (isClearBestMatchCache) { BestMatchCache.Clear(); }
                             worker.SafeThrowIfCancellationRequested();
                         }
                     }
@@ -82,7 +86,7 @@ namespace PixelStacker.Logic
                         if (worker.SafeIsCancellationRequested())
                         {
                             ColorMap.Clear();
-                            BestMatchCache.Clear();
+                            if (isClearBestMatchCache) { BestMatchCache.Clear(); }
                             worker.SafeThrowIfCancellationRequested();
                         }
                     }
@@ -118,7 +122,7 @@ namespace PixelStacker.Logic
                             if (worker.SafeIsCancellationRequested())
                             {
                                 ColorMap.Clear();
-                                BestMatchCache.Clear();
+                                if (isClearBestMatchCache) { BestMatchCache.Clear(); }
                                 worker.SafeThrowIfCancellationRequested();
                             }
                         }
@@ -135,7 +139,6 @@ namespace PixelStacker.Logic
 
                 toAdd.Clear();
             }
-
 
             ColorMap[Air.getAverageColor(isSide)] = new Material[1] { Air };
             ColorMap[Color.FromArgb(0, 255, 255, 255)] = new Material[1] { Air };
@@ -163,22 +166,12 @@ namespace PixelStacker.Logic
                         bestMatch = c;
                     }
 
-                    double rgbPower = 2.0;
-                    double huePower = 1.5;
-                    double diffd = 0;
-                    diffd = 1000 *
-                       (
-                       Math.Pow(Math.Abs(c.R - toMatch.R), rgbPower)
-                       + Math.Pow(Math.Abs(c.G - toMatch.G), rgbPower)
-                       + Math.Pow(Math.Abs(c.B - toMatch.B), rgbPower)
-                       + Math.Pow(ExtendColor.GetDegreeDistance(c.GetHue(), toMatch.GetHue()) / 2, huePower)
-                       + Math.Pow(Math.Abs(c.GetSaturation() - toMatch.GetSaturation()), 2)
-                       );
 
                     int diff = int.MaxValue;
 
                     try
                     {
+                        float diffd = c.GetColorDistance(toMatch);
                         diff = Convert.ToInt32(diffd);
                     }
                     catch (OverflowException) { }
@@ -200,21 +193,12 @@ namespace PixelStacker.Logic
 
         public static List<Color> FindBestMatches(List<Color> colors, Color toMatch, int top)
         {
-            double rgbPower = 2.0;
-            double huePower = 1.5;
             var rt = colors
             .Where(c => c.ToArgb() != 16777215)
             .OrderBy(c =>
             {
-                double diffd = 0;
-                diffd = 1000 *
-                   (
-                   Math.Pow(Math.Abs(c.R - toMatch.R), rgbPower)
-                   + Math.Pow(Math.Abs(c.G - toMatch.G), rgbPower)
-                   + Math.Pow(Math.Abs(c.B - toMatch.B), rgbPower)
-                   + Math.Pow(ExtendColor.GetDegreeDistance(c.GetHue(), toMatch.GetHue()) / 2, huePower)
-                   + Math.Pow(Math.Abs(c.GetSaturation() - toMatch.GetSaturation()), 2)
-                   );
+                float diffd = c.GetColorDistance(toMatch);
+
                 if (ColorMap.TryGetValue(c, out Material[] mats))
                 {
                     if (mats.Length == 1)
@@ -222,6 +206,7 @@ namespace PixelStacker.Logic
                         //diffd *= 0.8;
                     }
                 }
+
                 return diffd;
             }).Take(top).ToList();
             return rt;

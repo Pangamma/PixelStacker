@@ -77,7 +77,7 @@ namespace PixelStacker.UI
         {
             Options.Save();
             await TaskManager.Get.StartAsync((token) => {
-                Materials.CompileColorMap(token);
+                Materials.CompileColorMap(token, true);
             });
 
             if (e.CloseReason == CloseReason.UserClosing)

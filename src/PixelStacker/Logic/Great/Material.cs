@@ -149,6 +149,10 @@ namespace PixelStacker.Logic
             b /= total;
             a /= total;
 
+            r = (int)Math.Round(Convert.ToDouble(r) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
+            g = (int)Math.Round(Convert.ToDouble(g) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
+            b = (int)Math.Round(Convert.ToDouble(b) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
+
             return Color.FromArgb((int)a, (int)r, (int)g, (int)b);
         }
 

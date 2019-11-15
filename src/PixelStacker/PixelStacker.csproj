@@ -89,11 +89,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Great\BestMatchCacheMap.cs" />
+    <Compile Include="Logic\Great\Grouping.cs" />
     <Compile Include="Logic\Great\ImageExtensions.cs" />
     <Compile Include="Logic\Great\OrderedDictionary.cs" />
     <Compile Include="Logic\Great\UIExtensions.cs" />
     <Compile Include="Logic\Great\UpdateChecker.cs" />
     <Compile Include="Logic\PanZoomSettings.cs" />
+    <Compile Include="Logic\ColorPaletteFormatter.cs" />
     <Compile Include="Logic\SchemFormatter.cs" />
     <Compile Include="Logic\WIP\Blueprint.cs" />
     <Compile Include="Logic\BlueprintPA.cs" />
@@ -133,6 +136,7 @@
     <Compile Include="PreRender\Ditherers\Ordered\DotHalfToneDitherer.cs" />
     <Compile Include="PreRender\Extensions\Extend.IEnumerable.cs" />
     <Compile Include="PreRender\Extensions\Extend.Image.cs" />
+    <Compile Include="PreRender\Extensions\Extend.Math.cs" />
     <Compile Include="PreRender\Extensions\Extend.PixelFormat.cs" />
     <Compile Include="PreRender\Helpers\ColorModelHelper.cs" />
     <Compile Include="PreRender\Helpers\FastRandom.cs" />
@@ -195,6 +199,12 @@
     </Compile>
     <Compile Include="UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ColorPaletteSaveOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ColorPaletteSaveOptions.Designer.cs">
+      <DependentUpon>ColorPaletteSaveOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MaterialPickerOption.cs">
       <SubType>UserControl</SubType>
@@ -280,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ColorPaletteSaveOptions.resx">
+      <DependentUpon>ColorPaletteSaveOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ImagePanel.resx">
       <DependentUpon>ImagePanel.cs</DependentUpon>
@@ -541,6 +554,10 @@
     <Content Include="Resources\Images\Textures\Glass\yellow_stained_glass.png" />
     <Content Include="Resources\Images\Textures\Terracotta\yellow_terracotta.png" />
     <Content Include="Resources\Images\Textures\Wool\yellow_wool.png" />
+    <Content Include="Resources\Images\UI\feature_palette_compact_brick.png" />
+    <Content Include="Resources\Images\UI\feature_palette_compact_graph.png" />
+    <Content Include="Resources\Images\UI\feature_palette_compact_grid.png" />
+    <Content Include="Resources\Images\UI\feature_palette_detailed_grid.png" />
     <Content Include="wool.ico" />
     <None Include="Resources\Images\UI\pixelstackerlogo.pdn" />
     <None Include="Resources\Images\UI\wool.ico" />

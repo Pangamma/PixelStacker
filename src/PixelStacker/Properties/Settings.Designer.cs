@@ -34,5 +34,17 @@ namespace PixelStacker.Properties {
                 this["JSON"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ColorMatchCache {
+            get {
+                return ((string)(this["ColorMatchCache"]));
+            }
+            set {
+                this["ColorMatchCache"] = value;
+            }
+        }
     }
 }

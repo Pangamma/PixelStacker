@@ -160,4 +160,16 @@
   <data name="pink_girl" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\images\pixelart\pink-girl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="feature_palette_compact_brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\images\ui\feature_palette_compact_brick.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="feature_palette_compact_graph" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\images\ui\feature_palette_compact_graph.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="feature_palette_compact_grid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\images\ui\feature_palette_compact_grid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="feature_palette_detailed_grid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\images\ui\feature_palette_detailed_grid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
