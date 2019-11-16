@@ -289,8 +289,8 @@ namespace PixelStacker.UI
 
             bool isCompact = Options.Get.Rendered_IsSolidColors && !Options.Get.Rendered_IsShowGrid && !Options.Get.Rendered_IsColorPalette;
             int blockWidth = isCompact ? 1 : CalculatedTextureSize;
-            int W = this.renderedImage.Width;
-            int H = this.renderedImage.Height;
+            int W = this.renderedImage.Width; if (isCompact) { W /= CalculatedTextureSize; }
+            int H = this.renderedImage.Height; if (isCompact) { H /= CalculatedTextureSize; }
             using (Bitmap bm = new Bitmap(W, H, PixelFormat.Format32bppArgb))
             {
                 using (Graphics g = Graphics.FromImage(bm))
