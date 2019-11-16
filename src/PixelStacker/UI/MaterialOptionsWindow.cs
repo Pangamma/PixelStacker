@@ -32,13 +32,13 @@ namespace PixelStacker.UI
             addMaterialList("Clay");
             addMaterialList("Glass");
             addMaterialList("Terracotta");
-            addMaterialList("Coral");
-            addMaterialList("Dead Coral");
             addMaterialList("Good");
             addMaterialList("Okay");
             addMaterialList("Planks");
             addMaterialList("Wood");
             addMaterialList("Solid Ores");
+            addMaterialList("Coral");
+            addMaterialList("Dead Coral");
             addMaterialList("Ores");
             addMaterialList("Common");
             cbxEnableLayer2.Checked = Options.Get.IsMultiLayer;

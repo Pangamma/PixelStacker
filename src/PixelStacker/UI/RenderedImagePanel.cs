@@ -492,6 +492,12 @@ namespace PixelStacker.UI
                         }
                         return;
                     }
+                    catch (System.InvalidOperationException)
+                    {
+                        MainForm.Self.PreRenderedImage.DisposeSafely();
+                        MainForm.Self.PreRenderedImage = null;
+                        return;
+                    }
                 }
 
 
