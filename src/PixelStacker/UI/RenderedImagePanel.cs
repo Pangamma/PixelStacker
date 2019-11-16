@@ -460,7 +460,16 @@ namespace PixelStacker.UI
                     {
                         int numMegaBytes = 32 / 8 * CalculatedTextureSize * CalculatedTextureSize * image.Height * image.Width / 1024 / 1024;
                         if (numMegaBytes > 0)
-                        using (var memoryCheck = new System.Runtime.MemoryFailPoint(numMegaBytes))
+                        {
+                            using (var memoryCheck = new System.Runtime.MemoryFailPoint(numMegaBytes))
+                            {
+                                g.DrawImage(image: this.renderedImage,
+                                    srcRect: rectSRC,
+                                    destRect: rectDST,
+                                    srcUnit: GraphicsUnit.Pixel);
+                            }
+                        }
+                        else if ((image.Height * image.Width) < 2000)
                         {
                             g.DrawImage(image: this.renderedImage,
                                 srcRect: rectSRC,
