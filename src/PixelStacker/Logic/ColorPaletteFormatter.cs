@@ -1,15 +1,11 @@
-﻿using fNbt;
-using PixelStacker.Logic.Great;
+﻿using PixelStacker.Logic.Great;
+using PixelStacker.PreRender.Extensions;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Logic
 {
@@ -43,41 +39,12 @@ namespace PixelStacker.Logic
             }
         }
 
+
         #region render 
         private static void renderCompactBrick(string filePath, BlueprintPA blueprint)
         {
             int blockWidth = 1;
-            int numHueFragments = 18; // How many buckets should we split out color wheel into?
-
-            var colors = GetColorsList(blueprint);
-            var grayscale = colors.Where(x => x.GetSaturation() <= 0.20 || x.GetBrightness() <= 0.15 || x.GetBrightness() >= 0.85)
-                .OrderBy(x => x.GetBrightness());
-            var grayscaleDark = grayscale.Where(x => x.GetBrightness() < 0.50).ToList();
-            var grayscaleLight = grayscale.Where(x => x.GetBrightness() >= 0.50).ToList();
-
-            // Sat: 0...1
-            // Hue: 0...360
-            // Brightness: 0...1
-
-            bool isAscendingBrightness = false;
-            var colorsInOrder = grayscaleDark.Concat(grayscaleLight).ToList();
-            colors.Except(grayscale)
-                .GroupBy(x => ((int)Math.Round(x.GetHue())) / numHueFragments)
-                .OrderBy(x => x.Key)
-                .ToList().ForEach(grouping =>
-                {
-                    isAscendingBrightness = !isAscendingBrightness;
-
-                    if (isAscendingBrightness)
-                    {
-                        colorsInOrder.AddRange(grouping.OrderBy(g => g.GetBrightness()));
-                    }
-                    else
-                    {
-                        colorsInOrder.AddRange(grouping.OrderByDescending(g => g.GetBrightness()));
-                    }
-                });
-
+            var colorsInOrder = GetColorsList(blueprint).OrderByColor(c => c).ToList();
 
             const int MAX_BRICK_H = 9;
             int wBrick = (int)(Math.Ceiling((double)colorsInOrder.Count() / MAX_BRICK_H)) * blockWidth;
@@ -192,7 +159,9 @@ namespace PixelStacker.Logic
             #endregion
 
             #region GROUPINGS OF MATERIALS 
-            List<Material> glasses = Materials.List.Where(m => m.Category == "Glass").ToList();
+            List<Material> glasses = Materials.List.Where(m => m.Category == "Glass")
+                .OrderByColor(m => m.getAverageColor(isSide)).ToList();
+
             List<IGrouping<string, Material>> materialGroups = Materials.List
                 .Where(m => m.Category != "Glass" && m.Label != "Air")
                 .GroupBy(m => m.Category)
@@ -206,11 +175,11 @@ namespace PixelStacker.Logic
             {
                 if (i % 2 == 0)
                 {
-                    leftSide.Add(materialGroups[i].ToList());
+                    leftSide.Add(materialGroups[i].OrderByColor(m => m.getAverageColor(isSide)).ToList());
                 }
                 else
                 {
-                    rightSide.Add(materialGroups[i].ToList());
+                    rightSide.Add(materialGroups[i].OrderByColor(m => m.getAverageColor(isSide)).ToList());
                 }
             }
             #endregion

@@ -1,16 +1,12 @@
 ﻿using PixelStacker.Logic;
-using PixelStacker.PreRender;
 using PixelStacker.Properties;
 using PixelStacker.UI;
 using SimplePaletteQuantizer;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -29,6 +25,7 @@ namespace PixelStacker
         private string loadedImageFilePath { get; set; }
         private MaterialOptionsWindow MaterialOptions { get; set; } = null;
         public static PanZoomSettings PanZoomSettings { get; set; } = null;
+        private ColorPaletteStyle SelectedColorPaletteStyle { get; set; } = ColorPaletteStyle.DetailedGrid;
 
         public MainForm()
         {
@@ -47,7 +44,10 @@ namespace PixelStacker
         private void MainForm_Load(object sender, EventArgs e)
         {
             SetViewModeCheckBoxStates();
-            UpdateChecker.CheckForUpdates();
+
+            #pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
+            TaskManager.Get.StartAsync(cancelToken => UpdateChecker.CheckForUpdates(cancelToken));
+            #pragma warning restore CS4014
         }
 
         #region Events
@@ -124,7 +124,7 @@ namespace PixelStacker
                 {
                     try
                     {
-                        img = engine.RenderImage(srcImage).Result;
+                        img = engine.RenderImage(srcImage);
                         srcImage.DisposeSafely();
                         cancelToken?.SafeThrowIfCancellationRequested();
                     }
@@ -190,6 +190,7 @@ namespace PixelStacker
         {
             if (this.LoadedBlueprint != null)
             {
+                this.setupSaveForSchematics();
                 dlgSave.ShowDialog();
             }
             else
@@ -287,20 +288,9 @@ namespace PixelStacker
                 }
                 else if (fName.ToLower().EndsWith(".png"))
                 {
-                    if (chosenFilterIndex == 5)
+                    if (this.renderedImagePanel != null)
                     {
-                        var saver = new ColorPaletteSaveOptions((ColorPaletteStyle style) =>
-                        {
-                            ColorPaletteFormatter.writeBlueprint(fName, this.LoadedBlueprint, style);
-                        });
-                        saver.ShowDialog(this);
-                    }
-                    else
-                    {
-                        if (this.renderedImagePanel != null)
-                        {
-                            this.renderedImagePanel.SaveToPNG(fName);
-                        }
+                        this.renderedImagePanel.SaveToPNG(fName);
                     }
                 }
                 else if (fName.ToLower().EndsWith(".csv"))
@@ -346,6 +336,16 @@ namespace PixelStacker
             }
         }
 
+        private void dlgSave_FileOk_ColorPalettes(object sender, CancelEventArgs e)
+        {
+            if (this.LoadedBlueprint != null)
+            {
+                SaveFileDialog dlg = (SaveFileDialog)sender;
+                string fName = dlg.FileName;
+                ColorPaletteFormatter.writeBlueprint(fName, this.LoadedBlueprint, SelectedColorPaletteStyle);
+            }
+        }
+
         private void reOpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.loadedImageFilePath != null)
@@ -371,6 +371,7 @@ namespace PixelStacker
             this.renderedImagePanel.Hide();
             this.imagePanelMain.BringToFront();
             this.exportSchematicToolStripMenuItem.Enabled = false;
+            this.saveColorPaletteToolStripMenuItem.Enabled = false;
             this.toggleBorderToolStripMenuItem.Enabled = false;
             this.toggleGridToolStripMenuItem.Enabled = false;
             this.toggleSolidColorsToolStripMenuItem.Enabled = false;
@@ -387,6 +388,7 @@ namespace PixelStacker
             this.renderedImagePanel.BringToFront();
             this.imagePanelMain.Hide();
             this.exportSchematicToolStripMenuItem.Enabled = true;
+            this.saveColorPaletteToolStripMenuItem.Enabled = true;
             this.toggleBorderToolStripMenuItem.Enabled = true;
             this.toggleGridToolStripMenuItem.Enabled = true;
             this.toggleSolidColorsToolStripMenuItem.Enabled = true;
@@ -493,6 +495,73 @@ namespace PixelStacker
         private void timer1_Tick(object sender, EventArgs e)
         {
             TaskManager.Get.UpdateStatus(this);
+        }
+
+        private void setupSaveForSchematics()
+        {
+            dlgSave.FileOk -= this.dlgSave_FileOk;
+            dlgSave.FileOk -= this.dlgSave_FileOk_ColorPalettes;
+            dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv";
+            dlgSave.FileOk += this.dlgSave_FileOk;
+        }
+
+        private void openSaveForColorPalettes(int filterIndex)
+        {
+            dlgSave.FileOk -= this.dlgSave_FileOk;
+            dlgSave.FileOk -= this.dlgSave_FileOk_ColorPalettes;
+            string[] availableExtensions = new string[] { "Color Palette Graph | *.png", "Color Palette Brick|*.png", "Color Palette All (compact)|*.png", "Color Palette All (detailed)|*.png" };
+            dlgSave.Filter = availableExtensions[filterIndex];
+            dlgSave.FileOk += this.dlgSave_FileOk_ColorPalettes;
+            dlgSave.DefaultExt = availableExtensions[filterIndex].Substring(availableExtensions[filterIndex].LastIndexOf("*.") + 2);
+            dlgSave.ShowDialog(this);
+        }
+
+        private void graphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.LoadedBlueprint == null)
+            {
+                this.saveColorPaletteToolStripMenuItem.Enabled = false;
+                return;
+            }
+
+            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactGraph;
+            this.openSaveForColorPalettes(0);
+        }
+
+        private void brickToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.LoadedBlueprint == null)
+            {
+                this.saveColorPaletteToolStripMenuItem.Enabled = false;
+                return;
+            }
+
+            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactBrick;
+            this.openSaveForColorPalettes(1);
+        }
+
+        private void allPossibilitiescompactToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.LoadedBlueprint == null)
+            {
+                this.saveColorPaletteToolStripMenuItem.Enabled = false;
+                return;
+            }
+
+            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactGrid;
+            this.openSaveForColorPalettes(2);
+        }
+
+        private void allColorsdetailedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.LoadedBlueprint == null)
+            {
+                this.saveColorPaletteToolStripMenuItem.Enabled = false;
+                return;
+            }
+
+            this.SelectedColorPaletteStyle = ColorPaletteStyle.DetailedGrid;
+            this.openSaveForColorPalettes(3);
         }
     }
 }

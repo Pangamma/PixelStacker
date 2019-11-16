@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.PreRender.Extensions
 {
+    // Sat: 0...1
+    // Hue: 0...360
+    // Brightness: 0...1
     public static class ExtendColor
     {
         public static float GetDegreeDistance(float alpha, float beta)
@@ -46,6 +49,41 @@ namespace PixelStacker.PreRender.Extensions
             //   //+ Math.Pow(Math.Abs(c.B - toMatch.B), Constants.rgbPower)
             //   //+ Math.Pow(GetDegreeDistance(c.GetHue(), toMatch.GetHue()) / 2, Constants.huePower)
             //   //+ Math.Pow(Math.Abs(c.GetSaturation() - toMatch.GetSaturation()), Constants.satPower)
+        }
+
+        public static IEnumerable<TSource> OrderByColor<TSource>(this IEnumerable<TSource> source, Func<TSource, Color> colorSelector)
+        {
+            source.Select(x => colorSelector(x));
+            var grayscale = source.Where(x => colorSelector(x).GetSaturation() <= 0.20
+            || colorSelector(x).GetBrightness() <= 0.15
+            || colorSelector(x).GetBrightness() >= 0.85)
+            .OrderByDescending(x => colorSelector(x).GetBrightness());
+            const int numHueFragments = 18;
+
+            var colorsInOrder = grayscale.ToList();
+
+            //// Sat: 0...1
+            //// Hue: 0...360
+            //// Brightness: 0...1
+            bool isAscendingBrightness = false;
+            source.Except(grayscale)
+                .GroupBy(x => (int)Math.Round(colorSelector(x).GetHue()) / numHueFragments)
+                .OrderBy(x => x.Key)
+                .ToList().ForEach(grouping =>
+                {
+                    isAscendingBrightness = !isAscendingBrightness;
+
+                    if (isAscendingBrightness)
+                    {
+                        colorsInOrder.AddRange(grouping.OrderBy(g => colorSelector(g).GetBrightness()));
+                    }
+                    else
+                    {
+                        colorsInOrder.AddRange(grouping.OrderByDescending(g => colorSelector(g).GetBrightness()));
+                    }
+                });
+
+            return colorsInOrder;
         }
     }
 }

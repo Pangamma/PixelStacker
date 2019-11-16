@@ -200,12 +200,6 @@
     <Compile Include="UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ColorPaletteSaveOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ColorPaletteSaveOptions.Designer.cs">
-      <DependentUpon>ColorPaletteSaveOptions.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\MaterialPickerOption.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -290,9 +284,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ColorPaletteSaveOptions.resx">
-      <DependentUpon>ColorPaletteSaveOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ImagePanel.resx">
       <DependentUpon>ImagePanel.cs</DependentUpon>

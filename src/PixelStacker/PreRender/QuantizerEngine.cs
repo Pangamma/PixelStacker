@@ -155,7 +155,7 @@ namespace SimplePaletteQuantizer
         /// </summary>
         /// <param name="sourceImage"></param>
         /// <returns></returns>
-        public async Task<Bitmap> RenderImage(Bitmap sourceImage)
+        public Bitmap RenderImage(Bitmap sourceImage)
         {
             //// prepares quantizer
             errorCache.Clear();

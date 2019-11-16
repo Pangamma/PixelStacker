@@ -35,6 +35,11 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportSchematicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveColorPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.brickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allPossibilitiescompactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allColorsdetailedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleSolidColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,8 +86,11 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.reOpenToolStripMenuItem,
-            this.exportSchematicToolStripMenuItem});
+            this.exportSchematicToolStripMenuItem,
+            this.saveColorPaletteToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
@@ -90,7 +98,7 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -99,7 +107,7 @@
             this.reOpenToolStripMenuItem.Enabled = false;
             this.reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
             this.reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.reOpenToolStripMenuItem.Text = "Re-Open";
             this.reOpenToolStripMenuItem.Click += new System.EventHandler(this.reOpenToolStripMenuItem_Click);
             // 
@@ -108,9 +116,58 @@
             this.exportSchematicToolStripMenuItem.Enabled = false;
             this.exportSchematicToolStripMenuItem.Name = "exportSchematicToolStripMenuItem";
             this.exportSchematicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.exportSchematicToolStripMenuItem.Text = "Save";
             this.exportSchematicToolStripMenuItem.Click += new System.EventHandler(this.saveMenuClick);
+            // 
+            // saveColorPaletteToolStripMenuItem
+            // 
+            this.saveColorPaletteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphToolStripMenuItem,
+            this.brickToolStripMenuItem,
+            this.allPossibilitiescompactToolStripMenuItem,
+            this.allColorsdetailedToolStripMenuItem});
+            this.saveColorPaletteToolStripMenuItem.Enabled = false;
+            this.saveColorPaletteToolStripMenuItem.Name = "saveColorPaletteToolStripMenuItem";
+            this.saveColorPaletteToolStripMenuItem.ShowShortcutKeys = false;
+            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveColorPaletteToolStripMenuItem.Text = "Save color palette";
+            // 
+            // graphToolStripMenuItem
+            // 
+            this.graphToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_graph;
+            this.graphToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(229, 62);
+            this.graphToolStripMenuItem.Text = "Graph";
+            this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
+            // 
+            // brickToolStripMenuItem
+            // 
+            this.brickToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_brick;
+            this.brickToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.brickToolStripMenuItem.Name = "brickToolStripMenuItem";
+            this.brickToolStripMenuItem.Size = new System.Drawing.Size(229, 62);
+            this.brickToolStripMenuItem.Text = "Brick";
+            this.brickToolStripMenuItem.Click += new System.EventHandler(this.brickToolStripMenuItem_Click);
+            // 
+            // allPossibilitiescompactToolStripMenuItem
+            // 
+            this.allPossibilitiescompactToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_grid;
+            this.allPossibilitiescompactToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.allPossibilitiescompactToolStripMenuItem.Name = "allPossibilitiescompactToolStripMenuItem";
+            this.allPossibilitiescompactToolStripMenuItem.Size = new System.Drawing.Size(229, 62);
+            this.allPossibilitiescompactToolStripMenuItem.Text = "All colors (compact)";
+            this.allPossibilitiescompactToolStripMenuItem.Click += new System.EventHandler(this.allPossibilitiescompactToolStripMenuItem_Click);
+            // 
+            // allColorsdetailedToolStripMenuItem
+            // 
+            this.allColorsdetailedToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_detailed_grid;
+            this.allColorsdetailedToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.allColorsdetailedToolStripMenuItem.Name = "allColorsdetailedToolStripMenuItem";
+            this.allColorsdetailedToolStripMenuItem.Size = new System.Drawing.Size(229, 62);
+            this.allColorsdetailedToolStripMenuItem.Text = "All colors (detailed)";
+            this.allColorsdetailedToolStripMenuItem.Click += new System.EventHandler(this.allColorsdetailedToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -286,8 +343,7 @@
             // dlgSave
             // 
             this.dlgSave.DefaultExt = "schem";
-            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv|Colo" +
-    "r Palette|*.png";
+            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv";
             this.dlgSave.ShowHelp = true;
             this.dlgSave.Title = "Save";
             this.dlgSave.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSave_FileOk);
@@ -399,6 +455,11 @@
         public System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.ToolStripMenuItem otherOptionsToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem saveColorPaletteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem brickToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allPossibilitiescompactToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allColorsdetailedToolStripMenuItem;
     }
 }
 

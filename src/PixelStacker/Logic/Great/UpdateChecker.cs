@@ -19,20 +19,38 @@ namespace PixelStacker.Logic
 
     public class UpdateChecker
     {
-        public async static void CheckForUpdates()
+        public async static Task CheckForUpdates(CancellationToken cancelToken)
         {
-            await Task.Delay(1000);
             var settings = Options.Get.UpdateSettings;
-            if (settings.LastChecked == null || settings.LastChecked.Value < DateTime.UtcNow.AddHours(2))
+
+            if (settings.LastChecked == null || settings.LastChecked.Value < DateTime.UtcNow.AddHours(-2))
             {
+                TaskManager.SafeReport(75, "Checking for updates");
                 settings.LastChecked = DateTime.UtcNow;
-                string latestVersion = DoRequest($"https://taylorlove.info/pixelstacker/update-check.php?v={Constants.Version}")
-                    ?? DoRequest("https://api.spigotmc.org/legacy/update.php?resource=46812/");
+                string latestVersion = await DoRequest($"https://taylorlove.info/pixelstacker/update-check.php?v={Constants.Version}")
+                    ?? await DoRequest("https://api.spigotmc.org/legacy/update.php?resource=46812/");
 
-                if (latestVersion == null) return;
-                if (latestVersion == Constants.Version) return /*false*/;
-                if (latestVersion == settings.SkipNotifyIfVersionIs) return /*false*/;
+                Options.Save();
 
+                if (latestVersion == null)
+                {
+                    TaskManager.SafeReport(100, "No updates available.");
+                    return;
+                }
+
+                if (latestVersion == Constants.Version)
+                {
+                    TaskManager.SafeReport(100, "You are already using the latest version of PixelStacker");
+                    return;
+                }
+
+                if (latestVersion == settings.SkipNotifyIfVersionIs)
+                {
+                    TaskManager.SafeReport(100, "Newest version available is still: "+latestVersion);
+                    return;
+                }
+
+                TaskManager.SafeReport(100, "A new version is available!");
                 var result = MessageBox.Show("A new update for PixelStacker is available. Would you like to download it? Say YES to go to the download page. Say NO to ignore this update.", "A new update is available.", MessageBoxButtons.YesNo,MessageBoxIcon.Information);
                 if (result == DialogResult.No)
                 {
@@ -47,12 +65,11 @@ namespace PixelStacker.Logic
 
                 Options.Save();
             }
-
             return/* false*/;
         }
 
 
-        private static string DoRequest(string URL)
+        private static async Task<string> DoRequest(string URL)
         {
             try
             {
@@ -64,7 +81,7 @@ namespace PixelStacker.Logic
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = response.Content.ReadAsStringAsync().Result;
+                    var result = await response.Content.ReadAsStringAsync();
                     //T t = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result);
                     return result;
                 }
@@ -73,7 +90,7 @@ namespace PixelStacker.Logic
                     return null;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 Console.WriteLine("Failed to check for updates.");
             }
