@@ -347,6 +347,7 @@
     <None Include="Resources\Images\UI\wool.png" />
     <None Include="Resources\Images\UI\logo.ico" />
     <Content Include="Resources\Images\pixelart\hyrule.png" />
+    <None Include="Resources\Images\pixelart\hyrule_midna_link.png" />
     <Content Include="Resources\Images\pixelart\nerfman.png" />
     <Content Include="Resources\Images\pixelart\psg.png" />
     <Content Include="Resources\Images\pixelart\weird-intro.png" />

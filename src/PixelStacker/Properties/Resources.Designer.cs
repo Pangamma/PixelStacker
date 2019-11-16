@@ -83,16 +83,6 @@ namespace PixelStacker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap birdshark {
-            get {
-                object obj = ResourceManager.GetObject("birdshark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap colorwheel {
             get {
                 object obj = ResourceManager.GetObject("colorwheel", resourceCulture);
@@ -156,6 +146,16 @@ namespace PixelStacker.Properties {
         internal static System.Drawing.Bitmap feature_palette_detailed_grid {
             get {
                 object obj = ResourceManager.GetObject("feature_palette_detailed_grid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hyrule_midna_link {
+            get {
+                object obj = ResourceManager.GetObject("hyrule_midna_link", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
