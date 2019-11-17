@@ -1,3 +1,3 @@
 ---
-permalink: https://taylorlove.info/pixelstacker/index.html
+permalink: https://google.com
 ---
