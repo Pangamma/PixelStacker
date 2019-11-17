@@ -20,8 +20,10 @@
     <script src="./assets/js/data-js-href.js"></script>
     <script type="text/JavaScript">
       if (window.location.host !== "taylorlove.info") {
-	// I am reverse proxying from my own server for SEO reasons
-        window.location.href = "https://taylorlove.info/pixelstacker/index.html";
+	// I am reverse proxying from my own server for SEO reasons. Also for some reason the nginx proxy
+	// fails to preserve my site's URL unless there is a trailing slash. Gave up trying to figure out
+	// a 100% proper proxy with nginX, so came up with this work-around. It works decently enough.
+        window.location.href = "https://taylorlove.info/pixelstacker/";
       }
     </script>
   </head>
