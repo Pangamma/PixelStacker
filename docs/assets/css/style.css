@@ -12,6 +12,9 @@
 	display: inline-block;
 }
 
+.c-content-placement, .m-content-placement-item {
+	margin-bottom: 20px;
+}
 
 @media screen and (max-width: 539px){
 	.hide-on-mobile{
@@ -39,5 +42,5 @@
 }
 
 .image-card picture {
-	box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+	box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.208);
 }
