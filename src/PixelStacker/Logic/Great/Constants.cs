@@ -13,6 +13,7 @@ namespace PixelStacker.Logic
         public const int TextureSize = 16;
         public const string RenderedZIndexFilter = "RenderedZIndexFilter";
         public const string ERR_DownsizeYourImage = "Your image is too large and cannot be processed. Please downsize your image using the sizing options or else choose a different image.";
+        public const int MAX_HISTORY_SIZE = 20;
 
         /// <summary>
         /// R/5, G/5, B/5

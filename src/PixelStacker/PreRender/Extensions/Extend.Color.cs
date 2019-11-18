@@ -38,7 +38,7 @@ namespace PixelStacker.PreRender.Extensions
                 + (dG * dG)
                 + (dB * dB)
                 + (float) Math.Pow(dHue, 1.5)
-                + ((c.GetSaturation() - c.GetSaturation()) * 100).Pow2()
+                //+ ((c.GetSaturation() - c.GetSaturation()) * 100).Pow2()
                 );
 
             return diff;
@@ -49,6 +49,21 @@ namespace PixelStacker.PreRender.Extensions
             //   //+ Math.Pow(Math.Abs(c.B - toMatch.B), Constants.rgbPower)
             //   //+ Math.Pow(GetDegreeDistance(c.GetHue(), toMatch.GetHue()) / 2, Constants.huePower)
             //   //+ Math.Pow(Math.Abs(c.GetSaturation() - toMatch.GetSaturation()), Constants.satPower)
+        }
+
+        /// <summary>
+        /// Does not normalize alpha channels
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static Color Normalize(this Color c)
+        {
+            int F = Constants.ColorFragmentSize;
+            int R = (int) Math.Round(Convert.ToDecimal(c.R) / F, 0) * F;
+            int G = (int) Math.Round(Convert.ToDecimal(c.G) / F, 0) * F;
+            int B = (int) Math.Round(Convert.ToDecimal(c.B) / F, 0) * F;
+
+            return Color.FromArgb(c.A, R, G, B);
         }
 
         public static IEnumerable<TSource> OrderByColor<TSource>(this IEnumerable<TSource> source, Func<TSource, Color> colorSelector)

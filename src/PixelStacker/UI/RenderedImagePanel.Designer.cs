@@ -31,11 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.replaceColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ts_xyz = new System.Windows.Forms.ToolStripMenuItem();
             this.ts_MaterialName = new System.Windows.Forms.ToolStripMenuItem();
             this.averageColorCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rGBAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceMenuItems_1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceMenuItems_2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceMenuItems_3 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,20 +55,14 @@
             // replaceColorToolStripMenuItem
             // 
             this.replaceColorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
+            this.replaceMenuItems_1,
+            this.replaceMenuItems_2,
+            this.replaceMenuItems_3});
             this.replaceColorToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.replaceColorToolStripMenuItem.Name = "replaceColorToolStripMenuItem";
             this.replaceColorToolStripMenuItem.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
             this.replaceColorToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.replaceColorToolStripMenuItem.Text = "Replace Color (Requires Re-Render)";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = global::PixelStacker.Properties.Resources.avatar;
-            this.toolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(289, 132);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
             // 
             // ts_xyz
             // 
@@ -96,6 +92,24 @@
             this.rGBAToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.rGBAToolStripMenuItem.Text = "RGBA";
             // 
+            // replaceMenuItems_1
+            // 
+            this.replaceMenuItems_1.Name = "replaceMenuItems_1";
+            this.replaceMenuItems_1.Size = new System.Drawing.Size(289, 132);
+            this.replaceMenuItems_1.Text = "1 - 10";
+            // 
+            // replaceMenuItems_2
+            // 
+            this.replaceMenuItems_2.Name = "replaceMenuItems_2";
+            this.replaceMenuItems_2.Size = new System.Drawing.Size(289, 132);
+            this.replaceMenuItems_2.Text = "11 - 20";
+            // 
+            // replaceMenuItems_3
+            // 
+            this.replaceMenuItems_3.Name = "replaceMenuItems_3";
+            this.replaceMenuItems_3.Size = new System.Drawing.Size(289, 132);
+            this.replaceMenuItems_3.Text = "21 - 30";
+            // 
             // RenderedImagePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,6 +137,8 @@
         private System.Windows.Forms.ToolStripMenuItem averageColorCodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rGBAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem replaceColorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem replaceMenuItems_1;
+        private System.Windows.Forms.ToolStripMenuItem replaceMenuItems_2;
+        private System.Windows.Forms.ToolStripMenuItem replaceMenuItems_3;
     }
 }

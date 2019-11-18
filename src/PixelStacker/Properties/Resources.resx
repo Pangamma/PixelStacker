@@ -172,4 +172,7 @@
   <data name="hyrule_midna_link" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\pixelart\hyrule_midna_link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\images\pixelart\test.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

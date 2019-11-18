@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PixelStacker.Logic;
@@ -12,6 +10,7 @@ using PixelStacker.Properties;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Threading;
+using PixelStacker.Logic.WIP;
 
 namespace PixelStacker.UI
 {
@@ -63,9 +62,9 @@ namespace PixelStacker.UI
                 bool isSide = Options.Get.IsSideView;
                 double origW = blueprint.Width;
                 double origH = blueprint.Height;
-                int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
-                int h = (int)(origH * MainForm.PanZoomSettings.zoomLevel);
-                int zoom = (int)(MainForm.PanZoomSettings.zoomLevel);
+                int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
+                int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
+                int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
 
 
                 SolidBrush brush = new SolidBrush(Color.Black);
@@ -170,7 +169,7 @@ namespace PixelStacker.UI
             else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
             else CalculatedTextureSize = 4;
 
-            while(CalculatedTextureSize * image.Width > 22000 || CalculatedTextureSize * image.Height > 22000)
+            while (CalculatedTextureSize * image.Width > 22000 || CalculatedTextureSize * image.Height > 22000)
             {
                 if (CalculatedTextureSize <= 1)
                 {
@@ -243,17 +242,17 @@ namespace PixelStacker.UI
                 int mWidth = src.Mapper.GetXLength(isv);
                 int mHeight = isv ? src.Mapper.GetYLength(isv) : src.Mapper.GetZLength(isv);
 
-                double wRatio = (double)Width / mWidth;
-                double hRatio = (double)Height / mHeight;
+                double wRatio = (double) Width / mWidth;
+                double hRatio = (double) Height / mHeight;
                 if (hRatio < wRatio)
                 {
                     settings.zoomLevel = hRatio;
-                    settings.imageX = (Width - (int)(mWidth * hRatio)) / 2;
+                    settings.imageX = (Width - (int) (mWidth * hRatio)) / 2;
                 }
                 else
                 {
                     settings.zoomLevel = wRatio;
-                    settings.imageY = (Height - (int)(mHeight * wRatio)) / 2;
+                    settings.imageY = (Height - (int) (mHeight * wRatio)) / 2;
                 }
 
                 int numICareAbout = Math.Max(mWidth, mHeight);
@@ -315,7 +314,7 @@ namespace PixelStacker.UI
                                 using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), blockWidth))
                                 {
                                     penWE.Alignment = PenAlignment.Inset;
-                                    g.DrawRectangle(penWE, pp2.X, pp2.Y, (int)(bm.Width) - indexShift, (int)(bm.Height) - indexShift);
+                                    g.DrawRectangle(penWE, pp2.X, pp2.Y, (int) (bm.Width) - indexShift, (int) (bm.Height) - indexShift);
                                 }
                             }
 
@@ -420,9 +419,9 @@ namespace PixelStacker.UI
                 bool isSide = Options.Get.IsSideView;
                 double origW = this.image.Width;
                 double origH = this.image.Height;
-                int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
-                int h = (int)(origH * MainForm.PanZoomSettings.zoomLevel);
-                int zoom = (int)(MainForm.PanZoomSettings.zoomLevel);
+                int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
+                int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
+                int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
 
                 if (MainForm.PanZoomSettings.zoomLevel < 1.0D)
                 {
@@ -507,7 +506,7 @@ namespace PixelStacker.UI
                     using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), zoom))
                     {
                         penWE.Alignment = PenAlignment.Inset;
-                        g.DrawRectangle(penWE, pp2.X, pp2.Y, (int)(this.image.Width * MainForm.PanZoomSettings.zoomLevel), (int)(this.image.Height * MainForm.PanZoomSettings.zoomLevel));
+                        g.DrawRectangle(penWE, pp2.X, pp2.Y, (int) (this.image.Width * MainForm.PanZoomSettings.zoomLevel), (int) (this.image.Height * MainForm.PanZoomSettings.zoomLevel));
                     }
                 }
 
@@ -545,8 +544,8 @@ namespace PixelStacker.UI
                     MainForm.PanZoomSettings.zoomLevel *= 1.2;
                 }
                 this.restrictZoom();
-                MainForm.PanZoomSettings.imageX = ((int)Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));
-                MainForm.PanZoomSettings.imageY = ((int)Math.Round(panelPoint.Y - imagePoint.Y * MainForm.PanZoomSettings.zoomLevel));
+                MainForm.PanZoomSettings.imageX = ((int) Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));
+                MainForm.PanZoomSettings.imageY = ((int) Math.Round(panelPoint.Y - imagePoint.Y * MainForm.PanZoomSettings.zoomLevel));
                 this.Refresh();
             }
         }
@@ -586,18 +585,18 @@ namespace PixelStacker.UI
         {
             if (prop == EstimateProp.Ceil)
             {
-                return new Point((int)Math.Ceiling((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Ceiling((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+                return new Point((int) Math.Ceiling((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Ceiling((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
             }
             if (prop == EstimateProp.Floor)
             {
-                return new Point((int)Math.Floor((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Floor((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+                return new Point((int) Math.Floor((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Floor((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
             }
-            return new Point((int)Math.Round((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Round((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+            return new Point((int) Math.Round((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Round((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
         }
 
         public Point getPointOnPanel(Point pointOnImage)
         {
-            return new Point((int)Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int)Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
+            return new Point((int) Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int) Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
         }
 
         private void restrictZoom()
@@ -623,7 +622,7 @@ namespace PixelStacker.UI
         private void drawGrid(Graphics g, int gridSize, Color c)
         {
             int numHorizBlocks = (this.image.Width / gridSize);
-            int numVertBlocks = (this.image.Height / gridSize); 
+            int numVertBlocks = (this.image.Height / gridSize);
             Pen p = new Pen(c, gridSize == 1 ? 2 : GetGridWidth());
             g.DrawLine(p, MainForm.PanZoomSettings.imageX, MainForm.PanZoomSettings.imageY, MainForm.PanZoomSettings.imageX, getRoundedZoomDistance(MainForm.PanZoomSettings.imageY, this.image.Height));
             g.DrawLine(p, MainForm.PanZoomSettings.imageX, getRoundedZoomDistance(MainForm.PanZoomSettings.imageY, this.image.Height), getRoundedZoomDistance(MainForm.PanZoomSettings.imageX, this.image.Width), getRoundedZoomDistance(MainForm.PanZoomSettings.imageY, this.image.Height));
@@ -651,25 +650,25 @@ namespace PixelStacker.UI
         private Point getShowingEnd(double origW, double origH)
         {
             Point showingEnd = getPointOnImage(new Point(Width, Height), EstimateProp.Ceil);
-            showingEnd.X = (showingEnd.X > origW ? (int)origW : showingEnd.X);
-            showingEnd.Y = (showingEnd.Y > origH ? (int)origH : showingEnd.Y);
+            showingEnd.X = (showingEnd.X > origW ? (int) origW : showingEnd.X);
+            showingEnd.Y = (showingEnd.Y > origH ? (int) origH : showingEnd.Y);
             return showingEnd;
         }
 
 
         private int getRoundedZoomDistance(int x, int deltaX)
         {
-            return (int)Math.Round(x + deltaX * MainForm.PanZoomSettings.zoomLevel);
+            return (int) Math.Round(x + deltaX * MainForm.PanZoomSettings.zoomLevel);
         }
 
         private int getRoundedZoomX(int val, int blockSize)
         {
-            return (int)Math.Floor(MainForm.PanZoomSettings.imageX + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
+            return (int) Math.Floor(MainForm.PanZoomSettings.imageX + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
         private int getRoundedZoomY(int val, int blockSize)
         {
-            return (int)Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
+            return (int) Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
         public enum EstimateProp
@@ -683,7 +682,7 @@ namespace PixelStacker.UI
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    RenderedImagePanel panel = (RenderedImagePanel)sender;
+                    RenderedImagePanel panel = (RenderedImagePanel) sender;
                     Point loc = getPointOnImage(e.Location, EstimateProp.Floor);
                     image.WorldEditOrigin = loc;
                     Refresh();
@@ -714,7 +713,7 @@ namespace PixelStacker.UI
                             Refresh();
                             return;
                         }
-                    } 
+                    }
                 }
 
                 this.gridMaskClip = newGridMaskClip;
@@ -722,8 +721,13 @@ namespace PixelStacker.UI
             }
             else if (e.Button == MouseButtons.Right)
             {
-                RenderedImagePanel panel = (RenderedImagePanel)sender;
+                // A color used for matching can be different for
                 Point loc = getPointOnImage(e.Location, EstimateProp.Floor);
+                Color cFromPreRender = MainForm.Self.PreRenderedImage.GetPixelSafely(loc.X, loc.Y);
+                Color cFromBlueprint = this.image.GetColor(loc.X, loc.Y);
+
+
+                #region Coordinates (XYZ)
                 if (Options.Get.IsSideView)
                 {
                     this.ts_xyz.Text = $"XYZ : ({loc.X}, {(this.image.Mapper.GetYLength(true) - loc.Y)}, *)";
@@ -732,159 +736,108 @@ namespace PixelStacker.UI
                 {
                     this.ts_xyz.Text = $"XYZ : ({loc.X}, *, {loc.Y})";
                 }
+                #endregion
+
+                #region Material name
                 Material[] ms = this.image.Mapper.GetMaterialsAt(loc.X, loc.Y);
                 this.ts_MaterialName.Text = $"Materials: \r\n{string.Join("\r\n", ms.Select(x => x.GetBlockNameAndData(true)))}";
+                #endregion
 
-                Color cMatch = MainForm.Self.PreRenderedImage.GetPixelSafely(loc.X, loc.Y);
-                Color cCurrent = this.image.GetColor(loc.X, loc.Y);
-                this.averageColorCodeToolStripMenuItem.Text = "AvgColor: #" + cCurrent.R.ToString("X2") + cCurrent.G.ToString("X2") + cCurrent.B.ToString("X2");
-                this.rGBAToolStripMenuItem.Text = $"RGBA: ({cCurrent.R}, {cCurrent.G}, {cCurrent.B}, {cCurrent.A})";
+                #region Average color
+                this.averageColorCodeToolStripMenuItem.Text = "AvgColor: #" + cFromBlueprint.R.ToString("X2") + cFromBlueprint.G.ToString("X2") + cFromBlueprint.B.ToString("X2");
+                this.rGBAToolStripMenuItem.Text = $"RGBA: ({cFromBlueprint.R}, {cFromBlueprint.G}, {cFromBlueprint.B}, {cFromBlueprint.A})";
+                #endregion
+
+                #region Replacements list
+                List<Color> matches = Materials.FindBestMatches(Materials.ColorMap.Keys.ToList(), cFromPreRender, Math.Min(Materials.ColorMap.Keys.Count, 30));
+                this.replaceMenuItems_1.DropDownItems.Clear();
+                this.replaceMenuItems_2.DropDownItems.Clear();
+                this.replaceMenuItems_3.DropDownItems.Clear();
+                int size = Constants.TextureSize * 4;
+                for (int matchIndex = 0; matchIndex < matches.Count; matchIndex++)
                 {
+                    var match = matches[matchIndex];
 
-                    bool _IsSolidColors = Options.Get.Rendered_IsSolidColors;
-                    bool _IsColorPalette = Options.Get.Rendered_IsColorPalette;
-                    bool _IsMultiLayer = Options.Get.IsMultiLayer;
-                    int _RenderedZIndexToShow = Options.Get.Rendered_RenderedZIndexToShow;
-                    this.replaceColorToolStripMenuItem.DropDownItems.Clear();
-                    List<Color> matches = Materials.FindBestMatches(Materials.ColorMap.Keys.ToList(), cMatch, Math.Min(Materials.ColorMap.Keys.Count, 30));
-                    
+                    if (Materials.ColorMap.TryGetValue(match, out Material[] materials))
 
-                    int size = Constants.TextureSize * 4;
-                    foreach (var match in matches)
                     {
-                        if (Materials.ColorMap.TryGetValue(match, out Material[] materials))
+                        Bitmap exampleThumbnail = new Bitmap(
+                            width: size,
+                            height: size,
+                            format: PixelFormat.Format32bppArgb);
+
+                        using (Graphics g = Graphics.FromImage(exampleThumbnail))
                         {
-                            Bitmap bm = new Bitmap(
-                                width: size,
-                                height: size,
-                                format: PixelFormat.Format32bppArgb);
-                            using (Graphics g = Graphics.FromImage(bm))
+                            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+
+                            for (int z = 0; z < materials.Length; z++)
                             {
-                                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
-                                for (int z = 0; z < materials.Length; z++)
-                                {
-                                    var mat = materials[z];
-                                    var matPic = mat.getImage(Options.Get.IsSideView);
-                                    g.DrawImage(matPic, 0, 0, size, size);
-                                }
-
-                                this.replaceColorToolStripMenuItem.DropDownItems.Add(
-                                new ToolStripMenuItem(match.Name, bm, (object ttsender, EventArgs evtArgs) =>
-                                {
-                                    var toolstripSender = ttsender as ToolStripMenuItem;
-
-
-                                        #region REPLACE UPDATE
-                                        bool isv = true;
-                                        int mWidth = this.image.Mapper.GetXLength(isv);
-                                        int mHeight = isv ? this.image.Mapper.GetYLength(isv) : this.image.Mapper.GetZLength(isv);
-                                        int mDepth = isv ? this.image.Mapper.GetZLength(isv) : this.image.Mapper.GetYLength(isv);
-                                        bool isSelectiveLayerViewEnabled = Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false);
-
-                                        using (Graphics gImg = Graphics.FromImage(this.renderedImage))
-                                        {
-                                            gImg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                                            gImg.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                                            gImg.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
-                                            bool isSide = Options.Get.IsSideView;
-
-                                            using (SolidBrush brush = new SolidBrush(Color.Black))
-                                            {
-                                                using (Pen pen = new Pen(brush))
-                                                {
-                                                    for (int x = 0; x < mWidth; x++)
-                                                    {
-                                                        for (int y = 0; y < mHeight; y++)
-                                                        {
-                                                            Color cReplace = Color.FromArgb(image.BlocksMap[x, y]);
-                                                            if (cReplace == cCurrent)
-                                                            {
-                                                                image.BlocksMap[x, y] = match.ToArgb();
-                                                            }
-                                                            else
-                                                            {
-                                                                continue;
-                                                            }
-
-                                                            for (int z = 0; z < mDepth; z++)
-                                                            {
-                                                                if (isSelectiveLayerViewEnabled)
-                                                                {
-                                                                    if (z != _RenderedZIndexToShow)
-                                                                    {
-                                                                        continue;
-                                                                    }
-                                                                }
-
-
-                                                                int xi = x * CalculatedTextureSize;
-                                                                int yi = y * CalculatedTextureSize;
-                                                                if (xi + MainForm.PanZoomSettings.zoomLevel >= 0 && yi + MainForm.PanZoomSettings.zoomLevel >= 0)
-                                                                {
-
-                                                                    Material m = this.image.Mapper.GetMaterialAt(isv, x, y, z);
-
-                                                                    if (m.BlockID != 0)
-                                                                    {
-                                                                        if (_IsSolidColors)
-                                                                        {
-                                                                            brush.Color = this.image.GetColor(x, y);
-                                                                            gImg.FillRectangle(brush, xi, yi, CalculatedTextureSize, CalculatedTextureSize);
-                                                                        }
-                                                                        else if (_IsColorPalette)
-                                                                        {
-                                                                            brush.Color = this.image.GetColor(x, y);
-                                                                            gImg.DrawImage(m.getImage(isSide), xi, yi, CalculatedTextureSize, CalculatedTextureSize);
-                                                                            gImg.FillRectangle(brush, xi, yi, CalculatedTextureSize / 2, CalculatedTextureSize / 2);
-                                                                            brush.Color = Color.Black;
-                                                                            gImg.DrawRectangle(pen, xi, yi, CalculatedTextureSize / 2, CalculatedTextureSize / 2);
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            gImg.DrawImage(m.getImage(isSide), xi, yi, CalculatedTextureSize, CalculatedTextureSize);
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        Refresh();
-                                        #endregion
-                                        //// TODO: Make it so we quick replace patches instead of redoing the entire thing
-                                        //for (int x = 0; x < image.BlocksMap.GetLength(0); x++)
-                                        //{
-                                        //    for (int y = 0; y < image.BlocksMap.GetLength(1); y++)
-                                        //    {
-                                        //        Color cReplace = Color.FromArgb(image.BlocksMap[x, y]);
-                                        //        if (cReplace == cCurrent)
-                                        //        {
-                                        //            image.BlocksMap[x, y] = match.ToArgb();
-                                        //        }
-                                        //    }
-                                        //}
-                                        //ForceReRender();
-                                    })
-                                {
-                                    AutoSize = true,
-                                    ImageScaling = ToolStripItemImageScaling.None
-                                });
+                                var mat = materials[z];
+                                var matPic = mat.getImage(Options.Get.IsSideView);
+                                g.DrawImage(matPic, 0, 0, size, size);
                             }
+
+                            var menuToAddTo = matchIndex < 10 ? this.replaceMenuItems_1
+                                    : matchIndex < 20 ? this.replaceMenuItems_2
+                                    : this.replaceMenuItems_3
+                                    ;
+
+
+
+                            menuToAddTo.DropDownItems.Add(
+                            new ToolStripMenuItem(match.Name, exampleThumbnail, (object ttsender, EventArgs evtArgs) =>
+                            {
+                                this.ReplaceMaterialWithMaterial(cFromBlueprint, match);
+                            })
+                            {
+                                AutoSize = true,
+                                ImageScaling = ToolStripItemImageScaling.None
+                            });
                         }
                     }
                 }
 
+                #endregion
 
                 this.contextMenu.Show(Cursor.Position);
             }
         }
-    }
 
+        private void ReplaceMaterialWithMaterial(Color before, Color after)
+        {
+            bool isv = true;
+            int mWidth = this.image.Mapper.GetXLength(isv);
+            int mHeight = isv ? this.image.Mapper.GetYLength(isv) : this.image.Mapper.GetZLength(isv);
+            int mDepth = isv ? this.image.Mapper.GetZLength(isv) : this.image.Mapper.GetYLength(isv);
+            bool isSelectiveLayerViewEnabled = Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false);
+
+            #region Analyze changes to be made
+            ChangeRecord record = new ChangeRecord()
+            {
+                Before = before,
+                After = after,
+                ChangedPixels = new List<Point>()
+            };
+
+            for (int x = 0; x < mWidth; x++)
+            {
+                for (int y = 0; y < mHeight; y++)
+                {
+                    Color cReplace = Color.FromArgb(image.BlocksMap[x, y]);
+                    if (cReplace == before)
+                    {
+                        record.ChangedPixels.Add(new Point(x, y));
+                    }
+                }
+            }
+            #endregion
+
+            //this.ForceReRender();
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            MainForm.Self.History.AddChange(record);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+        }
+    }
 }

@@ -1,4 +1,6 @@
 ﻿using PixelStacker.Logic;
+using PixelStacker.Logic.WIP;
+using PixelStacker.PreRender.Extensions;
 using PixelStacker.Properties;
 using PixelStacker.UI;
 using SimplePaletteQuantizer;
@@ -19,13 +21,14 @@ namespace PixelStacker
     public partial class MainForm : Form
     {
         public static MainForm Self;
-        public Bitmap LoadedImage { get; private set; } = Resources.hyrule_midna_link.To32bppBitmap();
+        public Bitmap LoadedImage { get; private set; } = Resources.test.To32bppBitmap();
         public Bitmap PreRenderedImage { get; set; } = null;
         public BlueprintPA LoadedBlueprint { get; private set; }
         private string loadedImageFilePath { get; set; }
         private MaterialOptionsWindow MaterialOptions { get; set; } = null;
         public static PanZoomSettings PanZoomSettings { get; set; } = null;
         private ColorPaletteStyle SelectedColorPaletteStyle { get; set; } = ColorPaletteStyle.DetailedGrid;
+        public EditHistory History { get; set; }
 
         public MainForm()
         {
@@ -33,6 +36,8 @@ namespace PixelStacker
             InitializeComponent();
             this.imagePanelMain.SetImage(LoadedImage);
             this.Text = this.Text + " v" + Constants.Version;
+            this.History = new EditHistory(this);
+
             if (!Constants.IsFullVersion)
             {
                 togglePaletteToolStripMenuItem.Visible = false;
@@ -82,6 +87,7 @@ namespace PixelStacker
             this.imagePanelMain.SetImage(this.LoadedImage);
             this.PreRenderedImage.DisposeSafely();
             this.PreRenderedImage = null;
+            this.History.Clear();
             ShowImagePanel();
         }
 
@@ -91,6 +97,7 @@ namespace PixelStacker
             {
                 this.PreRenderedImage.DisposeSafely();
                 this.PreRenderedImage = null;
+                this.History.Clear();
             }
 
             if (this.PreRenderedImage == null)
@@ -142,12 +149,8 @@ namespace PixelStacker
                     // We can simplify this so that we cut total color counts down massively.
                     srcImage.ToEditStream(cancelToken, (int x, int y, Color c) =>
                     {
-                        int a, r, b, g = 0;
-                        a = (c.A < 32) ? 0 : 255;
-                        r = (int)Math.Round(Convert.ToDouble(c.R) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
-                        g = (int)Math.Round(Convert.ToDouble(c.G) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
-                        b = (int)Math.Round(Convert.ToDouble(c.B) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
-                        return Color.FromArgb(a, r, g, b);
+                        int a = (c.A < 32) ? 0 : 255;
+                        return Color.FromArgb(a, c.Normalize());
                     });
 
                     img = srcImage;
@@ -562,6 +565,20 @@ namespace PixelStacker
 
             this.SelectedColorPaletteStyle = ColorPaletteStyle.DetailedGrid;
             this.openSaveForColorPalettes(3);
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            this.History.UndoChange();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            this.History.RedoChange();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
     }
 }
