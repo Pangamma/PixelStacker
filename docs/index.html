@@ -9,6 +9,14 @@
     <meta name="author" content="Taylor A Love"/>
     <meta property="og:image" content="https://taylorlove.info/pixelstacker/assets/img/feature_05.png" />
     <link rel="image_src" href="https://taylorlove.info/pixelstacker/assets/img/feature_05.png" />
+    <script type="text/JavaScript">
+      if (window.location.host !== "taylorlove.info") {
+	// I am reverse proxying from my own server for SEO reasons. Also for some reason the nginx proxy
+	// fails to preserve my site's URL unless there is a trailing slash. Gave up trying to figure out
+	// a 100% proper proxy with nginX, so came up with this work-around. It works decently enough.
+        window.location.href = "https://taylorlove.info/pixelstacker/";
+      }
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Meta additions -->
 
@@ -18,14 +26,6 @@
     <link rel="stylesheet" href="./assets/css/typography.css" />
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/data-js-href.js"></script>
-    <script type="text/JavaScript">
-      if (window.location.host !== "taylorlove.info") {
-	// I am reverse proxying from my own server for SEO reasons. Also for some reason the nginx proxy
-	// fails to preserve my site's URL unless there is a trailing slash. Gave up trying to figure out
-	// a 100% proper proxy with nginX, so came up with this work-around. It works decently enough.
-        window.location.href = "https://taylorlove.info/pixelstacker/";
-      }
-    </script>
   </head>
   <body>
     <!-- Accessibility requirement -->
