@@ -114,10 +114,10 @@ namespace PixelStacker.Logic.WIP
 
         private void SetMenuButtonStates()
         {
-            MainForm.Self.InvokeEx(() => {
-                this.mf.redoToolStripMenuItem.Enabled = this.IsRedoEnabled;
-                this.mf.undoToolStripMenuItem.Enabled = this.IsUndoEnabled;
-                this.mf.editToolStripMenuItem.Enabled = this.IsRedoEnabled || this.IsUndoEnabled;
+            this.mf.InvokeEx((_mfi) => {
+                _mfi.redoToolStripMenuItem.Enabled = this.IsRedoEnabled;
+                _mfi.undoToolStripMenuItem.Enabled = this.IsUndoEnabled;
+                _mfi.editToolStripMenuItem.Enabled = this.IsRedoEnabled || this.IsUndoEnabled;
             });
         }
     }
