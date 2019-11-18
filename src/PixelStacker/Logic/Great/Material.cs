@@ -1,4 +1,5 @@
 ﻿using ColorMine.ColorSpaces;
+using PixelStacker.PreRender.Extensions;
 using PixelStacker.Properties;
 using System;
 using System.Collections.Generic;
@@ -149,11 +150,7 @@ namespace PixelStacker.Logic
             b /= total;
             a /= total;
 
-            r = (int)Math.Round(Convert.ToDouble(r) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
-            g = (int)Math.Round(Convert.ToDouble(g) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
-            b = (int)Math.Round(Convert.ToDouble(b) / Constants.ColorFragmentSize, 0) * Constants.ColorFragmentSize;
-
-            return Color.FromArgb((int)a, (int)r, (int)g, (int)b);
+            return Color.FromArgb((int)a, (int)r, (int)g, (int)b).Normalize();
         }
 
         public override string ToString()

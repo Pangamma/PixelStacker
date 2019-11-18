@@ -108,6 +108,7 @@
     <Compile Include="Logic\ProgressReport.cs" />
     <Compile Include="Logic\ResourceLock.cs" />
     <Compile Include="Logic\SchematicFormatter.cs" />
+    <Compile Include="Logic\WIP\EditHistory.cs" />
     <Compile Include="PreRender\ColorCaches\BaseColorCache.cs" />
     <Compile Include="PreRender\ColorCaches\Common\ColorModel.cs" />
     <Compile Include="PreRender\ColorCaches\EuclideanDistance\EuclideanDistanceColorCache.cs" />
@@ -341,6 +342,7 @@
     <Content Include="ILMergeOrder.txt" />
     <None Include="Resources\Images\pixelart\pink-girl.png" />
     <Content Include="logo.ico" />
+    <None Include="Resources\Images\pixelart\test.png" />
     <Content Include="Resources\Images\pixelart\birdshark.png" />
     <None Include="Resources\Images\UI\pixelstackerlogo.png" />
     <None Include="Resources\Images\UI\pixelstackerlogo_400x400.png" />
