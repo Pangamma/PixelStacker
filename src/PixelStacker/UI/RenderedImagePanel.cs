@@ -721,11 +721,9 @@ namespace PixelStacker.UI
             }
             else if (e.Button == MouseButtons.Right)
             {
-                // A color used for matching can be different for
                 Point loc = getPointOnImage(e.Location, EstimateProp.Floor);
                 Color cFromPreRender = MainForm.Self.PreRenderedImage.GetPixelSafely(loc.X, loc.Y);
                 Color cFromBlueprint = this.image.GetColor(loc.X, loc.Y);
-
 
                 #region Coordinates (XYZ)
                 if (Options.Get.IsSideView)
@@ -834,7 +832,6 @@ namespace PixelStacker.UI
             }
             #endregion
 
-            //this.ForceReRender();
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             MainForm.Self.History.AddChange(record);
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
