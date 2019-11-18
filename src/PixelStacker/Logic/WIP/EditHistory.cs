@@ -54,8 +54,7 @@ namespace PixelStacker.Logic.WIP
         {
             this.HistoryFuture.Clear();
             this.HistoryPast.Clear();
-            this.mf.redoToolStripMenuItem.Enabled = false;
-            this.mf.undoToolStripMenuItem.Enabled = false;
+            this.SetMenuButtonStates();
         }
 
         public async Task AddChange(ChangeRecord record)
@@ -115,9 +114,11 @@ namespace PixelStacker.Logic.WIP
 
         private void SetMenuButtonStates()
         {
-            this.mf.redoToolStripMenuItem.Enabled = this.IsRedoEnabled;
-            this.mf.undoToolStripMenuItem.Enabled = this.IsUndoEnabled;
-            this.mf.editToolStripMenuItem.Enabled = this.IsRedoEnabled || this.IsUndoEnabled;
+            MainForm.Self.InvokeEx(() => {
+                this.mf.redoToolStripMenuItem.Enabled = this.IsRedoEnabled;
+                this.mf.undoToolStripMenuItem.Enabled = this.IsUndoEnabled;
+                this.mf.editToolStripMenuItem.Enabled = this.IsRedoEnabled || this.IsUndoEnabled;
+            });
         }
     }
 }
