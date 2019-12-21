@@ -11,7 +11,7 @@ namespace PixelStacker.Logic
     public class Options
     {
         public UpdateSettings UpdateSettings { get; set; } = new UpdateSettings();
-        public Dictionary<string,bool> EnableStates { get; set; } = new Dictionary<string, bool>();
+        public Dictionary<string, bool> EnableStates { get; set; } = new Dictionary<string, bool>();
         public Dictionary<string, string> CustomValues { get; set; } = new Dictionary<string, string>();
         public bool IsMultiLayer { get; set; } = true;
         public bool IsSideView { get; set; } = false;
@@ -68,7 +68,7 @@ namespace PixelStacker.Logic
         public static Options Get
         {
             get
-            { 
+            {
                 if (_self == null)
                 {
                     Properties.Settings.Default.Upgrade();

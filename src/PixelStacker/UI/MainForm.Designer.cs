@@ -38,6 +38,7 @@
             this.saveColorPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allPossibilitiescompactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allColorsdetailedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +74,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
@@ -81,7 +83,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(584, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(779, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -95,14 +97,14 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -111,7 +113,7 @@
             this.reOpenToolStripMenuItem.Enabled = false;
             this.reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
             this.reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.reOpenToolStripMenuItem.Text = "Re-Open";
             this.reOpenToolStripMenuItem.Click += new System.EventHandler(this.reOpenToolStripMenuItem_Click);
             // 
@@ -120,7 +122,7 @@
             this.exportSchematicToolStripMenuItem.Enabled = false;
             this.exportSchematicToolStripMenuItem.Name = "exportSchematicToolStripMenuItem";
             this.exportSchematicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exportSchematicToolStripMenuItem.Text = "Save";
             this.exportSchematicToolStripMenuItem.Click += new System.EventHandler(this.saveMenuClick);
             // 
@@ -129,12 +131,13 @@
             this.saveColorPaletteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.graphToolStripMenuItem,
             this.brickToolStripMenuItem,
+            this.squareToolStripMenuItem,
             this.allPossibilitiescompactToolStripMenuItem,
             this.allColorsdetailedToolStripMenuItem});
             this.saveColorPaletteToolStripMenuItem.Enabled = false;
             this.saveColorPaletteToolStripMenuItem.Name = "saveColorPaletteToolStripMenuItem";
             this.saveColorPaletteToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveColorPaletteToolStripMenuItem.Text = "Save color palette";
             // 
             // graphToolStripMenuItem
@@ -142,7 +145,7 @@
             this.graphToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_graph;
             this.graphToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
-            this.graphToolStripMenuItem.Size = new System.Drawing.Size(229, 62);
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(270, 62);
             this.graphToolStripMenuItem.Text = "Graph";
             this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
             // 
@@ -151,16 +154,26 @@
             this.brickToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_brick;
             this.brickToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.brickToolStripMenuItem.Name = "brickToolStripMenuItem";
-            this.brickToolStripMenuItem.Size = new System.Drawing.Size(229, 62);
+            this.brickToolStripMenuItem.Size = new System.Drawing.Size(270, 62);
             this.brickToolStripMenuItem.Text = "Brick";
             this.brickToolStripMenuItem.Click += new System.EventHandler(this.brickToolStripMenuItem_Click);
+            // 
+            // squareToolStripMenuItem
+            // 
+            this.squareToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_square;
+            this.squareToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.squareToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.squareToolStripMenuItem.Name = "squareToolStripMenuItem";
+            this.squareToolStripMenuItem.Size = new System.Drawing.Size(270, 62);
+            this.squareToolStripMenuItem.Text = "Square";
+            this.squareToolStripMenuItem.Click += new System.EventHandler(this.squareToolStripMenuItem_Click);
             // 
             // allPossibilitiescompactToolStripMenuItem
             // 
             this.allPossibilitiescompactToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_grid;
             this.allPossibilitiescompactToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.allPossibilitiescompactToolStripMenuItem.Name = "allPossibilitiescompactToolStripMenuItem";
-            this.allPossibilitiescompactToolStripMenuItem.Size = new System.Drawing.Size(229, 62);
+            this.allPossibilitiescompactToolStripMenuItem.Size = new System.Drawing.Size(270, 62);
             this.allPossibilitiescompactToolStripMenuItem.Text = "All colors (compact)";
             this.allPossibilitiescompactToolStripMenuItem.Click += new System.EventHandler(this.allPossibilitiescompactToolStripMenuItem_Click);
             // 
@@ -169,7 +182,7 @@
             this.allColorsdetailedToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_detailed_grid;
             this.allColorsdetailedToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.allColorsdetailedToolStripMenuItem.Name = "allColorsdetailedToolStripMenuItem";
-            this.allColorsdetailedToolStripMenuItem.Size = new System.Drawing.Size(229, 62);
+            this.allColorsdetailedToolStripMenuItem.Size = new System.Drawing.Size(270, 62);
             this.allColorsdetailedToolStripMenuItem.Text = "All colors (detailed)";
             this.allColorsdetailedToolStripMenuItem.Click += new System.EventHandler(this.allColorsdetailedToolStripMenuItem_Click);
             // 
@@ -179,14 +192,14 @@
             this.undoToolStripMenuItem,
             this.redoToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
@@ -194,7 +207,7 @@
             // 
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
             this.redoToolStripMenuItem.Text = "Redo";
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
@@ -208,7 +221,7 @@
             this.toggleProgressToolStripMenuItem,
             this.layerFilteringToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // toggleGridToolStripMenuItem
@@ -216,7 +229,7 @@
             this.toggleGridToolStripMenuItem.Enabled = false;
             this.toggleGridToolStripMenuItem.Name = "toggleGridToolStripMenuItem";
             this.toggleGridToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
             this.toggleGridToolStripMenuItem.Text = "Toggle Grid";
             this.toggleGridToolStripMenuItem.Click += new System.EventHandler(this.toggleGridToolStripMenuItem_Click);
             // 
@@ -225,7 +238,7 @@
             this.toggleSolidColorsToolStripMenuItem.Enabled = false;
             this.toggleSolidColorsToolStripMenuItem.Name = "toggleSolidColorsToolStripMenuItem";
             this.toggleSolidColorsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.toggleSolidColorsToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.toggleSolidColorsToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
             this.toggleSolidColorsToolStripMenuItem.Text = "Toggle Hide Texture";
             this.toggleSolidColorsToolStripMenuItem.Click += new System.EventHandler(this.toggleSolidColorsToolStripMenuItem_Click);
             // 
@@ -234,7 +247,7 @@
             this.toggleBorderToolStripMenuItem.Enabled = false;
             this.toggleBorderToolStripMenuItem.Name = "toggleBorderToolStripMenuItem";
             this.toggleBorderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.toggleBorderToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.toggleBorderToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
             this.toggleBorderToolStripMenuItem.Text = "Toggle Border";
             this.toggleBorderToolStripMenuItem.Click += new System.EventHandler(this.toggleBorderToolStripMenuItem_Click);
             // 
@@ -243,7 +256,7 @@
             this.togglePaletteToolStripMenuItem.Enabled = false;
             this.togglePaletteToolStripMenuItem.Name = "togglePaletteToolStripMenuItem";
             this.togglePaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.togglePaletteToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.togglePaletteToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
             this.togglePaletteToolStripMenuItem.Text = "Toggle Palette";
             this.togglePaletteToolStripMenuItem.Click += new System.EventHandler(this.togglePaletteToolStripMenuItem_Click);
             // 
@@ -252,7 +265,7 @@
             this.toggleProgressToolStripMenuItem.Name = "toggleProgressToolStripMenuItem";
             this.toggleProgressToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.P)));
-            this.toggleProgressToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.toggleProgressToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
             this.toggleProgressToolStripMenuItem.Text = "Toggle Progress";
             this.toggleProgressToolStripMenuItem.Click += new System.EventHandler(this.toggleProgressToolStripMenuItem_Click);
             // 
@@ -264,14 +277,14 @@
             this.down1LayerToolStripMenuItem});
             this.layerFilteringToolStripMenuItem.Enabled = false;
             this.layerFilteringToolStripMenuItem.Name = "layerFilteringToolStripMenuItem";
-            this.layerFilteringToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.layerFilteringToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
             this.layerFilteringToolStripMenuItem.Text = "Layer Filtering";
             // 
             // toggleLayerFilterToolStripMenuItem
             // 
             this.toggleLayerFilterToolStripMenuItem.Name = "toggleLayerFilterToolStripMenuItem";
             this.toggleLayerFilterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.toggleLayerFilterToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.toggleLayerFilterToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.toggleLayerFilterToolStripMenuItem.Text = "Toggle Layer Filter";
             this.toggleLayerFilterToolStripMenuItem.Click += new System.EventHandler(this.toggleLayerFilterToolStripMenuItem_Click);
             // 
@@ -280,7 +293,7 @@
             this.up1LayerToolStripMenuItem.Enabled = false;
             this.up1LayerToolStripMenuItem.Name = "up1LayerToolStripMenuItem";
             this.up1LayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.up1LayerToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.up1LayerToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.up1LayerToolStripMenuItem.Text = "Up 1 Layer";
             this.up1LayerToolStripMenuItem.Click += new System.EventHandler(this.up1LayerToolStripMenuItem_Click);
             // 
@@ -289,7 +302,7 @@
             this.down1LayerToolStripMenuItem.Enabled = false;
             this.down1LayerToolStripMenuItem.Name = "down1LayerToolStripMenuItem";
             this.down1LayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.down1LayerToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.down1LayerToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.down1LayerToolStripMenuItem.Text = "Down 1 Layer";
             this.down1LayerToolStripMenuItem.Click += new System.EventHandler(this.down1LayerToolStripMenuItem_Click);
             // 
@@ -302,14 +315,14 @@
             this.mi_preRender,
             this.previewSchematicToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(275, 26);
             this.optionsToolStripMenuItem.Text = "Material Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -317,7 +330,7 @@
             // 
             this.mi_PreRenderOptions.Name = "mi_PreRenderOptions";
             this.mi_PreRenderOptions.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.mi_PreRenderOptions.Size = new System.Drawing.Size(221, 22);
+            this.mi_PreRenderOptions.Size = new System.Drawing.Size(275, 26);
             this.mi_PreRenderOptions.Text = "Quantizer Options";
             this.mi_PreRenderOptions.Click += new System.EventHandler(this.prerenderOptions_Click);
             // 
@@ -326,7 +339,7 @@
             this.otherOptionsToolStripMenuItem.Name = "otherOptionsToolStripMenuItem";
             this.otherOptionsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.E)));
-            this.otherOptionsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.otherOptionsToolStripMenuItem.Size = new System.Drawing.Size(275, 26);
             this.otherOptionsToolStripMenuItem.Text = "Other Options";
             this.otherOptionsToolStripMenuItem.Click += new System.EventHandler(this.otherOptionsToolStripMenuItem_Click);
             // 
@@ -335,7 +348,7 @@
             this.mi_preRender.Name = "mi_preRender";
             this.mi_preRender.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.R)));
-            this.mi_preRender.Size = new System.Drawing.Size(221, 22);
+            this.mi_preRender.Size = new System.Drawing.Size(275, 26);
             this.mi_preRender.Text = "Pre-Render";
             this.mi_preRender.Visible = false;
             this.mi_preRender.Click += new System.EventHandler(this.mi_preRender_Click);
@@ -344,7 +357,7 @@
             // 
             this.previewSchematicToolStripMenuItem.Name = "previewSchematicToolStripMenuItem";
             this.previewSchematicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.previewSchematicToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.previewSchematicToolStripMenuItem.Size = new System.Drawing.Size(275, 26);
             this.previewSchematicToolStripMenuItem.Text = "Render";
             this.previewSchematicToolStripMenuItem.Click += new System.EventHandler(this.renderSchematicToolStripMenuItem_Click);
             // 
@@ -353,13 +366,13 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -382,9 +395,10 @@
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(0, 398);
+            this.progressBar.Location = new System.Drawing.Point(0, 490);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(584, 27);
+            this.progressBar.Size = new System.Drawing.Size(779, 33);
             this.progressBar.TabIndex = 3;
             // 
             // lblStatus
@@ -393,10 +407,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStatus.AutoSize = true;
             this.lblStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lblStatus.Location = new System.Drawing.Point(12, 403);
-            this.lblStatus.MinimumSize = new System.Drawing.Size(200, 0);
+            this.lblStatus.Location = new System.Drawing.Point(16, 496);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblStatus.MinimumSize = new System.Drawing.Size(267, 0);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(200, 13);
+            this.lblStatus.Size = new System.Drawing.Size(267, 17);
             this.lblStatus.TabIndex = 6;
             // 
             // timer1
@@ -412,9 +427,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.imagePanelMain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imagePanelMain.BackgroundImage")));
             this.imagePanelMain.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.imagePanelMain.Location = new System.Drawing.Point(0, 27);
+            this.imagePanelMain.Location = new System.Drawing.Point(0, 33);
+            this.imagePanelMain.Margin = new System.Windows.Forms.Padding(5);
             this.imagePanelMain.Name = "imagePanelMain";
-            this.imagePanelMain.Size = new System.Drawing.Size(584, 372);
+            this.imagePanelMain.Size = new System.Drawing.Size(779, 458);
             this.imagePanelMain.TabIndex = 1;
             // 
             // renderedImagePanel
@@ -424,17 +440,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.renderedImagePanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("renderedImagePanel.BackgroundImage")));
             this.renderedImagePanel.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.renderedImagePanel.Location = new System.Drawing.Point(0, 27);
+            this.renderedImagePanel.Location = new System.Drawing.Point(0, 33);
+            this.renderedImagePanel.Margin = new System.Windows.Forms.Padding(5);
             this.renderedImagePanel.Name = "renderedImagePanel";
-            this.renderedImagePanel.Size = new System.Drawing.Size(584, 372);
+            this.renderedImagePanel.Size = new System.Drawing.Size(779, 458);
             this.renderedImagePanel.TabIndex = 2;
             this.renderedImagePanel.Visible = false;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 425);
+            this.ClientSize = new System.Drawing.Size(779, 523);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.imagePanelMain);
             this.Controls.Add(this.menuStrip1);
@@ -442,6 +459,7 @@
             this.Controls.Add(this.renderedImagePanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Pangamma\'s PixelStacker";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -492,6 +510,7 @@
         public System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem;
     }
 }
 

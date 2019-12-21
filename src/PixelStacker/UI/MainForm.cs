@@ -345,7 +345,7 @@ namespace PixelStacker
             {
                 SaveFileDialog dlg = (SaveFileDialog)sender;
                 string fName = dlg.FileName;
-                ColorPaletteFormatter.writeBlueprint(fName, this.LoadedBlueprint, SelectedColorPaletteStyle);
+                ColorPaletteFormatter.WriteBlueprint(fName, this.LoadedBlueprint, SelectedColorPaletteStyle);
             }
         }
 
@@ -512,7 +512,7 @@ namespace PixelStacker
         {
             dlgSave.FileOk -= this.dlgSave_FileOk;
             dlgSave.FileOk -= this.dlgSave_FileOk_ColorPalettes;
-            string[] availableExtensions = new string[] { "Color Palette Graph | *.png", "Color Palette Brick|*.png", "Color Palette All (compact)|*.png", "Color Palette All (detailed)|*.png" };
+            string[] availableExtensions = new string[] { "Color Palette Graph | *.png", "Color Palette Brick|*.png", "Color Palette Square | *.png", "Color Palette All (compact)|*.png", "Color Palette All (detailed)|*.png"};
             dlgSave.Filter = availableExtensions[filterIndex];
             dlgSave.FileOk += this.dlgSave_FileOk_ColorPalettes;
             dlgSave.DefaultExt = availableExtensions[filterIndex].Substring(availableExtensions[filterIndex].LastIndexOf("*.") + 2);
@@ -543,6 +543,18 @@ namespace PixelStacker
             this.openSaveForColorPalettes(1);
         }
 
+        private void squareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.LoadedBlueprint == null)
+            {
+                this.saveColorPaletteToolStripMenuItem.Enabled = false;
+                return;
+            }
+
+            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactSquare;
+            this.openSaveForColorPalettes(2);
+        }
+
         private void allPossibilitiescompactToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.LoadedBlueprint == null)
@@ -552,7 +564,7 @@ namespace PixelStacker
             }
 
             this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactGrid;
-            this.openSaveForColorPalettes(2);
+            this.openSaveForColorPalettes(3);
         }
 
         private void allColorsdetailedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -564,8 +576,9 @@ namespace PixelStacker
             }
 
             this.SelectedColorPaletteStyle = ColorPaletteStyle.DetailedGrid;
-            this.openSaveForColorPalettes(3);
+            this.openSaveForColorPalettes(4);
         }
+
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {

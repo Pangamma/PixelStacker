@@ -255,6 +255,12 @@
     <Compile Include="UI\MaterialOptionsWindow.Designer.cs">
       <DependentUpon>MaterialOptionsWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\PictureFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\PictureFrame.Designer.cs">
+      <DependentUpon>PictureFrame.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\PreRenderOptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -313,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OtherOptionsWindow.resx">
       <DependentUpon>OtherOptionsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PictureFrame.resx">
+      <DependentUpon>PictureFrame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PreRenderOptionsForm.resx">
       <DependentUpon>PreRenderOptionsForm.cs</DependentUpon>
@@ -551,6 +560,7 @@
     <Content Include="Resources\Images\UI\feature_palette_compact_brick.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_graph.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_grid.png" />
+    <None Include="Resources\Images\UI\feature_palette_compact_square.png" />
     <Content Include="Resources\Images\UI\feature_palette_detailed_grid.png" />
     <Content Include="wool.ico" />
     <None Include="Resources\Images\UI\pixelstackerlogo.pdn" />

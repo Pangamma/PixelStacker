@@ -7,7 +7,7 @@ namespace PixelStacker.Logic.Great
     public class Grouping<TKey, TElement> : IGrouping<TKey, TElement>
     {
 
-        readonly List<TElement> elements;
+        public List<TElement> elements { get; private set; }
         public TKey Key { get; private set; }
 
         public Grouping(TKey key, List<TElement> elements)
@@ -15,7 +15,6 @@ namespace PixelStacker.Logic.Great
             this.Key = key;
             this.elements = elements;
         }
-
 
         public IEnumerator<TElement> GetEnumerator()
         {
@@ -25,6 +24,11 @@ namespace PixelStacker.Logic.Great
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.elements.GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            return $"Count: {this.elements.Count}, Key: {this.Key}";
         }
     }
 }

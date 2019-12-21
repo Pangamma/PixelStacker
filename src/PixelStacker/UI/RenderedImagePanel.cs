@@ -265,18 +265,7 @@ namespace PixelStacker.UI
                 MainForm.PanZoomSettings = settings;
             }
 
-            //renderedImage.DisposeSafely();
-            //renderedImage = null;
             Refresh();
-
-            //var rndrWorker = BackgroundWorkerHelper.CreateWorker("RenderedImagePanel_RenderBitmap", 
-            //    (object sender, DoWorkEventArgs workArgs) => {
-            //        var worker = sender as BackgroundWorker;
-            //        RenderBitmap(worker);
-            //    }, (object sender, RunWorkerCompletedEventArgs args) => {
-            //        Refresh();
-            //    });
-
         }
 
         public void SaveToPNG(string filename)

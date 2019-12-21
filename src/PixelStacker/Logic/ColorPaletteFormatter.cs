@@ -10,8 +10,10 @@ using System.Linq;
 namespace PixelStacker.Logic
 {
     public enum ColorPaletteStyle
+
     {
         CompactBrick,
+        CompactSquare,
         CompactGraph,
         CompactGrid,
         DetailedGrid,
@@ -19,29 +21,184 @@ namespace PixelStacker.Logic
 
     class ColorPaletteFormatter
     {
-        public static void writeBlueprint(string filePath, BlueprintPA blueprint, ColorPaletteStyle style)
+        public static void WriteBlueprint(string filePath, BlueprintPA blueprint, ColorPaletteStyle style)
         {
             if (ColorPaletteStyle.CompactBrick == style)
             {
-                renderCompactBrick(filePath, blueprint);
+                using (var img = RenderCompactBrick(blueprint))
+                {
+                    img.Save(filePath);
+                }
             }
             else if (ColorPaletteStyle.CompactGraph == style)
             {
-                renderCompactGraph(filePath, blueprint);
+                using (var img = RenderCompactGraph(blueprint, false))
+                {
+                    img.Save(filePath);
+                }
+            }
+            else if (ColorPaletteStyle.CompactSquare == style)
+            {
+                using (var img = RenderCompactGraph(blueprint, true))
+                {
+                    img.Save(filePath);
+                }
             }
             else if (ColorPaletteStyle.DetailedGrid == style)
             {
-                renderDetailedGrid(filePath, blueprint, true);
+                using (var img = RenderDetailedGrid(blueprint, true))
+                {
+                    img.Save(filePath);
+                }
             }
             else if (ColorPaletteStyle.CompactGrid == style)
             {
-                renderDetailedGrid(filePath, blueprint, false);
+                using (var img = RenderDetailedGrid(blueprint, false))
+                {
+                    img.Save(filePath);
+                }
             }
         }
 
 
-        #region render 
-        private static void renderCompactBrick(string filePath, BlueprintPA blueprint)
+        private static List<IGrouping<int, Color>> SplitColors(HashSet<Color> colors)
+        {
+            var bucketGroups = new List<IGrouping<int, Color>>();
+            var buckets = new List<List<Color>>();
+
+            var grayscale = colors
+                .Where(x => x.GetSaturation() <= 0.20 || x.GetBrightness() <= 0.15 || x.GetBrightness() >= 0.85)
+                .OrderBy(x => x.GetBrightness());
+            //var grayscaleDark = grayscale.Where(x => x.GetBrightness() < 0.50).OrderBy(x => x.GetBrightness()).ToList();
+            //var grayscaleLight = grayscale.Where(x => x.GetBrightness() >= 0.50).OrderBy(x => x.GetBrightness()).ToList();
+            var saturated = colors.Except(grayscale).OrderBy(x => x.GetHue()).ToList();
+            var sortedColors = grayscale.Concat(saturated).ToList();
+
+            #region Handle sorted colors
+            {
+                int numHueFragments = (int)Math.Pow(sortedColors.Count, (0.5));
+                int avgHueBucketSize = (int)Math.Ceiling(((double)sortedColors.Count) / numHueFragments);
+                for (int i = 0; i < sortedColors.Count; i += avgHueBucketSize)
+                {
+                    var colorsForThisBucket = sortedColors
+                        .Skip(i)
+                        .Take(avgHueBucketSize)
+                        .OrderBy(x => x.GetBrightness())
+                        .ToList();
+
+                    buckets.Add(colorsForThisBucket);
+                }
+            }
+            #endregion
+
+            #region Handle grayscale
+            //{
+            //    var bucket = new List<Color>();
+
+            //    foreach (Color c in grayscale)
+            //    {
+            //        bucket.Add(c);
+            //        if (bucket.Count >= 10)
+            //        {
+            //            buckets.Add(bucket);
+            //            bucket = new List<Color>();
+            //        }
+            //    }
+
+            //    if (bucket.Count > 0)
+            //    {
+            //        buckets.Add(bucket);
+            //        bucket = new List<Color>();
+            //    }
+
+            //}
+            #endregion
+
+            #region HUE
+            //int numHueFragments = (int)Math.Min(18, Math.Sqrt(saturated.Count));
+            //int avgHueBucketSize = (int)Math.Ceiling(((double)saturated.Count) / numHueFragments);
+            //for (int i = 0; i < saturated.Count; i += avgHueBucketSize)
+            //{
+            //    var colorsForThisBucket = saturated
+            //        .Skip(i)
+            //        .Take(avgHueBucketSize)
+            //        .OrderBy(x => x.GetBrightness())
+            //        .ToList();
+            //    buckets.Add(colorsForThisBucket);
+            //}
+            #endregion
+
+            #region NORMALIZE
+            {
+                //int bucketSize = (int) Math.Ceiling(((double)saturated.Count) / numHueFragments);
+
+                //double numGroups = (buckets.Count() + groupedByHue.Count());
+                //int avgGroupSize = (int)(buckets.Sum(x => x.Count) + groupedByHue.Sum(x => x.Count())) / (buckets.Count() + groupedByHue.Count());
+
+                //int maxDeviationFromAverage = avgGroupSize * 2 / 5;
+                //double maxGroupSize = Math.Max(buckets.Max(x => x.Count), groupedByHue.Max(x => x.Count()));
+                //double minGroupSize = Math.Min(buckets.Min(x => x.Count), groupedByHue.Min(x => x.Count()));
+
+                //var modifiedGroups = new List<List<Color>>();
+                //for (int i = 0; i < buckets.Count; i++)
+                //{
+                //    var bucket = buckets[i];
+
+                //    if (bucket.Count > avgGroupSize + maxDeviationFromAverage)
+                //    {
+                //        var curBucket = new List<Color>(bucket.OrderBy(x => x.GetHue()).Take(avgGroupSize + maxDeviationFromAverage));
+                //        var nextBucket = new List<Color>(bucket.OrderBy(x => x.GetHue()).Skip(avgGroupSize + maxDeviationFromAverage));
+                //        modifiedGroups.Add(curBucket);
+
+                //        // If we have any carry-over digits...
+                //        if (nextBucket.Any())
+                //        {
+                //            if (i + 1 < buckets.Count)
+                //            {
+                //                // Add them to the next bucket if possible
+                //                buckets[i + 1].AddRange(nextBucket);
+                //            }
+                //            else
+                //            {
+                //                // Append to END of list since this would be last bucket.
+                //                // Might end up with a super big list. Maybe. 
+                //                modifiedGroups.Add(nextBucket);
+                //            }
+                //        }
+                //    }
+                //    else
+                //    if (bucket.Count < avgGroupSize - maxDeviationFromAverage)
+                //    {
+                //        if (i + 1 < buckets.Count)
+                //        {
+                //            // Add them to the next bucket if possible
+                //            buckets[i + 1].AddRange(bucket);
+                //        }
+                //        else
+                //        {
+                //            // Append to END of list since this would be last bucket.
+                //            // Might end up with a super big list. Maybe. 
+                //            modifiedGroups.Add(bucket);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        modifiedGroups.Add(bucket);
+                //    }
+                //}
+
+                //int nn = 0;
+                //bucketGroups.Clear();
+                //bucketGroups.AddRange(modifiedGroups.Select(x => new Grouping<int, Color>(nn++, x)));
+            }
+            #endregion
+            int n = 0;
+            bucketGroups.AddRange(buckets.Select(x => new Grouping<int, Color>(n++, x)));
+            return bucketGroups;
+        }
+
+        #region Render 
+        public static Bitmap RenderCompactBrick(BlueprintPA blueprint)
         {
             int blockWidth = 1;
             var colorsInOrder = GetColorsList(blueprint).OrderByColor(c => c).ToList();
@@ -87,18 +244,15 @@ namespace PixelStacker.Logic
 
                     }
 
-                    bm.Save(filePath, ImageFormat.Png);
-                    return;
+                    return bm.To32bppBitmap();
                 }
             }
         }
 
-        private static void renderCompactGraph(string filePath, BlueprintPA blueprint)
+        public static Bitmap RenderCompactGraph(BlueprintPA blueprint, bool isNormalized)
         {
-
             #region Settings
             int blockWidth = 1;
-            int numHueFragments = 18; // How many buckets should we split out color wheel into?
             #endregion
 
             HashSet<Color> colors = GetColorsList(blueprint);
@@ -108,10 +262,17 @@ namespace PixelStacker.Logic
             var grayscaleLight = grayscale.Where(x => x.GetBrightness() >= 0.50).ToList();
             var saturated = colors.Except(grayscale).ToList();
             var allColorBuckets = new List<IGrouping<int, Color>>();
-            allColorBuckets.Add(new Grouping<int, Color>(-2, grayscaleLight));
-            allColorBuckets.Add(new Grouping<int, Color>(-1, grayscaleDark));
-            allColorBuckets.AddRange(saturated.GroupBy(x => ((int)Math.Round(x.GetHue())) / numHueFragments).OrderBy(x => x.Key).ToList());
 
+            if (isNormalized)
+            {
+                allColorBuckets.AddRange(SplitColors(colors));
+            }
+            else
+            {
+                allColorBuckets.Add(new Grouping<int, Color>(-2, grayscaleLight));
+                allColorBuckets.Add(new Grouping<int, Color>(-1, grayscaleDark));
+                allColorBuckets.AddRange(saturated.GroupBy(x => ((int)Math.Round(x.GetHue())) / 18).OrderBy(x => x.Key).ToList());
+            }
 
             int wGraph = allColorBuckets.Count * blockWidth;
             int hGraph = allColorBuckets.Count == 0 ? blockWidth : allColorBuckets.Where(x => x.Any()).Max(x => x.Count()) * blockWidth;
@@ -141,14 +302,13 @@ namespace PixelStacker.Logic
                             xi++;
                         }
                     }
-
-                    bm.Save(filePath, ImageFormat.Png);
-                    return;
+                    
+                    return bm.To32bppBitmap();
                 }
             }
         }
 
-        private static void renderDetailedGrid(string filePath, BlueprintPA blueprint, bool isDetailed)
+        public static Bitmap RenderDetailedGrid(BlueprintPA blueprint, bool isDetailed)
         {
             #region Settings
             bool isImageMode = isDetailed;
@@ -302,12 +462,11 @@ namespace PixelStacker.Logic
                     }
                 }
 
-                bm.Save(filePath, ImageFormat.Png);
-                return;
+                return bm.To32bppBitmap();
             }
         }
 
-        private static void renderDetailedGrid2(string filePath, BlueprintPA blueprint)
+        public static Bitmap RenderDetailedGrid2(BlueprintPA blueprint)
         {
             #region Settings
             int blockWidth = 16;
@@ -409,61 +568,7 @@ namespace PixelStacker.Logic
                     }
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //for (int y = 0; y < numGroups; y++)
-                //{
-                //    int columnOff
-                //    var materialGroup = materialGroups[y].ToList();
-                //    for (int mi = 0; mi < materialGroup.Count; mi++)
-                //    {
-                //        var material = materialGroup[mi];
-                //        var img = material.getImage(isSide);
-                //        for (int x = 0; x < numBlocksPerRow; x++)
-                //        {
-
-
-                //            int xImg = (x + gapOnBorder) * blockWidth;
-                //            int yImg = (mi + gapOnBorder) * blockWidth;
-                //            g.DrawImage(img, xImg, yImg, blockWidth, blockWidth);
-                //        }
-                //    }
-                //}
-
-
-
-
-                //using (SolidBrush brush = new SolidBrush(Color.Transparent))
-                //{
-                //    g.FillRectangle(brush, 0, 0, wGraph, hGraph);
-
-                //    int xi = 0;
-                //    foreach (var bucket in allColorBuckets)
-                //    {
-                //        var sortedBucket = bucket.OrderBy(x => x.GetBrightness());
-                //        for (int yi = 0; yi < sortedBucket.Count(); yi++)
-                //        {
-                //            brush.Color = sortedBucket.ElementAt(yi);
-                //            g.FillRectangle(brush, xi * blockWidth, yi * blockWidth, blockWidth, blockWidth);
-                //        }
-
-                //        xi++;
-                //    }
-                //}
-
-                bm.Save(filePath, ImageFormat.Png);
-                return;
+                return bm.To32bppBitmap();
             }
         }
 
