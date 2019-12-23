@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PixelStacker</RootNamespace>
     <AssemblyName>PixelStacker</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
@@ -32,6 +32,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -361,6 +362,7 @@
     <None Include="Resources\Images\pixelart\hyrule_midna_link.png" />
     <Content Include="Resources\Images\pixelart\nerfman.png" />
     <Content Include="Resources\Images\pixelart\psg.png" />
+    <None Include="Resources\Images\pixelart\test2.png" />
     <Content Include="Resources\Images\pixelart\weird-intro.png" />
     <Content Include="Resources\Images\pixelart\YellowHeart.png" />
     <None Include="Resources\Images\Textures\Common\bone_block_side.png" />
@@ -562,6 +564,14 @@
     <Content Include="Resources\Images\UI\feature_palette_compact_grid.png" />
     <None Include="Resources\Images\UI\feature_palette_compact_square.png" />
     <Content Include="Resources\Images\UI\feature_palette_detailed_grid.png" />
+    <None Include="Resources\Images\UI\shadows\shadow_B.png" />
+    <None Include="Resources\Images\UI\shadows\shadow_BL.png" />
+    <None Include="Resources\Images\UI\shadows\shadow_BR.png" />
+    <None Include="Resources\Images\UI\shadows\shadow_L.png" />
+    <None Include="Resources\Images\UI\shadows\shadow_R.png" />
+    <None Include="Resources\Images\UI\shadows\shadow_T.png" />
+    <None Include="Resources\Images\UI\shadows\shadow_TL.png" />
+    <None Include="Resources\Images\UI\shadows\shadow_TR.png" />
     <Content Include="wool.ico" />
     <None Include="Resources\Images\UI\pixelstackerlogo.pdn" />
     <None Include="Resources\Images\UI\wool.ico" />

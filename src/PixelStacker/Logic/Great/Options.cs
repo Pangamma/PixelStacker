@@ -79,6 +79,11 @@ namespace PixelStacker.Logic
             }
         }
 
+        /// <summary>
+        /// Contains stuff like "minecraft:air"
+        /// </summary>
+        public List<string> SelectedMaterialFilter { get; set; } = new List<string>();
+
         private string makeKey(string input)
         {
             return input.Replace(' ', '_');

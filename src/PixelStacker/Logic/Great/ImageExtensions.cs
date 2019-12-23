@@ -19,6 +19,7 @@ namespace PixelStacker.Logic
         public static Color GetPixelSafely(this Bitmap src, int x, int y)
         {
             if (src == null) return Color.Transparent;
+            if (x < 0 || y < 0 || x >= src.Width || y >= src.Height) return Color.Transparent;
             if (!CanReadPixel(src.PixelFormat)) return Color.Transparent;
             if ((src.PixelFormat & PixelFormat.Indexed) == PixelFormat.Indexed)
             {
@@ -334,7 +335,7 @@ namespace PixelStacker.Logic
         /// </summary>
         /// <param name="origImage"></param>
         /// <returns></returns>
-        public static void ToViewStream(this Bitmap origImage, CancellationToken? worker, Func<int, int, Color, Color> callback)
+        public static void ToViewStream(this Bitmap origImage, CancellationToken? worker, Action<int, int, Color> callback)
         {
             if (origImage.PixelFormat != PixelFormat.Format32bppArgb)
             {
@@ -375,7 +376,7 @@ namespace PixelStacker.Logic
                 //Get the color of a pixel
                 // On a little-endian machine, the byte order is bb gg rr aa
                 Color color = Color.FromArgb(pixelData[3], pixelData[2], pixelData[1], pixelData[0]);
-                Color nColor = callback(x, y, color);
+                callback(x, y, color);
 
                 x++;
                 if (x > origImage.Width - 1)

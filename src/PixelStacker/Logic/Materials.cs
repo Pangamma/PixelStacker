@@ -184,7 +184,7 @@ namespace PixelStacker.Logic
                 }
             }
 
-            var rt = (bestMatch ?? Color.Transparent);
+            var rt = (bestMatch ?? Materials.Air.getAverageColor(true));
             BestMatchCache.Add(toMatch, rt);
 
             return rt;

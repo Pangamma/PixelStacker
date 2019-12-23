@@ -44,6 +44,7 @@ namespace PixelStacker.Logic
 
             List<Color> availableColors = Materials.ColorMap.Keys.ToList();
             TaskManager.SafeReport(0, "Rendering the blueprint...");
+            var airColor = Materials.Air.getAverageColor(isSide).ToArgb();
             using (var padlock = await AsyncDuplicateLock.Get.LockAsync(src))
             {
                 src.ToViewStream(_worker, (x, y, cc) =>
@@ -53,8 +54,7 @@ namespace PixelStacker.Logic
                     int gg = cc.G;
                     if (((r == 255 && b == 255 && gg == 255) || (r == 0 && b == 0 && gg == 0)) && cc.A < 30)
                     {
-                        var mi = Materials.Air.getAverageColor(isSide).ToArgb();
-                        blocksTemp[x, y] = mi;
+                        blocksTemp[x, y] = airColor;
                     }
                     else
                     {
@@ -62,13 +62,18 @@ namespace PixelStacker.Logic
                         int ccii = c?.ToArgb() ?? 0;
                         if (c != null)
                         {
-                            int len = Materials.ColorMap[c.Value].Length;
-                            if (len > maxDepth) { maxDepth = len; }
+                            if (Materials.ColorMap.ContainsKey(c.Value))
+                            {
+                                int len = Materials.ColorMap[c.Value].Length;
+                                if (len > maxDepth) { maxDepth = len; }
+                            }
+                            else
+                            {
+                                blocksTemp[x, y] = airColor;
+                            }
                         }
                         blocksTemp[x, y] = ccii;
                     }
-
-                    return cc;
                 });
             }
 
@@ -158,6 +163,11 @@ namespace PixelStacker.Logic
                 int x2, y2 = 0;
                 x2 = x;
                 y2 = y;
+#if !DEBUG
+                // If you're failing in dev, fix it. Release builds should not be held up by this...
+                if (x2 > this.blueprint.BlocksMap.GetLength(0) || x2 < 0) { return new Material[] { Materials.Air }; }
+                if (y2 > this.blueprint.BlocksMap.GetLength(1) || y2 < 0) { return new Material[] { Materials.Air }; }
+#endif
 
                 int ci = this.blueprint.BlocksMap[x2, y2];
                 Color c = Color.FromArgb(ci);

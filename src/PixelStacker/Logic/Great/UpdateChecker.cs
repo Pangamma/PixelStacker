@@ -27,8 +27,10 @@ namespace PixelStacker.Logic
             {
                 TaskManager.SafeReport(75, "Checking for updates");
                 settings.LastChecked = DateTime.UtcNow;
-                string latestVersion = await DoRequest($"https://taylorlove.info/pixelstacker/update-check.php?v={Constants.Version}")
-                    ?? await DoRequest("https://api.spigotmc.org/legacy/update.php?resource=46812/");
+                string latestVersion =
+                    // await DoRequest($"https://taylorlove.info/pixelstacker/update-check.php?v={Constants.Version}")
+                    // ??
+                    await DoRequest("https://api.spigotmc.org/legacy/update.php?resource=46812/");
 
                 Options.Save();
 

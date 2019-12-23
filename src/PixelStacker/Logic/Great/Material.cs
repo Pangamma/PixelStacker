@@ -19,6 +19,9 @@ namespace PixelStacker.Logic
         public int Data { get; set; }
         public Bitmap SideImage { get; private set; }
         public Bitmap TopImage { get; private set; }
+
+        public Bitmap SideImageWithTransparency { get; private set; }
+        public Bitmap TopImageWithTransparency { get; private set; }
         public string Category { get; set; }
         public string SchematicaMaterialName { get; set; }
 
@@ -93,6 +96,34 @@ namespace PixelStacker.Logic
             }
         }
 
+        const float transparencyMultiplier = 0.15F;
+        public Bitmap getImageWithTransparency(bool isSide)
+        {
+            if (isSide)
+            {
+                if (SideImageWithTransparency == null)
+                {
+                    this.SideImageWithTransparency = this.SideImage.To32bppBitmap();
+                    this.SideImageWithTransparency.ToEditStream(null, (int x, int y, Color c) => {
+                        return Color.FromArgb((int)(c.A * transparencyMultiplier), c);
+                    });
+                }
+
+                return this.SideImageWithTransparency;
+            }
+            else
+            {
+                if (TopImageWithTransparency == null)
+                {
+                    this.TopImageWithTransparency = this.TopImage.To32bppBitmap();
+                    this.TopImageWithTransparency.ToEditStream(null, (int x, int y, Color c) => {
+                        return Color.FromArgb((int)(c.A * transparencyMultiplier), c);
+                    });
+                }
+                return this.TopImageWithTransparency;
+            }
+        }
+
         public Color getAverageColor(bool isSide)
         {
             if (isSide)
@@ -125,7 +156,6 @@ namespace PixelStacker.Logic
                     g += c.G;
                     b += c.B;
                     a += c.A;
-                    return c;
                 });
             }
             else

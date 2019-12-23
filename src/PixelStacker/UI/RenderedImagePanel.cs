@@ -16,10 +16,17 @@ namespace PixelStacker.UI
 {
     public partial class RenderedImagePanel : UserControl
     {
+        private const byte SHOWN_NONE = 0;
+        private const byte SHOWN_TOP = 1;
+        private const byte SHOWN_BOTTOM = 2;
+        private const byte SHOWN_TOP_AND_BOTTOM = 3;
+
         public int xOrigin = 0;
         public int yOrigin = 0;
         private BlueprintPA image;
         private Bitmap renderedImage;
+        private string materialToAddOrRemove_1 { get; set; } = null;
+        private string materialToAddOrRemove_2 { get; set; } = null;
         private int CalculatedTextureSize { get; set; } = Constants.TextureSize;
 
         private Rectangle? gridMaskClip = null;
@@ -49,6 +56,37 @@ namespace PixelStacker.UI
             return true;
         }
 
+        private static bool isShaded(int current, int adjacent)
+        {
+            // top and bottom = no shade
+            if (current == SHOWN_TOP_AND_BOTTOM)
+            {
+                return false;
+            }
+
+            // air by top = shade
+            // air by bottom = shade
+            // air by top and bottom = shade
+            if (current == SHOWN_NONE)
+            {
+                if (adjacent != SHOWN_NONE)
+                {
+                    return true;
+                }
+            }
+
+            // isBottomCoveredByInvisibleTop and by top
+            if (current == SHOWN_BOTTOM)
+            {
+                if (adjacent == SHOWN_TOP || adjacent == SHOWN_TOP_AND_BOTTOM)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static Bitmap RenderBitmapFromBlueprint(CancellationToken? worker, BlueprintPA blueprint, out int? textureSize)
         {
             // TODO: Make sure this value is saved to the render panel instance somehow or else there will be horrible issues
@@ -57,20 +95,22 @@ namespace PixelStacker.UI
 
             if (blueprint != null)
             {
+                var regionFirstLayer = new GraphicsPath();
                 bool isSelectiveLayerViewEnabled = Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false);
-
+                bool isMaterialFilterViewEnabled = Options.Get.SelectedMaterialFilter.Any();
                 bool isSide = Options.Get.IsSideView;
                 double origW = blueprint.Width;
                 double origH = blueprint.Height;
-                int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
-                int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
-                int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
+                int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
+                int h = (int)(origH * MainForm.PanZoomSettings.zoomLevel);
+                int zoom = (int)(MainForm.PanZoomSettings.zoomLevel);
 
 
                 SolidBrush brush = new SolidBrush(Color.Black);
                 Pen pen = new Pen(brush);
 
                 bool isv = true;
+                bool isMaterialIncludedInFilter = true;
                 int mWidth = blueprint.Mapper.GetXLength(isv);
                 int mHeight = isv ? blueprint.Mapper.GetYLength(isv) : blueprint.Mapper.GetZLength(isv);
                 int mDepth = isv ? blueprint.Mapper.GetZLength(isv) : blueprint.Mapper.GetYLength(isv);
@@ -80,11 +120,206 @@ namespace PixelStacker.UI
                     width: calcW,
                     height: calcH,
                     format: PixelFormat.Format32bppArgb);
-
                 bool _IsSolidColors = Options.Get.Rendered_IsSolidColors;
                 bool _IsColorPalette = Options.Get.Rendered_IsColorPalette;
                 bool _IsMultiLayer = Options.Get.IsMultiLayer;
                 int _RenderedZIndexToShow = Options.Get.Rendered_RenderedZIndexToShow;
+
+                var selectedMaterials = Options.Get.SelectedMaterialFilter.AsEnumerable().ToList(); // clone
+
+                #region SHADOW
+
+                Bitmap bmShadow = new Bitmap(
+                    width: calcW,
+                    height: calcH,
+                    format: PixelFormat.Format32bppArgb);
+
+                //if ((_IsMultiLayer && isMaterialFilterViewEnabled) || true)
+                {
+                    Bitmap bmShadowMap = new Bitmap(
+                        width: mWidth,
+                        height: mHeight,
+                        format: PixelFormat.Format32bppArgb);
+
+                    //byte[,,] shadowMap = new byte[mWidth, mHeight, 2];
+                    byte[,] shadowMap = new byte[mWidth, mHeight];
+
+                    #region Initialize shadow map
+                    {
+                        for (int xShadeMap = 0; xShadeMap < mWidth; xShadeMap++)
+                        {
+                            for (int yShadeMap = 0; yShadeMap < mHeight; yShadeMap++)
+                            {
+                                Material mTop = blueprint.Mapper.GetMaterialAt(isv, xShadeMap, yShadeMap, 0);
+                                bool isTopShown = mTop.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mTop.Label));
+                                //shadowMap[xShadeMap, yShadeMap, 0] = isTopShown ? (byte)1 : (byte)0;
+
+                                Material mBottom = blueprint.Mapper.GetMaterialAt(isv, xShadeMap, yShadeMap, 1);
+                                bool isBottomShown = mBottom.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mBottom.Label));
+                                //shadowMap[xShadeMap, yShadeMap, 1] = isBottomShown ? (byte)1 : (byte)0;
+
+                                if (isTopShown && isBottomShown)
+                                {
+                                    shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP_AND_BOTTOM;
+                                }
+                                else if (isTopShown)
+                                {
+                                    shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP;
+                                }
+                                else if (isBottomShown)
+                                {
+                                    shadowMap[xShadeMap, yShadeMap] = SHOWN_BOTTOM;
+                                }
+                                else
+                                {
+                                    shadowMap[xShadeMap, yShadeMap] = SHOWN_NONE;
+                                }
+                            }
+                        }
+                    }
+
+                    float shadowMultiplier = 1.0F;
+                    using (Graphics gShadow = Graphics.FromImage(bmShadow))
+                    {
+                        gShadow.CompositingMode = CompositingMode.SourceOver;
+                        gShadow.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                        gShadow.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                        gShadow.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                        var brushTransparentCover = new SolidBrush(Color.FromArgb(40, 127, 127, 127));
+                        {
+                            for (int x = 0; x < mWidth; x++)
+                            {
+                                for (int y = 0; y < mHeight; y++)
+                                {
+                                    int xi = x * textureSize.Value;
+                                    int yi = y * textureSize.Value;
+
+                                    bool isTopShown = shadowMap[x, y] == SHOWN_TOP || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
+                                    bool isBottomShown = shadowMap[x, y] == SHOWN_BOTTOM || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
+                                    bool isBottomCoveredByInvisibleTop = isBottomShown && !isTopShown;
+
+                                    if (isBottomCoveredByInvisibleTop)
+                                    {
+                                        gShadow.FillRectangle(brushTransparentCover, xi, yi, textureSize.Value, textureSize.Value);
+                                    }
+
+                                    if (isTopShown && isBottomShown)
+                                    {
+                                        continue; // No shade required
+                                    }
+
+                                    // AIR block (or block we aint rendering)
+                                    if (!isTopShown)
+                                    {
+                                        if (!isMaterialFilterViewEnabled)
+                                        {
+
+                                        }
+
+                                        bool isBlockLeft = x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y]);
+                                        bool isBlockRight = x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y]);
+                                        bool isBlockTop = (y > 0 && isShaded(shadowMap[x, y], shadowMap[x, y - 1]));
+                                        bool isBlockBottom = (y < mHeight - 1 && isShaded(shadowMap[x, y], shadowMap[x, y + 1]));
+                                        bool isBlockTopLeft = (y > 0 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y - 1]));
+                                        bool isBlockTopRight = (y > 0 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y - 1]));
+                                        bool isBlockBottomLeft = (y < mHeight - 1 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y + 1]));
+                                        bool isBlockBottomRight = (y < mHeight - 1 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y + 1]));
+
+                                        // A block exists to the left
+                                        if (isBlockLeft)
+                                        {
+                                            gShadow.DrawImage(image: Resources.shadow_L,
+                                                x: xi,
+                                                y: yi,
+                                                width: Resources.shadow_L.Width * shadowMultiplier,
+                                                height: textureSize.Value);
+                                        }
+
+                                        // A block exists to the right
+                                        if (isBlockRight)
+                                        {
+                                            gShadow.DrawImage(image: Resources.shadow_R,
+                                                x: (xi + textureSize.Value) - (Resources.shadow_R.Width * shadowMultiplier),
+                                                y: yi,
+                                                width: Resources.shadow_R.Width * shadowMultiplier,
+                                                height: textureSize.Value);
+                                        }
+
+
+                                        // y = 0 is top
+                                        // y = maxHeight is bottom
+
+                                        // A block exists to the above
+                                        if (isBlockTop)
+                                        {
+                                            gShadow.DrawImage(image: Resources.shadow_T,
+                                                x: xi,
+                                                y: yi,
+                                                width: textureSize.Value,
+                                                height: Resources.shadow_T.Height
+                                                );
+                                        }
+
+                                        // block exists below
+                                        if (isBlockBottom)
+                                        {
+                                            gShadow.DrawImage(image: Resources.shadow_B,
+                                                x: xi,
+                                                y: (yi + textureSize.Value) - (Resources.shadow_B.Height * shadowMultiplier),
+                                                width: textureSize.Value,
+                                                height: Resources.shadow_B.Height * shadowMultiplier);
+                                        }
+
+                                        if (isBlockBottomLeft && !isBlockLeft && !isBlockBottom)
+                                        {
+                                            gShadow.DrawImage(image: Resources.shadow_BL,
+                                                x: xi,
+                                                y: (yi + textureSize.Value) - (Resources.shadow_BL.Height * shadowMultiplier),
+                                                width: Resources.shadow_BL.Width * shadowMultiplier,
+                                                height: Resources.shadow_BL.Height * shadowMultiplier);
+                                        }
+
+                                        if (isBlockBottomRight && !isBlockRight && !isBlockBottom)
+                                        {
+                                            gShadow.DrawImage(image: Resources.shadow_BR,
+                                                x: (xi + textureSize.Value) - (Resources.shadow_BR.Width * shadowMultiplier),
+                                                y: (yi + textureSize.Value) - (Resources.shadow_BR.Height * shadowMultiplier),
+                                                width: Resources.shadow_BR.Width * shadowMultiplier,
+                                                height: Resources.shadow_BR.Height * shadowMultiplier);
+                                        }
+
+
+                                        if (isBlockTopRight && !isBlockRight && !isBlockTop)
+                                        {
+                                            gShadow.DrawImage(image: Resources.shadow_TR,
+                                                x: (xi + textureSize.Value) - (Resources.shadow_TR.Width * shadowMultiplier),
+                                                y: yi,
+                                                width: Resources.shadow_TR.Width * shadowMultiplier,
+                                                height: Resources.shadow_TR.Height * shadowMultiplier);
+                                        }
+
+                                        if (isBlockTopLeft && !isBlockLeft && !isBlockTop)
+                                        {
+                                            gShadow.DrawImage(image: Resources.shadow_TL,
+                                                x: (xi),
+                                                y: (yi),
+                                                width: Resources.shadow_TL.Width * shadowMultiplier,
+                                                height: Resources.shadow_TL.Height * shadowMultiplier);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        brushTransparentCover.Dispose();
+                    }
+
+                    #endregion
+                }
+
+
+                #endregion
+                #region Regular
 
                 using (Graphics gImg = Graphics.FromImage(bm))
                 {
@@ -92,54 +327,89 @@ namespace PixelStacker.UI
                     gImg.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
                     gImg.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
 
-                    TaskManager.SafeReport(0, "Rendering to materials display...");
-                    for (int x = 0; x < mWidth; x++)
-                    {
-                        TaskManager.SafeReport(100 * x / mWidth);
-                        worker?.SafeThrowIfCancellationRequested();
-                        for (int y = 0; y < mHeight; y++)
-                        {
-                            for (int z = 0; z < mDepth; z++)
-                            {
-                                if (isSelectiveLayerViewEnabled)
-                                {
-                                    if (z != _RenderedZIndexToShow)
-                                    {
-                                        continue;
-                                    }
-                                }
 
+                    TaskManager.SafeReport(0, "Rendering to materials display...");
+
+                    for (int z = 0; z < mDepth; z++)
+                    {
+                        if (isSelectiveLayerViewEnabled)
+                        {
+                            if (z != _RenderedZIndexToShow)
+                            {
+                                continue;
+                            }
+                        }
+
+                        for (int x = 0; x < mWidth; x++)
+                        {
+                            TaskManager.SafeReport(100 * x / mWidth);
+                            worker?.SafeThrowIfCancellationRequested();
+                            for (int y = 0; y < mHeight; y++)
+                            {
                                 int xi = x * textureSize.Value;
                                 int yi = y * textureSize.Value;
                                 if (xi + MainForm.PanZoomSettings.zoomLevel >= 0 && yi + MainForm.PanZoomSettings.zoomLevel >= 0)
                                 {
                                     Material m = blueprint.Mapper.GetMaterialAt(isv, x, y, z);
 
+                                    if (isMaterialFilterViewEnabled)
+                                    {
+                                        string blockId = m.Label;
+                                        isMaterialIncludedInFilter = Options.Get.SelectedMaterialFilter.Any(xm => xm == blockId);
+                                    }
+
                                     if (m.BlockID != 0)
                                     {
                                         if (_IsSolidColors)
                                         {
-                                            brush.Color = blueprint.GetColor(x, y);
-                                            gImg.FillRectangle(brush, xi, yi, textureSize.Value, textureSize.Value);
+                                            if (isMaterialIncludedInFilter)
+                                            {
+                                                brush.Color = blueprint.GetColor(x, y);
+                                                gImg.FillRectangle(brush, xi, yi, textureSize.Value, textureSize.Value);
+                                            }
                                         }
                                         else if (_IsColorPalette)
                                         {
-                                            brush.Color = blueprint.GetColor(x, y);
-                                            gImg.DrawImage(m.getImage(isSide), xi, yi, textureSize.Value, textureSize.Value);
-                                            gImg.FillRectangle(brush, xi, yi, textureSize.Value / 2, textureSize.Value / 2);
-                                            brush.Color = Color.Black;
-                                            gImg.DrawRectangle(pen, xi, yi, textureSize.Value / 2, textureSize.Value / 2);
+                                            if (isMaterialIncludedInFilter)
+                                            {
+                                                brush.Color = blueprint.GetColor(x, y);
+                                                gImg.DrawImage(m.getImage(isSide), xi, yi, textureSize.Value, textureSize.Value);
+                                                gImg.FillRectangle(brush, xi, yi, textureSize.Value / 2, textureSize.Value / 2);
+                                                brush.Color = Color.Black;
+                                                gImg.DrawRectangle(pen, xi, yi, textureSize.Value / 2, textureSize.Value / 2);
+                                            }
                                         }
                                         else
                                         {
-                                            gImg.DrawImage(m.getImage(isSide), xi, yi, textureSize.Value, textureSize.Value);
+                                            if (isMaterialIncludedInFilter)
+                                            {
+                                                gImg.DrawImage(m.getImage(isSide), xi, yi, textureSize.Value, textureSize.Value);
+                                                ////gImg.DrawImage(m.getImageWithTransparency(isSide), xi, yi, textureSize.Value, textureSize.Value);
+                                                //// if our current Z is the TOP level
+                                                //if (z == 0)
+                                                //{
+                                                //}
+                                            }
+                                            //else
+                                            //{
+                                            //}
                                         }
                                     }
                                 }
                             }
                         }
                     }
+
+                    gImg.CompositingMode = CompositingMode.SourceOver;
+                    gImg.DrawImage(bmShadow, 0, 0, calcW, calcH);
+                    brush.DisposeSafely();
+                    pen.DisposeSafely();
+                    //gImg.CompositingMode = CompositingMode.SourceCopy;
+                    //gImg.DrawImage(bmShadow, 0, 0, calcW, calcH);
+
                 }
+
+                #endregion
 
                 return bm;
             }
@@ -181,6 +451,7 @@ namespace PixelStacker.UI
 
                 CalculatedTextureSize -= 2;
             }
+
             bool isSuccess = false;
             do
             {
@@ -242,17 +513,17 @@ namespace PixelStacker.UI
                 int mWidth = src.Mapper.GetXLength(isv);
                 int mHeight = isv ? src.Mapper.GetYLength(isv) : src.Mapper.GetZLength(isv);
 
-                double wRatio = (double) Width / mWidth;
-                double hRatio = (double) Height / mHeight;
+                double wRatio = (double)Width / mWidth;
+                double hRatio = (double)Height / mHeight;
                 if (hRatio < wRatio)
                 {
                     settings.zoomLevel = hRatio;
-                    settings.imageX = (Width - (int) (mWidth * hRatio)) / 2;
+                    settings.imageX = (Width - (int)(mWidth * hRatio)) / 2;
                 }
                 else
                 {
                     settings.zoomLevel = wRatio;
-                    settings.imageY = (Height - (int) (mHeight * wRatio)) / 2;
+                    settings.imageY = (Height - (int)(mHeight * wRatio)) / 2;
                 }
 
                 int numICareAbout = Math.Max(mWidth, mHeight);
@@ -303,7 +574,7 @@ namespace PixelStacker.UI
                                 using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), blockWidth))
                                 {
                                     penWE.Alignment = PenAlignment.Inset;
-                                    g.DrawRectangle(penWE, pp2.X, pp2.Y, (int) (bm.Width) - indexShift, (int) (bm.Height) - indexShift);
+                                    g.DrawRectangle(penWE, pp2.X, pp2.Y, (int)(bm.Width) - indexShift, (int)(bm.Height) - indexShift);
                                 }
                             }
 
@@ -380,7 +651,7 @@ namespace PixelStacker.UI
 
         private int GetGridWidth()
         {
-            int zoom = (int) MainForm.PanZoomSettings.zoomLevel;
+            int zoom = (int)MainForm.PanZoomSettings.zoomLevel;
             if (zoom > 70) return 8;
             if (zoom > 60) return 7;
             if (zoom > 50) return 6;
@@ -408,9 +679,9 @@ namespace PixelStacker.UI
                 bool isSide = Options.Get.IsSideView;
                 double origW = this.image.Width;
                 double origH = this.image.Height;
-                int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
-                int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
-                int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
+                int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
+                int h = (int)(origH * MainForm.PanZoomSettings.zoomLevel);
+                int zoom = (int)(MainForm.PanZoomSettings.zoomLevel);
 
                 if (MainForm.PanZoomSettings.zoomLevel < 1.0D)
                 {
@@ -495,7 +766,7 @@ namespace PixelStacker.UI
                     using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), zoom))
                     {
                         penWE.Alignment = PenAlignment.Inset;
-                        g.DrawRectangle(penWE, pp2.X, pp2.Y, (int) (this.image.Width * MainForm.PanZoomSettings.zoomLevel), (int) (this.image.Height * MainForm.PanZoomSettings.zoomLevel));
+                        g.DrawRectangle(penWE, pp2.X, pp2.Y, (int)(this.image.Width * MainForm.PanZoomSettings.zoomLevel), (int)(this.image.Height * MainForm.PanZoomSettings.zoomLevel));
                     }
                 }
 
@@ -533,8 +804,8 @@ namespace PixelStacker.UI
                     MainForm.PanZoomSettings.zoomLevel *= 1.2;
                 }
                 this.restrictZoom();
-                MainForm.PanZoomSettings.imageX = ((int) Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));
-                MainForm.PanZoomSettings.imageY = ((int) Math.Round(panelPoint.Y - imagePoint.Y * MainForm.PanZoomSettings.zoomLevel));
+                MainForm.PanZoomSettings.imageX = ((int)Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));
+                MainForm.PanZoomSettings.imageY = ((int)Math.Round(panelPoint.Y - imagePoint.Y * MainForm.PanZoomSettings.zoomLevel));
                 this.Refresh();
             }
         }
@@ -574,18 +845,18 @@ namespace PixelStacker.UI
         {
             if (prop == EstimateProp.Ceil)
             {
-                return new Point((int) Math.Ceiling((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Ceiling((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+                return new Point((int)Math.Ceiling((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Ceiling((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
             }
             if (prop == EstimateProp.Floor)
             {
-                return new Point((int) Math.Floor((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Floor((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+                return new Point((int)Math.Floor((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Floor((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
             }
-            return new Point((int) Math.Round((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Round((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+            return new Point((int)Math.Round((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Round((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
         }
 
         public Point getPointOnPanel(Point pointOnImage)
         {
-            return new Point((int) Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int) Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
+            return new Point((int)Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int)Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
         }
 
         private void restrictZoom()
@@ -639,25 +910,25 @@ namespace PixelStacker.UI
         private Point getShowingEnd(double origW, double origH)
         {
             Point showingEnd = getPointOnImage(new Point(Width, Height), EstimateProp.Ceil);
-            showingEnd.X = (showingEnd.X > origW ? (int) origW : showingEnd.X);
-            showingEnd.Y = (showingEnd.Y > origH ? (int) origH : showingEnd.Y);
+            showingEnd.X = (showingEnd.X > origW ? (int)origW : showingEnd.X);
+            showingEnd.Y = (showingEnd.Y > origH ? (int)origH : showingEnd.Y);
             return showingEnd;
         }
 
 
         private int getRoundedZoomDistance(int x, int deltaX)
         {
-            return (int) Math.Round(x + deltaX * MainForm.PanZoomSettings.zoomLevel);
+            return (int)Math.Round(x + deltaX * MainForm.PanZoomSettings.zoomLevel);
         }
 
         private int getRoundedZoomX(int val, int blockSize)
         {
-            return (int) Math.Floor(MainForm.PanZoomSettings.imageX + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
+            return (int)Math.Floor(MainForm.PanZoomSettings.imageX + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
         private int getRoundedZoomY(int val, int blockSize)
         {
-            return (int) Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
+            return (int)Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
         public enum EstimateProp
@@ -671,13 +942,40 @@ namespace PixelStacker.UI
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    RenderedImagePanel panel = (RenderedImagePanel) sender;
+                    RenderedImagePanel panel = (RenderedImagePanel)sender;
                     Point loc = getPointOnImage(e.Location, EstimateProp.Floor);
                     image.WorldEditOrigin = loc;
                     Refresh();
                 }
             }
         }
+
+
+
+        private void RenderedImagePanel_MaterialFilter_AddRemove_Click(object sender, EventArgs e)
+        {
+            if (sender is ToolStripMenuItem)
+            {
+                var toolMenuItem = sender as ToolStripMenuItem;
+                bool isRemove = toolMenuItem.Text.StartsWith("Remove");
+                bool isOp1 = toolMenuItem.Name == nameof(btnToggleMaterialFilterMenuItem0);
+                string matLabel = isOp1 ? this.materialToAddOrRemove_1 : this.materialToAddOrRemove_2;
+
+                if (isRemove)
+                {
+                    Options.Get.SelectedMaterialFilter = Options.Get.SelectedMaterialFilter.Except(new List<string>() { matLabel }).ToList();
+                }
+                else
+                {
+                    Options.Get.SelectedMaterialFilter = Options.Get.SelectedMaterialFilter.Concat(new List<string>() { matLabel }).ToList();
+                }
+
+                Options.Save();
+                this.InvokeEx(c => c.ForceReRender());
+            }
+        }
+
+
 
         private void RenderedImagePanel_MouseClick(object sender, MouseEventArgs e)
         {
@@ -711,6 +1009,10 @@ namespace PixelStacker.UI
             else if (e.Button == MouseButtons.Right)
             {
                 Point loc = getPointOnImage(e.Location, EstimateProp.Floor);
+                if (loc.X < 0 || loc.Y < 0 || loc.X > this.image.BlocksMap.GetLength(0) - 1 || loc.Y > this.image.BlocksMap.GetLength(1) - 1)
+                {
+                    return; // out of range
+                }
                 Color cFromPreRender = MainForm.Self.PreRenderedImage.GetPixelSafely(loc.X, loc.Y);
                 Color cFromBlueprint = this.image.GetColor(loc.X, loc.Y);
 
@@ -725,8 +1027,44 @@ namespace PixelStacker.UI
                 }
                 #endregion
 
-                #region Material name
                 Material[] ms = this.image.Mapper.GetMaterialsAt(loc.X, loc.Y);
+
+                #region Material Filter
+                btnToggleMaterialFilterMenuItem0.Visible = ms.Length > 0;
+                removeAllToolStripMenuItem.Enabled = Options.Get.SelectedMaterialFilter.Any();
+
+                if (ms.Length > 0)
+                {
+                    this.materialToAddOrRemove_1 = ms[0].Label;
+                    string matName = this.materialToAddOrRemove_1;
+                    if (!Options.Get.SelectedMaterialFilter.Contains(matName))
+                    {
+                        btnToggleMaterialFilterMenuItem0.Text = $"Add '{matName.Replace("zz", "")}'";
+                    }
+                    else
+                    {
+                        btnToggleMaterialFilterMenuItem0.Text = $"Remove '{matName.Replace("zz", "")}'";
+                    }
+                }
+
+                btnToggleMaterialFilterMenuItem1.Visible = ms.Length > 1;
+                if (ms.Length > 1)
+                {
+                    this.materialToAddOrRemove_2 = ms[1].Label;
+                    string matName = this.materialToAddOrRemove_2;
+                    if (!Options.Get.SelectedMaterialFilter.Contains(matName))
+                    {
+                        btnToggleMaterialFilterMenuItem1.Text = $"Add '{matName.Replace("zz", "")}'";
+                    }
+                    else
+                    {
+                        btnToggleMaterialFilterMenuItem1.Text = $"Remove '{matName.Replace("zz", "")}'";
+                    }
+                }
+                //this.btnToggleMaterialFilterMenuItem.Text = ";
+                #endregion
+
+                #region Material name
                 this.ts_MaterialName.Text = $"Materials: \r\n{string.Join("\r\n", ms.Select(x => x.GetBlockNameAndData(true)))}";
                 #endregion
 
@@ -763,7 +1101,17 @@ namespace PixelStacker.UI
                             {
                                 var mat = materials[z];
                                 var matPic = mat.getImage(Options.Get.IsSideView);
-                                g.DrawImage(matPic, 0, 0, size, size);
+
+                                try
+                                {
+                                    lock (matPic)
+                                    {
+                                        g.DrawImage(matPic, 0, 0, size, size);
+                                    }
+                                }
+                                catch
+                                {
+                                }
                             }
 
                             var menuToAddTo = matchIndex < 10 ? this.replaceMenuItems_1
@@ -824,6 +1172,25 @@ namespace PixelStacker.UI
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             MainForm.Self.History.AddChange(record);
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+        }
+
+        private void clearMaterialFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Options.Get.SelectedMaterialFilter = new List<string>();
+            Options.Save();
+            this.InvokeEx(c => c.ForceReRender());
+        }
+
+        private void addAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var items = new List<string>();
+            items.AddRange(Materials.List.Where(x => x.BlockID != 0).Select(x => x.Label));
+            lock (Options.Get.SelectedMaterialFilter)
+            {
+                Options.Get.SelectedMaterialFilter = items;
+            }
+            Options.Save();
+            this.InvokeEx(c => c.ForceReRender());
         }
     }
 }

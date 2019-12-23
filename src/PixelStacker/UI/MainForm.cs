@@ -40,9 +40,12 @@ namespace PixelStacker
 
             if (!Constants.IsFullVersion)
             {
-                togglePaletteToolStripMenuItem.Visible = false;
+#pragma warning disable CS0162 // Unreachable code detected
+                this.togglePaletteToolStripMenuItem.Visible = false;
+                this.saveColorPaletteToolStripMenuItem.Visible = false;
                 mi_PreRenderOptions.Visible = false;
                 this.Text = this.Text + " (Free Version)";
+#pragma warning restore CS0162 // Unreachable code detected
             }
         }
 
@@ -50,9 +53,12 @@ namespace PixelStacker
         {
             SetViewModeCheckBoxStates();
 
-            #pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
+#pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
             TaskManager.Get.StartAsync(cancelToken => UpdateChecker.CheckForUpdates(cancelToken));
-            #pragma warning restore CS4014
+#pragma warning restore CS4014
+
+            // TODO REMOVE THIS
+            this.renderSchematicToolStripMenuItem_Click(null, null);
         }
 
         #region Events
@@ -512,7 +518,7 @@ namespace PixelStacker
         {
             dlgSave.FileOk -= this.dlgSave_FileOk;
             dlgSave.FileOk -= this.dlgSave_FileOk_ColorPalettes;
-            string[] availableExtensions = new string[] { "Color Palette Graph | *.png", "Color Palette Brick|*.png", "Color Palette Square | *.png", "Color Palette All (compact)|*.png", "Color Palette All (detailed)|*.png"};
+            string[] availableExtensions = new string[] { "Color Palette Graph | *.png", "Color Palette Brick|*.png", "Color Palette Square | *.png", "Color Palette All (compact)|*.png", "Color Palette All (detailed)|*.png" };
             dlgSave.Filter = availableExtensions[filterIndex];
             dlgSave.FileOk += this.dlgSave_FileOk_ColorPalettes;
             dlgSave.DefaultExt = availableExtensions[filterIndex].Substring(availableExtensions[filterIndex].LastIndexOf("*.") + 2);
@@ -593,5 +599,6 @@ namespace PixelStacker
             this.History.RedoChange();
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
+
     }
 }
