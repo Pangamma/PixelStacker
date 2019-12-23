@@ -127,11 +127,33 @@ namespace PixelStacker.Logic
                             }
                         }
                     }
+
+                    if (Options.Get.IsFrugalWithMaterials)
+                    {
+                        Color combinedColor = mArr[0].getAverageColor(isSide);
+
+                        Material[] matMap = new Material[mArr.Length + 1];
+                        for (int i = 0; i < mArr.Length; i++)
+                        {
+                            matMap[i] = mArr[i];
+                        }
+                        matMap[matMap.Length - 1] = Materials.Air;
+
+                        toAdd[combinedColor] = matMap;
+                    }
+
                 }
 
+                bool isFrugal = Options.Get.IsFrugalWithMaterials;
                 foreach (Color c in toAdd.Keys)
                 {
                     if (!ColorMap.ContainsKey(c))
+                    {
+                        ColorMap[c] = toAdd[c];
+                    }
+
+                    // If going for the crazy weird aesthetic, allow overridden air blocks in the design
+                    else if (isFrugal && ColorMap[c].Length == 1 && toAdd[c].Any(x => x.BlockID == 0))
                     {
                         ColorMap[c] = toAdd[c];
                     }

@@ -40,6 +40,7 @@
             this.lblGridColor = new System.Windows.Forms.Label();
             this.colorDialogue = new System.Windows.Forms.ColorDialog();
             this.btnGridColor = new System.Windows.Forms.Button();
+            this.cbxIsFrugalWithMaterials = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nbrGridSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbrMaxHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbrMaxWidth)).BeginInit();
@@ -47,7 +48,8 @@
             // 
             // nbrGridSize
             // 
-            this.nbrGridSize.Location = new System.Drawing.Point(111, 12);
+            this.nbrGridSize.Location = new System.Drawing.Point(148, 15);
+            this.nbrGridSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nbrGridSize.Maximum = new decimal(new int[] {
             256,
             0,
@@ -59,7 +61,7 @@
             0,
             0});
             this.nbrGridSize.Name = "nbrGridSize";
-            this.nbrGridSize.Size = new System.Drawing.Size(112, 20);
+            this.nbrGridSize.Size = new System.Drawing.Size(149, 22);
             this.nbrGridSize.TabIndex = 0;
             this.nbrGridSize.Value = new decimal(new int[] {
             16,
@@ -70,63 +72,69 @@
             // 
             // nbrMaxHeight
             // 
-            this.nbrMaxHeight.Location = new System.Drawing.Point(111, 77);
+            this.nbrMaxHeight.Location = new System.Drawing.Point(148, 95);
+            this.nbrMaxHeight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nbrMaxHeight.Maximum = new decimal(new int[] {
             32767,
             0,
             0,
             0});
             this.nbrMaxHeight.Name = "nbrMaxHeight";
-            this.nbrMaxHeight.Size = new System.Drawing.Size(112, 20);
+            this.nbrMaxHeight.Size = new System.Drawing.Size(149, 22);
             this.nbrMaxHeight.TabIndex = 1;
             this.nbrMaxHeight.ValueChanged += new System.EventHandler(this.nbrMaxHeight_ValueChanged);
             // 
             // nbrMaxWidth
             // 
-            this.nbrMaxWidth.Location = new System.Drawing.Point(111, 103);
+            this.nbrMaxWidth.Location = new System.Drawing.Point(148, 127);
+            this.nbrMaxWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nbrMaxWidth.Maximum = new decimal(new int[] {
             32767,
             0,
             0,
             0});
             this.nbrMaxWidth.Name = "nbrMaxWidth";
-            this.nbrMaxWidth.Size = new System.Drawing.Size(112, 20);
+            this.nbrMaxWidth.Size = new System.Drawing.Size(149, 22);
             this.nbrMaxWidth.TabIndex = 2;
             this.nbrMaxWidth.ValueChanged += new System.EventHandler(this.nbrMaxWidth_ValueChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 14);
+            this.label1.Location = new System.Drawing.Point(16, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.Size = new System.Drawing.Size(66, 17);
             this.label1.TabIndex = 5;
             this.label1.Text = "Grid Size";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 79);
+            this.label2.Location = new System.Drawing.Point(16, 97);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.Size = new System.Drawing.Size(78, 17);
             this.label2.TabIndex = 6;
             this.label2.Text = "Max Height";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 105);
+            this.label3.Location = new System.Drawing.Point(16, 129);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.Size = new System.Drawing.Size(73, 17);
             this.label3.TabIndex = 7;
             this.label3.Text = "Max Width";
             // 
             // cbxIsSideView
             // 
             this.cbxIsSideView.AutoSize = true;
-            this.cbxIsSideView.Location = new System.Drawing.Point(12, 129);
+            this.cbxIsSideView.Location = new System.Drawing.Point(16, 159);
+            this.cbxIsSideView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxIsSideView.Name = "cbxIsSideView";
-            this.cbxIsSideView.Size = new System.Drawing.Size(206, 17);
+            this.cbxIsSideView.Size = new System.Drawing.Size(271, 21);
             this.cbxIsSideView.TabIndex = 8;
             this.cbxIsSideView.Text = "Side View? (Affects output orientation)";
             this.cbxIsSideView.UseVisualStyleBackColor = true;
@@ -136,9 +144,10 @@
             // 
             this.btnFactoryReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFactoryReset.Location = new System.Drawing.Point(12, 152);
+            this.btnFactoryReset.Location = new System.Drawing.Point(19, 376);
+            this.btnFactoryReset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnFactoryReset.Name = "btnFactoryReset";
-            this.btnFactoryReset.Size = new System.Drawing.Size(215, 23);
+            this.btnFactoryReset.Size = new System.Drawing.Size(287, 28);
             this.btnFactoryReset.TabIndex = 9;
             this.btnFactoryReset.Text = "Factory Reset";
             this.btnFactoryReset.UseVisualStyleBackColor = true;
@@ -147,9 +156,10 @@
             // lblGridColor
             // 
             this.lblGridColor.AutoSize = true;
-            this.lblGridColor.Location = new System.Drawing.Point(12, 48);
+            this.lblGridColor.Location = new System.Drawing.Point(16, 59);
+            this.lblGridColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblGridColor.Name = "lblGridColor";
-            this.lblGridColor.Size = new System.Drawing.Size(53, 13);
+            this.lblGridColor.Size = new System.Drawing.Size(72, 17);
             this.lblGridColor.TabIndex = 10;
             this.lblGridColor.Text = "Grid Color";
             // 
@@ -157,18 +167,32 @@
             // 
             this.btnGridColor.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnGridColor.ForeColor = System.Drawing.Color.Black;
-            this.btnGridColor.Location = new System.Drawing.Point(111, 43);
+            this.btnGridColor.Location = new System.Drawing.Point(148, 53);
+            this.btnGridColor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGridColor.Name = "btnGridColor";
-            this.btnGridColor.Size = new System.Drawing.Size(112, 23);
+            this.btnGridColor.Size = new System.Drawing.Size(149, 28);
             this.btnGridColor.TabIndex = 12;
             this.btnGridColor.UseVisualStyleBackColor = false;
             this.btnGridColor.Click += new System.EventHandler(this.btnGridColor_Click);
             // 
+            // cbxIsFrugalWithMaterials
+            // 
+            this.cbxIsFrugalWithMaterials.AutoSize = true;
+            this.cbxIsFrugalWithMaterials.Location = new System.Drawing.Point(16, 188);
+            this.cbxIsFrugalWithMaterials.Margin = new System.Windows.Forms.Padding(4);
+            this.cbxIsFrugalWithMaterials.Name = "cbxIsFrugalWithMaterials";
+            this.cbxIsFrugalWithMaterials.Size = new System.Drawing.Size(177, 21);
+            this.cbxIsFrugalWithMaterials.TabIndex = 13;
+            this.cbxIsFrugalWithMaterials.Text = "Is frugal with materials?";
+            this.cbxIsFrugalWithMaterials.UseVisualStyleBackColor = true;
+            this.cbxIsFrugalWithMaterials.CheckedChanged += new System.EventHandler(this.cbxIsFrugalWithMaterials_CheckedChanged);
+            // 
             // OtherOptionsWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 339);
+            this.ClientSize = new System.Drawing.Size(319, 417);
+            this.Controls.Add(this.cbxIsFrugalWithMaterials);
             this.Controls.Add(this.btnGridColor);
             this.Controls.Add(this.lblGridColor);
             this.Controls.Add(this.btnFactoryReset);
@@ -180,6 +204,7 @@
             this.Controls.Add(this.nbrMaxHeight);
             this.Controls.Add(this.nbrGridSize);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "OtherOptionsWindow";
             this.Text = "Other Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OtherOptionsWindow_FormClosing);
@@ -204,5 +229,6 @@
         private System.Windows.Forms.Label lblGridColor;
         private System.Windows.Forms.ColorDialog colorDialogue;
         private System.Windows.Forms.Button btnGridColor;
+        private System.Windows.Forms.CheckBox cbxIsFrugalWithMaterials;
     }
 }

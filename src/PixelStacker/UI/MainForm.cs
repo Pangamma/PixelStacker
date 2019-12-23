@@ -56,9 +56,6 @@ namespace PixelStacker
 #pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
             TaskManager.Get.StartAsync(cancelToken => UpdateChecker.CheckForUpdates(cancelToken));
 #pragma warning restore CS4014
-
-            // TODO REMOVE THIS
-            this.renderSchematicToolStripMenuItem_Click(null, null);
         }
 
         #region Events
