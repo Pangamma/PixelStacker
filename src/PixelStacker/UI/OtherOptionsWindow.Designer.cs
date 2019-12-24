@@ -41,6 +41,7 @@
             this.colorDialogue = new System.Windows.Forms.ColorDialog();
             this.btnGridColor = new System.Windows.Forms.Button();
             this.cbxIsFrugalWithMaterials = new System.Windows.Forms.CheckBox();
+            this.cbxSkipShadowRendering = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nbrGridSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbrMaxHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbrMaxWidth)).BeginInit();
@@ -181,17 +182,30 @@
             this.cbxIsFrugalWithMaterials.Location = new System.Drawing.Point(16, 188);
             this.cbxIsFrugalWithMaterials.Margin = new System.Windows.Forms.Padding(4);
             this.cbxIsFrugalWithMaterials.Name = "cbxIsFrugalWithMaterials";
-            this.cbxIsFrugalWithMaterials.Size = new System.Drawing.Size(271, 21);
+            this.cbxIsFrugalWithMaterials.Size = new System.Drawing.Size(258, 21);
             this.cbxIsFrugalWithMaterials.TabIndex = 13;
-            this.cbxIsFrugalWithMaterials.Text = "Enable \"frugal\" or \"layered\" aesthetic?";
+            this.cbxIsFrugalWithMaterials.Text = "Add extra depth shadows to renders";
             this.cbxIsFrugalWithMaterials.UseVisualStyleBackColor = true;
             this.cbxIsFrugalWithMaterials.CheckedChanged += new System.EventHandler(this.cbxIsFrugalWithMaterials_CheckedChanged);
+            // 
+            // cbxSkipShadowRendering
+            // 
+            this.cbxSkipShadowRendering.AutoSize = true;
+            this.cbxSkipShadowRendering.Location = new System.Drawing.Point(16, 217);
+            this.cbxSkipShadowRendering.Margin = new System.Windows.Forms.Padding(4);
+            this.cbxSkipShadowRendering.Name = "cbxSkipShadowRendering";
+            this.cbxSkipShadowRendering.Size = new System.Drawing.Size(174, 21);
+            this.cbxSkipShadowRendering.TabIndex = 14;
+            this.cbxSkipShadowRendering.Text = "Skip shadow rendering";
+            this.cbxSkipShadowRendering.UseVisualStyleBackColor = true;
+            this.cbxSkipShadowRendering.CheckedChanged += new System.EventHandler(this.cbxSkipShadowRendering_CheckedChanged);
             // 
             // OtherOptionsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(319, 417);
+            this.Controls.Add(this.cbxSkipShadowRendering);
             this.Controls.Add(this.cbxIsFrugalWithMaterials);
             this.Controls.Add(this.btnGridColor);
             this.Controls.Add(this.lblGridColor);
@@ -230,5 +244,6 @@
         private System.Windows.Forms.ColorDialog colorDialogue;
         private System.Windows.Forms.Button btnGridColor;
         private System.Windows.Forms.CheckBox cbxIsFrugalWithMaterials;
+        private System.Windows.Forms.CheckBox cbxSkipShadowRendering;
     }
 }

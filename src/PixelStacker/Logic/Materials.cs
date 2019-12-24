@@ -170,6 +170,7 @@ namespace PixelStacker.Logic
                             {
                                 diffd /= 2;
                             }
+                        }
                     }
                     catch (OverflowException) { }
 

@@ -22,6 +22,7 @@ namespace PixelStacker.UI
             this.cbxIsSideView.Checked = Options.Get.IsSideView;
             this.nbrGridSize.Value = Options.Get.GridSize;
             this.cbxIsFrugalWithMaterials.Checked = Options.Get.IsFrugalWithMaterials;
+            this.cbxSkipShadowRendering.Checked = Options.Get.IsShadowRenderingSkipped;
             this.nbrMaxHeight.Maximum = Options.Get.IsSideView ? 256 : short.MaxValue;
 
             this.nbrMaxHeight.Value = Math.Min(this.nbrMaxHeight.Maximum, Options.Get.MaxHeight ?? 0);
@@ -129,6 +130,12 @@ namespace PixelStacker.UI
         {
             if (suspendOptionsSave) return;
             Options.Get.IsFrugalWithMaterials = cbxIsFrugalWithMaterials.Checked;
+        }
+
+        private void cbxSkipShadowRendering_CheckedChanged(object sender, EventArgs e)
+        {
+            if (suspendOptionsSave) return;
+            Options.Get.IsShadowRenderingSkipped = cbxSkipShadowRendering.Checked;
         }
     }
 }
