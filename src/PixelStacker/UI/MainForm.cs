@@ -474,7 +474,7 @@ namespace PixelStacker
         {
             if (Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false))
             {
-                int nVal = Math.Max(Options.Get.Rendered_RenderedZIndexToShow - 1, 0);
+                int nVal = Math.Min((Options.Get.Rendered_RenderedZIndexToShow) + 1, this.LoadedBlueprint.MaxDepth - 1);
                 Options.Get.Rendered_RenderedZIndexToShow = nVal;
                 await this.renderedImagePanel.ForceReRender();
             }
@@ -484,7 +484,7 @@ namespace PixelStacker
         {
             if (Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false))
             {
-                int nVal = Math.Min((Options.Get.Rendered_RenderedZIndexToShow) + 1, this.LoadedBlueprint.MaxDepth - 1);
+                int nVal = Math.Max(Options.Get.Rendered_RenderedZIndexToShow - 1, 0);
                 Options.Get.Rendered_RenderedZIndexToShow = nVal;
                 await this.renderedImagePanel.ForceReRender();
             }

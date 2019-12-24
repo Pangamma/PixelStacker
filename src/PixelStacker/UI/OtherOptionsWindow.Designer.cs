@@ -181,9 +181,9 @@
             this.cbxIsFrugalWithMaterials.Location = new System.Drawing.Point(16, 188);
             this.cbxIsFrugalWithMaterials.Margin = new System.Windows.Forms.Padding(4);
             this.cbxIsFrugalWithMaterials.Name = "cbxIsFrugalWithMaterials";
-            this.cbxIsFrugalWithMaterials.Size = new System.Drawing.Size(177, 21);
+            this.cbxIsFrugalWithMaterials.Size = new System.Drawing.Size(271, 21);
             this.cbxIsFrugalWithMaterials.TabIndex = 13;
-            this.cbxIsFrugalWithMaterials.Text = "Is frugal with materials?";
+            this.cbxIsFrugalWithMaterials.Text = "Enable \"frugal\" or \"layered\" aesthetic?";
             this.cbxIsFrugalWithMaterials.UseVisualStyleBackColor = true;
             this.cbxIsFrugalWithMaterials.CheckedChanged += new System.EventHandler(this.cbxIsFrugalWithMaterials_CheckedChanged);
             // 

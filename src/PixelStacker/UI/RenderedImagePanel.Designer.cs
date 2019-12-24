@@ -43,6 +43,7 @@
             this.ts_MaterialName = new System.Windows.Forms.ToolStripMenuItem();
             this.averageColorCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rGBAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceMenuItems_4 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,14 +58,15 @@
             this.averageColorCodeToolStripMenuItem,
             this.rGBAToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(317, 148);
+            this.contextMenu.Size = new System.Drawing.Size(317, 176);
             // 
             // replaceColorToolStripMenuItem
             // 
             this.replaceColorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.replaceMenuItems_1,
             this.replaceMenuItems_2,
-            this.replaceMenuItems_3});
+            this.replaceMenuItems_3,
+            this.replaceMenuItems_4});
             this.replaceColorToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.replaceColorToolStripMenuItem.Name = "replaceColorToolStripMenuItem";
             this.replaceColorToolStripMenuItem.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
@@ -156,6 +158,12 @@
             this.rGBAToolStripMenuItem.Size = new System.Drawing.Size(316, 24);
             this.rGBAToolStripMenuItem.Text = "RGBA";
             // 
+            // replaceMenuItems_4
+            // 
+            this.replaceMenuItems_4.Name = "replaceMenuItems_4";
+            this.replaceMenuItems_4.Size = new System.Drawing.Size(224, 26);
+            this.replaceMenuItems_4.Text = "31 - 40";
+            // 
             // RenderedImagePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -192,5 +200,6 @@
         private System.Windows.Forms.ToolStripMenuItem addAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnToggleMaterialFilterMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem replaceMenuItems_4;
     }
 }

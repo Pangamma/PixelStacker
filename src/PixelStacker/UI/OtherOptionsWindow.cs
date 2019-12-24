@@ -129,11 +129,6 @@ namespace PixelStacker.UI
         {
             if (suspendOptionsSave) return;
             Options.Get.IsFrugalWithMaterials = cbxIsFrugalWithMaterials.Checked;
-            this.InvokeEx(c => TaskManager.Get.StartAsync((token) => {
-                Materials.CompileColorMap(token, true);
-            }));
-            MainForm.Self.PreRenderedImage.DisposeSafely();
-            MainForm.Self.PreRenderedImage = null;
         }
     }
 }

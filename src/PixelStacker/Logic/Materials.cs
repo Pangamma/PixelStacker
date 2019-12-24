@@ -1,19 +1,10 @@
-﻿using ColorMine.ColorSpaces;
-using PixelStacker.Properties;
-using SimplePaletteQuantizer.Helpers;
+﻿using PixelStacker.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 using PixelStacker.PreRender.Extensions;
-using System.ComponentModel;
 using System.Threading;
-using PixelStacker.UI;
-using System.IO;
-using Newtonsoft.Json;
 using PixelStacker.Logic.Great;
 
 namespace PixelStacker.Logic
@@ -127,33 +118,11 @@ namespace PixelStacker.Logic
                             }
                         }
                     }
-
-                    if (Options.Get.IsFrugalWithMaterials)
-                    {
-                        Color combinedColor = mArr[0].getAverageColor(isSide);
-
-                        Material[] matMap = new Material[mArr.Length + 1];
-                        for (int i = 0; i < mArr.Length; i++)
-                        {
-                            matMap[i] = mArr[i];
-                        }
-                        matMap[matMap.Length - 1] = Materials.Air;
-
-                        toAdd[combinedColor] = matMap;
-                    }
-
                 }
 
-                bool isFrugal = Options.Get.IsFrugalWithMaterials;
                 foreach (Color c in toAdd.Keys)
                 {
                     if (!ColorMap.ContainsKey(c))
-                    {
-                        ColorMap[c] = toAdd[c];
-                    }
-
-                    // If going for the crazy weird aesthetic, allow overridden air blocks in the design
-                    else if (isFrugal && ColorMap[c].Length == 1 && toAdd[c].Any(x => x.BlockID == 0))
                     {
                         ColorMap[c] = toAdd[c];
                     }
@@ -195,6 +164,12 @@ namespace PixelStacker.Logic
                     {
                         float diffd = c.GetColorDistance(toMatch);
                         diff = Convert.ToInt32(diffd);
+                        if (ColorMap.TryGetValue(c, out Material[] mats))
+                        {
+                            if (mats.Length == 1 || (mats.Length == 2 && mats.Any(x => x.BlockID == 0)))
+                            {
+                                diffd /= 2;
+                            }
                     }
                     catch (OverflowException) { }
 
@@ -221,13 +196,6 @@ namespace PixelStacker.Logic
             {
                 float diffd = c.GetColorDistance(toMatch);
 
-                if (ColorMap.TryGetValue(c, out Material[] mats))
-                {
-                    if (mats.Length == 1)
-                    {
-                        //diffd *= 0.8;
-                    }
-                }
 
                 return diffd;
             }).Take(top).ToList();

@@ -104,7 +104,7 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -113,7 +113,7 @@
             this.reOpenToolStripMenuItem.Enabled = false;
             this.reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
             this.reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.reOpenToolStripMenuItem.Text = "Re-Open";
             this.reOpenToolStripMenuItem.Click += new System.EventHandler(this.reOpenToolStripMenuItem_Click);
             // 
@@ -122,7 +122,7 @@
             this.exportSchematicToolStripMenuItem.Enabled = false;
             this.exportSchematicToolStripMenuItem.Name = "exportSchematicToolStripMenuItem";
             this.exportSchematicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.exportSchematicToolStripMenuItem.Text = "Save";
             this.exportSchematicToolStripMenuItem.Click += new System.EventHandler(this.saveMenuClick);
             // 
@@ -137,7 +137,7 @@
             this.saveColorPaletteToolStripMenuItem.Enabled = false;
             this.saveColorPaletteToolStripMenuItem.Name = "saveColorPaletteToolStripMenuItem";
             this.saveColorPaletteToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.saveColorPaletteToolStripMenuItem.Text = "Save color palette";
             // 
             // graphToolStripMenuItem
@@ -379,7 +379,7 @@
             // dlgOpen
             // 
             this.dlgOpen.FileName = "openFileDialog1";
-            this.dlgOpen.Filter = "png|*.png|Jpeg|*.jpg";
+            this.dlgOpen.Filter = "Jpeg or png|*.png;*.jpeg;*.jpg|png|*.png|Jpeg|*.jpg;*.jpeg";
             this.dlgOpen.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgOpen_FileOk);
             // 
             // dlgSave
