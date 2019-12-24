@@ -43,15 +43,20 @@ namespace PixelStacker.UI
             
         }
 
+        public void setAllChecked(bool shouldBeChecked)
+        {
+            btnToggleAll.Text = shouldBeChecked ? "Disable All" : "Enable All";
+            Options.Get.SetEnabled("btnToggleAll_" + this.Category, shouldBeChecked);
+            foreach (MaterialListItemToggle toggle in this.flowLayoutPanel1.Controls.OfType<MaterialListItemToggle>())
+            {
+                toggle.SetChecked(shouldBeChecked);
+            }
+        }
+
         private void btnToggleAll_Click(object sender, EventArgs e)
         {
             bool shouldDisable = btnToggleAll.Text == "Disable All";
-            btnToggleAll.Text = shouldDisable ? "Enable All" : "Disable All";
-            Options.Get.SetEnabled("btnToggleAll_" + this.Category, !shouldDisable);
-            foreach (MaterialListItemToggle toggle in this.flowLayoutPanel1.Controls.OfType<MaterialListItemToggle>())
-            {
-                toggle.SetChecked(!shouldDisable);
-            }
+            this.setAllChecked(!shouldDisable);
         }
     }
 }

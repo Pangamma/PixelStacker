@@ -14,16 +14,19 @@ namespace PixelStacker.UI
     public partial class MaterialOptionsWindow : Form
     {
         private MainForm mainForm;
+        private List<MaterialList> refMaterialLists;
 
         public MaterialOptionsWindow()
         {
             DoubleBuffered = true;
+            this.refMaterialLists = new List<MaterialList>();
         }
 
         public MaterialOptionsWindow(MainForm mainForm)
         {
             this.mainForm = mainForm;
             DoubleBuffered = true;
+            this.refMaterialLists = new List<MaterialList>();
             this.SuspendLayout();
             InitializeComponent();
             addMaterialList("Wool");
@@ -43,8 +46,7 @@ namespace PixelStacker.UI
             addMaterialList("Common");
             cbxEnableLayer2.Checked = Options.Get.IsMultiLayer;
             cbxIsSideView.Checked = Options.Get.IsSideView;
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            this.ResumeLayout(true);
         }
 
         public void addMaterialList(string Category)
@@ -62,6 +64,7 @@ namespace PixelStacker.UI
                 materialList10.Name = "materialList_" + Category.Replace(" ", "");
                 materialList10.Size = new System.Drawing.Size(905, 100);
                 materialList10.TabIndex = 0;
+                this.refMaterialLists.Add(materialList10);
                 this.tableLayoutPanel.Controls.Add(materialList10, 0, this.tableLayoutPanel.Controls.Count);
             }
         }
@@ -76,7 +79,8 @@ namespace PixelStacker.UI
         private async void PixelArtOptionsWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Options.Save();
-            await TaskManager.Get.StartAsync((token) => {
+            await TaskManager.Get.StartAsync((token) =>
+            {
                 Materials.CompileColorMap(token, true);
             });
 
@@ -113,6 +117,21 @@ namespace PixelStacker.UI
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void btnSelectAll_Click(object sender, EventArgs e)
+        {
+            this.refMaterialLists.ForEach(ML => {
+                ML.setAllChecked(true);
+            });
+        }
+
+        private void btnSelectNone_Click(object sender, EventArgs e)
+        {
+            this.refMaterialLists.ForEach(ML => {
+                ML.setAllChecked(false);
+            });
+
         }
     }
 }
