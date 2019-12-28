@@ -18,6 +18,7 @@
       }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="./assets/js/konami.js"></script>
     <!-- Meta additions -->
 
     <!-- Stylesheet requirements -->
@@ -77,7 +78,7 @@
         </center>
       </div>
       <div data-grid="col-6 pad-12x">
-        <h2 class="c-heading-2">About the Project</h2><br/>
+        <h2 class="c-heading-2">About the project</h2><br/>
         <p class="c-paragraph">
           It is my hope that you enjoy this program. I made this program
           as a proof of concept for creating high quality pixelart. This
@@ -85,7 +86,7 @@
           build the art in-game. You can also save to PNG or Schematic
           format. Most importantly. You can use the double layer mode 
           which combines stained glass panels with newer Minecraft blocks
-          to create an even larger color pallet.<br/><br/>
+          to create an even larger color palette.<br/><br/>
 
 		  <a href="https://github.com/Pangamma/PixelStacker" title="View source on github!"><img src="./assets/img/follow_git.png" alt="github logo"/></a><br/><br/>
         </p>
@@ -118,31 +119,49 @@
         <div data-grid="col-12" ms.cmpgrp="projects">
           <div data-grid="col-12 pad-12x" class="row">
             <script type='text/JavaScript' async>
-              printImageCard('./assets/img/old/feature_01.png', 'The Viewer', 'Enjoy the nice image viewer GUI. You can pan by dragging with a mouse. Zoom by scrolling', null, './assets/img/old/feature_01.png');
-              printImageCard('./assets/img/old/feature_02.png', 'Rendered Viewer', 'After rendering the image (CTRL + R), you can see the blocks that are chosen for the build.', null, './assets/img/old/feature_02.png');
-              printImageCard('./assets/img/old/feature_03.png', 'Options', 'Choose from all the latest and greatest Minecraft blocks for colors. Toggle side/top views, change the grid size, and even double-layer mode.', null, './assets/img/old/feature_03.png');
-            </script>
+              printImageCard('./assets/img/feature_01.png', 'The Viewer', 'Enjoy the nice image viewer GUI. You can pan by dragging with a mouse. Zoom by scrolling. After rendering the image (<kbd>CTRL</kbd> + <kbd>R</kbd>), you can see the blocks that are chosen for the build.', null, './assets/img/feature_01.png');
+              printImageCard('./assets/img/feature_03.png', 'Material Options', 'Choose from all the latest and greatest Minecraft blocks for colors. Toggle side/top views, and even enable the double-layer mode. (<kbd>CTRL</kbd> + <kbd>E</kbd>)', null, './assets/img/feature_03.png');
+          	  printImageCard('./assets/img/feature_16.png', 'Color Palette Generator', 'Generate color palettes from your images. There are many different display styles you can choose from.', 'View some options', 'https://www.spigotmc.org/attachments/upload_2019-11-17_22-18-32-png.468595/');
+          </script>
           </div>
   
           <div data-grid="col-12 pad-12x" class="row">
             <script type='text/JavaScript' async>
-              printImageCard('./assets/img/old/feature_04.png', 'View Grid', 'Losing track of where you are sucks. Toggle the grid view (CTRL + G) if you want help, and if you want to adjust the grid size, you can do that in the options menu.', null, './assets/img/old/feature_04.png');
-              printImageCard('./assets/img/old/feature_05.png', 'View Texture', "Sometimes you just want to see how the program simplifies your build. You can disable textures to see the build painted with average color codes instead of texture images.", null, './assets/img/old/feature_05.png');
-              printImageCard('./assets/img/old/feature_06.png', 'View Outline', "Seeing the outline helps if you're working with partially transparent images. It helps you visualize the boundaries of your pixel art.", null, './assets/img/old/feature_06.png');
+              printImageCard('./assets/img/feature_08.png', 'WorldEdit Origin Editor', "Double click to set the WorldEdit origin. The origin will show up as the red dot. If you try to paste a schematic, the schematic will be pasted relative to the red dot.", null, './assets/img/feature_08_lg.png');
+              printImageCard('./assets/img/feature_05.png', 'View Texture',
+			  "Sometimes you just want to see how the program simplifies your build. "
+			  + "You can disable textures to see the build painted with average color codes instead of texture images."
+			  + "<a class='c-hyperlink f-lean' href='./assets/img/feature_05_rendered.png'>[With textures]</a>"
+			  + "<a class='c-hyperlink f-lean' href='./assets/img/feature_05_src.png'>[Without textures]</a>"
+			  + "<a class='c-hyperlink f-lean f-href-target' href='./assets/img/feature_05_lg.png'>[Full size]</a>"
+			  + "<br/> (<kbd>CTRL</kbd> + <kbd>T</kbd>)", null, './assets/img/feature_05_lg.png');
+              printImageCard('./assets/img/feature_06.png', 'View Border', "Seeing the border helps if you're working with partially transparent images. It helps you visualize the boundaries of your pixel art.<br/>(<kbd>CTRL</kbd> + <kbd>B</kbd>)", null, './assets/img/feature_06.png');
             </script>
           </div>
           <div data-grid="col-12 pad-12x" class="row">
             <script type='text/JavaScript' async>
-              printImageCard('./assets/img/old/feature_07.png', 'Double Layer Mode', 'By using stained glass panes you can create all kinds of color combinations. It makes a huge difference because you are essentially multipling the available color pool by 16. The results are impressive!', "View Output", './assets/img/old/feature_07_lg.png');
-              printImageCard('./assets/img/old/feature_08.png', 'WorldEdit Origin Editor', "Double click to set the WorldEdit origin. The origin will show up as the red dot. If you try to paste a schematic, the schematic will be pasted relative to the red dot.", null, './assets/img/old/feature_08.png');
-              printImageCard('./assets/img/old/feature_09.png', 'Save and Export', "You can save as a schematic, or as a PNG file. Schematics will always face north. Ideal for dynmaps.", null, './assets/img/old/feature_09.png');
+			  printImageCard('./assets/img/feature_04.png', 'View Grid', 'Losing track of where you are sucks. Toggle the grid view (<kbd>CTRL</kbd> + <kbd>G</kbd>) if you want help, and if you want to adjust the grid size, you can do that in the "other options" menu (<kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>E</kbd>). <kbd>MIDDLE CLICK</kbd> to toggle the focus overlay.', null, './assets/img/feature_04_lg.png');
+              printImageCard('./assets/img/feature_07.png', 'Double Layer Mode', 'By using stained glass panes you can create all kinds of color combinations. It makes a huge difference because you are essentially multipling the available color pool by 16. The results are impressive!', "View output", './assets/img/feature_07_lg.png');
+		      printImageCard('./assets/img/feature_13.png', 'Material Filter', 'Sometimes it helps to hide materials you are not interested in. You can do that using the material filters. These can be accessed in the rendered view context menu by <kbd>RIGHT CLICK</kbd>-ing a rendered block.', null, './assets/img/feature_13.png');
             </script>
           </div>
           <div data-grid="col-12 pad-12x" class="row">
             <script type='text/JavaScript' async>
-              printImageCard('./assets/img/old/feature_10.png', 'Pallette Viewer', 'Show a hybrid view that combines texture mode and smooth mode. Useful for if you want to see what average color is being used for the matching algorithm.', null, './assets/img/old/feature_10.png');
-              printImageCard('./assets/img/old/feature_11.png', 'Quantizer Engine', "Drastically improve rendering speed by reducing the total number of colors used in the rendering process. You can use this for some cool effects. Many algorithms to choose from. ", null, './assets/img/old/feature_11_big.png');
-              printImageCard('./assets/img/old/feature_12.png', 'Dithering', "If you are a fan of dithering, then you will enjoy choosing between 15 different dithering algorithms.", null, './assets/img/old/feature_12.png');
+		      printImageCard('./assets/img/feature_17.png', 'View Layers', "Quickly switch between viewing layer 0 and layer 1 with the layered view. <br/>Toggle layer view: (<kbd>CTRL</kbd> + <kbd>L</kbd>)<br/>Up/Down layer: (<kbd>CTRL</kbd> + <kbd>UP / DOWN</kbd>)", null, './assets/img/feature_17_lg.png');
+			  printImageCard('./assets/img/feature_11.png', 'Quantizer Engine', "Drastically improve rendering speed by reducing the total number of colors used in the rendering process. You can use this for some cool effects. Many algorithms to choose from. <br/>(<kbd>CTRL</kbd> + <kbd>Q</kbd>)", null, './assets/img/feature_11_lg.png');
+              printImageCard('./assets/img/feature_12.png', 'Dithering', "If you are a fan of dithering, then you will enjoy choosing between 15 different dithering algorithms.<br/>(<kbd>CTRL</kbd> + <kbd>Q</kbd>)", 'View video clip', './assets/video/feature_12_vid.mp4');
+            </script>
+          </div>
+          <div data-grid="col-12 pad-12x" class="row">
+            <script type='text/JavaScript' async>
+			  printImageCard('./assets/img/feature_09.png', 'Save and Export', "You can save as a schem, schematic, PNG file, or a list of the required materials. Schematics will always face north. Ideal for dynmaps. <br/>(<kbd>CTRL</kbd> + <kbd>S</kbd>)", null, './assets/img/feature_09_lg.png');
+              printImageCard('./assets/img/feature_14.png', 'Material Swapper', "If you disagree with one of the color matches you can just override the default choice.<br/>(<kbd>RIGHT CLICK</kbd>)", null, './assets/img/feature_14.png');
+		      printImageCard('./assets/img/feature_10.png', 'Palette Viewer', 'Show a hybrid view that combines texture mode and smooth mode. Useful for if you want to see what average color is being used for the matching algorithm.<br/>(<kbd>CTRL</kbd> + <kbd>P</kbd>)', null, './assets/img/feature_10.png');
+              
+		  </script>
+          </div>
+          <div data-grid="col-12 pad-12x" class="row">
+            <script type='text/JavaScript' async>
             </script>
           </div>
         </div>
@@ -166,7 +185,7 @@
             <script type='text/JavaScript' async>
               printImageCard('./assets/img/showcase_04.png', 'Link and Midna', 'A beautiful example of the depth of color that can be achieved.', 'View full size', './assets/img/showcase_04_zoom.png');
               printImageCard('./assets/img/showcase_05.png', 'Winston from Overwatch', 'Only one layer is needed in this piece thanks to PixelStacker\'s effective color matching algorithm.', 'View full size', "./assets/img/showcase_05_zoom.png");
-              printImageCard('./assets/img/showcase_06.png', 'Blue bird thing', 'I do not remember what this is from.',  'View full size', "./assets/img/showcase_06_zoom.png");
+              printImageCard('./assets/img/showcase_06.png', 'Blue bird', 'From Zelda breath of the Wild',  'View full size', "./assets/img/showcase_06_zoom.png");
             </script>
           </div>
           <div data-grid="col-12 pad-12x" class="row">
@@ -179,6 +198,7 @@
           <div data-grid="col-12 pad-12x" class="row">
             <script type='text/JavaScript' async>
               printImageCard('./assets/img/showcase_07.png', 'Mashup collection', 'A mashup of many different art styles', 'View full size', './assets/img/showcase_07_zoom.png');
+              printImageCard('./assets/img/showcase_08.png', 'Eyes', 'A full blend render of an art piece by <a  class="c-hyperlink f-lean" href="https://www.facebook.com/qinni.h">Qinni</a>.', null, './assets/img/showcase_08_lg.png');
                </script>
           </div>
         </div>
