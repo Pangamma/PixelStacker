@@ -164,13 +164,6 @@ namespace PixelStacker.Logic
                     {
                         float diffd = c.GetColorDistance(toMatch);
                         diff = Convert.ToInt32(diffd);
-                        if (ColorMap.TryGetValue(c, out Material[] mats))
-                        {
-                            if (mats.Length == 1 || (mats.Length == 2 && mats.Any(x => x.BlockID == 0)))
-                            {
-                                diffd /= 2;
-                            }
-                        }
                     }
                     catch (OverflowException) { }
 

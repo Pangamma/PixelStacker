@@ -122,14 +122,14 @@ namespace PixelStacker.UI
                         width: calcW,
                         height: calcH,
                         format: PixelFormat.Format32bppArgb);
+
+                    var selectedMaterials = Options.Get.SelectedMaterialFilter.AsEnumerable().ToList(); // clone
                     bool _IsSolidColors = Options.Get.Rendered_IsSolidColors;
                     bool _IsColorPalette = Options.Get.Rendered_IsColorPalette;
                     bool _IsMultiLayer = Options.Get.IsMultiLayer;
-                    bool _isFrugalAesthetic = Options.Get.IsFrugalWithMaterials;
                     bool _isSkipShadowRendering = Options.Get.IsShadowRenderingSkipped;
                     int _RenderedZIndexToShow = Options.Get.Rendered_RenderedZIndexToShow;
-
-                    var selectedMaterials = Options.Get.SelectedMaterialFilter.AsEnumerable().ToList(); // clone
+                    bool _isFrugalAesthetic = Options.Get.IsFrugalWithMaterials && !selectedMaterials.Any();
 
 
                     using (Graphics gImg = Graphics.FromImage(bm))
@@ -233,7 +233,6 @@ namespace PixelStacker.UI
                                             Material mTop = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 1, !_isFrugalAesthetic);
                                             bool isTopShown = mTop.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mTop.Label));
 
-
                                             if (isTopShown && isBottomShown)
                                             {
                                                 shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP_AND_BOTTOM;
@@ -278,7 +277,7 @@ namespace PixelStacker.UI
                                                 bool isBottomShown = shadowMap[x, y] == SHOWN_BOTTOM || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
                                                 bool isBottomCoveredByInvisibleTop = isBottomShown && !isTopShown;
 
-                                                if (isBottomCoveredByInvisibleTop)
+                                                if (isBottomCoveredByInvisibleTop && _IsMultiLayer)
                                                 {
                                                     gShadow.FillRectangle(brushTransparentCover, xi, yi, textureSize.Value, textureSize.Value);
                                                 }
@@ -699,7 +698,7 @@ namespace PixelStacker.UI
                 SolidBrush brush = new SolidBrush(Color.Black);
                 Pen pen = new Pen(brush);
 
-                if (this.renderedImage != null)
+                if (this.renderedImage != null && MainForm.PanZoomSettings != null)
                 {
                     Point pStart = getPointOnImage(new Point(0, 0), EstimateProp.Floor);
                     Point fStart = getPointOnPanel(pStart);
@@ -1064,7 +1063,7 @@ namespace PixelStacker.UI
                 #endregion
 
                 #region Material name
-                this.ts_MaterialName.Text = $"Materials: \r\n{string.Join("\r\n", ms.Select(x => x.Label))}";
+                this.ts_MaterialName.Text = $"Materials: \r\n{string.Join("\r\n", ms.Select(x => x.Label.Replace("zz", "")))}";
                 #endregion
 
                 #region Average color

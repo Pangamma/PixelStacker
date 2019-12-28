@@ -32,23 +32,17 @@ namespace PixelStacker.PreRender.Extensions
             int dG = (c.G - toMatch.G);
             int dB = (c.B - toMatch.B);
             float dHue = GetDegreeDistance(c.GetHue(), toMatch.GetHue());
+            //float dSat = (c.GetSaturation() - toMatch.GetSaturation()) * 100;
 
             float diff = (
                 (dR * dR)
                 + (dG * dG)
                 + (dB * dB)
-                + (float) Math.Pow(dHue, 1.5)
-                //+ ((c.GetSaturation() - c.GetSaturation()) * 100).Pow2()
+                + (float)Math.Pow(dHue, 1.5)
+                //+ (dSat * dSat)
                 );
 
             return diff;
-            //double diffd = 1000 *
-            //   (
-            //   //Math.Pow(Math.Abs(c.R - toMatch.R), Constants.rgbPower)
-            //   //+ Math.Pow(Math.Abs(c.G - toMatch.G), Constants.rgbPower)
-            //   //+ Math.Pow(Math.Abs(c.B - toMatch.B), Constants.rgbPower)
-            //   //+ Math.Pow(GetDegreeDistance(c.GetHue(), toMatch.GetHue()) / 2, Constants.huePower)
-            //   //+ Math.Pow(Math.Abs(c.GetSaturation() - toMatch.GetSaturation()), Constants.satPower)
         }
 
         /// <summary>
@@ -59,9 +53,9 @@ namespace PixelStacker.PreRender.Extensions
         public static Color Normalize(this Color c)
         {
             int F = Constants.ColorFragmentSize;
-            int R = (int) Math.Round(Convert.ToDecimal(c.R) / F, 0) * F;
-            int G = (int) Math.Round(Convert.ToDecimal(c.G) / F, 0) * F;
-            int B = (int) Math.Round(Convert.ToDecimal(c.B) / F, 0) * F;
+            int R = (int)Math.Round(Convert.ToDecimal(c.R) / F, 0) * F;
+            int G = (int)Math.Round(Convert.ToDecimal(c.G) / F, 0) * F;
+            int B = (int)Math.Round(Convert.ToDecimal(c.B) / F, 0) * F;
 
             return Color.FromArgb(c.A, R, G, B);
         }

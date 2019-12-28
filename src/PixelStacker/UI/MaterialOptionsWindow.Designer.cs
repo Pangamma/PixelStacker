@@ -56,10 +56,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.tableLayoutPanel);
-            this.panel1.Location = new System.Drawing.Point(16, 85);
+            this.panel1.Location = new System.Drawing.Point(16, 46);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1215, 505);
+            this.panel1.Size = new System.Drawing.Size(1215, 544);
             this.panel1.TabIndex = 3;
             // 
             // tableLayoutPanel
@@ -72,7 +72,7 @@
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.Size = new System.Drawing.Size(1215, 505);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(1215, 544);
             this.tableLayoutPanel.TabIndex = 3;
             // 
             // cbxIsSideView

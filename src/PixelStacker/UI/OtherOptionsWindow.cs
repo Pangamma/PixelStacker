@@ -79,6 +79,11 @@ namespace PixelStacker.UI
             Options.Get.MaxWidth = val;
             MainForm.Self.PreRenderedImage.DisposeSafely();
             MainForm.Self.PreRenderedImage = null;
+
+            MainForm.Self.InvokeEx((c) =>
+            {
+                c.ShowImagePanel();
+            });
         }
 
         private void nbrMaxHeight_ValueChanged(object sender, EventArgs e)
@@ -89,6 +94,11 @@ namespace PixelStacker.UI
             Options.Get.MaxHeight = val;
             MainForm.Self.PreRenderedImage.DisposeSafely();
             MainForm.Self.PreRenderedImage = null;
+
+            MainForm.Self.InvokeEx((c) =>
+            {
+                c.ShowImagePanel();
+            });
         }
 
         private void nbrGridSize_ValueChanged(object sender, EventArgs e)

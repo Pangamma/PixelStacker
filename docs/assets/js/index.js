@@ -16,7 +16,7 @@ function printImageCard($imgURL, $header, $text, $cta, $href) {
     if (!!$cta && $cta.trim().length > 0) {
         html += '\
                 <p class="c-paragraph-3" style="padding-top:0px;">\
-                    <a href="{{href}}" class="c-hyperlink" aria-label="{{cta}} {{header}}">\
+                    <a href="{{href}}" class="c-hyperlink f-href-target" aria-label="{{cta}} {{header}}">\
                         {{cta}}\
                     </a>\
                 </p>';

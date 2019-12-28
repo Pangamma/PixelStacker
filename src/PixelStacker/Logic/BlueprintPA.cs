@@ -126,10 +126,11 @@ namespace PixelStacker.Logic
             int x2, y2 = 0;
             x2 = x;
             y2 = y;
+
 #if !DEBUG
-                // If you're failing in dev, fix it. Release builds should not be held up by this...
-                if (x2 > this.blueprint.BlocksMap.GetLength(0) || x2 < 0) { return new Material[] { Materials.Air }; }
-                if (y2 > this.blueprint.BlocksMap.GetLength(1) || y2 < 0) { return new Material[] { Materials.Air }; }
+            // If you're failing in dev, fix it. Release builds should not be held up by this...
+            if (x2 > this.BlocksMap.GetLength(0) || x2 < 0) { return Materials.Air; }
+            if (y2 > this.BlocksMap.GetLength(1) || y2 < 0) { return Materials.Air; }
 #endif
 
             int ci = this.BlocksMap[x2, y2];
