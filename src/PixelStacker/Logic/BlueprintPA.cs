@@ -13,13 +13,13 @@ namespace PixelStacker.Logic
 {
     public class BlueprintPA
     {
-        /// <summary>
-        /// Calculated during the compilation process. Optimized to use fewest layers possible.
-        /// </summary>
-        public int MaxDepth { get; set; }
         private Bitmap Image { get; set; }
         public int[,] BlocksMap { get; private set; } // x, y
         public Point WorldEditOrigin { get; set; } = new Point(0, 0);
+
+        /// <summary>
+        /// ONLY use this for mapping to schematics and in-world coordinates
+        /// </summary>
         public CoordinateMapper Mapper { get; set; }
 
         public BlueprintPA()
@@ -87,8 +87,68 @@ namespace PixelStacker.Logic
             };
         }
 
+        /// <summary>
+        /// Calculated during the compilation process. Optimized to use fewest layers possible.
+        /// </summary>
+        public int MaxDepth { get; set; }
         public int Width { get { return this.BlocksMap.GetLength(0); } }
         public int Height { get { return this.BlocksMap.GetLength(1); } }
+
+        /// <summary>
+        /// Only works for top view
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public Material[] GetMaterialsAt(int x, int y)
+        {
+#if !DEBUG
+            // If you're failing in dev, fix it. Release builds should not be held up by this...
+            if (x > this.BlocksMap.GetLength(0) || x < 0) { return new Material[] { Materials.Air }; }
+            if (y > this.BlocksMap.GetLength(1) || y < 0) { return new Material[] { Materials.Air }; }
+#endif
+            int ci = this.BlocksMap[x, y];
+            Color c = Color.FromArgb(ci);
+            var mm = (Materials.ColorMap.ContainsKey(c) ? Materials.ColorMap[c] : null) ?? new Material[] { Materials.Air };
+            return mm;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="zDepth"></param>
+        /// <param name="isIndexZeroReturnedIfOutOfBounds">If true, mm[0] will be returned when mm[1] is not available.</param>
+        /// <returns></returns>
+        public Material GetMaterialAt(int x, int y, int zDepth, bool isIndexZeroReturnedIfOutOfBounds)
+        {
+            int x2, y2 = 0;
+            x2 = x;
+            y2 = y;
+
+#if !DEBUG
+            // If you're failing in dev, fix it. Release builds should not be held up by this...
+            if (x2 > this.BlocksMap.GetLength(0) || x2 < 0) { return Materials.Air; }
+            if (y2 > this.BlocksMap.GetLength(1) || y2 < 0) { return Materials.Air; }
+#endif
+
+            int ci = this.BlocksMap[x2, y2];
+            Color c = Color.FromArgb(ci);
+            if (Materials.ColorMap.TryGetValue(c, out Material[] mm))
+            {
+                if (!(zDepth < 0 || zDepth >= mm.Length))
+                {
+                    return mm[zDepth];
+                }
+                else if (isIndexZeroReturnedIfOutOfBounds && mm.Length > 0)
+                {
+                    return mm[0];
+                }
+            }
+
+            return Materials.Air;
+        }
 
         public Color GetColor(int x, int y)
         {
@@ -99,7 +159,6 @@ namespace PixelStacker.Logic
             }
             return Color.Transparent;
         }
-
 
         public class CoordinateMapper
         {
@@ -152,32 +211,9 @@ namespace PixelStacker.Logic
                 return result;
             }
 
-            /// <summary>
-            /// Only works for side view.
-            /// </summary>
-            /// <param name="x"></param>
-            /// <param name="y"></param>
-            /// <returns></returns>
-            public Material[] GetMaterialsAt(int x, int y)
-            {
-                int x2, y2 = 0;
-                x2 = x;
-                y2 = y;
-#if !DEBUG
-                // If you're failing in dev, fix it. Release builds should not be held up by this...
-                if (x2 > this.blueprint.BlocksMap.GetLength(0) || x2 < 0) { return new Material[] { Materials.Air }; }
-                if (y2 > this.blueprint.BlocksMap.GetLength(1) || y2 < 0) { return new Material[] { Materials.Air }; }
-#endif
-
-                int ci = this.blueprint.BlocksMap[x2, y2];
-                Color c = Color.FromArgb(ci);
-                var mm = (Materials.ColorMap.ContainsKey(c) ? Materials.ColorMap[c] : null) ?? new Material[] { Materials.Air };
-                return mm;
-            }
-
             public Material GetMaterialAt(bool isSideView, int x, int y, int z)
             {
-                int x2, y2, z2 = 0;
+                int x2, y2, z2;
                 x2 = x;
                 y2 = isSideView ? y : z;
 
@@ -187,7 +223,7 @@ namespace PixelStacker.Logic
 
                 int idx = 0;
                 if (isSideView)
-                { 
+                {
                     // sizeActual = sizeVirtual (zMax)
                     // 1 = 1
                     // 2 = 3

@@ -269,9 +269,41 @@ namespace PixelStacker.Logic
             }
             else
             {
-                allColorBuckets.Add(new Grouping<int, Color>(-2, grayscaleLight));
-                allColorBuckets.Add(new Grouping<int, Color>(-1, grayscaleDark));
-                allColorBuckets.AddRange(saturated.GroupBy(x => ((int)Math.Round(x.GetHue())) / 18).OrderBy(x => x.Key).ToList());
+                const int MIN_COLORS_IN_BUCKET = 5;
+
+                var outputColorBuckets = new List<List<Color>>();
+                var inputColorBuckets = new List<List<Color>>(); 
+                inputColorBuckets.Add(grayscaleLight);
+                inputColorBuckets.Add(grayscaleDark);
+                inputColorBuckets.AddRange(saturated.GroupBy(x => ((int)Math.Round(x.GetHue())) / 9).OrderBy(x => x.Key).Select(x => x.ToList()).ToList());
+
+                var carry = new List<Color>();
+                for (int iBucket = 0; iBucket < inputColorBuckets.Count; iBucket++)
+                {
+                    var cBucket = inputColorBuckets[iBucket];
+                    cBucket.AddRange(carry);
+                    carry.Clear();
+
+                    if (cBucket.Count() < MIN_COLORS_IN_BUCKET)
+                    {
+                        if (iBucket < inputColorBuckets.Count - 1)
+                        {
+                            carry.AddRange(cBucket);
+                        }
+                        else
+                        {
+                            outputColorBuckets.Add(cBucket);
+                        }
+                    }
+                    else
+                    {
+                        outputColorBuckets.Add(cBucket);
+                    }
+                }
+
+                int nBucket = 0;
+                allColorBuckets.AddRange(outputColorBuckets.Select(xBucket => new Grouping<int, Color>(nBucket++, xBucket)));
+
             }
 
             int wGraph = allColorBuckets.Count * blockWidth;
@@ -302,7 +334,7 @@ namespace PixelStacker.Logic
                             xi++;
                         }
                     }
-                    
+
                     return bm.To32bppBitmap();
                 }
             }
@@ -399,12 +431,12 @@ namespace PixelStacker.Logic
                                     {
                                         if (isImageMode)
                                         {
-                                            var imgGlass = glasses[z-1].getImage(isSide);
+                                            var imgGlass = glasses[z - 1].getImage(isSide);
                                             g.DrawImage(imgGlass, xOffset + (z * blockWidth), yOffset + blockWidth, blockWidth, blockWidth);
                                         }
                                         else
                                         {
-                                            b.Color = glasses[z-1].getAverageColor(isSide);
+                                            b.Color = glasses[z - 1].getAverageColor(isSide);
                                             g.FillRectangle(b, xOffset + (z * blockWidth), yOffset + blockWidth, blockWidth, blockWidth);
                                         }
                                     }

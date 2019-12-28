@@ -16,6 +16,8 @@ namespace PixelStacker.Logic
         public bool IsMultiLayer { get; set; } = true;
         public bool IsSideView { get; set; } = false;
         public bool IsFrugalWithMaterials { get; set; } = false;
+        public bool IsShadowRenderingSkipped { get; set; } = false;
+        
         public int GridSize { get; set; } = 16;
         public Color GridColor { get; set; } = Color.Black;
 

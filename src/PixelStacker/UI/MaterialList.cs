@@ -25,7 +25,9 @@ namespace PixelStacker.UI
             btnToggleAll.Text = Options.Get.IsEnabled("btnToggleAll_" + this.Category, true) ? "Disable All" : "Enable All";
             {
                 lblCategory.Text = Category;
-                var toggles = Materials.List.Where(m => m.Category == Category).OrderBy(x => x.Label).Select(m => new MaterialListItemToggle().SetMaterial(m, Options.Get.IsSideView)).ToArray<MaterialListItemToggle>();
+                var toggles = Materials.List.Where(m => m.Category == Category)
+                    .OrderBy(x => x.Label.StartsWith("zz")) // Shift any of the "Sand" or "clay" items to the end. 
+                .Select(m => new MaterialListItemToggle().SetMaterial(m, Options.Get.IsSideView)).ToArray<MaterialListItemToggle>();
                 flowLayoutPanel1.Controls.AddRange(toggles);
             }
         }
@@ -43,15 +45,20 @@ namespace PixelStacker.UI
             
         }
 
+        public void setAllChecked(bool shouldBeChecked)
+        {
+            btnToggleAll.Text = shouldBeChecked ? "Disable All" : "Enable All";
+            Options.Get.SetEnabled("btnToggleAll_" + this.Category, shouldBeChecked);
+            foreach (MaterialListItemToggle toggle in this.flowLayoutPanel1.Controls.OfType<MaterialListItemToggle>())
+            {
+                toggle.SetChecked(shouldBeChecked);
+            }
+        }
+
         private void btnToggleAll_Click(object sender, EventArgs e)
         {
             bool shouldDisable = btnToggleAll.Text == "Disable All";
-            btnToggleAll.Text = shouldDisable ? "Enable All" : "Disable All";
-            Options.Get.SetEnabled("btnToggleAll_" + this.Category, !shouldDisable);
-            foreach (MaterialListItemToggle toggle in this.flowLayoutPanel1.Controls.OfType<MaterialListItemToggle>())
-            {
-                toggle.SetChecked(!shouldDisable);
-            }
+            this.setAllChecked(!shouldDisable);
         }
     }
 }

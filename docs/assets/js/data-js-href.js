@@ -16,6 +16,21 @@ var dataJsHref = {
 };
 
 
+// When user hovers over card, the anchor should get the underline effect
+/* 
+$(document).ready(function(){
+	document.querySelectorAll('[data-js-href]').forEach(function(hrefElem) { 
+		let attrHref = hrefElem.getAttribute('data-js-href');
+		let matchingAnchors = hrefElem.querySelectorAll('[href="'+attrHref+'"]');
+		matchingAnchors.forEach(function(anchorHref) {
+			if (!anchorHref.classList.contains('f-href-target')){
+				anchorHref.classList.add('f-href-target');
+			}
+		});
+	});
+});
+*/
+
 // When user middle clicks with mouse button, we want to prevent scroll behavior. Also,
 // we want to track where they started their click so we can tell if they clicked or did
 // some other operation on mouseup.
