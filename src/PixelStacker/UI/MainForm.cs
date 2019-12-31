@@ -1,6 +1,6 @@
 ﻿using PixelStacker.Logic;
 using PixelStacker.Logic.WIP;
-using PixelStacker.PreRender.Extensions;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Properties;
 using PixelStacker.UI;
 using SimplePaletteQuantizer;

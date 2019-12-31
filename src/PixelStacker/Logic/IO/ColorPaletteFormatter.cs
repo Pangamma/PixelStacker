@@ -1,5 +1,5 @@
 ﻿using PixelStacker.Logic.Great;
-using PixelStacker.PreRender.Extensions;
+using PixelStacker.Logic.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

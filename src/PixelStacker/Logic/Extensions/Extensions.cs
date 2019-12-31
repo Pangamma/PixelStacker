@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace PixelStacker.Logic
+namespace PixelStacker.Logic.Extensions
 {
-    public static class Extensions
+    public static partial class Extend
     {
         public static Size CalculateSize(this Point L, Point R)
         {

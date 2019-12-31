@@ -92,23 +92,22 @@
   <ItemGroup>
     <Compile Include="Logic\Great\BestMatchCacheMap.cs" />
     <Compile Include="Logic\Great\Grouping.cs" />
-    <Compile Include="Logic\Great\ImageExtensions.cs" />
     <Compile Include="Logic\Great\OrderedDictionary.cs" />
-    <Compile Include="Logic\Great\UIExtensions.cs" />
+    <Compile Include="Logic\Extensions\Extend.UI.cs" />
     <Compile Include="Logic\Great\UpdateChecker.cs" />
     <Compile Include="Logic\PanZoomSettings.cs" />
-    <Compile Include="Logic\ColorPaletteFormatter.cs" />
-    <Compile Include="Logic\SchemFormatter.cs" />
+    <Compile Include="Logic\Formatters\ColorPaletteFormatter.cs" />
+    <Compile Include="Logic\Formatters\SchemFormatter.cs" />
     <Compile Include="Logic\WIP\Blueprint.cs" />
     <Compile Include="Logic\BlueprintPA.cs" />
     <Compile Include="Logic\Great\Constants.cs" />
-    <Compile Include="Logic\Great\Extensions.cs" />
+    <Compile Include="Logic\Extensions\Extensions.cs" />
     <Compile Include="Logic\Great\Material.cs" />
     <Compile Include="Logic\Materials.cs" />
     <Compile Include="Logic\Great\Options.cs" />
     <Compile Include="Logic\ProgressReport.cs" />
     <Compile Include="Logic\ResourceLock.cs" />
-    <Compile Include="Logic\SchematicFormatter.cs" />
+    <Compile Include="Logic\Formatters\SchematicFormatter.cs" />
     <Compile Include="Logic\WIP\EditHistory.cs" />
     <Compile Include="PreRender\ColorCaches\BaseColorCache.cs" />
     <Compile Include="PreRender\ColorCaches\Common\ColorModel.cs" />
@@ -136,10 +135,10 @@
     <Compile Include="PreRender\Ditherers\Ordered\BayerDitherer8.cs" />
     <Compile Include="PreRender\Ditherers\Ordered\ClusteredDotDitherer.cs" />
     <Compile Include="PreRender\Ditherers\Ordered\DotHalfToneDitherer.cs" />
-    <Compile Include="PreRender\Extensions\Extend.IEnumerable.cs" />
-    <Compile Include="PreRender\Extensions\Extend.Image.cs" />
-    <Compile Include="PreRender\Extensions\Extend.Math.cs" />
-    <Compile Include="PreRender\Extensions\Extend.PixelFormat.cs" />
+    <Compile Include="Logic\Extensions\Extend.IEnumerable.cs" />
+    <Compile Include="Logic\Extensions\Extend.Image.cs" />
+    <Compile Include="Logic\Extensions\Extend.Math.cs" />
+    <Compile Include="Logic\Extensions\Extend.PixelFormat.cs" />
     <Compile Include="PreRender\Helpers\ColorModelHelper.cs" />
     <Compile Include="PreRender\Helpers\FastRandom.cs" />
     <Compile Include="PreRender\Helpers\Guard.cs" />
@@ -332,7 +331,7 @@
     </EmbeddedResource>
     <None Include="ILMerge.props" />
     <None Include="packages.config" />
-    <Compile Include="PreRender\Extensions\Extend.Color.cs" />
+    <Compile Include="Logic\Extensions\Extend.Color.cs" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using PixelStacker.PreRender.Extensions;
+using PixelStacker.Logic.Extensions;
 using System.Threading;
 using PixelStacker.Logic.Great;
 

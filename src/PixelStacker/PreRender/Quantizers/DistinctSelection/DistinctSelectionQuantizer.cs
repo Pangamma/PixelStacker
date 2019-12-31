@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using SimplePaletteQuantizer.ColorCaches;
 using SimplePaletteQuantizer.ColorCaches.Octree;
-using SimplePaletteQuantizer.Extensions;
+using PixelStacker.Logic.Extensions;
 using SimplePaletteQuantizer.Helpers;
 
 #if (UseDictionary)

@@ -1,5 +1,5 @@
 ﻿using ColorMine.ColorSpaces;
-using PixelStacker.PreRender.Extensions;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Properties;
 using System;
 using System.Collections.Generic;

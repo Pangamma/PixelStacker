@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SimplePaletteQuantizer.Extensions
+namespace PixelStacker.Logic.Extensions
 {
     public static partial class Extend
     {

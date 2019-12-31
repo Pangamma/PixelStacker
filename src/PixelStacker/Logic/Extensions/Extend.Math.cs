@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PixelStacker.PreRender.Extensions
+﻿
+namespace PixelStacker.Logic.Extensions
 {
     public static class ExtendMath
     {

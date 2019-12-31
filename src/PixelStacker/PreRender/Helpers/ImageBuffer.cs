@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using SimplePaletteQuantizer.ColorCaches.Common;
 using SimplePaletteQuantizer.Ditherers;
-using SimplePaletteQuantizer.Extensions;
+using PixelStacker.Logic.Extensions;
 using SimplePaletteQuantizer.PathProviders;
 using SimplePaletteQuantizer.Quantizers;
 

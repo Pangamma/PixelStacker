@@ -1,13 +1,9 @@
-﻿using PixelStacker.Logic;
-using SimplePaletteQuantizer.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PixelStacker.PreRender.Extensions
+namespace PixelStacker.Logic.Extensions
 {
     // Sat: 0...1
     // Hue: 0...360

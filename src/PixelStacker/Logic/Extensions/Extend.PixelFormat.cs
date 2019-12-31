@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing.Imaging;
 
-namespace SimplePaletteQuantizer.Extensions
+namespace PixelStacker.Logic.Extensions
 {
     /// <summary>
     /// The utility extender class.
