@@ -58,10 +58,19 @@ namespace PixelStacker.Logic
                         }
 
                         {
+                            var colorMap = Materials.ColorMap.Select(x => $"{x.Key.ToArgb()}\t{string.Join("\t", x.Value.Select(m => m.PixelStackerID))}");
+                            var content = string.Join("\r\n", colorMap);
+                            ZipArchiveEntry entry = archive.CreateEntry("color-map.dat");
+                            using (StreamWriter writer = new StreamWriter(entry.Open()))
+                            {
+                                writer.Write(content);
+                            }
+                        }
+
+                        {
                             // GRID location
                             int weX = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.X ?? 0;
                             int weY = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.Y ?? 0;
-                            var colorMap = Materials.ColorMap.Select(x => $"{x.Key}\t{string.Join("\t", x.Value.Select(m => m.ToString()))}");
                             int[,] blocksMap = MainForm.Self.LoadedBlueprint?.BlocksMap ?? new int[1, 1];
 
                             ZipArchiveEntry entry = archive.CreateEntry("blueprint.json");
