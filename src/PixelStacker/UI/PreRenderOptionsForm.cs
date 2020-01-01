@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic;
+using PixelStacker.Logic.Extensions;
 using SimplePaletteQuantizer;
 using SimplePaletteQuantizer.Quantizers;
 using System;

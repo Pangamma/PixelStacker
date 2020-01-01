@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.UI;
 using SimplePaletteQuantizer.ColorCaches;
 using SimplePaletteQuantizer.ColorCaches.Common;

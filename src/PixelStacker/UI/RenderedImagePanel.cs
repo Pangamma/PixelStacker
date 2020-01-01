@@ -11,6 +11,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Threading;
 using PixelStacker.Logic.WIP;
+using PixelStacker.Logic.Extensions;
 
 namespace PixelStacker.UI
 {

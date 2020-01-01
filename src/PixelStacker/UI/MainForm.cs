@@ -299,6 +299,10 @@ namespace PixelStacker
                         this.renderedImagePanel.SaveToPNG(fName);
                     }
                 }
+                else if (fName.ToLower().EndsWith(".pxlzip"))
+                {
+                    PixelStackerProjectFormatter.SaveProject(fName);
+                }
                 else if (fName.ToLower().EndsWith(".csv"))
                 {
                     Dictionary<Material, int> materialCounts = new Dictionary<Material, int>();
@@ -507,7 +511,7 @@ namespace PixelStacker
         {
             dlgSave.FileOk -= this.dlgSave_FileOk;
             dlgSave.FileOk -= this.dlgSave_FileOk_ColorPalettes;
-            dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv";
+            dlgSave.Filter = "PixelStacker Project|*.pxlzip|Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv";
             dlgSave.FileOk += this.dlgSave_FileOk;
         }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PixelStacker.Logic;
+using PixelStacker.Logic.Extensions;
 
 namespace PixelStacker.UI
 {

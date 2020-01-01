@@ -2,9 +2,11 @@
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Properties;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Resources;
 using System.Text;
@@ -14,14 +16,12 @@ namespace PixelStacker.Logic
 {
     public class Material
     {
+        public string PixelStackerID { get; set; }
         public string Label { get; set; }
         public int BlockID { get; set; }
         public int Data { get; set; }
         public Bitmap SideImage { get; private set; }
         public Bitmap TopImage { get; private set; }
-
-        public Bitmap SideImageWithTransparency { get; private set; }
-        public Bitmap TopImageWithTransparency { get; private set; }
         public string Category { get; set; }
         public string SchematicaMaterialName { get; set; }
 
@@ -38,27 +38,73 @@ namespace PixelStacker.Logic
         private Color? _averageColor = null;
         private Color? _averageColorSide = null;
 
-
-        public Material(string mainCategory, string label, string blockName, int blockID, int data, Bitmap topAndSideImage, bool isEnabledByDefault = true, string schematicaMaterialName = null)
-            : this(mainCategory, label, blockName, blockID, data, topAndSideImage, topAndSideImage)
+        public Material(string category, string pixelStackerID, string label, int blockID, int data, Bitmap topImage, Bitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
         {
-        }
-
-        public Material(string mainCategory, string label, string blockName, int blockID, int data, Bitmap topImage, Bitmap sideImage, string schematicaMaterialName = null)
-        : this( mainCategory, label, blockName, blockName, blockID, data, topImage, sideImage) {
-        }
-
-        public Material(string mainCategory, string label, string topBlockName, string sideBlockName, int blockID, int data, Bitmap topImage, Bitmap sideImage = null, string schematicaMaterialName = null)
-        {
+            this.PixelStackerID = pixelStackerID;
             this.Label = label;
             this.BlockID = blockID;
             this.Data = data;
             this.TopImage = topImage;
             this.SideImage = sideImage ?? topImage;
-            this.Category = mainCategory;
+            this.Category = category;
             this.TopBlockName = topBlockName;
             this.SideBlockName = sideBlockName;
             this.SchematicaMaterialName = schematicaMaterialName;
+        }
+
+        public string toConstructorString()
+        {
+            ResourceSet resources = Textures.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, false, true);
+            DictionaryEntry? topImageResource = null;
+            DictionaryEntry? sideImageResource = null;
+
+            foreach (DictionaryEntry resource in resources)
+            {
+                if (resource.Value is Bitmap)
+                {
+                    if (topImageResource == null)
+                    {
+                        if ((resource.Value as Bitmap).AreEqual(this.TopImage))
+                        {
+                            topImageResource = resource;
+                        }
+                    }
+
+                    if (sideImageResource == null)
+                    {
+                        if ((resource.Value as Bitmap).AreEqual(this.SideImage))
+                        {
+                            sideImageResource = resource;
+                        }
+                    }
+                }
+            }
+
+            if (topImageResource == null)
+            {
+                throw new Exception("Top image not found in list");
+            }
+
+            if (sideImageResource == null)
+            {
+                throw new Exception("Side image not found in list");
+            }
+
+            string topBlockName = this.TopBlockName.Replace("minecraft:" + topImageResource.Value.Key.ToString(), "minecraft:{nameof(Textures." + topImageResource.Value.Key.ToString() + ")}");
+            string sideBlockName = this.SideBlockName.Replace("minecraft:" + topImageResource.Value.Key.ToString(), "minecraft:{nameof(Textures." + topImageResource.Value.Key.ToString() + ")}");
+       
+            return $"new Material("
+                + $"\"{this.Category}\", "
+                + $"\"{this.PixelStackerID}\", "
+                + $"\"{this.Label}\", "
+                + $"{this.BlockID}, "
+                + $"{this.Data}, "
+                + $"Textures.{topImageResource.Value.Key}, "
+                + $"Textures.{sideImageResource.Value.Key}, "
+                + $"$\"{topBlockName}\", "
+                + $"$\"{sideBlockName}\", "
+                + $"\"{this.SchematicaMaterialName}\""
+                + ")";
         }
 
         private string SettingsKey { get { return string.Format("{0}_{1}_{2}", BlockID, Data, Label.Replace(' ', '_').ToLower()); } }
@@ -93,34 +139,6 @@ namespace PixelStacker.Logic
             else
             {
                 return this.TopImage;
-            }
-        }
-
-        const float transparencyMultiplier = 0.15F;
-        public Bitmap getImageWithTransparency(bool isSide)
-        {
-            if (isSide)
-            {
-                if (SideImageWithTransparency == null)
-                {
-                    this.SideImageWithTransparency = this.SideImage.To32bppBitmap();
-                    this.SideImageWithTransparency.ToEditStream(null, (int x, int y, Color c) => {
-                        return Color.FromArgb((int)(c.A * transparencyMultiplier), c);
-                    });
-                }
-
-                return this.SideImageWithTransparency;
-            }
-            else
-            {
-                if (TopImageWithTransparency == null)
-                {
-                    this.TopImageWithTransparency = this.TopImage.To32bppBitmap();
-                    this.TopImageWithTransparency.ToEditStream(null, (int x, int y, Color c) => {
-                        return Color.FromArgb((int)(c.A * transparencyMultiplier), c);
-                    });
-                }
-                return this.TopImageWithTransparency;
             }
         }
 

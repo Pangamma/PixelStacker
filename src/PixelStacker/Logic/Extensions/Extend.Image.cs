@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace PixelStacker.Logic.Extensions
@@ -15,6 +16,42 @@ namespace PixelStacker.Logic.Extensions
     public static partial class Extend
     {
         #region bitmap
+        public static bool AreEqual(this Bitmap L, Bitmap R)
+        {
+            if (L != null ^ R != null) return false;
+            if (L.Width != R.Width) return false;
+            if (R.Height != R.Height) return false;
+            if (L.PixelFormat != R.PixelFormat) return false;
+
+            //Get the bitmap data
+            var srcData = L.LockBits(new Rectangle(0, 0, L.Width, L.Height), ImageLockMode.ReadOnly, L.PixelFormat);
+            var dstData = R.LockBits(new Rectangle(0, 0, R.Width, R.Height), ImageLockMode.ReadOnly, R.PixelFormat);
+
+            //Initialize an array for all the image data
+            byte[] srcImageBytes = new byte[srcData.Stride * L.Height];
+            byte[] dstImageBytes = new byte[dstData.Stride * R.Height];
+
+            //Copy the bitmap data to the local array
+            Marshal.Copy(srcData.Scan0, srcImageBytes, 0, srcImageBytes.Length);
+            Marshal.Copy(dstData.Scan0, dstImageBytes, 0, dstImageBytes.Length);
+
+            //Unlock the bitmap
+            L.UnlockBits(srcData);
+            R.UnlockBits(dstData);
+
+            //Find pixelsize
+            int pixelSize = Image.GetPixelFormatSize(L.PixelFormat); // bits per pixel
+
+            for (int i = 0; i < srcImageBytes.Length; i ++)
+            {
+                if (srcImageBytes[i] != dstImageBytes[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         public static Color GetPixelSafely(this Bitmap src, int x, int y)
         {

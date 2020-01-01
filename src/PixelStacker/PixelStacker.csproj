@@ -79,6 +79,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -95,9 +96,10 @@
     <Compile Include="Logic\Great\OrderedDictionary.cs" />
     <Compile Include="Logic\Extensions\Extend.UI.cs" />
     <Compile Include="Logic\Great\UpdateChecker.cs" />
+    <Compile Include="Logic\IO\PixelStackerProjectFormatter.cs" />
     <Compile Include="Logic\PanZoomSettings.cs" />
-    <Compile Include="Logic\Formatters\ColorPaletteFormatter.cs" />
-    <Compile Include="Logic\Formatters\SchemFormatter.cs" />
+    <Compile Include="Logic\IO\ColorPaletteFormatter.cs" />
+    <Compile Include="Logic\IO\SchemFormatter.cs" />
     <Compile Include="Logic\WIP\Blueprint.cs" />
     <Compile Include="Logic\BlueprintPA.cs" />
     <Compile Include="Logic\Great\Constants.cs" />
@@ -107,7 +109,7 @@
     <Compile Include="Logic\Great\Options.cs" />
     <Compile Include="Logic\ProgressReport.cs" />
     <Compile Include="Logic\ResourceLock.cs" />
-    <Compile Include="Logic\Formatters\SchematicFormatter.cs" />
+    <Compile Include="Logic\IO\SchematicFormatter.cs" />
     <Compile Include="Logic\WIP\EditHistory.cs" />
     <Compile Include="PreRender\ColorCaches\BaseColorCache.cs" />
     <Compile Include="PreRender\ColorCaches\Common\ColorModel.cs" />

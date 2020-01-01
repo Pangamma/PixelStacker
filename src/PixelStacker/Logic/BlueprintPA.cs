@@ -1,4 +1,5 @@
-﻿using PixelStacker.UI;
+﻿using PixelStacker.Logic.Extensions;
+using PixelStacker.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
