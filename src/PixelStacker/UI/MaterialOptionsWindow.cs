@@ -38,7 +38,8 @@ namespace PixelStacker.UI
             addMaterialList("Good");
             addMaterialList("Okay");
             addMaterialList("Planks");
-            addMaterialList("Wood");
+            addMaterialList("Stripped");
+            addMaterialList("Logs");
             addMaterialList("Solid Ores");
             addMaterialList("Coral");
             addMaterialList("Dead Coral");

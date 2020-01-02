@@ -421,9 +421,9 @@ namespace PixelStacker.UI
             int CalculatedTextureSize = Constants.TextureSize;
             // Calculate texture size so we can handle large images.
             if (image == null) return CalculatedTextureSize;
-            int mbSize = (image.Width * image.Height * 32 / 8); // Still need to multiply by texture size
+            int mbSize = (image.Width * image.Height * 32 / 8); // Still need to multiply by texture size (4 bytes per pixel / 8 bits per byte = 4 bytes)
             int maxSize = 400 * 1024 * 1024; // max size in bytes we'll want to allow.
-            int tSize = 16;
+            int tSize = Constants.TextureSize;
             if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1; // 16
             else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
             else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1; // 14

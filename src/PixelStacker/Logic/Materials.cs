@@ -313,25 +313,26 @@ namespace PixelStacker.Logic
                         new Material("Terracotta", "GLAZED_14", "Red Terracotta", 249, 0, Textures.red_glazed_terracotta, Textures.red_glazed_terracotta, $"minecraft:{nameof(Textures.red_glazed_terracotta)}", $"minecraft:{nameof(Textures.red_glazed_terracotta)}", "minecraft:red_glazed_terracotta"),
                         new Material("Terracotta", "GLAZED_15", "Black Terracotta", 250, 0, Textures.black_glazed_terracotta, Textures.black_glazed_terracotta, $"minecraft:{nameof(Textures.black_glazed_terracotta)}", $"minecraft:{nameof(Textures.black_glazed_terracotta)}", "minecraft:black_glazed_terracotta"),
 
-                        new Material("Planks", "PLANK_00", "Planks Oak", 5, 0, Textures.oak_planks, Textures.oak_planks, $"minecraft:{nameof(Textures.oak_planks)}", $"minecraft:{nameof(Textures.oak_planks)}", "minecraft:planks"),
-                        new Material("Planks", "PLANK_01", "Planks Spruce", 5, 1, Textures.spruce_planks, Textures.spruce_planks, $"minecraft:{nameof(Textures.spruce_planks)}", $"minecraft:{nameof(Textures.spruce_planks)}", "minecraft:planks"),
-                        new Material("Planks", "PLANK_02", "Planks Birch", 5, 2, Textures.birch_planks, Textures.birch_planks, $"minecraft:{nameof(Textures.birch_planks)}", $"minecraft:{nameof(Textures.birch_planks)}", "minecraft:planks"),
-                        new Material("Planks", "PLANK_03", "Planks Jungle", 5, 3, Textures.jungle_planks, Textures.jungle_planks, $"minecraft:{nameof(Textures.jungle_planks)}", $"minecraft:{nameof(Textures.jungle_planks)}", "minecraft:planks"),
-                        new Material("Planks", "PLANK_04", "Planks Acacia", 5, 4, Textures.acacia_planks, Textures.acacia_planks, $"minecraft:{nameof(Textures.acacia_planks)}", $"minecraft:{nameof(Textures.acacia_planks)}", "minecraft:planks"),
-                        new Material("Planks", "PLANK_05", "Planks Dark Oak", 5, 5, Textures.dark_oak_planks, Textures.dark_oak_planks, $"minecraft:{nameof(Textures.dark_oak_planks)}", $"minecraft:{nameof(Textures.dark_oak_planks)}", "minecraft:planks"),
+                        new Material("Planks", "PLANK_OAK", "Planks Oak", 5, 0, Textures.oak_planks, Textures.oak_planks, $"minecraft:{nameof(Textures.oak_planks)}", $"minecraft:{nameof(Textures.oak_planks)}", "minecraft:planks"),
+                        new Material("Planks", "PLANK_SPR", "Planks Spruce", 5, 1, Textures.spruce_planks, Textures.spruce_planks, $"minecraft:{nameof(Textures.spruce_planks)}", $"minecraft:{nameof(Textures.spruce_planks)}", "minecraft:planks"),
+                        new Material("Planks", "PLANK_BIR", "Planks Birch", 5, 2, Textures.birch_planks, Textures.birch_planks, $"minecraft:{nameof(Textures.birch_planks)}", $"minecraft:{nameof(Textures.birch_planks)}", "minecraft:planks"),
+                        new Material("Planks", "PLANK_JUN", "Planks Jungle", 5, 3, Textures.jungle_planks, Textures.jungle_planks, $"minecraft:{nameof(Textures.jungle_planks)}", $"minecraft:{nameof(Textures.jungle_planks)}", "minecraft:planks"),
+                        new Material("Planks", "PLANK_ACA", "Planks Acacia", 5, 4, Textures.acacia_planks, Textures.acacia_planks, $"minecraft:{nameof(Textures.acacia_planks)}", $"minecraft:{nameof(Textures.acacia_planks)}", "minecraft:planks"),
+                        new Material("Planks", "PLANK_DOK", "Planks Dark Oak", 5, 5, Textures.dark_oak_planks, Textures.dark_oak_planks, $"minecraft:{nameof(Textures.dark_oak_planks)}", $"minecraft:{nameof(Textures.dark_oak_planks)}", "minecraft:planks"),
 
-                        new Material("Wood", "STRIP_LOG_ACA", "Stripped Acacia", 17, 0, Textures.stripped_acacia_log, Textures.stripped_acacia_log, $"minecraft:{nameof(Textures.stripped_acacia_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_acacia_log)}[axis=x]", ""),
-                        new Material("Wood", "STRIP_LOG_BIR", "Stripped Birch", 17, 0, Textures.stripped_birch_log, Textures.stripped_birch_log, $"minecraft:{nameof(Textures.stripped_birch_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_birch_log)}[axis=x]", ""),
-                        new Material("Wood", "STRIP_LOG_DOK", "Stripped Dark Oak", 17, 0, Textures.stripped_dark_oak_log, Textures.stripped_dark_oak_log, $"minecraft:{nameof(Textures.stripped_dark_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_dark_oak_log)}[axis=x]", ""),
-                        new Material("Wood", "STRIP_LOG_JUN", "Stripped Jungle", 17, 0, Textures.stripped_jungle_log, Textures.stripped_jungle_log, $"minecraft:{nameof(Textures.stripped_jungle_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_jungle_log)}[axis=x]", ""),
-                        new Material("Wood", "STRIP_LOG_OAK", "Stripped Oak", 17, 0, Textures.stripped_oak_log, Textures.stripped_oak_log, $"minecraft:{nameof(Textures.stripped_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_oak_log)}[axis=x]", ""),
-                        new Material("Wood", "STRIP_LOG_SPR", "Stripped Spruce", 17, 0, Textures.stripped_spruce_log, Textures.stripped_spruce_log, $"minecraft:{nameof(Textures.stripped_spruce_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_spruce_log)}[axis=x]", ""),
-                        new Material("Wood", "BARK_LOG_ACA", "Bark Acacia", 17, 0, Textures.acacia_log, Textures.acacia_log, $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", ""),
-                        new Material("Wood", "BARK_LOG_BIR", "Bark Birch", 17, 0, Textures.birch_log, Textures.birch_log, $"minecraft:{nameof(Textures.birch_log)}[axis=x]", $"minecraft:{nameof(Textures.birch_log)}[axis=x]", ""),
-                        new Material("Wood", "BARK_LOG_DOK", "Bark Dark Oak", 17, 0, Textures.dark_oak_log, Textures.dark_oak_log, $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", ""),
-                        new Material("Wood", "BARK_LOG_JUN", "Bark Jungle", 17, 0, Textures.jungle_log, Textures.jungle_log, $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", ""),
-                        new Material("Wood", "BARK_LOG_OAK", "Bark Oak", 17, 0, Textures.oak_log, Textures.oak_log, $"minecraft:{nameof(Textures.oak_log)}[axis=x]", $"minecraft:{nameof(Textures.oak_log)}[axis=x]", ""),
-                        new Material("Wood", "BARK_LOG_SPR", "Bark Spruce", 17, 0, Textures.spruce_log, Textures.spruce_log, $"minecraft:{nameof(Textures.spruce_log)}[axis=x]", $"minecraft:{nameof(Textures.spruce_log)}[axis=x]", ""),
+                        new Material("Stripped", "STRIP_LOG_OAK", "Stripped Oak", 17, 0, Textures.stripped_oak_log, Textures.stripped_oak_log, $"minecraft:{nameof(Textures.stripped_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_oak_log)}[axis=x]", ""),
+                        new Material("Stripped", "STRIP_LOG_SPR", "Stripped Spruce", 17, 0, Textures.stripped_spruce_log, Textures.stripped_spruce_log, $"minecraft:{nameof(Textures.stripped_spruce_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_spruce_log)}[axis=x]", ""),
+                        new Material("Stripped", "STRIP_LOG_BIR", "Stripped Birch", 17, 0, Textures.stripped_birch_log, Textures.stripped_birch_log, $"minecraft:{nameof(Textures.stripped_birch_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_birch_log)}[axis=x]", ""),
+                        new Material("Stripped", "STRIP_LOG_JUN", "Stripped Jungle", 17, 0, Textures.stripped_jungle_log, Textures.stripped_jungle_log, $"minecraft:{nameof(Textures.stripped_jungle_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_jungle_log)}[axis=x]", ""),
+                        new Material("Stripped", "STRIP_LOG_ACA", "Stripped Acacia", 17, 0, Textures.stripped_acacia_log, Textures.stripped_acacia_log, $"minecraft:{nameof(Textures.stripped_acacia_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_acacia_log)}[axis=x]", ""),
+                        new Material("Stripped", "STRIP_LOG_DOK", "Stripped Dark Oak", 17, 0, Textures.stripped_dark_oak_log, Textures.stripped_dark_oak_log, $"minecraft:{nameof(Textures.stripped_dark_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_dark_oak_log)}[axis=x]", ""),
+
+                        new Material("Logs", "BARK_LOG_OAK", "Bark Oak", 17, 0, Textures.oak_log, Textures.oak_log, $"minecraft:{nameof(Textures.oak_log)}[axis=x]", $"minecraft:{nameof(Textures.oak_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_SPR", "Bark Spruce", 17, 0, Textures.spruce_log, Textures.spruce_log, $"minecraft:{nameof(Textures.spruce_log)}[axis=x]", $"minecraft:{nameof(Textures.spruce_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_BIR", "Bark Birch", 17, 0, Textures.birch_log, Textures.birch_log, $"minecraft:{nameof(Textures.birch_log)}[axis=x]", $"minecraft:{nameof(Textures.birch_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_JUN", "Bark Jungle", 17, 0, Textures.jungle_log, Textures.jungle_log, $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_ACA", "Bark Acacia", 17, 0, Textures.acacia_log, Textures.acacia_log, $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_DOK", "Bark Dark Oak", 17, 0, Textures.dark_oak_log, Textures.dark_oak_log, $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", ""),
 
                         new Material("Good", "SHROOM_BROWN", "Brown Mushroom", 99, 14, Textures.brown_mushroom_block, Textures.brown_mushroom_block, $"minecraft:{nameof(Textures.brown_mushroom_block)}[down=true,east=true,west=true,north=true,south=true,up=true]", $"minecraft:{nameof(Textures.brown_mushroom_block)}[down=true,east=true,west=true,north=true,south=true,up=true]", ""),
                         new Material("Good", "HAY_BLK", "Hay Block", 170, 0, Textures.hay_block_top, Textures.hay_block_top, $"minecraft:hay_block[axis=y]", $"minecraft:hay_block[axis=z]", ""),
@@ -341,7 +342,10 @@ namespace PixelStacker.Logic
                         new Material("Good", "SMOOTH_RED_SANDSTONE", "Smooth Red Sandstone", 179, 0, Textures.red_sandstone_top, Textures.red_sandstone_top, $"minecraft:smooth_red_sandstone", $"minecraft:smooth_red_sandstone", ""),
                         new Material("Good", "SMOOTH_SANDSTONE", "Smooth Sandstone", 24, 0, Textures.sandstone_top, Textures.sandstone_top, $"minecraft:smooth_sandstone", $"minecraft:smooth_sandstone", ""),
                         new Material("Good", "SNOW_BLK", "Snow", 80, 0, Textures.snow, Textures.snow, $"minecraft:{nameof(Textures.snow)}_block", $"minecraft:{nameof(Textures.snow)}_block", ""),
-
+                         
+                        new Material("Okay", "HONEYCOMB", "Honeycomb Block", 1, 0, Textures.honeycomb_block, Textures.honeycomb_block, $"minecraft:honeycomb_block", $"minecraft:honeycomb_block", "minecraft:honeycomb_block"),
+                        new Material("Okay", "BEE_HIVE", "Bee Hive", 474, 0, Textures.beehive_end, Textures.beehive_side, $"minecraft:beehive[facing=north]", $"minecraft:beehive[facing=north]", "minecraft:beehive"),
+                        new Material("Okay", "BEE_NEST", "Bee Nest", 473, 0, Textures.bee_nest_top, Textures.bee_nest_side, $"minecraft:bee_nest[facing=west]", $"minecraft:bee_nest[facing=west]", "minecraft:bee_nest"),
                         new Material("Okay", "BEDROCK", "Bedrock", 7, 0, Textures.bedrock, Textures.bedrock, $"minecraft:{nameof(Textures.bedrock)}", $"minecraft:{nameof(Textures.bedrock)}", "minecraft:bedrock"),
                         new Material("Okay", "DIRT_COARSE", "Coarse Dirt", 3, 1, Textures.coarse_dirt, Textures.coarse_dirt, $"minecraft:{nameof(Textures.coarse_dirt)}", $"minecraft:{nameof(Textures.coarse_dirt)}", "minecraft:dirt"),
                         new Material("Okay", "COBBLE", "Cobblestone", 4, 0, Textures.cobblestone, Textures.cobblestone, $"minecraft:{nameof(Textures.cobblestone)}", $"minecraft:{nameof(Textures.cobblestone)}", "minecraft:dirt"),
@@ -407,14 +411,12 @@ namespace PixelStacker.Logic
                         new Material("Common", "COBBLE_MOSSY_BRICK", "mossy_stone_bricks", 98, 1, Textures.mossy_stone_bricks, Textures.mossy_stone_bricks, $"minecraft:{nameof(Textures.mossy_stone_bricks)}", $"minecraft:{nameof(Textures.mossy_stone_bricks)}", "")
                     };
 
-                    if (_List.GroupBy(x => x.PixelStackerID).Any(x => x.Count() > 1))
+                    var notUnique = _List.GroupBy(x => x.PixelStackerID).Where(x => x.Count() > 1);
+                    if (notUnique.Any())
                     {
-                        throw new ArgumentException("All pixelStackerIDs must be unique!");
+                        throw new ArgumentException("All pixelStackerIDs must be unique! [" + string.Join(", ", notUnique) + "]");
                     }
                 }
-
-                //string content = string.Join("\r\n", _List.GroupBy(x => x.Category).Select(x => string.Join(",\r\n", _List.Select(xm => xm.toConstructorString()))));
-
 
                 return Materials._List;
             }
