@@ -7,7 +7,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,7 +15,18 @@ namespace PixelStacker
     partial class MainForm
     {
         private ColorPaletteStyle SelectedColorPaletteStyle { get; set; } = ColorPaletteStyle.DetailedGrid;
-        
+        private string loadedImageFilePath { get; set; }
+
+        #region Auto update checker
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+#pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
+            TaskManager.Get.StartAsync(cancelToken => UpdateChecker.CheckForUpdates(cancelToken));
+#pragma warning restore CS4014
+        }
+
+        #endregion
+
         #region Color palette generation 
 
         private void dlgSaveColorPalette_FileOk_ColorPalettes(object sender, CancelEventArgs e)

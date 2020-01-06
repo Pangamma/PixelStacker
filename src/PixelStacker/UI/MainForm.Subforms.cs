@@ -10,6 +10,7 @@ namespace PixelStacker
 {
     partial class MainForm
     {
+        private MaterialOptionsWindow MaterialOptions { get; set; } = null;
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -42,7 +43,5 @@ namespace PixelStacker
             TaskManager.Get.CancelTasks(null);
             this.MaterialOptions.ShowDialog(this);
         }
-
-
     }
 }
