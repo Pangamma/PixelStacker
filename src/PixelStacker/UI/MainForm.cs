@@ -5,13 +5,7 @@ using PixelStacker.Resources;
 using PixelStacker.UI;
 using SimplePaletteQuantizer;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -58,17 +52,6 @@ namespace PixelStacker
         }
 
         #region Events
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.MaterialOptions == null)
-            {
-                this.MaterialOptions = new MaterialOptionsWindow(this);
-            }
-
-            TaskManager.Get.CancelTasks(null);
-            this.MaterialOptions.ShowDialog(this);
-        }
-
         public void PreRenderImage(bool clearCache, CancellationToken? cancelToken)
         {
             if (clearCache)
@@ -237,29 +220,12 @@ namespace PixelStacker
             SetViewModeCheckBoxStates();
             await this.renderedImagePanel.ForceReRender();
         }
-
-        private void reOpenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.loadedImageFilePath != null)
-            {
-                using (Bitmap img = (Bitmap)Bitmap.FromFile(this.loadedImageFilePath))
-                {
-                    this.LoadedImage.DisposeSafely();
-                    this.LoadedImage = img.To32bppBitmap();
-                }
-                MainForm.PanZoomSettings = null;
-                this.imagePanelMain.SetImage(this.LoadedImage);
-                ShowImagePanel();
-                this.PreRenderedImage.DisposeSafely();
-                this.PreRenderedImage = null;
-            }
-        }
         #endregion
 
         #region Utility / Draw methods
         public void ShowImagePanel()
         {
-            this.imagePanelMain.Show();
+            this.imagePanelMain.Show(); 
             this.renderedImagePanel.Hide();
             this.imagePanelMain.BringToFront();
             this.exportSchematicToolStripMenuItem.Enabled = false;
@@ -292,18 +258,6 @@ namespace PixelStacker
         }
 
         #endregion
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var about = new AboutForm();
-            about.ShowDialog(this);
-        }
-
-        private void prerenderOptions_Click(object sender, EventArgs e)
-        {
-            var about = new PreRenderOptionsForm(this);
-            about.Show();
-        }
 
         private async void mi_preRender_Click(object sender, EventArgs e)
         {
@@ -357,14 +311,6 @@ namespace PixelStacker
                 Options.Get.Rendered_RenderedZIndexToShow = nVal;
                 await this.renderedImagePanel.ForceReRender();
             }
-        }
-
-        private void otherOptionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TaskManager.Get.CancelTasks(null);
-            // Cancel from UI thread
-            var about = new OtherOptionsWindow();
-            about.ShowDialog(this);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

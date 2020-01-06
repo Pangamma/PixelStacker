@@ -7,12 +7,13 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker
 {
-    public partial  class MainForm : Form
+    partial class MainForm
     {
         private ColorPaletteStyle SelectedColorPaletteStyle { get; set; } = ColorPaletteStyle.DetailedGrid;
         
@@ -99,6 +100,23 @@ namespace PixelStacker
         #endregion
 
         #region Load 
+
+        private void reOpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.loadedImageFilePath != null)
+            {
+                using (Bitmap img = (Bitmap)Bitmap.FromFile(this.loadedImageFilePath))
+                {
+                    this.LoadedImage.DisposeSafely();
+                    this.LoadedImage = img.To32bppBitmap();
+                }
+                MainForm.PanZoomSettings = null;
+                this.imagePanelMain.SetImage(this.LoadedImage);
+                ShowImagePanel();
+                this.PreRenderedImage.DisposeSafely();
+                this.PreRenderedImage = null;
+            }
+        }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {

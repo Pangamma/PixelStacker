@@ -388,6 +388,7 @@
             this.dlgSave.DefaultExt = "schem";
             this.dlgSave.Filter = "PixelStacker Project|*.pxlzip|Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schemat" +
     "ic|Block Counts CSV|*.csv";
+            this.dlgSave.FilterIndex = 2;
             this.dlgSave.ShowHelp = true;
             this.dlgSave.Title = "Save";
             this.dlgSave.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSave_FileOk);
