@@ -69,6 +69,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.imagePanelMain = new PixelStacker.UI.ImagePanel();
             this.renderedImagePanel = new PixelStacker.UI.RenderedImagePanel();
+            this.dlgSaveColorPalette = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -104,7 +105,7 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -113,7 +114,7 @@
             this.reOpenToolStripMenuItem.Enabled = false;
             this.reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
             this.reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.reOpenToolStripMenuItem.Text = "Re-Open";
             this.reOpenToolStripMenuItem.Click += new System.EventHandler(this.reOpenToolStripMenuItem_Click);
             // 
@@ -122,7 +123,7 @@
             this.exportSchematicToolStripMenuItem.Enabled = false;
             this.exportSchematicToolStripMenuItem.Name = "exportSchematicToolStripMenuItem";
             this.exportSchematicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exportSchematicToolStripMenuItem.Text = "Save";
             this.exportSchematicToolStripMenuItem.Click += new System.EventHandler(this.saveMenuClick);
             // 
@@ -137,7 +138,7 @@
             this.saveColorPaletteToolStripMenuItem.Enabled = false;
             this.saveColorPaletteToolStripMenuItem.Name = "saveColorPaletteToolStripMenuItem";
             this.saveColorPaletteToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveColorPaletteToolStripMenuItem.Text = "Save color palette";
             // 
             // graphToolStripMenuItem
@@ -385,7 +386,8 @@
             // dlgSave
             // 
             this.dlgSave.DefaultExt = "schem";
-            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv";
+            this.dlgSave.Filter = "PixelStacker Project|*.pxlzip|Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schemat" +
+    "ic|Block Counts CSV|*.csv";
             this.dlgSave.ShowHelp = true;
             this.dlgSave.Title = "Save";
             this.dlgSave.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSave_FileOk);
@@ -446,6 +448,13 @@
             this.renderedImagePanel.Size = new System.Drawing.Size(779, 458);
             this.renderedImagePanel.TabIndex = 2;
             this.renderedImagePanel.Visible = false;
+            // 
+            // dlgSaveColorPalette
+            // 
+            this.dlgSaveColorPalette.DefaultExt = "*.png";
+            this.dlgSaveColorPalette.ShowHelp = true;
+            this.dlgSaveColorPalette.Title = "Save Color Palette";
+            this.dlgSaveColorPalette.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSaveColorPalette_FileOk_ColorPalettes);
             // 
             // MainForm
             // 
@@ -511,6 +520,7 @@
         public System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog dlgSaveColorPalette;
     }
 }
 

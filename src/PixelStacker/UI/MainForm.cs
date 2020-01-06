@@ -1,7 +1,7 @@
 ﻿using PixelStacker.Logic;
-using PixelStacker.Logic.WIP;
 using PixelStacker.Logic.Extensions;
-using PixelStacker.Properties;
+using PixelStacker.Logic.WIP;
+using PixelStacker.Resources;
 using PixelStacker.UI;
 using SimplePaletteQuantizer;
 using System;
@@ -15,7 +15,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using PixelStacker.Resources;
 
 namespace PixelStacker
 {
@@ -28,7 +27,6 @@ namespace PixelStacker
         private string loadedImageFilePath { get; set; }
         private MaterialOptionsWindow MaterialOptions { get; set; } = null;
         public static PanZoomSettings PanZoomSettings { get; set; } = null;
-        private ColorPaletteStyle SelectedColorPaletteStyle { get; set; } = ColorPaletteStyle.DetailedGrid;
         public EditHistory History { get; set; }
 
         public MainForm()
@@ -69,30 +67,6 @@ namespace PixelStacker
 
             TaskManager.Get.CancelTasks(null);
             this.MaterialOptions.ShowDialog(this);
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            dlgOpen.ShowDialog();
-        }
-
-        private void dlgOpen_FileOk(object sender, CancelEventArgs e)
-        {
-            OpenFileDialog dialog = (OpenFileDialog)sender;
-            this.loadedImageFilePath = dialog.FileName;
-            this.reOpenToolStripMenuItem.Enabled = true;
-            using (Bitmap img = (Bitmap)Bitmap.FromFile(this.loadedImageFilePath))
-            {
-                this.LoadedImage.DisposeSafely();
-                this.LoadedImage = img.To32bppBitmap(); // creates a clone of the img, but in the 32bpp format.
-            }
-
-            MainForm.PanZoomSettings = null;
-            this.imagePanelMain.SetImage(this.LoadedImage);
-            this.PreRenderedImage.DisposeSafely();
-            this.PreRenderedImage = null;
-            this.History.Clear();
-            ShowImagePanel();
         }
 
         public void PreRenderImage(bool clearCache, CancellationToken? cancelToken)
@@ -193,19 +167,6 @@ namespace PixelStacker
             await RenderImageAndShowIt();
         }
 
-        private void saveMenuClick(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint != null)
-            {
-                this.setupSaveForSchematics();
-                dlgSave.ShowDialog();
-            }
-            else
-            {
-                this.exportSchematicToolStripMenuItem.Enabled = false;
-            }
-        }
-
         private void toggleGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Options.Get.Rendered_IsShowGrid = !Options.Get.Rendered_IsShowGrid;
@@ -277,86 +238,6 @@ namespace PixelStacker
             await this.renderedImagePanel.ForceReRender();
         }
 
-        private void dlgSave_FileOk(object sender, CancelEventArgs e)
-        {
-            if (this.LoadedBlueprint != null)
-            {
-                SaveFileDialog dlg = (SaveFileDialog)sender;
-                string fName = dlg.FileName;
-                int chosenFilterIndex = dlg.FilterIndex;
-
-                if (fName.ToLower().EndsWith(".schem"))
-                {
-                    SchemFormatter.writeBlueprint(fName, this.LoadedBlueprint);
-                }
-                else if (fName.ToLower().EndsWith(".schematic"))
-                {
-                    SchematicFormatter.writeBlueprint(fName, this.LoadedBlueprint);
-                }
-                else if (fName.ToLower().EndsWith(".png"))
-                {
-                    if (this.renderedImagePanel != null)
-                    {
-                        this.renderedImagePanel.SaveToPNG(fName);
-                    }
-                }
-                else if (fName.ToLower().EndsWith(".pxlzip"))
-                {
-                    PixelStackerProjectFormatter.SaveProject(fName);
-                }
-                else if (fName.ToLower().EndsWith(".csv"))
-                {
-                    Dictionary<Material, int> materialCounts = new Dictionary<Material, int>();
-                    bool isv = Options.Get.IsSideView;
-                    int xM = this.LoadedBlueprint.Mapper.GetXLength(isv);
-                    int yM = this.LoadedBlueprint.Mapper.GetYLength(isv);
-                    int zM = this.LoadedBlueprint.Mapper.GetZLength(isv);
-                    for (int x = 0; x < xM; x++)
-                    {
-                        for (int y = 0; y < yM; y++)
-                        {
-                            for (int z = 0; z < zM; z++)
-                            {
-                                Material m = this.LoadedBlueprint.Mapper.GetMaterialAt(isv, x, y, z);
-                                if (m != Materials.Air)
-                                {
-                                    if (!materialCounts.ContainsKey(m))
-                                    {
-                                        materialCounts.Add(m, 0);
-                                    }
-
-                                    materialCounts[m] = materialCounts[m] + 1;
-                                }
-                            }
-                        }
-                    }
-
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("\"Material\",\"Block Count\",\"Full Stacks needed\"");
-                    sb.AppendLine("\"Total\"," + materialCounts.Values.Sum());
-                    foreach (var kvp in materialCounts.OrderByDescending(x => x.Value))
-                    {
-                        sb.AppendLine($"\"{kvp.Key.GetBlockNameAndData(isv).Replace("\"", "\"\"")}\",{kvp.Value},{kvp.Value / 64} stacks and {kvp.Value % 64} remaining blocks");
-                    }
-                    File.WriteAllText(fName, sb.ToString());
-                }
-            }
-            else
-            {
-                this.exportSchematicToolStripMenuItem.Enabled = false;
-            }
-        }
-
-        private void dlgSave_FileOk_ColorPalettes(object sender, CancelEventArgs e)
-        {
-            if (this.LoadedBlueprint != null)
-            {
-                SaveFileDialog dlg = (SaveFileDialog)sender;
-                string fName = dlg.FileName;
-                ColorPaletteFormatter.WriteBlueprint(fName, this.LoadedBlueprint, SelectedColorPaletteStyle);
-            }
-        }
-
         private void reOpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.loadedImageFilePath != null)
@@ -410,23 +291,6 @@ namespace PixelStacker
             this.togglePaletteToolStripMenuItem.Enabled = Constants.IsFullVersion;
         }
 
-        private void drawGrid(Bitmap bm, Graphics g, int blockSize, Pen p)
-        {
-            int numHorizBlocks = (bm.Width / blockSize);
-            int numVertBlocks = (bm.Height / blockSize);
-            g.DrawLine(p, 0, 0, 0, bm.Height * Constants.TextureSize);
-            g.DrawLine(p, 0, bm.Height * Constants.TextureSize, bm.Width * Constants.TextureSize, bm.Height * Constants.TextureSize);
-            g.DrawLine(p, bm.Width * Constants.TextureSize, bm.Height * Constants.TextureSize, bm.Width * Constants.TextureSize, 0);
-            g.DrawLine(p, bm.Width * Constants.TextureSize, 0, 0, 0);
-            for (int x = 0; x < numHorizBlocks; x++)
-            {
-                g.DrawLine(p, x * blockSize * Constants.TextureSize, 0, x * blockSize * Constants.TextureSize, bm.Height * Constants.TextureSize);
-            }
-            for (int y = 0; y < numVertBlocks; y++)
-            {
-                g.DrawLine(p, 0, y * blockSize * Constants.TextureSize, bm.Width * Constants.TextureSize, y * blockSize * Constants.TextureSize);
-            }
-        }
         #endregion
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -508,85 +372,6 @@ namespace PixelStacker
             TaskManager.Get.UpdateStatus(this);
         }
 
-        private void setupSaveForSchematics()
-        {
-            dlgSave.FileOk -= this.dlgSave_FileOk;
-            dlgSave.FileOk -= this.dlgSave_FileOk_ColorPalettes;
-            dlgSave.Filter = "PixelStacker Project|*.pxlzip|Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv";
-            dlgSave.FileOk += this.dlgSave_FileOk;
-        }
-
-        private void openSaveForColorPalettes(int filterIndex)
-        {
-            dlgSave.FileOk -= this.dlgSave_FileOk;
-            dlgSave.FileOk -= this.dlgSave_FileOk_ColorPalettes;
-            string[] availableExtensions = new string[] { "Color Palette Graph | *.png", "Color Palette Brick|*.png", "Color Palette Square | *.png", "Color Palette All (compact)|*.png", "Color Palette All (detailed)|*.png" };
-            dlgSave.Filter = availableExtensions[filterIndex];
-            dlgSave.FileOk += this.dlgSave_FileOk_ColorPalettes;
-            dlgSave.DefaultExt = availableExtensions[filterIndex].Substring(availableExtensions[filterIndex].LastIndexOf("*.") + 2);
-            dlgSave.ShowDialog(this);
-        }
-
-        private void graphToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactGraph;
-            this.openSaveForColorPalettes(0);
-        }
-
-        private void brickToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactBrick;
-            this.openSaveForColorPalettes(1);
-        }
-
-        private void squareToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactSquare;
-            this.openSaveForColorPalettes(2);
-        }
-
-        private void allPossibilitiescompactToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactGrid;
-            this.openSaveForColorPalettes(3);
-        }
-
-        private void allColorsdetailedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.DetailedGrid;
-            this.openSaveForColorPalettes(4);
-        }
-
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -601,6 +386,5 @@ namespace PixelStacker
             this.History.RedoChange();
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
-
     }
 }

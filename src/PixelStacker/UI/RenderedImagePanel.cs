@@ -419,7 +419,7 @@ namespace PixelStacker.UI
 
                     return bm;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     blueprint = null;
                 }
