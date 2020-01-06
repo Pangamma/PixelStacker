@@ -211,18 +211,6 @@
     <Compile Include="UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MaterialPickerOption.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\MaterialPickerOption.Designer.cs">
-      <DependentUpon>MaterialPickerOption.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MaterialPickerWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\MaterialPickerWindow.Designer.cs">
-      <DependentUpon>MaterialPickerWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\OtherOptionsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,12 +313,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MaterialOptionsWindow.resx">
       <DependentUpon>MaterialOptionsWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MaterialPickerOption.resx">
-      <DependentUpon>MaterialPickerOption.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MaterialPickerWindow.resx">
-      <DependentUpon>MaterialPickerWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OtherOptionsWindow.resx">
       <DependentUpon>OtherOptionsWindow.cs</DependentUpon>
