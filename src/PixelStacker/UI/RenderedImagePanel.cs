@@ -516,8 +516,8 @@ namespace PixelStacker.UI
                     imageX = 0,
                     imageY = 0,
                     zoomLevel = 0,
-                    maxZoomLevel = 100.0D,
-                    minZoomLevel = 0.0D,
+                    maxZoomLevel = Constants.MAX_ZOOM,
+                    minZoomLevel = Constants.MIN_ZOOM
                 };
 
                 int mWidth = src.Width;
