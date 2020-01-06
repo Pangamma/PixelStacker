@@ -84,7 +84,6 @@ namespace PixelStacker.Logic
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    //T t = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result);
                     return result;
                 }
                 else

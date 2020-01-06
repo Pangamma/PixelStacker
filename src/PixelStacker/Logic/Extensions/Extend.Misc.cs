@@ -14,16 +14,6 @@ namespace PixelStacker.Logic.Extensions
         }
 
         /// <summary>
-        /// Better than getBrightness. It fixes... "something". 
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public static float GetBrightnessMagic(this Color c)
-        {
-            return (c.R * 0.299f + c.G * 0.587f + c.B * 0.114f) / 256f;
-        }
-
-        /// <summary>
         /// <para>More convenient than using T.TryParse(string, out T). 
         /// Works with primitive types, structs, and enums.
         /// Tries to parse the string to an instance of the type specified.
@@ -61,6 +51,5 @@ namespace PixelStacker.Logic.Extensions
             if (src == null) return;
             try { src.Dispose(); } catch { }
         }
-
     }
 }

@@ -8,9 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PixelStacker.Logic;
-using PixelStacker.Properties;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Resources;
 
@@ -22,6 +19,11 @@ namespace PixelStacker.UI
         private Point initialDragPoint;
         private bool IsDragging = false;
 
+        private enum EstimateProp
+        {
+            Floor, Ceil, Round
+        }
+
         public ImagePanel()
         {
             InitializeComponent();
@@ -30,7 +32,6 @@ namespace PixelStacker.UI
         public void SetImage(Bitmap src)
         {
             bool preserveZoom = MainForm.PanZoomSettings != null;
-            //(this.image != null && this.image.Width == src.Width && this.image.Height == src.Height);
 
             this.image.DisposeSafely();
             this.image = src.To32bppBitmap();
@@ -62,6 +63,7 @@ namespace PixelStacker.UI
                         settings.zoomLevel = wRatio;
                         settings.imageY = (Height - (int)(src.Height * wRatio)) / 2;
                     }
+
                     int numICareAbout = Math.Max(image.Width, image.Height);
                     settings.minZoomLevel = (100.0D / numICareAbout);
                     if (settings.minZoomLevel > 1.0D)
@@ -80,16 +82,16 @@ namespace PixelStacker.UI
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
             {
                 Graphics g = e.Graphics;
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                //g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+
                 if (this.image != null)
                 {
                     using (var padlock = AsyncDuplicateLock.Get.Lock(this.image))
                     {
-
                         double origW = this.image.Width;
                         double origH = this.image.Height;
                         int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
@@ -149,6 +151,7 @@ namespace PixelStacker.UI
                 Refresh();
             }
         }
+
         #endregion 
 
         private Point getPointOnImage(Point pointOnPanel, EstimateProp prop)
@@ -163,22 +166,26 @@ namespace PixelStacker.UI
             }
             return new Point((int)Math.Round((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Round((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
         }
-
-        private Point getPointOnPanel(Point pointOnImage)
-        {
-            return new Point((int)Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int)Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
-        }
-
         private void restrictZoom()
         {
             MainForm.PanZoomSettings.zoomLevel = (MainForm.PanZoomSettings.zoomLevel < MainForm.PanZoomSettings.minZoomLevel ? MainForm.PanZoomSettings.minZoomLevel : MainForm.PanZoomSettings.zoomLevel > MainForm.PanZoomSettings.maxZoomLevel ? MainForm.PanZoomSettings.maxZoomLevel : MainForm.PanZoomSettings.zoomLevel);
         }
 
+        #region Unused code
+        [Obsolete("Not in use.")]
+        private Point getPointOnPanel(Point pointOnImage)
+        {
+            return new Point((int)Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int)Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
+        }
+
+
+        [Obsolete("Not in use.")]
         public Bitmap getImage()
         {
             return this.image;
         }
 
+        [Obsolete("Not in use.")]
         private Point getShowingStart()
         {
             Point showingStart = getPointOnImage(new Point(0, 0), EstimateProp.Floor);
@@ -187,6 +194,7 @@ namespace PixelStacker.UI
             return showingStart;
         }
 
+        [Obsolete("Not in use.")]
         private Point getShowingEnd(double origW, double origH)
         {
             Point showingEnd = getPointOnImage(new Point(Width, Height), EstimateProp.Ceil);
@@ -195,26 +203,25 @@ namespace PixelStacker.UI
             return showingEnd;
         }
 
-
+        [Obsolete("Not in use.")]
         private int getRoundedZoomDistance(int x, int deltaX)
         {
             return (int)Math.Round(x + deltaX * MainForm.PanZoomSettings.zoomLevel);
         }
 
+        [Obsolete("Not in use.")]
         private int getRoundedZoomX(int val, int blockSize)
         {
             return (int)Math.Floor(MainForm.PanZoomSettings.imageX + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
+        [Obsolete("Not in use.")]
         private int getRoundedZoomY(int val, int blockSize)
         {
             return (int)Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
-        private enum EstimateProp
-        {
-            Floor, Ceil, Round
-        }
+        #endregion
     }
 
 }

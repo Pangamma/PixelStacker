@@ -19,7 +19,7 @@ namespace PixelStacker.Logic
         DetailedGrid,
     }
 
-    class ColorPaletteFormatter
+    public class ColorPaletteFormatter
     {
         public static void WriteBlueprint(string filePath, BlueprintPA blueprint, ColorPaletteStyle style)
         {

@@ -19,6 +19,13 @@ namespace PixelStacker.Logic
         public Point WorldEditOrigin { get; set; } = new Point(0, 0);
 
         /// <summary>
+        /// Calculated during the compilation process. Optimized to use fewest layers possible.
+        /// </summary>
+        public int MaxDepth { get; set; }
+        public int Width { get { return this.BlocksMap.GetLength(0); } }
+        public int Height { get { return this.BlocksMap.GetLength(1); } }
+
+        /// <summary>
         /// ONLY use this for mapping to schematics and in-world coordinates
         /// </summary>
         public CoordinateMapper Mapper { get; set; }
@@ -88,12 +95,6 @@ namespace PixelStacker.Logic
             };
         }
 
-        /// <summary>
-        /// Calculated during the compilation process. Optimized to use fewest layers possible.
-        /// </summary>
-        public int MaxDepth { get; set; }
-        public int Width { get { return this.BlocksMap.GetLength(0); } }
-        public int Height { get { return this.BlocksMap.GetLength(1); } }
 
         /// <summary>
         /// Only works for top view
@@ -158,6 +159,7 @@ namespace PixelStacker.Logic
                 int cc = this.BlocksMap[x, y];
                 return Color.FromArgb(cc);
             }
+
             return Color.Transparent;
         }
 

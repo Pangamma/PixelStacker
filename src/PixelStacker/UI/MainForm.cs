@@ -22,7 +22,7 @@ namespace PixelStacker
     public partial class MainForm : Form
     {
         public static MainForm Self;
-        public Bitmap LoadedImage { get; private set; } = UIResources.test.To32bppBitmap();
+        public Bitmap LoadedImage { get; private set; } = UIResources.avatar.To32bppBitmap();
         public Bitmap PreRenderedImage { get; set; } = null;
         public BlueprintPA LoadedBlueprint { get; private set; }
         private string loadedImageFilePath { get; set; }

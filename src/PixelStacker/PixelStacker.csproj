@@ -91,24 +91,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logic\Great\BestMatchCacheMap.cs" />
-    <Compile Include="Logic\Great\Grouping.cs" />
-    <Compile Include="Logic\Great\OrderedDictionary.cs" />
+    <Compile Include="Logic\Model\BestMatchCacheMap.cs" />
+    <Compile Include="Logic\Model\Grouping.cs" />
+    <Compile Include="Logic\Model\OrderedDictionary.cs" />
     <Compile Include="Logic\Extensions\Extend.UI.cs" />
-    <Compile Include="Logic\Great\UpdateChecker.cs" />
+    <Compile Include="Logic\IO\UpdateChecker.cs" />
     <Compile Include="Logic\IO\PixelStackerProjectFormatter.cs" />
-    <Compile Include="Logic\PanZoomSettings.cs" />
+    <Compile Include="Logic\Model\PanZoomSettings.cs" />
     <Compile Include="Logic\IO\ColorPaletteFormatter.cs" />
     <Compile Include="Logic\IO\SchemFormatter.cs" />
-    <Compile Include="Logic\WIP\Blueprint.cs" />
-    <Compile Include="Logic\BlueprintPA.cs" />
+    <Compile Include="Logic\Model\BlueprintPA.cs" />
     <Compile Include="Logic\Great\Constants.cs" />
-    <Compile Include="Logic\Extensions\Extensions.cs" />
-    <Compile Include="Logic\Great\Material.cs" />
-    <Compile Include="Logic\Materials.cs" />
+    <Compile Include="Logic\Extensions\Extend.Misc.cs" />
+    <Compile Include="Logic\Model\Material.cs" />
+    <Compile Include="Logic\Model\Materials.cs" />
     <Compile Include="Logic\Great\Options.cs" />
-    <Compile Include="Logic\ProgressReport.cs" />
-    <Compile Include="Logic\ResourceLock.cs" />
+    <Compile Include="Logic\Utilities\AsyncDuplicateLock.cs" />
     <Compile Include="Logic\IO\SchematicFormatter.cs" />
     <Compile Include="Logic\WIP\EditHistory.cs" />
     <Compile Include="PreRender\ColorCaches\BaseColorCache.cs" />
@@ -277,7 +275,7 @@
     <Compile Include="UI\TransparentControl.Designer.cs">
       <DependentUpon>TransparentControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Great\TaskManager.cs" />
+    <Compile Include="Logic\Utilities\TaskManager.cs" />
     <EmbeddedResource Include="Resources\Textures.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -633,6 +631,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
