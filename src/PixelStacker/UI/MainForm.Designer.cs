@@ -142,7 +142,7 @@
             // 
             // graphToolStripMenuItem
             // 
-            this.graphToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_graph;
+            this.graphToolStripMenuItem.Image = global::PixelStacker.Resources.UIResources.feature_palette_compact_graph;
             this.graphToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
             this.graphToolStripMenuItem.Size = new System.Drawing.Size(270, 62);
@@ -151,7 +151,7 @@
             // 
             // brickToolStripMenuItem
             // 
-            this.brickToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_brick;
+            this.brickToolStripMenuItem.Image = global::PixelStacker.Resources.UIResources.feature_palette_compact_brick;
             this.brickToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.brickToolStripMenuItem.Name = "brickToolStripMenuItem";
             this.brickToolStripMenuItem.Size = new System.Drawing.Size(270, 62);
@@ -160,7 +160,7 @@
             // 
             // squareToolStripMenuItem
             // 
-            this.squareToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_square;
+            this.squareToolStripMenuItem.Image = global::PixelStacker.Resources.UIResources.feature_palette_compact_square;
             this.squareToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.squareToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.squareToolStripMenuItem.Name = "squareToolStripMenuItem";
@@ -170,7 +170,7 @@
             // 
             // allPossibilitiescompactToolStripMenuItem
             // 
-            this.allPossibilitiescompactToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_compact_grid;
+            this.allPossibilitiescompactToolStripMenuItem.Image = global::PixelStacker.Resources.UIResources.feature_palette_compact_grid;
             this.allPossibilitiescompactToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.allPossibilitiescompactToolStripMenuItem.Name = "allPossibilitiescompactToolStripMenuItem";
             this.allPossibilitiescompactToolStripMenuItem.Size = new System.Drawing.Size(270, 62);
@@ -179,7 +179,7 @@
             // 
             // allColorsdetailedToolStripMenuItem
             // 
-            this.allColorsdetailedToolStripMenuItem.Image = global::PixelStacker.Properties.Resources.feature_palette_detailed_grid;
+            this.allColorsdetailedToolStripMenuItem.Image = global::PixelStacker.Resources.UIResources.feature_palette_detailed_grid;
             this.allColorsdetailedToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.allColorsdetailedToolStripMenuItem.Name = "allColorsdetailedToolStripMenuItem";
             this.allColorsdetailedToolStripMenuItem.Size = new System.Drawing.Size(270, 62);

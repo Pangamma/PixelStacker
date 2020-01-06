@@ -187,12 +187,20 @@
     <Compile Include="PreRender\Quantizers\XiaolinWu\WuColorQuantizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="Resources\UIResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+      <DependentUpon>UIResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Textures.Designer.cs">
+    <Compile Include="Resources\Shadows.Designer.cs">
+      <DependentUpon>Shadows.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ShadowHelper.cs">
+      <DependentUpon>Shadows.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Textures.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Textures.resx</DependentUpon>
@@ -282,14 +290,19 @@
       <DependentUpon>TransparentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Great\TaskManager.cs" />
-    <EmbeddedResource Include="Properties\Textures.resx">
+    <EmbeddedResource Include="Resources\Textures.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Textures.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Resources\Shadows.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Shadows.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UIResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -469,11 +482,6 @@
     <None Include="Resources\Images\Textures\Other\beehive_end.png" />
     <None Include="Resources\Images\Textures\Other\beehive_side.png" />
     <None Include="Resources\Images\Textures\Other\honeycomb_block.png" />
-    <Content Include="Resources\Images\Textures\Wood\acacia_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\acacia_log_top.png" />
-    <Content Include="Resources\Images\Textures\Wood\acacia_planks.png" />
-    <Content Include="Resources\Images\Textures\Wood\birch_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\birch_planks.png" />
     <Content Include="Resources\Images\Textures\Concrete\black_concrete.png" />
     <Content Include="Resources\Images\Textures\Powder\black_concrete_powder.png" />
     <Content Include="Resources\Images\Textures\GlazedTerracotta\black_glazed_terracotta.png" />
@@ -501,8 +509,6 @@
     <Content Include="Resources\Images\Textures\Glass\cyan_stained_glass.png" />
     <Content Include="Resources\Images\Textures\Terracotta\cyan_terracotta.png" />
     <Content Include="Resources\Images\Textures\Wool\cyan_wool.png" />
-    <Content Include="Resources\Images\Textures\Wood\dark_oak_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\dark_oak_planks.png" />
     <Content Include="Resources\Images\Textures\Coral\dead_brain_coral_block.png" />
     <Content Include="Resources\Images\Textures\Coral\dead_bubble_coral_block.png" />
     <Content Include="Resources\Images\Textures\Coral\dead_fire_coral_block.png" />
@@ -523,8 +529,6 @@
     <Content Include="Resources\Images\Textures\Terracotta\green_terracotta.png" />
     <Content Include="Resources\Images\Textures\Wool\green_wool.png" />
     <Content Include="Resources\Images\Textures\Coral\horn_coral_block.png" />
-    <Content Include="Resources\Images\Textures\Wood\jungle_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\jungle_planks.png" />
     <Content Include="Resources\Images\Textures\Concrete\light_blue_concrete.png" />
     <Content Include="Resources\Images\Textures\Powder\light_blue_concrete_powder.png" />
     <Content Include="Resources\Images\Textures\GlazedTerracotta\light_blue_glazed_terracotta.png" />
@@ -549,8 +553,6 @@
     <Content Include="Resources\Images\Textures\Glass\magenta_stained_glass.png" />
     <Content Include="Resources\Images\Textures\Terracotta\magenta_terracotta.png" />
     <Content Include="Resources\Images\Textures\Wool\magenta_wool.png" />
-    <Content Include="Resources\Images\Textures\Wood\oak_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\oak_planks.png" />
     <Content Include="Resources\Images\Textures\Concrete\orange_concrete.png" />
     <Content Include="Resources\Images\Textures\Powder\orange_concrete_powder.png" />
     <Content Include="Resources\Images\Textures\GlazedTerracotta\orange_glazed_terracotta.png" />
@@ -577,14 +579,6 @@
     <Content Include="Resources\Images\Textures\Terracotta\red_terracotta.png" />
     <Content Include="Resources\Images\Textures\Wool\red_wool.png" />
     <Content Include="Resources\Images\Textures\Powder\sand.png" />
-    <Content Include="Resources\Images\Textures\Wood\spruce_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\spruce_planks.png" />
-    <Content Include="Resources\Images\Textures\Wood\stripped_acacia_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\stripped_birch_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\stripped_dark_oak_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\stripped_jungle_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\stripped_oak_log.png" />
-    <Content Include="Resources\Images\Textures\Wood\stripped_spruce_log.png" />
     <Content Include="Resources\Images\Textures\Terracotta\terracotta.png" />
     <Content Include="Resources\Images\Textures\Coral\tube_coral_block.png" />
     <Content Include="Resources\Images\Textures\Concrete\white_concrete.png" />
@@ -612,6 +606,30 @@
     <None Include="Resources\Images\UI\shadows\shadow_T.png" />
     <None Include="Resources\Images\UI\shadows\shadow_TL.png" />
     <None Include="Resources\Images\UI\shadows\shadow_TR.png" />
+    <None Include="Resources\Images\UI\shadows\depth_16\d16_B.png" />
+    <None Include="Resources\Images\UI\shadows\depth_16\d16_BL.png" />
+    <None Include="Resources\Images\UI\shadows\depth_16\d16_BR.png" />
+    <None Include="Resources\Images\UI\shadows\depth_16\d16_L.png" />
+    <None Include="Resources\Images\UI\shadows\depth_16\d16_R.png" />
+    <None Include="Resources\Images\UI\shadows\depth_16\d16_T.png" />
+    <None Include="Resources\Images\UI\shadows\depth_16\d16_TL.png" />
+    <None Include="Resources\Images\UI\shadows\depth_16\d16_TR.png" />
+    <None Include="Resources\Images\UI\shadows\depth_8\d8_B.png" />
+    <None Include="Resources\Images\UI\shadows\depth_8\d8_BL.png" />
+    <None Include="Resources\Images\UI\shadows\depth_8\d8_BR.png" />
+    <None Include="Resources\Images\UI\shadows\depth_8\d8_L.png" />
+    <None Include="Resources\Images\UI\shadows\depth_8\d8_R.png" />
+    <None Include="Resources\Images\UI\shadows\depth_8\d8_T.png" />
+    <None Include="Resources\Images\UI\shadows\depth_8\d8_TL.png" />
+    <None Include="Resources\Images\UI\shadows\depth_8\d8_TR.png" />
+    <None Include="Resources\Images\UI\shadows\depth_4\d4_B.png" />
+    <None Include="Resources\Images\UI\shadows\depth_4\d4_BL.png" />
+    <None Include="Resources\Images\UI\shadows\depth_4\d4_BR.png" />
+    <None Include="Resources\Images\UI\shadows\depth_4\d4_L.png" />
+    <None Include="Resources\Images\UI\shadows\depth_4\d4_R.png" />
+    <None Include="Resources\Images\UI\shadows\depth_4\d4_T.png" />
+    <None Include="Resources\Images\UI\shadows\depth_4\d4_TL.png" />
+    <None Include="Resources\Images\UI\shadows\depth_4\d4_TR.png" />
     <Content Include="wool.ico" />
     <None Include="Resources\Images\UI\pixelstackerlogo.pdn" />
     <None Include="Resources\Images\UI\wool.ico" />

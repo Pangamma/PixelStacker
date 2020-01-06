@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PixelStacker.Properties {
+namespace PixelStacker.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace PixelStacker.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PixelStacker.Properties.Textures", typeof(Textures).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PixelStacker.Resources.Textures", typeof(Textures).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

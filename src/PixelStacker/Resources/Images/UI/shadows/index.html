@@ -1,0 +1,83 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
+  <head>
+    <title>PixelStacker by Taylor Love</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Minecraft pixel art generator that converts images into pixel art. Uses double layer pixel art techniques."/>
+    <meta name="keywords" content="pixelart,Minecraft,converter, image, generator, pangamma,woolcity,spritecraft,pixel, art,generate,1.13.2,1.12,1.13.1,1.14,1.14.4, 1.15"/>
+    <meta name="author" content="Taylor A Love"/>
+    <meta property="og:image" content="https://taylorlove.info/pixelstacker/assets/img/feature_05.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Meta additions -->
+
+    <!-- Stylesheet requirements -->
+    <link rel="stylesheet" href="https://taylorlove.info/assets/bootstrap/css"/>
+  <style>
+		body {
+			background: #lime
+		}
+		
+	  .fill {
+		display: table-cell;
+		position: relative;
+		background: white;
+	  }
+	  
+	  .fill::before {
+		/* depth 16 */
+		box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.232), 0 1.2px 3.6px 0 rgba(0,0,0,.216);
+		
+		/* depth 4 */
+		box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.232), 0 0.3px 0.9px 0 rgba(0,0,0,.216);
+		/** depth 8 */
+		box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.232), 0 0.6px 1.8px 0 rgba(0,0,0,.216);
+		   
+	    z-index: -1;
+		content: '';
+		position: absolute;
+		top: 0; left: 0; right: 0; bottom: 0;
+	  }
+	  
+	  .empty {
+		display: table-cell;
+	  }
+  </style>
+  <script>
+	var blockSize = 32;
+  </script>
+  </head>
+  
+  <body>
+  <div data-grid="container">
+  
+	<div class="row">
+		<div class="empty"></div>
+		<div class="empty"></div>
+		<div class="empty"></div>
+		<div class="empty"></div>
+	</div>
+	<div class="row">
+		<div class="empty"></div>
+		<div class="fill"></div>
+		<div class="fill"></div>
+		<div class="fill"></div>
+	</div>
+	<div class="row">
+		<div class="empty"></div>
+		<div class="fill"></div>
+		<div class="empty"></div>
+		<div class="fill"></div>
+	</div>
+	<div class="row">
+		<div class="empty"></div>
+		<div class="fill"></div>
+		<div class="fill"></div>
+		<div class="fill"></div>
+	</div> 
+  </div>
+  <script>
+	$('.fill,.empty').attr('style', 'width: '+blockSize+'px; height: '+blockSize+'px;');
+  </script>
+  </body>
+</html>

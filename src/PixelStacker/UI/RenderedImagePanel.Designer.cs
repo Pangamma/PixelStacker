@@ -168,7 +168,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::PixelStacker.Properties.Resources.bg_imagepanel;
+            this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(4);

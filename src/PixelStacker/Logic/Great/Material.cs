@@ -1,6 +1,7 @@
 ﻿using ColorMine.ColorSpaces;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Properties;
+using PixelStacker.Resources;
 using System;
 using System.Collections;
 using System.Collections.Generic;

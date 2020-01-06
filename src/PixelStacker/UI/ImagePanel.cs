@@ -12,6 +12,7 @@ using PixelStacker.Properties;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Resources;
 
 namespace PixelStacker.UI
 {
@@ -128,7 +129,7 @@ namespace PixelStacker.UI
             this.initialDragPoint = e.Location;
             MainForm.PanZoomSettings.initialImageX = MainForm.PanZoomSettings.imageX;
             MainForm.PanZoomSettings.initialImageY = MainForm.PanZoomSettings.imageY;
-            this.Cursor = new Cursor(Resources.cursor_handclosed.GetHicon());
+            this.Cursor = new Cursor(UIResources.cursor_handclosed.GetHicon());
             this.IsDragging = true;
         }
 
