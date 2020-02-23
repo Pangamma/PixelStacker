@@ -39,7 +39,7 @@ namespace PixelStacker.Tools
 
             {
                 var bmSource = Bitmap.FromFile(fToStrip).To32bppBitmap();
-                Point pntRedDot = new Point(0, 0);
+                Point pntRedDot = new Point(-1, -1);
 
 
                 // Make it so that everything is transparent
@@ -52,9 +52,14 @@ namespace PixelStacker.Tools
                     }
 
                     var b = c.GetBrightness() * 100;
-                    var nAlpha = ((int)(255 * (100 - b))) / 100;
-                    return Color.FromArgb((int)nAlpha, 0, 0, 0);
+                    var nAlpha = ((int) (255 * (100 - b))) / 100;
+                    return Color.FromArgb((int) nAlpha, 0, 0, 0);
                 });
+
+                if (pntRedDot.X == -1 || pntRedDot.Y == -1)
+                {
+                    throw new ArgumentException("A red dot is required on the inside of the top left corner.");
+                }
 
                 #region CORNERS
                 {

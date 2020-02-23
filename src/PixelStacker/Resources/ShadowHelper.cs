@@ -46,6 +46,7 @@ namespace PixelStacker.Properties
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex); // Allow debugging but still log to console
                 return Textures.air;
             }
         }

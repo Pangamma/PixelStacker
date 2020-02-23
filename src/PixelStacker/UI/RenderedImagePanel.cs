@@ -105,9 +105,9 @@ namespace PixelStacker.UI
                     bool isSide = Options.Get.IsSideView;
                     double origW = blueprint.Width;
                     double origH = blueprint.Height;
-                    int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
-                    int h = (int)(origH * MainForm.PanZoomSettings.zoomLevel);
-                    int zoom = (int)(MainForm.PanZoomSettings.zoomLevel);
+                    int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
+                    int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
+                    int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
 
 
                     SolidBrush brush = new SolidBrush(Color.Black);
@@ -523,17 +523,17 @@ namespace PixelStacker.UI
                 int mWidth = src.Width;
                 int mHeight = src.Height;
 
-                double wRatio = (double)Width / mWidth;
-                double hRatio = (double)Height / mHeight;
+                double wRatio = (double) Width / mWidth;
+                double hRatio = (double) Height / mHeight;
                 if (hRatio < wRatio)
                 {
                     settings.zoomLevel = hRatio;
-                    settings.imageX = (Width - (int)(mWidth * hRatio)) / 2;
+                    settings.imageX = (Width - (int) (mWidth * hRatio)) / 2;
                 }
                 else
                 {
                     settings.zoomLevel = wRatio;
-                    settings.imageY = (Height - (int)(mHeight * wRatio)) / 2;
+                    settings.imageY = (Height - (int) (mHeight * wRatio)) / 2;
                 }
 
                 int numICareAbout = Math.Max(mWidth, mHeight);
@@ -584,7 +584,7 @@ namespace PixelStacker.UI
                                 using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), blockWidth))
                                 {
                                     penWE.Alignment = PenAlignment.Inset;
-                                    g.DrawRectangle(penWE, pp2.X, pp2.Y, (int)(bm.Width) - indexShift, (int)(bm.Height) - indexShift);
+                                    g.DrawRectangle(penWE, pp2.X, pp2.Y, (int) (bm.Width) - indexShift, (int) (bm.Height) - indexShift);
                                 }
                             }
 
@@ -661,7 +661,7 @@ namespace PixelStacker.UI
 
         private int GetGridWidth()
         {
-            int zoom = (int)MainForm.PanZoomSettings.zoomLevel;
+            int zoom = (int) MainForm.PanZoomSettings.zoomLevel;
             if (zoom > 70) return 8;
             if (zoom > 60) return 7;
             if (zoom > 50) return 6;
@@ -691,9 +691,9 @@ namespace PixelStacker.UI
                 bool isSide = Options.Get.IsSideView;
                 double origW = blueprint.Width;
                 double origH = blueprint.Height;
-                int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
-                int h = (int)(origH * MainForm.PanZoomSettings.zoomLevel);
-                int zoom = (int)(MainForm.PanZoomSettings.zoomLevel);
+                int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
+                int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
+                int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
 
                 if (MainForm.PanZoomSettings.zoomLevel < 1.0D)
                 {
@@ -713,6 +713,7 @@ namespace PixelStacker.UI
 
                 if (this.renderedImage != null && MainForm.PanZoomSettings != null)
                 {
+                    if (MainForm.PanZoomSettings == null) { return; }
                     Point pStart = getPointOnImage(new Point(0, 0), EstimateProp.Floor);
                     Point fStart = getPointOnPanel(pStart);
                     pStart.X *= CalculatedTextureSize;
@@ -815,8 +816,8 @@ namespace PixelStacker.UI
                     MainForm.PanZoomSettings.zoomLevel *= 1.2;
                 }
                 this.restrictZoom();
-                MainForm.PanZoomSettings.imageX = ((int)Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));
-                MainForm.PanZoomSettings.imageY = ((int)Math.Round(panelPoint.Y - imagePoint.Y * MainForm.PanZoomSettings.zoomLevel));
+                MainForm.PanZoomSettings.imageX = ((int) Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));
+                MainForm.PanZoomSettings.imageY = ((int) Math.Round(panelPoint.Y - imagePoint.Y * MainForm.PanZoomSettings.zoomLevel));
                 this.Refresh();
             }
         }
@@ -856,18 +857,39 @@ namespace PixelStacker.UI
         {
             if (prop == EstimateProp.Ceil)
             {
-                return new Point((int)Math.Ceiling((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Ceiling((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+                return new Point((int) Math.Ceiling((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Ceiling((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
             }
             if (prop == EstimateProp.Floor)
             {
-                return new Point((int)Math.Floor((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Floor((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+                return new Point((int) Math.Floor((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Floor((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
             }
-            return new Point((int)Math.Round((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Round((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+            return new Point((int) Math.Round((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Round((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
         }
 
         public Point getPointOnPanel(Point pointOnImage)
         {
-            return new Point((int)Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int)Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
+#if DEBUG
+            if (pointOnImage == null)
+            {
+                throw new ArgumentNullException("pointOnImage is null. Please report this to Pangamma along with the stacktrace!");
+            }
+
+            if (MainForm.PanZoomSettings == null)
+            {
+                throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
+            }
+
+            return new Point((int) Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int) Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
+#else
+            try
+            {
+                return new Point((int) Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int) Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
+            }
+            catch(Exception ex)
+            {
+                return new Point(0, 0);
+            }
+#endif
         }
 
         private void restrictZoom()
@@ -921,25 +943,25 @@ namespace PixelStacker.UI
         private Point getShowingEnd(double origW, double origH)
         {
             Point showingEnd = getPointOnImage(new Point(Width, Height), EstimateProp.Ceil);
-            showingEnd.X = (showingEnd.X > origW ? (int)origW : showingEnd.X);
-            showingEnd.Y = (showingEnd.Y > origH ? (int)origH : showingEnd.Y);
+            showingEnd.X = (showingEnd.X > origW ? (int) origW : showingEnd.X);
+            showingEnd.Y = (showingEnd.Y > origH ? (int) origH : showingEnd.Y);
             return showingEnd;
         }
 
 
         private int getRoundedZoomDistance(int x, int deltaX)
         {
-            return (int)Math.Round(x + deltaX * MainForm.PanZoomSettings.zoomLevel);
+            return (int) Math.Round(x + deltaX * MainForm.PanZoomSettings.zoomLevel);
         }
 
         private int getRoundedZoomX(int val, int blockSize)
         {
-            return (int)Math.Floor(MainForm.PanZoomSettings.imageX + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
+            return (int) Math.Floor(MainForm.PanZoomSettings.imageX + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
         private int getRoundedZoomY(int val, int blockSize)
         {
-            return (int)Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
+            return (int) Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
         public enum EstimateProp
@@ -953,7 +975,7 @@ namespace PixelStacker.UI
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    RenderedImagePanel panel = (RenderedImagePanel)sender;
+                    RenderedImagePanel panel = (RenderedImagePanel) sender;
                     Point loc = getPointOnImage(e.Location, EstimateProp.Floor);
                     image.WorldEditOrigin = loc;
                     Refresh();

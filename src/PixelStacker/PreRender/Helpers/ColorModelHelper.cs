@@ -119,7 +119,7 @@ namespace SimplePaletteQuantizer.Helpers
 
         private static Single GetXYZValue(Single value)
         {
-            return value > 0.008856f ? (Single)Math.Pow(value, OneThird) : (7.787f * value + 16.0f / 116.0f);
+            return value > 0.008856f ? (Single) Math.Pow(value, OneThird) : (7.787f * value + 16.0f / 116.0f);
         }
 
         public static void XYZtoLab(Single x, Single y, Single z, out Single l, out Single a, out Single b)
@@ -146,24 +146,31 @@ namespace SimplePaletteQuantizer.Helpers
             Int64 leastDistance = Int64.MaxValue;
             Int32 result = 0;
 
-            for (Int32 index = 0; index < palette.Count; index++)
+            if (palette != null)
             {
-                Color targetColor = palette[index];
-                Int64 distance = GetColorEuclideanDistance(colorModel, color, targetColor);
-
-                // if a difference is zero, we're good because it won't get better
-                if (distance == 0)
+                for (Int32 index = 0; index < palette.Count; index++)
                 {
-                    result = index;
-                    break;
-                }
+                    Color targetColor = palette[index];
+                    Int64 distance = GetColorEuclideanDistance(colorModel, color, targetColor);
 
-                // if a difference is the best so far, stores it as our best candidate
-                if (distance < leastDistance)
-                {
-                    leastDistance = distance;
-                    result = index;
+                    // if a difference is zero, we're good because it won't get better
+                    if (distance == 0)
+                    {
+                        result = index;
+                        break;
+                    }
+
+                    // if a difference is the best so far, stores it as our best candidate
+                    if (distance < leastDistance)
+                    {
+                        leastDistance = distance;
+                        result = index;
+                    }
                 }
+            }
+            else
+            {
+
             }
 
             return result;
@@ -179,14 +186,14 @@ namespace SimplePaletteQuantizer.Helpers
                     result = color.R;
                     break;
 
-                case ColorModel.HueSaturationBrightness: 
-                    result = Convert.ToInt32(color.GetHue()/HueFactor);
+                case ColorModel.HueSaturationBrightness:
+                    result = Convert.ToInt32(color.GetHue() / HueFactor);
                     break;
 
                 case ColorModel.LabColorSpace:
                     Single l, a, b;
                     RGBtoLab(color.R, color.G, color.B, out l, out a, out b);
-                    result = Convert.ToInt32(l*255.0f);
+                    result = Convert.ToInt32(l * 255.0f);
                     break;
             }
 
@@ -204,13 +211,13 @@ namespace SimplePaletteQuantizer.Helpers
                     break;
 
                 case ColorModel.HueSaturationBrightness:
-                    result = Convert.ToInt32(color.GetSaturation()*255);
+                    result = Convert.ToInt32(color.GetSaturation() * 255);
                     break;
 
                 case ColorModel.LabColorSpace:
                     Single l, a, b;
                     RGBtoLab(color.R, color.G, color.B, out l, out a, out b);
-                    result = Convert.ToInt32(a*255.0f);
+                    result = Convert.ToInt32(a * 255.0f);
                     break;
             }
 
@@ -228,19 +235,19 @@ namespace SimplePaletteQuantizer.Helpers
                     break;
 
                 case ColorModel.HueSaturationBrightness:
-                    result = Convert.ToInt32(color.GetBrightness()*255);
+                    result = Convert.ToInt32(color.GetBrightness() * 255);
                     break;
 
                 case ColorModel.LabColorSpace:
                     Single l, a, b;
                     RGBtoLab(color.R, color.G, color.B, out l, out a, out b);
-                    result = Convert.ToInt32(b*255.0f);
+                    result = Convert.ToInt32(b * 255.0f);
                     break;
             }
 
             return result;
         }
-        
+
         public static void GetColorComponents(ColorModel colorModel, Color color, out Single componentA, out Single componentB, out Single componentC)
         {
             componentA = 0.0f;

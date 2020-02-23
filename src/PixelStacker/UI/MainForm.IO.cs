@@ -115,7 +115,7 @@ namespace PixelStacker
         {
             if (this.loadedImageFilePath != null)
             {
-                using (Bitmap img = (Bitmap)Bitmap.FromFile(this.loadedImageFilePath))
+                using (Bitmap img = (Bitmap) Bitmap.FromFile(this.loadedImageFilePath))
                 {
                     this.LoadedImage.DisposeSafely();
                     this.LoadedImage = img.To32bppBitmap();
@@ -135,10 +135,10 @@ namespace PixelStacker
 
         private void dlgOpen_FileOk(object sender, CancelEventArgs e)
         {
-            OpenFileDialog dialog = (OpenFileDialog)sender;
+            OpenFileDialog dialog = (OpenFileDialog) sender;
             this.loadedImageFilePath = dialog.FileName;
             this.reOpenToolStripMenuItem.Enabled = true;
-            using (Bitmap img = (Bitmap)Bitmap.FromFile(this.loadedImageFilePath))
+            using (Bitmap img = (Bitmap) Bitmap.FromFile(this.loadedImageFilePath))
             {
                 this.LoadedImage.DisposeSafely();
                 this.LoadedImage = img.To32bppBitmap(); // creates a clone of the img, but in the 32bpp format.
@@ -171,7 +171,7 @@ namespace PixelStacker
         {
             if (this.LoadedBlueprint != null)
             {
-                SaveFileDialog dlg = (SaveFileDialog)sender;
+                SaveFileDialog dlg = (SaveFileDialog) sender;
                 string fName = dlg.FileName;
                 int chosenFilterIndex = dlg.FilterIndex;
 
@@ -181,7 +181,37 @@ namespace PixelStacker
                 }
                 else if (fName.ToLower().EndsWith(".schematic"))
                 {
-                    SchematicFormatter.writeBlueprint(fName, this.LoadedBlueprint);
+                    if (Materials.List.Any(x => x.IsEnabled && string.IsNullOrWhiteSpace(x.SchematicaMaterialName)))
+                    {
+                        DialogResult result = MessageBox.Show(this,
+                            "Cannot create a 1.12 schematic when 1.13+ blocks are selected. Do you want to automatically " +
+                            "disable invalid materials and restart from the beginning of the rendering process. This " +
+                            "will remove any material choice overrides or post rendering changes.\n\nYou will need to " +
+                            "re-render the image.",
+                            ".schematic does not support 1.13+ blocks!"
+                            , MessageBoxButtons.YesNo, MessageBoxIcon.Warning
+                            );
+
+                        if (result == DialogResult.Yes)
+                        {
+                            Materials.List.Where(x => x.IsEnabled && string.IsNullOrWhiteSpace(x.SchematicaMaterialName))
+                                .ToList().ForEach(x => x.IsEnabled = false);
+                            Options.Save();
+                            this.InvokeEx(c => c.MaterialOptions.loadStatesFromOptions());
+
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                            TaskManager.Get.StartAsync((token) =>
+                            {
+                                Materials.CompileColorMap(token, true);
+                            });
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        SchematicFormatter.writeBlueprint(fName, this.LoadedBlueprint);
+                    }
                 }
                 else if (fName.ToLower().EndsWith(".png"))
                 {
@@ -224,7 +254,7 @@ namespace PixelStacker
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine("\"Material\",\"Block Count\",\"Full Stacks needed\"");
                     sb.AppendLine("\"Total\"," + materialCounts.Values.Sum());
-                    
+
                     foreach (var kvp in materialCounts.OrderByDescending(x => x.Value))
                     {
                         sb.AppendLine($"\"{kvp.Key.GetBlockNameAndData(isv).Replace("\"", "\"\"")}\",{kvp.Value},{kvp.Value / 64} stacks and {kvp.Value % 64} remaining blocks");

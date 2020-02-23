@@ -67,9 +67,9 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.lblStatus = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.dlgSaveColorPalette = new System.Windows.Forms.SaveFileDialog();
             this.imagePanelMain = new PixelStacker.UI.ImagePanel();
             this.renderedImagePanel = new PixelStacker.UI.RenderedImagePanel();
-            this.dlgSaveColorPalette = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -423,6 +423,13 @@
             this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // dlgSaveColorPalette
+            // 
+            this.dlgSaveColorPalette.DefaultExt = "*.png";
+            this.dlgSaveColorPalette.ShowHelp = true;
+            this.dlgSaveColorPalette.Title = "Save Color Palette";
+            this.dlgSaveColorPalette.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSaveColorPalette_FileOk_ColorPalettes);
+            // 
             // imagePanelMain
             // 
             this.imagePanelMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -449,13 +456,6 @@
             this.renderedImagePanel.Size = new System.Drawing.Size(779, 458);
             this.renderedImagePanel.TabIndex = 2;
             this.renderedImagePanel.Visible = false;
-            // 
-            // dlgSaveColorPalette
-            // 
-            this.dlgSaveColorPalette.DefaultExt = "*.png";
-            this.dlgSaveColorPalette.ShowHelp = true;
-            this.dlgSaveColorPalette.Title = "Save Color Palette";
-            this.dlgSaveColorPalette.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSaveColorPalette_FileOk_ColorPalettes);
             // 
             // MainForm
             // 

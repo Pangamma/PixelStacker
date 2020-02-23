@@ -29,24 +29,7 @@ namespace PixelStacker.UI
             this.refMaterialLists = new List<MaterialList>();
             this.SuspendLayout();
             InitializeComponent();
-            addMaterialList("Wool");
-            addMaterialList("Powder");
-            addMaterialList("Concrete");
-            addMaterialList("Clay");
-            addMaterialList("Glass");
-            addMaterialList("Terracotta");
-            addMaterialList("Good");
-            addMaterialList("Okay");
-            addMaterialList("Planks");
-            addMaterialList("Stripped");
-            addMaterialList("Logs");
-            addMaterialList("Solid Ores");
-            addMaterialList("Coral");
-            addMaterialList("Dead Coral");
-            addMaterialList("Ores");
-            addMaterialList("Common");
-            cbxEnableLayer2.Checked = Options.Get.IsMultiLayer;
-            cbxIsSideView.Checked = Options.Get.IsSideView;
+            this.loadStatesFromOptions();
             this.ResumeLayout(true);
         }
 
@@ -132,7 +115,30 @@ namespace PixelStacker.UI
             this.refMaterialLists.ForEach(ML => {
                 ML.setAllChecked(false);
             });
+        }
 
+        public void loadStatesFromOptions()
+        {
+            this.refMaterialLists.Clear();
+            this.tableLayoutPanel.Controls.Clear();
+            addMaterialList("Wool");
+            addMaterialList("Powder");
+            addMaterialList("Concrete");
+            addMaterialList("Clay");
+            addMaterialList("Glass");
+            addMaterialList("Terracotta");
+            addMaterialList("Good");
+            addMaterialList("Okay");
+            addMaterialList("Planks");
+            addMaterialList("Stripped");
+            addMaterialList("Logs");
+            addMaterialList("Solid Ores");
+            addMaterialList("Coral");
+            addMaterialList("Dead Coral");
+            addMaterialList("Ores");
+            addMaterialList("Common");
+            cbxEnableLayer2.Checked = Options.Get.IsMultiLayer;
+            cbxIsSideView.Checked = Options.Get.IsSideView;
         }
     }
 }

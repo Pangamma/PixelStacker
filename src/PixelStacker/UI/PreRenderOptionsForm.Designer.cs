@@ -57,28 +57,31 @@
             "Wu\'s color quantizer",
             "NeuQuant quantizer",
             "Optimal palette"});
-            this.ddlAlgorithm.Location = new System.Drawing.Point(86, 36);
+            this.ddlAlgorithm.Location = new System.Drawing.Point(115, 44);
+            this.ddlAlgorithm.Margin = new System.Windows.Forms.Padding(4);
             this.ddlAlgorithm.Name = "ddlAlgorithm";
-            this.ddlAlgorithm.Size = new System.Drawing.Size(198, 21);
+            this.ddlAlgorithm.Size = new System.Drawing.Size(263, 24);
             this.ddlAlgorithm.TabIndex = 0;
-            this.tooltip.SetToolTip(this.ddlAlgorithm, "Algorithm determines HOW the \r\nimage colors will be reduced.");
             this.ddlAlgorithm.SelectedValueChanged += new System.EventHandler(this.ddlAlgorithm_SelectedValueChanged);
             // 
             // lblColorCache
             // 
             this.lblColorCache.AutoSize = true;
-            this.lblColorCache.Location = new System.Drawing.Point(12, 39);
+            this.lblColorCache.Location = new System.Drawing.Point(16, 48);
+            this.lblColorCache.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblColorCache.Name = "lblColorCache";
-            this.lblColorCache.Size = new System.Drawing.Size(50, 13);
+            this.lblColorCache.Size = new System.Drawing.Size(67, 17);
             this.lblColorCache.TabIndex = 1;
             this.lblColorCache.Text = "Algorithm";
+            this.tooltip.SetToolTip(this.lblColorCache, resources.GetString("lblColorCache.ToolTip"));
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 65);
+            this.label1.Location = new System.Drawing.Point(16, 80);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.Size = new System.Drawing.Size(85, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "Color Cache";
             // 
@@ -90,11 +93,11 @@
             "Euclidean distance",
             "Locality-sensitive hash",
             "Octree search"});
-            this.ddlColorCache.Location = new System.Drawing.Point(86, 62);
+            this.ddlColorCache.Location = new System.Drawing.Point(115, 76);
+            this.ddlColorCache.Margin = new System.Windows.Forms.Padding(4);
             this.ddlColorCache.Name = "ddlColorCache";
-            this.ddlColorCache.Size = new System.Drawing.Size(198, 21);
+            this.ddlColorCache.Size = new System.Drawing.Size(263, 24);
             this.ddlColorCache.TabIndex = 3;
-            this.tooltip.SetToolTip(this.ddlColorCache, "Changes how color differences are stored.");
             this.ddlColorCache.SelectedValueChanged += new System.EventHandler(this.ddlColorCache_SelectedValueChanged);
             // 
             // ddlColorCount
@@ -110,21 +113,23 @@
             "64",
             "128",
             "256"});
-            this.ddlColorCount.Location = new System.Drawing.Point(86, 89);
+            this.ddlColorCount.Location = new System.Drawing.Point(115, 110);
+            this.ddlColorCount.Margin = new System.Windows.Forms.Padding(4);
             this.ddlColorCount.Name = "ddlColorCount";
-            this.ddlColorCount.Size = new System.Drawing.Size(198, 21);
+            this.ddlColorCount.Size = new System.Drawing.Size(263, 24);
             this.ddlColorCount.TabIndex = 5;
-            this.tooltip.SetToolTip(this.ddlColorCount, "Decide how many different colors can appear\r\n in the rendered image.");
             this.ddlColorCount.SelectedValueChanged += new System.EventHandler(this.ddlColorCount_SelectedValueChanged);
             // 
             // lblColorCount
             // 
             this.lblColorCount.AutoSize = true;
-            this.lblColorCount.Location = new System.Drawing.Point(12, 92);
+            this.lblColorCount.Location = new System.Drawing.Point(16, 113);
+            this.lblColorCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblColorCount.Name = "lblColorCount";
-            this.lblColorCount.Size = new System.Drawing.Size(62, 13);
+            this.lblColorCount.Size = new System.Drawing.Size(82, 17);
             this.lblColorCount.TabIndex = 4;
             this.lblColorCount.Text = "Color Count";
+            this.tooltip.SetToolTip(this.lblColorCount, "Max color count.");
             // 
             // ddlDither
             // 
@@ -147,21 +152,24 @@
             "Two-row Sierra dithering (5x3)",
             "Floyd–Steinberg dithering (3x3)",
             "Jarvis-Judice-Ninke dithering (5x5)"});
-            this.ddlDither.Location = new System.Drawing.Point(86, 144);
+            this.ddlDither.Location = new System.Drawing.Point(115, 177);
+            this.ddlDither.Margin = new System.Windows.Forms.Padding(4);
             this.ddlDither.Name = "ddlDither";
-            this.ddlDither.Size = new System.Drawing.Size(198, 21);
+            this.ddlDither.Size = new System.Drawing.Size(263, 24);
             this.ddlDither.TabIndex = 7;
-            this.tooltip.SetToolTip(this.ddlDither, "For if you\'re into that kind of thing.");
             this.ddlDither.SelectedValueChanged += new System.EventHandler(this.ddlDither_SelectedValueChanged);
             // 
             // lblDither
             // 
             this.lblDither.AutoSize = true;
-            this.lblDither.Location = new System.Drawing.Point(12, 147);
+            this.lblDither.Location = new System.Drawing.Point(16, 181);
+            this.lblDither.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDither.Name = "lblDither";
-            this.lblDither.Size = new System.Drawing.Size(35, 13);
+            this.lblDither.Size = new System.Drawing.Size(46, 17);
             this.lblDither.TabIndex = 6;
             this.lblDither.Text = "Dither";
+            this.tooltip.SetToolTip(this.lblDither, "Some people like dithering.\r\nI don\'t. I never do. I hate \r\ndithering. But hey- yo" +
+        "u do you.");
             // 
             // ddlParallel
             // 
@@ -175,47 +183,47 @@
             "16",
             "32",
             "64"});
-            this.ddlParallel.Location = new System.Drawing.Point(86, 116);
+            this.ddlParallel.Location = new System.Drawing.Point(115, 143);
+            this.ddlParallel.Margin = new System.Windows.Forms.Padding(4);
             this.ddlParallel.Name = "ddlParallel";
-            this.ddlParallel.Size = new System.Drawing.Size(198, 21);
+            this.ddlParallel.Size = new System.Drawing.Size(263, 24);
             this.ddlParallel.TabIndex = 9;
-            this.tooltip.SetToolTip(this.ddlParallel, "Some quantizing algorithms can improve \r\nefficiency by using multithreading.");
             this.ddlParallel.SelectedValueChanged += new System.EventHandler(this.ddlParallel_SelectedValueChanged);
             // 
             // lblParallel
             // 
             this.lblParallel.AutoSize = true;
-            this.lblParallel.Location = new System.Drawing.Point(12, 119);
+            this.lblParallel.Location = new System.Drawing.Point(16, 146);
+            this.lblParallel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblParallel.Name = "lblParallel";
-            this.lblParallel.Size = new System.Drawing.Size(41, 13);
+            this.lblParallel.Size = new System.Drawing.Size(55, 17);
             this.lblParallel.TabIndex = 10;
             this.lblParallel.Text = "Parallel";
+            this.tooltip.SetToolTip(this.lblParallel, "Speed up the quantizing process by taking\r\nadvantage of a multicore CPU. \r\n\r\nLowe" +
+        "r values = more stable\r\nHigher values = faster\r\nSuper high values = possible gli" +
+        "tches\r\n");
             // 
             // btnEnablePreRender
             // 
-            this.btnEnablePreRender.Location = new System.Drawing.Point(15, 7);
+            this.btnEnablePreRender.Location = new System.Drawing.Point(20, 9);
+            this.btnEnablePreRender.Margin = new System.Windows.Forms.Padding(4);
             this.btnEnablePreRender.Name = "btnEnablePreRender";
-            this.btnEnablePreRender.Size = new System.Drawing.Size(269, 23);
+            this.btnEnablePreRender.Size = new System.Drawing.Size(359, 28);
             this.btnEnablePreRender.TabIndex = 11;
             this.btnEnablePreRender.Text = "Enable Quantizer";
-            this.tooltip.SetToolTip(this.btnEnablePreRender, "The quantizer reduces the color count for \r\nfaster rendering. It can also be used" +
-        " to add\r\ndithering effects. If the quantizer is disabled,\r\nrendering will be slo" +
-        "wer but also higher quality.");
             this.btnEnablePreRender.UseVisualStyleBackColor = true;
             this.btnEnablePreRender.Click += new System.EventHandler(this.btnEnablePreRender_Click);
             // 
             // tooltip
             // 
-            this.tooltip.AutomaticDelay = 1000;
-            this.tooltip.AutoPopDelay = 20000;
-            this.tooltip.InitialDelay = 1000;
-            this.tooltip.ReshowDelay = 200;
+            this.tooltip.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tooltip.IsBalloon = true;
             // 
             // PreRenderOptionsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 180);
+            this.ClientSize = new System.Drawing.Size(404, 222);
             this.Controls.Add(this.btnEnablePreRender);
             this.Controls.Add(this.lblParallel);
             this.Controls.Add(this.ddlParallel);
@@ -228,6 +236,7 @@
             this.Controls.Add(this.lblColorCache);
             this.Controls.Add(this.ddlAlgorithm);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PreRenderOptionsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Quantizer Settings";
