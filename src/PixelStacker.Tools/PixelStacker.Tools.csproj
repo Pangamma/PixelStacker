@@ -52,18 +52,17 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\Extend.Color.cs" />
-    <Compile Include="Extensions\Extend.IEnumerable.cs" />
-    <Compile Include="Extensions\Extend.Image.cs" />
-    <Compile Include="Extensions\Extend.Math.cs" />
-    <Compile Include="Extensions\Extend.PixelFormat.cs" />
-    <Compile Include="Extensions\Extend.UI.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="ShadowTileGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PixelStacker\PixelStacker.csproj">
+      <Project>{D21DE6D2-34FE-468C-A322-C3F48681BE16}</Project>
+      <Name>PixelStacker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -688,11 +688,11 @@ namespace PixelStacker.UI
             {
                 bool isSelectiveLayerViewEnabled = Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false);
 
-                bool isSide = Options.Get.IsSideView;
+                //bool isSide = Options.Get.IsSideView;
+                //int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
+                //int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
                 double origW = blueprint.Width;
                 double origH = blueprint.Height;
-                int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
-                int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
                 int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
 
                 if (MainForm.PanZoomSettings.zoomLevel < 1.0D)
@@ -775,19 +775,25 @@ namespace PixelStacker.UI
 
                 if (Options.Get.Rendered_IsShowBorder)
                 {
-                    Point pp2 = getPointOnPanel(new Point(0, 0));
-                    using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), zoom))
+                    if (MainForm.PanZoomSettings != null)
                     {
-                        penWE.Alignment = PenAlignment.Inset;
-                        g.DrawRectangle(penWE, pp2.X, pp2.Y, (int)(blueprint.Width * MainForm.PanZoomSettings.zoomLevel), (int)(blueprint.Height * MainForm.PanZoomSettings.zoomLevel));
+                        Point pp2 = getPointOnPanel(new Point(0, 0));
+                        using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), zoom))
+                        {
+                            penWE.Alignment = PenAlignment.Inset;
+                            g.DrawRectangle(penWE, pp2.X, pp2.Y, (int) (blueprint.Width * MainForm.PanZoomSettings.zoomLevel), (int) (blueprint.Height * MainForm.PanZoomSettings.zoomLevel));
+                        }
                     }
                 }
 
                 if (Constants.IsFullVersion)
                 {
                     brush.Color = Color.Red;
-                    Point wePoint = getPointOnPanel(image.WorldEditOrigin);
-                    g.FillRectangle(brush, wePoint.X, wePoint.Y, zoom + 1, zoom + 1);
+                    if (MainForm.PanZoomSettings != null)
+                    {
+                        Point wePoint = getPointOnPanel(image.WorldEditOrigin);
+                        g.FillRectangle(brush, wePoint.X, wePoint.Y, zoom + 1, zoom + 1);
+                    }
                 }
 
                 if ((Options.Get.Rendered_IsShowGrid) && (MainForm.PanZoomSettings.zoomLevel >= 0.5D))
@@ -868,28 +874,25 @@ namespace PixelStacker.UI
 
         public Point getPointOnPanel(Point pointOnImage)
         {
-#if DEBUG
             if (pointOnImage == null)
             {
+#if DEBUG
                 throw new ArgumentNullException("pointOnImage is null. Please report this to Pangamma along with the stacktrace!");
+#else
+                return new Point(0, 0);
+#endif
             }
 
             if (MainForm.PanZoomSettings == null)
             {
+#if DEBUG
                 throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
+#else
+                return new Point(0, 0);
+#endif
             }
 
             return new Point((int) Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int) Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
-#else
-            try
-            {
-                return new Point((int) Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int) Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
-            }
-            catch(Exception ex)
-            {
-                return new Point(0, 0);
-            }
-#endif
         }
 
         private void restrictZoom()
@@ -900,6 +903,7 @@ namespace PixelStacker.UI
         private void drawGridMask(Graphics g, int gridSize, Color c)
         {
             if (this.gridMaskClip == null) return;
+            if (MainForm.PanZoomSettings == null) return;
             Point tL = new Point(this.gridMaskClip.Value.Left, this.gridMaskClip.Value.Top);
             Point bR = new Point(this.gridMaskClip.Value.Right, this.gridMaskClip.Value.Bottom);
             tL = this.getPointOnPanel(tL);

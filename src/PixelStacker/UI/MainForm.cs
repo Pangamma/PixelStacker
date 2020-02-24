@@ -15,6 +15,7 @@ namespace PixelStacker
     // Do not force items to open as design style, also allow some things to be design and other things to be code
     public partial class MainForm : Form
     {
+
         public static MainForm Self;
         public Bitmap LoadedImage { get; private set; } = UIResources.avatar.To32bppBitmap();
         public Bitmap PreRenderedImage { get; set; } = null;
@@ -41,6 +42,17 @@ namespace PixelStacker
             }
             SetViewModeCheckBoxStates();
         }
+
+        #region Auto update checker + Error Reporting
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+#pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
+            TaskManager.Get.StartAsync(cancelToken => UpdateChecker.CheckForUpdates(cancelToken));
+            //TaskManager.Get.StartAsync(cancelToken => PdbLoader.Load(cancelToken));
+#pragma warning restore CS4014
+        }
+        #endregion
+
         private void SetViewModeCheckBoxStates()
         {
             toggleGridToolStripMenuItem.Checked = Options.Get.Rendered_IsShowGrid;

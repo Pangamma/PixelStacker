@@ -10,6 +10,9 @@
     <!-- If True, all copy local dependencies will also be merged from referenced projects whether they are referenced in the current project explicitly or not -->
     <ILMergeTransitive>true</ILMergeTransitive>
 
+    <!-- Creates a .pdb file for the output assembly and merges into it any .pdb files found for input assemblies, default=true -->
+    <ILMergeDebugInfo>false</ILMergeDebugInfo>
+    
     <!-- Extra ILMerge library paths (semicolon-separated). Dont put your package dependencies here, they will be added automagically -->
     <ILMergeLibraryPath></ILMergeLibraryPath>
 
@@ -25,13 +28,40 @@
     <!-- The assembly version if differs for the version of the main assembly -->
     <ILMergeAssemblyVersion></ILMergeAssemblyVersion>
 
-    <!-- If True, all types from the merged assembly dependencies are marked as internal in the resulting file -->
+    <!-- added in Version 1.0.4 -->
+    <ILMergeFileAlignment></ILMergeFileAlignment>
+
+    <!-- added in Version 1.0.4, default=none -->
+    <ILMergeAllowDuplicateType></ILMergeAllowDuplicateType>
+
+    <!-- If the <see cref="CopyAttributes"/> is also set, any assembly-level attributes names that have the same type are copied over into the target assembly -->
+    <ILMergeAllowMultipleAssemblyLevelAttributes></ILMergeAllowMultipleAssemblyLevelAttributes>
+
+    <!-- See ILMerge documentation -->
+    <ILMergeAllowZeroPeKind></ILMergeAllowZeroPeKind>
+
+    <!-- The assembly level attributes of each input assembly are copied over into the target assembly -->
+    <ILMergeCopyAttributes></ILMergeCopyAttributes>
+
+    <!-- Target assembly will be delay signed -->
+    <ILMergeDelaySign></ILMergeDelaySign>
+
+    <!-- Types in assemblies other than the primary assembly have their visibility modified -->
     <ILMergeInternalize>false</ILMergeInternalize>
-   
-    <!-- The file containing the list of type to exclude from internalization if different from ILMergeInternalizeExcludeList.txt (only relevant when "ILMergeInternalize" is true) -->
+
+    <!-- The path name of the file that will be used to identify types that are not to have their visibility modified -->
     <ILMergeInternalizeExcludeFile></ILMergeInternalizeExcludeFile>
 
-    <!-- Configures the /allowDup swith for ilmerge.exe. Use "*" or comma-separated type names -->
-    <AllowDuplicateType></AllowDuplicateType>
+    <!-- XML documentation files are merged to produce an XML documentation file for the target assembly -->
+    <ILMergeXmlDocumentation></ILMergeXmlDocumentation>
+
+    <!-- External assembly references in the manifest of the target assembly will use full public keys (false) or public key tokens (true, default value) -->
+    <ILMergePublicKeyTokens></ILMergePublicKeyTokens>
+
+    <!-- Types with the same name are all merged into a single type in the target assembly -->
+    <ILMergeUnionMerge></ILMergeUnionMerge>
+
+    <!-- The version of the target framework, default 40 (works for 45 too) -->
+    <ILTargetPlatform></ILTargetPlatform>
   </PropertyGroup>
 </Project>

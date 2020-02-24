@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PixelStacker
 {
@@ -17,7 +18,7 @@ namespace PixelStacker
             var about = new AboutForm();
             about.ShowDialog(this);
         }
-
+        
         private void otherOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TaskManager.Get.CancelTasks(null);
