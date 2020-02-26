@@ -253,6 +253,16 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap test3 {
+            get {
+                object obj = ResourceManager.GetObject("test3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap weird_intro {
             get {
                 object obj = ResourceManager.GetObject("weird_intro", resourceCulture);

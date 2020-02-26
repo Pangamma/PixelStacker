@@ -76,23 +76,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.7.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Permissions, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Permissions.4.7.0\lib\net461\System.Security.Permissions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
-    </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -396,6 +384,7 @@
     <Content Include="Resources\Images\pixelart\nerfman.png" />
     <Content Include="Resources\Images\pixelart\psg.png" />
     <None Include="Resources\Images\pixelart\test2.png" />
+    <None Include="Resources\Images\pixelart\test3.png" />
     <Content Include="Resources\Images\pixelart\weird-intro.png" />
     <Content Include="Resources\Images\pixelart\YellowHeart.png" />
     <Content Include="Resources\Images\Textures\Coral\dried_kelp_side.png" />
@@ -617,14 +606,6 @@
     <Content Include="Resources\Images\UI\feature_palette_compact_grid.png" />
     <None Include="Resources\Images\UI\feature_palette_compact_square.png" />
     <Content Include="Resources\Images\UI\feature_palette_detailed_grid.png" />
-    <None Include="Resources\Images\UI\shadows\shadow_B.png" />
-    <None Include="Resources\Images\UI\shadows\shadow_BL.png" />
-    <None Include="Resources\Images\UI\shadows\shadow_BR.png" />
-    <None Include="Resources\Images\UI\shadows\shadow_L.png" />
-    <None Include="Resources\Images\UI\shadows\shadow_R.png" />
-    <None Include="Resources\Images\UI\shadows\shadow_T.png" />
-    <None Include="Resources\Images\UI\shadows\shadow_TL.png" />
-    <None Include="Resources\Images\UI\shadows\shadow_TR.png" />
     <None Include="Resources\Images\UI\shadows\depth_16\d16_B.png" />
     <None Include="Resources\Images\UI\shadows\depth_16\d16_BL.png" />
     <None Include="Resources\Images\UI\shadows\depth_16\d16_BR.png" />
@@ -649,6 +630,9 @@
     <None Include="Resources\Images\UI\shadows\depth_4\d4_T.png" />
     <None Include="Resources\Images\UI\shadows\depth_4\d4_TL.png" />
     <None Include="Resources\Images\UI\shadows\depth_4\d4_TR.png" />
+    <None Include="Resources\Images\UI\shadows\sprites\sprite-x16.png" />
+    <None Include="Resources\Images\UI\shadows\sprites\sprite-x32.png" />
+    <None Include="Resources\Images\UI\shadows\sprites\sprite-x64.png" />
     <Content Include="wool.ico" />
     <None Include="Resources\Images\UI\pixelstackerlogo.pdn" />
     <None Include="Resources\Images\UI\wool.ico" />

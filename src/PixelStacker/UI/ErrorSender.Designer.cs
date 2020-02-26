@@ -37,6 +37,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.btnYes = new System.Windows.Forms.Button();
             this.btnNo = new System.Windows.Forms.Button();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // cbxIncludeImage
@@ -92,10 +93,10 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(15, 49);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(440, 34);
+            this.label2.Size = new System.Drawing.Size(443, 51);
             this.label2.TabIndex = 4;
             this.label2.Text = "Are you willing to send me some information to help me fix this error?\r\nIf yes, t" +
-    "he following info will be zipped.";
+    "he following info will be zipped. Then you can send the info to \r\nme as a ";
             // 
             // checkBox1
             // 
@@ -112,7 +113,7 @@
             // 
             // btnYes
             // 
-            this.btnYes.Location = new System.Drawing.Point(12, 263);
+            this.btnYes.Location = new System.Drawing.Point(12, 259);
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(205, 98);
             this.btnYes.TabIndex = 6;
@@ -122,7 +123,7 @@
             // 
             // btnNo
             // 
-            this.btnNo.Location = new System.Drawing.Point(249, 263);
+            this.btnNo.Location = new System.Drawing.Point(235, 259);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(220, 98);
             this.btnNo.TabIndex = 7;
@@ -130,11 +131,23 @@
             this.btnNo.UseVisualStyleBackColor = true;
             this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(72, 83);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(91, 17);
+            this.linkLabel1.TabIndex = 10;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Github issue.";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // ErrorSender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 385);
+            this.ClientSize = new System.Drawing.Size(477, 372);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.btnNo);
             this.Controls.Add(this.btnYes);
             this.Controls.Add(this.checkBox1);
@@ -161,5 +174,6 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button btnYes;
         private System.Windows.Forms.Button btnNo;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

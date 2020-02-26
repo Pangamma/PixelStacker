@@ -22,6 +22,15 @@ namespace PixelStacker.Tools
         //{
         //    this.GenerateShadowTiles(8);
         //}
+        [TestMethod]
+        [TestCategory("Generators")]
+        public void ShadowSprites()
+        {
+            //this.GenerateShadowTiles(8);
+            this.StripSpriteSheet(16);
+            this.StripSpriteSheet(32);
+            this.StripSpriteSheet(64);
+        }
 
         //[TestMethod]
         //[TestCategory("Generators")]
@@ -30,6 +39,31 @@ namespace PixelStacker.Tools
         //    this.GenerateShadowTiles(4);
         //}
 
+
+        public void StripSpriteSheet(int depth)
+        {
+            string rootShadowsPath = @"D:\git\PixelStacker\src\PixelStacker\Resources\Images\UI\shadows";
+
+            {
+                string fToStrip = $@"{rootShadowsPath}\sprites\sprite-source-x{depth}.png";
+                var saveFile = $@"{rootShadowsPath}\sprites\sprite-x{depth}.png";
+                // Make it so that everything is transparent
+                using (var bmAnyFormat = Bitmap.FromFile(fToStrip))
+                {
+                    using (var bmSource = bmAnyFormat.To32bppBitmap())
+                    {
+                        bmSource.ToEditStream(null, (int x, int y, Color c) =>
+                        {
+                            var b = c.GetBrightness() * 100;
+                            var nAlpha = ((int) (255 * (100 - b))) / 100;
+                            return Color.FromArgb((int) nAlpha, 0, 0, 0);
+                        });
+
+                        bmSource.Save(saveFile);
+                    }
+                }
+            }
+        }
 
         public void GenerateShadowTiles(int depth)
         {

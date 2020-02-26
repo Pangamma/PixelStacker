@@ -17,7 +17,7 @@ namespace PixelStacker
     {
 
         public static MainForm Self;
-        public Bitmap LoadedImage { get; private set; } = UIResources.avatar.To32bppBitmap();
+        public Bitmap LoadedImage { get; private set; } = UIResources.test3.To32bppBitmap();
         public Bitmap PreRenderedImage { get; set; } = null;
         public BlueprintPA LoadedBlueprint { get; private set; }
         public static PanZoomSettings PanZoomSettings { get; set; } = null;

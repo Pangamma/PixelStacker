@@ -381,6 +381,7 @@
             // 
             this.dlgOpen.FileName = "openFileDialog1";
             this.dlgOpen.Filter = "Jpeg or png|*.png;*.jpeg;*.jpg|png|*.png|Jpeg|*.jpg;*.jpeg";
+            this.dlgOpen.Title = "Open File";
             this.dlgOpen.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgOpen_FileOk);
             // 
             // dlgSave
