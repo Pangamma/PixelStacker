@@ -153,7 +153,7 @@ namespace PixelStacker.UI
                                     continue;
                                 }
                             }
-
+                            
                             for (int x = 0; x < mWidth; x++)
                             {
                                 TaskManager.SafeReport(100 * x / mWidth);
@@ -197,7 +197,8 @@ namespace PixelStacker.UI
                                             {
                                                 if (isMaterialIncludedInFilter)
                                                 {
-                                                    gImg.DrawImage(m.getImage(isSide), xi, yi, textureSize.Value, textureSize.Value);
+                                                    gImg
+                                                        .DrawImage(m.getImage(isSide), xi, yi, textureSize.Value, textureSize.Value);
                                                 }
                                             }
                                         }
@@ -335,7 +336,7 @@ namespace PixelStacker.UI
 
                     return bm;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     blueprint = null;
                 }
@@ -346,45 +347,39 @@ namespace PixelStacker.UI
 
         private static int? CalculateTextureSize(BlueprintPA image)
         {
-            int CalculatedTextureSize = Constants.TextureSize;
             // Calculate texture size so we can handle large images.
-            if (image == null) return CalculatedTextureSize;
-            int mbSize = (image.Width * image.Height * 32 / 8); // Still need to multiply by texture size (4 bytes per pixel / 8 bits per byte = 4 bytes)
-            int maxSize = 400 * 1024 * 1024; // max size in bytes we'll want to allow.
-            int tSize = Constants.TextureSize;
-            if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1; // 16
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1; // 14
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1; // 10
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1; // 6
-            else if (mbSize * tSize * tSize-- <= maxSize) CalculatedTextureSize = tSize + 1;
-            else CalculatedTextureSize = 4;
+            if (image == null) return null;
 
-            while (CalculatedTextureSize * image.Width > 22000 || CalculatedTextureSize * image.Height > 22000)
-            {
-                if (CalculatedTextureSize <= 1)
-                {
-                    MessageBox.Show(Constants.ERR_DownsizeYourImage);
-                    MainForm.Self.PreRenderedImage.DisposeSafely();
-                    MainForm.Self.PreRenderedImage = null;
-                    return null;
-                }
-
-                CalculatedTextureSize -= 2;
-            }
+            int calculatedTextureSize = Constants.TextureSize;
+            int bytesInSrcImage = (image.Width * image.Height * 32 / 8); // Still need to multiply by texture size (4 bytes per pixel / 8 bits per byte = 4 bytes)
+            
+            int safetyMultiplier = 4; // Want to be able to store N of these things in memory
 
             bool isSuccess = false;
+
             do
             {
+                if (image.Width * calculatedTextureSize >= 30000 || image.Height * calculatedTextureSize >= 30000)
+                {
+                    calculatedTextureSize = Math.Max(1, calculatedTextureSize - 2);
+                    continue;
+                }
+
+                int totalPixels = (image.Width + 1) * image.Height * calculatedTextureSize * calculatedTextureSize * 4;
+                if (totalPixels >= int.MaxValue || totalPixels < 0)
+                {
+                    calculatedTextureSize = Math.Max(1, calculatedTextureSize - 2);
+                    continue;
+                }
+
                 try
                 {
-                    int numMegaBytes = 32 / 8 * CalculatedTextureSize * CalculatedTextureSize * image.Height * image.Width / 1024 / 1024;
+                    int numMegaBytes = bytesInSrcImage // pixels in base image * bytes per pixel
+                        * calculatedTextureSize * calculatedTextureSize // size of texture tile squared 
+                        / 1024 / 1024       // convert to MB
+                        * safetyMultiplier  // Multiply by safety buffer to plan for a bunch of these layers.
+                        ;
+
                     if (numMegaBytes > 0)
                     {
                         using (var memoryCheck = new System.Runtime.MemoryFailPoint(numMegaBytes))
@@ -396,11 +391,11 @@ namespace PixelStacker.UI
                 }
                 catch (InsufficientMemoryException)
                 {
-                    CalculatedTextureSize = Math.Max(1, CalculatedTextureSize - 2);
+                    calculatedTextureSize = Math.Max(1, calculatedTextureSize - 2);
                 }
-            } while (isSuccess == false && CalculatedTextureSize > 1);
+            } while (isSuccess == false && calculatedTextureSize > 1);
 
-            if (isSuccess == false)
+            if (!isSuccess)
             {
                 MessageBox.Show(Constants.ERR_DownsizeYourImage);
                 MainForm.Self.PreRenderedImage.DisposeSafely();
@@ -408,9 +403,8 @@ namespace PixelStacker.UI
                 return null;
             }
 
-            return CalculatedTextureSize;
+            return calculatedTextureSize;
         }
-
 
         public void SetBluePrint(BlueprintPA src, Bitmap renderedImage, int? textureSize)
         {
