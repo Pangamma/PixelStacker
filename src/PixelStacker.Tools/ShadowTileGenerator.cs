@@ -23,7 +23,6 @@ namespace PixelStacker.Tools
         [TestCategory("Generators")]
         public void ShadowSprites()
         {
-            //this.GenerateShadowTiles(8);
             this.StripSpriteSheet(16);
             //this.StripSpriteSheet(32);
             //this.StripSpriteSheet(64);
