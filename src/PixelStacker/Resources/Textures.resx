@@ -119,645 +119,645 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="acacia_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logwithbark\acacia_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogWithBark\acacia_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="acacia_planks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\planks\acacia_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Planks\acacia_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="air" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\hidden\air.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Hidden\air.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="andesite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\andesite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\andesite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bedrock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\bedrock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\bedrock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="beehive_end" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\beehive_end.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\beehive_end.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="beehive_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\beehive_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\beehive_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bee_nest_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\bee_nest_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\bee_nest_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bee_nest_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\bee_nest_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\bee_nest_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="birch_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logwithbark\birch_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogWithBark\birch_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="birch_planks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\planks\birch_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Planks\birch_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="black_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\black_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\black_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="black_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\black_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\black_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="black_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\black_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\black_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="black_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\black_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\black_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="black_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\black_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\black_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="black_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\black_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\black_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blue_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\blue_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\blue_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blue_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\blue_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\blue_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blue_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\blue_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\blue_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blue_ice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\blue_ice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\blue_ice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blue_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\blue_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\blue_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blue_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\blue_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\blue_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blue_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\blue_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\blue_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bone_block_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\bone_block_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\bone_block_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bone_block_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\bone_block_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\bone_block_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bookshelf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\bookshelf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\bookshelf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="brain_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\brain_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\brain_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="brown_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\brown_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\brown_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="brown_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\brown_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\brown_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="brown_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\brown_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\brown_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="brown_mushroom_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\brown_mushroom_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\brown_mushroom_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="brown_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\brown_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\brown_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="brown_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\brown_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\brown_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="brown_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\brown_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\brown_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bubble_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\bubble_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\bubble_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="carved_pumpkin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\carved_pumpkin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\carved_pumpkin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="chiseled_quartz_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\chiseled_quartz_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\chiseled_quartz_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="chiseled_quartz_block_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\chiseled_quartz_block_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\chiseled_quartz_block_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="clay" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\clay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\clay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="coal_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\coal_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\coal_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="coal_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\coal_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\coal_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="coarse_dirt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\coarse_dirt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\coarse_dirt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cobblestone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\cobblestone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\cobblestone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cracked_stone_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\cracked_stone_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\cracked_stone_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cyan_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\cyan_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\cyan_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cyan_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\cyan_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\cyan_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cyan_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\cyan_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\cyan_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cyan_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\cyan_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\cyan_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cyan_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\cyan_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\cyan_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cyan_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\cyan_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\cyan_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dark_oak_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logwithbark\dark_oak_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogWithBark\dark_oak_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dark_oak_planks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\planks\dark_oak_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Planks\dark_oak_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dark_prismarine" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\dark_prismarine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\dark_prismarine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dead_brain_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\dead_brain_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\dead_brain_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dead_bubble_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\dead_bubble_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\dead_bubble_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dead_fire_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\dead_fire_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\dead_fire_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dead_horn_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\dead_horn_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\dead_horn_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dead_tube_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\dead_tube_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\dead_tube_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diamond_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\diamond_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\diamond_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diamond_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\diamond_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\diamond_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diorite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\diorite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\diorite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dirt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\dirt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\dirt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dried_kelp_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\dried_kelp_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\dried_kelp_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dried_kelp_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\dried_kelp_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\dried_kelp_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="emerald_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\emerald_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\emerald_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="emerald_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\emerald_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\emerald_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="end_stone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\end_stone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\end_stone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="end_stone_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\end_stone_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\end_stone_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="fire_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\fire_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\fire_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="glowstone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\glowstone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\glowstone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gold_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\gold_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\gold_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gold_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\gold_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\gold_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="granite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\granite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\granite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gravel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\gravel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\gravel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gray_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\gray_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\gray_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gray_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\gray_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\gray_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gray_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\gray_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\gray_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gray_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\gray_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\gray_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gray_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\gray_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\gray_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gray_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\gray_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\gray_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="green_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\green_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\green_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="green_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\green_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\green_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="green_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\green_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\green_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="green_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\green_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\green_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="green_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\green_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\green_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="green_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\green_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\green_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="hay_block_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\hay_block_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\hay_block_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="honeycomb_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\honeycomb_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\honeycomb_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="horn_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\horn_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\horn_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="iron_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\iron_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\iron_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="iron_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\iron_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\iron_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="jack_o_lantern" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\jack_o_lantern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\jack_o_lantern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="jungle_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logwithbark\jungle_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogWithBark\jungle_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="jungle_planks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\planks\jungle_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Planks\jungle_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lapis_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\lapis_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\lapis_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lapis_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\lapis_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\lapis_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_blue_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\light_blue_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\light_blue_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_blue_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\light_blue_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\light_blue_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_blue_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\light_blue_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\light_blue_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_blue_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\light_blue_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\light_blue_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_blue_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\light_blue_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\light_blue_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_blue_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\light_blue_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\light_blue_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_gray_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\light_gray_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\light_gray_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_gray_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\light_gray_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\light_gray_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_gray_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\light_gray_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\light_gray_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_gray_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\light_gray_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\light_gray_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_gray_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\light_gray_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\light_gray_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_gray_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\light_gray_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\light_gray_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lime_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\lime_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\lime_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lime_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\lime_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\lime_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lime_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\lime_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\lime_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lime_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\lime_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\lime_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lime_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\lime_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\lime_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lime_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\lime_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\lime_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="magenta_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\magenta_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\magenta_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="magenta_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\magenta_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\magenta_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="magenta_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\magenta_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\magenta_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="magenta_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\magenta_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\magenta_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="magenta_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\magenta_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\magenta_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="magenta_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\magenta_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\magenta_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="magma" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\magma.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\magma.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="melon_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\melon_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\melon_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="melon_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\melon_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\melon_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mossy_cobblestone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\mossy_cobblestone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\mossy_cobblestone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mossy_stone_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\mossy_stone_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\mossy_stone_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mushroom_block_inside" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\mushroom_block_inside.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\mushroom_block_inside.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mushroom_stem" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\mushroom_stem.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\mushroom_stem.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="netherrack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\netherrack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\netherrack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nether_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\nether_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\nether_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nether_quartz_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\nether_quartz_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\nether_quartz_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nether_wart_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\nether_wart_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\nether_wart_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="note_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\note_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\note_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="oak_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logwithbark\oak_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogWithBark\oak_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="oak_planks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\planks\oak_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Planks\oak_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="obsidian" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\obsidian.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\obsidian.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="orange_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\orange_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\orange_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="orange_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\orange_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\orange_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="orange_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\orange_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\orange_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="orange_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\orange_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\orange_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="orange_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\orange_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\orange_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="orange_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\orange_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\orange_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="packed_ice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\packed_ice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\packed_ice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pink_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\pink_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\pink_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pink_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\pink_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\pink_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pink_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\pink_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\pink_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pink_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\pink_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\pink_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pink_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\pink_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\pink_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pink_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\pink_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\pink_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="prismarine" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\prismarine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\prismarine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="prismarine_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\prismarine_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\prismarine_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pumpkin_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\pumpkin_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\pumpkin_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pumpkin_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\pumpkin_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\pumpkin_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="purple_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\purple_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\purple_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="purple_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\purple_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\purple_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="purple_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\purple_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\purple_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="purple_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\purple_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\purple_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="purple_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\purple_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\purple_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="purple_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\purple_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\purple_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="purpur_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\purpur_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\purpur_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="purpur_pillar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\purpur_pillar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\purpur_pillar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="purpur_pillar_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\purpur_pillar_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\purpur_pillar_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="quartz_block_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\quartz_block_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\quartz_block_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="redstone_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\redstone_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\redstone_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="redstone_lamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\redstone_lamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\redstone_lamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="redstone_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\ores\redstone_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Ores\redstone_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\red_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\red_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\red_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\red_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\red_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\red_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_mushroom_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\red_mushroom_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\red_mushroom_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_nether_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\red_nether_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\red_nether_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_sand" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\red_sand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\red_sand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_sandstone_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\red_sandstone_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\red_sandstone_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\red_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\red_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\red_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\red_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="red_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\red_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\red_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sand" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\sand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\sand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sandstone_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\sandstone_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\sandstone_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sea_lantern" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\sea_lantern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\sea_lantern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="slime_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\slime_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\slime_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="smooth_stone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\smooth_stone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\smooth_stone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="smooth_stone_slab_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\smooth_stone_slab_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\smooth_stone_slab_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="snow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\snow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\snow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="soul_sand" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\soul_sand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\soul_sand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sponge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\sponge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\sponge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="spruce_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logwithbark\spruce_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogWithBark\spruce_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="spruce_planks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\planks\spruce_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Planks\spruce_planks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\stone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\stone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stone_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\stone_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\stone_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stripped_acacia_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logstripped\stripped_acacia_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogStripped\stripped_acacia_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stripped_birch_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logstripped\stripped_birch_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogStripped\stripped_birch_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stripped_dark_oak_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logstripped\stripped_dark_oak_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogStripped\stripped_dark_oak_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stripped_dark_oak_log_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logstripped\stripped_dark_oak_log_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogStripped\stripped_dark_oak_log_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stripped_jungle_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logstripped\stripped_jungle_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogStripped\stripped_jungle_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stripped_oak_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logstripped\stripped_oak_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogStripped\stripped_oak_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stripped_spruce_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\logstripped\stripped_spruce_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\LogStripped\stripped_spruce_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tnt_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\tnt_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\tnt_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tnt_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\other\tnt_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Other\tnt_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tube_coral_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\coral\tube_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Coral\tube_coral_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="white_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\white_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\white_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="white_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\white_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\white_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="white_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\white_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\white_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="white_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\white_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\white_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="white_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\white_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\white_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="white_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\white_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\white_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="yellow_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\concrete\yellow_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Concrete\yellow_concrete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="yellow_concrete_powder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\powder\yellow_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Powder\yellow_concrete_powder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="yellow_glazed_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glazedterracotta\yellow_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\GlazedTerracotta\yellow_glazed_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="yellow_stained_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\glass\yellow_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Glass\yellow_stained_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="yellow_terracotta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\terracotta\yellow_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Terracotta\yellow_terracotta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="yellow_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\wool\yellow_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>Images\Textures\x16\Wool\yellow_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

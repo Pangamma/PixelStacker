@@ -22,7 +22,7 @@ namespace PixelStacker.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Shadows {
+    public class Shadows {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace PixelStacker.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PixelStacker.Resources.Shadows", typeof(Shadows).Assembly);
@@ -51,7 +51,7 @@ namespace PixelStacker.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d16_B {
+        public static System.Drawing.Bitmap d16_B {
             get {
                 object obj = ResourceManager.GetObject("d16_B", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d16_BL {
+        public static System.Drawing.Bitmap d16_BL {
             get {
                 object obj = ResourceManager.GetObject("d16_BL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d16_BR {
+        public static System.Drawing.Bitmap d16_BR {
             get {
                 object obj = ResourceManager.GetObject("d16_BR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +93,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d16_L {
+        public static System.Drawing.Bitmap d16_L {
             get {
                 object obj = ResourceManager.GetObject("d16_L", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +103,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d16_R {
+        public static System.Drawing.Bitmap d16_R {
             get {
                 object obj = ResourceManager.GetObject("d16_R", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +113,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d16_T {
+        public static System.Drawing.Bitmap d16_T {
             get {
                 object obj = ResourceManager.GetObject("d16_T", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +123,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d16_TL {
+        public static System.Drawing.Bitmap d16_TL {
             get {
                 object obj = ResourceManager.GetObject("d16_TL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +133,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d16_TR {
+        public static System.Drawing.Bitmap d16_TR {
             get {
                 object obj = ResourceManager.GetObject("d16_TR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +143,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d4_B {
+        public static System.Drawing.Bitmap d4_B {
             get {
                 object obj = ResourceManager.GetObject("d4_B", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +153,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d4_BL {
+        public static System.Drawing.Bitmap d4_BL {
             get {
                 object obj = ResourceManager.GetObject("d4_BL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,7 +163,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d4_BR {
+        public static System.Drawing.Bitmap d4_BR {
             get {
                 object obj = ResourceManager.GetObject("d4_BR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -173,7 +173,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d4_L {
+        public static System.Drawing.Bitmap d4_L {
             get {
                 object obj = ResourceManager.GetObject("d4_L", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -183,7 +183,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d4_R {
+        public static System.Drawing.Bitmap d4_R {
             get {
                 object obj = ResourceManager.GetObject("d4_R", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -193,7 +193,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d4_T {
+        public static System.Drawing.Bitmap d4_T {
             get {
                 object obj = ResourceManager.GetObject("d4_T", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -203,7 +203,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d4_TL {
+        public static System.Drawing.Bitmap d4_TL {
             get {
                 object obj = ResourceManager.GetObject("d4_TL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -213,7 +213,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d4_TR {
+        public static System.Drawing.Bitmap d4_TR {
             get {
                 object obj = ResourceManager.GetObject("d4_TR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -223,7 +223,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d8_B {
+        public static System.Drawing.Bitmap d8_B {
             get {
                 object obj = ResourceManager.GetObject("d8_B", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -233,7 +233,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d8_BL {
+        public static System.Drawing.Bitmap d8_BL {
             get {
                 object obj = ResourceManager.GetObject("d8_BL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -243,7 +243,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d8_BR {
+        public static System.Drawing.Bitmap d8_BR {
             get {
                 object obj = ResourceManager.GetObject("d8_BR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -253,7 +253,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d8_L {
+        public static System.Drawing.Bitmap d8_L {
             get {
                 object obj = ResourceManager.GetObject("d8_L", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -263,7 +263,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d8_R {
+        public static System.Drawing.Bitmap d8_R {
             get {
                 object obj = ResourceManager.GetObject("d8_R", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -273,7 +273,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d8_T {
+        public static System.Drawing.Bitmap d8_T {
             get {
                 object obj = ResourceManager.GetObject("d8_T", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -283,7 +283,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d8_TL {
+        public static System.Drawing.Bitmap d8_TL {
             get {
                 object obj = ResourceManager.GetObject("d8_TL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -293,7 +293,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap d8_TR {
+        public static System.Drawing.Bitmap d8_TR {
             get {
                 object obj = ResourceManager.GetObject("d8_TR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -303,7 +303,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap sprite_x16 {
+        public static System.Drawing.Bitmap sprite_x16 {
             get {
                 object obj = ResourceManager.GetObject("sprite_x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -313,7 +313,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap sprite_x32 {
+        public static System.Drawing.Bitmap sprite_x32 {
             get {
                 object obj = ResourceManager.GetObject("sprite_x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -323,7 +323,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap sprite_x64 {
+        public static System.Drawing.Bitmap sprite_x64 {
             get {
                 object obj = ResourceManager.GetObject("sprite_x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
