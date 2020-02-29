@@ -13,71 +13,108 @@
 
     <!-- Stylesheet requirements -->
     <link rel="stylesheet" href="https://taylorlove.info/assets/bootstrap/css"/>
-  <style>
-		body {
-			background: #lime
-		}
-		
-	  .fill {
-		display: table-cell;
-		position: relative;
-		background: white;
-	  }
-	  
-	  .fill::before {
-		/* depth 16 */
-		box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.232), 0 1.2px 3.6px 0 rgba(0,0,0,.216);
-		
-		/* depth 4 */
-		box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.232), 0 0.3px 0.9px 0 rgba(0,0,0,.216);
-		/** depth 8 */
-		box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.232), 0 0.6px 1.8px 0 rgba(0,0,0,.216);
-		   
-	    z-index: -1;
-		content: '';
-		position: absolute;
-		top: 0; left: 0; right: 0; bottom: 0;
-	  }
-	  
-	  .empty {
-		display: table-cell;
-	  }
-  </style>
-  <script>
-	var blockSize = 32;
-  </script>
+    <style>
+      body {
+        image-rendering: auto;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated; 
+        background: url('../../../Images/Textures/Powder/sand.png');
+        background-size: 32px;
+      }
+
+      .fill {
+        display: table-cell;
+        position: relative;
+        background: white;
+        image-rendering: auto;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+        background: url('../../../Images/Textures/Wool/white_wool.png');
+        background-size: 32px;
+      }
+
+
+      .fill::before {
+        /* depth 16 */
+        box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.232), 0 1.2px 3.6px 0 rgba(0,0,0,.216);
+
+        /* depth 4 */
+        box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.232), 0 0.3px 0.9px 0 rgba(0,0,0,.216);
+        /** depth 8 */
+        box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.232), 0 0.6px 1.8px 0 rgba(0,0,0,.216);
+
+
+
+
+        box-shadow: 
+          0 3.2px 7.2px 0 rgba(0,0,0,.232),
+          0 0.6px 1.8px 0 rgba(0,0,0,.216)
+          ;
+
+
+
+        z-index: -1;
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+      }
+
+      .empty {
+        display: table-cell;
+      }
+    </style>
+
+    <script type="text/template" id="css-template">
+      <style>     
+        body, .fill {
+          background-size: {{blockSize}}px;
+        }
+      </style>
+    </script>
+
+    <script>
+var blockSize = 32;
+    </script>
+
   </head>
-  
+
   <body>
-  <div data-grid="container">
-  
-	<div class="row">
-		<div class="empty"></div>
-		<div class="empty"></div>
-		<div class="empty"></div>
-		<div class="empty"></div>
-	</div>
-	<div class="row">
-		<div class="empty"></div>
-		<div class="fill"></div>
-		<div class="fill"></div>
-		<div class="fill"></div>
-	</div>
-	<div class="row">
-		<div class="empty"></div>
-		<div class="fill"></div>
-		<div class="empty"></div>
-		<div class="fill"></div>
-	</div>
-	<div class="row">
-		<div class="empty"></div>
-		<div class="fill"></div>
-		<div class="fill"></div>
-		<div class="fill"></div>
-	</div> 
-  </div>
-  <script>
-	$('.fill,.empty').attr('style', 'width: '+blockSize+'px; height: '+blockSize+'px;');
-  </script>
+    <div data-grid="container">
+
+      <div class="row">
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+      </div>
+      <div class="row">
+        <div class="empty"></div>
+        <div class="fill"></div>
+        <div class="fill"></div>
+        <div class="fill"></div>
+      </div>
+      <div class="row">
+        <div class="empty"></div>
+        <div class="fill"></div>
+        <div class="empty"></div>
+        <div class="fill"></div>
+      </div>
+      <div class="row">
+        <div class="empty"></div>
+        <div class="fill"></div>
+        <div class="fill"></div>
+        <div class="fill"></div>
+      </div> 
+    </div>
+    <script>
+      let cssHtml = $('#css-template').html()
+              .replace(/\{\{pageWidth\}\}/mg, blockSize * 8)
+              .replace(/\{\{blockSize\}\}/mg, blockSize)
+              ;
+      $('body').append(cssHtml);
+
+
+      $('.fill,.empty').attr('style', 'width: ' + blockSize + 'px; height: ' + blockSize + 'px;');
+    </script>
   </body>
 </html>
