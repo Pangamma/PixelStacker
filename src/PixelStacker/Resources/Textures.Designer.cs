@@ -2083,6 +2083,16 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap wet_sponge {
+            get {
+                object obj = ResourceManager.GetObject("wet_sponge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap white_concrete {
             get {
                 object obj = ResourceManager.GetObject("white_concrete", resourceCulture);

@@ -12,6 +12,7 @@ namespace PixelStacker
 {
     static class Program
     {
+        // TODO: Add grasses and dirts
         // TODO: USE HSL DISTINCT SELECTION, OCT TREE(SPEED)/Euclidian(Quality), No dither, 4 parallel, 256 colors
         // TODO: Add option to switch between multiple color palettes easily. (And label them)
         /// <summary>

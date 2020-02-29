@@ -364,6 +364,7 @@ namespace PixelStacker.Logic
                         new Material("Okay", "ICE_PACKED", "Packed Ice", 174, 0, Textures.packed_ice, Textures.packed_ice, $"minecraft:{nameof(Textures.packed_ice)}", $"minecraft:{nameof(Textures.packed_ice)}", "minecraft:packed_ice"),
                         new Material("Okay", "PRISMARINE_BLK", "Prismarine Block", 168, 0, Textures.prismarine, Textures.prismarine, $"minecraft:{nameof(Textures.prismarine)}", $"minecraft:{nameof(Textures.prismarine)}", "minecraft:prismarine"),
                         new Material("Okay", "SPONGE", "Sponge", 19, 0, Textures.sponge, Textures.sponge, $"minecraft:{nameof(Textures.sponge)}", $"minecraft:{nameof(Textures.sponge)}", "minecraft:sponge"),
+                        new Material("Okay", "SPONGE_WET", "Sponge", 19, 1, Textures.wet_sponge, Textures.wet_sponge, $"minecraft:{nameof(Textures.wet_sponge)}", $"minecraft:{nameof(Textures.wet_sponge)}", "minecraft:sponge"),
                         new Material("Okay", "STONE", "Stone", 1, 0, Textures.stone, Textures.stone, $"minecraft:{nameof(Textures.stone)}", $"minecraft:{nameof(Textures.stone)}", "minecraft:stone"),
                         new Material("Okay", "ANDESITE", "Andesite", 1, 5, Textures.andesite, Textures.andesite, $"minecraft:{nameof(Textures.andesite)}", $"minecraft:{nameof(Textures.andesite)}", "minecraft:stone"),
                         new Material("Okay", "ICE_BLUE", "Blue Ice", 174, 0, Textures.blue_ice, Textures.blue_ice, $"minecraft:{nameof(Textures.blue_ice)}", $"minecraft:{nameof(Textures.blue_ice)}", ""),
