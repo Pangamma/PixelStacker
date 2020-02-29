@@ -13,7 +13,7 @@ namespace PixelStacker
     static class Program
     {
         // TODO: USE HSL DISTINCT SELECTION, OCT TREE(SPEED)/Euclidian(Quality), No dither, 4 parallel, 256 colors
-        // TODO: Add option to switch between multiple color palettes easily. (ANd label them)
+        // TODO: Add option to switch between multiple color palettes easily. (And label them)
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -30,6 +30,11 @@ namespace PixelStacker
             Application.Run(new MainForm());
         }
 
+        /// <summary>
+        /// I am not aware of any way to select RESX files based on parameters other than cultureInfo, so
+        /// for now I will have to use this method to select the textures set.
+        /// </summary>
+        /// <param name="textureSize"></param>
         private static void SetLocaleByTextureSize(int textureSize)
         {
             switch (textureSize)
@@ -47,7 +52,7 @@ namespace PixelStacker
                     Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ko-kr");
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException("Only 16, 32, and 64 are supported.");
             }
         }
     }
