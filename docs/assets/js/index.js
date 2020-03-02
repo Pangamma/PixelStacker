@@ -1,6 +1,6 @@
-function printImageCard($imgURL, $header, $text, $cta, $href) {
+function printImageCard($imgURL, $header, $text, $cta, $href, $dataGrid) {
     let html = '\
-    <div data-grid="col-4">\
+    <div data-grid="{{dataGrid}}">\
         <div class="c-content-placement image-card" data-js-href="{{href}}">\
             <picture class="hide-on-mobile">\
                 <img src="{{imgURL}}" alt="" role="presentation">\
@@ -33,6 +33,7 @@ function printImageCard($imgURL, $header, $text, $cta, $href) {
 </div>';
 
     html = html
+		.replace(/{{dataGrid}}/g,$dataGrid || 'col-4')
         .replace(/{{imgURL}}/g, $imgURL)
         .replace(/{{href}}/g, $href)
         .replace(/{{cta}}/g, $cta)

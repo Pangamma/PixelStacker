@@ -39,6 +39,11 @@ namespace PixelStacker.Logic
         private Color? _averageColor = null;
         private Color? _averageColorSide = null;
 
+        /// <summary>
+        /// List of words or phrases ppl can search for to get these materials
+        /// </summary>
+        public List<string> Tags { get; set; } = new List<string>();
+
         public Material(string category, string pixelStackerID, string label, int blockID, int data, Bitmap topImage, Bitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
         {
             this.PixelStackerID = pixelStackerID;

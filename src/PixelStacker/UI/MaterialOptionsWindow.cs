@@ -121,6 +121,7 @@ namespace PixelStacker.UI
         {
             this.refMaterialLists.Clear();
             this.tableLayoutPanel.Controls.Clear();
+            addMaterialList("116");
             addMaterialList("Wool");
             addMaterialList("Powder");
             addMaterialList("Concrete");
