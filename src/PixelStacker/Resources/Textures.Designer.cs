@@ -123,6 +123,16 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap barrier {
+            get {
+                object obj = ResourceManager.GetObject("barrier", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap basalt_side {
             get {
                 object obj = ResourceManager.GetObject("basalt_side", resourceCulture);
@@ -923,6 +933,26 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap grass_path_side {
+            get {
+                object obj = ResourceManager.GetObject("grass_path_side", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap grass_path_top {
+            get {
+                object obj = ResourceManager.GetObject("grass_path_top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap gravel {
             get {
                 object obj = ResourceManager.GetObject("gravel", resourceCulture);
@@ -1046,6 +1076,16 @@ namespace PixelStacker.Resources {
         public static System.Drawing.Bitmap green_wool {
             get {
                 object obj = ResourceManager.GetObject("green_wool", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap hay_block_side {
+            get {
+                object obj = ResourceManager.GetObject("hay_block_side", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1703,6 +1743,36 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap polished_andesite {
+            get {
+                object obj = ResourceManager.GetObject("polished_andesite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap polished_diorite {
+            get {
+                object obj = ResourceManager.GetObject("polished_diorite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap polished_granite {
+            get {
+                object obj = ResourceManager.GetObject("polished_granite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap prismarine {
             get {
                 object obj = ResourceManager.GetObject("prismarine", resourceCulture);
@@ -2133,9 +2203,29 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap stripped_acacia_log_top {
+            get {
+                object obj = ResourceManager.GetObject("stripped_acacia_log_top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap stripped_birch_log {
             get {
                 object obj = ResourceManager.GetObject("stripped_birch_log", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap stripped_birch_log_top {
+            get {
+                object obj = ResourceManager.GetObject("stripped_birch_log_top", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2193,6 +2283,16 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap stripped_jungle_log_top {
+            get {
+                object obj = ResourceManager.GetObject("stripped_jungle_log_top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap stripped_oak_log {
             get {
                 object obj = ResourceManager.GetObject("stripped_oak_log", resourceCulture);
@@ -2203,9 +2303,29 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap stripped_oak_log_top {
+            get {
+                object obj = ResourceManager.GetObject("stripped_oak_log_top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap stripped_spruce_log {
             get {
                 object obj = ResourceManager.GetObject("stripped_spruce_log", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap stripped_spruce_log_top {
+            get {
+                object obj = ResourceManager.GetObject("stripped_spruce_log_top", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

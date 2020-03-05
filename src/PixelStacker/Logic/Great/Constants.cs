@@ -8,7 +8,7 @@ namespace PixelStacker.Logic
 {
     public static class Constants
     {
-        public const string Version = "1.15.2c";
+        public const string Version = "1.15.2d";
         public const string Website = "https://taylorlove.info/pixelstacker";
         public const int TextureSize = 16;
         public const string RenderedZIndexFilter = "RenderedZIndexFilter";
@@ -16,6 +16,8 @@ namespace PixelStacker.Logic
         public const int MAX_HISTORY_SIZE = 20;
         public const float MAX_ZOOM = 200F;
         public const float MIN_ZOOM = 200F;
+        public const int SMALL_IMAGE_DIVIDE_SIZE = 2;
+        public const int BIG_IMG_MAX_AREA_B4_SPLIT = 100000; // split image into smaller sizes if bigger than this
 
         /// <summary>
         /// R/5, G/5, B/5

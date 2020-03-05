@@ -189,6 +189,11 @@
     <Compile Include="PreRender\Quantizers\XiaolinWu\WuColorQuantizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Textures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Textures.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UIResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -202,22 +207,32 @@
     <Compile Include="Resources\ShadowHelper.cs">
       <DependentUpon>Shadows.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Textures.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Textures.resx</DependentUpon>
-    </Compile>
     <Compile Include="UI\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\CustomFlowLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\ErrorSender.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\ErrorSender.Designer.cs">
       <DependentUpon>ErrorSender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaterialSelectTile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialSelectTile.Designer.cs">
+      <DependentUpon>MaterialSelectTile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaterialSelectWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialSelectWindow.Designer.cs">
+      <DependentUpon>MaterialSelectWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\OtherOptionsWindow.cs">
       <SubType>Form</SubType>
@@ -253,36 +268,6 @@
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FastPixelBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\FastPixelBox.Designer.cs">
-      <DependentUpon>FastPixelBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MaterialList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\MaterialList.Designer.cs">
-      <DependentUpon>MaterialList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MaterialListItemToggle.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\MaterialListItemToggle.Designer.cs">
-      <DependentUpon>MaterialListItemToggle.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MaterialOptionsWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\MaterialOptionsWindow.Designer.cs">
-      <DependentUpon>MaterialOptionsWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\PictureFrame.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\PictureFrame.Designer.cs">
-      <DependentUpon>PictureFrame.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\PreRenderOptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -294,12 +279,6 @@
     </Compile>
     <Compile Include="UI\RenderedImagePanel.Designer.cs">
       <DependentUpon>RenderedImagePanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TransparentControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\TransparentControl.Designer.cs">
-      <DependentUpon>TransparentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Utilities\TaskManager.cs" />
     <EmbeddedResource Include="Resources\Textures.ja-jp.resx">
@@ -337,23 +316,14 @@
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FastPixelBox.resx">
-      <DependentUpon>FastPixelBox.cs</DependentUpon>
+    <EmbeddedResource Include="UI\MaterialSelectTile.resx">
+      <DependentUpon>MaterialSelectTile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MaterialList.resx">
-      <DependentUpon>MaterialList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MaterialListItemToggle.resx">
-      <DependentUpon>MaterialListItemToggle.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MaterialOptionsWindow.resx">
-      <DependentUpon>MaterialOptionsWindow.cs</DependentUpon>
+    <EmbeddedResource Include="UI\MaterialSelectWindow.resx">
+      <DependentUpon>MaterialSelectWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OtherOptionsWindow.resx">
       <DependentUpon>OtherOptionsWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\PictureFrame.resx">
-      <DependentUpon>PictureFrame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PreRenderOptionsForm.resx">
       <DependentUpon>PreRenderOptionsForm.cs</DependentUpon>
@@ -895,6 +865,26 @@
     <None Include="Resources\Images\Textures\x16\Wool\red_wool.png" />
     <None Include="Resources\Images\Textures\x16\Wool\white_wool.png" />
     <None Include="Resources\Images\Textures\x16\Wool\yellow_wool.png" />
+    <None Include="Resources\Images\Textures\x16\Hidden\barrier.png" />
+    <None Include="Resources\Images\Textures\x16\LogStripped\crimson_stem.png" />
+    <None Include="Resources\Images\Textures\x16\LogStripped\crimson_stem_top.png" />
+    <None Include="Resources\Images\Textures\x16\LogStripped\stripped_acacia_log_top.png" />
+    <None Include="Resources\Images\Textures\x16\LogStripped\stripped_birch_log_top.png" />
+    <None Include="Resources\Images\Textures\x16\LogStripped\stripped_jungle_log_top.png" />
+    <None Include="Resources\Images\Textures\x16\LogStripped\stripped_oak_log_top.png" />
+    <None Include="Resources\Images\Textures\x16\LogStripped\stripped_spruce_log_top.png" />
+    <None Include="Resources\Images\Textures\x16\LogStripped\warped_stem.png" />
+    <None Include="Resources\Images\Textures\x16\LogStripped\warped_stem_top.png" />
+    <None Include="Resources\Images\Textures\x16\Other\hay_block_side.png" />
+    <None Include="Resources\Images\Textures\x16\Other\podzol_side.png" />
+    <None Include="Resources\Images\Textures\x16\Other\podzol_top.png" />
+    <None Include="Resources\Images\Textures\x16\Other\warped_wart_block.png" />
+    <None Include="Resources\Images\Textures\x16\Other\wet_sponge.png" />
+    <None Include="Resources\Images\Textures\x16\Other\polished_andesite.png" />
+    <None Include="Resources\Images\Textures\x16\Other\polished_diorite.png" />
+    <None Include="Resources\Images\Textures\x16\Other\polished_granite.png" />
+    <None Include="Resources\Images\Textures\x16\Other\grass_path_side.png" />
+    <None Include="Resources\Images\Textures\x16\Other\grass_path_top.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_brick.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_graph.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_grid.png" />
@@ -927,6 +917,8 @@
     <None Include="Resources\Images\UI\shadows\sprites\sprite-x16.png" />
     <None Include="Resources\Images\UI\shadows\sprites\sprite-x32.png" />
     <None Include="Resources\Images\UI\shadows\sprites\sprite-x64.png" />
+    <None Include="Resources\Images\UI\selected_frame_64.png" />
+    <None Include="Resources\Images\UI\selected_frame_128.png" />
     <Content Include="wool.ico" />
     <None Include="Resources\Images\UI\pixelstackerlogo.pdn" />
     <None Include="Resources\Images\UI\wool.ico" />

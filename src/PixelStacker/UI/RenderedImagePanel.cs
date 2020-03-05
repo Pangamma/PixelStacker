@@ -26,7 +26,19 @@ namespace PixelStacker.UI
         public int xOrigin = 0;
         public int yOrigin = 0;
         private BlueprintPA image;
-        private Bitmap renderedImage;
+
+
+        /// <summary>
+        /// Should contain: 
+        /// 0 = 1/1 size, when viewing at zoom(tex)+ to zoom(tex * 0.75) 
+        /// 1 = 1/2 size
+        /// 2 = 1/4 size
+        /// 3 = 1/8 size
+        /// </summary>
+        private List<Bitmap> renderedImages = new List<Bitmap>();
+        //private Bitmap renderedImage;
+        //private Bitmap renderedImageSmallSize;
+
         private string materialToAddOrRemove_1 { get; set; } = null;
         private string materialToAddOrRemove_2 { get; set; } = null;
         private int CalculatedTextureSize { get; set; } = Constants.TextureSize;
@@ -38,6 +50,7 @@ namespace PixelStacker.UI
         public RenderedImagePanel()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
         }
 
         public async Task<bool> ForceReRender()
@@ -46,8 +59,27 @@ namespace PixelStacker.UI
             {
                 Bitmap _renderedImage = RenderedImagePanel.RenderBitmapFromBlueprint(token, image, out int? textureSize);
                 CalculatedTextureSize = textureSize ?? Constants.TextureSize;
-                this.renderedImage.DisposeSafely();
-                this.renderedImage = _renderedImage;
+
+                this.ClearAndDisposeRenderedImages();
+
+                var images = new List<Bitmap>();
+                images.Add(_renderedImage);
+                int w = _renderedImage.Width;
+                int h = _renderedImage.Height;
+                int a = w * h;
+
+                while (a > Constants.BIG_IMG_MAX_AREA_B4_SPLIT)
+                {
+                    w /= Constants.SMALL_IMAGE_DIVIDE_SIZE;
+                    h /= Constants.SMALL_IMAGE_DIVIDE_SIZE;
+                    if (w == 0 || h == 0) break;
+                    a = w * h;
+                    _renderedImage = _renderedImage.To32bppBitmap(w, h);
+                    images.Add(_renderedImage);
+                }
+
+                this.renderedImages = images; // le quick swap
+
                 TaskManager.SafeReport(0, "Finished.");
                 this.InvokeEx((c) =>
                 {
@@ -153,7 +185,7 @@ namespace PixelStacker.UI
                                     continue;
                                 }
                             }
-                            
+
                             for (int x = 0; x < mWidth; x++)
                             {
                                 TaskManager.SafeReport(100 * x / mWidth);
@@ -168,7 +200,7 @@ namespace PixelStacker.UI
 
                                         if (isMaterialFilterViewEnabled)
                                         {
-                                            string blockId = m.Label;
+                                            string blockId = m.PixelStackerID;
                                             isMaterialIncludedInFilter = Options.Get.SelectedMaterialFilter.Any(xm => xm == blockId);
                                         }
 
@@ -230,10 +262,10 @@ namespace PixelStacker.UI
                                     for (int yShadeMap = 0; yShadeMap < mHeight; yShadeMap++)
                                     {
                                         Material mBottom = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 0, true);
-                                        bool isBottomShown = mBottom.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mBottom.Label));
+                                        bool isBottomShown = mBottom.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mBottom.PixelStackerID));
 
                                         Material mTop = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 1, !_isFrugalAesthetic);
-                                        bool isTopShown = mTop.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mTop.Label));
+                                        bool isTopShown = mTop.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mTop.PixelStackerID));
 
                                         if (isTopShown && isBottomShown)
                                         {
@@ -352,7 +384,7 @@ namespace PixelStacker.UI
 
             int calculatedTextureSize = Constants.TextureSize;
             int bytesInSrcImage = (image.Width * image.Height * 32 / 8); // Still need to multiply by texture size (4 bytes per pixel / 8 bits per byte = 4 bytes)
-            
+
             int safetyMultiplier = 4; // Want to be able to store N of these things in memory
 
             bool isSuccess = false;
@@ -406,14 +438,44 @@ namespace PixelStacker.UI
             return calculatedTextureSize;
         }
 
+        /// <summary>
+        /// Sets rendered images to null also disposes all images then clears the list.
+        /// </summary>
+        private void ClearAndDisposeRenderedImages()
+        {
+            var toClear = this.renderedImages;
+            this.renderedImages = null;
+            toClear.ForEach(x => x.DisposeSafely());
+            toClear.Clear();
+        }
+
+
         public void SetBluePrint(BlueprintPA src, Bitmap renderedImage, int? textureSize)
         {
             this.image = src;
 
             #region Calculate size
             this.CalculatedTextureSize = textureSize ?? Constants.TextureSize;
-            this.renderedImage.DisposeSafely();
-            this.renderedImage = renderedImage;
+            this.ClearAndDisposeRenderedImages();
+            var images = new List<Bitmap>();
+            {
+                int w = renderedImage.Width;
+                int h = renderedImage.Height;
+                int a = w * h;
+                images.Add(renderedImage);
+
+                while (a > Constants.BIG_IMG_MAX_AREA_B4_SPLIT)
+                {
+                    w /= Constants.SMALL_IMAGE_DIVIDE_SIZE;
+                    h /= Constants.SMALL_IMAGE_DIVIDE_SIZE;
+                    if (w == 0 || h == 0) break;
+                    a = w * h;
+                    renderedImage = renderedImage.To32bppBitmap(w, h);
+                    images.Add(renderedImage);
+                }
+            }
+
+            this.renderedImages = images; // le quick swap
             #endregion
 
             bool preserveZoom = (MainForm.PanZoomSettings != null);
@@ -461,15 +523,16 @@ namespace PixelStacker.UI
 
         public void SaveToPNG(string filename)
         {
-            if (this.renderedImage == null || this.image == null)
+            if (this.renderedImages == null || this.renderedImages.Count == 0 || this.image == null)
             {
                 return;
             }
 
             bool isCompact = Options.Get.Rendered_IsSolidColors && !Options.Get.Rendered_IsShowGrid && !Options.Get.Rendered_IsColorPalette;
             int blockWidth = isCompact ? 1 : CalculatedTextureSize;
-            int W = this.renderedImage.Width; if (isCompact) { W /= CalculatedTextureSize; }
-            int H = this.renderedImage.Height; if (isCompact) { H /= CalculatedTextureSize; }
+            var renderedImage = this.renderedImages[0];
+            int W = renderedImage.Width; if (isCompact) { W /= CalculatedTextureSize; }
+            int H = renderedImage.Height; if (isCompact) { H /= CalculatedTextureSize; }
             using (Bitmap bm = new Bitmap(W, H, PixelFormat.Format32bppArgb))
             {
                 using (Graphics g = Graphics.FromImage(bm))
@@ -478,7 +541,7 @@ namespace PixelStacker.UI
                     g.SmoothingMode = SmoothingMode.None;
                     g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
 
-                    g.DrawImage(image: this.renderedImage,
+                    g.DrawImage(image: renderedImage,
                         x: 0, y: 0,
                         width: W,
                         height: H);
@@ -588,27 +651,18 @@ namespace PixelStacker.UI
         {
             base.OnPaint(e);
             Graphics g = e.Graphics;
+            double zoom = (MainForm.PanZoomSettings?.zoomLevel ?? 1);
             g.InterpolationMode = InterpolationMode.NearestNeighbor;
             g.SmoothingMode = SmoothingMode.None;
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
             var blueprint = this.image;
 
-            if (blueprint != null)
+            if (blueprint != null && MainForm.PanZoomSettings != null)
             {
-                bool isSelectiveLayerViewEnabled = Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false);
-
-                //bool isSide = Options.Get.IsSideView;
-                //int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
-                //int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
-                double origW = blueprint.Width;
-                double origH = blueprint.Height;
-                int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
-
                 if (MainForm.PanZoomSettings.zoomLevel < 1.0D)
                 {
-                    g.InterpolationMode = InterpolationMode.Bicubic;
-                    g.CompositingQuality = CompositingQuality.Default;
+                    g.InterpolationMode = InterpolationMode.Low;
+                    g.CompositingQuality = CompositingQuality.HighSpeed;
                     g.SmoothingMode = SmoothingMode.HighSpeed;
                 }
                 else
@@ -619,24 +673,31 @@ namespace PixelStacker.UI
                 }
 
                 SolidBrush brush = new SolidBrush(Color.Black);
-                Pen pen = new Pen(brush);
 
-                if (this.renderedImage != null && MainForm.PanZoomSettings != null)
+                if (this.renderedImages != null && this.renderedImages.Count > 0 && MainForm.PanZoomSettings != null)
                 {
-                    if (MainForm.PanZoomSettings == null) { return; }
+                    Bitmap toUse = this.renderedImages[0];
+                    int divideAmount = 1;
+                    int i = 1;
+                    while (zoom <= 10.0D / divideAmount / Constants.SMALL_IMAGE_DIVIDE_SIZE && i < this.renderedImages.Count)
+                    {
+                        toUse = this.renderedImages[i];
+                        divideAmount *= Constants.SMALL_IMAGE_DIVIDE_SIZE;
+                        i++;
+                    }
+
                     Point pStart = getPointOnImage(new Point(0, 0), EstimateProp.Floor);
                     Point fStart = getPointOnPanel(pStart);
-                    pStart.X *= CalculatedTextureSize;
-                    pStart.Y *= CalculatedTextureSize;
+                    pStart.X *= CalculatedTextureSize; pStart.X /= divideAmount;
+                    pStart.Y *= CalculatedTextureSize; pStart.Y /= divideAmount;
 
                     Point pEnd = getPointOnImage(new Point(this.Width, this.Height), EstimateProp.Ceil);
                     Point fEnd = getPointOnPanel(pEnd);
-                    pEnd.X *= CalculatedTextureSize;
-                    pEnd.Y *= CalculatedTextureSize;
+                    pEnd.X *= CalculatedTextureSize; pEnd.X /= divideAmount;
+                    pEnd.Y *= CalculatedTextureSize; pEnd.Y /= divideAmount;
 
                     Rectangle rectSRC = new Rectangle(pStart, pStart.CalculateSize(pEnd));
                     Rectangle rectDST = new Rectangle(fStart, fStart.CalculateSize(fEnd));
-
 
                     try
                     {
@@ -645,7 +706,7 @@ namespace PixelStacker.UI
                         {
                             using (var memoryCheck = new System.Runtime.MemoryFailPoint(numMegaBytes))
                             {
-                                g.DrawImage(image: this.renderedImage,
+                                g.DrawImage(image: toUse,
                                     srcRect: rectSRC,
                                     destRect: rectDST,
                                     srcUnit: GraphicsUnit.Pixel);
@@ -653,7 +714,7 @@ namespace PixelStacker.UI
                         }
                         else if ((image.Height * image.Width) < 2000)
                         {
-                            g.DrawImage(image: this.renderedImage,
+                            g.DrawImage(image: toUse,
                                 srcRect: rectSRC,
                                 destRect: rectDST,
                                 srcUnit: GraphicsUnit.Pixel);
@@ -682,13 +743,12 @@ namespace PixelStacker.UI
                     }
                 }
 
-
                 if (Options.Get.Rendered_IsShowBorder)
                 {
                     if (MainForm.PanZoomSettings != null)
                     {
                         Point pp2 = getPointOnPanel(new Point(0, 0));
-                        using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), zoom))
+                        using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), (int)zoom))
                         {
                             penWE.Alignment = PenAlignment.Inset;
                             g.DrawRectangle(penWE, pp2.X, pp2.Y, (int) (blueprint.Width * MainForm.PanZoomSettings.zoomLevel), (int) (blueprint.Height * MainForm.PanZoomSettings.zoomLevel));
@@ -702,7 +762,7 @@ namespace PixelStacker.UI
                     if (MainForm.PanZoomSettings != null)
                     {
                         Point wePoint = getPointOnPanel(image.WorldEditOrigin);
-                        g.FillRectangle(brush, wePoint.X, wePoint.Y, zoom + 1, zoom + 1);
+                        g.FillRectangle(brush, wePoint.X, wePoint.Y, (int)zoom + 1, (int)zoom + 1);
                     }
                 }
 
@@ -719,17 +779,18 @@ namespace PixelStacker.UI
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
+
             if (e.Delta != 0)
             {
                 Point panelPoint = e.Location;
                 Point imagePoint = this.getPointOnImage(panelPoint, EstimateProp.Round);
                 if (e.Delta < 0)
                 {
-                    MainForm.PanZoomSettings.zoomLevel *= 0.8;
+                    MainForm.PanZoomSettings.zoomLevel *= 0.65;
                 }
                 else
                 {
-                    MainForm.PanZoomSettings.zoomLevel *= 1.2;
+                    MainForm.PanZoomSettings.zoomLevel *= 1.50;
                 }
                 this.restrictZoom();
                 MainForm.PanZoomSettings.imageX = ((int) Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));
@@ -897,25 +958,40 @@ namespace PixelStacker.UI
             }
         }
 
-
-
-        private void RenderedImagePanel_MaterialFilter_AddRemove_Click(object sender, EventArgs e)
+        private void RenderedImagePanel_MaterialFilter_Remove_Click(object sender, EventArgs e)
         {
             if (sender is ToolStripMenuItem)
             {
                 var toolMenuItem = sender as ToolStripMenuItem;
-                bool isRemove = toolMenuItem.Text.StartsWith("Remove");
-                bool isOp1 = toolMenuItem.Name == nameof(btnToggleMaterialFilterMenuItem0);
+                bool isOp1 = toolMenuItem.Name == nameof(btnRemoveMat0_Filter);
                 string matLabel = isOp1 ? this.materialToAddOrRemove_1 : this.materialToAddOrRemove_2;
 
-                if (isRemove)
+                if (Options.Get.SelectedMaterialFilter.Count == 0)
                 {
-                    Options.Get.SelectedMaterialFilter = Options.Get.SelectedMaterialFilter.Except(new List<string>() { matLabel }).ToList();
+                    var items = new List<string>();
+                    items.AddRange(Materials.List.Where(x => x.BlockID != 0).Select(x => x.PixelStackerID));
+                    Options.Get.SelectedMaterialFilter = items;
                 }
-                else
-                {
-                    Options.Get.SelectedMaterialFilter = Options.Get.SelectedMaterialFilter.Concat(new List<string>() { matLabel }).ToList();
-                }
+
+                Options.Get.SelectedMaterialFilter = Options.Get.SelectedMaterialFilter.Except(new List<string>() { matLabel }).ToList();
+
+                Options.Save();
+                this.InvokeEx(c => c.ForceReRender());
+            }
+        }
+
+        private void RenderedImagePanel_MaterialFilter_Add_Click(object sender, EventArgs e)
+        {
+            if (sender is ToolStripMenuItem)
+            {
+                var toolMenuItem = sender as ToolStripMenuItem;
+                bool isOp1 = toolMenuItem.Name == nameof(btnAddMat0_Filter);
+                string matLabel = isOp1 ? this.materialToAddOrRemove_1 : this.materialToAddOrRemove_2;
+
+                // use concat incase some thing somewhere is iterating over the list. This way we
+                // avoid concurrent modification issues.
+                Options.Get.SelectedMaterialFilter = Options.Get.SelectedMaterialFilter
+                    .Concat(new List<string>() { matLabel }).ToList(); 
 
                 Options.Save();
                 this.InvokeEx(c => c.ForceReRender());
@@ -977,38 +1053,35 @@ namespace PixelStacker.UI
                 Material[] ms = this.image.GetMaterialsAt(loc.X, loc.Y);
 
                 #region Material Filter
-                btnToggleMaterialFilterMenuItem0.Visible = ms.Length > 0;
                 removeAllToolStripMenuItem.Enabled = Options.Get.SelectedMaterialFilter.Any();
 
+                btnAddMat0_Filter.Visible = ms.Length > 0;
+                btnRemoveMat0_Filter.Visible = ms.Length > 0;
                 if (ms.Length > 0)
                 {
-                    this.materialToAddOrRemove_1 = ms[0].Label;
-                    string matName = this.materialToAddOrRemove_1;
-                    if (!Options.Get.SelectedMaterialFilter.Contains(matName))
-                    {
-                        btnToggleMaterialFilterMenuItem0.Text = $"Add '{matName.Replace("zz", "")}'";
-                    }
-                    else
-                    {
-                        btnToggleMaterialFilterMenuItem0.Text = $"Remove '{matName.Replace("zz", "")}'";
-                    }
+                    this.materialToAddOrRemove_1 = ms[0].PixelStackerID;
+                    string matName = ms[0].Label.Replace("zz", "");
+                    btnAddMat0_Filter.Text = $"Add '{matName}'";
+                    btnRemoveMat0_Filter.Text = $"Remove '{matName}'";
+
+                    btnAddMat0_Filter.Visible = !Options.Get.SelectedMaterialFilter.Contains(ms[0].PixelStackerID);
+                    btnRemoveMat0_Filter.Visible = Options.Get.SelectedMaterialFilter.Contains(ms[0].PixelStackerID)
+                        || !Options.Get.SelectedMaterialFilter.Any();
                 }
 
-                btnToggleMaterialFilterMenuItem1.Visible = ms.Length > 1;
+                btnAddMat1_Filter.Visible = ms.Length > 1;
+                btnRemoveMat1_Filter.Visible = ms.Length > 1;
                 if (ms.Length > 1)
                 {
-                    this.materialToAddOrRemove_2 = ms[1].Label;
-                    string matName = this.materialToAddOrRemove_2;
-                    if (!Options.Get.SelectedMaterialFilter.Contains(matName))
-                    {
-                        btnToggleMaterialFilterMenuItem1.Text = $"Add '{matName.Replace("zz", "")}'";
-                    }
-                    else
-                    {
-                        btnToggleMaterialFilterMenuItem1.Text = $"Remove '{matName.Replace("zz", "")}'";
-                    }
+                    this.materialToAddOrRemove_2 = ms[1].PixelStackerID;
+                    string matName = ms[1].Label.Replace("zz", "");
+                    btnAddMat1_Filter.Text = $"Add '{matName}'";
+                    btnRemoveMat1_Filter.Text = $"Remove '{matName}'";
+
+                    btnAddMat1_Filter.Visible = !Options.Get.SelectedMaterialFilter.Contains(ms[1].PixelStackerID);
+                    btnRemoveMat1_Filter.Visible = Options.Get.SelectedMaterialFilter.Contains(ms[1].PixelStackerID)
+                        || !Options.Get.SelectedMaterialFilter.Any();
                 }
-                //this.btnToggleMaterialFilterMenuItem.Text = ";
                 #endregion
 
                 #region Material name
@@ -1145,7 +1218,7 @@ namespace PixelStacker.UI
         private void addAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var items = new List<string>();
-            items.AddRange(Materials.List.Where(x => x.BlockID != 0).Select(x => x.Label));
+            items.AddRange(Materials.List.Where(x => x.BlockID != 0).Select(x => x.PixelStackerID));
             lock (Options.Get.SelectedMaterialFilter)
             {
                 Options.Get.SelectedMaterialFilter = items;

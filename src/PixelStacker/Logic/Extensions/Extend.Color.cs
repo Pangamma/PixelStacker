@@ -49,9 +49,9 @@ namespace PixelStacker.Logic.Extensions
         public static Color Normalize(this Color c)
         {
             int F = Constants.ColorFragmentSize;
-            int R = (int)Math.Round(Convert.ToDecimal(c.R) / F, 0) * F;
-            int G = (int)Math.Round(Convert.ToDecimal(c.G) / F, 0) * F;
-            int B = (int)Math.Round(Convert.ToDecimal(c.B) / F, 0) * F;
+            int R = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.R) / F, 0) * F);
+            int G = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.G) / F, 0) * F);
+            int B = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.B) / F, 0) * F);
 
             return Color.FromArgb(c.A, R, G, B);
         }

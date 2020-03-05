@@ -34,16 +34,18 @@
             this.replaceMenuItems_1 = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceMenuItems_2 = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceMenuItems_3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceMenuItems_4 = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnToggleMaterialFilterMenuItem0 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnToggleMaterialFilterMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAddMat0_Filter = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAddMat1_Filter = new System.Windows.Forms.ToolStripMenuItem();
             this.addAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRemoveMat0_Filter = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRemoveMat1_Filter = new System.Windows.Forms.ToolStripMenuItem();
             this.ts_xyz = new System.Windows.Forms.ToolStripMenuItem();
             this.ts_MaterialName = new System.Windows.Forms.ToolStripMenuItem();
             this.averageColorCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rGBAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.replaceMenuItems_4 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,45 +78,53 @@
             // replaceMenuItems_1
             // 
             this.replaceMenuItems_1.Name = "replaceMenuItems_1";
-            this.replaceMenuItems_1.Size = new System.Drawing.Size(224, 26);
+            this.replaceMenuItems_1.Size = new System.Drawing.Size(138, 26);
             this.replaceMenuItems_1.Text = "1 - 10";
             // 
             // replaceMenuItems_2
             // 
             this.replaceMenuItems_2.Name = "replaceMenuItems_2";
-            this.replaceMenuItems_2.Size = new System.Drawing.Size(224, 26);
+            this.replaceMenuItems_2.Size = new System.Drawing.Size(138, 26);
             this.replaceMenuItems_2.Text = "11 - 20";
             // 
             // replaceMenuItems_3
             // 
             this.replaceMenuItems_3.Name = "replaceMenuItems_3";
-            this.replaceMenuItems_3.Size = new System.Drawing.Size(224, 26);
+            this.replaceMenuItems_3.Size = new System.Drawing.Size(138, 26);
             this.replaceMenuItems_3.Text = "21 - 30";
+            // 
+            // replaceMenuItems_4
+            // 
+            this.replaceMenuItems_4.Name = "replaceMenuItems_4";
+            this.replaceMenuItems_4.Size = new System.Drawing.Size(138, 26);
+            this.replaceMenuItems_4.Text = "31 - 40";
             // 
             // filterToolStripMenuItem
             // 
             this.filterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnToggleMaterialFilterMenuItem0,
-            this.btnToggleMaterialFilterMenuItem1,
+            this.btnAddMat0_Filter,
+            this.btnAddMat1_Filter,
             this.addAllToolStripMenuItem,
-            this.removeAllToolStripMenuItem});
+            this.removeAllToolStripMenuItem,
+            this.btnRemoveMat0_Filter,
+            this.btnRemoveMat1_Filter});
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
             this.filterToolStripMenuItem.Size = new System.Drawing.Size(316, 24);
             this.filterToolStripMenuItem.Text = "Material Filter";
             // 
-            // btnToggleMaterialFilterMenuItem0
+            // btnAddMat0_Filter
             // 
-            this.btnToggleMaterialFilterMenuItem0.Name = "btnToggleMaterialFilterMenuItem0";
-            this.btnToggleMaterialFilterMenuItem0.Size = new System.Drawing.Size(224, 26);
-            this.btnToggleMaterialFilterMenuItem0.Text = "Add mat 1";
-            this.btnToggleMaterialFilterMenuItem0.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_AddRemove_Click);
+            this.btnAddMat0_Filter.Name = "btnAddMat0_Filter";
+            this.btnAddMat0_Filter.Size = new System.Drawing.Size(224, 26);
+            this.btnAddMat0_Filter.Text = "Add mat 1";
+            this.btnAddMat0_Filter.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_Add_Click);
             // 
-            // btnToggleMaterialFilterMenuItem1
+            // btnAddMat1_Filter
             // 
-            this.btnToggleMaterialFilterMenuItem1.Name = "btnToggleMaterialFilterMenuItem1";
-            this.btnToggleMaterialFilterMenuItem1.Size = new System.Drawing.Size(224, 26);
-            this.btnToggleMaterialFilterMenuItem1.Text = "Add mat 2";
-            this.btnToggleMaterialFilterMenuItem1.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_AddRemove_Click);
+            this.btnAddMat1_Filter.Name = "btnAddMat1_Filter";
+            this.btnAddMat1_Filter.Size = new System.Drawing.Size(224, 26);
+            this.btnAddMat1_Filter.Text = "Add mat 2";
+            this.btnAddMat1_Filter.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_Add_Click);
             // 
             // addAllToolStripMenuItem
             // 
@@ -129,6 +139,20 @@
             this.removeAllToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.removeAllToolStripMenuItem.Text = "Remove all";
             this.removeAllToolStripMenuItem.Click += new System.EventHandler(this.clearMaterialFilterToolStripMenuItem_Click);
+            // 
+            // btnRemoveMat0_Filter
+            // 
+            this.btnRemoveMat0_Filter.Name = "btnRemoveMat0_Filter";
+            this.btnRemoveMat0_Filter.Size = new System.Drawing.Size(224, 26);
+            this.btnRemoveMat0_Filter.Text = "Remove mat 1";
+            this.btnRemoveMat0_Filter.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_Remove_Click);
+            // 
+            // btnRemoveMat1_Filter
+            // 
+            this.btnRemoveMat1_Filter.Name = "btnRemoveMat1_Filter";
+            this.btnRemoveMat1_Filter.Size = new System.Drawing.Size(224, 26);
+            this.btnRemoveMat1_Filter.Text = "Remove mat 2";
+            this.btnRemoveMat1_Filter.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_Remove_Click);
             // 
             // ts_xyz
             // 
@@ -157,12 +181,6 @@
             this.rGBAToolStripMenuItem.Name = "rGBAToolStripMenuItem";
             this.rGBAToolStripMenuItem.Size = new System.Drawing.Size(316, 24);
             this.rGBAToolStripMenuItem.Text = "RGBA";
-            // 
-            // replaceMenuItems_4
-            // 
-            this.replaceMenuItems_4.Name = "replaceMenuItems_4";
-            this.replaceMenuItems_4.Size = new System.Drawing.Size(224, 26);
-            this.replaceMenuItems_4.Text = "31 - 40";
             // 
             // RenderedImagePanel
             // 
@@ -196,10 +214,12 @@
         private System.Windows.Forms.ToolStripMenuItem replaceMenuItems_2;
         private System.Windows.Forms.ToolStripMenuItem replaceMenuItems_3;
         private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem btnToggleMaterialFilterMenuItem0;
+        private System.Windows.Forms.ToolStripMenuItem btnAddMat0_Filter;
         private System.Windows.Forms.ToolStripMenuItem addAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem btnToggleMaterialFilterMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem btnAddMat1_Filter;
         private System.Windows.Forms.ToolStripMenuItem replaceMenuItems_4;
+        private System.Windows.Forms.ToolStripMenuItem btnRemoveMat0_Filter;
+        private System.Windows.Forms.ToolStripMenuItem btnRemoveMat1_Filter;
     }
 }

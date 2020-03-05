@@ -355,7 +355,7 @@ namespace PixelStacker.Logic
                 .OrderByColor(m => m.getAverageColor(isSide)).ToList();
 
             List<IGrouping<string, Material>> materialGroups = Materials.List
-                .Where(m => m.Category != "Glass" && m.Label != "Air")
+                .Where(m => m.Category != "Glass" && m.PixelStackerID != "AIR")
                 .GroupBy(m => m.Category)
                 .OrderByDescending(m => m.Count())
                 .ToList();
@@ -510,7 +510,7 @@ namespace PixelStacker.Logic
             bool isSide = Options.Get.IsSideView;
             #endregion
             List<Material> glasses = Materials.List.Where(m => m.Category == "Glass").ToList();
-            List<IGrouping<string, Material>> materialGroups = Materials.List.Where(m => m.Category != "Glass" && m.Label != "Air").GroupBy(m => m.Category).ToList();
+            List<IGrouping<string, Material>> materialGroups = Materials.List.Where(m => m.Category != "Glass" && m.PixelStackerID != "AIR").GroupBy(m => m.Category).ToList();
 
 
             int numGroups = materialGroups.Count;

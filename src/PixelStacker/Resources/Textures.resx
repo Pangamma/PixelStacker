@@ -136,6 +136,9 @@
   <data name="andesite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Other\andesite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="barrier" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Hidden\barrier.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="basalt_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\New\basalt_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -376,6 +379,12 @@
   <data name="granite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Other\granite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="grass_path_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Other\grass_path_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grass_path_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Other\grass_path_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="gravel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Other\gravel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -414,6 +423,9 @@
   </data>
   <data name="green_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Wool\green_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hay_block_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Other\hay_block_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="hay_block_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Other\hay_block_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -610,6 +622,15 @@
   <data name="podzol_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Other\podzol_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="polished_andesite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Other\polished_andesite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="polished_diorite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Other\polished_diorite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="polished_granite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Other\polished_granite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="prismarine" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Other\prismarine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -739,8 +760,14 @@
   <data name="stripped_acacia_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\LogStripped\stripped_acacia_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="stripped_acacia_log_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\LogStripped\stripped_acacia_log_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="stripped_birch_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\LogStripped\stripped_birch_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stripped_birch_log_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\LogStripped\stripped_birch_log_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stripped_crimson_stem" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\LogWithBark\stripped_crimson_stem.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -757,11 +784,20 @@
   <data name="stripped_jungle_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\LogStripped\stripped_jungle_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="stripped_jungle_log_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\LogStripped\stripped_jungle_log_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="stripped_oak_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\LogStripped\stripped_oak_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="stripped_oak_log_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\LogStripped\stripped_oak_log_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="stripped_spruce_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\LogStripped\stripped_spruce_log.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stripped_spruce_log_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\LogStripped\stripped_spruce_log_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stripped_warped_stem" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\LogWithBark\stripped_warped_stem.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

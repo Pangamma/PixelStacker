@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Logic
 {
+    [Serializable]
     public class Material
     {
         public string PixelStackerID { get; set; }
@@ -123,6 +124,7 @@ namespace PixelStacker.Logic
                 {
                     Options.Get.EnableStates[SettingsKey] = true;
                 }
+
                 return Options.Get.EnableStates[SettingsKey];
             }
             set
