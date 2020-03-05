@@ -385,7 +385,7 @@ namespace PixelStacker.UI
             int calculatedTextureSize = Constants.TextureSize;
             int bytesInSrcImage = (image.Width * image.Height * 32 / 8); // Still need to multiply by texture size (4 bytes per pixel / 8 bits per byte = 4 bytes)
 
-            int safetyMultiplier = 4; // Want to be able to store N of these things in memory
+            int safetyMultiplier = 2; // Want to be able to store N of these things in memory
 
             bool isSuccess = false;
 
