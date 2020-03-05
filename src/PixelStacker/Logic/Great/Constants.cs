@@ -8,7 +8,7 @@ namespace PixelStacker.Logic
 {
     public static class Constants
     {
-        public const string Version = "1.15.2d";
+        public const string Version = "1.16.20w10a.a";
         public const string Website = "https://taylorlove.info/pixelstacker";
         public const int TextureSize = 16;
         public const string RenderedZIndexFilter = "RenderedZIndexFilter";
