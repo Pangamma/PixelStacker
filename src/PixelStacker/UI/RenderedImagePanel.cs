@@ -847,7 +847,7 @@ namespace PixelStacker.UI
         {
             if (pointOnImage == null)
             {
-#if DEBUG
+#if !RELEASE
                 throw new ArgumentNullException("pointOnImage is null. Please report this to Pangamma along with the stacktrace!");
 #else
                 return new Point(0, 0);
@@ -856,7 +856,7 @@ namespace PixelStacker.UI
 
             if (MainForm.PanZoomSettings == null)
             {
-#if DEBUG
+#if !RELEASE
                 throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
 #else
                 return new Point(0, 0);

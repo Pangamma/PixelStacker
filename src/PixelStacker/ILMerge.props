@@ -11,7 +11,7 @@
     <ILMergeTransitive>true</ILMergeTransitive>
 
     <!-- Creates a .pdb file for the output assembly and merges into it any .pdb files found for input assemblies, default=true -->
-    <ILMergeDebugInfo>false</ILMergeDebugInfo>
+    <ILMergeDebugInfo>true</ILMergeDebugInfo>
     
     <!-- Extra ILMerge library paths (semicolon-separated). Dont put your package dependencies here, they will be added automagically -->
     <ILMergeLibraryPath></ILMergeLibraryPath>

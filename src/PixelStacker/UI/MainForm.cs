@@ -29,7 +29,7 @@ namespace PixelStacker
             InitializeComponent();
             this.imagePanelMain.SetImage(LoadedImage);
             this.Text = this.Text + " v" + Constants.Version;
-#if DEBUG
+#if !RELEASE
             this.Text = this.Text + " v" + Constants.Version + " (Debug)";
 #endif
             this.History = new EditHistory(this);
