@@ -121,7 +121,9 @@ namespace PixelStacker
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dlgOpen.ShowDialog();
+            TaskManager.Get.CancelTasks(() => {
+                this.InvokeEx(c => c.dlgOpen.ShowDialog());
+            });
         }
 
         private void dlgOpen_FileOk(object sender, CancelEventArgs e)

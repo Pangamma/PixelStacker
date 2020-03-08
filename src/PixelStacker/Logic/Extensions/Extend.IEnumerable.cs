@@ -15,6 +15,27 @@ namespace PixelStacker.Logic.Extensions
             return items.Where(item => keys.Add(selector(item)));
         }
 
+        public static TKey Median<T, TKey>(this IEnumerable<T> items, Func<T, TKey> selector)
+        {
+            if (!items.Any()) throw new InvalidOperationException("List cannot be empty.");
+            return items.OrderBy(selector).Skip(items.Count() / 2).Take(1).Select(selector).FirstOrDefault();
+        }
+
+        public static List<List<T>> SplitInto<T>(this IEnumerable<T> items, int numSubLists)
+        {
+            List<List<T>> output = new List<List<T>>();
+            int numPerFragment = items.Count() / numSubLists;
+            for(int i = 0; i < numSubLists; i++)
+            {
+                output.Add(new List<T>(items.Skip(i * numPerFragment).Take(numPerFragment).ToList()));
+            }
+
+            // Collect any outstanding items and add to first item in list
+            output.First().AddRange(items.Skip(numSubLists * numPerFragment).Take(numPerFragment).ToList());
+
+            return output.Where(x => x.Any()).ToList();
+        }
+
         public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
         {
             return source.MaxBy(selector, Comparer<TKey>.Default);
