@@ -63,7 +63,7 @@ namespace PixelStacker.Logic.Extensions
         /// <returns></returns>
         public static Color Normalize(this Color c)
         {
-            int F = Constants.ColorFragmentSize;
+            int F = Options.Get.PreRender_ColorCacheFragmentSize;
             int R = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.R) / F, 0) * F);
             int G = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.G) / F, 0) * F);
             int B = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.B) / F, 0) * F);
