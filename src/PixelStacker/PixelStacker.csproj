@@ -41,7 +41,7 @@
     <DebugType>embedded</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;FULL_VERSION</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;FULL_VERSION</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -99,7 +99,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\IO\FilePaths.cs" />
     <Compile Include="Logic\Model\BestMatchCacheMap.cs" />
+    <Compile Include="Logic\Model\ColorProfile.cs" />
     <Compile Include="Logic\Model\Grouping.cs" />
     <Compile Include="Logic\Model\OrderedDictionary.cs" />
     <Compile Include="Logic\Extensions\Extend.UI.cs" />
@@ -285,6 +287,12 @@
       <DependentUpon>RenderedImagePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Utilities\TaskManager.cs" />
+    <Compile Include="UI\TextPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TextPrompt.Designer.cs">
+      <DependentUpon>TextPrompt.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Resources\Textures.ja-jp.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Textures.resx</DependentUpon>
@@ -334,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\RenderedImagePanel.resx">
       <DependentUpon>RenderedImagePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TextPrompt.resx">
+      <DependentUpon>TextPrompt.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ILMerge.props" />
     <None Include="packages.config" />

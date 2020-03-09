@@ -114,7 +114,7 @@ namespace PixelStacker.Logic
                 + ")";
         }
 
-        private string SettingsKey { get { return string.Format("{0}_{1}_{2}", BlockID, Data, Label.Replace(' ', '_').ToLower()); } }
+        private string SettingsKey { get { return string.Format("BLOCK_{0}", this.PixelStackerID); } }
 
         public bool IsEnabled
         {

@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic;
+using PixelStacker.Logic.IO;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

@@ -1,10 +1,14 @@
-﻿using PixelStacker.Logic;
+﻿using Newtonsoft.Json;
+using PixelStacker.Logic;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO;
+using PixelStacker.Logic.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -24,10 +28,16 @@ namespace PixelStacker.UI
             InitializeComponent();
             this.flowLayout.OnCommandKey = (Message msg, Keys keyData) => this.ProcessCmdKeyFromTileGrid(msg, keyData);
 
-            this.InitializeAutoComplete();
             bool isv = Options.Get.IsSideView;
-            this.flowLayout.Controls.Clear();
+            this.InitializeAutoComplete();
+            this.InitializeMaterialTiles();
+            SetVisibleMaterials(Materials.List ?? new List<Material>());
+            this.LoadFromSettings();
+        }
 
+        private void InitializeMaterialTiles()
+        {
+            this.flowLayout.Controls.Clear();
             foreach (var m in Materials.List.Where(m => m.PixelStackerID != "AIR"))
             {
                 this.materialTiles[m.PixelStackerID] = new MaterialSelectTile()
@@ -44,15 +54,21 @@ namespace PixelStacker.UI
 
                 this.flowLayout.Controls.Add(this.materialTiles[m.PixelStackerID]);
             }
-
-            SetVisibleMaterials(Materials.List ?? new List<Material>());
-            this.LoadFromSettings();
         }
 
         private void LoadFromSettings()
         {
             cbxIsMultiLayer.Checked = Options.Get.IsMultiLayer;
             cbxIsSideView.Checked = Options.Get.IsSideView;
+            var dirColorProfiles = new DirectoryInfo(FilePaths.ColorProfilesPath);
+            if (dirColorProfiles.Exists)
+            {
+                var fis = dirColorProfiles.GetFiles();
+                this.ddlColorProfile.Items.Clear();
+
+                this.ddlColorProfile.Text = "Select profile";
+                this.ddlColorProfile.Items.AddRange(fis.Select(x => x.Name).ToArray());
+            }
         }
 
         private void OnMouseLeave_Tile(object sender, EventArgs e)
@@ -269,6 +285,81 @@ namespace PixelStacker.UI
         private void MaterialSelectWindow_VisibleChanged(object sender, EventArgs e)
         {
             this.LoadFromSettings();
+        }
+
+        private void ddlColorProfile_SelectedValueChanged(object sender, EventArgs e)
+        {
+            string item = (string) ddlColorProfile.SelectedItem;
+            string path = Path.Combine(FilePaths.ColorProfilesPath, item);
+            if (File.Exists(path))
+            {
+                var existingProfile = JsonConvert.DeserializeObject<ColorProfile>(File.ReadAllText(path));
+                if (existingProfile != null)
+                {
+                    foreach(var mat in existingProfile.Materials)
+                    {
+                        var material = Materials.FromPixelStackerID(mat.Key);
+                        material.IsEnabled = mat.Value;
+                        // This WOULD be faster, but what if I decide to change the format later... best to play it safe
+                        // and stable. Time for this iteration takes barely any time at all anyways. Can always optimize
+                        // the material list to become a dictionary later if needed.
+                        //string key = "BLOCK_" + mat.Key;
+                        //Options.Get.EnableStates[key] = mat.Value;
+                    }
+                }
+            }
+
+            tbxMaterialFilter.Text = "enabled";
+            SetSearchFilter("enabled");
+        }
+
+        private void btnEditColorProfiles_Click(object sender, EventArgs e)
+        {
+            this.dlgSave.InitialDirectory = FilePaths.ColorProfilesPath;
+            var result = this.dlgSave.ShowDialog(this);
+
+            if (result == DialogResult.OK)
+            {
+                //Prompt
+                string profileLabel = null;
+                string path = this.dlgSave.FileName;
+
+                if (File.Exists(path))
+                {
+                    try
+                    {
+                        var existingProfile = JsonConvert.DeserializeObject<ColorProfile>(File.ReadAllText(path));
+                        if (existingProfile != null)
+                        {
+                            profileLabel = existingProfile.Label;
+                        }
+                    }
+                    catch (Exception)
+                    { }
+                }
+
+                if (string.IsNullOrWhiteSpace(profileLabel))
+                {
+                    profileLabel = new FileInfo(this.dlgSave.FileName).Name;
+                }
+
+                var profile = new ColorProfile() {
+                    Label = profileLabel,
+                    Materials = Materials.List.ToDictionary(k => k.PixelStackerID, v => v.IsEnabled)
+                };
+                
+                string json = JsonConvert.SerializeObject(profile, Formatting.Indented);
+                File.WriteAllText(path, json);
+
+                var dirColorProfiles = new DirectoryInfo(FilePaths.ColorProfilesPath);
+                if (dirColorProfiles.Exists)
+                {
+                    var fis = dirColorProfiles.GetFiles();
+                    this.ddlColorProfile.Items.Clear();
+                    this.ddlColorProfile.Items.AddRange(fis.Select(x => x.Name).ToArray());
+                    this.ddlColorProfile.SelectedItem = new FileInfo(this.dlgSave.FileName).Name;
+                }
+            }
         }
     }
 }
