@@ -9,11 +9,6 @@ namespace PixelStacker.Logic.IO
 {
     public static class FilePaths
     {
-        public static void CreateDirectories()
-        {
-
-        }
-
         public static string AppDataDir
         {
             get
@@ -21,11 +16,6 @@ namespace PixelStacker.Logic.IO
                 try
                 {
                     string appPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                   // string appPath = (Environment.OSVersion.Platform == PlatformID.Unix ||
-                   //Environment.OSVersion.Platform == PlatformID.MacOSX)
-                   // ? Environment.GetEnvironmentVariable("HOME")
-                   // : Environment.GetEnvironmentVariable("APPDATA");
-
                     string pixelStackerPath = Path.Combine(appPath, "PixelStacker");
 
                     if (!Directory.Exists(pixelStackerPath))
