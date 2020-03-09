@@ -10,6 +10,21 @@ namespace PixelStacker.Logic.Extensions
     // Brightness: 0...1
     public static class ExtendColor
     {
+        /// <summary>
+        /// Overlay the TOP color ontop of the BOTTOM color
+        /// </summary>
+        /// <param name="RGBA2_Bottom"></param>
+        /// <param name="RGBA1_Top"></param>
+        /// <returns></returns>
+        public static Color OverlayColor(this Color RGBA2_Bottom, Color RGBA1_Top)
+        {
+            double alpha = Convert.ToDouble(RGBA1_Top.A) / 255;
+            int R = (int) ((RGBA1_Top.R * alpha) + (RGBA2_Bottom.R * (1.0 - alpha)));
+            int G = (int) ((RGBA1_Top.G * alpha) + (RGBA2_Bottom.G * (1.0 - alpha)));
+            int B = (int) ((RGBA1_Top.B * alpha) + (RGBA2_Bottom.B * (1.0 - alpha)));
+            return Color.FromArgb(255, R, G, B);
+        }
+
         public static float GetDegreeDistance(float alpha, float beta)
         {
             float phi = Math.Abs(beta - alpha) % 360;       // This is either the distance or 360 - distance
@@ -48,12 +63,17 @@ namespace PixelStacker.Logic.Extensions
         /// <returns></returns>
         public static Color Normalize(this Color c)
         {
-            int F = Constants.ColorFragmentSize;
-            int R = (int)Math.Round(Convert.ToDecimal(c.R) / F, 0) * F;
-            int G = (int)Math.Round(Convert.ToDecimal(c.G) / F, 0) * F;
-            int B = (int)Math.Round(Convert.ToDecimal(c.B) / F, 0) * F;
+            int F = Options.Get.PreRender_ColorCacheFragmentSize;
+            int R = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.R) / F, 0) * F);
+            int G = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.G) / F, 0) * F);
+            int B = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.B) / F, 0) * F);
 
             return Color.FromArgb(c.A, R, G, B);
+        }
+
+        public static IEnumerable<Color> OrderByColor(this IEnumerable<Color> source)
+        {
+            return source.OrderByColor(c => c);
         }
 
         public static IEnumerable<TSource> OrderByColor<TSource>(this IEnumerable<TSource> source, Func<TSource, Color> colorSelector)

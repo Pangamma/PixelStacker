@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Logic
 {
+    [Serializable]
     public class Material
     {
         public string PixelStackerID { get; set; }
@@ -38,6 +39,11 @@ namespace PixelStacker.Logic
 
         private Color? _averageColor = null;
         private Color? _averageColorSide = null;
+
+        /// <summary>
+        /// List of words or phrases ppl can search for to get these materials
+        /// </summary>
+        public List<string> Tags { get; set; } = new List<string>();
 
         public Material(string category, string pixelStackerID, string label, int blockID, int data, Bitmap topImage, Bitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
         {
@@ -108,7 +114,7 @@ namespace PixelStacker.Logic
                 + ")";
         }
 
-        private string SettingsKey { get { return string.Format("{0}_{1}_{2}", BlockID, Data, Label.Replace(' ', '_').ToLower()); } }
+        private string SettingsKey { get { return string.Format("BLOCK_{0}", this.PixelStackerID); } }
 
         public bool IsEnabled
         {
@@ -118,6 +124,7 @@ namespace PixelStacker.Logic
                 {
                     Options.Get.EnableStates[SettingsKey] = true;
                 }
+
                 return Options.Get.EnableStates[SettingsKey];
             }
             set

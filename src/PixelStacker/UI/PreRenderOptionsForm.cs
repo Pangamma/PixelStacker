@@ -29,6 +29,18 @@ namespace PixelStacker.UI
             this.ddlColorCount.SelectedItem = Options.Get.PreRender_ColorCount.ToString();
             this.ddlDither.SelectedItem = Options.Get.PreRender_Dither;
             this.ddlParallel.SelectedItem = Options.Get.PreRender_Parallel.ToString();
+
+            this.ddlMaxNormalizedColorCount.SelectedItem = $"{255 / Options.Get.PreRender_ColorCacheFragmentSize}^3";
+
+            foreach (var item in ddlMaxNormalizedColorCount.Items)
+            {
+                int bucketSize = item.ToString().Replace("^3", "").ToNullable<int>() ?? 51;
+                if (bucketSize == 255 / Options.Get.PreRender_ColorCacheFragmentSize)
+                {
+                    ddlMaxNormalizedColorCount.SelectedItem = item;
+                }
+            }
+
             isInitializationComplete = true;
 
             btnEnablePreRender.Text = Options.Get.PreRender_IsEnabled ? "Disable Quantizer" : "Enable Quantizer";
@@ -40,12 +52,13 @@ namespace PixelStacker.UI
             btnEnablePreRender.Text = Options.Get.PreRender_IsEnabled ? "Disable Quantizer" : "Enable Quantizer";
 
             TaskManager.SafeReport(0, "Quantizing Image");
-            await TaskManager.Get.StartAsync((token) => {
+            await TaskManager.Get.StartAsync((token) =>
+            {
                 mainForm?.PreRenderImage(true, token);
                 Options.Save();
             });
         }
-        
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Escape)
@@ -63,7 +76,8 @@ namespace PixelStacker.UI
             if (isInitializationComplete)
             {
                 TaskManager.SafeReport(0, "Quantizing Image");
-                await TaskManager.Get.StartAsync((token) => {
+                await TaskManager.Get.StartAsync((token) =>
+                {
                     mainForm?.PreRenderImage(true, token);
                     Options.Save();
                 });
@@ -77,7 +91,8 @@ namespace PixelStacker.UI
             if (isInitializationComplete)
             {
                 TaskManager.SafeReport(0, "Quantizing Image");
-                await TaskManager.Get.StartAsync((token) => {
+                await TaskManager.Get.StartAsync((token) =>
+                {
                     mainForm?.PreRenderImage(true, token);
                     Options.Save();
                 });
@@ -91,7 +106,8 @@ namespace PixelStacker.UI
             if (isInitializationComplete)
             {
                 TaskManager.SafeReport(0, "Quantizing Image");
-                await TaskManager.Get.StartAsync((token) => {
+                await TaskManager.Get.StartAsync((token) =>
+                {
                     mainForm?.PreRenderImage(true, token);
                     Options.Save();
                 });
@@ -105,7 +121,8 @@ namespace PixelStacker.UI
             if (isInitializationComplete)
             {
                 TaskManager.SafeReport(0, "Quantizing Image");
-                await TaskManager.Get.StartAsync((token) => {
+                await TaskManager.Get.StartAsync((token) =>
+                {
                     mainForm?.PreRenderImage(true, token);
                     Options.Save();
                 });
@@ -119,9 +136,27 @@ namespace PixelStacker.UI
             if (isInitializationComplete)
             {
                 TaskManager.SafeReport(0, "Quantizing Image");
-                await TaskManager.Get.StartAsync((token) => {
+                await TaskManager.Get.StartAsync((token) =>
+                {
                     mainForm?.PreRenderImage(true, token);
                     Options.Save();
+                });
+            }
+        }
+
+        private async void ddlMaxNormalizedColorCount_SelectedValueChanged(object sender, EventArgs e)
+        {
+            int valFromDropDown = this.ddlMaxNormalizedColorCount.SelectedItem?.ToString().Replace("^3", "").ToNullable<int>() ?? 51;
+            Options.Get.PreRender_ColorCacheFragmentSize = 255 / valFromDropDown;
+            
+            if (isInitializationComplete)
+            {
+                TaskManager.SafeReport(0, "Quantizing Image");
+                await TaskManager.Get.StartAsync((token) =>
+                {
+                    Options.Save();
+                    Materials.CompileColorMap(token, true);
+                    mainForm?.PreRenderImage(true, token);
                 });
             }
         }

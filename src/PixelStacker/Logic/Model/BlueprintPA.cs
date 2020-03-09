@@ -104,7 +104,7 @@ namespace PixelStacker.Logic
         /// <returns></returns>
         public Material[] GetMaterialsAt(int x, int y)
         {
-#if !DEBUG
+#if RELEASE
             // If you're failing in dev, fix it. Release builds should not be held up by this...
             if (x > this.BlocksMap.GetLength(0) || x < 0) { return new Material[] { Materials.Air }; }
             if (y > this.BlocksMap.GetLength(1) || y < 0) { return new Material[] { Materials.Air }; }
@@ -129,7 +129,7 @@ namespace PixelStacker.Logic
             x2 = x;
             y2 = y;
 
-#if !DEBUG
+#if RELEASE
             // If you're failing in dev, fix it. Release builds should not be held up by this...
             if (x2 > this.BlocksMap.GetLength(0) || x2 < 0) { return Materials.Air; }
             if (y2 > this.BlocksMap.GetLength(1) || y2 < 0) { return Materials.Air; }

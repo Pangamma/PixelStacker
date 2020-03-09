@@ -121,7 +121,9 @@ namespace PixelStacker
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dlgOpen.ShowDialog();
+            TaskManager.Get.CancelTasks(() => {
+                this.InvokeEx(c => c.dlgOpen.ShowDialog());
+            });
         }
 
         private void dlgOpen_FileOk(object sender, CancelEventArgs e)
@@ -188,7 +190,7 @@ namespace PixelStacker
                             Materials.List.Where(x => x.IsEnabled && string.IsNullOrWhiteSpace(x.SchematicaMaterialName))
                                 .ToList().ForEach(x => x.IsEnabled = false);
                             Options.Save();
-                            this.InvokeEx(c => c.MaterialOptions.loadStatesFromOptions());
+                            this.InvokeEx(c => c.MaterialOptions.Refresh());
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                             TaskManager.Get.StartAsync((token) =>

@@ -17,7 +17,7 @@ namespace PixelStacker
     {
 
         public static MainForm Self;
-        public Bitmap LoadedImage { get; private set; } = UIResources.test3.To32bppBitmap();
+        public Bitmap LoadedImage { get; private set; } = UIResources.colorwheel.To32bppBitmap();
         public Bitmap PreRenderedImage { get; set; } = null;
         public BlueprintPA LoadedBlueprint { get; private set; }
         public static PanZoomSettings PanZoomSettings { get; set; } = null;
@@ -29,6 +29,9 @@ namespace PixelStacker
             InitializeComponent();
             this.imagePanelMain.SetImage(LoadedImage);
             this.Text = this.Text + " v" + Constants.Version;
+#if !RELEASE
+            this.Text = this.Text + " v" + Constants.Version + " (Debug)";
+#endif
             this.History = new EditHistory(this);
 
             if (!Constants.IsFullVersion)
@@ -43,7 +46,7 @@ namespace PixelStacker
             SetViewModeCheckBoxStates();
         }
 
-        #region Auto update checker + Error Reporting
+#region Auto update checker + Error Reporting
         private void MainForm_Load(object sender, EventArgs e)
         {
 #pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
@@ -51,7 +54,7 @@ namespace PixelStacker
             //TaskManager.Get.StartAsync(cancelToken => PdbLoader.Load(cancelToken));
 #pragma warning restore CS4014
         }
-        #endregion
+#endregion
 
         private void SetViewModeCheckBoxStates()
         {

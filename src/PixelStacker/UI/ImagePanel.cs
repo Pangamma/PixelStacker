@@ -117,7 +117,7 @@ namespace PixelStacker.UI
                 }
                 else
                 {
-                    MainForm.PanZoomSettings.zoomLevel *= 1.2;
+                    MainForm.PanZoomSettings.zoomLevel *= 1.25;
                 }
                 this.restrictZoom();
                 MainForm.PanZoomSettings.imageX = ((int)Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));

@@ -11,7 +11,7 @@ namespace PixelStacker
 {
     partial class MainForm
     {
-        private MaterialOptionsWindow MaterialOptions { get; set; } = null;
+        private MaterialSelectWindow MaterialOptions { get; set; } = null;
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -38,7 +38,7 @@ namespace PixelStacker
         {
             if (this.MaterialOptions == null)
             {
-                this.MaterialOptions = new MaterialOptionsWindow(this);
+                this.MaterialOptions = new MaterialSelectWindow();
             }
 
             TaskManager.Get.CancelTasks(null);

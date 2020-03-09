@@ -18,7 +18,15 @@ namespace PixelStacker.Logic
         public bool IsSideView { get; set; } = false;
         public bool IsFrugalWithMaterials { get; set; } = false;
         public bool IsShadowRenderingSkipped { get; set; } = false;
-        
+
+
+        /// <summary>
+        /// R/5, G/5, B/5
+        /// The value all RGB values should be divided by to achieve awesome truncating.
+        /// omg someone help me. Naming suuuuuuucks
+        /// </summary>
+        public int PreRender_ColorCacheFragmentSize { get; set; } = 5;
+
         public int GridSize { get; set; } = 16;
         public Color GridColor { get; set; } = Color.Black;
 

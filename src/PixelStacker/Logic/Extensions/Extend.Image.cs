@@ -96,7 +96,7 @@ namespace PixelStacker.Logic.Extensions
             Bitmap output = new Bitmap(width, height, PixelFormat.Format32bppArgb);
             using (Graphics g = Graphics.FromImage(output))
             {
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.DrawImage(src, new Rectangle(0, 0, output.Width, output.Height));
             }
