@@ -55,7 +55,7 @@ namespace PixelStacker.Logic
             var airColor = Materials.Air.getAverageColor(isSide).ToArgb();
             using (var padlock = await AsyncDuplicateLock.Get.LockAsync(src))
             {
-                src.ToViewStream(_worker, (x, y, cc) =>
+                void viewActionPerPixel(int x, int y, Color cc)
                 {
                     int r = cc.R;
                     int b = cc.B;
@@ -70,9 +70,9 @@ namespace PixelStacker.Logic
                         int ccii = c?.ToArgb() ?? 0;
                         if (c != null)
                         {
-                            if (Materials.ColorMap.ContainsKey(c.Value))
+                            if (Materials.ColorMap.TryGetValue(c.Value, out Material[] found))
                             {
-                                int len = Materials.ColorMap[c.Value].Length;
+                                int len = found.Length;
                                 if (len > maxDepth) { maxDepth = len; }
                             }
                             else
@@ -82,7 +82,9 @@ namespace PixelStacker.Logic
                         }
                         blocksTemp[x, y] = ccii;
                     }
-                });
+                }
+
+                src.ToViewStream(_worker, viewActionPerPixel);
             }
 
             Materials.BestMatchCache.Save();
@@ -111,7 +113,7 @@ namespace PixelStacker.Logic
 #endif
             int ci = this.BlocksMap[x, y];
             Color c = Color.FromArgb(ci);
-            var mm = (Materials.ColorMap.ContainsKey(c) ? Materials.ColorMap[c] : null) ?? new Material[] { Materials.Air };
+            var mm = (Materials.ColorMap.TryGetValue(c, out Material[] found) ? found : null) ?? new Material[] { Materials.Air };
             return mm;
         }
 
@@ -196,7 +198,7 @@ namespace PixelStacker.Logic
 
             public int GetZLength(bool isSideView)
             {
-                var result = 0;
+                int result;
 
                 if (isSideView)
                 {
@@ -219,12 +221,11 @@ namespace PixelStacker.Logic
                 int x2, y2, z2;
                 x2 = x;
                 y2 = isSideView ? y : z;
-
+                int idx;
                 int ci = this.blueprint.BlocksMap[x2, y2];
                 Color c = Color.FromArgb(ci);
                 var mm = (Materials.ColorMap.ContainsKey(c) ? Materials.ColorMap[c] : null) ?? new Material[] { Materials.Air };
 
-                int idx = 0;
                 if (isSideView)
                 {
                     // sizeActual = sizeVirtual (zMax)

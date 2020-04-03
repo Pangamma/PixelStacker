@@ -43,6 +43,7 @@
             this.cbxIsSideView = new System.Windows.Forms.CheckBox();
             this.lblInfo = new System.Windows.Forms.Label();
             this.flowLayout = new PixelStacker.UI.CustomFlowLayoutPanel();
+            this.cbxRequire2ndLayer = new System.Windows.Forms.CheckBox();
             this.flowVertical.SuspendLayout();
             this.flowRow1.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -169,12 +170,13 @@
             this.customFlowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.customFlowLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
             this.customFlowLayoutPanel1.Controls.Add(this.cbxIsMultiLayer);
+            this.customFlowLayoutPanel1.Controls.Add(this.cbxRequire2ndLayer);
             this.customFlowLayoutPanel1.Controls.Add(this.cbxIsSideView);
             this.customFlowLayoutPanel1.Controls.Add(this.lblInfo);
             this.customFlowLayoutPanel1.Location = new System.Drawing.Point(3, 48);
             this.customFlowLayoutPanel1.Name = "customFlowLayoutPanel1";
             this.customFlowLayoutPanel1.OnCommandKey = null;
-            this.customFlowLayoutPanel1.Size = new System.Drawing.Size(468, 27);
+            this.customFlowLayoutPanel1.Size = new System.Drawing.Size(595, 27);
             this.customFlowLayoutPanel1.TabIndex = 1;
             // 
             // cbxIsMultiLayer
@@ -182,16 +184,16 @@
             this.cbxIsMultiLayer.AutoSize = true;
             this.cbxIsMultiLayer.Location = new System.Drawing.Point(3, 3);
             this.cbxIsMultiLayer.Name = "cbxIsMultiLayer";
-            this.cbxIsMultiLayer.Size = new System.Drawing.Size(159, 21);
+            this.cbxIsMultiLayer.Size = new System.Drawing.Size(137, 21);
             this.cbxIsMultiLayer.TabIndex = 4;
-            this.cbxIsMultiLayer.Text = "Enable second layer";
+            this.cbxIsMultiLayer.Text = "Enable 2nd layer";
             this.cbxIsMultiLayer.UseVisualStyleBackColor = true;
             this.cbxIsMultiLayer.CheckedChanged += new System.EventHandler(this.cbxIsMultiLayer_CheckedChanged);
             // 
             // cbxIsSideView
             // 
             this.cbxIsSideView.AutoSize = true;
-            this.cbxIsSideView.Location = new System.Drawing.Point(168, 3);
+            this.cbxIsSideView.Location = new System.Drawing.Point(295, 3);
             this.cbxIsSideView.Name = "cbxIsSideView";
             this.cbxIsSideView.Size = new System.Drawing.Size(91, 21);
             this.cbxIsSideView.TabIndex = 5;
@@ -201,7 +203,7 @@
             // 
             // lblInfo
             // 
-            this.lblInfo.Location = new System.Drawing.Point(265, 0);
+            this.lblInfo.Location = new System.Drawing.Point(392, 0);
             this.lblInfo.MinimumSize = new System.Drawing.Size(200, 21);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(200, 24);
@@ -220,6 +222,17 @@
             this.flowLayout.OnCommandKey = null;
             this.flowLayout.Size = new System.Drawing.Size(860, 380);
             this.flowLayout.TabIndex = 2;
+            // 
+            // cbxRequire2ndLayer
+            // 
+            this.cbxRequire2ndLayer.AutoSize = true;
+            this.cbxRequire2ndLayer.Location = new System.Drawing.Point(146, 3);
+            this.cbxRequire2ndLayer.Name = "cbxRequire2ndLayer";
+            this.cbxRequire2ndLayer.Size = new System.Drawing.Size(143, 21);
+            this.cbxRequire2ndLayer.TabIndex = 6;
+            this.cbxRequire2ndLayer.Text = "Require 2nd layer";
+            this.cbxRequire2ndLayer.UseVisualStyleBackColor = true;
+            this.cbxRequire2ndLayer.CheckedChanged += new System.EventHandler(this.cbxRequire2ndLayer_CheckedChanged);
             // 
             // MaterialSelectWindow
             // 
@@ -262,5 +275,6 @@
         private System.Windows.Forms.Panel panelColorProfile;
         private CustomFlowLayoutPanel customFlowLayoutPanel1;
         private System.Windows.Forms.SaveFileDialog dlgSave;
+        private System.Windows.Forms.CheckBox cbxRequire2ndLayer;
     }
 }

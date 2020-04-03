@@ -159,7 +159,9 @@ namespace PixelStacker.Logic
                     _averageColorSide = getAverageColor(this.SideImage);
                 }
                 return _averageColorSide.Value;
-            }else {
+            }
+            else
+            {
                 if (_averageColor == null)
                 {
                     _averageColor = getAverageColor(this.TopImage);
@@ -177,7 +179,8 @@ namespace PixelStacker.Logic
             long total = src.Width * src.Height;
             if (src.PixelFormat == System.Drawing.Imaging.PixelFormat.Format32bppArgb)
             {
-                src.ToViewStream(null, (int x, int y, Color c) => {
+                src.ToViewStream(null, (int x, int y, Color c) =>
+                {
                     r += c.R;
                     g += c.G;
                     b += c.B;

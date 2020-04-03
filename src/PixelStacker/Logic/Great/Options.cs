@@ -15,6 +15,7 @@ namespace PixelStacker.Logic
         public Dictionary<string, bool> EnableStates { get; set; } = new Dictionary<string, bool>();
         public Dictionary<string, string> CustomValues { get; set; } = new Dictionary<string, string>();
         public bool IsMultiLayer { get; set; } = true;
+        public bool IsMultiLayerRequired { get; set; } = false;
         public bool IsSideView { get; set; } = false;
         public bool IsFrugalWithMaterials { get; set; } = false;
         public bool IsShadowRenderingSkipped { get; set; } = false;

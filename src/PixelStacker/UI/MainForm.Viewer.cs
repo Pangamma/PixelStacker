@@ -187,6 +187,18 @@ namespace PixelStacker
 
                 Bitmap img = null;
 
+                if (Options.Get.PreRender_ColorCacheFragmentSize > 1)
+                {
+                    // We can simplify this so that we cut total color counts down massively.
+                    srcImage.ToEditStream(cancelToken, (int x, int y, Color c) =>
+                    {
+                        int a = (c.A < 32) ? 0 : 255;
+                        return Color.FromArgb(a, c.Normalize());
+                    });
+                }
+
+                img = srcImage;
+
                 if (Options.Get.PreRender_IsEnabled)
                 {
                     try
@@ -203,17 +215,6 @@ namespace PixelStacker
                     {
                         MessageBox.Show(ex.Message);
                     }
-                }
-                else
-                {
-                    // We can simplify this so that we cut total color counts down massively.
-                    srcImage.ToEditStream(cancelToken, (int x, int y, Color c) =>
-                    {
-                        int a = (c.A < 32) ? 0 : 255;
-                        return Color.FromArgb(a, c.Normalize());
-                    });
-
-                    img = srcImage;
                 }
 
                 // Resize based on new size

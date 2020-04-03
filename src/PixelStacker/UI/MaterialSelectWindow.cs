@@ -60,6 +60,7 @@ namespace PixelStacker.UI
         {
             cbxIsMultiLayer.Checked = Options.Get.IsMultiLayer;
             cbxIsSideView.Checked = Options.Get.IsSideView;
+            cbxRequire2ndLayer.Checked = Options.Get.IsMultiLayerRequired;
             var dirColorProfiles = new DirectoryInfo(FilePaths.ColorProfilesPath);
             if (dirColorProfiles.Exists)
             {
@@ -82,6 +83,7 @@ namespace PixelStacker.UI
         private void OnMouseEnter_Tile(object sender, EventArgs e)
         {
             this.lblInfo.Text = ((MaterialSelectTile) sender).Material.Label;
+            this.lblInfo.Text = ((MaterialSelectTile) sender).Material.GetTextureRoughness(Options.Get.IsSideView).ToString();
         }
 
         private MaterialSelectTile previouslyClickedTile = null;
@@ -254,6 +256,32 @@ namespace PixelStacker.UI
             CheckBox cbx = (CheckBox) sender;
             bool isChecked = cbx.CheckState == CheckState.Checked;
             Options.Get.IsMultiLayer = isChecked;
+            if (isChecked)
+            {
+                Options.Get.IsMultiLayer = true;
+            }
+            else
+            {
+                cbxRequire2ndLayer.Checked = false;
+                Options.Get.IsMultiLayerRequired = false;
+                Options.Get.IsMultiLayer = false;
+            }
+        }
+
+        private void cbxRequire2ndLayer_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cbx = (CheckBox) sender;
+            bool isChecked = cbx.CheckState == CheckState.Checked;
+            if (isChecked)
+            {
+                cbxIsMultiLayer.Checked = true;
+                Options.Get.IsMultiLayer = true;
+                Options.Get.IsMultiLayerRequired = true;
+            }
+            else
+            {
+                Options.Get.IsMultiLayerRequired = false;
+            }
         }
 
         private void cbxIsSideView_CheckedChanged(object sender, EventArgs e)

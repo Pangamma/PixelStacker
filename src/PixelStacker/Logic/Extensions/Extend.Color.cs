@@ -25,6 +25,29 @@ namespace PixelStacker.Logic.Extensions
             return Color.FromArgb(255, R, G, B);
         }
 
+        public static Color AverageColors(this IEnumerable<Color> colors)
+        {
+            long r = 0;
+            long g = 0;
+            long b = 0;
+            long a = 0;
+            long total = colors.Count();
+            colors.ToList().ForEach(c =>
+            {
+                r += c.R;
+                g += c.G;
+                b += c.B;
+                a += c.A;
+            });
+
+            r /= total;
+            g /= total;
+            b /= total;
+            a /= total;
+
+            return Color.FromArgb((int) a, (int) r, (int) g, (int) b);
+        }
+
         public static float GetDegreeDistance(float alpha, float beta)
         {
             float phi = Math.Abs(beta - alpha) % 360;       // This is either the distance or 360 - distance
@@ -49,7 +72,7 @@ namespace PixelStacker.Logic.Extensions
                 (dR * dR)
                 + (dG * dG)
                 + (dB * dB)
-                + (float)Math.Pow(dHue, 1.5)
+                + (float) Math.Pow(dHue, 1.5)
                 //+ (dSat * dSat)
                 );
 
@@ -92,7 +115,7 @@ namespace PixelStacker.Logic.Extensions
             //// Brightness: 0...1
             bool isAscendingBrightness = false;
             source.Except(grayscale)
-                .GroupBy(x => (int)Math.Round(colorSelector(x).GetHue()) / numHueFragments)
+                .GroupBy(x => (int) Math.Round(colorSelector(x).GetHue()) / numHueFragments)
                 .OrderBy(x => x.Key)
                 .ToList().ForEach(grouping =>
                 {

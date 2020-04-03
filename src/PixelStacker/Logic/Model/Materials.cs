@@ -133,6 +133,10 @@ namespace PixelStacker.Logic
 
             ColorMap[Air.getAverageColor(isSide)] = new Material[1] { Air };
             ColorMap[Color.FromArgb(0, 255, 255, 255)] = new Material[1] { Air };
+            if (Options.Get.IsMultiLayerRequired)
+            {
+                ColorMap = ColorMap.Where(x => x.Value.Length > 1).ToDictionary(k => k.Key, v => v.Value);
+            }
             TaskManager.SafeReport(100, "Color map finished compiling");
         }
 
@@ -141,9 +145,9 @@ namespace PixelStacker.Logic
             Color? bestMatch = null;
             int bestDiff = int.MaxValue;
 
-            if (BestMatchCache.ContainsKey(toMatch))
+            if (BestMatchCache.TryGetValue(toMatch, out Color found))
             {
-                return BestMatchCache[toMatch];
+                return found;
             }
 
             for (int i = 0; i < colors.Count; i++)
@@ -298,23 +302,6 @@ namespace PixelStacker.Logic
                         new Material("Clay", "CLAY_HARD_00", "zzHardened Clay", 172, 0, Textures.terracotta, Textures.terracotta, $"minecraft:{nameof(Textures.terracotta)}", $"minecraft:{nameof(Textures.terracotta)}", "minecraft:hardened_clay" ),
                         new Material("Clay", "CLAY_SOFT_00", "zzClay", 82, 0, Textures.clay, Textures.clay, $"minecraft:{nameof(Textures.clay)}", $"minecraft:{nameof(Textures.clay)}", "minecraft:clay" ),
 
-                        new Material("Terracotta", "GLAZED_00", "White Terracotta", 235, 0, Textures.white_glazed_terracotta, Textures.white_glazed_terracotta, $"minecraft:{nameof(Textures.white_glazed_terracotta)}", $"minecraft:{nameof(Textures.white_glazed_terracotta)}", "minecraft:white_glazed_terracotta" ),
-                        new Material("Terracotta", "GLAZED_01", "Orange Terracotta", 236, 0, Textures.orange_glazed_terracotta, Textures.orange_glazed_terracotta, $"minecraft:{nameof(Textures.orange_glazed_terracotta)}", $"minecraft:{nameof(Textures.orange_glazed_terracotta)}", "minecraft:orange_glazed_terracotta" ),
-                        new Material("Terracotta", "GLAZED_02", "Magenta Terracotta", 237, 0, Textures.magenta_glazed_terracotta, Textures.magenta_glazed_terracotta, $"minecraft:{nameof(Textures.magenta_glazed_terracotta)}", $"minecraft:{nameof(Textures.magenta_glazed_terracotta)}", "minecraft:magenta_glazed_terracotta" ),
-                        new Material("Terracotta", "GLAZED_03", "Light Blue Terracotta", 238, 0, Textures.light_blue_glazed_terracotta, Textures.light_blue_glazed_terracotta, $"minecraft:{nameof(Textures.light_blue_glazed_terracotta)}", $"minecraft:{nameof(Textures.light_blue_glazed_terracotta)}", "minecraft:light_blue_glazed_terracotta" ),
-                        new Material("Terracotta", "GLAZED_04", "Yellow Terracotta", 239, 0, Textures.yellow_glazed_terracotta, Textures.yellow_glazed_terracotta, $"minecraft:{nameof(Textures.yellow_glazed_terracotta)}", $"minecraft:{nameof(Textures.yellow_glazed_terracotta)}", "minecraft:yellow_glazed_terracotta" ),
-                        new Material("Terracotta", "GLAZED_05", "Lime Terracotta", 240, 0, Textures.lime_glazed_terracotta, Textures.lime_glazed_terracotta, $"minecraft:{nameof(Textures.lime_glazed_terracotta)}", $"minecraft:{nameof(Textures.lime_glazed_terracotta)}", "minecraft:lime_glazed_terracotta" ),
-                        new Material("Terracotta", "GLAZED_06", "Pink Terracotta", 241, 0, Textures.pink_glazed_terracotta, Textures.pink_glazed_terracotta, $"minecraft:{nameof(Textures.pink_glazed_terracotta)}", $"minecraft:{nameof(Textures.pink_glazed_terracotta)}", "minecraft:pink_glazed_terracotta" ),
-                        new Material("Terracotta", "GLAZED_07", "Gray Terracotta", 242, 0, Textures.gray_glazed_terracotta, Textures.gray_glazed_terracotta, $"minecraft:{nameof(Textures.gray_glazed_terracotta)}", $"minecraft:{nameof(Textures.gray_glazed_terracotta)}", "minecraft:gray_glazed_terracotta" ),
-                        new Material("Terracotta", "GLAZED_08", "Light Gray Terracotta", 243, 0, Textures.light_gray_glazed_terracotta, Textures.light_gray_glazed_terracotta, $"minecraft:{nameof(Textures.light_gray_glazed_terracotta)}", $"minecraft:{nameof(Textures.light_gray_glazed_terracotta)}", "minecraft:silver_glazed_terracotta"),
-                        new Material("Terracotta", "GLAZED_09", "Cyan Terracotta", 244, 0, Textures.cyan_glazed_terracotta, Textures.cyan_glazed_terracotta, $"minecraft:{nameof(Textures.cyan_glazed_terracotta)}", $"minecraft:{nameof(Textures.cyan_glazed_terracotta)}", "minecraft:cyan_glazed_terracotta"),
-                        new Material("Terracotta", "GLAZED_10", "Purple Terracotta", 245, 0, Textures.purple_glazed_terracotta, Textures.purple_glazed_terracotta, $"minecraft:{nameof(Textures.purple_glazed_terracotta)}", $"minecraft:{nameof(Textures.purple_glazed_terracotta)}", "minecraft:purple_glazed_terracotta"),
-                        new Material("Terracotta", "GLAZED_11", "Blue Terracotta", 246, 0, Textures.blue_glazed_terracotta, Textures.blue_glazed_terracotta, $"minecraft:{nameof(Textures.blue_glazed_terracotta)}", $"minecraft:{nameof(Textures.blue_glazed_terracotta)}", "minecraft:blue_glazed_terracotta"),
-                        new Material("Terracotta", "GLAZED_12", "Brown Terracotta", 247, 0, Textures.brown_glazed_terracotta, Textures.brown_glazed_terracotta, $"minecraft:{nameof(Textures.brown_glazed_terracotta)}", $"minecraft:{nameof(Textures.brown_glazed_terracotta)}", "minecraft:brown_glazed_terracotta"),
-                        new Material("Terracotta", "GLAZED_13", "Green Terracotta", 248, 0, Textures.green_glazed_terracotta, Textures.green_glazed_terracotta, $"minecraft:{nameof(Textures.green_glazed_terracotta)}", $"minecraft:{nameof(Textures.green_glazed_terracotta)}", "minecraft:green_glazed_terracotta"),
-                        new Material("Terracotta", "GLAZED_14", "Red Terracotta", 249, 0, Textures.red_glazed_terracotta, Textures.red_glazed_terracotta, $"minecraft:{nameof(Textures.red_glazed_terracotta)}", $"minecraft:{nameof(Textures.red_glazed_terracotta)}", "minecraft:red_glazed_terracotta"),
-                        new Material("Terracotta", "GLAZED_15", "Black Terracotta", 250, 0, Textures.black_glazed_terracotta, Textures.black_glazed_terracotta, $"minecraft:{nameof(Textures.black_glazed_terracotta)}", $"minecraft:{nameof(Textures.black_glazed_terracotta)}", "minecraft:black_glazed_terracotta"),
-
                         new Material("Planks", "PLANK_OAK", "Planks Oak", 5, 0, Textures.oak_planks, Textures.oak_planks, $"minecraft:{nameof(Textures.oak_planks)}", $"minecraft:{nameof(Textures.oak_planks)}", "minecraft:planks"),
                         new Material("Planks", "PLANK_SPR", "Planks Spruce", 5, 1, Textures.spruce_planks, Textures.spruce_planks, $"minecraft:{nameof(Textures.spruce_planks)}", $"minecraft:{nameof(Textures.spruce_planks)}", "minecraft:planks"),
                         new Material("Planks", "PLANK_BIR", "Planks Birch", 5, 2, Textures.birch_planks, Textures.birch_planks, $"minecraft:{nameof(Textures.birch_planks)}", $"minecraft:{nameof(Textures.birch_planks)}", "minecraft:planks"),
@@ -333,15 +320,6 @@ namespace PixelStacker.Logic
                         new Material("Stripped", "STRIP_LOG_CRIMSON", "Stripped Crimson Stem", 166, 0, Textures.stripped_crimson_stem, Textures.stripped_crimson_stem, $"minecraft:{nameof(Textures.stripped_crimson_stem)}[axis=x]",$"minecraft:{nameof(Textures.stripped_crimson_stem)}[axis=x]", ""),
                         new Material("Stripped", "STRIP_LOG_WARPED", "Stripped Warped Stem", 166, 0, Textures.stripped_warped_stem, Textures.stripped_warped_stem, $"minecraft:{nameof(Textures.stripped_warped_stem)}[axis=x]",$"minecraft:{nameof(Textures.stripped_warped_stem)}[axis=x]", ""),
 
-                        new Material("Logs", "BARK_LOG_OAK", "Bark Oak", 17, 0, Textures.oak_log, Textures.oak_log, $"minecraft:{nameof(Textures.oak_log)}[axis=x]", $"minecraft:{nameof(Textures.oak_log)}[axis=x]", ""),
-                        new Material("Logs", "BARK_LOG_SPR", "Bark Spruce", 17, 0, Textures.spruce_log, Textures.spruce_log, $"minecraft:{nameof(Textures.spruce_log)}[axis=x]", $"minecraft:{nameof(Textures.spruce_log)}[axis=x]", ""),
-                        new Material("Logs", "BARK_LOG_BIR", "Bark Birch", 17, 0, Textures.birch_log, Textures.birch_log, $"minecraft:{nameof(Textures.birch_log)}[axis=x]", $"minecraft:{nameof(Textures.birch_log)}[axis=x]", ""),
-                        new Material("Logs", "BARK_LOG_JUN", "Bark Jungle", 17, 0, Textures.jungle_log, Textures.jungle_log, $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", ""),
-                        new Material("Logs", "BARK_LOG_ACA", "Bark Acacia", 17, 0, Textures.acacia_log, Textures.acacia_log, $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", ""),
-                        new Material("Logs", "BARK_LOG_DOK", "Bark Dark Oak", 17, 0, Textures.dark_oak_log, Textures.dark_oak_log, $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", ""),
-                        new Material("Logs", "BARK_LOG_CRIMSON", "Crimson Stem", 166, 0, Textures.crimson_stem, Textures.crimson_stem, $"minecraft:{nameof(Textures.crimson_stem)}[axis=x]",$"minecraft:{nameof(Textures.crimson_stem)}[axis=x]", ""),
-                        new Material("Logs", "BARK_LOG_WARPED", "Warped Stem", 166, 0, Textures.warped_stem, Textures.warped_stem, $"minecraft:{nameof(Textures.warped_stem)}[axis=x]",$"minecraft:{nameof(Textures.warped_stem)}[axis=x]", ""),
-
                         new Material("Logs Top", "STUMP_LOG_OAK", "Stripped Oak (Top)", 17, 0, Textures.stripped_oak_log_top, Textures.stripped_oak_log_top, $"minecraft:{nameof(Textures.oak_log)}[axis=y]", $"minecraft:{nameof(Textures.oak_log)}[axis=z]", ""),
                         new Material("Logs Top", "STUMP_LOG_SPR", "Stripped Spruce (Top)", 17, 0, Textures.stripped_spruce_log_top, Textures.stripped_spruce_log_top, $"minecraft:{nameof(Textures.spruce_log)}[axis=y]", $"minecraft:{nameof(Textures.spruce_log)}[axis=z]", ""),
                         new Material("Logs Top", "STUMP_LOG_BIR", "Stripped Birch (Top)", 17, 0, Textures.stripped_birch_log_top, Textures.stripped_birch_log_top, $"minecraft:{nameof(Textures.birch_log)}[axis=y]", $"minecraft:{nameof(Textures.birch_log)}[axis=z]", ""),
@@ -351,17 +329,29 @@ namespace PixelStacker.Logic
                         new Material("Logs Top", "STUMP_LOG_CRIMSON", "Crimson Stem (Top)", 166, 0, Textures.stripped_crimson_stem_top, Textures.stripped_crimson_stem_top, $"minecraft:{nameof(Textures.crimson_stem)}[axis=y]",$"minecraft:{nameof(Textures.crimson_stem)}[axis=z]", ""),
                         new Material("Logs Top", "STUMP_LOG_WARPED", "Warped Stem (Top)", 166, 0, Textures.stripped_warped_stem_top, Textures.stripped_warped_stem_top, $"minecraft:{nameof(Textures.warped_stem)}[axis=y]",$"minecraft:{nameof(Textures.warped_stem)}[axis=z]", ""),
 
+                        new Material("Logs", "BARK_LOG_OAK", "Bark Oak", 17, 0, Textures.oak_log, Textures.oak_log, $"minecraft:{nameof(Textures.oak_log)}[axis=x]", $"minecraft:{nameof(Textures.oak_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_SPR", "Bark Spruce", 17, 0, Textures.spruce_log, Textures.spruce_log, $"minecraft:{nameof(Textures.spruce_log)}[axis=x]", $"minecraft:{nameof(Textures.spruce_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_BIR", "Bark Birch", 17, 0, Textures.birch_log, Textures.birch_log, $"minecraft:{nameof(Textures.birch_log)}[axis=x]", $"minecraft:{nameof(Textures.birch_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_JUN", "Bark Jungle", 17, 0, Textures.jungle_log, Textures.jungle_log, $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_ACA", "Bark Acacia", 17, 0, Textures.acacia_log, Textures.acacia_log, $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_DOK", "Bark Dark Oak", 17, 0, Textures.dark_oak_log, Textures.dark_oak_log, $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_CRIMSON", "Crimson Stem", 166, 0, Textures.crimson_stem, Textures.crimson_stem, $"minecraft:{nameof(Textures.crimson_stem)}[axis=x]",$"minecraft:{nameof(Textures.crimson_stem)}[axis=x]", ""),
+                        new Material("Logs", "BARK_LOG_WARPED", "Warped Stem", 166, 0, Textures.warped_stem, Textures.warped_stem, $"minecraft:{nameof(Textures.warped_stem)}[axis=x]",$"minecraft:{nameof(Textures.warped_stem)}[axis=x]", ""),
+
+
+
                         new Material("Good", "SHROOM_BROWN", "Brown Mushroom", 99, 14, Textures.brown_mushroom_block, Textures.brown_mushroom_block, $"minecraft:{nameof(Textures.brown_mushroom_block)}[down=true,east=true,west=true,north=true,south=true,up=true]", $"minecraft:{nameof(Textures.brown_mushroom_block)}[down=true,east=true,west=true,north=true,south=true,up=true]", "minecraft:brown_mushroom_block"),
-                        new Material("Good", "HAY_BLK", "Hay Block", 170, 4, Textures.hay_block_side, Textures.hay_block_side, $"minecraft:hay_block[axis=x]", $"minecraft:hay_block[axis=x]", "minecraft:hay_block"),
-                        new Material("Good", "HAY_BLK_TOP", "Hay Block (Top)", 170, 0, Textures.hay_block_top, Textures.hay_block_top, $"minecraft:hay_block[axis=y]", $"minecraft:hay_block[axis=z]", ""),
-                        new Material("Good", "SHROOM_INNER", "Mushroom Inside", 100, 0, Textures.mushroom_block_inside, Textures.mushroom_block_inside, $"minecraft:mushroom_stem[down=false,east=false,west=false,north=false,south=false,up=false]", $"minecraft:mushroom_stem[down=false,east=false,west=false,north=false,south=false,up=false]", "minecraft:brown_mushroom_block"),
-                        new Material("Good", "SMOOTH_QRTZ", "Smooth Quartz", 155, 0, Textures.quartz_block_top, Textures.quartz_block_top, $"minecraft:smooth_quartz", $"minecraft:smooth_quartz", "minecraft:quartz_block"),
-                        new Material("Good", "SMOOTH_RED_SANDSTONE", "Smooth Red Sandstone", 179, 0, Textures.red_sandstone_top, Textures.red_sandstone_top, $"minecraft:smooth_red_sandstone", $"minecraft:smooth_red_sandstone", "minecraft:red_sandstone"),
-                        new Material("Good", "SMOOTH_SANDSTONE", "Smooth Sandstone", 24, 2, Textures.sandstone_top, Textures.sandstone_top, $"minecraft:smooth_sandstone", $"minecraft:smooth_sandstone", "minecraft:sandstone"),
-                        new Material("Good", "SNOW_BLK", "Snow", 80, 0, Textures.snow, Textures.snow, $"minecraft:{nameof(Textures.snow)}_block", $"minecraft:{nameof(Textures.snow)}_block", "minecraft:snow"),
                         new Material("Good", "NETHER_WART", "Netherwart Block", 214, 0, Textures.nether_wart_block, Textures.nether_wart_block, $"minecraft:{nameof(Textures.nether_wart_block)}", $"minecraft:{nameof(Textures.nether_wart_block)}", $"minecraft:nether_wart_block"),
                         new Material("Good", "NETHER_WART_WARPED", "Warped Netherwart", 166, 0, Textures.warped_wart_block, Textures.warped_wart_block, $"minecraft:{nameof(Textures.warped_wart_block)}", $"minecraft:{nameof(Textures.warped_wart_block)}", ""),
+                        new Material("Good", "SMOOTH_SANDSTONE", "Smooth Sandstone", 24, 2, Textures.sandstone_top, Textures.sandstone_top, $"minecraft:smooth_sandstone", $"minecraft:smooth_sandstone", "minecraft:sandstone"),
+                        new Material("Good", "SNOW_BLK", "Snow", 80, 0, Textures.snow, Textures.snow, $"minecraft:{nameof(Textures.snow)}_block", $"minecraft:{nameof(Textures.snow)}_block", "minecraft:snow"),
+                        new Material("Good", "SHROOM_INNER", "Mushroom Inside", 100, 0, Textures.mushroom_block_inside, Textures.mushroom_block_inside, $"minecraft:mushroom_stem[down=false,east=false,west=false,north=false,south=false,up=false]", $"minecraft:mushroom_stem[down=false,east=false,west=false,north=false,south=false,up=false]", "minecraft:brown_mushroom_block"),
+                        new Material("Good", "SMOOTH_RED_SANDSTONE", "Smooth Red Sandstone", 179, 0, Textures.red_sandstone_top, Textures.red_sandstone_top, $"minecraft:smooth_red_sandstone", $"minecraft:smooth_red_sandstone", "minecraft:red_sandstone"),
 
+                        new Material("Good", "HAY_BLK_TOP", "Hay Block (Top)", 170, 0, Textures.hay_block_top, Textures.hay_block_top, $"minecraft:hay_block[axis=y]", $"minecraft:hay_block[axis=z]", ""),
+                        new Material("Good", "HAY_BLK", "Hay Block", 170, 4, Textures.hay_block_side, Textures.hay_block_side, $"minecraft:hay_block[axis=x]", $"minecraft:hay_block[axis=x]", "minecraft:hay_block"),
+                        new Material("Good", "SMOOTH_QRTZ", "Smooth Quartz", 155, 0, Textures.quartz_block_top, Textures.quartz_block_top, $"minecraft:smooth_quartz", $"minecraft:smooth_quartz", "minecraft:quartz_block"),
+                        
                         new Material("Okay", "HONEYCOMB", "Honeycomb Block", 166, 0, Textures.honeycomb_block, Textures.honeycomb_block, $"minecraft:honeycomb_block", $"minecraft:honeycomb_block", ""),
                         new Material("Okay", "BEE_HIVE", "Bee Hive", 474, 0, Textures.beehive_end, Textures.beehive_side, $"minecraft:beehive[facing=north]", $"minecraft:beehive[facing=north]", ""),
                         new Material("Okay", "BEE_NEST", "Bee Nest", 473, 0, Textures.bee_nest_top, Textures.bee_nest_side, $"minecraft:bee_nest[facing=west]", $"minecraft:bee_nest[facing=west]", ""),
@@ -402,7 +392,37 @@ namespace PixelStacker.Logic
                         new Material("116", "NETHERITE_BLOCK", "Netherite Block", 166, 0, Textures.netherite_block, Textures.netherite_block, $"minecraft:netherite_block", $"minecraft:netherite_block", ""),
                         new Material("116", "NYLIUM_CRIMSON", "Crimson Nylium", 166, 0, Textures.crimson_nylium, Textures.crimson_nylium_side, $"minecraft:crimson_nylium", $"minecraft:crimson_nylium", ""),
                         new Material("116", "NYLIUM_WARPED", "Warped Nylium", 166, 0, Textures.warped_nylium, Textures.warped_nylium_side, $"minecraft:warped_nylium", $"minecraft:warped_nylium", ""),
-                     
+
+
+                        new Material("Solid Ores", "SLD_ORE_C", "Coal Block", 173, 0, Textures.coal_block, Textures.coal_block, $"minecraft:{nameof(Textures.coal_block)}", $"minecraft:{nameof(Textures.coal_block)}", "minecraft:coal_block"),
+                        new Material("Solid Ores", "SLD_ORE_I", "Iron Block", 42, 0, Textures.iron_block, Textures.iron_block, $"minecraft:{nameof(Textures.iron_block)}", $"minecraft:{nameof(Textures.iron_block)}", "minecraft:iron_block"),
+                        new Material("Solid Ores", "SLD_ORE_G", "Gold Block", 41, 0, Textures.gold_block, Textures.gold_block, $"minecraft:{nameof(Textures.gold_block)}", $"minecraft:{nameof(Textures.gold_block)}", "minecraft:gold_block"),
+                        new Material("Solid Ores", "SLD_ORE_R", "Redstone Block", 152, 0, Textures.redstone_block, Textures.redstone_block, $"minecraft:{nameof(Textures.redstone_block)}", $"minecraft:{nameof(Textures.redstone_block)}", "minecraft:redstone_block"),
+                        new Material("Solid Ores", "SLD_ORE_L", "Lapis Block", 22, 0, Textures.lapis_block, Textures.lapis_block, $"minecraft:{nameof(Textures.lapis_block)}", $"minecraft:{nameof(Textures.lapis_block)}", "minecraft:lapis_block"),
+                        new Material("Solid Ores", "SLD_ORE_D", "Diamond Block", 57, 0, Textures.diamond_block, Textures.diamond_block, $"minecraft:{nameof(Textures.diamond_block)}", $"minecraft:{nameof(Textures.diamond_block)}", "minecraft:diamond_block"),
+                        new Material("Solid Ores", "SLD_ORE_E", "Emerald Block", 133, 0, Textures.emerald_block, Textures.emerald_block, $"minecraft:{nameof(Textures.emerald_block)}", $"minecraft:{nameof(Textures.emerald_block)}", "minecraft:emerald_block"),
+
+                        new Material("Common", "GRASS_PATH", "Grass Path", 208, 0, Textures.grass_path_top, Textures.grass_path_side, $"minecraft:grass_path", $"minecraft:grass_path", $"minecraft:grass_path"),
+                        new Material("Common", "BONE_BLK", "Bone Block", 216, 4, Textures.bone_block_side, Textures.bone_block_side, $"minecraft:bone_block[axis=x]", $"minecraft:bone_block[axis=x]", "minecraft:bone_block"),
+                        new Material("Common", "BONE_BLK_TOP", "Bone Block (Top)", 216, 0, Textures.bone_block_top, Textures.bone_block_top, $"minecraft:bone_block[axis=y]", $"minecraft:bone_block[axis=z]", "minecraft:bone_block"),
+                        new Material("Common", "BRICKS_RED", "Bricks", 45, 0, Textures.bricks, Textures.bricks, $"minecraft:{nameof(Textures.bricks)}", $"minecraft:{nameof(Textures.bricks)}", "minecraft:brick_block"),
+                        new Material("Common", "QUARTZ_CHISELED", "chiseled_quartz_block", 155, 1, Textures.chiseled_quartz_block_top, Textures.chiseled_quartz_block, $"minecraft:chiseled_quartz_block", $"minecraft:chiseled_quartz_block", "minecraft:quartz_block"),
+                        new Material("Common", "STONE_BRICK_CRACKED", "cracked_stone_bricks", 98, 2, Textures.cracked_stone_bricks, Textures.cracked_stone_bricks, $"minecraft:{nameof(Textures.cracked_stone_bricks)}", $"minecraft:{nameof(Textures.cracked_stone_bricks)}", "minecraft:stonebrick"),
+                        new Material("Common", "STONE_BRICK", "stone_bricks", 98, 0, Textures.stone_bricks, Textures.stone_bricks, $"minecraft:{nameof(Textures.stone_bricks)}", $"minecraft:{nameof(Textures.stone_bricks)}", "minecraft:stonebrick"),
+                        new Material("Common", "ENDSTONE_BRICK", "end_stone_bricks", 206, 0, Textures.end_stone_bricks, Textures.end_stone_bricks, $"minecraft:{nameof(Textures.end_stone_bricks)}", $"minecraft:{nameof(Textures.end_stone_bricks)}", "minecraft:end_bricks"),
+                        new Material("Common", "GRAVEL", "gravel", 13, 0, Textures.gravel, Textures.gravel, $"minecraft:{nameof(Textures.gravel)}", $"minecraft:{nameof(Textures.gravel)}", "minecraft:gravel"),
+                        new Material("Common", "COBBLE_MOSSY", "mossy_cobblestone", 48, 0, Textures.mossy_cobblestone, Textures.mossy_cobblestone, $"minecraft:{nameof(Textures.mossy_cobblestone)}", $"minecraft:{nameof(Textures.mossy_cobblestone)}", "minecraft:mossy_cobblestone"),
+                        new Material("Common", "COBBLE_MOSSY_BRICK", "mossy_stone_bricks", 98, 1, Textures.mossy_stone_bricks, Textures.mossy_stone_bricks, $"minecraft:{nameof(Textures.mossy_stone_bricks)}", $"minecraft:{nameof(Textures.mossy_stone_bricks)}", "minecraft:stonebrick"),
+
+                        new Material("Other", "TNT", "TNT", 46, 0, Textures.tnt_top, Textures.tnt_side, $"minecraft:Textures.tnt", $"minecraft:tnt", "minecraft:tnt"),
+                        new Material("Other", "ANDESITE_POLISHED", "Andesite (Polished)", 1, 6, Textures.polished_andesite, Textures.polished_andesite, $"minecraft:{nameof(Textures.andesite)}", $"minecraft:{nameof(Textures.andesite)}", "minecraft:stone"),
+                        new Material("Other", "DIORITE_POLISHED", "Diorite (Polished)", 1, 4, Textures.polished_diorite, Textures.polished_diorite, $"minecraft:{nameof(Textures.diorite)}", $"minecraft:{nameof(Textures.diorite)}", "minecraft:stone"),
+                        new Material("Other", "GRANITE_POLISHED", "Granite (Polished)", 1, 2, Textures.polished_granite, Textures.polished_granite, $"minecraft:{nameof(Textures.granite)}", $"minecraft:{nameof(Textures.granite)}", "minecraft:stone"),
+                        new Material("Other", "BOOK_SHELF", "bookshelf", 47, 0, Textures.oak_planks, Textures.bookshelf, $"minecraft:{nameof(Textures.bookshelf)}", $"minecraft:{nameof(Textures.bookshelf)}", "minecraft:bookshelf"),
+                        new Material("Other", "NOTEBLOCK", "Note Block", 25, 0, Textures.note_block, Textures.note_block, $"minecraft:{nameof(Textures.note_block)}", $"minecraft:{nameof(Textures.note_block)}", "minecraft:noteblock"),
+                        new Material("Other", "MELON_BLOCK", "Melon", 103, 0, Textures.melon_top, Textures.melon_side, $"minecraft:melon", $"minecraft:melon", "minecraft:melon_block"),
+                        new Material("Other", "PUMPKIN_BLOCK", "Pumpkin", 86, 1, Textures.pumpkin_top, Textures.pumpkin_side, $"minecraft:pumpkin", $"minecraft:pumpkin", "minecraft:pumpkin"),
+                        new Material("Other", "PUMPKIN_CARVED", "Pumpkin (Carved)", 86, 0, Textures.pumpkin_top, Textures.carved_pumpkin, $"minecraft:{nameof(Textures.carved_pumpkin)}", $"minecraft:{nameof(Textures.carved_pumpkin)}", "minecraft:pumpkin"),
 
                         new Material("Coral", "CRL_BRAIN", "Brain Coral", 166, 0, Textures.brain_coral_block, Textures.brain_coral_block, $"minecraft:{nameof(Textures.brain_coral_block)}", $"minecraft:{nameof(Textures.brain_coral_block)}", ""),
                         new Material("Coral", "CRL_BUBBLE", "Bubble Coral", 166, 0, Textures.bubble_coral_block, Textures.bubble_coral_block, $"minecraft:{nameof(Textures.bubble_coral_block)}", $"minecraft:{nameof(Textures.bubble_coral_block)}", ""),
@@ -417,14 +437,6 @@ namespace PixelStacker.Logic
                         new Material("Dead Coral", "DEAD_CRL_HORN", "Dead Horn Coral", 166, 0, Textures.dead_horn_coral_block, Textures.dead_horn_coral_block, $"minecraft:{nameof(Textures.dead_horn_coral_block)}", $"minecraft:{nameof(Textures.dead_horn_coral_block)}", ""),
                         new Material("Dead Coral", "DEAD_CRL_TUBE", "Dead Tube Coral", 166, 0, Textures.dead_tube_coral_block, Textures.dead_tube_coral_block, $"minecraft:{nameof(Textures.dead_tube_coral_block)}", $"minecraft:{nameof(Textures.dead_tube_coral_block)}", ""),
 
-                        new Material("Solid Ores", "SLD_ORE_C", "Coal Block", 173, 0, Textures.coal_block, Textures.coal_block, $"minecraft:{nameof(Textures.coal_block)}", $"minecraft:{nameof(Textures.coal_block)}", "minecraft:coal_block"),
-                        new Material("Solid Ores", "SLD_ORE_I", "Iron Block", 42, 0, Textures.iron_block, Textures.iron_block, $"minecraft:{nameof(Textures.iron_block)}", $"minecraft:{nameof(Textures.iron_block)}", "minecraft:iron_block"),
-                        new Material("Solid Ores", "SLD_ORE_G", "Gold Block", 41, 0, Textures.gold_block, Textures.gold_block, $"minecraft:{nameof(Textures.gold_block)}", $"minecraft:{nameof(Textures.gold_block)}", "minecraft:gold_block"),
-                        new Material("Solid Ores", "SLD_ORE_R", "Redstone Block", 152, 0, Textures.redstone_block, Textures.redstone_block, $"minecraft:{nameof(Textures.redstone_block)}", $"minecraft:{nameof(Textures.redstone_block)}", "minecraft:redstone_block"),
-                        new Material("Solid Ores", "SLD_ORE_L", "Lapis Block", 22, 0, Textures.lapis_block, Textures.lapis_block, $"minecraft:{nameof(Textures.lapis_block)}", $"minecraft:{nameof(Textures.lapis_block)}", "minecraft:lapis_block"),
-                        new Material("Solid Ores", "SLD_ORE_D", "Diamond Block", 57, 0, Textures.diamond_block, Textures.diamond_block, $"minecraft:{nameof(Textures.diamond_block)}", $"minecraft:{nameof(Textures.diamond_block)}", "minecraft:diamond_block"),
-                        new Material("Solid Ores", "SLD_ORE_E", "Emerald Block", 133, 0, Textures.emerald_block, Textures.emerald_block, $"minecraft:{nameof(Textures.emerald_block)}", $"minecraft:{nameof(Textures.emerald_block)}", "minecraft:emerald_block"),
-
                         new Material("Ores", "ORE_C", "Coal Ore", 16, 0, Textures.coal_ore, Textures.coal_ore, $"minecraft:{nameof(Textures.coal_ore)}", $"minecraft:{nameof(Textures.coal_ore)}", "minecraft:coal_ore"),
                         new Material("Ores", "ORE_I", "Iron Ore", 15, 0, Textures.iron_ore, Textures.iron_ore, $"minecraft:{nameof(Textures.iron_ore)}", $"minecraft:{nameof(Textures.iron_ore)}", "minecraft:iron_ore"),
                         new Material("Ores", "ORE_G", "Gold Ore", 14, 0, Textures.iron_ore, Textures.iron_ore, $"minecraft:gold_ore", $"minecraft:gold_ore", "minecraft:gold_ore"),
@@ -434,27 +446,23 @@ namespace PixelStacker.Logic
                         new Material("Ores", "ORE_E", "Emerald Ore", 129, 0, Textures.emerald_ore, Textures.emerald_ore, $"minecraft:{nameof(Textures.emerald_ore)}", $"minecraft:{nameof(Textures.emerald_ore)}", "minecraft:emerald_ore"),
                         new Material("Ores", "ORE_QUARTZ", "Quartz Ore", 153, 0, Textures.nether_quartz_ore, Textures.nether_quartz_ore, $"minecraft:{nameof(Textures.nether_quartz_ore)}", $"minecraft:{nameof(Textures.nether_quartz_ore)}", "minecraft:quartz_ore"),
 
-                        new Material("Common", "GRASS_PATH", "Grass Path", 208, 0, Textures.grass_path_top, Textures.grass_path_side, $"minecraft:grass_path", $"minecraft:grass_path", $"minecraft:grass_path"),
-                        new Material("Common", "BONE_BLK", "Bone Block", 216, 4, Textures.bone_block_side, Textures.bone_block_side, $"minecraft:bone_block[axis=x]", $"minecraft:bone_block[axis=x]", "minecraft:bone_block"),
-                        new Material("Common", "BONE_BLK_TOP", "Bone Block (Top)", 216, 0, Textures.bone_block_top, Textures.bone_block_top, $"minecraft:bone_block[axis=y]", $"minecraft:bone_block[axis=z]", "minecraft:bone_block"),
-                        new Material("Common", "BRICKS_RED", "Bricks", 45, 0, Textures.bricks, Textures.bricks, $"minecraft:{nameof(Textures.bricks)}", $"minecraft:{nameof(Textures.bricks)}", "minecraft:brick_block"),
-                        new Material("Common", "QUARTZ_CHISELED", "chiseled_quartz_block", 155, 1, Textures.chiseled_quartz_block_top, Textures.chiseled_quartz_block, $"minecraft:chiseled_quartz_block", $"minecraft:chiseled_quartz_block", "minecraft:quartz_block"),
-                        new Material("Common", "STONE_BRICK_CRACKED", "cracked_stone_bricks", 98, 2, Textures.cracked_stone_bricks, Textures.cracked_stone_bricks, $"minecraft:{nameof(Textures.cracked_stone_bricks)}", $"minecraft:{nameof(Textures.cracked_stone_bricks)}", "minecraft:stonebrick"),
-                        new Material("Common", "STONE_BRICK", "stone_bricks", 98, 0, Textures.stone_bricks, Textures.stone_bricks, $"minecraft:{nameof(Textures.stone_bricks)}", $"minecraft:{nameof(Textures.stone_bricks)}", "minecraft:stonebrick"),
-                        new Material("Common", "ENDSTONE_BRICK", "end_stone_bricks", 206, 0, Textures.end_stone_bricks, Textures.end_stone_bricks, $"minecraft:{nameof(Textures.end_stone_bricks)}", $"minecraft:{nameof(Textures.end_stone_bricks)}", "minecraft:end_bricks"),
-                        new Material("Common", "GRAVEL", "gravel", 13, 0, Textures.gravel, Textures.gravel, $"minecraft:{nameof(Textures.gravel)}", $"minecraft:{nameof(Textures.gravel)}", "minecraft:gravel"),
-                        new Material("Common", "COBBLE_MOSSY", "mossy_cobblestone", 48, 0, Textures.mossy_cobblestone, Textures.mossy_cobblestone, $"minecraft:{nameof(Textures.mossy_cobblestone)}", $"minecraft:{nameof(Textures.mossy_cobblestone)}", "minecraft:mossy_cobblestone"),
-                        new Material("Common", "COBBLE_MOSSY_BRICK", "mossy_stone_bricks", 98, 1, Textures.mossy_stone_bricks, Textures.mossy_stone_bricks, $"minecraft:{nameof(Textures.mossy_stone_bricks)}", $"minecraft:{nameof(Textures.mossy_stone_bricks)}", "minecraft:stonebrick"),
-                        
-                        new Material("Other", "TNT", "TNT", 46, 0, Textures.tnt_top, Textures.tnt_side, $"minecraft:Textures.tnt", $"minecraft:tnt", "minecraft:tnt"),
-                        new Material("Other", "ANDESITE_POLISHED", "Andesite (Polished)", 1, 6, Textures.polished_andesite, Textures.polished_andesite, $"minecraft:{nameof(Textures.andesite)}", $"minecraft:{nameof(Textures.andesite)}", "minecraft:stone"),
-                        new Material("Other", "DIORITE_POLISHED", "Diorite (Polished)", 1, 4, Textures.polished_diorite, Textures.polished_diorite, $"minecraft:{nameof(Textures.diorite)}", $"minecraft:{nameof(Textures.diorite)}", "minecraft:stone"),
-                        new Material("Other", "GRANITE_POLISHED", "Granite (Polished)", 1, 2, Textures.polished_granite, Textures.polished_granite, $"minecraft:{nameof(Textures.granite)}", $"minecraft:{nameof(Textures.granite)}", "minecraft:stone"),
-                        new Material("Other", "BOOK_SHELF", "bookshelf", 47, 0, Textures.oak_planks, Textures.bookshelf, $"minecraft:{nameof(Textures.bookshelf)}", $"minecraft:{nameof(Textures.bookshelf)}", "minecraft:bookshelf"),
-                        new Material("Other", "NOTEBLOCK", "Note Block", 25, 0, Textures.note_block, Textures.note_block, $"minecraft:{nameof(Textures.note_block)}", $"minecraft:{nameof(Textures.note_block)}", "minecraft:noteblock"),
-                        new Material("Other", "MELON_BLOCK", "Melon", 103, 0, Textures.melon_top, Textures.melon_side, $"minecraft:melon", $"minecraft:melon", "minecraft:melon_block"),
-                        new Material("Other", "PUMPKIN_BLOCK", "Pumpkin", 86, 1, Textures.pumpkin_top, Textures.pumpkin_side, $"minecraft:pumpkin", $"minecraft:pumpkin", "minecraft:pumpkin"),
-                        new Material("Other", "PUMPKIN_CARVED", "Pumpkin (Carved)", 86, 0, Textures.pumpkin_top, Textures.carved_pumpkin, $"minecraft:{nameof(Textures.carved_pumpkin)}", $"minecraft:{nameof(Textures.carved_pumpkin)}", "minecraft:pumpkin"),
+                        new Material("Terracotta", "GLAZED_00", "White Terracotta", 235, 0, Textures.white_glazed_terracotta, Textures.white_glazed_terracotta, $"minecraft:{nameof(Textures.white_glazed_terracotta)}", $"minecraft:{nameof(Textures.white_glazed_terracotta)}", "minecraft:white_glazed_terracotta" ),
+                        new Material("Terracotta", "GLAZED_01", "Orange Terracotta", 236, 0, Textures.orange_glazed_terracotta, Textures.orange_glazed_terracotta, $"minecraft:{nameof(Textures.orange_glazed_terracotta)}", $"minecraft:{nameof(Textures.orange_glazed_terracotta)}", "minecraft:orange_glazed_terracotta" ),
+                        new Material("Terracotta", "GLAZED_02", "Magenta Terracotta", 237, 0, Textures.magenta_glazed_terracotta, Textures.magenta_glazed_terracotta, $"minecraft:{nameof(Textures.magenta_glazed_terracotta)}", $"minecraft:{nameof(Textures.magenta_glazed_terracotta)}", "minecraft:magenta_glazed_terracotta" ),
+                        new Material("Terracotta", "GLAZED_03", "Light Blue Terracotta", 238, 0, Textures.light_blue_glazed_terracotta, Textures.light_blue_glazed_terracotta, $"minecraft:{nameof(Textures.light_blue_glazed_terracotta)}", $"minecraft:{nameof(Textures.light_blue_glazed_terracotta)}", "minecraft:light_blue_glazed_terracotta" ),
+                        new Material("Terracotta", "GLAZED_04", "Yellow Terracotta", 239, 0, Textures.yellow_glazed_terracotta, Textures.yellow_glazed_terracotta, $"minecraft:{nameof(Textures.yellow_glazed_terracotta)}", $"minecraft:{nameof(Textures.yellow_glazed_terracotta)}", "minecraft:yellow_glazed_terracotta" ),
+                        new Material("Terracotta", "GLAZED_05", "Lime Terracotta", 240, 0, Textures.lime_glazed_terracotta, Textures.lime_glazed_terracotta, $"minecraft:{nameof(Textures.lime_glazed_terracotta)}", $"minecraft:{nameof(Textures.lime_glazed_terracotta)}", "minecraft:lime_glazed_terracotta" ),
+                        new Material("Terracotta", "GLAZED_06", "Pink Terracotta", 241, 0, Textures.pink_glazed_terracotta, Textures.pink_glazed_terracotta, $"minecraft:{nameof(Textures.pink_glazed_terracotta)}", $"minecraft:{nameof(Textures.pink_glazed_terracotta)}", "minecraft:pink_glazed_terracotta" ),
+                        new Material("Terracotta", "GLAZED_07", "Gray Terracotta", 242, 0, Textures.gray_glazed_terracotta, Textures.gray_glazed_terracotta, $"minecraft:{nameof(Textures.gray_glazed_terracotta)}", $"minecraft:{nameof(Textures.gray_glazed_terracotta)}", "minecraft:gray_glazed_terracotta" ),
+                        new Material("Terracotta", "GLAZED_08", "Light Gray Terracotta", 243, 0, Textures.light_gray_glazed_terracotta, Textures.light_gray_glazed_terracotta, $"minecraft:{nameof(Textures.light_gray_glazed_terracotta)}", $"minecraft:{nameof(Textures.light_gray_glazed_terracotta)}", "minecraft:silver_glazed_terracotta"),
+                        new Material("Terracotta", "GLAZED_09", "Cyan Terracotta", 244, 0, Textures.cyan_glazed_terracotta, Textures.cyan_glazed_terracotta, $"minecraft:{nameof(Textures.cyan_glazed_terracotta)}", $"minecraft:{nameof(Textures.cyan_glazed_terracotta)}", "minecraft:cyan_glazed_terracotta"),
+                        new Material("Terracotta", "GLAZED_10", "Purple Terracotta", 245, 0, Textures.purple_glazed_terracotta, Textures.purple_glazed_terracotta, $"minecraft:{nameof(Textures.purple_glazed_terracotta)}", $"minecraft:{nameof(Textures.purple_glazed_terracotta)}", "minecraft:purple_glazed_terracotta"),
+                        new Material("Terracotta", "GLAZED_11", "Blue Terracotta", 246, 0, Textures.blue_glazed_terracotta, Textures.blue_glazed_terracotta, $"minecraft:{nameof(Textures.blue_glazed_terracotta)}", $"minecraft:{nameof(Textures.blue_glazed_terracotta)}", "minecraft:blue_glazed_terracotta"),
+                        new Material("Terracotta", "GLAZED_12", "Brown Terracotta", 247, 0, Textures.brown_glazed_terracotta, Textures.brown_glazed_terracotta, $"minecraft:{nameof(Textures.brown_glazed_terracotta)}", $"minecraft:{nameof(Textures.brown_glazed_terracotta)}", "minecraft:brown_glazed_terracotta"),
+                        new Material("Terracotta", "GLAZED_13", "Green Terracotta", 248, 0, Textures.green_glazed_terracotta, Textures.green_glazed_terracotta, $"minecraft:{nameof(Textures.green_glazed_terracotta)}", $"minecraft:{nameof(Textures.green_glazed_terracotta)}", "minecraft:green_glazed_terracotta"),
+                        new Material("Terracotta", "GLAZED_14", "Red Terracotta", 249, 0, Textures.red_glazed_terracotta, Textures.red_glazed_terracotta, $"minecraft:{nameof(Textures.red_glazed_terracotta)}", $"minecraft:{nameof(Textures.red_glazed_terracotta)}", "minecraft:red_glazed_terracotta"),
+                        new Material("Terracotta", "GLAZED_15", "Black Terracotta", 250, 0, Textures.black_glazed_terracotta, Textures.black_glazed_terracotta, $"minecraft:{nameof(Textures.black_glazed_terracotta)}", $"minecraft:{nameof(Textures.black_glazed_terracotta)}", "minecraft:black_glazed_terracotta"),
+
                     };
 
                     var notUnique = _List.GroupBy(x => x.PixelStackerID).Where(x => x.Count() > 1);
