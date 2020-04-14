@@ -41,6 +41,8 @@ namespace PixelStacker.UI
                 this.Close();
                 return true;
             }
+
+            MainForm.Self.konamiWatcher.ProcessKey(keyData);
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

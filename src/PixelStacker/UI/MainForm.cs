@@ -5,6 +5,7 @@ using PixelStacker.Logic.WIP;
 using PixelStacker.Resources;
 using PixelStacker.UI;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,7 +23,7 @@ namespace PixelStacker
         public static PanZoomSettings PanZoomSettings { get; set; } = null;
         public EditHistory History { get; set; }
 
-        private KonamiWatcher konamiWatcher;
+        public KonamiWatcher konamiWatcher;
         public MainForm()
         {
             Self = this;
@@ -84,6 +85,7 @@ namespace PixelStacker
             togglePaletteToolStripMenuItem.Visible = isAdv;
             mi_tests.Visible = isAdv;
             toggleProgressToolStripMenuItem.Visible = isAdv;
+            this.MaterialOptions?.SetVisibleMaterials(Materials.List ?? new List<Material>());
         }
 
         private void timer1_Tick(object sender, EventArgs e)

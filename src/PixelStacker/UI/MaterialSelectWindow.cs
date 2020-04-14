@@ -70,6 +70,8 @@ namespace PixelStacker.UI
                 this.ddlColorProfile.Text = "Select profile";
                 this.ddlColorProfile.Items.AddRange(fis.Select(x => x.Name).ToArray());
             }
+
+            SetVisibleMaterials(Materials.List ?? new List<Material>());
         }
 
         private void OnMouseLeave_Tile(object sender, EventArgs e)
@@ -158,6 +160,7 @@ namespace PixelStacker.UI
 
         protected bool ProcessCmdKeyFromTileGrid(Message msg, Keys keyData)
         {
+            MainForm.Self.konamiWatcher.ProcessKey(keyData);
             if (keyData.HasFlag(Keys.A) && keyData.HasFlag(Keys.Control))
             {
                 this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp => {
@@ -228,15 +231,15 @@ namespace PixelStacker.UI
             SetVisibleMaterials(newList);
         }
 
-        private void SetVisibleMaterials(List<Material> mats)
+        public void SetVisibleMaterials(List<Material> mats)
         {
             this.flowLayout.SuspendLayout();
 
             foreach (var kvp in this.materialTiles)
             {
-                if (mats.Any(x => x.PixelStackerID == kvp.Key))
+                if (mats.Any(x => x.PixelStackerID == kvp.Key && x.IsVisible))
                 {
-                    kvp.Value.Visible = kvp.Value.Material?.IsVisible ?? true;
+                    kvp.Value.Visible = true;
                 }
                 else
                 {
@@ -315,6 +318,7 @@ namespace PixelStacker.UI
         private void MaterialSelectWindow_VisibleChanged(object sender, EventArgs e)
         {
             this.LoadFromSettings();
+            SetVisibleMaterials(Materials.List ?? new List<Material>());
         }
 
         private void ddlColorProfile_SelectedValueChanged(object sender, EventArgs e)

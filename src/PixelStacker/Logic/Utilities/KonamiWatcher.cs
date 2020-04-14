@@ -20,15 +20,16 @@ namespace PixelStacker.Logic.Utilities
         private Keys[] konamiSequence = new Keys[] {
             Keys.Up, Keys.Up, Keys.Down, Keys.Down,
             Keys.Left, Keys.Right, Keys.Left, Keys.Right,
-            Keys.B, Keys.A, Keys.Enter
+            Keys.B, Keys.A
         };
 
         public void ProcessKey(Keys keyData)
         {
+            Console.WriteLine(keyData.ToString());
             if (konamiSequence[konamiIndex] == keyData)
             {
                 konamiIndex++;
-                if (keyData == Keys.Enter)
+                if (keyData == Keys.A)
                 {
                     konamiIndex = 0;
                     this.OnCodeEntry();
