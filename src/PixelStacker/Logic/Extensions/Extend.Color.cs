@@ -60,19 +60,19 @@ namespace PixelStacker.Logic.Extensions
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static float GetColorDistance(this Color c, Color toMatch)
+        public static int GetColorDistance(this Color c, Color toMatch)
         {
             int dR = (c.R - toMatch.R);
             int dG = (c.G - toMatch.G);
             int dB = (c.B - toMatch.B);
-            float dHue = GetDegreeDistance(c.GetHue(), toMatch.GetHue());
+            int dHue = (int) GetDegreeDistance(c.GetHue(), toMatch.GetHue());
             //float dSat = (c.GetSaturation() - toMatch.GetSaturation()) * 100;
 
-            float diff = (
+            int diff = (
                 (dR * dR)
                 + (dG * dG)
                 + (dB * dB)
-                + (float) Math.Pow(dHue, 1.5)
+                + (int)(Math.Sqrt(dHue * dHue * dHue))
                 //+ (dSat * dSat)
                 );
 

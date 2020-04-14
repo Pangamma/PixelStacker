@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixelStacker.Logic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,16 +17,6 @@ namespace PixelStacker.UI
         public AboutForm()
         {
             InitializeComponent();
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Escape)
-            {
-                this.Close();
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void lnkFontMaker_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

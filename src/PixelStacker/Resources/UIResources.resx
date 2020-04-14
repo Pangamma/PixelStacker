@@ -136,15 +136,6 @@
   <data name="YellowHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\pixelart\yellowheart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="weird_intro" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\weird-intro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nerfman" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\nerfman.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="psg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\psg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="pink_girl" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\pixelart\pink-girl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -159,9 +150,6 @@
   </data>
   <data name="feature_palette_detailed_grid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\ui\feature_palette_detailed_grid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hyrule_midna_link" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\hyrule_midna_link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\pixelart\test.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -189,5 +177,11 @@
   </data>
   <data name="selected_frame_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\UI\selected_frame_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="elsa_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\pixelart\elsa-cropped.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="elsa_cropped_sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\pixelart\elsa-cropped-sm.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

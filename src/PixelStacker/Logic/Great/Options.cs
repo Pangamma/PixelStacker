@@ -96,6 +96,7 @@ namespace PixelStacker.Logic
         /// Contains stuff like "minecraft:air"
         /// </summary>
         public List<string> SelectedMaterialFilter { get; set; } = new List<string>();
+        public bool IsAdvancedModeEnabled { get; set; } = false;
 
         private string makeKey(string input)
         {

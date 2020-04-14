@@ -170,7 +170,7 @@ namespace PixelStacker
 
                 if (fName.ToLower().EndsWith(".schem"))
                 {
-                    SchemFormatter.writeBlueprint(fName, this.LoadedBlueprint);
+                    Schem2Formatter.writeBlueprint(fName, this.LoadedBlueprint);
                 }
                 else if (fName.ToLower().EndsWith(".schematic"))
                 {

@@ -8,7 +8,7 @@ namespace PixelStacker.Logic
 {
     public static class Constants
     {
-        public const string Version = "1.16.20w10a.b";
+        public const string Version = "1.16.20w15a";
         public const string Website = "https://taylorlove.info/pixelstacker";
         public const int TextureSize = 16;
         public const string RenderedZIndexFilter = "RenderedZIndexFilter";
@@ -19,6 +19,11 @@ namespace PixelStacker.Logic
         public const int SMALL_IMAGE_DIVIDE_SIZE = 2;
         public const int BIG_IMG_MAX_AREA_B4_SPLIT = 100000; // split image into smaller sizes if bigger than this
 
+        // Data version of MC build. Can be found on wiki.
+        // TODO: Auto calc this based on selected materials
+        // https://minecraft.gamepedia.com/Java_Edition_1.15.2
+        // https://minecraft.gamepedia.com/Java_Edition_20w15a
+        public const int DataVersion = 2525;
 
 #if FULL_VERSION
         public const bool IsFullVersion = true;

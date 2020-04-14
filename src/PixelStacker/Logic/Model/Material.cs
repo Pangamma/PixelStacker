@@ -26,6 +26,7 @@ namespace PixelStacker.Logic
         public Bitmap TopImage { get; private set; }
         public string Category { get; set; }
         public string SchematicaMaterialName { get; set; }
+        public bool IsAdvanced { get; set; } = false;
 
         /// <summary>
         /// minecraft:stone_1
@@ -45,8 +46,30 @@ namespace PixelStacker.Logic
         /// </summary>
         public List<string> Tags { get; set; } = new List<string>();
 
-        public Material(string category, string pixelStackerID, string label, int blockID, int data, Bitmap topImage, Bitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
+        private static readonly string[] ValidMinecraftVersions = new string[] {
+            "NEW", "1.7", // 1.7 and 1.12 will contain inaccuracies where I was originally "rounding" up or down.
+            "1.8", "1.9", "1.10",
+            "1.12", "1.13", "1.14", "1.15", "1.16"
+        };
+        private string _minimumSupportedMinecraftVersion = "NEW";
+        public string MinimumSupportedMinecraftVersion
         {
+            get => this._minimumSupportedMinecraftVersion;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value) || !ValidMinecraftVersions.Contains(value))
+                {
+                    throw new ArgumentNullException($"Invalid MC Version provided. Given '{value}' Expected: {string.Join(", ", Material.ValidMinecraftVersions)}");
+                }
+
+                _minimumSupportedMinecraftVersion = value;
+            }
+        }
+
+        public Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, Bitmap topImage, Bitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
+        {
+            this.MinimumSupportedMinecraftVersion = minMcVersion;
+            this.IsAdvanced = isAdvancedMaterial;
             this.PixelStackerID = pixelStackerID;
             this.Label = label;
             this.BlockID = blockID;
@@ -101,6 +124,8 @@ namespace PixelStacker.Logic
             string sideBlockName = this.SideBlockName.Replace("minecraft:" + topImageResource.Value.Key.ToString(), "minecraft:{nameof(Textures." + topImageResource.Value.Key.ToString() + ")}");
        
             return $"new Material("
+                + $"\"{this.MinimumSupportedMinecraftVersion}\", "
+                + $"{this.IsAdvanced.ToString().ToLowerInvariant()}, "
                 + $"\"{this.Category}\", "
                 + $"\"{this.PixelStackerID}\", "
                 + $"\"{this.Label}\", "
@@ -111,15 +136,37 @@ namespace PixelStacker.Logic
                 + $"$\"{topBlockName}\", "
                 + $"$\"{sideBlockName}\", "
                 + $"\"{this.SchematicaMaterialName}\""
-                + ")";
+                + "),";
         }
 
         private string SettingsKey { get { return string.Format("BLOCK_{0}", this.PixelStackerID); } }
+
+        public bool IsVisible
+        {
+            get
+            {
+                if (this.IsAdvanced)
+                {
+
+                }
+                if (!Options.Get.IsAdvancedModeEnabled && this.IsAdvanced)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
 
         public bool IsEnabled
         {
             get
             {
+                if (this.IsAdvanced && !Options.Get.IsAdvancedModeEnabled)
+                {
+                    return false;
+                }
+
                 if (!Options.Get.EnableStates.ContainsKey(SettingsKey))
                 {
                     Options.Get.EnableStates[SettingsKey] = true;

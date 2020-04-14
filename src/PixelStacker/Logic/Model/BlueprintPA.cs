@@ -60,7 +60,7 @@ namespace PixelStacker.Logic
                     int r = cc.R;
                     int b = cc.B;
                     int gg = cc.G;
-                    if (((r == 255 && b == 255 && gg == 255) || (r == 0 && b == 0 && gg == 0)) && cc.A < 30)
+                    if (cc.A < 30 && ((r == 255 && b == 255 && gg == 255) || (r == 0 && b == 0 && gg == 0)))
                     {
                         blocksTemp[x, y] = airColor;
                     }
@@ -85,6 +85,7 @@ namespace PixelStacker.Logic
                 }
 
                 src.ToViewStream(_worker, viewActionPerPixel);
+                TaskManager.SafeReport(100, "Finished rendering the blueprint.");
             }
 
             Materials.BestMatchCache.Save();

@@ -83,7 +83,6 @@ namespace PixelStacker.UI
         private void OnMouseEnter_Tile(object sender, EventArgs e)
         {
             this.lblInfo.Text = ((MaterialSelectTile) sender).Material.Label;
-            this.lblInfo.Text = ((MaterialSelectTile) sender).Material.GetTextureRoughness(Options.Get.IsSideView).ToString();
         }
 
         private MaterialSelectTile previouslyClickedTile = null;
@@ -193,6 +192,8 @@ namespace PixelStacker.UI
             int? idNeedle = needle.ToNullable<int>();
             var newList = Materials.List.Where(x =>
             {
+                if (!x.IsVisible) return false;
+
                 if (needle == "on" || needle == "enabled" || needle == "active")
                 {
                     return x.IsEnabled;
@@ -205,6 +206,7 @@ namespace PixelStacker.UI
 
                 if (string.IsNullOrWhiteSpace(needle)) return true;
                 if (x.Label.ToLowerInvariant().Contains(needle)) return true;
+                if (x.MinimumSupportedMinecraftVersion.ToLowerInvariant().Contains(needle)) return true;
                 if (x.Category.ToLowerInvariant().Contains(needle)) return true;
                 if (x.Tags.Any(t => t.ToLowerInvariant().Contains(needle))) return true;
                 if (idNeedle != null && idNeedle == x.BlockID) return true;
@@ -234,7 +236,7 @@ namespace PixelStacker.UI
             {
                 if (mats.Any(x => x.PixelStackerID == kvp.Key))
                 {
-                    kvp.Value.Visible = true;
+                    kvp.Value.Visible = kvp.Value.Material?.IsVisible ?? true;
                 }
                 else
                 {

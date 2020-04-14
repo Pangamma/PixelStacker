@@ -61,7 +61,7 @@ namespace PixelStacker.UI
                 CalculatedTextureSize = textureSize ?? Constants.TextureSize;
 
                 this.ClearAndDisposeRenderedImages();
-
+                if (_renderedImage == null) return;
                 var images = new List<Bitmap>();
                 images.Add(_renderedImage);
                 int w = _renderedImage.Width;

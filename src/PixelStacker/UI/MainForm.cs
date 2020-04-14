@@ -1,12 +1,11 @@
 ﻿using PixelStacker.Logic;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.Utilities;
 using PixelStacker.Logic.WIP;
 using PixelStacker.Resources;
 using PixelStacker.UI;
-using SimplePaletteQuantizer;
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,16 +16,22 @@ namespace PixelStacker
     {
 
         public static MainForm Self;
-        public Bitmap LoadedImage { get; private set; } = UIResources.colorwheel.To32bppBitmap();
+        public Bitmap LoadedImage { get; private set; } = UIResources.elsa_cropped_sm.To32bppBitmap();
         public Bitmap PreRenderedImage { get; set; } = null;
         public BlueprintPA LoadedBlueprint { get; private set; }
         public static PanZoomSettings PanZoomSettings { get; set; } = null;
         public EditHistory History { get; set; }
 
+        private KonamiWatcher konamiWatcher;
         public MainForm()
         {
             Self = this;
             InitializeComponent();
+            this.konamiWatcher = new KonamiWatcher(() => {
+                Options.Get.IsAdvancedModeEnabled = !Options.Get.IsAdvancedModeEnabled;
+                MessageBox.Show("Advanced mode " + (Options.Get.IsAdvancedModeEnabled ? "enabled" : "disabled") + "!");
+                doConfigureAdvancedMode();
+            });
             this.imagePanelMain.SetImage(LoadedImage);
             this.Text = this.Text + " v" + Constants.Version;
 #if !RELEASE
@@ -55,6 +60,12 @@ namespace PixelStacker
 #pragma warning restore CS4014
         }
 #endregion
+        
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            this.konamiWatcher.ProcessKey(keyData);
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
         private void SetViewModeCheckBoxStates()
         {
@@ -63,6 +74,16 @@ namespace PixelStacker
             toggleBorderToolStripMenuItem.Checked = Options.Get.Rendered_IsShowBorder;
             toggleSolidColorsToolStripMenuItem.Checked = Options.Get.Rendered_IsSolidColors;
             toggleLayerFilterToolStripMenuItem.Checked = Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false);
+            doConfigureAdvancedMode();
+        }
+
+        private void doConfigureAdvancedMode()
+        {
+            bool isAdv = Options.Get.IsAdvancedModeEnabled;
+            mi_preRender.Visible = isAdv;
+            togglePaletteToolStripMenuItem.Visible = isAdv;
+            mi_tests.Visible = isAdv;
+            toggleProgressToolStripMenuItem.Visible = isAdv;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

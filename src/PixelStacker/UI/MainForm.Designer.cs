@@ -41,6 +41,7 @@
             this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allPossibilitiescompactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allColorsdetailedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_tests = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +95,8 @@
             this.openToolStripMenuItem,
             this.reOpenToolStripMenuItem,
             this.exportSchematicToolStripMenuItem,
-            this.saveColorPaletteToolStripMenuItem});
+            this.saveColorPaletteToolStripMenuItem,
+            this.mi_tests});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
@@ -105,7 +107,7 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -114,7 +116,7 @@
             this.reOpenToolStripMenuItem.Enabled = false;
             this.reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
             this.reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.reOpenToolStripMenuItem.Text = "Re-Open";
             this.reOpenToolStripMenuItem.Click += new System.EventHandler(this.reOpenToolStripMenuItem_Click);
             // 
@@ -123,7 +125,7 @@
             this.exportSchematicToolStripMenuItem.Enabled = false;
             this.exportSchematicToolStripMenuItem.Name = "exportSchematicToolStripMenuItem";
             this.exportSchematicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exportSchematicToolStripMenuItem.Text = "Save";
             this.exportSchematicToolStripMenuItem.Click += new System.EventHandler(this.saveMenuClick);
             // 
@@ -138,7 +140,7 @@
             this.saveColorPaletteToolStripMenuItem.Enabled = false;
             this.saveColorPaletteToolStripMenuItem.Name = "saveColorPaletteToolStripMenuItem";
             this.saveColorPaletteToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveColorPaletteToolStripMenuItem.Text = "Save color palette";
             // 
             // graphToolStripMenuItem
@@ -186,6 +188,14 @@
             this.allColorsdetailedToolStripMenuItem.Size = new System.Drawing.Size(270, 62);
             this.allColorsdetailedToolStripMenuItem.Text = "All colors (detailed)";
             this.allColorsdetailedToolStripMenuItem.Click += new System.EventHandler(this.allColorsdetailedToolStripMenuItem_Click);
+            // 
+            // mi_tests
+            // 
+            this.mi_tests.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.mi_tests.Name = "mi_tests";
+            this.mi_tests.Size = new System.Drawing.Size(224, 26);
+            this.mi_tests.Text = "Tests";
+            this.mi_tests.Visible = false;
             // 
             // editToolStripMenuItem
             // 
@@ -254,20 +264,24 @@
             // 
             // togglePaletteToolStripMenuItem
             // 
+            this.togglePaletteToolStripMenuItem.BackColor = System.Drawing.Color.PaleTurquoise;
             this.togglePaletteToolStripMenuItem.Enabled = false;
             this.togglePaletteToolStripMenuItem.Name = "togglePaletteToolStripMenuItem";
             this.togglePaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.togglePaletteToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
             this.togglePaletteToolStripMenuItem.Text = "Toggle Palette";
+            this.togglePaletteToolStripMenuItem.Visible = false;
             this.togglePaletteToolStripMenuItem.Click += new System.EventHandler(this.togglePaletteToolStripMenuItem_Click);
             // 
             // toggleProgressToolStripMenuItem
             // 
+            this.toggleProgressToolStripMenuItem.BackColor = System.Drawing.Color.PaleTurquoise;
             this.toggleProgressToolStripMenuItem.Name = "toggleProgressToolStripMenuItem";
             this.toggleProgressToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.P)));
             this.toggleProgressToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
             this.toggleProgressToolStripMenuItem.Text = "Toggle Progress";
+            this.toggleProgressToolStripMenuItem.Visible = false;
             this.toggleProgressToolStripMenuItem.Click += new System.EventHandler(this.toggleProgressToolStripMenuItem_Click);
             // 
             // layerFilteringToolStripMenuItem
@@ -346,6 +360,7 @@
             // 
             // mi_preRender
             // 
+            this.mi_preRender.BackColor = System.Drawing.Color.PaleTurquoise;
             this.mi_preRender.Name = "mi_preRender";
             this.mi_preRender.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.R)));
@@ -373,7 +388,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -522,6 +537,7 @@
         public System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog dlgSaveColorPalette;
+        private System.Windows.Forms.ToolStripMenuItem mi_tests;
     }
 }
 

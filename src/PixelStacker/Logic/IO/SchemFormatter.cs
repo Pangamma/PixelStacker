@@ -88,30 +88,12 @@ namespace PixelStacker.Logic
 
                                 int blockId = palette[key];
 
-                                if (blockId <= Byte.MaxValue)
+                                while ((blockId & -128) != 0)
                                 {
-                                    buffer.Write((byte)blockId);
+                                    buffer.Write((byte) (blockId & 127 | 128));
+                                    blockId = (int) ((uint) blockId >> 7);
                                 }
-                                else if (blockId <= short.MaxValue)
-                                {
-                                    buffer.Write((short)blockId);
-                                }
-                                else if (blockId <= int.MaxValue)
-                                {
-                                    buffer.Write((int)blockId);
-                                }
-                                //while ((blockId & -128) != 0)
-                                //{
-                                //    byte b = (byte)(blockId & 127 | 128);
-                                //    buffer.Write(b);
-                                //    blockId >>= 7; 
-                                //    //blockId >>> = 7;
-                                //}
-                                //byte b2 = (byte)(blockId & 127 | 128);
-                                //buffer.Write(b2);
-                                //buffer.Write((short)blockId);
-
-                                //buffer.Write((byte)blockId);
+                                buffer.Write((byte) blockId);
                             }
                         }
                     }
