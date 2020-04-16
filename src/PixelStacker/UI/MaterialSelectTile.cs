@@ -49,7 +49,9 @@ namespace PixelStacker.UI
 
                 if (this.Material.IsEnabled)
                 {
-                    g.DrawImage(Resources.UIResources.selected_frame_64, 0, 0, this.Width, this.Height);
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bicubic;
+                    g.DrawImage(Resources.UIResources.selected_frame_128, 0, 0, this.Width, this.Height);
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                 }
 
                 if (this.isFocused)

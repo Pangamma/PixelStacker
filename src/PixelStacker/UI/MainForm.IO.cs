@@ -38,6 +38,18 @@ namespace PixelStacker
             dlgSaveColorPalette.ShowDialog(this);
         }
 
+        private void allItemsInColorPaletteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var mats = Materials.List.Where(x => x.IsEnabled);
+            var map = new int[10, 1 + (mats.Count() / 10)];
+            BlueprintPA print = new BlueprintPA()
+            {
+                MaxDepth = 1,
+            };
+
+            SchemFormatter.writeBlueprint("./io.schem", print);
+        }
+
         private void graphToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.LoadedBlueprint == null)

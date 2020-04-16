@@ -7,6 +7,9 @@ using System.Threading;
 using PixelStacker.Logic.Great;
 using PixelStacker.Resources;
 using PixelStacker.UI;
+using Accord.Collections;
+using Accord.Math;
+using System.Collections.Concurrent;
 
 namespace PixelStacker.Logic
 {
@@ -139,6 +142,26 @@ namespace PixelStacker.Logic
                 ColorMap = ColorMap.Where(x => x.Value.Length > 1).ToDictionary(k => k.Key, v => v.Value);
             }
             TaskManager.SafeReport(100, "Color map finished compiling");
+        }
+
+        public static Color? FindBestMatch(KDTree<Color> colors, Color toMatch)
+        {
+            if (BestMatchCache.TryGetValue(toMatch, out Color found))
+            {
+                return found;
+            }
+
+            var rt = colors.Nearest(new double[] { toMatch.R, toMatch.G, toMatch.B }, 10)
+                .OrderBy(x => x.Node.Value.GetColorDistance(toMatch))
+                .Select(x => x.Node.Value)
+                .FirstOrDefault();
+
+            if (rt != default(Color))
+            {
+                BestMatchCache.Add(toMatch, rt);
+            }
+
+            return rt;
         }
 
         public static Color? FindBestMatch(List<Color> colors, Color toMatch)
@@ -538,6 +561,8 @@ namespace PixelStacker.Logic
 
                         m.Tags = tags.Distinct().ToList();
                     });
+
+                    _List = _List.OrderBy(x => x.IsAdvanced).ToList();
 
                     //int n = 1;
                     //int diff = 50;

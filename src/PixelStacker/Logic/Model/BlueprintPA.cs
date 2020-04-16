@@ -1,4 +1,6 @@
-﻿using PixelStacker.Logic.Extensions;
+﻿using Accord.Collections;
+using PixelStacker.Logic.Collections;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.UI;
 using System;
 using System.Collections.Generic;
@@ -40,19 +42,29 @@ namespace PixelStacker.Logic
             int maxDepth = 0;
             bool isMultiLayer = Options.Get.IsMultiLayer;
             bool isSide = Options.Get.IsSideView;
+
             if (Materials.ColorMap.Count == 0)
             {
                 TaskManager.SafeReport(0, "Compiling the color map");
                 Materials.CompileColorMap(_worker, false);
             }
+
             TaskManager.SafeReport(100, "Colormap is compiled");
             _worker.SafeThrowIfCancellationRequested();
 
             int[,] blocksTemp = new int[src.Width, src.Height];
 
-            List<Color> availableColors = Materials.ColorMap.Keys.ToList();
+            List<Color> availableColors = Materials.ColorMap.Keys.Where(x => x.ToArgb() != 16777215).ToList();
+
+            var kdt = new KDTree<Color>(3);
+            //kdt.Distance = new ColorDistanceCalculator();
+            availableColors.ForEach(c => kdt.Add(new double[] {
+            c.R, c.G, c.B
+            }, c));
+
             TaskManager.SafeReport(0, "Rendering the blueprint...");
             var airColor = Materials.Air.getAverageColor(isSide).ToArgb();
+
             using (var padlock = await AsyncDuplicateLock.Get.LockAsync(src))
             {
                 void viewActionPerPixel(int x, int y, Color cc)
@@ -61,12 +73,12 @@ namespace PixelStacker.Logic
                     int b = cc.B;
                     int gg = cc.G;
                     if (cc.A < 30 && ((r == 255 && b == 255 && gg == 255) || (r == 0 && b == 0 && gg == 0)))
-                    {
-                        blocksTemp[x, y] = airColor;
-                    }
+                        {
+                            blocksTemp[x, y] = airColor;
+                        }
                     else
                     {
-                        Color? c = Materials.FindBestMatch(availableColors, cc);
+                        Color? c = Materials.FindBestMatch(kdt, cc);
                         int ccii = c?.ToArgb() ?? 0;
                         if (c != null)
                         {

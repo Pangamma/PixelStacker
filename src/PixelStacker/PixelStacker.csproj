@@ -99,6 +99,34 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Collections\Base\Sparse.cs" />
+    <Compile Include="Logic\Collections\Base\Sparse`1.cs" />
+    <Compile Include="Logic\Collections\Base\Tree.cs" />
+    <Compile Include="Logic\Collections\Base\TreeNode.cs" />
+    <Compile Include="Logic\Collections\Base\TreeTraversal.cs" />
+    <Compile Include="Logic\Collections\BinaryTree.cs" />
+    <Compile Include="Logic\Collections\ColorDistanceCalculator.cs" />
+    <Compile Include="Logic\Collections\DimensionMismatchException.cs" />
+    <Compile Include="Logic\Collections\ElementComparer.cs" />
+    <Compile Include="Logic\Collections\Euclidean.cs" />
+    <Compile Include="Logic\Collections\Hyperrectangle.cs" />
+    <Compile Include="Logic\Collections\IDistance.cs" />
+    <Compile Include="Logic\Collections\IMetric.cs" />
+    <Compile Include="Logic\Collections\ISimilarity.cs" />
+    <Compile Include="Logic\Collections\KDTree.cs" />
+    <Compile Include="Logic\Collections\KDTreeNode.cs" />
+    <Compile Include="Logic\Collections\KDTreeNodeCollection.cs" />
+    <Compile Include="Logic\Collections\KDTreeNodeList.cs" />
+    <Compile Include="Logic\Collections\KDTree`1.cs" />
+    <Compile Include="Logic\Collections\BinaryNode.cs" />
+    <Compile Include="Logic\Collections\NewFolder1\DecisionNode.cs" />
+    <Compile Include="Logic\Collections\NewFolder1\ID3Learning.cs" />
+    <Compile Include="Logic\Collections\ITreeNode.cs" />
+    <Compile Include="Logic\Collections\NewFolder1\KDTreeBase.cs" />
+    <Compile Include="Logic\Collections\NewFolder1\SPTreeNode.cs" />
+    <Compile Include="Logic\Collections\NewFolder1\TreeNode.cs" />
+    <Compile Include="Logic\Collections\NodeDistance.cs" />
+    <Compile Include="Logic\Collections\SquareEuclidean.cs" />
     <Compile Include="Logic\IO\FilePaths.cs" />
     <Compile Include="Logic\IO\Schem2Formatter.cs" />
     <Compile Include="Logic\Model\BestMatchCacheMap.cs" />
@@ -934,6 +962,7 @@
     <None Include="Resources\Images\Textures\x16\lodestone_top.png" />
     <None Include="Resources\Images\Textures\x16\target_top.png" />
     <None Include="Resources\Images\Textures\x16\target_side.png" />
+    <None Include="Resources\Images\UI\advanced_frame_128.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_brick.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_graph.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_grid.png" />
@@ -990,6 +1019,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
