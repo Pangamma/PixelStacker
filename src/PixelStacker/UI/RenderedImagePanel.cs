@@ -139,24 +139,24 @@ namespace PixelStacker.UI
                 ColorMatcher.Get.CompileColorPalette(worker, true, Materials.List).GetAwaiter().GetResult();
             }
 
-            int xx = 0;
+            int numPixelsProcessed = 0;
+            int numPixelsTotal = mWidth * mHeight;
             blueprint.ToEditStream(worker, (int x, int y, Color c) => {
 
                 Color cFromPalette = ColorMatcher.Get.FindBestMatch(c);
-                if (x > xx)
-                {
-                    xx = x; 
-                    TaskManager.SafeReport(100 * x / mWidth, "Rendering low-rez preview to give the illusion of a faster program.");
-                }
-
+                
+                
                 if (cFromPalette.A == 0)
                 {
                     return Materials.Air.getAverageColor(true);
                 }
 
+                Interlocked.Increment(ref numPixelsProcessed);
+                TaskManager.SafeReport(100 * numPixelsProcessed / numPixelsTotal, "Rendering low-rez preview to give the illusion of a faster program.");
+
                 return cFromPalette;
             });
-
+            TaskManager.SafeReport(100, ""); 
             return blueprint;
         }
 
