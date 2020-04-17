@@ -136,13 +136,19 @@ namespace PixelStacker.UI
             int xx = 0;
             blueprint.ToEditStream(worker, (int x, int y, Color c) => {
 
-                Color? cFromPalette = ColorMatcher.Get.FindBestMatch(c);
+                Color cFromPalette = ColorMatcher.Get.FindBestMatch(c) ?? c;
                 if (x > xx)
                 {
                     xx = x; 
                     TaskManager.SafeReport(100 * x / mWidth, "Rendering low-rez preview to give the illusion of a faster program.");
                 }
-                return cFromPalette ?? c;
+
+                if (cFromPalette.A == 0)
+                {
+                    return Materials.Air.getAverageColor(true);
+                }
+
+                return cFromPalette;
             });
 
             return blueprint;

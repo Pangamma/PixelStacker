@@ -166,7 +166,11 @@ namespace PixelStacker.Logic.Collections
 
                 lock (this.colorPalette)
                 {
-                    colorToMaterialMap.Keys.ToList().ForEach(c => colorPalette.Add(new double[] { c.R, c.G, c.B }, c));
+                    this.colorPalette.Clear();
+                    this.colorPalette = new KDTree<Color>(3);
+                    colorToMaterialMap.Keys.Where(c => c.ToArgb() != 16777215 && c.A != 0)
+                        .ToList()
+                        .ForEach(c => this.colorPalette.Add(new double[] { c.R, c.G, c.B }, c));
                 }
 
                 colorToMaterialMap[Materials.Air.getAverageColor(isSide)] = new Material[1] { Materials.Air };
@@ -220,7 +224,6 @@ namespace PixelStacker.Logic.Collections
 
                 return rt;
             }
-
         }
 
         public List<Color> FindBestMatches(Color toMatch, int top)

@@ -43,24 +43,16 @@ namespace PixelStacker.Logic
             bool isMultiLayer = Options.Get.IsMultiLayer;
             bool isSide = Options.Get.IsSideView;
 
-            if (Materials.ColorMap.Count == 0)
+            if (ColorMatcher.Get.ColorToMaterialMap.Count == 0)
             {
                 TaskManager.SafeReport(0, "Compiling the color map");
-                Materials.CompileColorMap(_worker, false);
+                await ColorMatcher.Get.CompileColorPalette(_worker, false, Materials.List);
             }
 
             TaskManager.SafeReport(100, "Colormap is compiled");
             _worker.SafeThrowIfCancellationRequested();
 
             int[,] blocksTemp = new int[src.Width, src.Height];
-
-            List<Color> availableColors = Materials.ColorMap.Keys.Where(x => x.ToArgb() != 16777215).ToList();
-
-            var kdt = new KDTree<Color>(3);
-            //kdt.Distance = new ColorDistanceCalculator();
-            availableColors.ForEach(c => kdt.Add(new double[] {
-            c.R, c.G, c.B
-            }, c));
 
             TaskManager.SafeReport(0, "Rendering the blueprint...");
             var airColor = Materials.Air.getAverageColor(isSide).ToArgb();
@@ -73,16 +65,16 @@ namespace PixelStacker.Logic
                     int b = cc.B;
                     int gg = cc.G;
                     if (cc.A < 30 && ((r == 255 && b == 255 && gg == 255) || (r == 0 && b == 0 && gg == 0)))
-                        {
-                            blocksTemp[x, y] = airColor;
-                        }
+                    {
+                        blocksTemp[x, y] = airColor;
+                    }
                     else
                     {
-                        Color? c = Materials.FindBestMatch(kdt, cc);
+                        Color? c = ColorMatcher.Get.FindBestMatch(cc);
                         int ccii = c?.ToArgb() ?? 0;
                         if (c != null)
                         {
-                            if (Materials.ColorMap.TryGetValue(c.Value, out Material[] found))
+                            if (ColorMatcher.Get.ColorToMaterialMap.TryGetValue(c.Value, out Material[] found))
                             {
                                 int len = found.Length;
                                 if (len > maxDepth) { maxDepth = len; }
@@ -100,7 +92,7 @@ namespace PixelStacker.Logic
                 TaskManager.SafeReport(100, "Finished rendering the blueprint.");
             }
 
-            Materials.BestMatchCache.Save();
+            ColorMatcher.Get.BestMatchCache.Save();
 
             return new BlueprintPA()
             {
@@ -126,7 +118,7 @@ namespace PixelStacker.Logic
 #endif
             int ci = this.BlocksMap[x, y];
             Color c = Color.FromArgb(ci);
-            var mm = (Materials.ColorMap.TryGetValue(c, out Material[] found) ? found : null) ?? new Material[] { Materials.Air };
+            var mm = (ColorMatcher.Get.ColorToMaterialMap.TryGetValue(c, out Material[] found) ? found : null) ?? new Material[] { Materials.Air };
             return mm;
         }
 
@@ -152,7 +144,7 @@ namespace PixelStacker.Logic
 
             int ci = this.BlocksMap[x2, y2];
             Color c = Color.FromArgb(ci);
-            if (Materials.ColorMap.TryGetValue(c, out Material[] mm))
+            if (ColorMatcher.Get.ColorToMaterialMap.TryGetValue(c, out Material[] mm))
             {
                 if (!(zDepth < 0 || zDepth >= mm.Length))
                 {
@@ -237,7 +229,7 @@ namespace PixelStacker.Logic
                 int idx;
                 int ci = this.blueprint.BlocksMap[x2, y2];
                 Color c = Color.FromArgb(ci);
-                var mm = (Materials.ColorMap.ContainsKey(c) ? Materials.ColorMap[c] : null) ?? new Material[] { Materials.Air };
+                var mm = (ColorMatcher.Get.ColorToMaterialMap.ContainsKey(c) ? ColorMatcher.Get.ColorToMaterialMap[c] : null) ?? new Material[] { Materials.Air };
 
                 if (isSideView)
                 {
