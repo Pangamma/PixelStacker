@@ -23,7 +23,7 @@ namespace PixelStacker.UI
     {
         private Regex regexMatName = new Regex(@"minecraft:([a-zA-Z_09]+)(.*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private OrderedDictionary<string, MaterialSelectTile> materialTiles = new OrderedDictionary<string, MaterialSelectTile>();
-        
+
         public MaterialSelectWindow()
         {
             InitializeComponent();
@@ -106,7 +106,8 @@ namespace PixelStacker.UI
                     int minI = Math.Min(idxA, idxB);
                     int maxI = Math.Max(idxA, idxB);
                     this.materialTiles.Skip(minI).Take(maxI - minI).ToList()
-                        .ForEach(x => {
+                        .ForEach(x =>
+                        {
                             x.Value.Material.IsEnabled = !Control.ModifierKeys.HasFlag(Keys.Control);
                             x.Value.Refresh();
                         });
@@ -148,11 +149,62 @@ namespace PixelStacker.UI
 
         }
 
+        protected async void TryHide()
+        {
+            if (Options.Get.IsMultiLayerRequired)
+            {
+                if (!Materials.List.Any(x => x.IsEnabled && x.PixelStackerID != "AIR" && x.Category == "Glass"))
+                {
+                    MessageBox.Show(
+                        text: "At least ONE glass material must be enabled when you choose to require multiple layers.",
+                        caption: "Something is wrong here.",
+                        buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Error
+                        );
+
+                    return;
+                }
+            }
+
+            if (!Materials.List.Any(x => x.IsEnabled && x.PixelStackerID != "AIR"))
+            {
+                MessageBox.Show(
+                    text: "At least ONE material must be enabled at all times.",
+                    caption: "Something is wrong here.",
+                    buttons: MessageBoxButtons.OK,
+                    icon: MessageBoxIcon.Error
+                    );
+
+                return;
+            }
+
+            if (!Materials.List.Any(x => x.IsEnabled && x.Category != "Glass" && x.PixelStackerID != "AIR"))
+            {
+                MessageBox.Show(
+                    text: "At least one non glass material must be selected.",
+                    caption: "Something is wrong here.",
+                    buttons: MessageBoxButtons.OK,
+                    icon: MessageBoxIcon.Error
+                    );
+
+                return;
+            }
+
+            Options.Save();
+            await TaskManager.Get.StartAsync((token) =>
+            {
+                ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
+                .GetAwaiter().GetResult();
+            });
+
+            this.Hide();
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Escape)
             {
-                this.Close();
+                this.TryHide();
                 return true;
             }
 
@@ -164,7 +216,8 @@ namespace PixelStacker.UI
             MainForm.Self.konamiWatcher.ProcessKey(keyData);
             if (keyData.HasFlag(Keys.A) && keyData.HasFlag(Keys.Control))
             {
-                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp => {
+                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
+                {
                     kvp.Value.Material.IsEnabled = true;
                     kvp.Value.Refresh();
                 });
@@ -174,7 +227,8 @@ namespace PixelStacker.UI
 
             if (keyData.HasFlag(Keys.D) && keyData.HasFlag(Keys.Control))
             {
-                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp => {
+                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
+                {
                     kvp.Value.Material.IsEnabled = false;
                     kvp.Value.Refresh();
                 });
@@ -214,7 +268,7 @@ namespace PixelStacker.UI
                 if (x.Category.ToLowerInvariant().Contains(needle)) return true;
                 if (x.Tags.Any(t => t.ToLowerInvariant().Contains(needle))) return true;
                 if (idNeedle != null && idNeedle == x.BlockID) return true;
-                
+
 
                 string blockIdAndNBT = x.GetBlockNameAndData(false).ToLowerInvariant();
                 var match = regexMatName.Match(blockIdAndNBT);
@@ -296,24 +350,18 @@ namespace PixelStacker.UI
             bool isChecked = cbx.CheckState == CheckState.Checked;
             Options.Get.IsSideView = isChecked;
 
-            this.materialTiles.ToList().ForEach(x => {
+            this.materialTiles.ToList().ForEach(x =>
+            {
                 x.Value.Refresh();
             });
         }
 
-        private async void MaterialSelectWindow_FormClosing(object sender, FormClosingEventArgs e)
+        private void MaterialSelectWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Options.Save();
-            await TaskManager.Get.StartAsync((token) =>
-            {
-                ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
-                .GetAwaiter().GetResult();
-            });
-
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
-                Hide();
+                this.TryHide();
             }
         }
 
@@ -332,7 +380,7 @@ namespace PixelStacker.UI
                 var existingProfile = JsonConvert.DeserializeObject<ColorProfile>(File.ReadAllText(path));
                 if (existingProfile != null)
                 {
-                    foreach(var mat in existingProfile.Materials)
+                    foreach (var mat in existingProfile.Materials)
                     {
                         var material = Materials.FromPixelStackerID(mat.Key);
                         material.IsEnabled = mat.Value;
@@ -379,11 +427,12 @@ namespace PixelStacker.UI
                     profileLabel = new FileInfo(this.dlgSave.FileName).Name;
                 }
 
-                var profile = new ColorProfile() {
+                var profile = new ColorProfile()
+                {
                     Label = profileLabel,
                     Materials = Materials.List.ToDictionary(k => k.PixelStackerID, v => v.IsEnabled)
                 };
-                
+
                 string json = JsonConvert.SerializeObject(profile, Formatting.Indented);
                 File.WriteAllText(path, json);
 

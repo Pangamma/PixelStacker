@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic;
+using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.UI;
 using SimplePaletteQuantizer;
@@ -152,7 +153,7 @@ namespace PixelStacker
         }
 
 
-        public void PreRenderImage(bool clearCache, CancellationToken? cancelToken)
+        public void PreRenderImage(bool clearCache, CancellationToken _worker)
         {
             if (clearCache)
             {
@@ -191,7 +192,7 @@ namespace PixelStacker
                 if (Options.Get.PreRender_ColorCacheFragmentSize > 1)
                 {
                     // We can simplify this so that we cut total color counts down massively.
-                    srcImage.ToEditStream(cancelToken, (int x, int y, Color c) =>
+                    srcImage.ToEditStream(_worker, (int x, int y, Color c) =>
                     {
                         int a = (c.A < 32) ? 0 : 255;
                         return Color.FromArgb(a, c.Normalize());
@@ -206,7 +207,7 @@ namespace PixelStacker
                     {
                         img = engine.RenderImage(srcImage);
                         srcImage.DisposeSafely();
-                        cancelToken?.SafeThrowIfCancellationRequested();
+                        _worker.SafeThrowIfCancellationRequested();
                     }
                     catch (OperationCanceledException)
                     {
@@ -228,7 +229,7 @@ namespace PixelStacker
 
                 }
 
-                this.PreRenderedImage = RenderedImagePanel.RenderPlaceholderBitmapFromBlueprint(cancelToken, img);
+                this.PreRenderedImage = RenderedImagePanel.RenderPlaceholderBitmapFromBlueprint(_worker, img);
 
                 this.InvokeEx((c) =>
                 {

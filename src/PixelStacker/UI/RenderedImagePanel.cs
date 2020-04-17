@@ -128,25 +128,38 @@ namespace PixelStacker.UI
         /// <param name="worker"></param>
         /// <param name="blueprint"></param>
         /// <returns></returns>
-        public static Bitmap RenderPlaceholderBitmapFromBlueprint(CancellationToken? worker, Bitmap blueprint)
+        public static Bitmap RenderPlaceholderBitmapFromBlueprint(CancellationToken worker, Bitmap blueprint)
         {
             int mWidth = blueprint.Width;
             int mHeight = blueprint.Height;
 
+            if (ColorMatcher.Get.ColorToMaterialMap.Count == 0)
+            {
+                TaskManager.SafeReport(0, "Compiling the color map");
+                ColorMatcher.Get.CompileColorPalette(worker, true, Materials.List).GetAwaiter().GetResult();
+            }
+
             int xx = 0;
             blueprint.ToEditStream(worker, (int x, int y, Color c) => {
 
-                Color? cFromPalette = ColorMatcher.Get.FindBestMatch(c);
+                Color cFromPalette = ColorMatcher.Get.FindBestMatch(c);
                 if (x > xx)
                 {
                     xx = x; 
                     TaskManager.SafeReport(100 * x / mWidth, "Rendering low-rez preview to give the illusion of a faster program.");
                 }
-                return cFromPalette ?? c;
+
+                if (cFromPalette.A == 0)
+                {
+                    return Materials.Air.getAverageColor(true);
+                }
+
+                return cFromPalette;
             });
 
             return blueprint;
         }
+
         public static Bitmap RenderBitmapFromBlueprint(CancellationToken? worker, BlueprintPA blueprint, out int? textureSize)
         {
             // TODO: Make sure this value is saved to the render panel instance somehow or else there will be horrible issues
