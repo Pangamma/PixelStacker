@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Logic;
+using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO;
 using PixelStacker.Logic.Model;
@@ -305,7 +306,8 @@ namespace PixelStacker.UI
             Options.Save();
             await TaskManager.Get.StartAsync((token) =>
             {
-                Materials.CompileColorMap(token, true);
+                ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
+                .GetAwaiter().GetResult();
             });
 
             if (e.CloseReason == CloseReason.UserClosing)

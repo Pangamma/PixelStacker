@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Logic;
+using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.WIP;
 using System;
@@ -122,7 +123,7 @@ namespace PixelStacker
                         }
 
                         {
-                            var colorMap = Materials.ColorMap.Select(x => $"{x.Key.ToArgb()}\t{string.Join("\t", x.Value.Select(m => m.PixelStackerID))}");
+                            var colorMap = ColorMatcher.Get.ColorToMaterialMap.Select(x => $"{x.Key.ToArgb()}\t{string.Join("\t", x.Value.Select(m => m.PixelStackerID))}");
                             var content = string.Join("\r\n", colorMap);
                             ZipArchiveEntry entry = archive.CreateEntry("color-map.dat");
                             using (StreamWriter writer = new StreamWriter(entry.Open()))

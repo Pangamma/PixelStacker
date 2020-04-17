@@ -1,5 +1,6 @@
 ﻿using PixelStacker.Logic;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.UI;
 using SimplePaletteQuantizer;
 using System;
 using System.Collections.Generic;
@@ -227,10 +228,11 @@ namespace PixelStacker
 
                 }
 
-                this.PreRenderedImage = img;
+                this.PreRenderedImage = RenderedImagePanel.RenderPlaceholderBitmapFromBlueprint(cancelToken, img);
+
                 this.InvokeEx((c) =>
                 {
-                    c.imagePanelMain.SetImage(PreRenderedImage);
+                    c.imagePanelMain.SetImage(c.PreRenderedImage);
                     c.ShowImagePanel();
                 });
             }

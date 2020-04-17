@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic;
+using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
 using System;
 using System.Collections.Generic;
@@ -207,7 +208,8 @@ namespace PixelStacker
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                             TaskManager.Get.StartAsync((token) =>
                             {
-                                Materials.CompileColorMap(token, true);
+                                ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
+                               .GetAwaiter().GetResult();
                             });
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                             return;

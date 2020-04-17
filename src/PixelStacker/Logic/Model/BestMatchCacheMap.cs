@@ -33,7 +33,7 @@ namespace PixelStacker.Logic.Great
         public new void Add(Color key, Color value)
         {
             this.isSaved = false;
-            base.Add(key, value);
+            base[key] = value;
         }
 
         public new bool Remove(Color key)

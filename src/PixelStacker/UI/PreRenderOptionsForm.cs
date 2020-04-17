@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic;
+using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
 using SimplePaletteQuantizer;
 using SimplePaletteQuantizer.Quantizers;
@@ -157,7 +158,8 @@ namespace PixelStacker.UI
                 await TaskManager.Get.StartAsync((token) =>
                 {
                     Options.Save();
-                    Materials.CompileColorMap(token, true);
+                    ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
+                    .GetAwaiter().GetResult();
                     mainForm?.PreRenderImage(true, token);
                 });
             }

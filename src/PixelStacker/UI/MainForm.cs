@@ -17,7 +17,7 @@ namespace PixelStacker
     {
 
         public static MainForm Self;
-        public Bitmap LoadedImage { get; private set; } = UIResources.elsa_cropped_sm.To32bppBitmap();
+        public Bitmap LoadedImage { get; private set; } = UIResources.elsa_cropped.To32bppBitmap();
         public Bitmap PreRenderedImage { get; set; } = null;
         public BlueprintPA LoadedBlueprint { get; private set; }
         public static PanZoomSettings PanZoomSettings { get; set; } = null;
@@ -111,6 +111,7 @@ namespace PixelStacker
                 }
 
                 BlueprintPA blueprint = BlueprintPA.GetBluePrintAsync(token, this.PreRenderedImage).Result;
+
                 Bitmap renderedImage = RenderedImagePanel.RenderBitmapFromBlueprint(token, blueprint, out int? textureSize);
                 if (textureSize == null) return;
                 if (renderedImage == null) return;
