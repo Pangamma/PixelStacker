@@ -20,7 +20,7 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-namespace Accord.Math
+namespace PixelStacker.Logic.Collections
 {
     using System.Globalization;
     using System;
@@ -124,7 +124,7 @@ namespace Accord.Math
         public Hyperrectangle(double[] min, double[] max, bool copy = true)
         {
             if (min.Length != max.Length)
-                throw new DimensionMismatchException("max");
+                throw new ArgumentOutOfRangeException("max and min array sizes do not share same length");
 
             if (copy)
             {

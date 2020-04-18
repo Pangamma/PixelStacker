@@ -20,55 +20,31 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-namespace Accord.Collections
+namespace PixelStacker.Logic.Collections
 {
     using System;
     using System.Text;
 
-    /// <summary>
-    ///   K-dimensional tree node (for <see cref="KDTree"/>).
-    /// </summary>
-    /// 
-    /// <seealso cref="SPTreeNode"/>
-    /// <seealso cref="VPTreeNode{TPoint}"/>
-    /// 
-    [Serializable]
-    public class KDTreeNode : KDTreeNodeBase<KDTreeNode>
-    {
-    }
 
     /// <summary>
     ///   K-dimensional tree node (for <see cref="KDTree{T}"/>).
     /// </summary>
     /// 
-    /// <seealso cref="SPTreeNode"/>
-    /// <seealso cref="VPTreeNode{TPoint}"/>
+    /// <typeparam name="T">The class type node content.</typeparam>
+    /// 
+    /// <seealso cref="KDTreeNodePS"/>
+    /// <seealso cref="KDTreeNodePS{T}"/>
+    /// <seealso cref="BinaryNode{TNode}"/>
     /// 
     [Serializable]
-    public class KDTreeNode<T> : KDTreeNodeBase<KDTreeNode<T>>
+    public class KDTreeNodePS<T> : IComparable<KDTreeNodePS<T>>, IEquatable<KDTreeNodePS<T>> // TODO: Try to remove IEquatable
     {
         /// <summary>
         ///   Gets or sets the value being stored at this node.
         /// </summary>
         /// 
         public T Value { get; set; }
-    }
 
-    /// <summary>
-    ///   Base class for K-dimensional tree nodes.
-    /// </summary>
-    /// 
-    /// <typeparam name="TNode">The class type for the nodes of the tree.</typeparam>
-    /// 
-    /// <seealso cref="KDTreeNode"/>
-    /// <seealso cref="KDTreeNode{T}"/>
-    /// <seealso cref="BinaryNode{TNode}"/>
-    /// 
-    [Serializable]
-    public class KDTreeNodeBase<TNode> : BinaryNode<TNode>, 
-        IComparable<TNode>, IEquatable<TNode> // TODO: Try to remove IEquatable
-        where TNode : KDTreeNodeBase<TNode>
-    {
         /// <summary>
         ///   Gets or sets the position of 
         ///   the node in spatial coordinates.
@@ -84,14 +60,6 @@ namespace Accord.Collections
         /// 
         public int Axis { get; set; }
 
-        /// <summary>
-        ///   Returns a <see cref="System.String"/> that represents this instance.
-        /// </summary>
-        /// 
-        /// <returns>
-        ///   A <see cref="System.String"/> that represents this instance.
-        /// </returns>
-        /// 
         public override string ToString()
         {
             if (Position == null)
@@ -117,7 +85,7 @@ namespace Accord.Collections
         /// <returns>
         /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.
         /// </returns>
-        public int CompareTo(TNode other)
+        public int CompareTo(KDTreeNodePS<T> other)
         {
             return this.Position[this.Axis].CompareTo(other.Position[other.Axis]);
         }
@@ -129,10 +97,48 @@ namespace Accord.Collections
         /// <returns>
         /// true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
         /// </returns>
-        public new bool Equals(TNode other) // TODO: Try to remove IEquatable
+        public bool Equals(KDTreeNodePS<T> other) // TODO: Try to remove IEquatable
         {
             return this == other;
         }
 
+        /// <summary>
+        ///   Gets or sets the left subtree of this node.
+        /// </summary>
+        /// 
+        public KDTreeNodePS<T> Left { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the right subtree of this node.
+        /// </summary>
+        /// 
+        public KDTreeNodePS<T> Right { get; set; }
+
+        /// <summary>
+        ///   Gets whether this node is a leaf (has no children).
+        /// </summary>
+        /// 
+        public bool IsLeaf
+        {
+            get { return Left == default(KDTreeNodePS<T>) && Right == default(KDTreeNodePS<T>); }
+        }
+
+
+        /// <summary>
+        ///   Gets or sets the collection of child nodes
+        ///   under this node.
+        /// </summary>
+        /// 
+        public KDTreeNodePS<T>[] Children
+        {
+            get { return new[] { Left, Right }; }
+            set
+            {
+                if (value.Length != 2)
+                    throw new ArgumentException("The array must have length 2.", "value");
+                Left = value[0];
+                Right = value[1];
+            }
+        }
     }
 }

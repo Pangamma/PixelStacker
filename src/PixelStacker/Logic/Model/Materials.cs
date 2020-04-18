@@ -7,8 +7,6 @@ using System.Threading;
 using PixelStacker.Logic.Great;
 using PixelStacker.Resources;
 using PixelStacker.UI;
-using Accord.Collections;
-using Accord.Math;
 using System.Collections.Concurrent;
 using PixelStacker.Logic.Collections;
 

@@ -49,7 +49,7 @@
 //       distribution.
 // 
 
-namespace Accord.Collections
+namespace PixelStacker.Logic.Collections
 {
     using System;
     using System.Collections.Generic;
@@ -70,11 +70,10 @@ namespace Accord.Collections
     /// <seealso cref="NodeDistance{T}"/>
     /// 
     [Serializable]
-    public class KDTreeNodeCollection<TNode> : ICollection<NodeDistance<TNode>>
-        where TNode : KDTreeNodeBase<TNode>, IComparable<TNode>, IEquatable<TNode>
+    public class KDTreeNodeCollection<T> : ICollection<NodeDistance<KDTreeNodePS<T>>>
     {
         double[] distances;
-        TNode[] positions;
+        KDTreeNodePS<T>[] positions;
 
         int count;
 
@@ -124,7 +123,7 @@ namespace Accord.Collections
         ///   Gets the farthest node in the collection (with greatest distance).
         /// </summary>
         /// 
-        public TNode Farthest
+        public KDTreeNodePS<T> Farthest
         {
             get
             {
@@ -141,7 +140,7 @@ namespace Accord.Collections
         ///   Gets the nearest node in the collection (with smallest distance).
         /// </summary>
         /// 
-        public TNode Nearest
+        public KDTreeNodePS<T> Nearest
         {
             get
             {
@@ -166,7 +165,7 @@ namespace Accord.Collections
 
             Capacity = size;
             distances = new double[size];
-            positions = new TNode[size];
+            positions = new KDTreeNodePS<T>[size];
         }
 
         /// <summary>
@@ -180,7 +179,7 @@ namespace Accord.Collections
         /// 
         /// <returns>Returns true if the node has been added; false otherwise.</returns>
         /// 
-        public bool Add(TNode value, double distance)
+        public bool Add(KDTreeNodePS<T> value, double distance)
         {
             // The list does have a limit. We have to check if the list
             // is already full or not, to see if we can discard or keep
@@ -227,7 +226,7 @@ namespace Accord.Collections
         /// 
         /// <returns>Returns true if the node has been added; false otherwise.</returns>
         /// 
-        public bool AddFarthest(TNode value, double distance)
+        public bool AddFarthest(KDTreeNodePS<T> value, double distance)
         {
             // The list does have a limit. We have to check if the list
             // is already full or not, to see if we can discard or keep
@@ -270,7 +269,7 @@ namespace Accord.Collections
         /// <param name="distance">The distance from the node to the query point.</param>
         /// <param name="item">The item to be added.</param>
         /// 
-        private void add(double distance, TNode item)
+        private void add(double distance, KDTreeNodePS<T> item)
         {
             positions[count] = item;
             distances[count] = distance;
@@ -299,9 +298,9 @@ namespace Accord.Collections
         ///   until the given position is found.
         /// </summary>
         /// 
-        public NodeDistance<TNode> this[int index]
+        public NodeDistance<KDTreeNodePS<T>> this[int index]
         {
-            get { return new NodeDistance<TNode>(positions[index], distances[index]); }
+            get { return new NodeDistance<KDTreeNodePS<T>>(positions[index], distances[index]); }
         }
 
         /// <summary>
@@ -336,10 +335,10 @@ namespace Accord.Collections
         ///   that can be used to iterate through the collection.
         /// </returns>
         /// 
-        public IEnumerator<NodeDistance<TNode>> GetEnumerator()
+        public IEnumerator<NodeDistance<KDTreeNodePS<T>>> GetEnumerator()
         {
             for (int i = 0; i < count; i++)
-                yield return new NodeDistance<TNode>(positions[i], distances[i]);
+                yield return new NodeDistance<KDTreeNodePS<T>>(positions[i], distances[i]);
 
             yield break;
         }
@@ -372,7 +371,7 @@ namespace Accord.Collections
         ///   <c>true</c> if the item is found in the collection; otherwise, <c>false</c>.
         /// </returns>
         /// 
-        public bool Contains(NodeDistance<TNode> item)
+        public bool Contains(NodeDistance<KDTreeNodePS<T>> item)
         {
             int i = Array.IndexOf(positions, item.Node);
 
@@ -392,7 +391,7 @@ namespace Accord.Collections
         ///    elements copied from tree. The <see cref="System.Array"/> must have zero-based indexing.</param>
         /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
         /// 
-        public void CopyTo(NodeDistance<TNode>[] array, int arrayIndex)
+        public void CopyTo(NodeDistance<KDTreeNodePS<T>>[] array, int arrayIndex)
         {
             int index = arrayIndex;
 
@@ -406,7 +405,7 @@ namespace Accord.Collections
         /// 
         /// <param name="item">The item.</param>
         /// 
-        public void Add(NodeDistance<TNode> item)
+        public void Add(NodeDistance<KDTreeNodePS<T>> item)
         {
             Add(item.Node, item.Distance);
         }
@@ -415,7 +414,7 @@ namespace Accord.Collections
         ///   Not supported.
         /// </summary>
         /// 
-        public bool Remove(NodeDistance<TNode> item)
+        public bool Remove(NodeDistance<KDTreeNodePS<T>> item)
         {
             throw new NotSupportedException();
         }
@@ -491,7 +490,7 @@ namespace Accord.Collections
                 if (distances[u] < distances[u - 1])
                 {
                     // Swap with it's pair
-                    u = swap(u, u - 1); 
+                    u = swap(u, u - 1);
 
                     // If smaller than smaller parent pair
                     if (distances[u] < distances[p - 1])
