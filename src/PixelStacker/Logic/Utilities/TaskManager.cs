@@ -30,6 +30,7 @@ namespace PixelStacker.Logic
                 else if (StatusPercent != c.progressBar.Value)
                 {
                     int val = Math.Min(c.progressBar.Maximum, StatusPercent);
+                    val = Math.Max(c.progressBar.Minimum, val);
                     c.progressBar.Value = val;
                     if (val > 0)
                     {

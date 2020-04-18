@@ -141,22 +141,14 @@ namespace PixelStacker.UI
                 ColorMatcher.Get.CompileColorPalette(worker, true, Materials.List).GetAwaiter().GetResult();
             }
 
-            int numPixelsProcessed = 0;
-            int numPixelsTotal = mWidth * mHeight;
+            TaskManager.SafeReport(0, "Rendering low-rez preview to give the illusion of a faster program.");
             blueprint.ToEditStream(worker, (int x, int y, Color c) =>
             {
-
                 Color cFromPalette = ColorMatcher.Get.FindBestMatch(c);
-
-
                 if (cFromPalette.A == 0)
                 {
                     return Materials.Air.getAverageColor(true);
                 }
-
-                Interlocked.Increment(ref numPixelsProcessed);
-                TaskManager.SafeReport(100 * numPixelsProcessed / numPixelsTotal, "Rendering low-rez preview to give the illusion of a faster program.");
-
                 return cFromPalette;
             });
             TaskManager.SafeReport(100, "");
@@ -543,7 +535,7 @@ namespace PixelStacker.UI
                             {
                                 int x = pixel % mWidth;
                                 int y = pixel / mWidth;
-                                TaskManager.SafeReport(100 * numProcessed / numPixels);
+                                TaskManager.SafeReport((int)(100 * ((float)numProcessed / numPixels)));
                                 Interlocked.Increment(ref numProcessed);
                                 worker?.SafeThrowIfCancellationRequested();
                                 int xi = x * textureSizeRef;

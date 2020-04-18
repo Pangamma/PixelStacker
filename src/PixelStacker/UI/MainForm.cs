@@ -95,7 +95,7 @@ namespace PixelStacker
 
         public async Task RenderImageAndShowIt()
         {
-            await TaskManager.Get.StartAsync((token) =>
+            await TaskManager.Get.StartAsync(async (token) =>
             {
                 TaskManager.SafeReport(0, "Optimizing...");
 
@@ -109,9 +109,9 @@ namespace PixelStacker
                         return;
                     }
                 }
-
-                BlueprintPA blueprint = BlueprintPA.GetBluePrintAsync(token, this.PreRenderedImage).Result;
-
+                TaskManager.SafeReport(0, "Getting Blueprint...");
+                BlueprintPA blueprint = await BlueprintPA.GetBluePrintAsync(token, this.PreRenderedImage);
+                TaskManager.SafeReport(0, "Rendering Blueprint...");
                 Bitmap renderedImage = RenderedImagePanel.RenderBitmapFromBlueprintParallel(token, blueprint, out int? textureSize);
                 if (textureSize == null) return;
                 if (renderedImage == null) return;

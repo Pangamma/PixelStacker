@@ -329,7 +329,7 @@ namespace PixelStacker.Logic.Extensions
                     }
                     worker?.SafeThrowIfCancellationRequested();
                     Interlocked.Increment(ref numYProcessed);
-                    TaskManager.SafeReport(100 * numYProcessed / heightInPixels);
+                    TaskManager.SafeReport((int)(100 * ((float)numYProcessed / heightInPixels)));
                 });
                 TaskManager.SafeReport(100);
                 origImage.UnlockBits(bitmapData);
@@ -392,7 +392,7 @@ namespace PixelStacker.Logic.Extensions
                     }
                     worker?.SafeThrowIfCancellationRequested();
                     Interlocked.Increment(ref numYProcessed);
-                    TaskManager.SafeReport(100 * numYProcessed / heightInPixels);
+                    TaskManager.SafeReport((int)(100 * ((float)numYProcessed / heightInPixels)));
                 });
                 TaskManager.SafeReport(100);
                 origImage.UnlockBits(bitmapData);
@@ -452,7 +452,7 @@ namespace PixelStacker.Logic.Extensions
                     }
                     worker?.SafeThrowIfCancellationRequested();
                     Interlocked.Increment(ref numYProcessed);
-                    TaskManager.SafeReport(100 * numYProcessed / heightInPixels); 
+                    TaskManager.SafeReport((int)(100 * ((float)numYProcessed / heightInPixels))); 
                 });
                 TaskManager.SafeReport(100);
                 origImage.UnlockBits(bitmapData);
@@ -525,7 +525,7 @@ namespace PixelStacker.Logic.Extensions
                 {
                     numPixelsFinished++;
                     worker?.SafeThrowIfCancellationRequested();
-                    TaskManager.SafeReport(100 * numPixelsFinished / numPixelsTotal);
+                    TaskManager.SafeReport((int)(100 * (float)(numPixelsFinished / numPixelsTotal)));
                 }
             });
 
