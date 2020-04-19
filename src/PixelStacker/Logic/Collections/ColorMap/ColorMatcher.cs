@@ -80,6 +80,8 @@ namespace PixelStacker.Logic.Collections
                             colorToMaterialMap.Clear();
 
                         }
+
+                        worker.SafeThrowIfCancellationRequested();
                     }
                 }
             }));
