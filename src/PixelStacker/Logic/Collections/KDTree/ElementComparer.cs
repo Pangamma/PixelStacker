@@ -20,57 +20,10 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-namespace Accord.Math.Comparers
+namespace PixelStacker.Logic.Collections
 {
     using System.Collections.Generic;
     using System;
-
-    /// <summary>
-    ///   Element-at-position comparer.
-    /// </summary>
-    /// 
-    /// <remarks>
-    ///   This class compares arrays by checking the value
-    ///   of a particular element at a given array index.
-    /// </remarks>
-    /// 
-    /// <example>
-    /// <code>
-    ///   // We sort the arrays according to the 
-    ///   // elements at their second column.
-    ///   
-    ///   double[][] values =
-    ///   {   //                 v
-    ///       new double[] {  0, 3, 0 },
-    ///       new double[] {  0, 4, 1 },
-    ///       new double[] { -1, 1, 1 },
-    ///       new double[] { -1, 5, 4 },
-    ///       new double[] { -2, 2, 6 },
-    ///   };
-    ///   
-    ///   // Sort the array considering only the second column
-    ///   Array.Sort(values, new ElementComparer() { Index = 1 });
-    ///   
-    ///   // The result will be
-    ///   double[][] result =
-    ///   {
-    ///       new double[] { -1, 1, 1 },
-    ///       new double[] { -2, 2, 6 },
-    ///       new double[] {  0, 3, 0 },
-    ///       new double[] {  0, 4, 1 },
-    ///       new double[] { -1, 5, 4 },
-    ///   };
-    /// </code>
-    /// </example>
-    /// 
-    /// <seealso cref="ElementComparer{T}"/>
-    /// <seealso cref="ArrayComparer{T}"/>
-    /// <seealso cref="GeneralComparer"/>
-    /// <seealso cref="CustomComparer{T}"/>
-    /// 
-    public class ElementComparer : ElementComparer<double>
-    {
-    }
 
     /// <summary>
     ///   Element-at-position comparer.

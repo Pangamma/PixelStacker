@@ -20,10 +20,9 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-namespace Accord.Collections
+namespace PixelStacker.Logic.Collections
 {
     using System;
-    using System.Text;
 
     /// <summary>
     ///   Node-distance pair.

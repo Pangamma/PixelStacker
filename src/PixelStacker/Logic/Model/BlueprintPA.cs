@@ -1,5 +1,4 @@
-﻿using Accord.Collections;
-using PixelStacker.Logic.Collections;
+﻿using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.UI;
 using System;

@@ -219,6 +219,9 @@ namespace PixelStacker
                     }
                 }
 
+                // Do this step BEFORE setting panzoom to null. Very important.
+                this.PreRenderedImage = RenderedImagePanel.RenderPlaceholderBitmapFromBlueprint(_worker, img);
+
                 // Resize based on new size
                 {
                     var imgForSize = this.PreRenderedImage ?? this.LoadedImage;
@@ -228,8 +231,6 @@ namespace PixelStacker
                     }
 
                 }
-
-                this.PreRenderedImage = RenderedImagePanel.RenderPlaceholderBitmapFromBlueprint(_worker, img);
 
                 this.InvokeEx((c) =>
                 {

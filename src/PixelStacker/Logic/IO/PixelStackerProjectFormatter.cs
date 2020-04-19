@@ -85,7 +85,7 @@ namespace PixelStacker.Logic
             }
             catch (Exception ex)
             {
-                // "Failed to save. Error: "
+                Console.WriteLine(ex);
             }
         }
 

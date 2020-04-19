@@ -7,8 +7,6 @@ using System.Threading;
 using PixelStacker.Logic.Great;
 using PixelStacker.Resources;
 using PixelStacker.UI;
-using Accord.Collections;
-using Accord.Math;
 using System.Collections.Concurrent;
 using PixelStacker.Logic.Collections;
 
@@ -320,6 +318,23 @@ namespace PixelStacker.Logic
                         new Material("1.12", false, "Terracotta", "GLAZED_13", "Green Terracotta", 248, 0, Textures.green_glazed_terracotta, Textures.green_glazed_terracotta, $"minecraft:{nameof(Textures.green_glazed_terracotta)}", $"minecraft:{nameof(Textures.green_glazed_terracotta)}", "minecraft:green_glazed_terracotta"),
                         new Material("1.12", false, "Terracotta", "GLAZED_14", "Red Terracotta", 249, 0, Textures.red_glazed_terracotta, Textures.red_glazed_terracotta, $"minecraft:{nameof(Textures.red_glazed_terracotta)}", $"minecraft:{nameof(Textures.red_glazed_terracotta)}", "minecraft:red_glazed_terracotta"),
                         new Material("1.12", false, "Terracotta", "GLAZED_15", "Black Terracotta", 250, 0, Textures.black_glazed_terracotta, Textures.black_glazed_terracotta, $"minecraft:{nameof(Textures.black_glazed_terracotta)}", $"minecraft:{nameof(Textures.black_glazed_terracotta)}", "minecraft:black_glazed_terracotta"),
+
+                        new Material("1.7", true, "Carpet", "CARPET_00", "White Carpet", 171, 0, Textures.white_wool, Textures.white_wool, $"minecraft:white_carpet", $"minecraft:white_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_01", "Orange Carpet", 171, 1, Textures.orange_wool, Textures.orange_wool, $"minecraft:orange_carpet", $"minecraft:orange_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_02", "Magenta Carpet", 171, 2, Textures.magenta_wool, Textures.magenta_wool, $"minecraft:magenta_carpet", $"minecraft:magenta_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_03", "Light Blue Carpet", 171, 3, Textures.light_blue_wool, Textures.light_blue_wool, $"minecraft:light_blue_carpet", $"minecraft:light_blue_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_04", "Yellow Carpet", 171, 4, Textures.yellow_wool, Textures.yellow_wool, $"minecraft:yellow_carpet", $"minecraft:yellow_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_05", "Lime Carpet", 171, 5, Textures.lime_wool, Textures.lime_wool, $"minecraft:lime_carpet", $"minecraft:lime_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_06", "Pink Carpet", 171, 6, Textures.pink_wool, Textures.pink_wool, $"minecraft:pink_carpet", $"minecraft:pink_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_07", "Gray Carpet", 171, 7, Textures.gray_wool, Textures.gray_wool, $"minecraft:gray_carpet", $"minecraft:gray_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_08", "Light Gray Carpet", 171, 8, Textures.light_gray_wool, Textures.light_gray_wool, $"minecraft:light_gray_carpet", $"minecraft:light_gray_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_09", "Cyan Carpet", 171, 9, Textures.cyan_wool, Textures.cyan_wool, $"minecraft:cyan_carpet", $"minecraft:cyan_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_10", "Purple Carpet", 171, 10, Textures.purple_wool, Textures.purple_wool, $"minecraft:purple_carpet", $"minecraft:purple_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_11", "Blue Carpet", 171, 11, Textures.blue_wool, Textures.blue_wool, $"minecraft:blue_carpet", $"minecraft:blue_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_12", "Brown Carpet", 171, 12, Textures.brown_wool, Textures.brown_wool, $"minecraft:brown_carpet", $"minecraft:brown_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_13", "Green Carpet", 171, 13, Textures.green_wool, Textures.green_wool, $"minecraft:green_carpet", $"minecraft:green_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_14", "Red Carpet", 171, 14, Textures.red_wool, Textures.red_wool, $"minecraft:red_carpet", $"minecraft:red_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_15", "Black Carpet", 171, 15, Textures.black_wool, Textures.black_wool, $"minecraft:black_carpet", $"minecraft:black_carpet", "minecraft:carpet"),
                     };
 
                     var notUnique = _List.GroupBy(x => x.PixelStackerID).Where(x => x.Count() > 1);
