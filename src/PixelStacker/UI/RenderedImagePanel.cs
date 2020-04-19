@@ -123,7 +123,7 @@ namespace PixelStacker.UI
 
             return false;
         }
-        
+
         /// <summary>
         /// WILL CONSUME THE INPUT IMAGE AND MODIFY IT IN PLACE
         /// </summary>
@@ -142,12 +142,13 @@ namespace PixelStacker.UI
             }
 
             int xx = 0;
-            blueprint.ToEditStream(worker, (int x, int y, Color c) => {
+            blueprint.ToEditStream(worker, (int x, int y, Color c) =>
+            {
 
                 Color cFromPalette = ColorMatcher.Get.FindBestMatch(c);
                 if (x > xx)
                 {
-                    xx = x; 
+                    xx = x;
                     TaskManager.SafeReport(100 * x / mWidth, "Rendering low-rez preview to give the illusion of a faster program.");
                 }
 
@@ -537,20 +538,30 @@ namespace PixelStacker.UI
                     // Instead of the long struggle I had trying to cache them as they came
                     var materials = Materials.List.Where(m2 => m2.IsEnabled && m2.Category != "Air").Distinct();
                     ConcurrentDictionary<Material, BitmapData> materialDataMap = new ConcurrentDictionary<Material, BitmapData>();
-
-                    foreach (var m in materials)
-                    {
-                        var image = m.getImage(isSide);
-                        var data = image.LockBits(
-                        new Rectangle(0, 0, image.Width, image.Height),
-                        ImageLockMode.ReadOnly,
-                        image.PixelFormat
-                        );
-                        materialDataMap[m] = data;
-                    }
+                    // We need the palettes of any indexed bitmaps
+                    ConcurrentDictionary<Material, Color[]> materialPaletteMap = new ConcurrentDictionary<Material, Color[]>();
 
                     unsafe
                     {
+                        // TODO Parallelize and add loading bars for this
+                        foreach (var m in materials)
+                        {
+                            var image = m.getImage(isSide);
+                            if (image.PixelFormat.IsIndexed())
+                            {
+                                materialPaletteMap[m] = image.Palette.Entries;
+                            }
+                            BitmapData data = image.LockBits(
+                                new Rectangle(0, 0, image.Width, image.Height),
+                                ImageLockMode.ReadOnly,
+                                image.PixelFormat
+                                );
+
+                            materialDataMap[m] = data;
+
+                        }
+
+
                         int bytesPerPixel = System.Drawing.Bitmap.GetPixelFormatSize(bm.PixelFormat) / 8;
                         int heightInPixels = bitmapData.Height;
                         int widthInBytes = bitmapData.Width * bytesPerPixel;
@@ -591,7 +602,6 @@ namespace PixelStacker.UI
 
                                     if (m.BlockID != 0)
                                     {
-                                        // Which we use here
                                         int ptrX = xi * bytesPerPixel;
                                         var data = materialDataMap[m];
                                         byte* dataPtrFirstPixel = (byte*)data.Scan0;
@@ -604,6 +614,9 @@ namespace PixelStacker.UI
                                             if (isMaterialIncludedInFilter)
                                             {
                                                 var color = blueprint.GetColor(x, y);
+                                                //if (!BitConverter.IsLittleEndian)
+                                                //    color = color.Reverse(); 
+                                                // This would be lazy and creates new instances.  Let's do it right... 
 
                                                 //gImg.FillRectangle(brush, xi, yi, textureSize.Value, textureSize.Value);
                                                 // Fill rectangle implementation
@@ -612,13 +625,27 @@ namespace PixelStacker.UI
                                                     byte* currentLine = PtrFirstPixel + ((yi + y1) * bitmapData.Stride);
                                                     for (int x1 = 0; x1 < textureSizeRef; x1++)
                                                     {
-                                                        currentLine[ptrX + x1 * bytesPerPixel] = color.B;
-                                                        currentLine[ptrX + x1 * bytesPerPixel + 1] = color.G;
-                                                        currentLine[ptrX + x1 * bytesPerPixel + 2] = color.R;
-                                                        if (color.A > 0) // IDK I'm paranoid after all the alpha issues I had
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 3] = color.A;
+                                                        if (BitConverter.IsLittleEndian)
+                                                        {
+                                                            currentLine[ptrX + x1 * bytesPerPixel] = color.B;
+                                                            currentLine[ptrX + x1 * bytesPerPixel + 1] = color.G;
+                                                            currentLine[ptrX + x1 * bytesPerPixel + 2] = color.R;
+                                                            if (color.A > 0) // IDK I'm paranoid after all the alpha issues I had
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = color.A;
+                                                            else
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = (byte)255;
+                                                        }
                                                         else
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 3] = (byte)255;
+                                                        {
+                                                            if (color.A > 0) // IDK I'm paranoid after all the alpha issues I had
+                                                                currentLine[ptrX + x1 * bytesPerPixel] = color.A;
+                                                            else
+                                                                currentLine[ptrX + x1 * bytesPerPixel] = (byte)255;
+                                                            currentLine[ptrX + x1 * bytesPerPixel + 1] = color.R;
+                                                            currentLine[ptrX + x1 * bytesPerPixel + 2] = color.G;
+                                                            currentLine[ptrX + x1 * bytesPerPixel + 3] = color.B;
+                                                            
+                                                        }
                                                     }
                                                 }
                                             }
@@ -632,7 +659,19 @@ namespace PixelStacker.UI
                                                 // Then put a square of the appropriate color from 0,0 to textureSizeRef/2
                                                 // Then put a black border around that square
                                                 var color = blueprint.GetColor(x, y);
+                                                
                                                 bool hasAlpha = data.PixelFormat.HasAlpha(); // This is a method so... better cache the result cuz it may be computational
+
+                                                // To save a massive amount of code duplication
+                                                // We're going to render the entire material then draw ontop of it
+                                                // Because otherwise moving indexed stuff in here will be nuts
+
+                                                // And, I actually tested moving the stuff, and it's actually faster to draw the entire image first
+                                                // Or maybe equivalent and within margin of error
+                                                if (data.PixelFormat.IsIndexed())
+                                                    DrawImage(data, bitmapData, xi, yi, textureSizeRef, bytesPerPixel, materialPaletteMap[m]);
+                                                else
+                                                    DrawImage(data, bitmapData, xi, yi, textureSizeRef, bytesPerPixel);
 
                                                 Color targetColor;
                                                 for (int y1 = 0; y1 < textureSizeRef; y1++)
@@ -652,42 +691,22 @@ namespace PixelStacker.UI
                                                             targetColor = color;
                                                         }
 
-                                                        if (targetColor == Color.Empty)
+                                                        if (targetColor != Color.Empty)
                                                         {
-                                                            // To prevent storing this in a color and back out again, we're going to duplicate the code a bit
-                                                            // It doesn't save us a lot, but it's not nothing, and it costs nothing
-                                                            var dataPtrX = x1 * bytesPerMaterialPixel;
-
-                                                            int alpha = currentDataLine[dataPtrX + 3];
-                                                            if (hasAlpha && alpha != 255) // Alpha blend
+                                                            if (BitConverter.IsLittleEndian)
                                                             {
-                                                                // out = alpha * new + (1 - alpha) * old
-                                                                // I'm not sure if storing these has any benefit except to make the formula slightly cleaner
-                                                                // But they're just bytes, they shouldn't affect the overhead much
-                                                                var B = currentLine[ptrX + x1 * bytesPerPixel];
-                                                                var G = currentLine[ptrX + x1 * bytesPerPixel + 1];
-                                                                var R = currentLine[ptrX + x1 * bytesPerPixel + 2];
-                                                                var A = currentLine[ptrX + x1 * bytesPerPixel + 3];
-                                                                double normalAlpha = alpha / 255d;
-                                                                currentLine[ptrX + x1 * bytesPerPixel] = (byte)(normalAlpha * currentDataLine[dataPtrX] + (1 - normalAlpha) * B);
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 1] = (byte)(normalAlpha * currentDataLine[dataPtrX + 1] + (1 - normalAlpha) * G);
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 2] = (byte)(normalAlpha * currentDataLine[dataPtrX + 2] + (1 - normalAlpha) * R);
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = (byte)A; // Our resulting alpha should always be the original, we're blending it ourselves
+                                                                currentLine[ptrX + x1 * bytesPerPixel] = targetColor.B;
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 1] = targetColor.G;
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 2] = targetColor.R;
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = targetColor.A;
                                                             }
-                                                            else // These are separated so that we don't have to read current value in the more common case that it has no alpha
+                                                            else
                                                             {
-                                                                currentLine[ptrX + x1 * bytesPerPixel] = currentDataLine[dataPtrX];
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 1] = currentDataLine[dataPtrX + 1];
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 2] = currentDataLine[dataPtrX + 2];
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = (byte)255;
+                                                                currentLine[ptrX + x1 * bytesPerPixel] = targetColor.A;
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 1] = targetColor.R;
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 2] = targetColor.G;
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = targetColor.B;
                                                             }
-                                                        }
-                                                        else
-                                                        {
-                                                            currentLine[ptrX + x1 * bytesPerPixel] = targetColor.B;
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 1] = targetColor.G;
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 2] = targetColor.R;
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 3] = targetColor.A;
                                                         }
                                                     }
 
@@ -698,7 +717,10 @@ namespace PixelStacker.UI
                                         {
                                             if (isMaterialIncludedInFilter)
                                             {
-                                                DrawImage(data, bitmapData, xi, yi, textureSizeRef, bytesPerPixel);
+                                                if (data.PixelFormat.IsIndexed())
+                                                    DrawImage(data, bitmapData, xi, yi, textureSizeRef, bytesPerPixel, materialPaletteMap[m]);
+                                                else
+                                                    DrawImage(data, bitmapData, xi, yi, textureSizeRef, bytesPerPixel);
                                             }
                                         }
                                     }
@@ -714,136 +736,137 @@ namespace PixelStacker.UI
                         {
                             m.getImage(isSide).UnlockBits(materialDataMap[m]);
                         }
-                        watch.Stop();
-                        Console.WriteLine($"Rendered bitmap from blueprint in {watch.ElapsedMilliseconds}ms");
+                    }
+                    watch.Stop();
+                    Console.WriteLine($"Rendered bitmap from blueprint in {watch.ElapsedMilliseconds}ms");
 
-                        using (Graphics gImg = Graphics.FromImage(bm))
+                    using (Graphics gImg = Graphics.FromImage(bm))
+                    {
+                        #region SHADOW_NEW
+                        if (!_isSkipShadowRendering)
                         {
-                            #region SHADOW_NEW
-                            if (!_isSkipShadowRendering)
+                            Bitmap bmShadeSprites = ShadowHelper.GetSpriteSheet(Constants.TextureSize);
+
+                            Bitmap bmShadow = new Bitmap(
+                            width: calcW,
+                            height: calcH,
+                            format: PixelFormat.Format32bppArgb);
+
+                            byte[,] shadowMap = new byte[mWidth, mHeight];
                             {
-                                Bitmap bmShadeSprites = ShadowHelper.GetSpriteSheet(Constants.TextureSize);
-
-                                Bitmap bmShadow = new Bitmap(
-                                width: calcW,
-                                height: calcH,
-                                format: PixelFormat.Format32bppArgb);
-
-                                byte[,] shadowMap = new byte[mWidth, mHeight];
+                                #region Initialize shadow map (booleans basically)
+                                TaskManager.SafeReport(0, "Calculating shadow placement map");
+                                for (int xShadeMap = 0; xShadeMap < mWidth; xShadeMap++)
                                 {
-                                    #region Initialize shadow map (booleans basically)
-                                    TaskManager.SafeReport(0, "Calculating shadow placement map");
-                                    for (int xShadeMap = 0; xShadeMap < mWidth; xShadeMap++)
+                                    TaskManager.SafeReport(100 * xShadeMap / mWidth);
+                                    worker?.SafeThrowIfCancellationRequested();
+
+                                    for (int yShadeMap = 0; yShadeMap < mHeight; yShadeMap++)
                                     {
-                                        TaskManager.SafeReport(100 * xShadeMap / mWidth);
-                                        worker?.SafeThrowIfCancellationRequested();
+                                        Material mBottom = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 0, true);
+                                        bool isBottomShown = mBottom.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mBottom.PixelStackerID));
 
-                                        for (int yShadeMap = 0; yShadeMap < mHeight; yShadeMap++)
+                                        Material mTop = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 1, !_isFrugalAesthetic);
+                                        bool isTopShown = mTop.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mTop.PixelStackerID));
+
+                                        if (isTopShown && isBottomShown)
                                         {
-                                            Material mBottom = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 0, true);
-                                            bool isBottomShown = mBottom.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mBottom.PixelStackerID));
-
-                                            Material mTop = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 1, !_isFrugalAesthetic);
-                                            bool isTopShown = mTop.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mTop.PixelStackerID));
-
-                                            if (isTopShown && isBottomShown)
-                                            {
-                                                shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP_AND_BOTTOM;
-                                            }
-                                            else if (isTopShown)
-                                            {
-                                                shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP;
-                                            }
-                                            else if (isBottomShown)
-                                            {
-                                                shadowMap[xShadeMap, yShadeMap] = SHOWN_BOTTOM;
-                                            }
-                                            else
-                                            {
-                                                shadowMap[xShadeMap, yShadeMap] = SHOWN_NONE;
-                                            }
+                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP_AND_BOTTOM;
+                                        }
+                                        else if (isTopShown)
+                                        {
+                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP;
+                                        }
+                                        else if (isBottomShown)
+                                        {
+                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_BOTTOM;
+                                        }
+                                        else
+                                        {
+                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_NONE;
                                         }
                                     }
-                                    #endregion
+                                }
+                                #endregion
 
-                                    using (Graphics gShadow = Graphics.FromImage(bmShadow))
+                                using (Graphics gShadow = Graphics.FromImage(bmShadow))
+                                {
+                                    gShadow.CompositingMode = CompositingMode.SourceOver; // over is slower but better...
+                                    gShadow.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                                    gShadow.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                                    gShadow.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+
+                                    var brushTransparentCover = new SolidBrush(Color.FromArgb(40, 127, 127, 127));
                                     {
-                                        gShadow.CompositingMode = CompositingMode.SourceOver; // over is slower but better...
-                                        gShadow.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                                        gShadow.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                                        gShadow.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
-                                        var brushTransparentCover = new SolidBrush(Color.FromArgb(40, 127, 127, 127));
+                                        TaskManager.SafeReport(0, "Rendering shadows");
+                                        for (int x = 0; x < mWidth; x++)
                                         {
-                                            TaskManager.SafeReport(0, "Rendering shadows");
-                                            for (int x = 0; x < mWidth; x++)
+                                            TaskManager.SafeReport(100 * x / mWidth);
+                                            worker?.SafeThrowIfCancellationRequested();
+                                            for (int y = 0; y < mHeight; y++)
                                             {
-                                                TaskManager.SafeReport(100 * x / mWidth);
-                                                worker?.SafeThrowIfCancellationRequested();
-                                                for (int y = 0; y < mHeight; y++)
+                                                int xi = x * textureSize.Value;
+                                                int yi = y * textureSize.Value;
+
+                                                bool isTopShown = shadowMap[x, y] == SHOWN_TOP || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
+                                                bool isBottomShown = shadowMap[x, y] == SHOWN_BOTTOM || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
+                                                bool isBottomCoveredByInvisibleTop = isBottomShown && !isTopShown;
+
+                                                // The thing that makes it slightly less saturated on bottom layer
+                                                if (isBottomCoveredByInvisibleTop && _IsMultiLayer)
                                                 {
-                                                    int xi = x * textureSize.Value;
-                                                    int yi = y * textureSize.Value;
+                                                    gShadow.FillRectangle(brushTransparentCover, xi, yi, textureSize.Value, textureSize.Value);
+                                                }
 
-                                                    bool isTopShown = shadowMap[x, y] == SHOWN_TOP || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
-                                                    bool isBottomShown = shadowMap[x, y] == SHOWN_BOTTOM || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
-                                                    bool isBottomCoveredByInvisibleTop = isBottomShown && !isTopShown;
+                                                if (isTopShown && isBottomShown)
+                                                {
+                                                    continue; // No shade required
+                                                }
 
-                                                    // The thing that makes it slightly less saturated on bottom layer
-                                                    if (isBottomCoveredByInvisibleTop && _IsMultiLayer)
-                                                    {
-                                                        gShadow.FillRectangle(brushTransparentCover, xi, yi, textureSize.Value, textureSize.Value);
-                                                    }
+                                                // AIR block (or block we aint rendering)
+                                                if (!isTopShown)
+                                                {
+                                                    ShadeFrom sFrom = ShadeFrom.EMPTY;
+                                                    bool isBlockTop = y > 0 && isShaded(shadowMap[x, y], shadowMap[x, y - 1]);
+                                                    bool isBlockLeft = x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y]);
+                                                    bool isBlockRight = x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y]);
+                                                    bool isBlockBottom = (y < mHeight - 1 && isShaded(shadowMap[x, y], shadowMap[x, y + 1]));
+                                                    bool isBlockTopLeft = (y > 0 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y - 1]));
+                                                    bool isBlockTopRight = (y > 0 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y - 1]));
+                                                    bool isBlockBottomLeft = (y < mHeight - 1 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y + 1]));
+                                                    bool isBlockBottomRight = (y < mHeight - 1 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y + 1]));
 
-                                                    if (isTopShown && isBottomShown)
-                                                    {
-                                                        continue; // No shade required
-                                                    }
+                                                    if (isBlockTop) sFrom |= ShadeFrom.T;
+                                                    if (isBlockLeft) sFrom |= ShadeFrom.L;
+                                                    if (isBlockRight) sFrom |= ShadeFrom.R;
+                                                    if (isBlockBottom) sFrom |= ShadeFrom.B;
+                                                    if (isBlockTopLeft) sFrom |= ShadeFrom.TL;
+                                                    if (isBlockTopRight) sFrom |= ShadeFrom.TR;
+                                                    if (isBlockBottomLeft) sFrom |= ShadeFrom.BL;
+                                                    if (isBlockBottomRight) sFrom |= ShadeFrom.BR;
 
-                                                    // AIR block (or block we aint rendering)
-                                                    if (!isTopShown)
-                                                    {
-                                                        ShadeFrom sFrom = ShadeFrom.EMPTY;
-                                                        bool isBlockTop = y > 0 && isShaded(shadowMap[x, y], shadowMap[x, y - 1]);
-                                                        bool isBlockLeft = x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y]);
-                                                        bool isBlockRight = x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y]);
-                                                        bool isBlockBottom = (y < mHeight - 1 && isShaded(shadowMap[x, y], shadowMap[x, y + 1]));
-                                                        bool isBlockTopLeft = (y > 0 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y - 1]));
-                                                        bool isBlockTopRight = (y > 0 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y - 1]));
-                                                        bool isBlockBottomLeft = (y < mHeight - 1 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y + 1]));
-                                                        bool isBlockBottomRight = (y < mHeight - 1 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y + 1]));
+                                                    var shadeImg = ShadowHelper.GetSpriteIndividual(Constants.TextureSize, sFrom);
+                                                    gShadow.DrawImage(image: shadeImg, xi, yi, textureSize.Value, textureSize.Value);
 
-                                                        if (isBlockTop) sFrom |= ShadeFrom.T;
-                                                        if (isBlockLeft) sFrom |= ShadeFrom.L;
-                                                        if (isBlockRight) sFrom |= ShadeFrom.R;
-                                                        if (isBlockBottom) sFrom |= ShadeFrom.B;
-                                                        if (isBlockTopLeft) sFrom |= ShadeFrom.TL;
-                                                        if (isBlockTopRight) sFrom |= ShadeFrom.TR;
-                                                        if (isBlockBottomLeft) sFrom |= ShadeFrom.BL;
-                                                        if (isBlockBottomRight) sFrom |= ShadeFrom.BR;
-
-                                                        var shadeImg = ShadowHelper.GetSpriteIndividual(Constants.TextureSize, sFrom);
-                                                        gShadow.DrawImage(image: shadeImg, xi, yi, textureSize.Value, textureSize.Value);
-
-                                                    }
                                                 }
                                             }
                                         }
-
-                                        brushTransparentCover.Dispose();
                                     }
 
-                                    gImg.CompositingMode = CompositingMode.SourceOver;
-                                    gImg.DrawImage(bmShadow, 0, 0, calcW, calcH);
+                                    brushTransparentCover.Dispose();
                                 }
+
+                                gImg.CompositingMode = CompositingMode.SourceOver;
+                                gImg.DrawImage(bmShadow, 0, 0, calcW, calcH);
                             }
                         }
-
-                        #endregion
-                        brush.DisposeSafely();
-                        pen.DisposeSafely();
-
                     }
+
+                    #endregion
+                    brush.DisposeSafely();
+                    pen.DisposeSafely();
+
+
 
                     return bm;
                 }
@@ -861,44 +884,120 @@ namespace PixelStacker.UI
         /// Wants textureSize and bytesPerPixel to avoid re-querying them unnecessarily
         /// And same for the data, you should lock and expect to call this multiple times within a lock
         /// </summary>
-        private static unsafe void DrawImage(BitmapData materialData, BitmapData targetBitmapData, int x, int y, int textureSize, int bytesPerPixel)
+        private static unsafe void DrawImage(BitmapData materialData, BitmapData targetBitmapData, int x, int y, int textureSize, int bytesPerPixel, Color[] palette = null)
         {
             x *= bytesPerPixel; // Get x in reference to bytes
             byte* PtrFirstPixel = (byte*)targetBitmapData.Scan0;
             byte* dataPtrFirstPixel = (byte*)materialData.Scan0;
             byte* currentLineBase = PtrFirstPixel + (y * targetBitmapData.Stride);
-            int bytesPerMaterialPixel = System.Drawing.Bitmap.GetPixelFormatSize(materialData.PixelFormat) / 8;
+            int bitsPerMaterialPixel = System.Drawing.Bitmap.GetPixelFormatSize(materialData.PixelFormat);
+            int bytesPerMaterialPixel = bitsPerMaterialPixel / 8; // If it's not indexed, we use this
             bool hasAlpha = materialData.PixelFormat.HasAlpha(); // This is a method so... better cache the result cuz it may be computational
+
             for (int y1 = 0; y1 < textureSize; y1++)
             {
                 byte* currentLine = PtrFirstPixel + ((y + y1) * targetBitmapData.Stride);
                 byte* currentDataLine = dataPtrFirstPixel + y1 * materialData.Stride;
                 for (int x1 = 0; x1 < textureSize; x1++)
                 {
+
                     var dataPtrX = x1 * bytesPerMaterialPixel;
 
-                    int alpha = currentDataLine[dataPtrX + 3];
-                    if (hasAlpha && alpha != 255) // Alpha blend
+                    // No longer tries to get alpha first - might result in accessing invalid mem
+                    if (palette != null)
+                    {
+                        // We have to consider what happens at 4bpp
+                        // Which, gets really annoying because we always read a byte at a time
+                        // And dataPtrX won't be right either
+
+                        int index;
+                        if (bitsPerMaterialPixel == 4)
+                        {
+                            dataPtrX = (x1 / 2); // Half a byte per material pixel in this case... 
+                                                 // I'd rather avoid any potential float/double imprecision with doing this more modularly
+                            index = currentDataLine[dataPtrX];
+                            if (x1 % 2 == 0)
+                            {
+                                // Take the first 4 bits
+                                var bits = index & 0b11110000;
+                                // Shift it 4 bits right
+                                bits = bits >> 4;
+                                index = bits;
+                            }
+                            else
+                            {
+                                // Take the last 4 bits
+                                var bits = index & 0b00001111;
+                                // No shift required
+                                index = bits;
+                            }
+                        }
+                        else if (bitsPerMaterialPixel < 8)
+                        {
+                            throw new InvalidOperationException("Does not support images with bpp lower than 4"); // I hope these don't exist anyway
+                        }
+                        else
+                            index = currentDataLine[dataPtrX]; // Moved this here so we don't access invalid mem if it's not the right size... 
+
+                        if (index < palette.Length)
+                        {
+                            Color targetColor = palette[index];
+                            if (BitConverter.IsLittleEndian)
+                            {
+                                currentLine[x + x1 * bytesPerPixel] = targetColor.B;
+                                currentLine[x + x1 * bytesPerPixel + 1] = targetColor.G;
+                                currentLine[x + x1 * bytesPerPixel + 2] = targetColor.R;
+                                currentLine[x + x1 * bytesPerPixel + 3] = targetColor.A;
+                            }
+                            else
+                            {
+                                currentLine[x + x1 * bytesPerPixel] = targetColor.A;
+                                currentLine[x + x1 * bytesPerPixel + 1] = targetColor.R;
+                                currentLine[x + x1 * bytesPerPixel + 2] = targetColor.G;
+                                currentLine[x + x1 * bytesPerPixel + 3] = targetColor.B;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Invalid index received: {index} vs length {palette.Length}"); // Should no longer happen but leaving it just in case
+                        }
+
+                    }
+                    else if (hasAlpha && currentDataLine[dataPtrX + 3] != 255) // Alpha blend
                     {
                         // out = alpha * new + (1 - alpha) * old
                         // I'm not sure if storing these has any benefit except to make the formula slightly cleaner
                         // But they're just bytes, they shouldn't affect the overhead much
+
+                        // Endianness doesn't matter because it should match
                         var B = currentLine[x + x1 * bytesPerPixel];
                         var G = currentLine[x + x1 * bytesPerPixel + 1];
                         var R = currentLine[x + x1 * bytesPerPixel + 2];
                         var A = currentLine[x + x1 * bytesPerPixel + 3];
-                        double normalAlpha = alpha / 255d;
+                        double normalAlpha = currentDataLine[dataPtrX + 3] / 255d;
                         currentLine[x + x1 * bytesPerPixel] = (byte)(normalAlpha * currentDataLine[dataPtrX] + (1 - normalAlpha) * B);
                         currentLine[x + x1 * bytesPerPixel + 1] = (byte)(normalAlpha * currentDataLine[dataPtrX + 1] + (1 - normalAlpha) * G);
                         currentLine[x + x1 * bytesPerPixel + 2] = (byte)(normalAlpha * currentDataLine[dataPtrX + 2] + (1 - normalAlpha) * R);
                         currentLine[x + x1 * bytesPerPixel + 3] = (byte)A; // Our resulting alpha should always be the original, we're blending it ourselves
+
                     }
                     else // These are separated so that we don't have to read current value in the more common case that it has no alpha
                     {
-                        currentLine[x + x1 * bytesPerPixel] = currentDataLine[dataPtrX];
-                        currentLine[x + x1 * bytesPerPixel + 1] = currentDataLine[dataPtrX + 1];
-                        currentLine[x + x1 * bytesPerPixel + 2] = currentDataLine[dataPtrX + 2];
-                        currentLine[x + x1 * bytesPerPixel + 3] = (byte)255;
+                        // We hard-set alpha so we don't try to access invalid mem if it's not there
+                        if(BitConverter.IsLittleEndian)
+                        {
+                            currentLine[x + x1 * bytesPerPixel] = currentDataLine[dataPtrX];
+                            currentLine[x + x1 * bytesPerPixel + 1] = currentDataLine[dataPtrX + 1];
+                            currentLine[x + x1 * bytesPerPixel + 2] = currentDataLine[dataPtrX + 2];
+                            currentLine[x + x1 * bytesPerPixel + 3] = (byte)255;
+                        }
+                        else
+                        {
+                            currentLine[x + x1 * bytesPerPixel] = (byte)255;
+                            currentLine[x + x1 * bytesPerPixel + 1] = currentDataLine[dataPtrX];
+                            currentLine[x + x1 * bytesPerPixel + 2] = currentDataLine[dataPtrX + 1];
+                            currentLine[x + x1 * bytesPerPixel + 3] = currentDataLine[dataPtrX + 2];
+                        }
                     }
                 }
             }
@@ -1357,7 +1456,7 @@ namespace PixelStacker.UI
             }
             Refresh();
         }
-        #endregion 
+        #endregion
 
         public Point getPointOnImage(Point pointOnPanel, EstimateProp prop)
         {
