@@ -123,7 +123,7 @@ namespace PixelStacker.UI
 
             return false;
         }
-
+        
         /// <summary>
         /// WILL CONSUME THE INPUT IMAGE AND MODIFY IT IN PLACE
         /// </summary>
@@ -131,6 +131,44 @@ namespace PixelStacker.UI
         /// <param name="blueprint"></param>
         /// <returns></returns>
         public static Bitmap RenderPlaceholderBitmapFromBlueprint(CancellationToken worker, Bitmap blueprint)
+        {
+            int mWidth = blueprint.Width;
+            int mHeight = blueprint.Height;
+
+            if (ColorMatcher.Get.ColorToMaterialMap.Count == 0)
+            {
+                TaskManager.SafeReport(0, "Compiling the color map");
+                ColorMatcher.Get.CompileColorPalette(worker, true, Materials.List).GetAwaiter().GetResult();
+            }
+
+            int xx = 0;
+            blueprint.ToEditStream(worker, (int x, int y, Color c) => {
+
+                Color cFromPalette = ColorMatcher.Get.FindBestMatch(c);
+                if (x > xx)
+                {
+                    xx = x; 
+                    TaskManager.SafeReport(100 * x / mWidth, "Rendering low-rez preview to give the illusion of a faster program.");
+                }
+
+                if (cFromPalette.A == 0)
+                {
+                    return Materials.Air.getAverageColor(true);
+                }
+
+                return cFromPalette;
+            });
+
+            return blueprint;
+        }
+
+        /// <summary>
+        /// WILL CONSUME THE INPUT IMAGE AND MODIFY IT IN PLACE
+        /// </summary>
+        /// <param name="worker"></param>
+        /// <param name="blueprint"></param>
+        /// <returns></returns>
+        public static Bitmap RenderPlaceholderBitmapFromBlueprint__UnknownIfOldOrNewer(CancellationToken worker, Bitmap blueprint)
         {
             int mWidth = blueprint.Width;
             int mHeight = blueprint.Height;
@@ -189,7 +227,7 @@ namespace PixelStacker.UI
             {
                 try
                 {
-                    TaskManager.SafeReport(0, "Converting blueprint to bitmap");
+                    TaskManager.SafeReport(0, "Preparing canvas for textures");
                     bool isSelectiveLayerViewEnabled = Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false);
                     bool isMaterialFilterViewEnabled = Options.Get.SelectedMaterialFilter.Any();
                     bool isSide = Options.Get.IsSideView;
@@ -198,7 +236,6 @@ namespace PixelStacker.UI
                     int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
                     int h = (int)(origH * MainForm.PanZoomSettings.zoomLevel);
                     int zoom = (int)(MainForm.PanZoomSettings.zoomLevel);
-
 
                     SolidBrush brush = new SolidBrush(Color.Black);
                     Pen pen = new Pen(brush);
@@ -210,11 +247,14 @@ namespace PixelStacker.UI
 
                     int calcW = mWidth * textureSize.Value;
                     int calcH = mHeight * textureSize.Value;
+                    TaskManager.SafeReport(20, "Preparing canvas for textures");
+
                     Bitmap bm = new Bitmap(
                         width: calcW,
                         height: calcH,
                         format: PixelFormat.Format32bppArgb);
 
+                    TaskManager.SafeReport(50, "Preparing canvas for textures");
                     var selectedMaterials = Options.Get.SelectedMaterialFilter.AsEnumerable().ToList(); // clone
                     bool _IsSolidColors = Options.Get.Rendered_IsSolidColors;
                     bool _IsColorPalette = Options.Get.Rendered_IsColorPalette;
@@ -222,7 +262,6 @@ namespace PixelStacker.UI
                     bool _isSkipShadowRendering = Options.Get.IsShadowRenderingSkipped;
                     int _RenderedZIndexToShow = Options.Get.Rendered_RenderedZIndexToShow;
                     bool _isFrugalAesthetic = Options.Get.IsFrugalWithMaterials && !selectedMaterials.Any();
-
 
                     using (Graphics gImg = Graphics.FromImage(bm))
                     {
@@ -234,7 +273,7 @@ namespace PixelStacker.UI
                         #region Regular
                         for (int z = 0; z < mDepth; z++)
                         {
-                            TaskManager.SafeReport(0, "Rendering to materials display... (Layer " + z + ")");
+                            TaskManager.SafeReport(0, "Applying textures... (Layer " + z + ")");
 
                             if (isSelectiveLayerViewEnabled)
                             {
@@ -312,7 +351,7 @@ namespace PixelStacker.UI
                             byte[,] shadowMap = new byte[mWidth, mHeight];
                             {
                                 #region Initialize shadow map (booleans basically)
-                                TaskManager.SafeReport(0, "Rendering shader map");
+                                TaskManager.SafeReport(0, "Calculating shadow placement map");
                                 for (int xShadeMap = 0; xShadeMap < mWidth; xShadeMap++)
                                 {
                                     TaskManager.SafeReport(100 * xShadeMap / mWidth);
