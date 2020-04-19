@@ -960,7 +960,7 @@ namespace PixelStacker.UI
                         currentLine[x + x1 * bytesPerPixel] = (byte)(normalAlpha * currentDataLine[dataPtrX] + (1 - normalAlpha) * B);
                         currentLine[x + x1 * bytesPerPixel + 1] = (byte)(normalAlpha * currentDataLine[dataPtrX + 1] + (1 - normalAlpha) * G);
                         currentLine[x + x1 * bytesPerPixel + 2] = (byte)(normalAlpha * currentDataLine[dataPtrX + 2] + (1 - normalAlpha) * R);
-                        currentLine[x + x1 * bytesPerPixel + 3] = (byte)A; // Our resulting alpha should always be the original, we're blending it ourselves
+                        currentLine[x + x1 * bytesPerPixel + 3] = (byte)Math.Max(A, currentDataLine[dataPtrX + 3]); // Our resulting alpha should always be the highest of either, we're blending it ourselves
 
                     }
                     else // These are separated so that we don't have to read current value in the more common case that it has no alpha
