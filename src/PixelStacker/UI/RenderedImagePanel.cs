@@ -543,8 +543,8 @@ namespace PixelStacker.UI
 
                     unsafe
                     {
-                        // TODO Parallelize and add loading bars for this
-                        foreach (var m in materials)
+
+                        Parallel.ForEach(materials, m =>
                         {
                             var image = m.getImage(isSide);
                             if (image.PixelFormat.IsIndexed())
@@ -559,7 +559,7 @@ namespace PixelStacker.UI
 
                             materialDataMap[m] = data;
 
-                        }
+                        });
 
 
                         int bytesPerPixel = System.Drawing.Bitmap.GetPixelFormatSize(bm.PixelFormat) / 8;
@@ -614,38 +614,15 @@ namespace PixelStacker.UI
                                             if (isMaterialIncludedInFilter)
                                             {
                                                 var color = blueprint.GetColor(x, y);
-                                                //if (!BitConverter.IsLittleEndian)
-                                                //    color = color.Reverse(); 
-                                                // This would be lazy and creates new instances.  Let's do it right... 
 
-                                                //gImg.FillRectangle(brush, xi, yi, textureSize.Value, textureSize.Value);
                                                 // Fill rectangle implementation
                                                 for (int y1 = 0; y1 < textureSizeRef; y1++)
                                                 {
                                                     byte* currentLine = PtrFirstPixel + ((yi + y1) * bitmapData.Stride);
                                                     for (int x1 = 0; x1 < textureSizeRef; x1++)
                                                     {
-                                                        if (BitConverter.IsLittleEndian)
-                                                        {
-                                                            currentLine[ptrX + x1 * bytesPerPixel] = color.B;
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 1] = color.G;
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 2] = color.R;
-                                                            if (color.A > 0) // IDK I'm paranoid after all the alpha issues I had
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = color.A;
-                                                            else
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = (byte)255;
-                                                        }
-                                                        else
-                                                        {
-                                                            if (color.A > 0) // IDK I'm paranoid after all the alpha issues I had
-                                                                currentLine[ptrX + x1 * bytesPerPixel] = color.A;
-                                                            else
-                                                                currentLine[ptrX + x1 * bytesPerPixel] = (byte)255;
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 1] = color.R;
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 2] = color.G;
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 3] = color.B;
-                                                            
-                                                        }
+                                                        SetPixel(currentLine, ptrX + x1 * bytesPerPixel, color);
+
                                                     }
                                                 }
                                             }
@@ -659,7 +636,7 @@ namespace PixelStacker.UI
                                                 // Then put a square of the appropriate color from 0,0 to textureSizeRef/2
                                                 // Then put a black border around that square
                                                 var color = blueprint.GetColor(x, y);
-                                                
+
                                                 bool hasAlpha = data.PixelFormat.HasAlpha(); // This is a method so... better cache the result cuz it may be computational
 
                                                 // To save a massive amount of code duplication
@@ -693,20 +670,7 @@ namespace PixelStacker.UI
 
                                                         if (targetColor != Color.Empty)
                                                         {
-                                                            if (BitConverter.IsLittleEndian)
-                                                            {
-                                                                currentLine[ptrX + x1 * bytesPerPixel] = targetColor.B;
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 1] = targetColor.G;
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 2] = targetColor.R;
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = targetColor.A;
-                                                            }
-                                                            else
-                                                            {
-                                                                currentLine[ptrX + x1 * bytesPerPixel] = targetColor.A;
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 1] = targetColor.R;
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 2] = targetColor.G;
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = targetColor.B;
-                                                            }
+                                                            SetPixel(currentLine, ptrX + x1 * bytesPerPixel, targetColor);
                                                         }
                                                     }
 
@@ -879,6 +843,24 @@ namespace PixelStacker.UI
             return null;
         }
 
+        private static unsafe void SetPixel(byte* currentLine, int lineIndex, Color targetColor)
+        {
+            if (BitConverter.IsLittleEndian)
+            {
+                currentLine[lineIndex] = targetColor.B;
+                currentLine[lineIndex + 1] = targetColor.G;
+                currentLine[lineIndex + 2] = targetColor.R;
+                currentLine[lineIndex + 3] = targetColor.A;
+            }
+            else
+            {
+                currentLine[lineIndex] = targetColor.A;
+                currentLine[lineIndex + 1] = targetColor.R;
+                currentLine[lineIndex + 2] = targetColor.G;
+                currentLine[lineIndex + 3] = targetColor.B;
+            }
+        }
+
         /// <summary>
         /// Draws a material onto target at the X,Y coordinates
         /// Wants textureSize and bytesPerPixel to avoid re-querying them unnecessarily
@@ -984,7 +966,7 @@ namespace PixelStacker.UI
                     else // These are separated so that we don't have to read current value in the more common case that it has no alpha
                     {
                         // We hard-set alpha so we don't try to access invalid mem if it's not there
-                        if(BitConverter.IsLittleEndian)
+                        if (BitConverter.IsLittleEndian)
                         {
                             currentLine[x + x1 * bytesPerPixel] = currentDataLine[dataPtrX];
                             currentLine[x + x1 * bytesPerPixel + 1] = currentDataLine[dataPtrX + 1];
