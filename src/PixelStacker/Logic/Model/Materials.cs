@@ -7,196 +7,14 @@ using System.Threading;
 using PixelStacker.Logic.Great;
 using PixelStacker.Resources;
 using PixelStacker.UI;
+using System.Collections.Concurrent;
+using PixelStacker.Logic.Collections;
 
 namespace PixelStacker.Logic
 {
     public class Materials
     {
-        public static Material Air { get; set; }
-        public static Dictionary<Color, Material[]> ColorMap = new Dictionary<Color, Material[]>();
-        // Maps best matches to the set of quantized colors available.
-        // [Src color] --> [ColorMap.Key]
-        public static BestMatchCacheMap BestMatchCache = new BestMatchCacheMap().Load();
-
-        // Color blending is just a linear interpolation per channel, right?
-        // So the math is pretty simple. If you have RGBA1 over RGB2, the 
-        // effective visual result RGB3 will be:
-        // r3 = r2 + (r1 - r2) * a1
-        // g3 = g2 + (g1 - g2) * a1
-        // b3 = b2 + (b1 - b2) * a1
-        private static Color OverlayColor(Color RGBA1_Top, Color RGBA2_Bottom)
-        {
-            double alpha = Convert.ToDouble(RGBA1_Top.A) / 255;
-            int R = (int) ((RGBA1_Top.R * alpha) + (RGBA2_Bottom.R * (1.0 - alpha)));
-            int G = (int) ((RGBA1_Top.G * alpha) + (RGBA2_Bottom.G * (1.0 - alpha)));
-            int B = (int) ((RGBA1_Top.B * alpha) + (RGBA2_Bottom.B * (1.0 - alpha)));
-            return Color.FromArgb(255, R, G, B);
-        }
-
-        public static void CompileColorMap(CancellationToken worker, bool isClearBestMatchCache)
-        {
-            int n = 0;
-            int maxN = Materials.List.Where(x => x.IsEnabled).Count();
-            if (Options.Get.IsMultiLayer) maxN *= 16;
-            Dictionary<Color, List<Material[]>> collisions = new Dictionary<Color, List<Material[]>>();
-
-            bool isSide = Options.Get.IsSideView;
-            bool isMultiLayer = Options.Get.IsMultiLayer;
-            if (isClearBestMatchCache) { BestMatchCache.Clear(); }
-            TaskManager.SafeReport(0, "Compiling Color Map based on selected materials.");
-            Air = Materials.List.FirstOrDefault(m => m.Label == "Air");
-
-            ColorMap.Clear();
-            var categoriesSelected = Materials.List.Where(m2 => m2.IsEnabled && m2.Category != "Air").Select(m2 => m2.Category).Distinct();
-            if (categoriesSelected.Count() == 1 && categoriesSelected.FirstOrDefault() == "Glass")
-            {
-                foreach (Material m in Materials.List.Where(m2 => m2.IsEnabled && m2.Category == "Glass" && m2.Category != "Air"))
-                {
-                    Color cAvg = m.getAverageColor(isSide);
-                    ColorMap[cAvg] = new Material[1] { m };
-                    if (n++ % 30 == 0)
-                    {
-                        TaskManager.SafeReport(100 * n / maxN, "Compiling color map...");
-                        if (worker.SafeIsCancellationRequested())
-                        {
-                            ColorMap.Clear();
-                            if (isClearBestMatchCache) { BestMatchCache.Clear(); }
-                            worker.SafeThrowIfCancellationRequested();
-                        }
-                    }
-                }
-            }
-            else
-            {
-                foreach (Material m in Materials.List.Where(m2 => m2.IsEnabled && m2.Category != "Glass" && m2.Category != "Air"))
-                {
-                    Color cAvg = m.getAverageColor(isSide);
-                    ColorMap[cAvg] = new Material[1] { m };
-                    if (n++ % 30 == 0)
-                    {
-                        TaskManager.SafeReport(100 * n / maxN, "Compiling color map...");
-                        if (worker.SafeIsCancellationRequested())
-                        {
-                            ColorMap.Clear();
-                            if (isClearBestMatchCache) { BestMatchCache.Clear(); }
-                            worker.SafeThrowIfCancellationRequested();
-                        }
-                    }
-                }
-            }
-
-            if (isMultiLayer)
-            {
-                Dictionary<Color, Material[]> toAdd = new Dictionary<Color, Material[]>();
-                List<Material> glasses = Materials.List.Where(m2 => m2.Category == "Glass" && m2.IsEnabled).ToList();
-                foreach (Material[] mArr in ColorMap.Values.Where(cm => cm.Length == 1))
-                {
-                    foreach (Material glassM in glasses)
-                    {
-                        Color combinedColor = OverlayColor(glassM.getAverageColor(isSide), mArr[0].getAverageColor(isSide));
-
-                        Material[] matMap = new Material[mArr.Length + 1];
-                        for (int i = 0; i < mArr.Length; i++)
-                        {
-                            matMap[i] = mArr[i];
-                        }
-                        matMap[matMap.Length - 1] = glassM;
-
-                        // Prefer single layer versions of same color.
-                        if (!ColorMap.ContainsKey(combinedColor))
-                        {
-                            toAdd[combinedColor] = matMap;
-                        }
-
-                        if (n++ % 30 == 0)
-                        {
-                            TaskManager.SafeReport(100 * n / maxN, "Compiling color map...");
-                            if (worker.SafeIsCancellationRequested())
-                            {
-                                ColorMap.Clear();
-                                if (isClearBestMatchCache) { BestMatchCache.Clear(); }
-                                worker.SafeThrowIfCancellationRequested();
-                            }
-                        }
-                    }
-                }
-
-                foreach (Color c in toAdd.Keys)
-                {
-                    if (!ColorMap.ContainsKey(c))
-                    {
-                        ColorMap[c] = toAdd[c];
-                    }
-                }
-
-                toAdd.Clear();
-            }
-
-            ColorMap[Air.getAverageColor(isSide)] = new Material[1] { Air };
-            ColorMap[Color.FromArgb(0, 255, 255, 255)] = new Material[1] { Air };
-            if (Options.Get.IsMultiLayerRequired)
-            {
-                ColorMap = ColorMap.Where(x => x.Value.Length > 1).ToDictionary(k => k.Key, v => v.Value);
-            }
-            TaskManager.SafeReport(100, "Color map finished compiling");
-        }
-
-        public static Color? FindBestMatch(List<Color> colors, Color toMatch)
-        {
-            Color? bestMatch = null;
-            int bestDiff = int.MaxValue;
-
-            if (BestMatchCache.TryGetValue(toMatch, out Color found))
-            {
-                return found;
-            }
-
-            for (int i = 0; i < colors.Count; i++)
-            {
-                if (colors[i].ToArgb() != 16777215)
-                {
-                    Color c = colors[i];
-
-                    if (bestMatch == null)
-                    {
-                        bestMatch = c;
-                    }
-
-
-                    int diff = int.MaxValue;
-
-                    try
-                    {
-                        float diffd = c.GetColorDistance(toMatch);
-                        diff = Convert.ToInt32(diffd);
-                    }
-                    catch (OverflowException) { }
-
-                    if (diff < bestDiff)
-                    {
-                        bestMatch = c;
-                        bestDiff = diff;
-                    }
-                }
-            }
-
-            var rt = (bestMatch ?? Materials.Air.getAverageColor(true));
-            BestMatchCache.Add(toMatch, rt);
-
-            return rt;
-        }
-
-        public static List<Color> FindBestMatches(List<Color> colors, Color toMatch, int top)
-        {
-            var rt = colors
-            .Where(c => c.ToArgb() != 16777215)
-            .OrderBy(c =>
-            {
-                float diffd = c.GetColorDistance(toMatch);
-                return diffd;
-            }).Take(top).ToList();
-            return rt;
-        }
+        public static Material Air { get; set; } = Materials.List.FirstOrDefault(x => x.PixelStackerID == "AIR");
 
         public static Material FromPixelStackerID(string pixelStackerID)
         {
@@ -500,6 +318,23 @@ namespace PixelStacker.Logic
                         new Material("1.12", false, "Terracotta", "GLAZED_13", "Green Terracotta", 248, 0, Textures.green_glazed_terracotta, Textures.green_glazed_terracotta, $"minecraft:{nameof(Textures.green_glazed_terracotta)}", $"minecraft:{nameof(Textures.green_glazed_terracotta)}", "minecraft:green_glazed_terracotta"),
                         new Material("1.12", false, "Terracotta", "GLAZED_14", "Red Terracotta", 249, 0, Textures.red_glazed_terracotta, Textures.red_glazed_terracotta, $"minecraft:{nameof(Textures.red_glazed_terracotta)}", $"minecraft:{nameof(Textures.red_glazed_terracotta)}", "minecraft:red_glazed_terracotta"),
                         new Material("1.12", false, "Terracotta", "GLAZED_15", "Black Terracotta", 250, 0, Textures.black_glazed_terracotta, Textures.black_glazed_terracotta, $"minecraft:{nameof(Textures.black_glazed_terracotta)}", $"minecraft:{nameof(Textures.black_glazed_terracotta)}", "minecraft:black_glazed_terracotta"),
+
+                        new Material("1.7", true, "Carpet", "CARPET_00", "White Carpet", 171, 0, Textures.white_wool, Textures.white_wool, $"minecraft:white_carpet", $"minecraft:white_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_01", "Orange Carpet", 171, 1, Textures.orange_wool, Textures.orange_wool, $"minecraft:orange_carpet", $"minecraft:orange_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_02", "Magenta Carpet", 171, 2, Textures.magenta_wool, Textures.magenta_wool, $"minecraft:magenta_carpet", $"minecraft:magenta_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_03", "Light Blue Carpet", 171, 3, Textures.light_blue_wool, Textures.light_blue_wool, $"minecraft:light_blue_carpet", $"minecraft:light_blue_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_04", "Yellow Carpet", 171, 4, Textures.yellow_wool, Textures.yellow_wool, $"minecraft:yellow_carpet", $"minecraft:yellow_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_05", "Lime Carpet", 171, 5, Textures.lime_wool, Textures.lime_wool, $"minecraft:lime_carpet", $"minecraft:lime_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_06", "Pink Carpet", 171, 6, Textures.pink_wool, Textures.pink_wool, $"minecraft:pink_carpet", $"minecraft:pink_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_07", "Gray Carpet", 171, 7, Textures.gray_wool, Textures.gray_wool, $"minecraft:gray_carpet", $"minecraft:gray_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_08", "Light Gray Carpet", 171, 8, Textures.light_gray_wool, Textures.light_gray_wool, $"minecraft:light_gray_carpet", $"minecraft:light_gray_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_09", "Cyan Carpet", 171, 9, Textures.cyan_wool, Textures.cyan_wool, $"minecraft:cyan_carpet", $"minecraft:cyan_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_10", "Purple Carpet", 171, 10, Textures.purple_wool, Textures.purple_wool, $"minecraft:purple_carpet", $"minecraft:purple_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_11", "Blue Carpet", 171, 11, Textures.blue_wool, Textures.blue_wool, $"minecraft:blue_carpet", $"minecraft:blue_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_12", "Brown Carpet", 171, 12, Textures.brown_wool, Textures.brown_wool, $"minecraft:brown_carpet", $"minecraft:brown_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_13", "Green Carpet", 171, 13, Textures.green_wool, Textures.green_wool, $"minecraft:green_carpet", $"minecraft:green_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_14", "Red Carpet", 171, 14, Textures.red_wool, Textures.red_wool, $"minecraft:red_carpet", $"minecraft:red_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_15", "Black Carpet", 171, 15, Textures.black_wool, Textures.black_wool, $"minecraft:black_carpet", $"minecraft:black_carpet", "minecraft:carpet"),
                     };
 
                     var notUnique = _List.GroupBy(x => x.PixelStackerID).Where(x => x.Count() > 1);
@@ -538,6 +373,8 @@ namespace PixelStacker.Logic
 
                         m.Tags = tags.Distinct().ToList();
                     });
+
+                    _List = _List.OrderBy(x => x.IsAdvanced).ToList();
 
                     //int n = 1;
                     //int diff = 50;

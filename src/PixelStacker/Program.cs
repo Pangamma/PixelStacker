@@ -14,16 +14,15 @@ namespace PixelStacker
     static class Program
     {
         // TODO: Add grasses and dirts
-        // TODO: USE HSL DISTINCT SELECTION, OCT TREE(SPEED)/Euclidian(Quality), No dither, 4 parallel, 256 colors
-        // TODO: Add option to switch between multiple color palettes easily. (And label them)
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += MainForm.OnThreadException;
+            AppDomain.CurrentDomain.UnhandledException += MainForm.OnUnhandledException;
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
             SetLocaleByTextureSize(Constants.TextureSize);
 

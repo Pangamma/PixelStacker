@@ -169,7 +169,7 @@ namespace PixelStacker.Logic
 
                 if (!Options.Get.EnableStates.ContainsKey(SettingsKey))
                 {
-                    Options.Get.EnableStates[SettingsKey] = true;
+                    Options.Get.EnableStates[SettingsKey] = !this.IsAdvanced;
                 }
 
                 return Options.Get.EnableStates[SettingsKey];

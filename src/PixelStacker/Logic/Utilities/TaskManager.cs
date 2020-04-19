@@ -23,7 +23,11 @@ namespace PixelStacker.Logic
         {
             lock (Padlock)
             {
-                if (StatusPercent != c.progressBar.Value)
+                if (StatusPercent == 100)
+                {
+                    c.progressBar.Value = 0;
+                }
+                else if (StatusPercent != c.progressBar.Value)
                 {
                     int val = Math.Min(c.progressBar.Maximum, StatusPercent);
                     c.progressBar.Value = val;
@@ -32,7 +36,9 @@ namespace PixelStacker.Logic
                         c.progressBar.Value = val - 1;
                     }
                 }
-                c.lblStatus.Text = StatusMessage;
+
+                string displayText = $"{StatusPercent}%   {StatusMessage}";
+                c.lblStatus.Text = (StatusPercent == 0 || StatusPercent == 100) ? StatusMessage : displayText;
             }
         }
 

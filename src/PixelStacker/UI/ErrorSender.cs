@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Logic;
+using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.WIP;
 using System;
@@ -94,6 +95,39 @@ namespace PixelStacker
                         }
 
                         {
+                            string text = "";
+                            var iex = this.CurrentException;
+                            while (iex != null)
+                            {
+                                if (iex is AggregateException)
+                                {
+                                    text += "\r\n\r\n\r\n=AGGREGATE=========================================================\r\n";
+                                    text += "WARNING: Will fail to grab inner inner exceptions for the items below. See JSON for more info.\r\n";
+                                    var aex = (AggregateException) iex;
+                                    foreach (var iiex in aex.InnerExceptions)
+                                    {
+                                        text += iiex.Message + "\r\n";
+                                        text += iiex.StackTrace + "\r\n";
+                                        // Will fail to grab inner exceptions of inner exceptions... :C
+                                    }
+                                }
+                                else
+                                {
+                                    text += "\r\n\r\n\r\n===============================================================\r\n";
+                                    text += iex.Message + "\r\n";
+                                    text += iex.StackTrace + "\r\n";
+                                    iex = iex.InnerException;
+                                }
+                            }
+
+                            ZipArchiveEntry entry = archive.CreateEntry("exception.txt");
+                            using (StreamWriter writer = new StreamWriter(entry.Open()))
+                            {
+                                writer.Write(text);
+                            }
+                        }
+
+                        {
                             var optionsJson = JsonConvert.SerializeObject(Options.Get, Formatting.Indented);
                             ZipArchiveEntry entry = archive.CreateEntry("options.json");
                             using (StreamWriter writer = new StreamWriter(entry.Open()))
@@ -122,7 +156,7 @@ namespace PixelStacker
                         }
 
                         {
-                            var colorMap = Materials.ColorMap.Select(x => $"{x.Key.ToArgb()}\t{string.Join("\t", x.Value.Select(m => m.PixelStackerID))}");
+                            var colorMap = ColorMatcher.Get.ColorToMaterialMap.Select(x => $"{x.Key.ToArgb()}\t{string.Join("\t", x.Value.Select(m => m.PixelStackerID))}");
                             var content = string.Join("\r\n", colorMap);
                             ZipArchiveEntry entry = archive.CreateEntry("color-map.dat");
                             using (StreamWriter writer = new StreamWriter(entry.Open()))

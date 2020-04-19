@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.Extensions
 {
@@ -470,6 +471,76 @@ namespace PixelStacker.Logic.Extensions
                     TaskManager.SafeReport(100 * y / origImage.Height);
                 }
             }
+
+            return;
+        }
+
+
+
+        /// <summary>
+        /// Image MUST be 32bppARGB
+        /// </summary>
+        /// <param name="origImage"></param>
+        /// <returns></returns>
+        [Obsolete("This thing might be causing some UI glitches. Double check before fully using it.")]
+        public static void ToViewStreamParallel(this Bitmap origImage, CancellationToken? worker, Action<int, int, Color> callback)
+        {
+            if (origImage.PixelFormat != PixelFormat.Format32bppArgb)
+            {
+                throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");
+            }
+
+            //Get the bitmap data
+            var bitmapData = origImage.LockBits(
+                new Rectangle(0, 0, origImage.Width, origImage.Height),
+                ImageLockMode.ReadWrite,
+                origImage.PixelFormat
+            );
+
+            //Initialize an array for all the image data
+            byte[] imageBytes = new byte[bitmapData.Stride * origImage.Height];
+
+            //Copy the bitmap data to the local array
+            System.Runtime.InteropServices.Marshal.Copy(bitmapData.Scan0, imageBytes, 0, imageBytes.Length);
+
+            //Unlock the bitmap
+            origImage.UnlockBits(bitmapData);
+
+            //Find pixelsize
+            int pixelSize = Image.GetPixelFormatSize(origImage.PixelFormat); // bits per pixel
+            int bytesPerPixel = pixelSize / 8;
+            //int x = 0; int y = 0;
+            int origImageH = origImage.Height;
+            int origImageW = origImage.Width;
+            var pixelData = new byte[bytesPerPixel];
+
+            int numPixelsTotal = imageBytes.Length / bytesPerPixel;
+            int numPixelsFinished = 0;
+            Parallel.For(0, numPixelsTotal, i =>
+            //for (int i = 0; i < imageBytes.Length; i += bytesPerPixel)
+            {
+                //Copy the bits into a local array
+                Array.Copy(imageBytes, i * bytesPerPixel, pixelData, 0, bytesPerPixel);
+
+                if (!BitConverter.IsLittleEndian)
+                {
+                    Array.Reverse(pixelData);
+                }
+
+                //Get the color of a pixel
+                // On a little-endian machine, the byte order is bb gg rr aa
+                Color color = Color.FromArgb(pixelData[3], pixelData[2], pixelData[1], pixelData[0]);
+                int x = i % origImageW;
+                int y = i / origImageW;
+                callback(x, y, color);
+
+                if (x > origImageW - 1)
+                {
+                    numPixelsFinished++;
+                    worker?.SafeThrowIfCancellationRequested();
+                    TaskManager.SafeReport(100 * numPixelsFinished / numPixelsTotal);
+                }
+            });
 
             return;
         }

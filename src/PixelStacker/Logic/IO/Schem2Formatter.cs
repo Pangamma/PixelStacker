@@ -1,4 +1,5 @@
 ﻿using fNbt;
+using PixelStacker.Logic.Collections;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -130,7 +131,7 @@ namespace PixelStacker.Logic
                     {
                         int ci = blueprint.BlocksMap[xr, yD - 1 - yr];
                         Color c = Color.FromArgb(ci);
-                        var mm = (Materials.ColorMap.TryGetValue(c, out Material[] found) ? found : null) ?? new Material[] { Materials.Air };
+                        var mm = (ColorMatcher.Get.ColorToMaterialMap.TryGetValue(c, out Material[] found) ? found : null) ?? new Material[] { Materials.Air };
 
                         if (isMultiLayer)
                         {
@@ -153,7 +154,7 @@ namespace PixelStacker.Logic
                     {
                         int ci = blueprint.BlocksMap[xr, zr]; // WARN: Maybe this needs to be zD - 1 - zr
                         Color c = Color.FromArgb(ci);
-                        var mm = (Materials.ColorMap.TryGetValue(c, out Material[] found) ? found : null) ?? new Material[] { Materials.Air };
+                        var mm = (ColorMatcher.Get.ColorToMaterialMap.TryGetValue(c, out Material[] found) ? found : null) ?? new Material[] { Materials.Air };
 
                         if (isMultiLayer)
                         {

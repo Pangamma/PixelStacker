@@ -87,6 +87,7 @@ namespace PixelStacker.UI
                 Graphics g = e.Graphics;
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
 
                 if (this.image != null)
                 {

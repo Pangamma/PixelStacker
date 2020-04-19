@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic;
+using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,18 @@ namespace PixelStacker
             dlgSaveColorPalette.Filter = availableExtensions[filterIndex];
             dlgSaveColorPalette.DefaultExt = availableExtensions[filterIndex].Substring(availableExtensions[filterIndex].LastIndexOf("*.") + 2);
             dlgSaveColorPalette.ShowDialog(this);
+        }
+
+        private void allItemsInColorPaletteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var mats = Materials.List.Where(x => x.IsEnabled);
+            var map = new int[10, 1 + (mats.Count() / 10)];
+            BlueprintPA print = new BlueprintPA()
+            {
+                MaxDepth = 1,
+            };
+
+            SchemFormatter.writeBlueprint("./io.schem", print);
         }
 
         private void graphToolStripMenuItem_Click(object sender, EventArgs e)
@@ -195,7 +208,8 @@ namespace PixelStacker
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                             TaskManager.Get.StartAsync((token) =>
                             {
-                                Materials.CompileColorMap(token, true);
+                                ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
+                               .GetAwaiter().GetResult();
                             });
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                             return;

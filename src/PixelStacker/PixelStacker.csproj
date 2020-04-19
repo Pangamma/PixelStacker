@@ -99,6 +99,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Collections\ColorMap\ColorMatcher.cs" />
+    <Compile Include="Logic\Collections\KDColorTree.cs" />
+    <Compile Include="Logic\Collections\KDTree\KDTreeNodeCollection.cs" />
+    <Compile Include="Logic\Collections\KDTree\KDTreePS.cs" />
+    <Compile Include="Logic\Collections\KDTree\ElementComparer.cs" />
+    <Compile Include="Logic\Collections\KDTree\Hyperrectangle.cs" />
+    <Compile Include="Logic\Collections\KDTree\KDTreeNodePS.cs" />
+    <Compile Include="Logic\Collections\KDTree\NodeDistance.cs" />
     <Compile Include="Logic\IO\FilePaths.cs" />
     <Compile Include="Logic\IO\Schem2Formatter.cs" />
     <Compile Include="Logic\Model\BestMatchCacheMap.cs" />
@@ -934,6 +942,7 @@
     <None Include="Resources\Images\Textures\x16\lodestone_top.png" />
     <None Include="Resources\Images\Textures\x16\target_top.png" />
     <None Include="Resources\Images\Textures\x16\target_side.png" />
+    <None Include="Resources\Images\UI\advanced_frame_128.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_brick.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_graph.png" />
     <Content Include="Resources\Images\UI\feature_palette_compact_grid.png" />
