@@ -893,30 +893,63 @@ namespace PixelStacker.UI
                         // And dataPtrX won't be right either
 
                         int index;
-                        if (bitsPerMaterialPixel == 4)
+                        if (bytesPerMaterialPixel == 0) // Below 8bpp, we need to split things
                         {
-                            dataPtrX = (x1 / 2); // Half a byte per material pixel in this case... 
-                                                 // I'd rather avoid any potential float/double imprecision with doing this more modularly
+                            int ratio = 8 / bitsPerMaterialPixel; // 2 for 4bpp
+                            dataPtrX = (x1 / ratio); // So it only advances every (ratio) reads, because we have ratio reads per byte
+
                             index = currentDataLine[dataPtrX];
-                            if (x1 % 2 == 0)
-                            {
-                                // Take the first 4 bits
-                                var bits = index & 0b11110000;
-                                // Shift it 4 bits right
-                                bits = bits >> 4;
-                                index = bits;
-                            }
+
+                            // So... making this modular should be ... fun... 
+                            // We need to grab (8/ratio) bits
+                            // From (x1%ratio) offset bits
+
+                            // So if ratio is 2, 8/ratio = 4
+                            // Which is 0b00000100
+                            // But that doesn't mean much... we need 4 bits to be 1's
+                            // Which, 2^4 will do that I think, that's 16... 
+                            // So it'd have to be (2^4)-1 0b00001111
+                            // Shift the whole thing far left... 0b11110000
+
+                            // Then shift it right by (x1%ratio)*(8/ratio) bits to get to the right spot
+                            // Then we just and it
+                            // And shift it right by 8-that
+
+                            int bitsToGrab = 8 / ratio;
+                            int mask = (1 << bitsToGrab) - 1; // = Math.Pow(2, bitsToGrab)-1
+                            //mask = mask << (8 - bitsToGrab); // Get everything to the far left to make this easier
+                            // I'd like to just shift this once...
+                            // We should now have (bitsToGrab) bits with 1s, on the left, and the rest 0s
+                            //int bitOffset = (x1 % ratio) * (8 / ratio);
+
+                            int bitOffset = (8 - bitsToGrab)-((x1 % ratio) * (8 / ratio)); // This is how far we should offset it right
+                            
+                            if (bitOffset < 0)
+                                mask = mask << -bitOffset;
                             else
-                            {
-                                // Take the last 4 bits
-                                var bits = index & 0b00001111;
-                                // No shift required
-                                index = bits;
-                            }
-                        }
-                        else if (bitsPerMaterialPixel < 8)
-                        {
-                            throw new InvalidOperationException("Does not support images with bpp lower than 4"); // I hope these don't exist anyway
+                                mask = mask >> bitOffset;
+                            index = index & mask;
+                            // And when we're done just undo that same offset
+                            if (bitOffset < 0)
+                                index = index >> -bitOffset;
+                            else
+                                index = index << bitOffset;
+
+                            //if (x1 % 2 == 0)
+                            //{
+                            //    // Take the first 4 bits
+                            //    var bits = index & 0b11110000;
+                            //    // Shift it 4 bits right
+                            //    bits = bits >> 4;
+                            //    index = bits;
+                            //}
+                            //else
+                            //{
+                            //    // Take the last 4 bits
+                            //    var bits = index & 0b00001111;
+                            //    // No shift required
+                            //    index = bits;
+                            //}
                         }
                         else
                             index = currentDataLine[dataPtrX]; // Moved this here so we don't access invalid mem if it's not the right size... 
