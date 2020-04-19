@@ -102,33 +102,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Collections\ColorMap\ColorMatcher.cs" />
-    <Compile Include="Logic\Collections\KDTree\Sparse.cs" />
-    <Compile Include="Logic\Collections\KDTree\Sparse`1.cs" />
-    <Compile Include="Logic\Collections\KDTree\Tree.cs" />
-    <Compile Include="Logic\Collections\KDTree\TreeNode.cs" />
-    <Compile Include="Logic\Collections\KDTree\TreeTraversal.cs" />
-    <Compile Include="Logic\Collections\KDTree\BinaryTree.cs" />
-    <Compile Include="Logic\Collections\KDTree\ColorDistanceCalculator.cs" />
-    <Compile Include="Logic\Collections\KDTree\DimensionMismatchException.cs" />
-    <Compile Include="Logic\Collections\KDTree\ElementComparer.cs" />
-    <Compile Include="Logic\Collections\KDTree\Euclidean.cs" />
-    <Compile Include="Logic\Collections\KDTree\Hyperrectangle.cs" />
-    <Compile Include="Logic\Collections\KDTree\IDistance.cs" />
-    <Compile Include="Logic\Collections\KDTree\IMetric.cs" />
-    <Compile Include="Logic\Collections\KDTree\ISimilarity.cs" />
+    <Compile Include="Logic\Collections\KDColorTree.cs" />
     <Compile Include="Logic\Collections\KDTree\KDTree.cs" />
     <Compile Include="Logic\Collections\KDTree\KDTreeNode.cs" />
     <Compile Include="Logic\Collections\KDTree\KDTreeNodeCollection.cs" />
-    <Compile Include="Logic\Collections\KDTree\KDTreeNodeList.cs" />
-    <Compile Include="Logic\Collections\KDTree\KDTree`1.cs" />
-    <Compile Include="Logic\Collections\KDTree\BinaryNode.cs" />
-    <Compile Include="Logic\Collections\KDTree\DecisionNode.cs" />
-    <Compile Include="Logic\Collections\KDTree\ID3Learning.cs" />
-    <Compile Include="Logic\Collections\KDTree\ITreeNode.cs" />
-    <Compile Include="Logic\Collections\KDTree\KDTreeBase.cs" />
-    <Compile Include="Logic\Collections\KDTree\SPTreeNode.cs" />
+    <Compile Include="Logic\Collections\KDTree\ElementComparer.cs" />
+    <Compile Include="Logic\Collections\KDTree\Hyperrectangle.cs" />
     <Compile Include="Logic\Collections\KDTree\NodeDistance.cs" />
-    <Compile Include="Logic\Collections\KDTree\SquareEuclidean.cs" />
     <Compile Include="Logic\IO\FilePaths.cs" />
     <Compile Include="Logic\IO\Schem2Formatter.cs" />
     <Compile Include="Logic\Model\BestMatchCacheMap.cs" />

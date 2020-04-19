@@ -531,6 +531,7 @@ namespace PixelStacker.Logic.Extensions
 
             return;
         }
+
         #endregion
 
         #region | Palette methods |

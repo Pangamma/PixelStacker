@@ -1,8 +1,6 @@
-﻿using Accord.Collections;
-using PixelStacker.Logic.Extensions;
+﻿using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.Great;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -35,7 +33,7 @@ namespace PixelStacker.Logic.Collections
 
 
         public BestMatchCacheMap BestMatchCache { get; private set; } = new BestMatchCacheMap().Load();
-        private KDTree<Color> colorPalette = new KDTree<Color>(3);
+        private KDColorTree colorPalette = new KDColorTree();
         public Dictionary<Color, Material[]> ColorToMaterialMap { get; private set; } = new Dictionary<Color, Material[]>();
 
         public async Task CompileColorPalette(CancellationToken worker, bool isClearBestMatchCache, List<Material> materials)
@@ -168,10 +166,10 @@ namespace PixelStacker.Logic.Collections
                 lock (this.colorPalette)
                 {
                     this.colorPalette.Clear();
-                    this.colorPalette = new KDTree<Color>(3);
+                    this.colorPalette = new KDColorTree();
                     colorToMaterialMap.Keys.Where(c => c.ToArgb() != 16777215 && c.A != 0)
                         .ToList()
-                        .ForEach(c => this.colorPalette.Add(new double[] { c.R, c.G, c.B }, c));
+                        .ForEach(c => this.colorPalette.Add(c));
                 }
 
                 colorToMaterialMap[Materials.Air.getAverageColor(isSide)] = new Material[1] { Materials.Air };
@@ -220,10 +218,7 @@ namespace PixelStacker.Logic.Collections
 
             lock (this.colorPalette)
             {
-                var rt = this.colorPalette.Nearest(new double[] { toMatch.R, toMatch.G, toMatch.B }, 10)
-                    .OrderBy(x => x.Node.Value.GetColorDistance(toMatch))
-                    .Select(x => x.Node.Value)
-                    .FirstOrDefault();
+                var rt = this.colorPalette.FindBestMatch(toMatch);
 
                 if (rt != default(Color))
                 {

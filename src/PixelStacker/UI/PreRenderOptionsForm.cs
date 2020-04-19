@@ -158,7 +158,7 @@ namespace PixelStacker.UI
                 await TaskManager.Get.StartAsync((token) =>
                 {
                     Options.Save();
-                    ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
+                    ColorMatcher.Get.CompileColorPalette(token, false, Materials.List)
                     .GetAwaiter().GetResult();
                     mainForm?.PreRenderImage(true, token);
                 });
