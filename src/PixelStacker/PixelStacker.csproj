@@ -102,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Collections\ColorMap\ColorMatcher.cs" />
+    <Compile Include="Logic\Collections\ColorMap\IColorMatchTree.cs" />
+    <Compile Include="Logic\Collections\ColorMap\RgbColorTree.cs" />
     <Compile Include="Logic\Collections\KDColorTree.cs" />
     <Compile Include="Logic\Collections\KDTree\KDTree.cs" />
     <Compile Include="Logic\Collections\KDTree\KDTreeNode.cs" />

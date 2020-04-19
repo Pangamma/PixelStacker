@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.Collections
 {
-
-    public class KDColorTree: KDTree<Color>
+    public class RgbColorTree: KDTree<Color>, IColorMatchTree
     {
-        public KDColorTree(): base(3)
+        public RgbColorTree(): base(3)
         {
         }
 
@@ -27,12 +26,35 @@ namespace PixelStacker.Logic.Collections
             base.AddNode(position).Value = value;
         }
 
+        public double CalculateDistance(double[] x, double[] y)
+        {
+            double sum = 0.0;
+            for (int i = 0; i < x.Length; i++)
+            {
+                double u = x[i] - y[i];
+                sum += u * u;
+            }
+
+            return sum;
+        }
+
         public Color FindBestMatch(Color toMatch)
         {
             var rt = base.Nearest(new double[] { toMatch.R, toMatch.G, toMatch.B }, 20)
                 .OrderBy(x => x.Node.Value.GetColorDistance(toMatch))
                 .Select(x => x.Node.Value)
                 .FirstOrDefault();
+
+            return rt;
+        }
+
+        public List<Color> FindBestMatches(Color toMatch, int top)
+        {
+            var rt = base.Nearest(new double[] { toMatch.R, toMatch.G, toMatch.B }, top * 2)
+                .OrderBy(x => x.Node.Value.GetColorDistance(toMatch))
+                .Select(x => x.Node.Value)
+                .Take(top)
+                .ToList();
 
             return rt;
         }

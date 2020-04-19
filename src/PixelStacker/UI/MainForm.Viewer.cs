@@ -152,7 +152,13 @@ namespace PixelStacker
             this.togglePaletteToolStripMenuItem.Enabled = Constants.IsFullVersion;
         }
 
-
+        /// <summary>
+        /// Must be wrapped in a trycatch for catching cancellation exceptions.
+        /// </summary>
+        /// <param name="clearCache"></param>
+        /// <param name="_worker"></param>
+        /// <exception cref="OperationCanceledException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
         public void PreRenderImage(bool clearCache, CancellationToken _worker)
         {
             if (clearCache)
