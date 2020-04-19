@@ -12,13 +12,13 @@
     /// <typeparam name="KDTreeNodePS<T>">The class type for the nodes of the tree.</typeparam>
     /// 
     [Serializable]
-    public class KDTreePS<T> : IEnumerable<KDTreeNodePS<T>>
+    public class KDTree<T> : IEnumerable<KDTreeNode<T>>
     {
         /// <summary>
         ///   Gets the root node of this tree.
         /// </summary>
         /// 
-        public KDTreeNodePS<T> Root { get; set; }
+        public KDTreeNode<T> Root { get; set; }
         private int count;
         private int dimensions;
         private int leaves;
@@ -91,7 +91,7 @@
         ///
         /// <param name="dimensions">The number of dimensions in the tree.</param>
         ///
-        public KDTreePS(int dimensions)
+        public KDTree(int dimensions)
         {
             this.dimensions = dimensions;
         }
@@ -103,7 +103,7 @@
         /// <param name="dimension">The number of dimensions in the tree.</param>
         /// <param name="Root">The Root node, if already existent.</param>
         ///
-        public KDTreePS(int dimension, KDTreeNodePS<T> Root)
+        public KDTree(int dimension, KDTreeNode<T> Root)
             : this(dimension)
         {
             this.Root = Root;
@@ -126,7 +126,7 @@
         /// <param name="count">The number of elements in the Root node.</param>
         /// <param name="leaves">The number of leaves linked through the Root node.</param>
         ///
-        public KDTreePS(int dimension, KDTreeNodePS<T> Root, int count, int leaves)
+        public KDTree(int dimension, KDTreeNode<T> Root, int count, int leaves)
             : this(dimension)
         {
             this.Root = Root;
@@ -144,11 +144,11 @@
         ///
         /// <returns>A list of neighbor points, ordered by distance.</returns>
         ///
-        public ICollection<NodeDistance<KDTreeNodePS<T>>> Nearest(double[] position, double radius, int maximum)
+        public ICollection<NodeDistance<KDTreeNode<T>>> Nearest(double[] position, double radius, int maximum)
         {
             if (maximum == 0)
             {
-                var list = new List<NodeDistance<KDTreeNodePS<T>>>();
+                var list = new List<NodeDistance<KDTreeNode<T>>>();
 
                 if (Root != null)
                     nearest(Root, position, radius, list);
@@ -175,9 +175,9 @@
         ///
         /// <returns>A list of neighbor points, ordered by distance.</returns>
         ///
-        public List<NodeDistance<KDTreeNodePS<T>>> Nearest(double[] position, double radius)
+        public List<NodeDistance<KDTreeNode<T>>> Nearest(double[] position, double radius)
         {
-            var list = new List<NodeDistance<KDTreeNodePS<T>>>();
+            var list = new List<NodeDistance<KDTreeNode<T>>>();
 
             if (Root != null)
                 nearest(Root, position, radius, list);
@@ -212,7 +212,7 @@
         ///
         /// <returns>A list of neighbor points, ordered by distance.</returns>
         ///
-        public KDTreeNodePS<T> Nearest(double[] position)
+        public KDTreeNode<T> Nearest(double[] position)
         {
             double distance;
             return Nearest(position, out distance);
@@ -228,9 +228,9 @@
         ///
         /// <returns>A list of neighbor points, ordered by distance.</returns>
         ///
-        public KDTreeNodePS<T> Nearest(double[] position, out double distance)
+        public KDTreeNode<T> Nearest(double[] position, out double distance)
         {
-            KDTreeNodePS<T> result = Root;
+            KDTreeNode<T> result = Root;
             distance = this.Distance(Root.Position, position);
 
             nearest(Root, position, ref result, ref distance);
@@ -275,9 +275,9 @@
         ///
         /// <returns>A list of neighbor points, ordered by distance.</returns>
         ///
-        public KDTreeNodePS<T> ApproximateNearest(double[] position, double percentage, out double distance)
+        public KDTreeNode<T> ApproximateNearest(double[] position, double percentage, out double distance)
         {
-            KDTreeNodePS<T> result = Root;
+            KDTreeNode<T> result = Root;
             distance = this.Distance(Root.Position, position);
 
             int maxLeaves = (int) (leaves * percentage);
@@ -298,7 +298,7 @@
         ///
         /// <returns>A list of neighbor points, ordered by distance.</returns>
         ///
-        public KDTreeNodePS<T> ApproximateNearest(double[] position, double percentage)
+        public KDTreeNode<T> ApproximateNearest(double[] position, double percentage)
         {
             var list = ApproximateNearest(position, neighbors: 1, percentage: percentage);
 
@@ -339,7 +339,7 @@
         ///
         /// <returns>A list of neighbor points, ordered by distance.</returns>
         ///
-        public KDTreeNodePS<T> ApproximateNearest(double[] position, int maxLeaves)
+        public KDTreeNode<T> ApproximateNearest(double[] position, int maxLeaves)
         {
             var list = ApproximateNearest(position, neighbors: 1, maxLeaves: maxLeaves);
 
@@ -354,14 +354,14 @@
         /// 
         /// <returns>A list of all nodes contained in the region.</returns>
         /// 
-        public IList<KDTreeNodePS<T>> GetNodesInsideRegion(Hyperrectangle region)
+        public IList<KDTreeNode<T>> GetNodesInsideRegion(Hyperrectangle region)
         {
             return getNodesInsideRegion(this.Root, region, region);
         }
 
-        private IList<KDTreeNodePS<T>> getNodesInsideRegion(KDTreeNodePS<T> node, Hyperrectangle region, Hyperrectangle subRegion)
+        private IList<KDTreeNode<T>> getNodesInsideRegion(KDTreeNode<T> node, Hyperrectangle region, Hyperrectangle subRegion)
         {
-            var result = new List<KDTreeNodePS<T>>();
+            var result = new List<KDTreeNode<T>>();
 
             if (node != null && region.IntersectsWith(subRegion))
             {
@@ -378,7 +378,7 @@
 
         // TODO: Optimize the two methods below. It shouldn't be necessary to make copies/clones of these arrays
 
-        private static Hyperrectangle leftRect(Hyperrectangle hyperrect, KDTreeNodePS<T> node)
+        private static Hyperrectangle leftRect(Hyperrectangle hyperrect, KDTreeNode<T> node)
         {
             //var rect = hyperrect.ToRectangle();
             //return (node.Axis != 0 ?
@@ -390,7 +390,7 @@
         }
 
         // helper: get the right rectangle of node inside parent's rect
-        private static Hyperrectangle rightRect(Hyperrectangle hyperrect, KDTreeNodePS<T> node)
+        private static Hyperrectangle rightRect(Hyperrectangle hyperrect, KDTreeNode<T> node)
         {
             //var rect = hyperrect.ToRectangle();
             //return (node.Axis != 0 ?
@@ -418,7 +418,7 @@
         /// <returns>The Root node for a new <see cref="KDTree{T}"/>
         ///   contained the given <paramref name="points"/>.</returns>
         ///
-        protected static KDTreeNodePS<T> CreateRoot(double[][] points, bool inPlace, out int leaves)
+        protected static KDTreeNode<T> CreateRoot(double[][] points, bool inPlace, out int leaves)
         {
             // Initial argument checks for creating the tree
             if (points == null)
@@ -436,13 +436,13 @@
             ElementComparer<double> comparer = new ElementComparer<double>();
 
             // Call the recursive algorithm to operate on the whole array (from 0 to points.Length)
-            KDTreeNodePS<T> Root = create(points, 0, dimensions, 0, points.Length, comparer, ref leaves);
+            KDTreeNode<T> Root = create(points, 0, dimensions, 0, points.Length, comparer, ref leaves);
 
             // Create and return the newly formed tree
             return Root;
         }
 
-        private static KDTreeNodePS<T> create(double[][] points,
+        private static KDTreeNode<T> create(double[][] points,
         int depth, int k, int start, int length, ElementComparer<double> comparer, ref int leaves)
         {
             if (length <= 0)
@@ -476,7 +476,7 @@
                 leaves++;
 
             // Backtrack and create
-            return new KDTreeNodePS<T>()
+            return new KDTreeNode<T>()
             {
                 Axis = axis,
                 Position = median,
@@ -493,8 +493,8 @@
         ///   Radius search.
         /// </summary>
         ///
-        private void nearest(KDTreeNodePS<T> current, double[] position,
-        double radius, ICollection<NodeDistance<KDTreeNodePS<T>>> list)
+        private void nearest(KDTreeNode<T> current, double[] position,
+        double radius, ICollection<NodeDistance<KDTreeNode<T>>> list)
         {
             // Check if the distance of the point from this
             // node is within the desired radius, and if it
@@ -503,7 +503,7 @@
             double d = this.Distance(position, current.Position);
 
             if (d <= radius)
-                list.Add(new NodeDistance<KDTreeNodePS<T>>(current, d));
+                list.Add(new NodeDistance<KDTreeNode<T>>(current, d));
 
             // Prepare for recursion. The following null checks
             // will be used to avoid function calls if possible
@@ -534,7 +534,7 @@
         ///   k-nearest neighbors search.
         /// </summary>
         ///
-        private void nearest(KDTreeNodePS<T> current, double[] position, KDTreeNodeCollection<T> list)
+        private void nearest(KDTreeNode<T> current, double[] position, KDTreeNodeCollection<T> list)
         {
             // Compute distance from this node to the point
             double d = this.Distance(position, current.Position);
@@ -571,7 +571,7 @@
             }
         }
 
-        private void nearest(KDTreeNodePS<T> current, double[] position, ref KDTreeNodePS<T> match, ref double minDistance)
+        private void nearest(KDTreeNode<T> current, double[] position, ref KDTreeNode<T> match, ref double minDistance)
         {
             // Compute distance from this node to the point
             double d = this.Distance(position, current.Position);
@@ -611,7 +611,7 @@
         }
 
 
-        private bool approximate(KDTreeNodePS<T> current, double[] position,
+        private bool approximate(KDTreeNode<T> current, double[] position,
         KDTreeNodeCollection<T> list, int maxLeaves, ref int visited)
         {
             // Compute distance from this node to the point
@@ -656,8 +656,8 @@
             return false;
         }
 
-        private bool approximateNearest(KDTreeNodePS<T> current, double[] position,
-        ref KDTreeNodePS<T> match, ref double minDistance, int maxLeaves, ref int visited)
+        private bool approximateNearest(KDTreeNode<T> current, double[] position,
+        ref KDTreeNode<T> match, ref double minDistance, int maxLeaves, ref int visited)
         {
             // Compute distance from this node to the point
             double d = this.Distance(position, current.Position);
@@ -713,21 +713,21 @@
         ///
         /// <param name="position">A double-vector with the same number of elements as dimensions in the tree.</param>
         ///
-        protected KDTreeNodePS<T> AddNode(double[] position)
+        protected KDTreeNode<T> AddNode(double[] position)
         {
             count++;
             var root = Root;
-            KDTreeNodePS<T> node = insert(ref root, position, 0);
+            KDTreeNode<T> node = insert(ref root, position, 0);
             Root = root;
             return node;
         }
 
-        private KDTreeNodePS<T> insert(ref KDTreeNodePS<T> node, double[] position, int depth)
+        private KDTreeNode<T> insert(ref KDTreeNode<T> node, double[] position, int depth)
         {
             if (node == null)
             {
                 // Base case: node is null
-                return node = new KDTreeNodePS<T>()
+                return node = new KDTreeNode<T>()
                 {
                     Axis = depth % dimensions,
                     Position = position,
@@ -735,18 +735,18 @@
             }
             else
             {
-                KDTreeNodePS<T> newNode;
+                KDTreeNode<T> newNode;
 
                 // Recursive case: keep looking for a position to insert
                 if (position[node.Axis] < node.Position[node.Axis])
                 {
-                    KDTreeNodePS<T> child = node.Left;
+                    KDTreeNode<T> child = node.Left;
                     newNode = insert(ref child, position, depth + 1);
                     node.Left = child;
                 }
                 else
                 {
-                    KDTreeNodePS<T> child = node.Right;
+                    KDTreeNode<T> child = node.Right;
                     newNode = insert(ref child, position, depth + 1);
                     node.Right = child;
                 }
@@ -781,7 +781,7 @@
         ///    elements copied from tree. The <see cref="System.Array"/> must have zero-based indexing.</param>
         /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
         ///
-        public void CopyTo(KDTreeNodePS<T>[] array, int arrayIndex)
+        public void CopyTo(KDTreeNode<T>[] array, int arrayIndex)
         {
             foreach (var node in this)
             {
@@ -798,16 +798,16 @@
         ///   that can be used to iterate through the collection.
         /// </returns>
         /// 
-        public virtual IEnumerator<KDTreeNodePS<T>> GetEnumerator()
+        public virtual IEnumerator<KDTreeNode<T>> GetEnumerator()
         {
             if (Root == null)
                 yield break;
 
-            var stack = new Stack<KDTreeNodePS<T>>(new[] { Root });
+            var stack = new Stack<KDTreeNode<T>>(new[] { Root });
 
             while (stack.Count != 0)
             {
-                KDTreeNodePS<T> current = stack.Pop();
+                KDTreeNode<T> current = stack.Pop();
 
                 yield return current;
 

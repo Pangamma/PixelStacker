@@ -33,11 +33,11 @@ namespace PixelStacker.Logic.Collections
     /// <typeparam name="T">The class type node content.</typeparam>
     /// 
     /// <seealso cref="KDTreeNodePS"/>
-    /// <seealso cref="KDTreeNodePS{T}"/>
+    /// <seealso cref="KDTreeNode{T}"/>
     /// <seealso cref="BinaryNode{TNode}"/>
     /// 
     [Serializable]
-    public class KDTreeNodePS<T> : IComparable<KDTreeNodePS<T>>, IEquatable<KDTreeNodePS<T>> // TODO: Try to remove IEquatable
+    public class KDTreeNode<T> : IComparable<KDTreeNode<T>>, IEquatable<KDTreeNode<T>> // TODO: Try to remove IEquatable
     {
         /// <summary>
         ///   Gets or sets the value being stored at this node.
@@ -85,7 +85,7 @@ namespace PixelStacker.Logic.Collections
         /// <returns>
         /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.
         /// </returns>
-        public int CompareTo(KDTreeNodePS<T> other)
+        public int CompareTo(KDTreeNode<T> other)
         {
             return this.Position[this.Axis].CompareTo(other.Position[other.Axis]);
         }
@@ -97,7 +97,7 @@ namespace PixelStacker.Logic.Collections
         /// <returns>
         /// true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
         /// </returns>
-        public bool Equals(KDTreeNodePS<T> other) // TODO: Try to remove IEquatable
+        public bool Equals(KDTreeNode<T> other) // TODO: Try to remove IEquatable
         {
             return this == other;
         }
@@ -106,13 +106,13 @@ namespace PixelStacker.Logic.Collections
         ///   Gets or sets the left subtree of this node.
         /// </summary>
         /// 
-        public KDTreeNodePS<T> Left { get; set; }
+        public KDTreeNode<T> Left { get; set; }
 
         /// <summary>
         ///   Gets or sets the right subtree of this node.
         /// </summary>
         /// 
-        public KDTreeNodePS<T> Right { get; set; }
+        public KDTreeNode<T> Right { get; set; }
 
         /// <summary>
         ///   Gets whether this node is a leaf (has no children).
@@ -120,7 +120,7 @@ namespace PixelStacker.Logic.Collections
         /// 
         public bool IsLeaf
         {
-            get { return Left == default(KDTreeNodePS<T>) && Right == default(KDTreeNodePS<T>); }
+            get { return Left == default(KDTreeNode<T>) && Right == default(KDTreeNode<T>); }
         }
 
 
@@ -129,7 +129,7 @@ namespace PixelStacker.Logic.Collections
         ///   under this node.
         /// </summary>
         /// 
-        public KDTreeNodePS<T>[] Children
+        public KDTreeNode<T>[] Children
         {
             get { return new[] { Left, Right }; }
             set

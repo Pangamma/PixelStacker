@@ -70,10 +70,10 @@ namespace PixelStacker.Logic.Collections
     /// <seealso cref="NodeDistance{T}"/>
     /// 
     [Serializable]
-    public class KDTreeNodeCollection<T> : ICollection<NodeDistance<KDTreeNodePS<T>>>
+    public class KDTreeNodeCollection<T> : ICollection<NodeDistance<KDTreeNode<T>>>
     {
         double[] distances;
-        KDTreeNodePS<T>[] positions;
+        KDTreeNode<T>[] positions;
 
         int count;
 
@@ -123,7 +123,7 @@ namespace PixelStacker.Logic.Collections
         ///   Gets the farthest node in the collection (with greatest distance).
         /// </summary>
         /// 
-        public KDTreeNodePS<T> Farthest
+        public KDTreeNode<T> Farthest
         {
             get
             {
@@ -140,7 +140,7 @@ namespace PixelStacker.Logic.Collections
         ///   Gets the nearest node in the collection (with smallest distance).
         /// </summary>
         /// 
-        public KDTreeNodePS<T> Nearest
+        public KDTreeNode<T> Nearest
         {
             get
             {
@@ -165,7 +165,7 @@ namespace PixelStacker.Logic.Collections
 
             Capacity = size;
             distances = new double[size];
-            positions = new KDTreeNodePS<T>[size];
+            positions = new KDTreeNode<T>[size];
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace PixelStacker.Logic.Collections
         /// 
         /// <returns>Returns true if the node has been added; false otherwise.</returns>
         /// 
-        public bool Add(KDTreeNodePS<T> value, double distance)
+        public bool Add(KDTreeNode<T> value, double distance)
         {
             // The list does have a limit. We have to check if the list
             // is already full or not, to see if we can discard or keep
@@ -226,7 +226,7 @@ namespace PixelStacker.Logic.Collections
         /// 
         /// <returns>Returns true if the node has been added; false otherwise.</returns>
         /// 
-        public bool AddFarthest(KDTreeNodePS<T> value, double distance)
+        public bool AddFarthest(KDTreeNode<T> value, double distance)
         {
             // The list does have a limit. We have to check if the list
             // is already full or not, to see if we can discard or keep
@@ -269,7 +269,7 @@ namespace PixelStacker.Logic.Collections
         /// <param name="distance">The distance from the node to the query point.</param>
         /// <param name="item">The item to be added.</param>
         /// 
-        private void add(double distance, KDTreeNodePS<T> item)
+        private void add(double distance, KDTreeNode<T> item)
         {
             positions[count] = item;
             distances[count] = distance;
@@ -298,9 +298,9 @@ namespace PixelStacker.Logic.Collections
         ///   until the given position is found.
         /// </summary>
         /// 
-        public NodeDistance<KDTreeNodePS<T>> this[int index]
+        public NodeDistance<KDTreeNode<T>> this[int index]
         {
-            get { return new NodeDistance<KDTreeNodePS<T>>(positions[index], distances[index]); }
+            get { return new NodeDistance<KDTreeNode<T>>(positions[index], distances[index]); }
         }
 
         /// <summary>
@@ -335,10 +335,10 @@ namespace PixelStacker.Logic.Collections
         ///   that can be used to iterate through the collection.
         /// </returns>
         /// 
-        public IEnumerator<NodeDistance<KDTreeNodePS<T>>> GetEnumerator()
+        public IEnumerator<NodeDistance<KDTreeNode<T>>> GetEnumerator()
         {
             for (int i = 0; i < count; i++)
-                yield return new NodeDistance<KDTreeNodePS<T>>(positions[i], distances[i]);
+                yield return new NodeDistance<KDTreeNode<T>>(positions[i], distances[i]);
 
             yield break;
         }
@@ -371,7 +371,7 @@ namespace PixelStacker.Logic.Collections
         ///   <c>true</c> if the item is found in the collection; otherwise, <c>false</c>.
         /// </returns>
         /// 
-        public bool Contains(NodeDistance<KDTreeNodePS<T>> item)
+        public bool Contains(NodeDistance<KDTreeNode<T>> item)
         {
             int i = Array.IndexOf(positions, item.Node);
 
@@ -391,7 +391,7 @@ namespace PixelStacker.Logic.Collections
         ///    elements copied from tree. The <see cref="System.Array"/> must have zero-based indexing.</param>
         /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
         /// 
-        public void CopyTo(NodeDistance<KDTreeNodePS<T>>[] array, int arrayIndex)
+        public void CopyTo(NodeDistance<KDTreeNode<T>>[] array, int arrayIndex)
         {
             int index = arrayIndex;
 
@@ -405,7 +405,7 @@ namespace PixelStacker.Logic.Collections
         /// 
         /// <param name="item">The item.</param>
         /// 
-        public void Add(NodeDistance<KDTreeNodePS<T>> item)
+        public void Add(NodeDistance<KDTreeNode<T>> item)
         {
             Add(item.Node, item.Distance);
         }
@@ -414,7 +414,7 @@ namespace PixelStacker.Logic.Collections
         ///   Not supported.
         /// </summary>
         /// 
-        public bool Remove(NodeDistance<KDTreeNodePS<T>> item)
+        public bool Remove(NodeDistance<KDTreeNode<T>> item)
         {
             throw new NotSupportedException();
         }
