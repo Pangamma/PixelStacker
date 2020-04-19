@@ -60,7 +60,7 @@ namespace PixelStacker.UI
         {
             await TaskManager.Get.StartAsync((token) =>
             {
-                Bitmap _renderedImage = RenderedImagePanel.RenderBitmapFromBlueprint(token, image, out int? textureSize);
+                Bitmap _renderedImage = RenderedImagePanel.RenderBitmapFromBlueprintParallel(token, image, out int? textureSize);
                 CalculatedTextureSize = textureSize ?? Constants.TextureSize;
 
                 this.ClearAndDisposeRenderedImages();
@@ -593,6 +593,7 @@ namespace PixelStacker.UI
                                                 // Then put a square of the appropriate color from 0,0 to textureSizeRef/2
                                                 // Then put a black border around that square
                                                 var color = blueprint.GetColor(x, y);
+                                                bool hasAlpha = data.PixelFormat.HasAlpha(); // This is a method so... better cache the result cuz it may be computational
 
                                                 Color targetColor;
                                                 for (int y1 = 0; y1 < textureSizeRef; y1++)
@@ -601,38 +602,57 @@ namespace PixelStacker.UI
                                                     byte* currentDataLine = dataPtrFirstPixel + y1 * data.Stride;
                                                     for (int x1 = 0; x1 < textureSizeRef; x1++)
                                                     {
-                                                        if (x1 < textureSizeRef / 2 && y1 < textureSizeRef / 2) // If it's in the upper-left quadrant, color
-                                                        {
-                                                            targetColor = color;
-                                                        }
-                                                        else if (x1 == 0 || y1 == 0 || x1 == textureSizeRef / 2 || y1 == textureSizeRef / 2) // If it's exactly on a border
+                                                        targetColor = Color.Empty;
+                                                        if ((x1 == 0 && y1 <= textureSizeRef / 2) || (y1 == 0 && x1 <= textureSizeRef / 2) || (x1 == textureSizeRef / 2 && y1 <= textureSizeRef / 2) || (y1 == textureSizeRef / 2 && x1 <= textureSizeRef / 2)) // If it's exactly on a border
                                                         {
                                                             // Black for the border
                                                             targetColor = Color.Black;
                                                         }
-                                                        else
+                                                        else if (x1 < textureSizeRef / 2 && y1 < textureSizeRef / 2) // If it's in the upper-left quadrant, color
+                                                        {
+                                                            targetColor = color;
+                                                        }
+
+                                                        if (targetColor == Color.Empty)
                                                         {
                                                             // To prevent storing this in a color and back out again, we're going to duplicate the code a bit
                                                             // It doesn't save us a lot, but it's not nothing, and it costs nothing
-                                                            var dataPtrX = x1 * bytesPerPixel;
-                                                            currentLine[ptrX + x1 * bytesPerPixel] = currentDataLine[dataPtrX];
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 1] = currentDataLine[dataPtrX + 1];
-                                                            currentLine[ptrX + x1 * bytesPerPixel + 2] = currentDataLine[dataPtrX + 2];
-                                                            if(data.PixelFormat.HasAlpha())
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = currentDataLine[dataPtrX + 2];
-                                                            else
-                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = (byte)255;
-                                                            // Note that we can't use our nice func to draw this material because it's a custom one
-                                                            // And it's faster to not draw the entire material if it would be occluded anyway
-                                                            // We're also skipping any blending because there shouldn't be anything drawn under these.  I think.
-                                                        }
-                                                        currentLine[ptrX + x1 * bytesPerPixel] = color.B;
-                                                        currentLine[ptrX + x1 * bytesPerPixel + 1] = color.G;
-                                                        currentLine[ptrX + x1 * bytesPerPixel + 2] = color.R;
-                                                        currentLine[ptrX + x1 * bytesPerPixel + 3] = color.A;
-                                                    }
-                                                }
+                                                            var dataPtrX = x1 * bytesPerMaterialPixel;
 
+                                                            int alpha = currentDataLine[dataPtrX + 3];
+                                                            if (hasAlpha && alpha != 255) // Alpha blend
+                                                            {
+                                                                // out = alpha * new + (1 - alpha) * old
+                                                                // I'm not sure if storing these has any benefit except to make the formula slightly cleaner
+                                                                // But they're just bytes, they shouldn't affect the overhead much
+                                                                var B = currentLine[ptrX + x1 * bytesPerPixel];
+                                                                var G = currentLine[ptrX + x1 * bytesPerPixel + 1];
+                                                                var R = currentLine[ptrX + x1 * bytesPerPixel + 2];
+                                                                var A = currentLine[ptrX + x1 * bytesPerPixel + 3];
+                                                                double normalAlpha = alpha / 255d;
+                                                                currentLine[ptrX + x1 * bytesPerPixel] = (byte)(normalAlpha * currentDataLine[dataPtrX] + (1 - normalAlpha) * B);
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 1] = (byte)(normalAlpha * currentDataLine[dataPtrX + 1] + (1 - normalAlpha) * G);
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 2] = (byte)(normalAlpha * currentDataLine[dataPtrX + 2] + (1 - normalAlpha) * R);
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = (byte)A; // Our resulting alpha should always be the original, we're blending it ourselves
+                                                            }
+                                                            else // These are separated so that we don't have to read current value in the more common case that it has no alpha
+                                                            {
+                                                                currentLine[ptrX + x1 * bytesPerPixel] = currentDataLine[dataPtrX];
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 1] = currentDataLine[dataPtrX + 1];
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 2] = currentDataLine[dataPtrX + 2];
+                                                                currentLine[ptrX + x1 * bytesPerPixel + 3] = (byte)255;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            currentLine[ptrX + x1 * bytesPerPixel] = targetColor.B;
+                                                            currentLine[ptrX + x1 * bytesPerPixel + 1] = targetColor.G;
+                                                            currentLine[ptrX + x1 * bytesPerPixel + 2] = targetColor.R;
+                                                            currentLine[ptrX + x1 * bytesPerPixel + 3] = targetColor.A;
+                                                        }
+                                                    }
+
+                                                }
                                             }
                                         }
                                         else
