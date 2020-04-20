@@ -25,11 +25,6 @@ namespace PixelStacker.Logic.Extensions
             return Color.FromArgb(255, R, G, B);
         }
 
-        public static Color Reverse(this Color color)
-        {
-            return Color.FromArgb(color.B, color.G, color.R, color.A);
-        }
-
         public static Color AverageColors(this IEnumerable<Color> colors)
         {
             long r = 0;
