@@ -112,7 +112,7 @@ namespace PixelStacker
                 TaskManager.SafeReport(0, "Getting Blueprint...");
                 BlueprintPA blueprint = BlueprintPA.GetBluePrintAsync(token, this.PreRenderedImage).GetAwaiter().GetResult();
                 TaskManager.SafeReport(0, "Rendering Blueprint...");
-                Bitmap renderedImage = RenderedImagePanel.RenderBitmapFromBlueprintParallel(token, blueprint, out int? textureSize);
+                Bitmap renderedImage = RenderedImagePanel.RenderBitmapFromBlueprint(token, blueprint, out int? textureSize);
                 if (textureSize == null) return;
                 if (renderedImage == null) return;
 
