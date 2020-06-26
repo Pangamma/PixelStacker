@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.Collections
 {
-
     public class KDColorTree: KDTree<Color>
     {
         public KDColorTree(): base(3)
