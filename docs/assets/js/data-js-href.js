@@ -50,7 +50,7 @@ $(document).on('mousedown', '*[data-js-href]', function (e) {
 
 // Enable middle click + click behavior for items within the data-js-href box.
 $(document).on('mouseup', '*[data-js-href]', function (e) {
-  if ($(e.target).not('a,button')) {
+    if ($(e.target).is(':not(button,a)')) {
       if (e.target === dataJsHref.target) {
           if ((Math.max(e.clientX, dataJsHref.origX) - Math.min(e.clientX, dataJsHref.origX)) < 3) {
               if ((Math.max(e.clientY, dataJsHref.origY) - Math.min(e.clientY, dataJsHref.origY)) < 3) {

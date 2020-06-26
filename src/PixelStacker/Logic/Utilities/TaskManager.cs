@@ -11,11 +11,9 @@ namespace PixelStacker.Logic
     {
         private static TaskManager _Get = null;
         public static TaskManager Get { get { if (_Get == null) _Get = new TaskManager(); return _Get; } }
-
         private CancellationTokenSource CancelTokenSource { get; set; } = null;
         public CancellationToken CancelToken { get; set; } = CancellationToken.None;
         private Task CurrentTask { get; set; } = null;
-
         private object Padlock { get; set; } = new { };
 
 
@@ -95,7 +93,7 @@ namespace PixelStacker.Logic
                 catch (OperationCanceledException) { }
                 catch (AggregateException aex)
                 {
-                    if (aex.InnerExceptions.Any(x =>
+                    if (aex.Flatten().InnerExceptions.Any(x =>
                         x.GetType() != typeof(TaskCanceledException)
                         && x.GetType() != typeof(OperationCanceledException))
                     ) throw;
@@ -112,10 +110,11 @@ namespace PixelStacker.Logic
         public bool TryTaskCatchCancelSync(Action task)
         {
             try { task(); return true; }
+            catch (TaskCanceledException) { }
             catch (OperationCanceledException) { }
             catch (AggregateException aex)
             {
-                if (aex.InnerExceptions.Any(x =>
+                if (aex.Flatten().InnerExceptions.Any(x =>
                     x.GetType() != typeof(TaskCanceledException)
                     && x.GetType() != typeof(OperationCanceledException))
                 ) throw;
@@ -133,10 +132,11 @@ namespace PixelStacker.Logic
                 this.CurrentTask = Task.Run(() =>
                 {
                     try { task(this.CancelToken); }
+                    catch (TaskCanceledException) { }
                     catch (OperationCanceledException) { }
                     catch (AggregateException aex)
                     {
-                        if (aex.InnerExceptions.Any(x =>
+                        if (aex.Flatten().InnerExceptions.Any(x =>
                             x.GetType() != typeof(TaskCanceledException)
                             && x.GetType() != typeof(OperationCanceledException))
                         ) throw;
@@ -147,10 +147,11 @@ namespace PixelStacker.Logic
                 {
                     await this.CurrentTask;
                 }
+                catch (TaskCanceledException) { }
                 catch (OperationCanceledException) { }
                 catch (AggregateException aex)
                 {
-                    if (aex.InnerExceptions.Any(x =>
+                    if (aex.Flatten().InnerExceptions.Any(x =>
                         x.GetType() != typeof(TaskCanceledException)
                         && x.GetType() != typeof(OperationCanceledException))
                     ) throw;

@@ -14,8 +14,6 @@ using PixelStacker.Logic.WIP;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Resources;
 using PixelStacker.Logic.Collections;
-using System.Diagnostics;
-using System.Collections.Concurrent;
 
 namespace PixelStacker.UI
 {
@@ -60,7 +58,7 @@ namespace PixelStacker.UI
         {
             await TaskManager.Get.StartAsync((token) =>
             {
-                Bitmap _renderedImage = RenderedImagePanel.RenderBitmapFromBlueprintParallel(token, image, out int? textureSize);
+                Bitmap _renderedImage = RenderedImagePanel.RenderBitmapFromBlueprint(token, image, out int? textureSize);
                 CalculatedTextureSize = textureSize ?? Constants.TextureSize;
 
                 this.ClearAndDisposeRenderedImages();
@@ -123,7 +121,7 @@ namespace PixelStacker.UI
 
             return false;
         }
-
+        
         /// <summary>
         /// WILL CONSUME THE INPUT IMAGE AND MODIFY IT IN PLACE
         /// </summary>
@@ -142,14 +140,13 @@ namespace PixelStacker.UI
             }
 
             int xx = 0;
-            blueprint.ToEditStream(worker, (int x, int y, Color c) =>
-            {
+            blueprint.ToEditStream(worker, (int x, int y, Color c) => {
 
                 Color cFromPalette = ColorMatcher.Get.FindBestMatch(c);
                 if (x > xx)
                 {
                     xx = x;
-                    TaskManager.SafeReport(100 * x / mWidth, "Rendering low-rez preview to give the illusion of a faster program.");
+                    TaskManager.SafeReport(100 * x / mWidth, "Rendering low-rez preview before applying textures.");
                 }
 
                 if (cFromPalette.A == 0)
@@ -162,64 +159,9 @@ namespace PixelStacker.UI
 
             return blueprint;
         }
-
-        /// <summary>
-        /// WILL CONSUME THE INPUT IMAGE AND MODIFY IT IN PLACE
-        /// </summary>
-        /// <param name="worker"></param>
-        /// <param name="blueprint"></param>
-        /// <returns></returns>
-        public static Bitmap RenderPlaceholderBitmapFromBlueprint__UnknownIfOldOrNewer(CancellationToken worker, Bitmap blueprint)
-        {
-            int mWidth = blueprint.Width;
-            int mHeight = blueprint.Height;
-
-            if (ColorMatcher.Get.ColorToMaterialMap.Count == 0)
-            {
-                TaskManager.SafeReport(0, "Compiling the color map");
-                ColorMatcher.Get.CompileColorPalette(worker, true, Materials.List).GetAwaiter().GetResult();
-            }
-
-            TaskManager.SafeReport(0, "Rendering low-rez preview to give the illusion of a faster program.");
-            blueprint.ToEditStream(worker, (int x, int y, Color c) =>
-            {
-                Color cFromPalette = ColorMatcher.Get.FindBestMatch(c);
-                if (cFromPalette.A == 0)
-                {
-                    return Materials.Air.getAverageColor(true);
-                }
-                return cFromPalette;
-            });
-            TaskManager.SafeReport(100, "");
-            return blueprint;
-        }
-
-        public class Coordinate
-        {
-            public int x { get; set; }
-            public int y { get; set; }
-            public int z { get; set; }
-            // TODO: This is going in a dict, we don't need to override Equals or GetHashCode do we?
-
-            public override bool Equals(object obj)
-            {
-                if (obj is Coordinate c)
-                    return c.x == x && c.y == y && c.z == z;
-                return false;
-            }
-
-            public override int GetHashCode()
-            {
-                return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode();
-            }
-        }
-
-
 
         public static Bitmap RenderBitmapFromBlueprint(CancellationToken? worker, BlueprintPA blueprint, out int? textureSize)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
             // TODO: Make sure this value is saved to the render panel instance somehow or else there will be horrible issues
             textureSize = CalculateTextureSize(blueprint);
             if (textureSize == null) return null;
@@ -234,9 +176,9 @@ namespace PixelStacker.UI
                     bool isSide = Options.Get.IsSideView;
                     double origW = blueprint.Width;
                     double origH = blueprint.Height;
-                    int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
-                    int h = (int)(origH * MainForm.PanZoomSettings.zoomLevel);
-                    int zoom = (int)(MainForm.PanZoomSettings.zoomLevel);
+                    int w = (int) (origW * MainForm.PanZoomSettings.zoomLevel);
+                    int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
+                    int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
 
                     SolidBrush brush = new SolidBrush(Color.Black);
                     Pen pen = new Pen(brush);
@@ -337,8 +279,7 @@ namespace PixelStacker.UI
                             }
                         }
                         #endregion
-                        watch.Stop();
-                        Console.WriteLine($"Rendered bitmap from blueprint in {watch.ElapsedMilliseconds}ms");
+
                         #region SHADOW_NEW
                         if (!_isSkipShadowRendering)
                         {
@@ -476,548 +417,6 @@ namespace PixelStacker.UI
             return null;
         }
 
-        public static Bitmap RenderBitmapFromBlueprintParallel(CancellationToken? worker, BlueprintPA blueprint, out int? textureSize)
-        {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            // TODO: Make sure this value is saved to the render panel instance somehow or else there will be horrible issues
-            textureSize = CalculateTextureSize(blueprint);
-            if (textureSize == null) return null;
-
-            int textureSizeRef = textureSize.Value; // We can't take an out var into a thread
-
-            if (blueprint != null)
-            {
-                try
-                {
-
-                    TaskManager.SafeReport(0, "Preparing canvas for textures");
-                    bool isSelectiveLayerViewEnabled = Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false);
-                    bool isMaterialFilterViewEnabled = Options.Get.SelectedMaterialFilter.Any();
-                    bool isSide = Options.Get.IsSideView;
-                    double origW = blueprint.Width;
-                    double origH = blueprint.Height;
-                    int w = (int)(origW * MainForm.PanZoomSettings.zoomLevel);
-                    int h = (int)(origH * MainForm.PanZoomSettings.zoomLevel);
-                    int zoom = (int)(MainForm.PanZoomSettings.zoomLevel);
-
-                    SolidBrush brush = new SolidBrush(Color.Black);
-                    Pen pen = new Pen(brush);
-
-                    bool isMaterialIncludedInFilter = true;
-                    int mWidth = blueprint.Width;
-                    int mHeight = blueprint.Height;
-                    int mDepth = Options.Get.IsMultiLayer ? 2 : 1;
-
-                    int calcW = mWidth * textureSize.Value;
-                    int calcH = mHeight * textureSize.Value;
-                    TaskManager.SafeReport(20, "Preparing canvas for textures");
-
-                    Bitmap bm = new Bitmap(
-                        width: calcW,
-                        height: calcH,
-                        format: PixelFormat.Format32bppArgb);
-
-                    TaskManager.SafeReport(50, "Preparing canvas for textures");
-                    var selectedMaterials = Options.Get.SelectedMaterialFilter.AsEnumerable().ToList(); // clone
-                    bool _IsSolidColors = Options.Get.Rendered_IsSolidColors;
-                    bool _IsColorPalette = Options.Get.Rendered_IsColorPalette;
-                    bool _IsMultiLayer = Options.Get.IsMultiLayer;
-                    bool _isSkipShadowRendering = Options.Get.IsShadowRenderingSkipped;
-                    int _RenderedZIndexToShow = Options.Get.Rendered_RenderedZIndexToShow;
-                    bool _isFrugalAesthetic = Options.Get.IsFrugalWithMaterials && !selectedMaterials.Any();
-
-                    //Get the bitmap data
-                    var bitmapData = bm.LockBits(
-                        new Rectangle(0, 0, bm.Width, bm.Height),
-                        ImageLockMode.ReadWrite,
-                        bm.PixelFormat
-                    );
-
-                    // The real smart thing would be to just load every texture they have selected first
-                    // Instead of the long struggle I had trying to cache them as they came
-                    var materials = Materials.List.Where(m2 => m2.IsEnabled && m2.Category != "Air").Distinct();
-                    ConcurrentDictionary<Material, BitmapData> materialDataMap = new ConcurrentDictionary<Material, BitmapData>();
-                    // We need the palettes of any indexed bitmaps
-                    ConcurrentDictionary<Material, Color[]> materialPaletteMap = new ConcurrentDictionary<Material, Color[]>();
-
-                    unsafe
-                    {
-
-                        Parallel.ForEach(materials, m =>
-                        {
-                            var image = m.getImage(isSide);
-                            if (image.PixelFormat.IsIndexed())
-                            {
-                                materialPaletteMap[m] = image.Palette.Entries;
-                            }
-                            BitmapData data = image.LockBits(
-                                new Rectangle(0, 0, image.Width, image.Height),
-                                ImageLockMode.ReadOnly,
-                                image.PixelFormat
-                                );
-
-                            materialDataMap[m] = data;
-
-                        });
-
-
-                        int bytesPerPixel = System.Drawing.Bitmap.GetPixelFormatSize(bm.PixelFormat) / 8;
-                        int heightInPixels = bitmapData.Height;
-                        int widthInBytes = bitmapData.Width * bytesPerPixel;
-                        byte* PtrFirstPixel = (byte*)bitmapData.Scan0;
-
-                        #region Regular
-                        for (int z = 0; z < mDepth; z++)
-                        {
-                            TaskManager.SafeReport(0, "Applying textures... (Layer " + z + ")");
-
-                            if (isSelectiveLayerViewEnabled)
-                            {
-                                if (z != _RenderedZIndexToShow)
-                                {
-                                    continue;
-                                }
-                            }
-                            int numProcessed = 0;
-                            int numPixels = mWidth * mHeight;
-                            Parallel.For(0, numPixels, pixel =>
-                            {
-                                int x = pixel % mWidth;
-                                int y = pixel / mWidth;
-                                TaskManager.SafeReport((int)(100 * ((float)numProcessed / numPixels)));
-                                Interlocked.Increment(ref numProcessed);
-                                worker?.SafeThrowIfCancellationRequested();
-                                int xi = x * textureSizeRef;
-                                int yi = y * textureSizeRef;
-                                if (xi + MainForm.PanZoomSettings.zoomLevel >= 0 && yi + MainForm.PanZoomSettings.zoomLevel >= 0)
-                                {
-                                    Material m = blueprint.GetMaterialAt(x, y, z, !_isFrugalAesthetic);
-
-                                    if (isMaterialFilterViewEnabled)
-                                    {
-                                        string blockId = m.PixelStackerID;
-                                        isMaterialIncludedInFilter = Options.Get.SelectedMaterialFilter.Any(xm => xm == blockId);
-                                    }
-
-                                    if (m.BlockID != 0)
-                                    {
-                                        int ptrX = xi * bytesPerPixel;
-                                        var data = materialDataMap[m];
-                                        byte* dataPtrFirstPixel = (byte*)data.Scan0;
-                                        byte* currentLineBase = PtrFirstPixel + (yi * bitmapData.Stride);
-                                        int bytesPerMaterialPixel = System.Drawing.Bitmap.GetPixelFormatSize(data.PixelFormat) / 8;
-
-
-                                        if (_IsSolidColors)
-                                        {
-                                            if (isMaterialIncludedInFilter)
-                                            {
-                                                var color = blueprint.GetColor(x, y);
-
-                                                // Fill rectangle implementation
-                                                for (int y1 = 0; y1 < textureSizeRef; y1++)
-                                                {
-                                                    byte* currentLine = PtrFirstPixel + ((yi + y1) * bitmapData.Stride);
-                                                    for (int x1 = 0; x1 < textureSizeRef; x1++)
-                                                    {
-                                                        SetPixel(currentLine, ptrX + x1 * bytesPerPixel, color);
-
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        else if (_IsColorPalette)
-                                        {
-                                            if (isMaterialIncludedInFilter)
-                                            {
-                                                // Per the previous implementation, this one is interesting...
-                                                // We need to draw the texture
-                                                // Then put a square of the appropriate color from 0,0 to textureSizeRef/2
-                                                // Then put a black border around that square
-                                                var color = blueprint.GetColor(x, y);
-
-                                                bool hasAlpha = data.PixelFormat.HasAlpha(); // This is a method so... better cache the result cuz it may be computational
-
-                                                // To save a massive amount of code duplication
-                                                // We're going to render the entire material then draw ontop of it
-                                                // Because otherwise moving indexed stuff in here will be nuts
-
-                                                // And, I actually tested moving the stuff, and it's actually faster to draw the entire image first
-                                                // Or maybe equivalent and within margin of error
-                                                if (data.PixelFormat.IsIndexed())
-                                                    DrawImage(data, bitmapData, xi, yi, textureSizeRef, bytesPerPixel, materialPaletteMap[m]);
-                                                else
-                                                    DrawImage(data, bitmapData, xi, yi, textureSizeRef, bytesPerPixel);
-
-                                                Color targetColor;
-                                                for (int y1 = 0; y1 < textureSizeRef; y1++)
-                                                {
-                                                    byte* currentLine = PtrFirstPixel + ((yi + y1) * bitmapData.Stride);
-                                                    byte* currentDataLine = dataPtrFirstPixel + y1 * data.Stride;
-                                                    for (int x1 = 0; x1 < textureSizeRef; x1++)
-                                                    {
-                                                        targetColor = Color.Empty;
-                                                        if ((x1 == 0 && y1 <= textureSizeRef / 2) || (y1 == 0 && x1 <= textureSizeRef / 2) || (x1 == textureSizeRef / 2 && y1 <= textureSizeRef / 2) || (y1 == textureSizeRef / 2 && x1 <= textureSizeRef / 2)) // If it's exactly on a border
-                                                        {
-                                                            // Black for the border
-                                                            targetColor = Color.Black;
-                                                        }
-                                                        else if (x1 < textureSizeRef / 2 && y1 < textureSizeRef / 2) // If it's in the upper-left quadrant, color
-                                                        {
-                                                            targetColor = color;
-                                                        }
-
-                                                        if (targetColor != Color.Empty)
-                                                        {
-                                                            SetPixel(currentLine, ptrX + x1 * bytesPerPixel, targetColor);
-                                                        }
-                                                    }
-
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (isMaterialIncludedInFilter)
-                                            {
-                                                if (data.PixelFormat.IsIndexed())
-                                                    DrawImage(data, bitmapData, xi, yi, textureSizeRef, bytesPerPixel, materialPaletteMap[m]);
-                                                else
-                                                    DrawImage(data, bitmapData, xi, yi, textureSizeRef, bytesPerPixel);
-                                            }
-                                        }
-                                    }
-                                }
-
-
-                            });
-                        }
-                        #endregion
-                        // We'll unlock here and let shadows be their own thing still
-                        bm.UnlockBits(bitmapData);
-                        foreach (var m in materials)
-                        {
-                            m.getImage(isSide).UnlockBits(materialDataMap[m]);
-                        }
-                    }
-                    watch.Stop();
-                    Console.WriteLine($"Rendered bitmap from blueprint in {watch.ElapsedMilliseconds}ms");
-
-                    using (Graphics gImg = Graphics.FromImage(bm))
-                    {
-                        #region SHADOW_NEW
-                        if (!_isSkipShadowRendering)
-                        {
-                            Bitmap bmShadeSprites = ShadowHelper.GetSpriteSheet(Constants.TextureSize);
-
-                            Bitmap bmShadow = new Bitmap(
-                            width: calcW,
-                            height: calcH,
-                            format: PixelFormat.Format32bppArgb);
-
-                            byte[,] shadowMap = new byte[mWidth, mHeight];
-                            {
-                                #region Initialize shadow map (booleans basically)
-                                TaskManager.SafeReport(0, "Calculating shadow placement map");
-                                for (int xShadeMap = 0; xShadeMap < mWidth; xShadeMap++)
-                                {
-                                    TaskManager.SafeReport(100 * xShadeMap / mWidth);
-                                    worker?.SafeThrowIfCancellationRequested();
-
-                                    for (int yShadeMap = 0; yShadeMap < mHeight; yShadeMap++)
-                                    {
-                                        Material mBottom = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 0, true);
-                                        bool isBottomShown = mBottom.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mBottom.PixelStackerID));
-
-                                        Material mTop = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 1, !_isFrugalAesthetic);
-                                        bool isTopShown = mTop.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mTop.PixelStackerID));
-
-                                        if (isTopShown && isBottomShown)
-                                        {
-                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP_AND_BOTTOM;
-                                        }
-                                        else if (isTopShown)
-                                        {
-                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP;
-                                        }
-                                        else if (isBottomShown)
-                                        {
-                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_BOTTOM;
-                                        }
-                                        else
-                                        {
-                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_NONE;
-                                        }
-                                    }
-                                }
-                                #endregion
-
-                                using (Graphics gShadow = Graphics.FromImage(bmShadow))
-                                {
-                                    gShadow.CompositingMode = CompositingMode.SourceOver; // over is slower but better...
-                                    gShadow.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                                    gShadow.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                                    gShadow.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
-                                    var brushTransparentCover = new SolidBrush(Color.FromArgb(40, 127, 127, 127));
-                                    {
-                                        TaskManager.SafeReport(0, "Rendering shadows");
-                                        for (int x = 0; x < mWidth; x++)
-                                        {
-                                            TaskManager.SafeReport(100 * x / mWidth);
-                                            worker?.SafeThrowIfCancellationRequested();
-                                            for (int y = 0; y < mHeight; y++)
-                                            {
-                                                int xi = x * textureSize.Value;
-                                                int yi = y * textureSize.Value;
-
-                                                bool isTopShown = shadowMap[x, y] == SHOWN_TOP || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
-                                                bool isBottomShown = shadowMap[x, y] == SHOWN_BOTTOM || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
-                                                bool isBottomCoveredByInvisibleTop = isBottomShown && !isTopShown;
-
-                                                // The thing that makes it slightly less saturated on bottom layer
-                                                if (isBottomCoveredByInvisibleTop && _IsMultiLayer)
-                                                {
-                                                    gShadow.FillRectangle(brushTransparentCover, xi, yi, textureSize.Value, textureSize.Value);
-                                                }
-
-                                                if (isTopShown && isBottomShown)
-                                                {
-                                                    continue; // No shade required
-                                                }
-
-                                                // AIR block (or block we aint rendering)
-                                                if (!isTopShown)
-                                                {
-                                                    ShadeFrom sFrom = ShadeFrom.EMPTY;
-                                                    bool isBlockTop = y > 0 && isShaded(shadowMap[x, y], shadowMap[x, y - 1]);
-                                                    bool isBlockLeft = x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y]);
-                                                    bool isBlockRight = x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y]);
-                                                    bool isBlockBottom = (y < mHeight - 1 && isShaded(shadowMap[x, y], shadowMap[x, y + 1]));
-                                                    bool isBlockTopLeft = (y > 0 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y - 1]));
-                                                    bool isBlockTopRight = (y > 0 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y - 1]));
-                                                    bool isBlockBottomLeft = (y < mHeight - 1 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y + 1]));
-                                                    bool isBlockBottomRight = (y < mHeight - 1 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y + 1]));
-
-                                                    if (isBlockTop) sFrom |= ShadeFrom.T;
-                                                    if (isBlockLeft) sFrom |= ShadeFrom.L;
-                                                    if (isBlockRight) sFrom |= ShadeFrom.R;
-                                                    if (isBlockBottom) sFrom |= ShadeFrom.B;
-                                                    if (isBlockTopLeft) sFrom |= ShadeFrom.TL;
-                                                    if (isBlockTopRight) sFrom |= ShadeFrom.TR;
-                                                    if (isBlockBottomLeft) sFrom |= ShadeFrom.BL;
-                                                    if (isBlockBottomRight) sFrom |= ShadeFrom.BR;
-
-                                                    var shadeImg = ShadowHelper.GetSpriteIndividual(Constants.TextureSize, sFrom);
-                                                    gShadow.DrawImage(image: shadeImg, xi, yi, textureSize.Value, textureSize.Value);
-
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    brushTransparentCover.Dispose();
-                                }
-
-                                gImg.CompositingMode = CompositingMode.SourceOver;
-                                gImg.DrawImage(bmShadow, 0, 0, calcW, calcH);
-                            }
-                        }
-                    }
-
-                    #endregion
-                    brush.DisposeSafely();
-                    pen.DisposeSafely();
-
-
-
-                    return bm;
-                }
-                catch (Exception ex)
-                {
-                    blueprint = null;
-                }
-            }
-
-            return null;
-        }
-
-        private static unsafe void SetPixel(byte* currentLine, int lineIndex, Color targetColor)
-        {
-            if (BitConverter.IsLittleEndian)
-            {
-                currentLine[lineIndex] = targetColor.B;
-                currentLine[lineIndex + 1] = targetColor.G;
-                currentLine[lineIndex + 2] = targetColor.R;
-                currentLine[lineIndex + 3] = targetColor.A;
-            }
-            else
-            {
-                currentLine[lineIndex] = targetColor.A;
-                currentLine[lineIndex + 1] = targetColor.R;
-                currentLine[lineIndex + 2] = targetColor.G;
-                currentLine[lineIndex + 3] = targetColor.B;
-            }
-        }
-
-        /// <summary>
-        /// Draws a material onto target at the X,Y coordinates
-        /// Wants textureSize and bytesPerPixel to avoid re-querying them unnecessarily
-        /// And same for the data, you should lock and expect to call this multiple times within a lock
-        /// </summary>
-        private static unsafe void DrawImage(BitmapData materialData, BitmapData targetBitmapData, int x, int y, int textureSize, int bytesPerPixel, Color[] palette = null)
-        {
-            x *= bytesPerPixel; // Get x in reference to bytes
-            byte* PtrFirstPixel = (byte*)targetBitmapData.Scan0;
-            byte* dataPtrFirstPixel = (byte*)materialData.Scan0;
-            byte* currentLineBase = PtrFirstPixel + (y * targetBitmapData.Stride);
-            int bitsPerMaterialPixel = System.Drawing.Bitmap.GetPixelFormatSize(materialData.PixelFormat);
-            int bytesPerMaterialPixel = bitsPerMaterialPixel / 8; // If it's not indexed, we use this
-            bool hasAlpha = materialData.PixelFormat.HasAlpha(); // This is a method so... better cache the result cuz it may be computational
-
-            for (int y1 = 0; y1 < textureSize; y1++)
-            {
-                byte* currentLine = PtrFirstPixel + ((y + y1) * targetBitmapData.Stride);
-                byte* currentDataLine = dataPtrFirstPixel + y1 * materialData.Stride;
-                for (int x1 = 0; x1 < textureSize; x1++)
-                {
-
-                    var dataPtrX = x1 * bytesPerMaterialPixel;
-
-                    // No longer tries to get alpha first - might result in accessing invalid mem
-                    if (palette != null)
-                    {
-                        // We have to consider what happens at 4bpp
-                        // Which, gets really annoying because we always read a byte at a time
-                        // And dataPtrX won't be right either
-
-                        int index;
-                        if (bytesPerMaterialPixel == 0) // Below 8bpp, we need to split things
-                        {
-                            int ratio = 8 / bitsPerMaterialPixel; // 2 for 4bpp
-                            dataPtrX = (x1 / ratio); // So it only advances every (ratio) reads, because we have ratio reads per byte
-
-                            index = currentDataLine[dataPtrX];
-
-                            // So... making this modular should be ... fun... 
-                            // We need to grab (8/ratio) bits
-                            // From (x1%ratio) offset bits
-
-                            // So if ratio is 2, 8/ratio = 4
-                            // Which is 0b00000100
-                            // But that doesn't mean much... we need 4 bits to be 1's
-                            // Which, 2^4 will do that I think, that's 16... 
-                            // So it'd have to be (2^4)-1 0b00001111
-                            // Shift the whole thing far left... 0b11110000
-
-                            // Then shift it right by (x1%ratio)*(8/ratio) bits to get to the right spot
-                            // Then we just and it
-                            // And shift it right by 8-that
-
-                            int bitsToGrab = 8 / ratio;
-                            int mask = (1 << bitsToGrab) - 1; // = Math.Pow(2, bitsToGrab)-1
-                            //mask = mask << (8 - bitsToGrab); // Get everything to the far left to make this easier
-                            // I'd like to just shift this once...
-                            // We should now have (bitsToGrab) bits with 1s, on the left, and the rest 0s
-                            //int bitOffset = (x1 % ratio) * (8 / ratio);
-
-                            int bitOffset = (8 - bitsToGrab)-((x1 % ratio) * (8 / ratio)); // This is how far we should offset it right
-                            
-                            if (bitOffset < 0)
-                                mask = mask << -bitOffset;
-                            else
-                                mask = mask >> bitOffset;
-                            index = index & mask;
-                            // And when we're done just undo that same offset
-                            if (bitOffset < 0)
-                                index = index >> -bitOffset;
-                            else
-                                index = index << bitOffset;
-
-                            //if (x1 % 2 == 0)
-                            //{
-                            //    // Take the first 4 bits
-                            //    var bits = index & 0b11110000;
-                            //    // Shift it 4 bits right
-                            //    bits = bits >> 4;
-                            //    index = bits;
-                            //}
-                            //else
-                            //{
-                            //    // Take the last 4 bits
-                            //    var bits = index & 0b00001111;
-                            //    // No shift required
-                            //    index = bits;
-                            //}
-                        }
-                        else
-                            index = currentDataLine[dataPtrX]; // Moved this here so we don't access invalid mem if it's not the right size... 
-
-                        if (index < palette.Length)
-                        {
-                            Color targetColor = palette[index];
-                            if (BitConverter.IsLittleEndian)
-                            {
-                                currentLine[x + x1 * bytesPerPixel] = targetColor.B;
-                                currentLine[x + x1 * bytesPerPixel + 1] = targetColor.G;
-                                currentLine[x + x1 * bytesPerPixel + 2] = targetColor.R;
-                                currentLine[x + x1 * bytesPerPixel + 3] = targetColor.A;
-                            }
-                            else
-                            {
-                                currentLine[x + x1 * bytesPerPixel] = targetColor.A;
-                                currentLine[x + x1 * bytesPerPixel + 1] = targetColor.R;
-                                currentLine[x + x1 * bytesPerPixel + 2] = targetColor.G;
-                                currentLine[x + x1 * bytesPerPixel + 3] = targetColor.B;
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Invalid index received: {index} vs length {palette.Length}"); // Should no longer happen but leaving it just in case
-                        }
-
-                    }
-                    else if (hasAlpha && currentDataLine[dataPtrX + 3] != 255) // Alpha blend
-                    {
-                        // out = alpha * new + (1 - alpha) * old
-                        // I'm not sure if storing these has any benefit except to make the formula slightly cleaner
-                        // But they're just bytes, they shouldn't affect the overhead much
-
-                        // Endianness doesn't matter because it should match
-                        var B = currentLine[x + x1 * bytesPerPixel];
-                        var G = currentLine[x + x1 * bytesPerPixel + 1];
-                        var R = currentLine[x + x1 * bytesPerPixel + 2];
-                        var A = currentLine[x + x1 * bytesPerPixel + 3];
-                        double normalAlpha = currentDataLine[dataPtrX + 3] / 255d;
-                        currentLine[x + x1 * bytesPerPixel] = (byte)(normalAlpha * currentDataLine[dataPtrX] + (1 - normalAlpha) * B);
-                        currentLine[x + x1 * bytesPerPixel + 1] = (byte)(normalAlpha * currentDataLine[dataPtrX + 1] + (1 - normalAlpha) * G);
-                        currentLine[x + x1 * bytesPerPixel + 2] = (byte)(normalAlpha * currentDataLine[dataPtrX + 2] + (1 - normalAlpha) * R);
-                        currentLine[x + x1 * bytesPerPixel + 3] = (byte)Math.Max(A, currentDataLine[dataPtrX + 3]); // Our resulting alpha should always be the highest of either, we're blending it ourselves
-
-                    }
-                    else // These are separated so that we don't have to read current value in the more common case that it has no alpha
-                    {
-                        // We hard-set alpha so we don't try to access invalid mem if it's not there
-                        if (BitConverter.IsLittleEndian)
-                        {
-                            currentLine[x + x1 * bytesPerPixel] = currentDataLine[dataPtrX];
-                            currentLine[x + x1 * bytesPerPixel + 1] = currentDataLine[dataPtrX + 1];
-                            currentLine[x + x1 * bytesPerPixel + 2] = currentDataLine[dataPtrX + 2];
-                            currentLine[x + x1 * bytesPerPixel + 3] = (byte)255;
-                        }
-                        else
-                        {
-                            currentLine[x + x1 * bytesPerPixel] = (byte)255;
-                            currentLine[x + x1 * bytesPerPixel + 1] = currentDataLine[dataPtrX];
-                            currentLine[x + x1 * bytesPerPixel + 2] = currentDataLine[dataPtrX + 1];
-                            currentLine[x + x1 * bytesPerPixel + 3] = currentDataLine[dataPtrX + 2];
-                        }
-                    }
-                }
-            }
-        }
-
         private static int? CalculateTextureSize(BlueprintPA image)
         {
             // Calculate texture size so we can handle large images.
@@ -1137,17 +536,17 @@ namespace PixelStacker.UI
                 int mWidth = src.Width;
                 int mHeight = src.Height;
 
-                double wRatio = (double)Width / mWidth;
-                double hRatio = (double)Height / mHeight;
+                double wRatio = (double) Width / mWidth;
+                double hRatio = (double) Height / mHeight;
                 if (hRatio < wRatio)
                 {
                     settings.zoomLevel = hRatio;
-                    settings.imageX = (Width - (int)(mWidth * hRatio)) / 2;
+                    settings.imageX = (Width - (int) (mWidth * hRatio)) / 2;
                 }
                 else
                 {
                     settings.zoomLevel = wRatio;
-                    settings.imageY = (Height - (int)(mHeight * wRatio)) / 2;
+                    settings.imageY = (Height - (int) (mHeight * wRatio)) / 2;
                 }
 
                 int numICareAbout = Math.Max(mWidth, mHeight);
@@ -1200,7 +599,7 @@ namespace PixelStacker.UI
                                 using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), blockWidth))
                                 {
                                     penWE.Alignment = PenAlignment.Inset;
-                                    g.DrawRectangle(penWE, pp2.X, pp2.Y, (int)(bm.Width) - indexShift, (int)(bm.Height) - indexShift);
+                                    g.DrawRectangle(penWE, pp2.X, pp2.Y, (int) (bm.Width) - indexShift, (int) (bm.Height) - indexShift);
                                 }
                             }
 
@@ -1277,7 +676,7 @@ namespace PixelStacker.UI
 
         private int GetGridWidth()
         {
-            int zoom = (int)MainForm.PanZoomSettings.zoomLevel;
+            int zoom = (int) MainForm.PanZoomSettings.zoomLevel;
             if (zoom > 70) return 8;
             if (zoom > 60) return 7;
             if (zoom > 50) return 6;
@@ -1394,7 +793,7 @@ namespace PixelStacker.UI
                         using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), (int)zoom))
                         {
                             penWE.Alignment = PenAlignment.Inset;
-                            g.DrawRectangle(penWE, pp2.X, pp2.Y, (int)(blueprint.Width * MainForm.PanZoomSettings.zoomLevel), (int)(blueprint.Height * MainForm.PanZoomSettings.zoomLevel));
+                            g.DrawRectangle(penWE, pp2.X, pp2.Y, (int) (blueprint.Width * MainForm.PanZoomSettings.zoomLevel), (int) (blueprint.Height * MainForm.PanZoomSettings.zoomLevel));
                         }
                     }
                 }
@@ -1436,8 +835,8 @@ namespace PixelStacker.UI
                     MainForm.PanZoomSettings.zoomLevel *= 1.50;
                 }
                 this.restrictZoom();
-                MainForm.PanZoomSettings.imageX = ((int)Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));
-                MainForm.PanZoomSettings.imageY = ((int)Math.Round(panelPoint.Y - imagePoint.Y * MainForm.PanZoomSettings.zoomLevel));
+                MainForm.PanZoomSettings.imageX = ((int) Math.Round(panelPoint.X - imagePoint.X * MainForm.PanZoomSettings.zoomLevel));
+                MainForm.PanZoomSettings.imageY = ((int) Math.Round(panelPoint.Y - imagePoint.Y * MainForm.PanZoomSettings.zoomLevel));
                 this.Refresh();
             }
         }
@@ -1471,19 +870,19 @@ namespace PixelStacker.UI
             }
             Refresh();
         }
-        #endregion
+        #endregion 
 
         public Point getPointOnImage(Point pointOnPanel, EstimateProp prop)
         {
             if (prop == EstimateProp.Ceil)
             {
-                return new Point((int)Math.Ceiling((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Ceiling((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+                return new Point((int) Math.Ceiling((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Ceiling((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
             }
             if (prop == EstimateProp.Floor)
             {
-                return new Point((int)Math.Floor((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Floor((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+                return new Point((int) Math.Floor((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Floor((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
             }
-            return new Point((int)Math.Round((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int)Math.Round((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
+            return new Point((int) Math.Round((pointOnPanel.X - MainForm.PanZoomSettings.imageX) / MainForm.PanZoomSettings.zoomLevel), (int) Math.Round((pointOnPanel.Y - MainForm.PanZoomSettings.imageY) / MainForm.PanZoomSettings.zoomLevel));
         }
 
         public Point getPointOnPanel(Point pointOnImage)
@@ -1506,7 +905,7 @@ namespace PixelStacker.UI
 #endif
             }
 
-            return new Point((int)Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int)Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
+            return new Point((int) Math.Round(pointOnImage.X * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageX), (int) Math.Round(pointOnImage.Y * MainForm.PanZoomSettings.zoomLevel + MainForm.PanZoomSettings.imageY));
         }
 
         private void restrictZoom()
@@ -1561,25 +960,25 @@ namespace PixelStacker.UI
         private Point getShowingEnd(double origW, double origH)
         {
             Point showingEnd = getPointOnImage(new Point(Width, Height), EstimateProp.Ceil);
-            showingEnd.X = (showingEnd.X > origW ? (int)origW : showingEnd.X);
-            showingEnd.Y = (showingEnd.Y > origH ? (int)origH : showingEnd.Y);
+            showingEnd.X = (showingEnd.X > origW ? (int) origW : showingEnd.X);
+            showingEnd.Y = (showingEnd.Y > origH ? (int) origH : showingEnd.Y);
             return showingEnd;
         }
 
 
         private int getRoundedZoomDistance(int x, int deltaX)
         {
-            return (int)Math.Round(x + deltaX * MainForm.PanZoomSettings.zoomLevel);
+            return (int) Math.Round(x + deltaX * MainForm.PanZoomSettings.zoomLevel);
         }
 
         private int getRoundedZoomX(int val, int blockSize)
         {
-            return (int)Math.Floor(MainForm.PanZoomSettings.imageX + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
+            return (int) Math.Floor(MainForm.PanZoomSettings.imageX + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
         private int getRoundedZoomY(int val, int blockSize)
         {
-            return (int)Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
+            return (int) Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
         }
 
         public enum EstimateProp
@@ -1593,7 +992,7 @@ namespace PixelStacker.UI
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    RenderedImagePanel panel = (RenderedImagePanel)sender;
+                    RenderedImagePanel panel = (RenderedImagePanel) sender;
                     Point loc = getPointOnImage(e.Location, EstimateProp.Floor);
                     image.WorldEditOrigin = loc;
                     Refresh();
@@ -1634,7 +1033,7 @@ namespace PixelStacker.UI
                 // use concat incase some thing somewhere is iterating over the list. This way we
                 // avoid concurrent modification issues.
                 Options.Get.SelectedMaterialFilter = Options.Get.SelectedMaterialFilter
-                    .Concat(new List<string>() { matLabel }).ToList();
+                    .Concat(new List<string>() { matLabel }).ToList(); 
 
                 Options.Save();
                 this.InvokeEx(c => c.ForceReRender());

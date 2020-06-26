@@ -47,10 +47,9 @@ namespace PixelStacker.Logic.Collections
             {
                 this.BestMatchCache.Clear();
                 this.colorPalette.Clear();
+                this.colorPalette = new KDColorTree();
                 this.ColorToMaterialMap.Clear();
             }
-
-
 
             int n = 0;
             int maxN = materials.Count(x => x.IsEnabled && x.Category != "Glass");

@@ -72,7 +72,7 @@ namespace PixelStacker.Logic.Extensions
                 (dR * dR)
                 + (dG * dG)
                 + (dB * dB)
-                + (int)(Math.Sqrt(dHue * dHue * dHue))
+                + (int) (Math.Sqrt(dHue * dHue * dHue))
                 //+ (dSat * dSat)
                 );
 
@@ -86,6 +86,11 @@ namespace PixelStacker.Logic.Extensions
         /// <returns></returns>
         public static Color Normalize(this Color c)
         {
+            if (Options.Get.PreRender_ColorCacheFragmentSize < 2)
+            {
+                return c;
+            }
+
             int F = Options.Get.PreRender_ColorCacheFragmentSize;
             int R = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.R) / F, 0) * F);
             int G = (int) Math.Min(255, Math.Round(Convert.ToDecimal(c.G) / F, 0) * F);
