@@ -43,9 +43,31 @@ namespace PixelStacker.Logic.Collections
             bool isMultiLayerRequired = Options.Get.IsMultiLayerRequired;
             bool isAllowGlassByItself = false && !materials.Any(x => x.IsEnabled && x.Category != "Glass" && x.Category != "Air");
 
+            if (isClearBestMatchCache)
+            {
+                this.BestMatchCache.Clear();
+                this.colorPalette.Clear();
+                this.ColorToMaterialMap.Clear();
+            }
+
+
+
             int n = 0;
-            int maxN = materials.Count(x => x.IsEnabled);
-            if (isMultiLayer) maxN *= materials.Count(x => x.IsEnabled && x.Category == "Glass");
+            int maxN = materials.Count(x => x.IsEnabled && x.Category != "Glass");
+            if (isMultiLayer)
+            {
+                if (isMultiLayerRequired)
+                {
+                    maxN = maxN * materials.Count(x => x.IsEnabled && x.Category == "Glass");
+                }
+                else
+                {
+
+                    maxN += maxN * materials.Count(x => x.IsEnabled && x.Category == "Glass");
+                }
+            }
+
+            maxN = (int) (maxN * 1.20); // 1 for base. Reserve 20% for remaining iterations.
 
             Dictionary<Color, Material[]> colorToMaterialMap = new Dictionary<Color, Material[]>();
 
@@ -70,7 +92,9 @@ namespace PixelStacker.Logic.Collections
                     colorToMaterialMap[cAvg] = new Material[1] { m };
                 }
 
-                if (n++ % 30 == 0)
+                Interlocked.Increment(ref n);
+
+                if (n % 30 == 0)
                 {
                     TaskManager.SafeReport(100 * n / maxN);
                     if (worker.SafeIsCancellationRequested())
@@ -122,15 +146,17 @@ namespace PixelStacker.Logic.Collections
                             }
                         }
 
-                        if (n++ % 30 == 0)
+                        Interlocked.Increment(ref n);
+                        TaskManager.SafeReport(100 * n / maxN);
+                        if (n % 30 == 0)
                         {
-                            TaskManager.SafeReport(100 * n / maxN);
                             if (worker.SafeIsCancellationRequested())
                             {
                                 lock (colorToMaterialMap)
                                 {
                                     colorToMaterialMap.Clear();
                                 }
+
                                 worker.SafeThrowIfCancellationRequested();
                             }
                         }
@@ -165,6 +191,7 @@ namespace PixelStacker.Logic.Collections
             lock (colorToMaterialMap)
             {
 
+                TaskManager.SafeReport(80);
                 lock (this.colorPalette)
                 {
                     this.colorPalette.Clear();
@@ -178,6 +205,7 @@ namespace PixelStacker.Logic.Collections
                 colorToMaterialMap[Color.FromArgb(0, 255, 255, 255)] = new Material[1] { Materials.Air };
             }
 
+            TaskManager.SafeReport(90);
 
             lock (this.BestMatchCache)
             {
