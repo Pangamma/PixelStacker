@@ -46,14 +46,14 @@ namespace PixelStacker.Logic.Collections
             if (isClearBestMatchCache)
             {
                 this.BestMatchCache.Clear();
+                this.ColorToMaterialMap.Clear();
                 this.colorPalette.Clear();
                 this.colorPalette = new KDColorTree();
-                this.ColorToMaterialMap.Clear();
             }
 
             int n = 0;
             int maxN = materials.Count(x => x.IsEnabled && x.Category != "Glass");
-            if (isMultiLayer)
+            if (isMultiLayer) maxN *= materials.Count(x => x.IsEnabled && x.Category == "Glass"); if (isMultiLayer)
             {
                 if (isMultiLayerRequired)
                 {
@@ -67,6 +67,7 @@ namespace PixelStacker.Logic.Collections
             }
 
             maxN = (int) (maxN * 1.20); // 1 for base. Reserve 20% for remaining iterations.
+            if (isMultiLayer) maxN *= materials.Count(x => x.IsEnabled && x.Category == "Glass");
 
             Dictionary<Color, Material[]> colorToMaterialMap = new Dictionary<Color, Material[]>();
 
@@ -92,7 +93,6 @@ namespace PixelStacker.Logic.Collections
                 }
 
                 Interlocked.Increment(ref n);
-
                 if (n % 30 == 0)
                 {
                     TaskManager.SafeReport(100 * n / maxN);
@@ -146,9 +146,9 @@ namespace PixelStacker.Logic.Collections
                         }
 
                         Interlocked.Increment(ref n);
-                        TaskManager.SafeReport(100 * n / maxN);
                         if (n % 30 == 0)
                         {
+                            TaskManager.SafeReport(100 * n / maxN);
                             if (worker.SafeIsCancellationRequested())
                             {
                                 lock (colorToMaterialMap)
@@ -189,7 +189,6 @@ namespace PixelStacker.Logic.Collections
             #region Finalize
             lock (colorToMaterialMap)
             {
-
                 TaskManager.SafeReport(80);
                 lock (this.colorPalette)
                 {
