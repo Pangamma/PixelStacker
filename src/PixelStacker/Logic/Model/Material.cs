@@ -261,6 +261,11 @@ namespace PixelStacker.Logic
             b /= total;
             a /= total;
 
+            if (a > 128)
+            {
+                a = 255;
+            }
+
             return Color.FromArgb((int)a, (int)r, (int)g, (int)b).Normalize();
         }
 
