@@ -248,6 +248,46 @@ namespace PixelStacker.UI
         {
             needle = needle.ToLowerInvariant();
             int? idNeedle = needle.ToNullable<int>();
+            bool isv = Options.Get.IsSideView;
+
+            if (needle.StartsWith("#"))
+            {
+                try
+                {
+                    int R, G, B;
+                    string needleTrim = needle.Trim();
+
+                    if (needleTrim.Length == 7)
+                    {
+                        R = Convert.ToByte(needleTrim.Substring(1, 2), 16);
+                        G = Convert.ToByte(needleTrim.Substring(3, 2), 16);
+                        B = Convert.ToByte(needleTrim.Substring(5, 2), 16);
+                    }
+                    else if (needleTrim.Length == 4)
+                    {
+                        R = Convert.ToByte(needleTrim.Substring(1, 1) + needleTrim.Substring(1, 1), 16);
+                        G = Convert.ToByte(needleTrim.Substring(2, 1) + needleTrim.Substring(2, 1), 16);
+                        B = Convert.ToByte(needleTrim.Substring(3, 1) + needleTrim.Substring(3, 1), 16);
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                    Color cNeedle = Color.FromArgb(255, R, G, B);
+                    var found = Materials.List
+                        .Where(x => x.IsVisible)
+                        .OrderBy(m => m.getAverageColor(isv).GetColorDistance(cNeedle))
+                        .Take(20).ToList();
+
+                    SetVisibleMaterials(found);
+                }
+                catch (Exception) { }
+
+                return;
+            }
+
+
             var newList = Materials.List.Where(x =>
             {
                 if (!x.IsVisible) return false;
@@ -290,6 +330,8 @@ namespace PixelStacker.UI
         {
             this.flowLayout.SuspendLayout();
 
+            List<Control> controls = new List<Control>();
+
             foreach (var kvp in this.materialTiles)
             {
                 if (mats.Any(x => x.PixelStackerID == kvp.Key && x.IsVisible))
@@ -302,6 +344,18 @@ namespace PixelStacker.UI
                 }
             }
 
+            this.flowLayout.Controls.Clear();
+
+            mats
+                .Where(x => this.materialTiles.ContainsKey(x.PixelStackerID) && x.IsVisible)
+                .Select(x => this.materialTiles[x.PixelStackerID])
+                .ToList()
+                .ForEach(x => {
+                    x.Visible = true;
+                    this.flowLayout.Controls.Add(x);
+                });
+
+            // Do it in order of input materials. Important.
             this.flowLayout.ResumeLayout();
         }
 
@@ -375,6 +429,7 @@ namespace PixelStacker.UI
         {
             string item = (string) ddlColorProfile.SelectedItem;
             string path = Path.Combine(FilePaths.ColorProfilesPath, item);
+
             if (File.Exists(path))
             {
                 var existingProfile = JsonConvert.DeserializeObject<ColorProfile>(File.ReadAllText(path));
@@ -383,7 +438,10 @@ namespace PixelStacker.UI
                     foreach (var mat in existingProfile.Materials)
                     {
                         var material = Materials.FromPixelStackerID(mat.Key);
-                        material.IsEnabled = mat.Value;
+                        if (material != null)
+                        {
+                            material.IsEnabled = mat.Value;
+                        }
                         // This WOULD be faster, but what if I decide to change the format later... best to play it safe
                         // and stable. Time for this iteration takes barely any time at all anyways. Can always optimize
                         // the material list to become a dictionary later if needed.
