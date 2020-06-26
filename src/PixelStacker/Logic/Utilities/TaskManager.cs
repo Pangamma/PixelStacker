@@ -11,12 +11,13 @@ namespace PixelStacker.Logic
     {
         private static TaskManager _Get = null;
         public static TaskManager Get { get { if (_Get == null) _Get = new TaskManager(); return _Get; } }
-
         private CancellationTokenSource CancelTokenSource { get; set; } = null;
         public CancellationToken CancelToken { get; set; } = CancellationToken.None;
         private Task CurrentTask { get; set; } = null;
-
         private object Padlock { get; set; } = new { };
+
+
+        #region SafeReport
         private string StatusMessage { get; set; } = null;
         private int StatusPercent { get; set; } = 0;
         public void UpdateStatus(MainForm c)
@@ -30,6 +31,7 @@ namespace PixelStacker.Logic
                 else if (StatusPercent != c.progressBar.Value)
                 {
                     int val = Math.Min(c.progressBar.Maximum, StatusPercent);
+                    val = Math.Max(c.progressBar.Minimum, val);
                     c.progressBar.Value = val;
                     if (val > 0)
                     {
@@ -41,6 +43,26 @@ namespace PixelStacker.Logic
                 c.lblStatus.Text = (StatusPercent == 0 || StatusPercent == 100) ? StatusMessage : displayText;
             }
         }
+
+        public static void SafeReport(int percent, string status)
+        {
+            lock (TaskManager.Get.Padlock)
+            {
+                TaskManager.Get.StatusMessage = status;
+                TaskManager.Get.StatusPercent = percent;
+            }
+        }
+
+        public static void SafeReport(int percent)
+        {
+            lock (TaskManager.Get.Padlock)
+            {
+                TaskManager.Get.StatusPercent = percent;
+            }
+        }
+
+        #endregion
+
 
         // Call this first
         public void CancelTasks(Action callback)
@@ -64,18 +86,17 @@ namespace PixelStacker.Logic
                             break;
                         }
                     }
-                    
+
                     // Unable to continue after cancelling the task. We must wait it out.
                 }
-                catch (TaskCanceledException)
-                {
-                }
+                catch (TaskCanceledException) { }
+                catch (OperationCanceledException) { }
                 catch (AggregateException aex)
                 {
-                    if (aex.InnerExceptions.Any(x => x.GetType() != typeof(TaskCanceledException)))
-                    {
-                        throw;
-                    }
+                    if (aex.Flatten().InnerExceptions.Any(x =>
+                        x.GetType() != typeof(TaskCanceledException)
+                        && x.GetType() != typeof(OperationCanceledException))
+                    ) throw;
                 }
                 callback?.Invoke();
             }
@@ -85,31 +106,40 @@ namespace PixelStacker.Logic
             }
         }
 
-        private void WrapCancelTryCatch(Action<CancellationToken> task)
+
+        public bool TryTaskCatchCancelSync(Action task)
         {
-            try { task(this.CancelToken); }
+            try { task(); return true; }
+            catch (TaskCanceledException) { }
             catch (OperationCanceledException) { }
             catch (AggregateException aex)
             {
-                if (aex.InnerExceptions.Any(x => x.GetType() != typeof(TaskCanceledException)))
-                {
-                    throw;
-                }
+                if (aex.Flatten().InnerExceptions.Any(x =>
+                    x.GetType() != typeof(TaskCanceledException)
+                    && x.GetType() != typeof(OperationCanceledException))
+                ) throw;
             }
+
+            return false;
         }
 
         public async Task StartAsync(Action<CancellationToken> task)
         {
-            await Task.Run(() => this.CancelTasks(async () => {
+            await Task.Run(() => this.CancelTasks(async () =>
+            {
                 this.CancelTokenSource = new CancellationTokenSource();
                 this.CancelToken = this.CancelTokenSource.Token;
-                this.CurrentTask = Task.Run(() => {
-                    try { task(this.CancelToken); } catch (OperationCanceledException) { } catch (AggregateException aex)
+                this.CurrentTask = Task.Run(() =>
+                {
+                    try { task(this.CancelToken); }
+                    catch (TaskCanceledException) { }
+                    catch (OperationCanceledException) { }
+                    catch (AggregateException aex)
                     {
-                        if (aex.InnerExceptions.Any(x => x.GetType() != typeof(TaskCanceledException)))
-                        {
-                            throw;
-                        }
+                        if (aex.Flatten().InnerExceptions.Any(x =>
+                            x.GetType() != typeof(TaskCanceledException)
+                            && x.GetType() != typeof(OperationCanceledException))
+                        ) throw;
                     }
                 }, this.CancelToken);
 
@@ -117,13 +147,14 @@ namespace PixelStacker.Logic
                 {
                     await this.CurrentTask;
                 }
+                catch (TaskCanceledException) { }
                 catch (OperationCanceledException) { }
                 catch (AggregateException aex)
                 {
-                    if (aex.InnerExceptions.Any(x => x.GetType() != typeof(TaskCanceledException)))
-                    {
-                        throw;
-                    }
+                    if (aex.Flatten().InnerExceptions.Any(x =>
+                        x.GetType() != typeof(TaskCanceledException)
+                        && x.GetType() != typeof(OperationCanceledException))
+                    ) throw;
                 }
             }));
         }
@@ -147,27 +178,5 @@ namespace PixelStacker.Logic
 
             return original;
         }
-
-
-        #region SafeReport
-        
-        public static void SafeReport(int percent, string status)
-        {
-            lock (TaskManager.Get.Padlock)
-            {
-                TaskManager.Get.StatusMessage = status;
-                TaskManager.Get.StatusPercent = percent;
-            }
-        }
-
-        public static void SafeReport(int percent)
-        {
-            lock (TaskManager.Get.Padlock)
-            {
-                TaskManager.Get.StatusPercent = percent;
-            }
-        }
-
-        #endregion
     }
 }

@@ -101,11 +101,11 @@
   <ItemGroup>
     <Compile Include="Logic\Collections\ColorMap\ColorMatcher.cs" />
     <Compile Include="Logic\Collections\KDColorTree.cs" />
+    <Compile Include="Logic\Collections\KDTree\KDTree.cs" />
+    <Compile Include="Logic\Collections\KDTree\KDTreeNode.cs" />
     <Compile Include="Logic\Collections\KDTree\KDTreeNodeCollection.cs" />
-    <Compile Include="Logic\Collections\KDTree\KDTreePS.cs" />
     <Compile Include="Logic\Collections\KDTree\ElementComparer.cs" />
     <Compile Include="Logic\Collections\KDTree\Hyperrectangle.cs" />
-    <Compile Include="Logic\Collections\KDTree\KDTreeNodePS.cs" />
     <Compile Include="Logic\Collections\KDTree\NodeDistance.cs" />
     <Compile Include="Logic\IO\FilePaths.cs" />
     <Compile Include="Logic\IO\Schem2Formatter.cs" />
