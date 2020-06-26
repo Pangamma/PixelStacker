@@ -162,6 +162,11 @@ namespace PixelStacker.Logic
         {
             get
             {
+                if (this.BlockID == 0)
+                {
+                    return false;
+                }
+
                 if (this.IsAdvanced && !Options.Get.IsAdvancedModeEnabled)
                 {
                     return false;

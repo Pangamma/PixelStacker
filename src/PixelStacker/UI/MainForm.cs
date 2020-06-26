@@ -110,7 +110,7 @@ namespace PixelStacker
                     }
                 }
 
-                BlueprintPA blueprint = BlueprintPA.GetBluePrintAsync(token, this.PreRenderedImage).Result;
+                BlueprintPA blueprint = BlueprintPA.GetBluePrintAsync(token, this.PreRenderedImage).GetAwaiter().GetResult();
 
                 Bitmap renderedImage = RenderedImagePanel.RenderBitmapFromBlueprint(token, blueprint, out int? textureSize);
                 if (textureSize == null) return;

@@ -145,8 +145,8 @@ namespace PixelStacker.UI
                 Color cFromPalette = ColorMatcher.Get.FindBestMatch(c);
                 if (x > xx)
                 {
-                    xx = x; 
-                    TaskManager.SafeReport(100 * x / mWidth, "Rendering low-rez preview to give the illusion of a faster program.");
+                    xx = x;
+                    TaskManager.SafeReport(100 * x / mWidth, "Rendering low-rez preview before applying textures.");
                 }
 
                 if (cFromPalette.A == 0)

@@ -43,6 +43,14 @@ namespace PixelStacker.Logic.Collections
             bool isMultiLayerRequired = Options.Get.IsMultiLayerRequired;
             bool isAllowGlassByItself = false && !materials.Any(x => x.IsEnabled && x.Category != "Glass" && x.Category != "Air");
 
+            if (isClearBestMatchCache)
+            {
+                this.BestMatchCache.Clear();
+                this.ColorToMaterialMap.Clear();
+                this.colorPalette.Clear();
+                this.colorPalette = new KDColorTree();
+            }
+
             int n = 0;
             int maxN = materials.Count(x => x.IsEnabled);
             if (isMultiLayer) maxN *= materials.Count(x => x.IsEnabled && x.Category == "Glass");
@@ -80,6 +88,8 @@ namespace PixelStacker.Logic.Collections
                             colorToMaterialMap.Clear();
 
                         }
+
+                        worker.SafeThrowIfCancellationRequested();
                     }
                 }
             }));
@@ -129,6 +139,8 @@ namespace PixelStacker.Logic.Collections
                                 {
                                     colorToMaterialMap.Clear();
                                 }
+
+                                worker.SafeThrowIfCancellationRequested();
                             }
                         }
                     }
