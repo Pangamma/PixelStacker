@@ -225,8 +225,15 @@ namespace PixelStacker
                     }
                 }
 
+
+                if (ColorMatcher.Get.ColorToMaterialMap.Count == 0)
+                {
+                    TaskManager.SafeReport(0, "Compiling the color map");
+                    ColorMatcher.Get.CompileColorPalette(_worker, true, Materials.List).GetAwaiter().GetResult();
+                }
+
                 // Do this step BEFORE setting panzoom to null. Very important.
-                this.PreRenderedImage = RenderedImagePanel.RenderPlaceholderBitmapFromBlueprint(_worker, img);
+                this.PreRenderedImage = img; // RenderedImagePanel.RenderUsingJustTheColorPalette(_worker, img);
 
                 // Resize based on new size
                 {

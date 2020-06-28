@@ -128,7 +128,7 @@ namespace PixelStacker.UI
         /// <param name="worker"></param>
         /// <param name="blueprint"></param>
         /// <returns></returns>
-        public static Bitmap RenderPlaceholderBitmapFromBlueprint(CancellationToken worker, Bitmap blueprint)
+        public static Bitmap RenderUsingJustTheColorPalette(CancellationToken worker, Bitmap blueprint)
         {
             int mWidth = blueprint.Width;
             int mHeight = blueprint.Height;
@@ -140,7 +140,8 @@ namespace PixelStacker.UI
             }
 
             int xx = 0;
-            blueprint.ToEditStream(worker, (int x, int y, Color c) => {
+            blueprint.ToEditStream(worker, (int x, int y, Color c) =>
+            {
 
                 Color cFromPalette = ColorMatcher.Get.FindBestMatch(c);
                 if (x > xx)

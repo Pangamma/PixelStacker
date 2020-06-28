@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PixelStacker")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A minecraft pixelart generator")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("taylorlove.info")]
 [assembly: AssemblyProduct("PixelStacker")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
