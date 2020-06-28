@@ -40,7 +40,7 @@ namespace PixelStacker.Tools
                 {
                     using (var bmSource = bmAnyFormat.To32bppBitmap())
                     {
-                        bmSource.ToEditStream(null, (int x, int y, Color c) =>
+                        bmSource.ToEditStreamParallel(null, (int x, int y, Color c) =>
                         {
                             var b = c.GetBrightness() * 100;
                             var nAlpha = ((int) (255 * (100 - b))) / 100;

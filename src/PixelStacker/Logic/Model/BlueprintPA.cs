@@ -42,11 +42,11 @@ namespace PixelStacker.Logic
             bool isMultiLayer = Options.Get.IsMultiLayer;
             bool isSide = Options.Get.IsSideView;
 
-            //if (ColorMatcher.Get.ColorToMaterialMap.Count == 0)
-            //{
-            //    TaskManager.SafeReport(0, "Compiling the color map");
-            //    await ColorMatcher.Get.CompileColorPalette(_worker, true, Materials.List);
-            //}
+            if (ColorMatcher.Get.ColorToMaterialMap.Count == 0)
+            {
+                TaskManager.SafeReport(0, "Compiling the color map");
+                await ColorMatcher.Get.CompileColorPalette(_worker, true, Materials.List);
+            }
 
             TaskManager.SafeReport(100, "Colormap is compiled");
             _worker.SafeThrowIfCancellationRequested();
@@ -83,11 +83,12 @@ namespace PixelStacker.Logic
                                 blocksTemp[x, y] = airColor;
                             }
                         }
+
                         blocksTemp[x, y] = ccii;
                     }
                 }
 
-                src.ToViewStream(_worker, viewActionPerPixel);
+                src.ToViewStreamParallel(_worker, viewActionPerPixel);
                 TaskManager.SafeReport(100, "Finished rendering the blueprint.");
             }
 

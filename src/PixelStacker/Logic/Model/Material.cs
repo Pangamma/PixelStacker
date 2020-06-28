@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Resources;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PixelStacker.Logic
@@ -231,12 +232,12 @@ namespace PixelStacker.Logic
             long total = src.Width * src.Height;
             if (src.PixelFormat == System.Drawing.Imaging.PixelFormat.Format32bppArgb)
             {
-                src.ToViewStream(null, (int x, int y, Color c) =>
+                src.ToViewStreamParallel(null, (int x, int y, Color c) =>
                 {
-                    r += c.R;
-                    g += c.G;
-                    b += c.B;
-                    a += c.A;
+                    Interlocked.Add(ref r, c.R);
+                    Interlocked.Add(ref g, c.G);
+                    Interlocked.Add(ref b, c.B);
+                    Interlocked.Add(ref a, c.A);
                 });
             }
             else
@@ -246,12 +247,10 @@ namespace PixelStacker.Logic
                     for (int y = 0; y < src.Height; y++)
                     {
                         Color c = src.GetPixel(x, y);
-                        {
-                            r += c.R;
-                            g += c.G;
-                            b += c.B;
-                            a += c.A;
-                        }
+                        r += c.R;
+                        g += c.G;
+                        b += c.B;
+                        a += c.A;
                     }
                 }
             }

@@ -73,7 +73,7 @@ namespace PixelStacker.Tools
 
                 using (var img = m.getImage(isv).To32bppBitmap()) {
 
-                    img.ToViewStream(null, (int x, int y, Color c) => {
+                    img.ToViewStreamParallel(null, (int x, int y, Color c) => {
                         if (c.R < r) r = c.R;
                         if (c.R > R) R = c.R;
                         if (c.R < g) g = c.G;

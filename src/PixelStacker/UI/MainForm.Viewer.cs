@@ -198,7 +198,7 @@ namespace PixelStacker
                 if (Options.Get.PreRender_ColorCacheFragmentSize > 1)
                 {
                     // We can simplify this so that we cut total color counts down massively.
-                    srcImage.ToEditStream(_worker, (int x, int y, Color c) =>
+                    srcImage.ToEditStreamParallel(_worker, (int x, int y, Color c) =>
                     {
                         int a = (c.A < 32) ? 0 : 255;
                         return Color.FromArgb(a, c.Normalize());

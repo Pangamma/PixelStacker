@@ -43,7 +43,7 @@ namespace PixelStacker.Logic.Extensions
             //Find pixelsize
             int pixelSize = Image.GetPixelFormatSize(L.PixelFormat); // bits per pixel
 
-            for (int i = 0; i < srcImageBytes.Length; i ++)
+            for (int i = 0; i < srcImageBytes.Length; i++)
             {
                 if (srcImageBytes[i] != dstImageBytes[i])
                 {
@@ -181,7 +181,7 @@ namespace PixelStacker.Logic.Extensions
             //Get the bitmap data
             var bitmapData = origImage.LockBits(
                 new Rectangle(0, 0, origImage.Width, origImage.Height),
-                ImageLockMode.ReadWrite,
+                ImageLockMode.ReadOnly,
                 origImage.PixelFormat
             );
 
@@ -233,7 +233,7 @@ namespace PixelStacker.Logic.Extensions
             //Get the bitmap data
             bitmapData = dstImage.LockBits(
                 new Rectangle(0, 0, dstImage.Width, dstImage.Height),
-                ImageLockMode.ReadWrite,
+                ImageLockMode.WriteOnly,
                 dstImage.PixelFormat
             );
 
@@ -242,6 +242,102 @@ namespace PixelStacker.Logic.Extensions
 
             //Unlock the bitmap
             dstImage.UnlockBits(bitmapData);
+        }
+
+        /// <summary>
+        /// Image MUST be 32bppARGB
+        /// </summary>
+        /// <param name="origImage"></param>
+        /// <returns></returns>
+        public static void ToMergeStreamParallel(this Bitmap srcImage, Bitmap dstImage, CancellationToken? worker, Func<int, int, Color, Color, Color> callback)
+        {
+            if (srcImage.PixelFormat != PixelFormat.Format32bppArgb)
+            {
+                throw new ArgumentException("src PixelFormat MUST be PixelFormat.Format32bppArgb.");
+            }
+
+            if (dstImage.PixelFormat != PixelFormat.Format32bppArgb)
+            {
+                throw new ArgumentException("dst PixelFormat MUST be PixelFormat.Format32bppArgb.");
+            }
+
+            if (dstImage.Height != srcImage.Height || dstImage.Width != srcImage.Width)
+            {
+                throw new ArgumentException("Image dimensions do not match.");
+            }
+
+            //Get the bitmap data
+            var srcData = srcImage.LockBits(new Rectangle(0, 0, srcImage.Width, srcImage.Height), ImageLockMode.ReadOnly, srcImage.PixelFormat);
+            var dstData = dstImage.LockBits(new Rectangle(0, 0, dstImage.Width, dstImage.Height), ImageLockMode.ReadOnly, dstImage.PixelFormat);
+
+            var srcBytes = new byte[srcData.Stride * srcImage.Height];
+            var dstBytes = new byte[dstData.Stride * dstImage.Height];
+
+            System.Runtime.InteropServices.Marshal.Copy(srcData.Scan0, srcBytes, 0, srcBytes.Length);
+            System.Runtime.InteropServices.Marshal.Copy(dstData.Scan0, dstBytes, 0, dstBytes.Length);
+
+            srcImage.UnlockBits(srcData);
+            dstImage.UnlockBits(dstData);
+
+            int numYProcessed = 0;
+            int bitsPerPixel = Image.GetPixelFormatSize(srcImage.PixelFormat); // bits per pixel
+            int bytesPerPixel = bitsPerPixel / 8;
+            int heightInPixels = srcImage.Height;
+            int widthInPixels = srcImage.Width;
+            int widthInBytes = Math.Abs(srcData.Stride);
+
+
+            Parallel.For(0, heightInPixels, y =>
+            {
+                int bYOffset = (int) (y * widthInBytes);
+                for (int x = 0; x < widthInPixels; x++)
+                {
+                    int bXOffset = bYOffset + (x * bytesPerPixel);
+                    int a0, r0, g0, b0;
+
+                    if (BitConverter.IsLittleEndian)
+                    {
+                        a0 = bXOffset + 3;
+                        r0 = bXOffset + 2;
+                        g0 = bXOffset + 1;
+                        b0 = bXOffset;
+                    }
+                    else
+                    {
+                        a0 = bXOffset;
+                        r0 = bXOffset + 1;
+                        g0 = bXOffset + 2;
+                        b0 = bXOffset + 3;
+                    }
+
+                    Color srcColor = Color.FromArgb(srcBytes[a0], srcBytes[r0], srcBytes[g0], srcBytes[b0]);
+                    Color dstColor = Color.FromArgb(dstBytes[a0], dstBytes[r0], dstBytes[g0], dstBytes[b0]);
+
+                    Color nColor = callback(x / bytesPerPixel, y, srcColor, dstColor);
+                    dstBytes[a0] = nColor.A;
+                    dstBytes[r0] = nColor.R;
+                    dstBytes[g0] = nColor.G;
+                    dstBytes[b0] = nColor.B;
+                }
+
+                worker?.SafeThrowIfCancellationRequested();
+                Interlocked.Increment(ref numYProcessed);
+                TaskManager.SafeReport((int) (100 * ((float) numYProcessed / heightInPixels)));
+            });
+
+            //Get the bitmap data
+            dstData = dstImage.LockBits(
+                new Rectangle(0, 0, srcImage.Width, srcImage.Height),
+                ImageLockMode.WriteOnly,
+                srcImage.PixelFormat
+            );
+
+            //Copy the changed data into the bitmap again.
+            System.Runtime.InteropServices.Marshal.Copy(dstBytes, 0, dstData.Scan0, dstBytes.Length);
+
+            //Unlock the bitmap
+            dstImage.UnlockBits(dstData);
+            TaskManager.SafeReport(100);
         }
 
 
@@ -264,8 +360,8 @@ namespace PixelStacker.Logic.Extensions
             }
 
             //Get the bitmap data
-            var srcData = origImage.LockBits(new Rectangle(0, 0, origImage.Width, origImage.Height), ImageLockMode.ReadWrite, origImage.PixelFormat);
-            var dstData = dstImage.LockBits(new Rectangle(0, 0, dstImage.Width, dstImage.Height), ImageLockMode.ReadWrite, dstImage.PixelFormat);
+            var srcData = origImage.LockBits(new Rectangle(0, 0, origImage.Width, origImage.Height), ImageLockMode.ReadOnly, origImage.PixelFormat);
+            var dstData = dstImage.LockBits(new Rectangle(0, 0, dstImage.Width, dstImage.Height), ImageLockMode.ReadOnly, dstImage.PixelFormat);
 
             //Initialize an array for all the image data
             byte[] srcImageBytes = new byte[srcData.Stride * origImage.Height];
@@ -323,7 +419,7 @@ namespace PixelStacker.Logic.Extensions
             //Get the bitmap data
             dstData = dstImage.LockBits(
                 new Rectangle(0, 0, dstImage.Width, dstImage.Height),
-                ImageLockMode.ReadWrite,
+                ImageLockMode.WriteOnly,
                 dstImage.PixelFormat
             );
 
@@ -349,7 +445,7 @@ namespace PixelStacker.Logic.Extensions
             //Get the bitmap data
             var bitmapData = origImage.LockBits(
                 new Rectangle(0, 0, origImage.Width, origImage.Height),
-                ImageLockMode.ReadWrite,
+                ImageLockMode.ReadOnly,
                 origImage.PixelFormat
             );
 
@@ -402,7 +498,7 @@ namespace PixelStacker.Logic.Extensions
             //Get the bitmap data
             bitmapData = origImage.LockBits(
                 new Rectangle(0, 0, origImage.Width, origImage.Height),
-                ImageLockMode.ReadWrite,
+                ImageLockMode.WriteOnly,
                 origImage.PixelFormat
             );
 
@@ -411,6 +507,93 @@ namespace PixelStacker.Logic.Extensions
 
             //Unlock the bitmap
             origImage.UnlockBits(bitmapData);
+        }
+
+
+        /// <summary>
+        /// Image MUST be 32bppARGB
+        /// </summary>
+        /// <param name="origImage"></param>
+        /// <returns></returns>
+        public static void ToEditStreamParallel(this Bitmap origImage, CancellationToken? worker, Func<int, int, Color, Color> callback)
+        {
+            if (origImage.PixelFormat != PixelFormat.Format32bppArgb)
+            {
+                throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");
+            }
+
+            //Get the bitmap data
+            var srcData = origImage.LockBits(
+                new Rectangle(0, 0, origImage.Width, origImage.Height),
+                ImageLockMode.ReadOnly,
+                origImage.PixelFormat
+            );
+
+            //Initialize an array for all the image data
+            byte[] imageBytes = new byte[srcData.Stride * origImage.Height];
+
+            //Copy the bitmap data to the local array
+            System.Runtime.InteropServices.Marshal.Copy(srcData.Scan0, imageBytes, 0, imageBytes.Length);
+
+            //Unlock the bitmap
+            origImage.UnlockBits(srcData);
+
+            int numYProcessed = 0;
+            int bitsPerPixel = Image.GetPixelFormatSize(origImage.PixelFormat); // bits per pixel
+            int bytesPerPixel = bitsPerPixel / 8;
+            int heightInPixels = origImage.Height;
+            int widthInPixels = origImage.Width;
+            int widthInBytes = Math.Abs(srcData.Stride);
+            var pixelData = new byte[bytesPerPixel];
+
+            Parallel.For(0, heightInPixels, y =>
+            {
+                int bYOffset = (int) (y * widthInBytes);
+                for (int x = 0; x < widthInPixels; x++)
+                {
+                    int bXOffset = bYOffset + (x * bytesPerPixel);
+                    int a0, r0, g0, b0;
+
+                    if (BitConverter.IsLittleEndian)
+                    {
+                        a0 = bXOffset + 3;
+                        r0 = bXOffset + 2;
+                        g0 = bXOffset + 1;
+                        b0 = bXOffset;
+                    }
+                    else
+                    {
+                        a0 = bXOffset;
+                        r0 = bXOffset + 1;
+                        g0 = bXOffset + 2;
+                        b0 = bXOffset + 3;
+                    }
+
+                    Color color = Color.FromArgb(imageBytes[a0], imageBytes[r0], imageBytes[g0], imageBytes[b0]);
+                    Color nColor = callback(x, y, color);
+                    imageBytes[a0] = nColor.A;
+                    imageBytes[r0] = nColor.R;
+                    imageBytes[g0] = nColor.G;
+                    imageBytes[b0] = nColor.B;
+                }
+
+                worker?.SafeThrowIfCancellationRequested();
+                Interlocked.Increment(ref numYProcessed);
+                TaskManager.SafeReport((int) (100 * ((float) numYProcessed / heightInPixels)));
+            });
+
+            //Get the bitmap data
+            srcData = origImage.LockBits(
+                new Rectangle(0, 0, origImage.Width, origImage.Height),
+                ImageLockMode.WriteOnly,
+                origImage.PixelFormat
+            );
+
+            //Copy the changed data into the bitmap again.
+            System.Runtime.InteropServices.Marshal.Copy(imageBytes, 0, srcData.Scan0, imageBytes.Length);
+
+            //Unlock the bitmap
+            origImage.UnlockBits(srcData);
         }
 
 
@@ -429,7 +612,7 @@ namespace PixelStacker.Logic.Extensions
             //Get the bitmap data
             var bitmapData = origImage.LockBits(
                 new Rectangle(0, 0, origImage.Width, origImage.Height),
-                ImageLockMode.ReadWrite,
+                ImageLockMode.ReadOnly,
                 origImage.PixelFormat
             );
 
@@ -475,14 +658,11 @@ namespace PixelStacker.Logic.Extensions
             return;
         }
 
-
-
         /// <summary>
         /// Image MUST be 32bppARGB
         /// </summary>
         /// <param name="origImage"></param>
         /// <returns></returns>
-        [Obsolete("This thing might be causing some UI glitches. Double check before fully using it.")]
         public static void ToViewStreamParallel(this Bitmap origImage, CancellationToken? worker, Action<int, int, Color> callback)
         {
             if (origImage.PixelFormat != PixelFormat.Format32bppArgb)
@@ -491,58 +671,46 @@ namespace PixelStacker.Logic.Extensions
             }
 
             //Get the bitmap data
-            var bitmapData = origImage.LockBits(
+            var srcData = origImage.LockBits(
                 new Rectangle(0, 0, origImage.Width, origImage.Height),
-                ImageLockMode.ReadWrite,
+                ImageLockMode.ReadOnly,
                 origImage.PixelFormat
             );
 
             //Initialize an array for all the image data
-            byte[] imageBytes = new byte[bitmapData.Stride * origImage.Height];
+            byte[] imageBytes = new byte[srcData.Stride * origImage.Height];
 
             //Copy the bitmap data to the local array
-            System.Runtime.InteropServices.Marshal.Copy(bitmapData.Scan0, imageBytes, 0, imageBytes.Length);
+            System.Runtime.InteropServices.Marshal.Copy(srcData.Scan0, imageBytes, 0, imageBytes.Length);
 
             //Unlock the bitmap
-            origImage.UnlockBits(bitmapData);
+            origImage.UnlockBits(srcData);
 
-            //Find pixelsize
-            int pixelSize = Image.GetPixelFormatSize(origImage.PixelFormat); // bits per pixel
-            int bytesPerPixel = pixelSize / 8;
-            //int x = 0; int y = 0;
-            int origImageH = origImage.Height;
-            int origImageW = origImage.Width;
-            var pixelData = new byte[bytesPerPixel];
+            int numYProcessed = 0;
+            int bitsPerPixel = Image.GetPixelFormatSize(origImage.PixelFormat); // bits per pixel
+            int bytesPerPixel = bitsPerPixel / 8;
+            int heightInPixels = origImage.Height;
+            int widthInPixels = origImage.Width;
+            int widthInBytes = Math.Abs(srcData.Stride);
 
-            int numPixelsTotal = imageBytes.Length / bytesPerPixel;
-            int numPixelsFinished = 0;
-            Parallel.For(0, numPixelsTotal, i =>
-            //for (int i = 0; i < imageBytes.Length; i += bytesPerPixel)
+            Parallel.For(0, heightInPixels, y =>
             {
-                //Copy the bits into a local array
-                Array.Copy(imageBytes, i * bytesPerPixel, pixelData, 0, bytesPerPixel);
-
-                if (!BitConverter.IsLittleEndian)
+                int bYOffset = (int) (y * widthInBytes);
+                for (int x = 0; x < widthInPixels; x++)
                 {
-                    Array.Reverse(pixelData);
+                    int bXOffset = bYOffset + (x * bytesPerPixel);
+
+                    Color color = BitConverter.IsLittleEndian
+                    ? color = Color.FromArgb(imageBytes[bXOffset + 3], imageBytes[bXOffset + 2], imageBytes[bXOffset + 1], imageBytes[bXOffset])
+                    : color = Color.FromArgb(imageBytes[bXOffset], imageBytes[bXOffset + 1], imageBytes[bXOffset + 2], imageBytes[bXOffset+3]);
+
+                    callback(x, y, color);
                 }
 
-                //Get the color of a pixel
-                // On a little-endian machine, the byte order is bb gg rr aa
-                Color color = Color.FromArgb(pixelData[3], pixelData[2], pixelData[1], pixelData[0]);
-                int x = i % origImageW;
-                int y = i / origImageW;
-                callback(x, y, color);
-
-                if (x > origImageW - 1)
-                {
-                    numPixelsFinished++;
-                    worker?.SafeThrowIfCancellationRequested();
-                    TaskManager.SafeReport(100 * numPixelsFinished / numPixelsTotal);
-                }
+                worker?.SafeThrowIfCancellationRequested();
+                Interlocked.Increment(ref numYProcessed);
+                TaskManager.SafeReport((int) (100 * ((float) numYProcessed / heightInPixels)));
             });
-
-            return;
         }
         #endregion
 

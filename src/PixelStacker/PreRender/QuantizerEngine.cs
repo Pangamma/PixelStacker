@@ -233,7 +233,7 @@ namespace SimplePaletteQuantizer
         {
             try
             {
-                origImage.ToMergeStream(dstImage, null, (int x, int y, Color o, Color n) => {
+                origImage.ToMergeStreamParallel(dstImage, null, (int x, int y, Color o, Color n) => {
                     if (o.A < 32) return Color.Transparent;
                     else return n;
                 });

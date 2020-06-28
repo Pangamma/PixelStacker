@@ -244,17 +244,14 @@ namespace PixelStacker.Logic.Collections
                 return cc;
             }
 
-            lock (this.colorPalette)
+            var rt = this.colorPalette.FindBestMatch(toMatch);
+
+            if (rt != default(Color))
             {
-                var rt = this.colorPalette.FindBestMatch(toMatch);
-
-                if (rt != default(Color))
-                {
-                    BestMatchCache[toMatch] = rt;
-                }
-
-                return rt;
+                BestMatchCache[toMatch] = rt;
             }
+
+            return rt;
         }
 
         public List<Color> FindBestMatches(Color toMatch, int top)

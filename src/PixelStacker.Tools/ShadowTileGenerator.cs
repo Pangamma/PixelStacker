@@ -143,7 +143,7 @@ namespace PixelStacker.Tools
                 {
                     using (var bmSource = bmAnyFormat.To32bppBitmap())
                     {
-                        bmSource.ToEditStream(null, (int x, int y, Color c) =>
+                        bmSource.ToEditStreamParallel(null, (int x, int y, Color c) =>
                         {
                             // Special case for weird pre-rendered files? Basically skip this step.
                             if (c.A != 255) { return c; }
@@ -171,7 +171,7 @@ namespace PixelStacker.Tools
 
 
                 // Make it so that everything is transparent
-                bmSource.ToEditStream(null, (int x, int y, Color c) =>
+                bmSource.ToEditStreamParallel(null, (int x, int y, Color c) =>
                 {
                     if (c.R == 255 && c.B == 0 && c.G == 0)
                     {
