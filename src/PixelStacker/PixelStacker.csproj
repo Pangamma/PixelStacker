@@ -385,6 +385,7 @@
     <None Include="Resources\Images\pixelart\test2.png" />
     <None Include="Resources\Images\pixelart\test3.png" />
     <None Include="Resources\Images\pixelart\elsa-cropped-sm.jpg" />
+    <None Include="Resources\Images\pixelart\weird-intro.png" />
     <Content Include="Resources\Images\pixelart\YellowHeart.png" />
     <None Include="Resources\Images\Textures\x64\acacia_log.png" />
     <None Include="Resources\Images\Textures\x64\acacia_planks.png" />

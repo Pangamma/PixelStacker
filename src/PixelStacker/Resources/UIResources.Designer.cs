@@ -263,16 +263,6 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap test_large {
-            get {
-                object obj = ResourceManager.GetObject("test_large", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap test2 {
             get {
                 object obj = ResourceManager.GetObject("test2", resourceCulture);
@@ -293,9 +283,9 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap YellowHeart {
+        internal static System.Drawing.Bitmap weird_intro {
             get {
-                object obj = ResourceManager.GetObject("YellowHeart", resourceCulture);
+                object obj = ResourceManager.GetObject("weird_intro", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

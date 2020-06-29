@@ -133,9 +133,6 @@
   <data name="pixelstackerlogo_400x400" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\ui\pixelstackerlogo_400x400.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="YellowHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\yellowheart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="pink_girl" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\pixelart\pink-girl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -187,7 +184,7 @@
   <data name="advanced_frame_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\UI\advanced_frame_128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="test_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\pixelart\test-large.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="weird_intro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\pixelart\weird-intro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
