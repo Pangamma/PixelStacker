@@ -19,6 +19,7 @@ namespace PixelStacker.Logic.Great
     public class BestMatchCacheMap : Dictionary<Color, Color>
     {
         private bool isSaved = true;
+        private readonly object padlock = new { };
 
         public BestMatchCacheMap()
         {
@@ -27,24 +28,35 @@ namespace PixelStacker.Logic.Great
         public new Color this[Color key]
         {
             get => base[key];
-            set { base[key] = value; isSaved = false; }
+            set
+            {
+                lock (padlock)
+                    base[key] = value;
+
+                isSaved = false;
+            }
         }
 
         public new void Add(Color key, Color value)
         {
             this.isSaved = false;
-            base[key] = value;
+            lock (padlock)
+            {
+                base[key] = value;
+            }
         }
 
         public new bool Remove(Color key)
         {
             this.isSaved = false;
-            return base.Remove(key);
+            lock (padlock)
+                return base.Remove(key);
         }
 
         public new void Clear()
         {
-            base.Clear();
+            lock (padlock)
+                base.Clear();
             Properties.Settings.Default.ColorMatchCache = "";
             Properties.Settings.Default.Save();
         }
@@ -53,17 +65,21 @@ namespace PixelStacker.Logic.Great
         {
             string[] input = Properties.Settings.Default.ColorMatchCache.Split(new char[] { '\n' });
 
-            foreach(string line in input)
+            lock (padlock)
             {
-                try
+
+                foreach (string line in input)
                 {
-                    string[] parts = line.Split('\t');
-                    Color key = Color.FromArgb(int.Parse(parts[0]));
-                    Color val = Color.FromArgb(int.Parse(parts[1]));
-                    this[key] = val;
-                }
-                catch
-                {
+                    try
+                    {
+                        string[] parts = line.Split('\t');
+                        Color key = Color.FromArgb(int.Parse(parts[0]));
+                        Color val = Color.FromArgb(int.Parse(parts[1]));
+                        this[key] = val;
+                    }
+                    catch
+                    {
+                    }
                 }
             }
 

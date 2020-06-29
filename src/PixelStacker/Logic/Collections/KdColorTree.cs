@@ -12,7 +12,17 @@ namespace PixelStacker.Logic.Collections
     {
         public KDColorTree(): base(3)
         {
+            this.Distance = this.DistanceFunc;
         }
+
+        private double DistanceFunc(double[] arg1, double[] arg2)
+        {
+            var c1 = Color.FromArgb(255, (int) arg1[0], (int) arg1[1], (int) arg1[2]);
+            var c2 = Color.FromArgb(255, (int) arg2[0], (int) arg2[1], (int) arg2[2]);
+            return c1.GetColorDistance(c2);
+        }
+
+        private List<Color> colors = new List<Color>();
 
         /// <summary>
         ///   Inserts a value in the tree at the desired position.
@@ -24,16 +34,14 @@ namespace PixelStacker.Logic.Collections
         {
             var position = new double[] { value.R, value.G, value.B };
             base.AddNode(position).Value = value;
+            colors.Add(value);
         }
 
         public Color FindBestMatch(Color toMatch)
         {
-            var rt = base.Nearest(new double[] { toMatch.R, toMatch.G, toMatch.B }, 20)
-                .OrderBy(x => x.Node.Value.GetColorDistance(toMatch))
-                .Select(x => x.Node.Value)
-                .FirstOrDefault();
-
-            return rt;
+            var d = new double[] { toMatch.R, toMatch.G, toMatch.B };
+            var rt = base.Nearest(d);
+            return rt.Value;
         }
     }
 }

@@ -480,8 +480,8 @@ namespace PixelStacker.UI
         {
             var toClear = this.renderedImages;
             this.renderedImages = null;
-            toClear.ForEach(x => x.DisposeSafely());
-            toClear.Clear();
+            toClear?.ForEach(x => x.DisposeSafely());
+            toClear?.Clear(); // Concurrency saftey prevents NPE's
         }
 
 

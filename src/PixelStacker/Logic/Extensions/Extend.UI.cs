@@ -28,6 +28,10 @@ namespace PixelStacker.Logic.Extensions
             control.InvokeEx(c => action());
         }
 
+        /// <summary>
+        /// </summary>
+        /// <exception cref="System.OperationCanceledException">If cancelled.</exception>
+        /// <param name="token"></param>
         public static void SafeThrowIfCancellationRequested(this System.Threading.CancellationToken token)
         {
             if (token == CancellationToken.None) return;
