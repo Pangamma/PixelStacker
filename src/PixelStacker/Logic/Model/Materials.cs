@@ -293,7 +293,7 @@ namespace PixelStacker.Logic
 
                         new Material("1.7", true, "Ores", "ORE_C", "Coal Ore", 16, 0, Textures.coal_ore, Textures.coal_ore, $"minecraft:{nameof(Textures.coal_ore)}", $"minecraft:{nameof(Textures.coal_ore)}", "minecraft:coal_ore"),
                         new Material("1.7", true, "Ores", "ORE_I", "Iron Ore", 15, 0, Textures.iron_ore, Textures.iron_ore, $"minecraft:{nameof(Textures.iron_ore)}", $"minecraft:{nameof(Textures.iron_ore)}", "minecraft:iron_ore"),
-                        new Material("1.7", true, "Ores", "ORE_G", "Gold Ore", 14, 0, Textures.iron_ore, Textures.iron_ore, $"minecraft:gold_ore", $"minecraft:gold_ore", "minecraft:gold_ore"),
+                        new Material("1.7", true, "Ores", "ORE_G", "Gold Ore", 14, 0, Textures.gold_ore, Textures.gold_ore, $"minecraft:gold_ore", $"minecraft:gold_ore", "minecraft:gold_ore"),
                         new Material("1.7", true, "Ores", "ORE_R", "Redstone Ore", 73, 0, Textures.redstone_ore, Textures.redstone_ore, $"minecraft:{nameof(Textures.redstone_ore)}", $"minecraft:{nameof(Textures.redstone_ore)}", "minecraft:redstone_ore"),
                         new Material("1.7", true, "Ores", "ORE_L", "Lapis Ore", 21, 0, Textures.lapis_ore, Textures.lapis_ore, $"minecraft:{nameof(Textures.lapis_ore)}", $"minecraft:{nameof(Textures.lapis_ore)}", "minecraft:lapis_ore"),
                         new Material("1.7", true, "Ores", "ORE_D", "Diamond Ore", 56, 0, Textures.diamond_ore, Textures.diamond_ore, $"minecraft:{nameof(Textures.diamond_ore)}", $"minecraft:{nameof(Textures.diamond_ore)}", "minecraft:diamond_ore"),

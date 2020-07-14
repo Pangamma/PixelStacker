@@ -170,80 +170,18 @@ namespace PixelStacker
 
             if (this.PreRenderedImage == null)
             {
-                var engine = QuantizerEngine.Get;
-                // Let's figure out sizing now.
-
-                var LIM = this.LoadedImage;
-                int mH = Math.Min(Options.Get.MaxHeight ?? LIM.Height, LIM.Height);
-                int mW = Math.Min(Options.Get.MaxWidth ?? LIM.Width, LIM.Width);
-
-                int H = LIM.Height;
-                int W = LIM.Width;
-
-                if (mW < mH)
-                {
-                    H = mW * H / W;
-                    W = mW;
-                }
-                else
-                {
-                    W = mH * W / H;
-                    H = mH;
-                }
-
-                var srcImage = this.LoadedImage.To32bppBitmap(W, H);
-
-                Bitmap img = null;
-
-                if (Options.Get.PreRender_ColorCacheFragmentSize > 1)
-                {
-                    // We can simplify this so that we cut total color counts down massively.
-                    srcImage.ToEditStreamParallel(_worker, (int x, int y, Color c) =>
-                    {
-                        int a = (c.A < 32) ? 0 : 255;
-                        return Color.FromArgb(a, c.Normalize());
-                    });
-                }
-
-                img = srcImage;
-
-                if (Options.Get.PreRender_IsEnabled)
-                {
-                    try
-                    {
-                        img = engine.RenderImage(srcImage);
-                        srcImage.DisposeSafely();
-                        _worker.SafeThrowIfCancellationRequested();
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        throw;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-
-
-                if (ColorMatcher.Get.ColorToMaterialMap.Count == 0)
-                {
-                    TaskManager.SafeReport(0, "Compiling the color map");
-                    ColorMatcher.Get.CompileColorPalette(_worker, true, Materials.List).GetAwaiter().GetResult();
-                }
+                var srcImage = PngFormatter.ResizeAndFormatRawImage(this.LoadedImage);
+                PngFormatter.QuantizeImage(_worker, ref srcImage);
 
                 // Do this step BEFORE setting panzoom to null. Very important.
-                this.PreRenderedImage = img; // RenderedImagePanel.RenderUsingJustTheColorPalette(_worker, img);
+                this.PreRenderedImage = srcImage;
 
                 // Resize based on new size
-                {
-                    var imgForSize = this.PreRenderedImage ?? this.LoadedImage;
-                    if (W != imgForSize.Width || H != imgForSize.Height)
+                if (this.LoadedImage.Width != this.PreRenderedImage.Width
+                    || this.LoadedImage.Height != this.PreRenderedImage.Height)
                     {
                         MainForm.PanZoomSettings = null;
                     }
-
-                }
 
                 this.InvokeEx((c) =>
                 {

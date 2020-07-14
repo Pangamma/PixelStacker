@@ -67,12 +67,14 @@ namespace PixelStacker.Logic.Extensions
             int dB = (c.B - toMatch.B);
             int dHue = (int) GetDegreeDistance(c.GetHue(), toMatch.GetHue());
             //float dSat = (c.GetSaturation() - toMatch.GetSaturation()) * 100;
+            //float dBri = (c.GetBrightness() - toMatch.GetBrightness()) * 100;
 
             int diff = (
                 (dR * dR)
                 + (dG * dG)
                 + (dB * dB)
                 + (int) (Math.Sqrt(dHue * dHue * dHue))
+                //+ (int) (dBri * dBri)
                 //+ (dSat * dSat)
                 );
 

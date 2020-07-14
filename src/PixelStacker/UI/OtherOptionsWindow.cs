@@ -22,7 +22,8 @@ namespace PixelStacker.UI
             btnGridColor.BackColor = Options.Get.GridColor;
             this.cbxIsSideView.Checked = Options.Get.IsSideView;
             this.nbrGridSize.Value = Options.Get.GridSize;
-            this.cbxIsFrugalWithMaterials.Checked = Options.Get.IsFrugalWithMaterials;
+            this.cbxIsFrugalWithMaterials.Visible = Options.Get.IsAdvancedModeEnabled;
+            this.cbxIsFrugalWithMaterials.Checked = Options.Get.IsExtraShadowDepthEnabled;
             this.cbxSkipShadowRendering.Checked = Options.Get.IsShadowRenderingSkipped;
             this.nbrMaxHeight.Maximum = Options.Get.IsSideView ? 256 : short.MaxValue;
 
@@ -142,7 +143,7 @@ namespace PixelStacker.UI
         private void cbxIsFrugalWithMaterials_CheckedChanged(object sender, EventArgs e)
         {
             if (suspendOptionsSave) return;
-            Options.Get.IsFrugalWithMaterials = cbxIsFrugalWithMaterials.Checked;
+            Options.Get.IsExtraShadowDepthEnabled = cbxIsFrugalWithMaterials.Checked;
         }
 
         private void cbxSkipShadowRendering_CheckedChanged(object sender, EventArgs e)

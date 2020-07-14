@@ -199,7 +199,7 @@ namespace PixelStacker.UI
                     bool _IsMultiLayer = Options.Get.IsMultiLayer;
                     bool _isSkipShadowRendering = Options.Get.IsShadowRenderingSkipped;
                     int _RenderedZIndexToShow = Options.Get.Rendered_RenderedZIndexToShow;
-                    bool _isFrugalAesthetic = Options.Get.IsFrugalWithMaterials && !selectedMaterials.Any();
+                    bool _isFrugalAesthetic = Options.Get.IsExtraShadowDepthEnabled && !selectedMaterials.Any();
 
                     using (Graphics gImg = Graphics.FromImage(bm))
                     {
@@ -412,7 +412,8 @@ namespace PixelStacker.UI
             return null;
         }
 
-        private static int? CalculateTextureSize(BlueprintPA image)
+        [Obsolete("Only use externally as part of CLI options", false)]
+        public static int? CalculateTextureSize(BlueprintPA image)
         {
             // Calculate texture size so we can handle large images.
             if (image == null) return null;

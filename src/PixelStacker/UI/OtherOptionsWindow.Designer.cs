@@ -50,7 +50,7 @@
             // nbrGridSize
             // 
             this.nbrGridSize.Location = new System.Drawing.Point(148, 15);
-            this.nbrGridSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbrGridSize.Margin = new System.Windows.Forms.Padding(4);
             this.nbrGridSize.Maximum = new decimal(new int[] {
             256,
             0,
@@ -74,7 +74,7 @@
             // nbrMaxHeight
             // 
             this.nbrMaxHeight.Location = new System.Drawing.Point(148, 95);
-            this.nbrMaxHeight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbrMaxHeight.Margin = new System.Windows.Forms.Padding(4);
             this.nbrMaxHeight.Maximum = new decimal(new int[] {
             32767,
             0,
@@ -88,7 +88,7 @@
             // nbrMaxWidth
             // 
             this.nbrMaxWidth.Location = new System.Drawing.Point(148, 127);
-            this.nbrMaxWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbrMaxWidth.Margin = new System.Windows.Forms.Padding(4);
             this.nbrMaxWidth.Maximum = new decimal(new int[] {
             32767,
             0,
@@ -133,7 +133,7 @@
             // 
             this.cbxIsSideView.AutoSize = true;
             this.cbxIsSideView.Location = new System.Drawing.Point(16, 159);
-            this.cbxIsSideView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxIsSideView.Margin = new System.Windows.Forms.Padding(4);
             this.cbxIsSideView.Name = "cbxIsSideView";
             this.cbxIsSideView.Size = new System.Drawing.Size(271, 21);
             this.cbxIsSideView.TabIndex = 8;
@@ -146,7 +146,7 @@
             this.btnFactoryReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFactoryReset.Location = new System.Drawing.Point(19, 376);
-            this.btnFactoryReset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFactoryReset.Margin = new System.Windows.Forms.Padding(4);
             this.btnFactoryReset.Name = "btnFactoryReset";
             this.btnFactoryReset.Size = new System.Drawing.Size(287, 28);
             this.btnFactoryReset.TabIndex = 9;
@@ -169,7 +169,7 @@
             this.btnGridColor.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnGridColor.ForeColor = System.Drawing.Color.Black;
             this.btnGridColor.Location = new System.Drawing.Point(148, 53);
-            this.btnGridColor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGridColor.Margin = new System.Windows.Forms.Padding(4);
             this.btnGridColor.Name = "btnGridColor";
             this.btnGridColor.Size = new System.Drawing.Size(149, 28);
             this.btnGridColor.TabIndex = 12;
@@ -179,19 +179,21 @@
             // cbxIsFrugalWithMaterials
             // 
             this.cbxIsFrugalWithMaterials.AutoSize = true;
-            this.cbxIsFrugalWithMaterials.Location = new System.Drawing.Point(16, 188);
+            this.cbxIsFrugalWithMaterials.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.cbxIsFrugalWithMaterials.Location = new System.Drawing.Point(16, 217);
             this.cbxIsFrugalWithMaterials.Margin = new System.Windows.Forms.Padding(4);
             this.cbxIsFrugalWithMaterials.Name = "cbxIsFrugalWithMaterials";
             this.cbxIsFrugalWithMaterials.Size = new System.Drawing.Size(258, 21);
             this.cbxIsFrugalWithMaterials.TabIndex = 13;
             this.cbxIsFrugalWithMaterials.Text = "Add extra depth shadows to renders";
-            this.cbxIsFrugalWithMaterials.UseVisualStyleBackColor = true;
+            this.cbxIsFrugalWithMaterials.UseVisualStyleBackColor = false;
+            this.cbxIsFrugalWithMaterials.Visible = false;
             this.cbxIsFrugalWithMaterials.CheckedChanged += new System.EventHandler(this.cbxIsFrugalWithMaterials_CheckedChanged);
             // 
             // cbxSkipShadowRendering
             // 
             this.cbxSkipShadowRendering.AutoSize = true;
-            this.cbxSkipShadowRendering.Location = new System.Drawing.Point(16, 217);
+            this.cbxSkipShadowRendering.Location = new System.Drawing.Point(16, 188);
             this.cbxSkipShadowRendering.Margin = new System.Windows.Forms.Padding(4);
             this.cbxSkipShadowRendering.Name = "cbxSkipShadowRendering";
             this.cbxSkipShadowRendering.Size = new System.Drawing.Size(174, 21);
@@ -218,7 +220,7 @@
             this.Controls.Add(this.nbrMaxHeight);
             this.Controls.Add(this.nbrGridSize);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "OtherOptionsWindow";
             this.Text = "Other Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OtherOptionsWindow_FormClosing);
