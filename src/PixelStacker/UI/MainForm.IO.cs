@@ -278,5 +278,15 @@ namespace PixelStacker
 
         #endregion
 
+        private void exportSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dlgSaveSettings.ShowDialog();
+        }
+
+        private void dlgSaveSettings_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SaveFileDialog dlg = (SaveFileDialog) sender;
+            Options.Export(dlg.FileName);
+        }
     }
 }

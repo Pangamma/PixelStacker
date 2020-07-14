@@ -41,7 +41,7 @@
             this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allPossibilitiescompactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allColorsdetailedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mi_tests = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +71,7 @@
             this.dlgSaveColorPalette = new System.Windows.Forms.SaveFileDialog();
             this.imagePanelMain = new PixelStacker.UI.ImagePanel();
             this.renderedImagePanel = new PixelStacker.UI.RenderedImagePanel();
+            this.dlgSaveSettings = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,7 +86,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(779, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(779, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -96,18 +97,18 @@
             this.reOpenToolStripMenuItem,
             this.exportSchematicToolStripMenuItem,
             this.saveColorPaletteToolStripMenuItem,
-            this.mi_tests});
+            this.exportSettingsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -116,7 +117,7 @@
             this.reOpenToolStripMenuItem.Enabled = false;
             this.reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
             this.reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.reOpenToolStripMenuItem.Text = "Re-Open";
             this.reOpenToolStripMenuItem.Click += new System.EventHandler(this.reOpenToolStripMenuItem_Click);
             // 
@@ -125,7 +126,7 @@
             this.exportSchematicToolStripMenuItem.Enabled = false;
             this.exportSchematicToolStripMenuItem.Name = "exportSchematicToolStripMenuItem";
             this.exportSchematicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exportSchematicToolStripMenuItem.Text = "Save";
             this.exportSchematicToolStripMenuItem.Click += new System.EventHandler(this.saveMenuClick);
             // 
@@ -140,7 +141,7 @@
             this.saveColorPaletteToolStripMenuItem.Enabled = false;
             this.saveColorPaletteToolStripMenuItem.Name = "saveColorPaletteToolStripMenuItem";
             this.saveColorPaletteToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveColorPaletteToolStripMenuItem.Text = "Save color palette";
             // 
             // graphToolStripMenuItem
@@ -189,13 +190,13 @@
             this.allColorsdetailedToolStripMenuItem.Text = "All colors (detailed)";
             this.allColorsdetailedToolStripMenuItem.Click += new System.EventHandler(this.allColorsdetailedToolStripMenuItem_Click);
             // 
-            // mi_tests
+            // exportSettingsToolStripMenuItem
             // 
-            this.mi_tests.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.mi_tests.Name = "mi_tests";
-            this.mi_tests.Size = new System.Drawing.Size(203, 26);
-            this.mi_tests.Text = "Tests";
-            this.mi_tests.Visible = false;
+            this.exportSettingsToolStripMenuItem.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.exportSettingsToolStripMenuItem.Name = "exportSettingsToolStripMenuItem";
+            this.exportSettingsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportSettingsToolStripMenuItem.Text = "Export Settings ";
+            this.exportSettingsToolStripMenuItem.Click += new System.EventHandler(this.exportSettingsToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -203,7 +204,7 @@
             this.undoToolStripMenuItem,
             this.redoToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // undoToolStripMenuItem
@@ -232,7 +233,7 @@
             this.toggleProgressToolStripMenuItem,
             this.layerFilteringToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // toggleGridToolStripMenuItem
@@ -330,7 +331,7 @@
             this.mi_preRender,
             this.previewSchematicToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // optionsToolStripMenuItem
@@ -382,7 +383,7 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
@@ -472,6 +473,13 @@
             this.renderedImagePanel.TabIndex = 2;
             this.renderedImagePanel.Visible = false;
             // 
+            // dlgSaveSettings
+            // 
+            this.dlgSaveSettings.DefaultExt = "*.json";
+            this.dlgSaveSettings.Filter = "Json|*.json";
+            this.dlgSaveSettings.Title = "Save Settings";
+            this.dlgSaveSettings.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSaveSettings_FileOk);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -537,7 +545,8 @@
         public System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog dlgSaveColorPalette;
-        private System.Windows.Forms.ToolStripMenuItem mi_tests;
+        private System.Windows.Forms.ToolStripMenuItem exportSettingsToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog dlgSaveSettings;
     }
 }
 

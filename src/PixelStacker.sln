@@ -9,14 +9,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Tools", "Pixel
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug CLI|Any CPU = Debug CLI|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug CLI|Any CPU.ActiveCfg = Debug CLI|Any CPU
+		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug CLI|Any CPU.Build.0 = Debug CLI|Any CPU
 		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug CLI|Any CPU.ActiveCfg = Debug CLI|Any CPU
+		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug CLI|Any CPU.Build.0 = Debug CLI|Any CPU
 		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Release|Any CPU.ActiveCfg = Release|Any CPU

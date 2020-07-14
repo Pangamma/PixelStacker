@@ -3,6 +3,7 @@ using PixelStacker.Logic.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,20 +12,60 @@ namespace PixelStacker.Logic
 {
     public class Options
     {
+        /// <summary>
+        /// Tracks how long ago an update check was performed, and if user has decided to skip
+        /// the current latest version.
+        /// </summary>
         public UpdateSettings UpdateSettings { get; set; } = new UpdateSettings();
+
+
+        /// <summary>
+        /// Which materials are enabled or disabled. TRUE if enabled. The PixelStacker_ID value
+        /// is used as the key.
+        /// </summary>
         public Dictionary<string, bool> EnableStates { get; set; } = new Dictionary<string, bool>();
+
+        [Obsolete("Avoid this.", false)]
         public Dictionary<string, string> CustomValues { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>
+        /// TRUE if stained glass panes can be layered ontop of regular blocks
+        /// </summary>
         public bool IsMultiLayer { get; set; } = true;
+
+        /// <summary>
+        /// TRUE if stained glass panes MUST be layered ontop of regular blocks
+        /// </summary>
         public bool IsMultiLayerRequired { get; set; } = false;
+
+        /// <summary>
+        /// TRUE is a vertical build. FALSE is a horizontal build.
+        /// </summary>
         public bool IsSideView { get; set; } = false;
-        public bool IsFrugalWithMaterials { get; set; } = false;
+
+        /// <summary>
+        /// Purely for aesthetic rendering. Assuming no block/material filter is set, any blocks with
+        /// only 1 type of material will show up as layer 1 instead of on both layers. So... some 
+        /// shadows will appear to give the image more depth.
+        /// </summary>
+        public bool IsExtraShadowDepthEnabled { 
+            get => _IsExtraShadowDepthEnabled && this.IsAdvancedModeEnabled;
+            set => _IsExtraShadowDepthEnabled = value && this.IsAdvancedModeEnabled; 
+        }
+        private bool _IsExtraShadowDepthEnabled = false;
+
+        /// <summary>
+        /// When material filters are enabled, shadows will be rendered to help the viewer 
+        /// percieve depth. This helps to visibly separate the different layers from each other.
+        /// </summary>
         public bool IsShadowRenderingSkipped { get; set; } = false;
 
 
         /// <summary>
         /// R/5, G/5, B/5
         /// The value all RGB values should be divided by to achieve awesome truncating.
-        /// omg someone help me. Naming suuuuuuucks
+        /// Basically, 251 would become 250. This is used by the Color cache size
+        /// settings dropdown in the pre-render/quantizer options menu.
         /// </summary>
         public int PreRender_ColorCacheFragmentSize { get; set; } = 5;
 
@@ -92,8 +133,21 @@ namespace PixelStacker.Logic
             }
         }
 
+        internal static Options Import(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            _self = JsonConvert.DeserializeObject<Options>(json) ?? new Options();
+            return _self;
+        }
+
+        internal static void Export(string filePath)
+        {
+           string json = JsonConvert.SerializeObject(Options._self ?? new Options(), Formatting.Indented);
+           File.WriteAllText(filePath, json);
+        }
+
         /// <summary>
-        /// Contains stuff like "minecraft:air"
+        /// Contains stuff like "AIR_00"
         /// </summary>
         public List<string> SelectedMaterialFilter { get; set; } = new List<string>();
         public bool IsAdvancedModeEnabled { get; set; } = false;

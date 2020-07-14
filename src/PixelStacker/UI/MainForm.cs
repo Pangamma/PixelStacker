@@ -83,8 +83,8 @@ namespace PixelStacker
             bool isAdv = Options.Get.IsAdvancedModeEnabled;
             mi_preRender.Visible = isAdv;
             togglePaletteToolStripMenuItem.Visible = isAdv;
-            mi_tests.Visible = isAdv;
             toggleProgressToolStripMenuItem.Visible = isAdv;
+            exportSettingsToolStripMenuItem.Visible = isAdv;
             this.MaterialOptions?.SetVisibleMaterials(Materials.List ?? new List<Material>());
         }
 
@@ -130,5 +130,6 @@ namespace PixelStacker
 
             });
         }
+
     }
 }

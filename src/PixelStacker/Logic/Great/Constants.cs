@@ -8,7 +8,7 @@ namespace PixelStacker.Logic
 {
     public static class Constants
     {
-        public const string Version = "1.16.1";
+        public const string Version = "1.16.1b";
         public const string Website = "https://taylorlove.info/pixelstacker";
         public const int TextureSize = 16;
         public const string RenderedZIndexFilter = "RenderedZIndexFilter";
@@ -23,7 +23,7 @@ namespace PixelStacker.Logic
         // TODO: Auto calc this based on selected materials
         // https://minecraft.gamepedia.com/Java_Edition_1.15.2
         // https://minecraft.gamepedia.com/Java_Edition_20w15a
-        public const int DataVersion = 2526;
+        public const int DataVersion = 2566;
 
 #if FULL_VERSION
         public const bool IsFullVersion = true;

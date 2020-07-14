@@ -51,7 +51,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>FULL_VERSION RELEASE</DefineConstants>
+    <DefineConstants>TRACE;FULL_VERSION RELEASE</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>x64</PlatformTarget>
     <LangVersion>7.3</LangVersion>
@@ -63,6 +63,16 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>PixelStacker.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug CLI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug CLI\</OutputPath>
+    <DefineConstants>DEBUG;FULL_VERSION</DefineConstants>
+    <DebugType>embedded</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ColorMine, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -108,6 +118,7 @@
     <Compile Include="Logic\Collections\KDTree\Hyperrectangle.cs" />
     <Compile Include="Logic\Collections\KDTree\NodeDistance.cs" />
     <Compile Include="Logic\IO\FilePaths.cs" />
+    <Compile Include="Logic\IO\PngFormatter.cs" />
     <Compile Include="Logic\IO\Schem2Formatter.cs" />
     <Compile Include="Logic\Model\BestMatchCacheMap.cs" />
     <Compile Include="Logic\Model\ColorProfile.cs" />
