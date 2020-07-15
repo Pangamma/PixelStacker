@@ -119,6 +119,7 @@
     <Compile Include="Logic\Collections\KDTree\NodeDistance.cs" />
     <Compile Include="Logic\IO\FilePaths.cs" />
     <Compile Include="Logic\IO\PngFormatter.cs" />
+    <Compile Include="Logic\IO\LitematicaFormatter.cs" />
     <Compile Include="Logic\IO\Schem2Formatter.cs" />
     <Compile Include="Logic\Model\BestMatchCacheMap.cs" />
     <Compile Include="Logic\Model\ColorProfile.cs" />
