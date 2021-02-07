@@ -121,17 +121,20 @@ namespace PixelStacker
                     return;
                 }
 
-                switch (format)
+                TaskManager.Get.TryTaskCatchCancelSync(() =>
                 {
-                    case "PNG":
-                        PngFormatter.writePNG(CancellationToken.None, outputPath, inputImage).GetAwaiter().GetResult();
-                        Console.WriteLine("Finished!");
-                        break;
-                    case "SCHEM":
-                        Schem2Formatter.writeSchemFromImage(CancellationToken.None, outputPath, inputImage).GetAwaiter().GetResult();
-                        Console.WriteLine("Finished!");
-                        break;
-                }
+                    switch (format)
+                    {
+                        case "PNG":
+                            PngFormatter.writePNG(CancellationToken.None, outputPath, inputImage).ConfigureAwait(true).GetAwaiter().GetResult();
+                            Console.WriteLine("Finished!");
+                            break;
+                        case "SCHEM":
+                            Schem2Formatter.writeSchemFromImage(CancellationToken.None, outputPath, inputImage).ConfigureAwait(true).GetAwaiter().GetResult();
+                            Console.WriteLine("Finished!");
+                            break;
+                    }
+                });
             }
         }
 

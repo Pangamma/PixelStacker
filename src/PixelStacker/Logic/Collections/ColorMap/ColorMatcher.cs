@@ -36,6 +36,14 @@ namespace PixelStacker.Logic.Collections
         private KDColorTree colorPalette = new KDColorTree();
         public Dictionary<Color, Material[]> ColorToMaterialMap { get; private set; } = new Dictionary<Color, Material[]>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="worker"></param>
+        /// <param name="isClearBestMatchCache"></param>
+        /// <param name="materials"></param>
+        /// <exception cref="OperationCanceledException"></exception>
+        /// <returns></returns>
         public async Task CompileColorPalette(CancellationToken worker, bool isClearBestMatchCache, List<Material> materials)
         {
             bool isSide = Options.Get.IsSideView;
