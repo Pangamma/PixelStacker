@@ -128,6 +128,8 @@ namespace PixelStacker.UI
         /// <param name="worker"></param>
         /// <param name="blueprint"></param>
         /// <returns></returns>
+        /// <exception cref="OperationCanceledException"></exception>
+        [Obsolete("Not used anymore? If used, ensure the exception is caught.")]
         public static Bitmap RenderUsingJustTheColorPalette(CancellationToken worker, Bitmap blueprint)
         {
             int mWidth = blueprint.Width;

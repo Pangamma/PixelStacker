@@ -36,6 +36,12 @@ namespace PixelStacker.Logic
             this.Mapper = new CoordinateMapper(this);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="_worker"></param>
+        /// <param name="src"></param>
+        /// <exception cref="OperationCanceledException"></exception>
+        /// <returns></returns>
         public static async Task<BlueprintPA> GetBluePrintAsync(CancellationToken _worker, Bitmap src)
         {
             int maxDepth = 0;

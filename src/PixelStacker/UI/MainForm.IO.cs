@@ -209,7 +209,7 @@ namespace PixelStacker
                             TaskManager.Get.StartAsync((token) =>
                             {
                                 ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
-                               .GetAwaiter().GetResult();
+                                .ConfigureAwait(true).GetAwaiter().GetResult();
                             });
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                             return;

@@ -10,11 +10,11 @@
     <meta property="og:image" content="https://taylorlove.info/pixelstacker/assets/img/feature_05.png" />
     <link rel="image_src" href="https://taylorlove.info/pixelstacker/assets/img/feature_05.png" />
     <script type="text/JavaScript">
-      if (window.location.host !== "taylorlove.info") {
-      // I am reverse proxying from my own server for SEO reasons. Also for some reason the nginx proxy
-      // fails to preserve my site's URL unless there is a trailing slash. Gave up trying to figure out
-      // a 100% proper proxy with nginX, so came up with this work-around. It works decently enough.
-      window.location.href = "https://taylorlove.info/pixelstacker/";
+      if (window.location.host !== "taylorlove.info" && window.location.host !== "") {
+        // I am reverse proxying from my own server for SEO reasons. Also for some reason the nginx proxy
+		// fails to preserve my site's URL unless there is a trailing slash. Gave up trying to figure out
+		// a 100% proper proxy with nginX, so came up with this work-around. It works decently enough.
+		window.location.href = "https://taylorlove.info/pixelstacker/";
       }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -165,9 +165,14 @@
           <script type='text/JavaScript' async>
             printImageCard('./assets/img/feature_09.jpg', 'Save and Export', "You can save as a schem, schematic, PNG file, or a list of the required materials. Schematics will always face north. Ideal for dynmaps. <br/>(<kbd>CTRL</kbd> + <kbd>S</kbd>)", null, './assets/img/feature_09_lg.png');
             printImageCard('./assets/img/feature_14.jpg', 'Material Swapper', "If you disagree with one of the color matches you can just override the default choice.<br/>(<kbd>RIGHT CLICK</kbd>)", null, './assets/img/feature_14.png');
-            printImageCard('./assets/img/feature_10.jpg', 'Palette Viewer', 'Show a hybrid view that combines texture mode and smooth mode. Useful for if you want to see what average color is being used for the matching algorithm.<br/>(<kbd>CTRL</kbd> + <kbd>P</kbd>)', null, './assets/img/feature_10.png');
-
           </script>
+        </div>
+        <div data-grid="col-12 pad-12x" class="row">
+          <script type='text/JavaScript' async>
+            printImageCard('./assets/img/feature_09.jpg', 'Advanced mode', "Activate more advanced features if you think you can handle them. Unlocks unusual materials, and some other abilities marked with blue. <br/>(<kbd>UP</kbd> <kbd>UP</kbd> <kbd>DOWN</kbd> <kbd>DOWN</kbd> <kbd>LEFT</kbd> <kbd>RIGHT</kbd> <kbd>LEFT</kbd>) <kbd>RIGHT</kbd> <kbd>B</kbd> <kbd>A</kbd>", null, './assets/img/feature_09_lg.png');
+            printImageCard('./assets/img/feature_14.jpg', 'Command Line Support', "You can execute this program in CLI if viewing the output right away is not important to you.", 'Read more about CLI usage', './assets/img/feature_14.png');
+            printImageCard('./assets/img/feature_10.jpg', 'Palette Viewer', 'Show a hybrid view that combines texture mode and smooth mode. Useful for if you want to see what average color is being used for the matching algorithm.<br/>(<kbd>CTRL</kbd> + <kbd>P</kbd>)', null, './assets/img/feature_10.png');
+		  </script>
         </div>
         <div data-grid="col-12 pad-12x" class="row">
           <script type='text/JavaScript' async>
