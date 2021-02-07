@@ -204,5 +204,13 @@ namespace PixelStacker.Logic
             Properties.Settings.Default.Save();
             _self = null;
         }
+
+        public static void Load(Options opts)
+        {
+            _self = opts;
+            string json = JsonConvert.SerializeObject(Options.Get);
+            Properties.Settings.Default.JSON = json;
+            Properties.Settings.Default.Save();
+        }
     }
 }

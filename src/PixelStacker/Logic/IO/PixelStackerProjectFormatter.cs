@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using fNbt;
+using Newtonsoft.Json;
 using PixelStacker.Logic.Collections;
 using System;
 using System.Collections.Generic;
@@ -39,8 +40,8 @@ namespace PixelStacker.Logic
                                 writer.WriteLine("https://github.com/Pangamma/PixelStacker/tags");
                             }
                         }
-                        {
 
+                        {
                             var optionsJson = JsonConvert.SerializeObject(Options.Get);
                             ZipArchiveEntry entry = archive.CreateEntry("options.json");
                             using (StreamWriter writer = new StreamWriter(entry.Open()))
@@ -58,13 +59,31 @@ namespace PixelStacker.Logic
                             }
                         }
 
+                        var matIndex = new Dictionary<string, int>();
+
                         {
-                            var colorMap = ColorMatcher.Get.ColorToMaterialMap.Select(x => $"{x.Key.ToArgb()}\t{string.Join("\t", x.Value.Select(m => m.PixelStackerID))}");
-                            var content = string.Join("\r\n", colorMap);
-                            ZipArchiveEntry entry = archive.CreateEntry("color-map.dat");
+                            int n = 0;
+                            matIndex = Materials.List.ToDictionary(m => m.PixelStackerID, m => n++);
+                            var json = JsonConvert.SerializeObject(matIndex);
+                            ZipArchiveEntry entry = archive.CreateEntry("materials-map-index.json");
                             using (StreamWriter writer = new StreamWriter(entry.Open()))
                             {
-                                writer.Write(content);
+                                writer.Write(json);
+                            }
+                        }
+
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            foreach (var kvp in ColorMatcher.Get.ColorToMaterialMap)
+                            {
+                                sb.AppendLine($"{kvp.Key.ToArgb()}\t{string.Join("\t", kvp.Value.Select(v => matIndex[v.PixelStackerID]))}");
+                            }
+
+                            ZipArchiveEntry entry = archive.CreateEntry("colors-to-materials-map.txt");
+                            using (StreamWriter writer = new StreamWriter(entry.Open()))
+                            {
+
+                                writer.Write(sb.ToString());
                             }
                         }
 
@@ -89,8 +108,80 @@ namespace PixelStacker.Logic
             }
         }
 
-        public static void LoadProject(string filePath)
+        public static Exception LoadProject(string filePath)
         {
+            if (!File.Exists(filePath))
+            {
+                return new Exception("File could not be loaded or it does not exist."); // Failed to load.
+            }
+
+            try
+            {
+
+                using (FileStream zipToOpen = new FileStream(filePath, FileMode.Open))
+                {
+                    using (ZipArchive archive = new ZipArchive(zipToOpen, ZipArchiveMode.Read))
+                    {
+                        {
+                            ZipArchiveEntry entry = archive.GetEntry("options.json");
+                            using (StreamReader reader = new StreamReader(entry.Open()))
+                            {
+                                string json = reader.ReadToEnd();
+                                var obj = JsonConvert.DeserializeObject<Options>(json);
+                                Options.Load(obj);
+                                // TODO: update all UI parts around the app.
+                            }
+                        }
+
+                        {
+                            ZipArchiveEntry entry = archive.GetEntry("pan-zoom-settings.json");
+                            using (StreamReader reader = new StreamReader(entry.Open()))
+                            {
+                                string json = reader.ReadToEnd();
+                                var obj = JsonConvert.DeserializeObject<PanZoomSettings>(json);
+                                MainForm.PanZoomSettings = obj;
+                            }
+                        }
+
+                        {
+                            ZipArchiveEntry entry = archive.GetEntry("color-map.dat");
+                            using (StreamReader reader = new StreamReader(entry.Open()))
+                            {
+                                string json = reader.ReadToEnd();
+
+                                var obj = JsonConvert.DeserializeObject<PanZoomSettings>(json);
+                                MainForm.PanZoomSettings = obj;
+                            }
+
+                            //var colorMap = ColorMatcher.Get.ColorToMaterialMap.Select(x => $"{x.Key.ToArgb()}\t{string.Join("\t", x.Value.Select(m => m.PixelStackerID))}");
+                            //var content = string.Join("\r\n", colorMap);
+                            //using (StreamWriter writer = new StreamWriter(entry.Open()))
+                            //{
+                            //    writer.Write(content);
+                            //}
+                        }
+
+                        {
+                            // GRID location
+                            int weX = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.X ?? 0;
+                            int weY = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.Y ?? 0;
+                            int[,] blocksMap = MainForm.Self.LoadedBlueprint?.BlocksMap ?? new int[1, 1];
+
+                            ZipArchiveEntry entry = archive.CreateEntry("blueprint.json");
+                            using (StreamWriter writer = new StreamWriter(entry.Open()))
+                            {
+                                //writer.Write(json);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+
+            return null;
         }
     }
 }

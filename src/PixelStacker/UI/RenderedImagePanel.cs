@@ -129,7 +129,7 @@ namespace PixelStacker.UI
         /// <param name="blueprint"></param>
         /// <returns></returns>
         /// <exception cref="OperationCanceledException"></exception>
-        [Obsolete("Not used anymore? If used, ensure the exception is caught.")]
+        [Obsolete("Not used anymore? If used, ensure the exception is caught.", false)]
         public static Bitmap RenderUsingJustTheColorPalette(CancellationToken worker, Bitmap blueprint)
         {
             int mWidth = blueprint.Width;
@@ -160,6 +160,7 @@ namespace PixelStacker.UI
         public static Bitmap RenderBitmapFromBlueprint(CancellationToken? worker, BlueprintPA blueprint, out int? textureSize)
         {
             // TODO: Make sure this value is saved to the render panel instance somehow or else there will be horrible issues
+            // Update: ^ What does this even mean?
             textureSize = CalculateTextureSize(blueprint);
             if (textureSize == null) return null;
 
