@@ -36,7 +36,7 @@ namespace PixelStacker
             this.imagePanelMain.SetImage(LoadedImage);
             this.Text = this.Text + " v" + Constants.Version;
 #if !RELEASE
-            this.Text = this.Text + " v" + Constants.Version + " (Debug)";
+            this.Text = " (Debug)";
 #endif
             this.History = new EditHistory(this);
 

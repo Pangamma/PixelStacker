@@ -157,12 +157,13 @@ namespace PixelStacker.UI
             return blueprint;
         }
 
-        public static Bitmap RenderBitmapFromBlueprint(CancellationToken? worker, BlueprintPA blueprint, out int? textureSize)
+        public static Bitmap RenderBitmapFromBlueprint(CancellationToken? worker, BlueprintPA blueprint, out int? textureSizeOut)
         {
             // TODO: Make sure this value is saved to the render panel instance somehow or else there will be horrible issues
             // Update: ^ What does this even mean?
-            textureSize = CalculateTextureSize(blueprint);
-            if (textureSize == null) return null;
+            textureSizeOut = CalculateTextureSize(blueprint);
+            if (textureSizeOut == null) return null;
+            int textureSize = textureSizeOut.Value;
 
             if (blueprint != null)
             {
@@ -186,8 +187,8 @@ namespace PixelStacker.UI
                     int mHeight = blueprint.Height;
                     int mDepth = Options.Get.IsMultiLayer ? 2 : 1;
 
-                    int calcW = mWidth * textureSize.Value;
-                    int calcH = mHeight * textureSize.Value;
+                    int calcW = mWidth * textureSize;
+                    int calcH = mHeight * textureSize;
                     TaskManager.SafeReport(20, "Preparing canvas for textures");
 
                     Bitmap bm = new Bitmap(
@@ -204,34 +205,38 @@ namespace PixelStacker.UI
                     int _RenderedZIndexToShow = Options.Get.Rendered_RenderedZIndexToShow;
                     bool _isFrugalAesthetic = Options.Get.IsExtraShadowDepthEnabled && !selectedMaterials.Any();
 
-                    using (Graphics gImg = Graphics.FromImage(bm))
+                    var bmc = new AsyncBitmapWrapper(bm);
+
+                    #region Regular
+                    for (int z = 0; z < mDepth; z++)
                     {
-                        gImg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                        gImg.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                        gImg.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                        TaskManager.SafeReport(0, "Applying textures... (Layer " + z + ")");
 
-
-                        #region Regular
-                        for (int z = 0; z < mDepth; z++)
+                        if (isSelectiveLayerViewEnabled)
                         {
-                            TaskManager.SafeReport(0, "Applying textures... (Layer " + z + ")");
-
-                            if (isSelectiveLayerViewEnabled)
+                            if (z != _RenderedZIndexToShow)
                             {
-                                if (z != _RenderedZIndexToShow)
-                                {
-                                    continue;
-                                }
+                                continue;
                             }
+                        }
 
-                            for (int x = 0; x < mWidth; x++)
+                        int progressPixels = 0;
+                        Parallel.For(0, mWidth, new ParallelOptions()
+                        {
+                            CancellationToken = worker.Value,
+                            MaxDegreeOfParallelism = Math.Max(Environment.ProcessorCount / 2, 1)
+                        }, (x) =>
+                        {
+                            using (Graphics gImg = Graphics.FromImage(bmc.ToBitmap())) 
                             {
-                                TaskManager.SafeReport(100 * x / mWidth);
+                                gImg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                                gImg.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                                gImg.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
                                 worker?.SafeThrowIfCancellationRequested();
                                 for (int y = 0; y < mHeight; y++)
                                 {
-                                    int xi = x * textureSize.Value;
-                                    int yi = y * textureSize.Value;
+                                    int xi = x * textureSize;
+                                    int yi = y * textureSize;
                                     if (xi + MainForm.PanZoomSettings.zoomLevel >= 0 && yi + MainForm.PanZoomSettings.zoomLevel >= 0)
                                     {
                                         Material m = blueprint.GetMaterialAt(x, y, z, !_isFrugalAesthetic);
@@ -249,7 +254,7 @@ namespace PixelStacker.UI
                                                 if (isMaterialIncludedInFilter)
                                                 {
                                                     brush.Color = blueprint.GetColor(x, y);
-                                                    gImg.FillRectangle(brush, xi, yi, textureSize.Value, textureSize.Value);
+                                                    gImg.FillRectangle(brush, xi, yi, textureSize, textureSize);
                                                 }
                                             }
                                             else if (_IsColorPalette)
@@ -257,152 +262,175 @@ namespace PixelStacker.UI
                                                 if (isMaterialIncludedInFilter)
                                                 {
                                                     brush.Color = blueprint.GetColor(x, y);
-                                                    gImg.DrawImage(m.getImage(isSide), xi, yi, textureSize.Value, textureSize.Value);
-                                                    gImg.FillRectangle(brush, xi, yi, textureSize.Value / 2, textureSize.Value / 2);
+                                                    var matImage = m.getImage(isSide);
+                                                    lock (matImage)
+                                                    {
+                                                        gImg.DrawImage(matImage, xi, yi, textureSize, textureSize);
+                                                    }
+                                                    gImg.FillRectangle(brush, xi, yi, textureSize / 2, textureSize / 2);
                                                     brush.Color = Color.Black;
-                                                    gImg.DrawRectangle(pen, xi, yi, textureSize.Value / 2, textureSize.Value / 2);
+                                                    gImg.DrawRectangle(pen, xi, yi, textureSize / 2, textureSize / 2);
                                                 }
                                             }
                                             else
                                             {
                                                 if (isMaterialIncludedInFilter)
                                                 {
-                                                    gImg
-                                                        .DrawImage(m.getImage(isSide), xi, yi, textureSize.Value, textureSize.Value);
+                                                    var matImage = m.getImage(isSide);
+                                                    lock (matImage)
+                                                    {
+                                                        gImg.DrawImage(matImage, xi, yi, textureSize, textureSize);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
+                                progressPixels += mHeight;
+                                TaskManager.SafeReport(100 * progressPixels / (mHeight * mWidth));
                             }
-                        }
-                        #endregion
+                        });
+                    }
+                    #endregion
 
-                        #region SHADOW_NEW
-                        if (!_isSkipShadowRendering)
+                    #region SHADOW_NEW
+                    if (!_isSkipShadowRendering)
+                    {
+                        Bitmap bmShadeSprites = ShadowHelper.GetSpriteSheet(Constants.TextureSize);
+
+                        Bitmap bmShadowMain = new Bitmap(
+                        width: calcW,
+                        height: calcH,
+                        format: PixelFormat.Format32bppArgb);
+                        var bmShadowWrapper = new AsyncBitmapWrapper(bmShadowMain);
+
+                        byte[,] shadowMap = new byte[mWidth, mHeight];
                         {
-                            Bitmap bmShadeSprites = ShadowHelper.GetSpriteSheet(Constants.TextureSize);
-
-                            Bitmap bmShadow = new Bitmap(
-                            width: calcW,
-                            height: calcH,
-                            format: PixelFormat.Format32bppArgb);
-
-                            byte[,] shadowMap = new byte[mWidth, mHeight];
+                            #region Initialize shadow map (booleans basically)
+                            TaskManager.SafeReport(0, "Calculating shadow placement map");
+                            for (int xShadeMap = 0; xShadeMap < mWidth; xShadeMap++)
                             {
-                                #region Initialize shadow map (booleans basically)
-                                TaskManager.SafeReport(0, "Calculating shadow placement map");
-                                for (int xShadeMap = 0; xShadeMap < mWidth; xShadeMap++)
+                                TaskManager.SafeReport(100 * xShadeMap / mWidth);
+                                worker?.SafeThrowIfCancellationRequested();
+
+                                for (int yShadeMap = 0; yShadeMap < mHeight; yShadeMap++)
                                 {
-                                    TaskManager.SafeReport(100 * xShadeMap / mWidth);
-                                    worker?.SafeThrowIfCancellationRequested();
+                                    Material mBottom = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 0, true);
+                                    bool isBottomShown = mBottom.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mBottom.PixelStackerID));
 
-                                    for (int yShadeMap = 0; yShadeMap < mHeight; yShadeMap++)
+                                    Material mTop = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 1, !_isFrugalAesthetic);
+                                    bool isTopShown = mTop.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mTop.PixelStackerID));
+
+                                    if (isTopShown && isBottomShown)
                                     {
-                                        Material mBottom = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 0, true);
-                                        bool isBottomShown = mBottom.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mBottom.PixelStackerID));
-
-                                        Material mTop = blueprint.GetMaterialAt(xShadeMap, yShadeMap, 1, !_isFrugalAesthetic);
-                                        bool isTopShown = mTop.BlockID != 0 && (selectedMaterials.Count == 0 || selectedMaterials.Any(xm => xm == mTop.PixelStackerID));
-
-                                        if (isTopShown && isBottomShown)
-                                        {
-                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP_AND_BOTTOM;
-                                        }
-                                        else if (isTopShown)
-                                        {
-                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP;
-                                        }
-                                        else if (isBottomShown)
-                                        {
-                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_BOTTOM;
-                                        }
-                                        else
-                                        {
-                                            shadowMap[xShadeMap, yShadeMap] = SHOWN_NONE;
-                                        }
+                                        shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP_AND_BOTTOM;
+                                    }
+                                    else if (isTopShown)
+                                    {
+                                        shadowMap[xShadeMap, yShadeMap] = SHOWN_TOP;
+                                    }
+                                    else if (isBottomShown)
+                                    {
+                                        shadowMap[xShadeMap, yShadeMap] = SHOWN_BOTTOM;
+                                    }
+                                    else
+                                    {
+                                        shadowMap[xShadeMap, yShadeMap] = SHOWN_NONE;
                                     }
                                 }
-                                #endregion
+                            }
+                            #endregion
 
-                                using (Graphics gShadow = Graphics.FromImage(bmShadow))
+                            //using (Graphics gShadow = Graphics.FromImage(bmShadow))
+                            {
+                                int progressPixels = 0;
+                                TaskManager.SafeReport(0, "Rendering shadows");
+                                Parallel.For(0, mWidth, new ParallelOptions()
                                 {
-                                    gShadow.CompositingMode = CompositingMode.SourceOver; // over is slower but better...
-                                    gShadow.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                                    gShadow.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                                    gShadow.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
-                                    var brushTransparentCover = new SolidBrush(Color.FromArgb(40, 127, 127, 127));
+                                    CancellationToken = worker.Value,
+                                    MaxDegreeOfParallelism = Math.Max(Environment.ProcessorCount / 2, 1)
+                                }, (x) =>
+                                {
+                                    using (var bmShadow = bmShadowWrapper.ToBitmap())
+                                    using (Graphics gShadow = Graphics.FromImage(bmShadow))
                                     {
-                                        TaskManager.SafeReport(0, "Rendering shadows");
-                                        for (int x = 0; x < mWidth; x++)
+                                        gShadow.CompositingMode = CompositingMode.SourceOver; // over is slower but better...
+                                        gShadow.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                                        gShadow.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                                        gShadow.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                                        var brushTransparentCover = new SolidBrush(Color.FromArgb(40, 127, 127, 127));
+
+                                        TaskManager.SafeReport(100 * progressPixels / (mHeight*mWidth));
+                                        worker?.SafeThrowIfCancellationRequested();
+                                        for (int y = 0; y < mHeight; y++)
                                         {
-                                            TaskManager.SafeReport(100 * x / mWidth);
-                                            worker?.SafeThrowIfCancellationRequested();
-                                            for (int y = 0; y < mHeight; y++)
+                                            int xi = x * textureSize;
+                                            int yi = y * textureSize;
+
+                                            bool isTopShown = shadowMap[x, y] == SHOWN_TOP || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
+                                            bool isBottomShown = shadowMap[x, y] == SHOWN_BOTTOM || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
+                                            bool isBottomCoveredByInvisibleTop = isBottomShown && !isTopShown;
+
+                                            // The thing that makes it slightly less saturated on bottom layer
+                                            if (isBottomCoveredByInvisibleTop && _IsMultiLayer)
                                             {
-                                                int xi = x * textureSize.Value;
-                                                int yi = y * textureSize.Value;
+                                                gShadow.FillRectangle(brushTransparentCover, xi, yi, textureSize, textureSize);
+                                            }
 
-                                                bool isTopShown = shadowMap[x, y] == SHOWN_TOP || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
-                                                bool isBottomShown = shadowMap[x, y] == SHOWN_BOTTOM || shadowMap[x, y] == SHOWN_TOP_AND_BOTTOM;
-                                                bool isBottomCoveredByInvisibleTop = isBottomShown && !isTopShown;
+                                            if (isTopShown && isBottomShown)
+                                            {
+                                                continue; // No shade required
+                                            }
 
-                                                // The thing that makes it slightly less saturated on bottom layer
-                                                if (isBottomCoveredByInvisibleTop && _IsMultiLayer)
+                                            // AIR block (or block we aint rendering)
+                                            if (!isTopShown)
+                                            {
+                                                ShadeFrom sFrom = ShadeFrom.EMPTY;
+                                                bool isBlockTop = y > 0 && isShaded(shadowMap[x, y], shadowMap[x, y - 1]);
+                                                bool isBlockLeft = x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y]);
+                                                bool isBlockRight = x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y]);
+                                                bool isBlockBottom = (y < mHeight - 1 && isShaded(shadowMap[x, y], shadowMap[x, y + 1]));
+                                                bool isBlockTopLeft = (y > 0 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y - 1]));
+                                                bool isBlockTopRight = (y > 0 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y - 1]));
+                                                bool isBlockBottomLeft = (y < mHeight - 1 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y + 1]));
+                                                bool isBlockBottomRight = (y < mHeight - 1 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y + 1]));
+
+                                                if (isBlockTop) sFrom |= ShadeFrom.T;
+                                                if (isBlockLeft) sFrom |= ShadeFrom.L;
+                                                if (isBlockRight) sFrom |= ShadeFrom.R;
+                                                if (isBlockBottom) sFrom |= ShadeFrom.B;
+                                                if (isBlockTopLeft) sFrom |= ShadeFrom.TL;
+                                                if (isBlockTopRight) sFrom |= ShadeFrom.TR;
+                                                if (isBlockBottomLeft) sFrom |= ShadeFrom.BL;
+                                                if (isBlockBottomRight) sFrom |= ShadeFrom.BR;
+
+                                                var shadeImg = ShadowHelper.GetSpriteIndividual(Constants.TextureSize, sFrom);
+                                                lock (shadeImg)
                                                 {
-                                                    gShadow.FillRectangle(brushTransparentCover, xi, yi, textureSize.Value, textureSize.Value);
+                                                    gShadow.DrawImage(image: shadeImg, xi, yi, textureSize, textureSize);
                                                 }
 
-                                                if (isTopShown && isBottomShown)
-                                                {
-                                                    continue; // No shade required
-                                                }
-
-                                                // AIR block (or block we aint rendering)
-                                                if (!isTopShown)
-                                                {
-                                                    ShadeFrom sFrom = ShadeFrom.EMPTY;
-                                                    bool isBlockTop = y > 0 && isShaded(shadowMap[x, y], shadowMap[x, y - 1]);
-                                                    bool isBlockLeft = x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y]);
-                                                    bool isBlockRight = x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y]);
-                                                    bool isBlockBottom = (y < mHeight - 1 && isShaded(shadowMap[x, y], shadowMap[x, y + 1]));
-                                                    bool isBlockTopLeft = (y > 0 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y - 1]));
-                                                    bool isBlockTopRight = (y > 0 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y - 1]));
-                                                    bool isBlockBottomLeft = (y < mHeight - 1 && x > 0 && isShaded(shadowMap[x, y], shadowMap[x - 1, y + 1]));
-                                                    bool isBlockBottomRight = (y < mHeight - 1 && x < mWidth - 1 && isShaded(shadowMap[x, y], shadowMap[x + 1, y + 1]));
-
-                                                    if (isBlockTop) sFrom |= ShadeFrom.T;
-                                                    if (isBlockLeft) sFrom |= ShadeFrom.L;
-                                                    if (isBlockRight) sFrom |= ShadeFrom.R;
-                                                    if (isBlockBottom) sFrom |= ShadeFrom.B;
-                                                    if (isBlockTopLeft) sFrom |= ShadeFrom.TL;
-                                                    if (isBlockTopRight) sFrom |= ShadeFrom.TR;
-                                                    if (isBlockBottomLeft) sFrom |= ShadeFrom.BL;
-                                                    if (isBlockBottomRight) sFrom |= ShadeFrom.BR;
-
-                                                    var shadeImg = ShadowHelper.GetSpriteIndividual(Constants.TextureSize, sFrom);
-                                                    gShadow.DrawImage(image: shadeImg, xi, yi, textureSize.Value, textureSize.Value);
-
-                                                }
                                             }
                                         }
+
+                                        brushTransparentCover.Dispose();
+                                        progressPixels += mHeight;
                                     }
+                                });
 
-                                    brushTransparentCover.Dispose();
-                                }
+                            }
 
+                            using (var gImg = Graphics.FromImage(bm))
+                            {
                                 gImg.CompositingMode = CompositingMode.SourceOver;
-                                gImg.DrawImage(bmShadow, 0, 0, calcW, calcH);
+                                gImg.DrawImage(bmShadowMain, 0, 0, calcW, calcH);
                             }
                         }
-
-                        #endregion
-                        brush.DisposeSafely();
-                        pen.DisposeSafely();
-
                     }
 
+                    #endregion
+                    brush.DisposeSafely();
+                    pen.DisposeSafely();
 
                     return bm;
                 }
