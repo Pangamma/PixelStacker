@@ -179,8 +179,6 @@ namespace PixelStacker.UI
                     int h = (int) (origH * MainForm.PanZoomSettings.zoomLevel);
                     int zoom = (int) (MainForm.PanZoomSettings.zoomLevel);
 
-                    SolidBrush brush = new SolidBrush(Color.Black);
-                    Pen pen = new Pen(brush);
 
                     bool isMaterialIncludedInFilter = true;
                     int mWidth = blueprint.Width;
@@ -227,6 +225,8 @@ namespace PixelStacker.UI
                             MaxDegreeOfParallelism = Math.Max(Environment.ProcessorCount / 2, 1)
                         }, (x) =>
                         {
+                            SolidBrush brush = new SolidBrush(Color.Black);
+                            Pen pen = new Pen(brush);
                             using (Graphics gImg = Graphics.FromImage(bmc.ToBitmap())) 
                             {
                                 gImg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
@@ -289,6 +289,8 @@ namespace PixelStacker.UI
                                 progressPixels += mHeight;
                                 TaskManager.SafeReport(100 * progressPixels / (mHeight * mWidth));
                             }
+                            pen.Dispose();
+                            brush.Dispose();
                         });
                     }
                     #endregion
@@ -351,6 +353,7 @@ namespace PixelStacker.UI
                                     MaxDegreeOfParallelism = Math.Max(Environment.ProcessorCount / 2, 1)
                                 }, (x) =>
                                 {
+
                                     using (var bmShadow = bmShadowWrapper.ToBitmap())
                                     using (Graphics gShadow = Graphics.FromImage(bmShadow))
                                     {
@@ -417,7 +420,6 @@ namespace PixelStacker.UI
                                         progressPixels += mHeight;
                                     }
                                 });
-
                             }
 
                             using (var gImg = Graphics.FromImage(bm))
@@ -429,8 +431,6 @@ namespace PixelStacker.UI
                     }
 
                     #endregion
-                    brush.DisposeSafely();
-                    pen.DisposeSafely();
 
                     return bm;
                 }

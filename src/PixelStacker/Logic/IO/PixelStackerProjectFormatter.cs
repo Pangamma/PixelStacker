@@ -143,36 +143,45 @@ namespace PixelStacker.Logic
                             }
                         }
 
-                        {
-                            ZipArchiveEntry entry = archive.GetEntry("color-map.dat");
-                            using (StreamReader reader = new StreamReader(entry.Open()))
-                            {
-                                string json = reader.ReadToEnd();
 
-                                var obj = JsonConvert.DeserializeObject<PanZoomSettings>(json);
-                                MainForm.PanZoomSettings = obj;
-                            }
+                        //{
+                        //    int n = 0;
+                        //    matIndex = Materials.List.ToDictionary(m => m.PixelStackerID, m => n++);
+                        //    var json = JsonConvert.SerializeObject(matIndex);
+                        //    ZipArchiveEntry entry = archive.CreateEntry("materials-map-index.json");
+                        //    using (StreamWriter writer = new StreamWriter(entry.Open()))
+                        //    {
+                        //        writer.Write(json);
+                        //    }
+                        //}
 
-                            //var colorMap = ColorMatcher.Get.ColorToMaterialMap.Select(x => $"{x.Key.ToArgb()}\t{string.Join("\t", x.Value.Select(m => m.PixelStackerID))}");
-                            //var content = string.Join("\r\n", colorMap);
-                            //using (StreamWriter writer = new StreamWriter(entry.Open()))
-                            //{
-                            //    writer.Write(content);
-                            //}
-                        }
+                        //{
+                        //    StringBuilder sb = new StringBuilder();
+                        //    foreach (var kvp in ColorMatcher.Get.ColorToMaterialMap)
+                        //    {
+                        //        sb.AppendLine($"{kvp.Key.ToArgb()}\t{string.Join("\t", kvp.Value.Select(v => matIndex[v.PixelStackerID]))}");
+                        //    }
 
-                        {
-                            // GRID location
-                            int weX = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.X ?? 0;
-                            int weY = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.Y ?? 0;
-                            int[,] blocksMap = MainForm.Self.LoadedBlueprint?.BlocksMap ?? new int[1, 1];
+                        //    ZipArchiveEntry entry = archive.CreateEntry("colors-to-materials-map.txt");
+                        //    using (StreamWriter writer = new StreamWriter(entry.Open()))
+                        //    {
 
-                            ZipArchiveEntry entry = archive.CreateEntry("blueprint.json");
-                            using (StreamWriter writer = new StreamWriter(entry.Open()))
-                            {
-                                //writer.Write(json);
-                            }
-                        }
+                        //        writer.Write(sb.ToString());
+                        //    }
+                        //}
+
+                        //{
+                        //    // GRID location
+                        //    int weX = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.X ?? 0;
+                        //    int weY = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.Y ?? 0;
+                        //    int[,] blocksMap = MainForm.Self.LoadedBlueprint?.BlocksMap ?? new int[1, 1];
+
+                        //    ZipArchiveEntry entry = archive.CreateEntry("blueprint.json");
+                        //    using (StreamWriter writer = new StreamWriter(entry.Open()))
+                        //    {
+                        //        //writer.Write(json);
+                        //    }
+                        //}
                     }
                 }
             }

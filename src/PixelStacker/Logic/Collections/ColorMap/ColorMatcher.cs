@@ -61,11 +61,12 @@ namespace PixelStacker.Logic.Collections
 
             int n = 0;
             int maxN = materials.Count(x => x.IsEnabled && x.Category != "Glass");
-            if (isMultiLayer) maxN *= materials.Count(x => x.IsEnabled && x.Category == "Glass"); if (isMultiLayer)
+            
+            if (isMultiLayer)
             {
                 if (isMultiLayerRequired)
                 {
-                    maxN = maxN * materials.Count(x => x.IsEnabled && x.Category == "Glass");
+                    maxN = maxN * Math.Max(1, materials.Count(x => x.IsEnabled && x.Category == "Glass"));
                 }
                 else
                 {
@@ -75,7 +76,6 @@ namespace PixelStacker.Logic.Collections
             }
 
             maxN = (int) (maxN * 1.20); // 1 for base. Reserve 20% for remaining iterations.
-            if (isMultiLayer) maxN *= materials.Count(x => x.IsEnabled && x.Category == "Glass");
 
             Dictionary<Color, Material[]> colorToMaterialMap = new Dictionary<Color, Material[]>();
 
