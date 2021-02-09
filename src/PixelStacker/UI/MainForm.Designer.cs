@@ -403,7 +403,8 @@
             // dlgSave
             // 
             this.dlgSave.DefaultExt = "schem";
-            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv";
+            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv|Pixe" +
+    "lStacker Project|*.pxlzip";
             this.dlgSave.FilterIndex = 2;
             this.dlgSave.ShowHelp = true;
             this.dlgSave.Title = "Save";
