@@ -120,4 +120,241 @@
   <metadata name="contextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="replaceColorToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="replaceColorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 24</value>
+  </data>
+  <data name="replaceColorToolStripMenuItem.Text" xml:space="preserve">
+    <value>Replace Color (Requires Re-Render)</value>
+  </data>
+  <data name="btnAddMat0_Filter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="btnAddMat0_Filter.Text" xml:space="preserve">
+    <value>Add material 1</value>
+  </data>
+  <data name="btnAddMat1_Filter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="btnAddMat1_Filter.Text" xml:space="preserve">
+    <value>Add material 2</value>
+  </data>
+  <data name="addAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="addAllToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add all</value>
+  </data>
+  <data name="removeAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="removeAllToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove all</value>
+  </data>
+  <data name="btnRemoveMat0_Filter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="btnRemoveMat0_Filter.Text" xml:space="preserve">
+    <value>Remove material 1</value>
+  </data>
+  <data name="btnRemoveMat1_Filter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="btnRemoveMat1_Filter.Text" xml:space="preserve">
+    <value>Remove material 2</value>
+  </data>
+  <data name="filterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 24</value>
+  </data>
+  <data name="filterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Material Filter</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ts_xyz.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ts_xyz.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 24</value>
+  </data>
+  <data name="ts_xyz.Text" xml:space="preserve">
+    <value>X: </value>
+  </data>
+  <data name="ts_MaterialName.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ts_MaterialName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 24</value>
+  </data>
+  <data name="ts_MaterialName.Text" xml:space="preserve">
+    <value>Y:</value>
+  </data>
+  <data name="averageColorCodeToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="averageColorCodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 24</value>
+  </data>
+  <data name="averageColorCodeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Average Color Code</value>
+  </data>
+  <data name="rGBAToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="rGBAToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 24</value>
+  </data>
+  <data name="rGBAToolStripMenuItem.Text" xml:space="preserve">
+    <value>RGBA</value>
+  </data>
+  <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>317, 176</value>
+  </data>
+  <data name="&gt;&gt;contextMenu.Name" xml:space="preserve">
+    <value>contextMenu</value>
+  </data>
+  <data name="&gt;&gt;contextMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="replaceMenuItems_1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="replaceMenuItems_1.Text" xml:space="preserve">
+    <value>1 - 10</value>
+  </data>
+  <data name="replaceMenuItems_2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="replaceMenuItems_2.Text" xml:space="preserve">
+    <value>11 - 20</value>
+  </data>
+  <data name="replaceMenuItems_3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="replaceMenuItems_3.Text" xml:space="preserve">
+    <value>21 - 30</value>
+  </data>
+  <data name="replaceMenuItems_4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="replaceMenuItems_4.Text" xml:space="preserve">
+    <value>31 - 40</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>8, 16</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>679, 366</value>
+  </data>
+  <data name="&gt;&gt;replaceColorToolStripMenuItem.Name" xml:space="preserve">
+    <value>replaceColorToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;replaceColorToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;replaceMenuItems_1.Name" xml:space="preserve">
+    <value>replaceMenuItems_1</value>
+  </data>
+  <data name="&gt;&gt;replaceMenuItems_1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;replaceMenuItems_2.Name" xml:space="preserve">
+    <value>replaceMenuItems_2</value>
+  </data>
+  <data name="&gt;&gt;replaceMenuItems_2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;replaceMenuItems_3.Name" xml:space="preserve">
+    <value>replaceMenuItems_3</value>
+  </data>
+  <data name="&gt;&gt;replaceMenuItems_3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;replaceMenuItems_4.Name" xml:space="preserve">
+    <value>replaceMenuItems_4</value>
+  </data>
+  <data name="&gt;&gt;replaceMenuItems_4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;filterToolStripMenuItem.Name" xml:space="preserve">
+    <value>filterToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;filterToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnAddMat0_Filter.Name" xml:space="preserve">
+    <value>btnAddMat0_Filter</value>
+  </data>
+  <data name="&gt;&gt;btnAddMat0_Filter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnAddMat1_Filter.Name" xml:space="preserve">
+    <value>btnAddMat1_Filter</value>
+  </data>
+  <data name="&gt;&gt;btnAddMat1_Filter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addAllToolStripMenuItem.Name" xml:space="preserve">
+    <value>addAllToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addAllToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;removeAllToolStripMenuItem.Name" xml:space="preserve">
+    <value>removeAllToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;removeAllToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnRemoveMat0_Filter.Name" xml:space="preserve">
+    <value>btnRemoveMat0_Filter</value>
+  </data>
+  <data name="&gt;&gt;btnRemoveMat0_Filter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnRemoveMat1_Filter.Name" xml:space="preserve">
+    <value>btnRemoveMat1_Filter</value>
+  </data>
+  <data name="&gt;&gt;btnRemoveMat1_Filter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ts_xyz.Name" xml:space="preserve">
+    <value>ts_xyz</value>
+  </data>
+  <data name="&gt;&gt;ts_xyz.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ts_MaterialName.Name" xml:space="preserve">
+    <value>ts_MaterialName</value>
+  </data>
+  <data name="&gt;&gt;ts_MaterialName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;averageColorCodeToolStripMenuItem.Name" xml:space="preserve">
+    <value>averageColorCodeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;averageColorCodeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rGBAToolStripMenuItem.Name" xml:space="preserve">
+    <value>rGBAToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;rGBAToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>RenderedImagePanel</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

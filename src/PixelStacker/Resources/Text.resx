@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_0" xml:space="preserve">
+    <value>Add '{0}'</value>
+  </data>
+  <data name="Action_DisableQuantizer" xml:space="preserve">
+    <value>Disable Quantizer</value>
+  </data>
+  <data name="Action_EnableQuantizer" xml:space="preserve">
+    <value>Enable Quantizer</value>
+  </data>
+  <data name="Action_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Action_Remove_0" xml:space="preserve">
+    <value>Remove '{0}'</value>
+  </data>
+  <data name="Action_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="DDL_SelectProfile" xml:space="preserve">
+    <value>Select profile</value>
+  </data>
+  <data name="Error_GlassRequiredForMultiLayer" xml:space="preserve">
+    <value>At least one glass material must be enabled when you choose to require multiple layers.</value>
+  </data>
+  <data name="Error_NeedMoreRam" xml:space="preserve">
+    <value>Not enough memory. Please try again or reduce image size if problem continues.</value>
+  </data>
+  <data name="Error_NonGlassRequired" xml:space="preserve">
+    <value>At least one non glass material must be selected.</value>
+  </data>
+  <data name="Error_OneMaterialRequired" xml:space="preserve">
+    <value>At least one material must be enabled at all times.</value>
+  </data>
+  <data name="Error_SomethingIsWrong" xml:space="preserve">
+    <value>Something is wrong here.</value>
+  </data>
+  <data name="MaterialSelect_ColorProfile" xml:space="preserve">
+    <value>Color Profile</value>
+  </data>
+  <data name="MaterialSelect_IsMultiLayer" xml:space="preserve">
+    <value>Enable 2nd Layer</value>
+  </data>
+  <data name="MaterialSelect_IsMultiLayerRequired" xml:space="preserve">
+    <value>Require 2nd Layer</value>
+  </data>
+  <data name="MaterialSelect_IsSideView" xml:space="preserve">
+    <value>Side View</value>
+  </data>
+  <data name="MaterialSelect_Title" xml:space="preserve">
+    <value>Material Selection</value>
+  </data>
+  <data name="OtherOptions_ConfirmFactoryReset" xml:space="preserve">
+    <value>Are you sure you want to reset all PixelStacker options back to default settings? Includes materials, sizes, view states, rendering options, etc.</value>
+  </data>
+  <data name="OtherOptions_Title" xml:space="preserve">
+    <value>Other Options</value>
+  </data>
+  <data name="PreRenderOptions_Algorithm" xml:space="preserve">
+    <value>Algorithm</value>
+  </data>
+  <data name="PreRenderOptions_Algorithm_Tooltip" xml:space="preserve">
+    <value>Different algorithms use different strategies for 
+combining colors together. Some use color buckets,
+others use locational distance to nearby colors. Try
+them all and decide which one is your favorite.</value>
+  </data>
+  <data name="PreRenderOptions_ColorCache" xml:space="preserve">
+    <value>Color Cache</value>
+  </data>
+  <data name="PreRenderOptions_ColorCacheSize" xml:space="preserve">
+    <value>Color Cache Size</value>
+  </data>
+  <data name="PreRenderOptions_ColorCacheSize_Tooltip" xml:space="preserve">
+    <value>Smaller values are faster but less accurate.
+Higher values are slower but more accurate.</value>
+  </data>
+  <data name="PreRenderOptions_ColorCount" xml:space="preserve">
+    <value>Color Count</value>
+  </data>
+  <data name="PreRenderOptions_ColorCount_Tooltip" xml:space="preserve">
+    <value>Max color count.</value>
+  </data>
+  <data name="PreRenderOptions_Dither" xml:space="preserve">
+    <value>Dither</value>
+  </data>
+  <data name="PreRenderOptions_Dither_Tooltip" xml:space="preserve">
+    <value>Some people like dithering.
+I don't. I never do. I hate 
+dithering. But hey- you do you.</value>
+  </data>
+  <data name="PreRenderOptions_Parallel" xml:space="preserve">
+    <value>Parallel</value>
+  </data>
+  <data name="PreRenderOptions_Parallel_Tooltip" xml:space="preserve">
+    <value>Speed up the quantizing process by taking
+advantage of a multicore CPU. 
+
+Lower values = more stable
+Higher values = faster
+Super high values = possible glitches</value>
+  </data>
+  <data name="PreRenderOptions_QuantizerSettings" xml:space="preserve">
+    <value>QuantizerSettings</value>
+  </data>
+  <data name="Progress_CompilingColorMap" xml:space="preserve">
+    <value>Compiling color map.</value>
+  </data>
+  <data name="Progress_Finished" xml:space="preserve">
+    <value>Finished.</value>
+  </data>
+  <data name="Progress_PreparingCanvasForTextures" xml:space="preserve">
+    <value>Preparing canvas for painting.</value>
+  </data>
+  <data name="Progress_QuantizingImage" xml:space="preserve">
+    <value>Quantizing Image</value>
+  </data>
+</root>

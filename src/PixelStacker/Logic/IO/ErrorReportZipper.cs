@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
@@ -188,8 +189,8 @@ namespace PixelStacker.Logic
             }
             catch (Exception ex2)
             {
-                return ex2;
                 Console.WriteLine("Oh no. An error occurred.");
+                return ex2;
             }
 
             return null;

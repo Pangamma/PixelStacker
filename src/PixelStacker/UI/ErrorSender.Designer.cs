@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.Icon = global::PixelStacker.Resources.UIResources.wool;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ErrorSender));
             this.cbxIncludeImage = new System.Windows.Forms.CheckBox();
             this.cbxIsUploadSavedSettings = new System.Windows.Forms.CheckBox();
@@ -42,111 +43,71 @@
             // 
             // cbxIncludeImage
             // 
-            this.cbxIncludeImage.AutoSize = true;
+            resources.ApplyResources(this.cbxIncludeImage, "cbxIncludeImage");
             this.cbxIncludeImage.Checked = true;
             this.cbxIncludeImage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxIncludeImage.Location = new System.Drawing.Point(12, 217);
             this.cbxIncludeImage.Name = "cbxIncludeImage";
-            this.cbxIncludeImage.Size = new System.Drawing.Size(457, 21);
-            this.cbxIncludeImage.TabIndex = 0;
-            this.cbxIncludeImage.Text = "Are you willing to upload your current image for analysis? (Optional)";
             this.cbxIncludeImage.UseVisualStyleBackColor = true;
             // 
             // cbxIsUploadSavedSettings
             // 
-            this.cbxIsUploadSavedSettings.AutoSize = true;
+            resources.ApplyResources(this.cbxIsUploadSavedSettings, "cbxIsUploadSavedSettings");
             this.cbxIsUploadSavedSettings.Checked = true;
             this.cbxIsUploadSavedSettings.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxIsUploadSavedSettings.Enabled = false;
-            this.cbxIsUploadSavedSettings.Location = new System.Drawing.Point(12, 117);
             this.cbxIsUploadSavedSettings.Name = "cbxIsUploadSavedSettings";
-            this.cbxIsUploadSavedSettings.Size = new System.Drawing.Size(338, 21);
-            this.cbxIsUploadSavedSettings.TabIndex = 1;
-            this.cbxIsUploadSavedSettings.Text = "Upload current saved option settings. (Required)";
             this.cbxIsUploadSavedSettings.UseVisualStyleBackColor = true;
             // 
             // cbxIsStackTraceEnabled
             // 
-            this.cbxIsStackTraceEnabled.AutoSize = true;
+            resources.ApplyResources(this.cbxIsStackTraceEnabled, "cbxIsStackTraceEnabled");
             this.cbxIsStackTraceEnabled.Checked = true;
             this.cbxIsStackTraceEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxIsStackTraceEnabled.Enabled = false;
-            this.cbxIsStackTraceEnabled.Location = new System.Drawing.Point(12, 144);
             this.cbxIsStackTraceEnabled.Name = "cbxIsStackTraceEnabled";
-            this.cbxIsStackTraceEnabled.Size = new System.Drawing.Size(335, 21);
-            this.cbxIsStackTraceEnabled.TabIndex = 2;
-            this.cbxIsStackTraceEnabled.Text = "Upload stacktrace + error messages. (Required)";
             this.cbxIsStackTraceEnabled.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(283, 31);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "An error has occurred.";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 49);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(443, 51);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Are you willing to send me some information to help me fix this error?\r\nIf yes, t" +
-    "he following info will be zipped. Then you can send the info to \r\nme as a ";
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
+            resources.ApplyResources(this.checkBox1, "checkBox1");
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(12, 171);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(280, 21);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Current PixelStacker version (Required)";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // btnYes
             // 
-            this.btnYes.Location = new System.Drawing.Point(12, 259);
+            resources.ApplyResources(this.btnYes, "btnYes");
             this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(205, 98);
-            this.btnYes.TabIndex = 6;
-            this.btnYes.Text = "Yes! Zip some info so the issue can be fixed.";
             this.btnYes.UseVisualStyleBackColor = true;
             this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
             // 
             // btnNo
             // 
-            this.btnNo.Location = new System.Drawing.Point(235, 259);
+            resources.ApplyResources(this.btnNo, "btnNo");
             this.btnNo.Name = "btnNo";
-            this.btnNo.Size = new System.Drawing.Size(220, 98);
-            this.btnNo.TabIndex = 7;
-            this.btnNo.Text = "No, skip the report for now.";
             this.btnNo.UseVisualStyleBackColor = true;
             this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
             // 
             // linkLabel1
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(72, 83);
+            resources.ApplyResources(this.linkLabel1, "linkLabel1");
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(91, 17);
-            this.linkLabel1.TabIndex = 10;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Github issue.";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // ErrorSender
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 372);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.btnNo);
             this.Controls.Add(this.btnYes);
@@ -156,9 +117,7 @@
             this.Controls.Add(this.cbxIsStackTraceEnabled);
             this.Controls.Add(this.cbxIsUploadSavedSettings);
             this.Controls.Add(this.cbxIncludeImage);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ErrorSender";
-            this.Text = "Error Reporter";
             this.ResumeLayout(false);
             this.PerformLayout();
 

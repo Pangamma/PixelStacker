@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Logic
 {
+#pragma warning disable CS0618 // Type or member is obsolete
     public class Options
     {
         /// <summary>
@@ -18,6 +19,7 @@ namespace PixelStacker.Logic
         /// </summary>
         public UpdateSettings UpdateSettings { get; set; } = new UpdateSettings();
 
+        public string Locale { get; set; } = "en-us";
 
         /// <summary>
         /// Which materials are enabled or disabled. TRUE if enabled. The PixelStacker_ID value
@@ -214,3 +216,4 @@ namespace PixelStacker.Logic
         }
     }
 }
+#pragma warning restore CS0618 // Type or member is obsolete

@@ -2,7 +2,7 @@
 using PixelStacker.UI;
 using System;
 
-namespace PixelStacker
+namespace PixelStacker.UI
 {
     partial class MainForm
     {

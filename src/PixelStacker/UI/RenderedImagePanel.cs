@@ -14,10 +14,11 @@ using PixelStacker.Logic.WIP;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Resources;
 using PixelStacker.Logic.Collections;
+using System.ComponentModel;
 
 namespace PixelStacker.UI
 {
-    public partial class RenderedImagePanel : UserControl
+    public partial class RenderedImagePanel : UserControl, ILocalized
     {
         private const byte SHOWN_NONE = 0;
         private const byte SHOWN_TOP = 1;
@@ -54,6 +55,16 @@ namespace PixelStacker.UI
             this.DoubleBuffered = true;
         }
 
+        public void ApplyLocalization(System.Globalization.CultureInfo locale)
+        {
+            ComponentResourceManager resources = new ComponentResourceManager(this.GetType());
+            var allMenuItems = this.contextMenu.Items.Flatten().ToList();
+            foreach (var c in allMenuItems)
+            {
+                resources.ApplyResources(c, c.Name, locale);
+            }
+        }
+
         public async Task<bool> ForceReRender()
         {
             await TaskManager.Get.StartAsync((token) =>
@@ -81,7 +92,7 @@ namespace PixelStacker.UI
 
                 this.renderedImages = images; // le quick swap
 
-                TaskManager.SafeReport(0, "Finished.");
+                TaskManager.SafeReport(0, Resources.Text.Progress_Finished);
                 this.InvokeEx((c) =>
                 {
                     c.Refresh();
@@ -137,7 +148,7 @@ namespace PixelStacker.UI
 
             if (ColorMatcher.Get.ColorToMaterialMap.Count == 0)
             {
-                TaskManager.SafeReport(0, "Compiling the color map");
+                TaskManager.SafeReport(0, Resources.Text.Progress_CompilingColorMap);
                 ColorMatcher.Get.CompileColorPalette(worker, true, Materials.List).GetAwaiter().GetResult();
             }
 
@@ -161,7 +172,9 @@ namespace PixelStacker.UI
         {
             // TODO: Make sure this value is saved to the render panel instance somehow or else there will be horrible issues
             // Update: ^ What does this even mean?
+#pragma warning disable CS0618 // Type or member is obsolete
             textureSizeOut = CalculateTextureSize(blueprint);
+#pragma warning restore CS0618 // Type or member is obsolete
             if (textureSizeOut == null) return null;
             int textureSize = textureSizeOut.Value;
 
@@ -169,7 +182,7 @@ namespace PixelStacker.UI
             {
                 try
                 {
-                    TaskManager.SafeReport(0, "Preparing canvas for textures");
+                    TaskManager.SafeReport(0, Resources.Text.Progress_PreparingCanvasForTextures);
                     bool isSelectiveLayerViewEnabled = Options.Get.IsEnabled(Constants.RenderedZIndexFilter, false);
                     bool isMaterialFilterViewEnabled = Options.Get.SelectedMaterialFilter.Any();
                     bool isSide = Options.Get.IsSideView;
@@ -187,14 +200,14 @@ namespace PixelStacker.UI
 
                     int calcW = mWidth * textureSize;
                     int calcH = mHeight * textureSize;
-                    TaskManager.SafeReport(20, "Preparing canvas for textures");
+                    TaskManager.SafeReport(20);
 
                     Bitmap bm = new Bitmap(
                         width: calcW,
                         height: calcH,
                         format: PixelFormat.Format32bppArgb);
 
-                    TaskManager.SafeReport(50, "Preparing canvas for textures");
+                    TaskManager.SafeReport(50);
                     var selectedMaterials = Options.Get.SelectedMaterialFilter.AsEnumerable().ToList(); // clone
                     bool _IsSolidColors = Options.Get.Rendered_IsSolidColors;
                     bool _IsColorPalette = Options.Get.Rendered_IsColorPalette;
@@ -436,6 +449,7 @@ namespace PixelStacker.UI
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex);
                     blueprint = null;
                 }
             }
@@ -796,7 +810,7 @@ namespace PixelStacker.UI
                         CalculatedTextureSize = Math.Max(1, CalculatedTextureSize - 2);
                         if (CalculatedTextureSize <= 2)
                         {
-                            MessageBox.Show("Not enough memory. Please try again or reduce image size if problem continues.");
+                            MessageBox.Show(Resources.Text.Error_NeedMoreRam);
                         }
                         else
                         {
@@ -1019,7 +1033,6 @@ namespace PixelStacker.UI
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    RenderedImagePanel panel = (RenderedImagePanel) sender;
                     Point loc = getPointOnImage(e.Location, EstimateProp.Floor);
                     image.WorldEditOrigin = loc;
                     Refresh();
@@ -1130,8 +1143,8 @@ namespace PixelStacker.UI
                 {
                     this.materialToAddOrRemove_1 = ms[0].PixelStackerID;
                     string matName = ms[0].Label.Replace("zz", "");
-                    btnAddMat0_Filter.Text = $"Add '{matName}'";
-                    btnRemoveMat0_Filter.Text = $"Remove '{matName}'";
+                    btnAddMat0_Filter.Text = string.Format(Resources.Text.Action_Add_0, matName);
+                    btnRemoveMat0_Filter.Text = string.Format(Resources.Text.Action_Remove_0, matName);
 
                     btnAddMat0_Filter.Visible = !Options.Get.SelectedMaterialFilter.Contains(ms[0].PixelStackerID);
                     btnRemoveMat0_Filter.Visible = Options.Get.SelectedMaterialFilter.Contains(ms[0].PixelStackerID)
@@ -1144,8 +1157,8 @@ namespace PixelStacker.UI
                 {
                     this.materialToAddOrRemove_2 = ms[1].PixelStackerID;
                     string matName = ms[1].Label.Replace("zz", "");
-                    btnAddMat1_Filter.Text = $"Add '{matName}'";
-                    btnRemoveMat1_Filter.Text = $"Remove '{matName}'";
+                    btnAddMat1_Filter.Text = string.Format(Resources.Text.Action_Add_0, matName);
+                    btnRemoveMat1_Filter.Text = string.Format(Resources.Text.Action_Remove_0, matName);
 
                     btnAddMat1_Filter.Visible = !Options.Get.SelectedMaterialFilter.Contains(ms[1].PixelStackerID);
                     btnRemoveMat1_Filter.Visible = Options.Get.SelectedMaterialFilter.Contains(ms[1].PixelStackerID)

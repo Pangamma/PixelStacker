@@ -3,19 +3,17 @@ using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Logic.WIP;
 using PixelStacker.Resources;
-using PixelStacker.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PixelStacker
+namespace PixelStacker.UI
 {
     // Do not force items to open as design style, also allow some things to be design and other things to be code
     public partial class MainForm : Form
     {
-
         public static MainForm Self;
         public Bitmap LoadedImage { get; private set; } = UIResources.weird_intro.To32bppBitmap();
         public Bitmap PreRenderedImage { get; set; } = null;
@@ -27,6 +25,7 @@ namespace PixelStacker
         public MainForm()
         {
             Self = this;
+            InitializeThreadLocale();
             InitializeComponent();
             this.konamiWatcher = new KonamiWatcher(() => {
                 Options.Get.IsAdvancedModeEnabled = !Options.Get.IsAdvancedModeEnabled;
@@ -46,13 +45,13 @@ namespace PixelStacker
                 this.togglePaletteToolStripMenuItem.Visible = false;
                 this.saveColorPaletteToolStripMenuItem.Visible = false;
                 mi_PreRenderOptions.Visible = false;
-                this.Text = this.Text + " (Free Version)";
+                this.Text += " (Free Version)";
 #pragma warning restore CS0162 // Unreachable code detected
             }
             SetViewModeCheckBoxStates();
         }
 
-#region Auto update checker + Error Reporting
+        #region Auto update checker + Error Reporting
         private void MainForm_Load(object sender, EventArgs e)
         {
 #pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
@@ -130,6 +129,5 @@ namespace PixelStacker
 
             });
         }
-
     }
 }

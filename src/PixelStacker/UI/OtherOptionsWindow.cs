@@ -25,7 +25,7 @@ namespace PixelStacker.UI
             this.cbxIsFrugalWithMaterials.Visible = Options.Get.IsAdvancedModeEnabled;
             this.cbxIsFrugalWithMaterials.Checked = Options.Get.IsExtraShadowDepthEnabled;
             this.cbxSkipShadowRendering.Checked = Options.Get.IsShadowRenderingSkipped;
-            this.nbrMaxHeight.Maximum = Options.Get.IsSideView ? 256 : short.MaxValue;
+            this.nbrMaxHeight.Maximum = Options.Get.IsSideView ? Constants.WORLD_HEIGHT : short.MaxValue;
 
             this.nbrMaxHeight.Value = Math.Min(this.nbrMaxHeight.Maximum, Options.Get.MaxHeight ?? 0);
             this.nbrMaxHeight.Text = nbrMaxHeight.Value.ToString();
@@ -59,7 +59,7 @@ namespace PixelStacker.UI
 
             if (cbxIsSideView.Checked)
             {
-                nbrMaxHeight.Maximum = 256;
+                nbrMaxHeight.Maximum = Constants.WORLD_HEIGHT;
                 nbrMaxWidth.Maximum = short.MaxValue;
             }
             else
@@ -114,7 +114,7 @@ namespace PixelStacker.UI
 
         private void btnFactoryReset_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to reset all PixelStacker options back to default settings? Includes materials, sizes, view states, rendering options, etc.", "Are you sure?", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show(Resources.Text.OtherOptions_ConfirmFactoryReset, Resources.Text.AreYouSure, MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
                 Options.Reset();

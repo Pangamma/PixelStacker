@@ -117,4 +117,123 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Action_Add_0" xml:space="preserve">
+    <value>Agregar '{0}'</value>
+  </data>
+  <data name="Action_DisableQuantizer" xml:space="preserve">
+    <value>Deshabilitar cuantificador</value>
+  </data>
+  <data name="Action_EnableQuantizer" xml:space="preserve">
+    <value>Habilitar cuantificador</value>
+  </data>
+  <data name="Action_Filter" xml:space="preserve">
+    <value>Filtrar</value>
+  </data>
+  <data name="Action_Remove_0" xml:space="preserve">
+    <value>Quitar "{0}"</value>
+  </data>
+  <data name="Action_Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>¿Está seguro?</value>
+  </data>
+  <data name="DDL_SelectProfile" xml:space="preserve">
+    <value>Seleccionar un perfil</value>
+  </data>
+  <data name="Error_GlassRequiredForMultiLayer" xml:space="preserve">
+    <value>Debe habilitarse al menos un material de vidrio cuando elija requerir varias capas.</value>
+  </data>
+  <data name="Error_NeedMoreRam" xml:space="preserve">
+    <value>No hay memoria suficiente. Vuelva a intentarlo o reduzca el tamaño de la imagen si el problema persiste.</value>
+  </data>
+  <data name="Error_NonGlassRequired" xml:space="preserve">
+    <value>Debe seleccionarse al menos un material que no sea de vidrio.</value>
+  </data>
+  <data name="Error_OneMaterialRequired" xml:space="preserve">
+    <value>Al menos un material debe estar habilitado en todo momento.</value>
+  </data>
+  <data name="Error_SomethingIsWrong" xml:space="preserve">
+    <value>Algo está mal aquí.</value>
+  </data>
+  <data name="MaterialSelect_ColorProfile" xml:space="preserve">
+    <value>Perfil de color</value>
+  </data>
+  <data name="MaterialSelect_IsMultiLayer" xml:space="preserve">
+    <value>Habilitar la segunda capa</value>
+  </data>
+  <data name="MaterialSelect_IsMultiLayerRequired" xml:space="preserve">
+    <value>Requiere segunda capa</value>
+  </data>
+  <data name="MaterialSelect_IsSideView" xml:space="preserve">
+    <value>Vista lateral</value>
+  </data>
+  <data name="MaterialSelect_Title" xml:space="preserve">
+    <value>Selección de material</value>
+  </data>
+  <data name="OtherOptions_ConfirmFactoryReset" xml:space="preserve">
+    <value>¿Está seguro de que desea restablecer todas las opciones de PixelStacker a la configuración predeterminada? Incluye materiales, tamaños, estados de vista, opciones de renderizado, etc.</value>
+  </data>
+  <data name="OtherOptions_Title" xml:space="preserve">
+    <value>Otras opciones</value>
+  </data>
+  <data name="PreRenderOptions_Algorithm" xml:space="preserve">
+    <value>Algoritmo</value>
+  </data>
+  <data name="PreRenderOptions_Algorithm_Tooltip" xml:space="preserve">
+    <value>Diferentes algoritmos utilizan diferentes estrategias para
+combinando colores juntos. Algunos usan cubos de colores,
+otros usan la distancia de ubicación a colores cercanos. Tratar
+todos y decide cuál es tu favorito.</value>
+  </data>
+  <data name="PreRenderOptions_ColorCache" xml:space="preserve">
+    <value>Caché de color</value>
+  </data>
+  <data name="PreRenderOptions_ColorCacheSize" xml:space="preserve">
+    <value>Tamaño de caché de color</value>
+  </data>
+  <data name="PreRenderOptions_ColorCacheSize_Tooltip" xml:space="preserve">
+    <value>Los valores más pequeños son más rápidos pero menos precisos.
+Los valores más altos son más lentos pero más precisos.</value>
+  </data>
+  <data name="PreRenderOptions_ColorCount" xml:space="preserve">
+    <value>Recuento de colores</value>
+  </data>
+  <data name="PreRenderOptions_ColorCount_Tooltip" xml:space="preserve">
+    <value>Recuento máximo de colores.</value>
+  </data>
+  <data name="PreRenderOptions_Dither" xml:space="preserve">
+    <value>Vacilar</value>
+  </data>
+  <data name="PreRenderOptions_Dither_Tooltip" xml:space="preserve">
+    <value>A algunas personas les gusta vacilar.
+Yo no. Yo nunca. odio
+titubeando. Pero bueno, lo haces tú.</value>
+  </data>
+  <data name="PreRenderOptions_Parallel" xml:space="preserve">
+    <value>Paralela</value>
+  </data>
+  <data name="PreRenderOptions_Parallel_Tooltip" xml:space="preserve">
+    <value>Acelere el proceso de cuantificación tomando
+ventaja de una CPU multinúcleo.
+
+Valores más bajos = más estable
+Valores más altos = más rápido
+Valores súper altos = posibles fallas</value>
+  </data>
+  <data name="PreRenderOptions_QuantizerSettings" xml:space="preserve">
+    <value>QuantizerSettings</value>
+  </data>
+  <data name="Progress_CompilingColorMap" xml:space="preserve">
+    <value>Compilación de mapa de colores.</value>
+  </data>
+  <data name="Progress_Finished" xml:space="preserve">
+    <value>Finalizado.</value>
+  </data>
+  <data name="Progress_PreparingCanvasForTextures" xml:space="preserve">
+    <value>Preparando lienzo para pintar.</value>
+  </data>
+  <data name="Progress_QuantizingImage" xml:space="preserve">
+    <value>Cuantizar imagen</value>
+  </data>
 </root>

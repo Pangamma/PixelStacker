@@ -187,4 +187,31 @@
   <data name="weird_intro" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\pixelart\weird-intro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="country_cn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\UI\flags\country_cn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="country_de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\UI\flags\country_de.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="country_dk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\UI\flags\country_dk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="country_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\UI\flags\country_fr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="country_jp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\UI\flags\country_jp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="country_kr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\UI\flags\country_kr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="country_mx" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\UI\flags\country_mx.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="country_us" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\UI\flags\country_us.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\ui\wool.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

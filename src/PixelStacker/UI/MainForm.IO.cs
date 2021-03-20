@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PixelStacker
+namespace PixelStacker.UI
 {
     partial class MainForm
     {

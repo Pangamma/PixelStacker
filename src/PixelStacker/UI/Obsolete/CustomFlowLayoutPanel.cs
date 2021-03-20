@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace PixelStacker.UI
 {
+    [Obsolete]
     public class CustomFlowLayoutPanel : FlowLayoutPanel
     {
         public CustomFlowLayoutPanel(): base()

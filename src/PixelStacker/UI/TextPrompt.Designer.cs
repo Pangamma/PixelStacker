@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.Icon = global::PixelStacker.Resources.UIResources.wool;
             this.lblPromptText = new System.Windows.Forms.Label();
             this.tbText = new System.Windows.Forms.TextBox();
             this.btnContinue = new System.Windows.Forms.Button();
@@ -63,6 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(311, 107);
             this.Controls.Add(this.btnContinue);
             this.Controls.Add(this.tbText);

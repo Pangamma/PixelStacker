@@ -1,10 +1,12 @@
 ﻿using PixelStacker.Logic;
+using PixelStacker.Logic.WIP;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,7 @@ using System.Windows.Forms;
 
 namespace PixelStacker.UI
 {
-    public partial class AboutForm : Form
+    public partial class AboutForm : Form, ILocalized
     {
         public AboutForm()
         {
@@ -33,7 +35,7 @@ namespace PixelStacker.UI
 
         private void lnkFontMaker_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ProcessStartInfo sInfo = new ProcessStartInfo("https://taylorlove.info/fontmaker/");  // Adf.ly
+            ProcessStartInfo sInfo = new ProcessStartInfo("https://taylorlove.info/projects/fontmaker/");  // Adf.ly
             Process.Start(sInfo);
         }
 
@@ -65,6 +67,15 @@ namespace PixelStacker.UI
         {
             ProcessStartInfo sInfo = new ProcessStartInfo("https://taylorlove.info");  // Adf.ly
             Process.Start(sInfo);
+        }
+
+        public void ApplyLocalization(CultureInfo locale)
+        {
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(AboutForm));
+            foreach (Control c in this.Controls)
+            {
+                resources.ApplyResources(c, c.Name, locale);
+            }
         }
     }
 }
