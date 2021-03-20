@@ -55,6 +55,13 @@ namespace PixelStacker.Logic.Extensions
             return distance;
         }
 
+        public static double GetDegreeDistance(double alpha, double beta)
+        {
+            double phi = Math.Abs(beta - alpha) % 360;       // This is either the distance or 360 - distance
+            double distance = phi > 180 ? 360 - phi : phi;
+            return distance;
+        }
+
         /// <summary>
         /// Custom color matching algorithm
         /// </summary>

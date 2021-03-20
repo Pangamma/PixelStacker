@@ -141,7 +141,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Collections\ColorMap\ColorMatcher.cs" />
+    <Compile Include="Logic\Collections\ColorTree\IColorMatchProvider.cs" />
     <Compile Include="Logic\Collections\KDColorTree.cs" />
+    <Compile Include="Logic\Collections\ColorTree\ElementComparer.cs" />
+    <Compile Include="Logic\Collections\ColorTree\Hyperrectangle.cs" />
+    <Compile Include="Logic\Collections\ColorTree\ColorTree.cs" />
+    <Compile Include="Logic\Collections\ColorTree\ColorTreeNode.cs" />
+    <Compile Include="Logic\Collections\ColorTree\ColorTreeNodeCollection.cs" />
+    <Compile Include="Logic\Collections\ColorTree\NodeDistance.cs" />
     <Compile Include="Logic\Collections\KDTree\KDTree.cs" />
     <Compile Include="Logic\Collections\KDTree\KDTreeNode.cs" />
     <Compile Include="Logic\Collections\KDTree\KDTreeNodeCollection.cs" />

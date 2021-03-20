@@ -91,7 +91,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BSTTest.cs" />
     <Compile Include="ColorTests.cs" />
+    <Compile Include="ColorMatchTester.cs" />
     <Compile Include="TextureGenerator.cs" />
     <Compile Include="ShadowTileGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

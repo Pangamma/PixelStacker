@@ -65,5 +65,36 @@ namespace PixelStacker.Logic.Extensions
                 return max;
             }
         }
+
+
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
+        {
+            return source.MinBy(selector, Comparer<TKey>.Default);
+        }
+
+        public static T MinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, IComparer<TKey> comparer)
+        {
+            using (IEnumerator<T> sourceIterator = source.GetEnumerator())
+            {
+                if (!sourceIterator.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+
+                T min = sourceIterator.Current;
+                TKey minKey = selector.Invoke(min);
+
+                while (sourceIterator.MoveNext())
+                {
+                    T candidate = sourceIterator.Current;
+                    TKey candidateProjected = selector.Invoke(candidate);
+
+                    if (comparer.Compare(candidateProjected, minKey) < 0)
+                    {
+                        min = candidate;
+                        minKey = candidateProjected;
+                    }
+                }
+
+                return min;
+            }
+        }
     }
 }

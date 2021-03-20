@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.Collections
 {
-    public class KDColorTree: KDTree<Color>
+    public class KDColorTree: KDTree<Color>, IColorMatchProvider
     {
         public KDColorTree(): base(3)
         {
@@ -42,6 +42,12 @@ namespace PixelStacker.Logic.Collections
             var d = new double[] { toMatch.R, toMatch.G, toMatch.B };
             var rt = base.Nearest(d);
             return rt.Value;
+        }
+
+        public IEnumerable<Color> Nearest(Color position, int neighbors)
+        {
+            var nodes = base.Nearest(new double[] { position.R, position.G, position.B }, neighbors);
+            return nodes.Select(x => x.Node.Value).ToList();
         }
     }
 }
