@@ -1,6 +1,7 @@
 ﻿using PixelStacker.Logic;
 using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.WIP;
 using SimplePaletteQuantizer;
 using SimplePaletteQuantizer.Quantizers;
 using System;
@@ -10,12 +11,13 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI
 {
-    public partial class PreRenderOptionsForm : Form
+    public partial class PreRenderOptionsForm : Form, ILocalized
     {
         private bool isInitializationComplete = false;
         private MainForm mainForm;
@@ -24,6 +26,7 @@ namespace PixelStacker.UI
         {
             this.mainForm = mainForm;
             InitializeComponent();
+            ApplyLocalization(Thread.CurrentThread.CurrentUICulture);
             isInitializationComplete = false;
             this.ddlAlgorithm.SelectedItem = Options.Get.PreRender_Algorithm;
             this.ddlColorCache.SelectedItem = Options.Get.PreRender_ColorCache;
@@ -44,15 +47,38 @@ namespace PixelStacker.UI
 
             isInitializationComplete = true;
 
-            btnEnablePreRender.Text = Options.Get.PreRender_IsEnabled ? "Disable Quantizer" : "Enable Quantizer";
+            btnEnablePreRender.Text = Options.Get.PreRender_IsEnabled ? Resources.Text.Action_DisableQuantizer : Resources.Text.Action_EnableQuantizer;
+        }
+
+        public void ApplyLocalization(System.Globalization.CultureInfo locale)
+        {
+            this.Text = Resources.Text.PreRenderOptions_QuantizerSettings;
+            btnEnablePreRender.Text = Resources.Text.Action_EnableQuantizer;
+
+            lblColorCacheSize.Text = Resources.Text.PreRenderOptions_ColorCacheSize;
+            this.tooltip.SetToolTip(this.lblColorCacheSize, Resources.Text.PreRenderOptions_ColorCacheSize_Tooltip);
+            
+            lblAlgorithm.Text = Resources.Text.PreRenderOptions_Algorithm;
+            this.tooltip.SetToolTip(this.lblAlgorithm, Resources.Text.PreRenderOptions_Algorithm_Tooltip);
+
+            lblColorCache.Text = Resources.Text.PreRenderOptions_ColorCache;
+
+            lblColorCount.Text = Resources.Text.PreRenderOptions_ColorCount;
+            this.tooltip.SetToolTip(this.lblColorCount, Resources.Text.PreRenderOptions_ColorCount_Tooltip);
+
+            lblParallel.Text = Resources.Text.PreRenderOptions_Parallel;
+            this.tooltip.SetToolTip(this.lblParallel, Resources.Text.PreRenderOptions_Parallel_Tooltip);
+           
+            lblDither.Text = Resources.Text.PreRenderOptions_Dither;
+            this.tooltip.SetToolTip(this.lblDither, Resources.Text.PreRenderOptions_Dither_Tooltip);
         }
 
         private async void btnEnablePreRender_Click(object sender, EventArgs e)
         {
             Options.Get.PreRender_IsEnabled = !Options.Get.PreRender_IsEnabled;
-            btnEnablePreRender.Text = Options.Get.PreRender_IsEnabled ? "Disable Quantizer" : "Enable Quantizer";
+            btnEnablePreRender.Text = Options.Get.PreRender_IsEnabled ? Resources.Text.Action_DisableQuantizer : Resources.Text.Action_EnableQuantizer;
 
-            TaskManager.SafeReport(0, "Quantizing Image");
+            TaskManager.SafeReport(0, Resources.Text.Progress_QuantizingImage);
             await TaskManager.Get.StartAsync((token) =>
             {
                 mainForm?.PreRenderImage(true, token);
@@ -78,7 +104,7 @@ namespace PixelStacker.UI
             QuantizerEngine.Get.EnforceValidSettings(this);
             if (isInitializationComplete)
             {
-                TaskManager.SafeReport(0, "Quantizing Image");
+                TaskManager.SafeReport(0, Resources.Text.Progress_QuantizingImage);
                 await TaskManager.Get.StartAsync((token) =>
                 {
                     mainForm?.PreRenderImage(true, token);
@@ -93,7 +119,7 @@ namespace PixelStacker.UI
             QuantizerEngine.Get.EnforceValidSettings(this);
             if (isInitializationComplete)
             {
-                TaskManager.SafeReport(0, "Quantizing Image");
+                TaskManager.SafeReport(0, Resources.Text.Progress_QuantizingImage);
                 await TaskManager.Get.StartAsync((token) =>
                 {
                     mainForm?.PreRenderImage(true, token);
@@ -108,7 +134,7 @@ namespace PixelStacker.UI
             QuantizerEngine.Get.EnforceValidSettings(this);
             if (isInitializationComplete)
             {
-                TaskManager.SafeReport(0, "Quantizing Image");
+                TaskManager.SafeReport(0, Resources.Text.Progress_QuantizingImage);
                 await TaskManager.Get.StartAsync((token) =>
                 {
                     mainForm?.PreRenderImage(true, token);
@@ -123,7 +149,7 @@ namespace PixelStacker.UI
             QuantizerEngine.Get.EnforceValidSettings(this);
             if (isInitializationComplete)
             {
-                TaskManager.SafeReport(0, "Quantizing Image");
+                TaskManager.SafeReport(0, Resources.Text.Progress_QuantizingImage);
                 await TaskManager.Get.StartAsync((token) =>
                 {
                     mainForm?.PreRenderImage(true, token);
@@ -138,7 +164,7 @@ namespace PixelStacker.UI
             QuantizerEngine.Get.EnforceValidSettings(this);
             if (isInitializationComplete)
             {
-                TaskManager.SafeReport(0, "Quantizing Image");
+                TaskManager.SafeReport(0, Resources.Text.Progress_QuantizingImage);
                 await TaskManager.Get.StartAsync((token) =>
                 {
                     mainForm?.PreRenderImage(true, token);
@@ -154,7 +180,7 @@ namespace PixelStacker.UI
             
             if (isInitializationComplete)
             {
-                TaskManager.SafeReport(0, "Quantizing Image");
+                TaskManager.SafeReport(0, Resources.Text.Progress_QuantizingImage);
                 await TaskManager.Get.StartAsync((token) =>
                 {
                     Options.Save();

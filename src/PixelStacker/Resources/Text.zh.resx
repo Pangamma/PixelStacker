@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_0" xml:space="preserve">
+    <value>添加“ {0}”</value>
+  </data>
+  <data name="Action_DisableQuantizer" xml:space="preserve">
+    <value>禁用量化器</value>
+  </data>
+  <data name="Action_EnableQuantizer" xml:space="preserve">
+    <value>启用量化器</value>
+  </data>
+  <data name="Action_Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="Action_Remove_0" xml:space="preserve">
+    <value>删除“ {0}”</value>
+  </data>
+  <data name="Action_Save" xml:space="preserve">
+    <value>救</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>你确定吗？</value>
+  </data>
+  <data name="DDL_SelectProfile" xml:space="preserve">
+    <value>选择个人资料</value>
+  </data>
+  <data name="Error_GlassRequiredForMultiLayer" xml:space="preserve">
+    <value>当您选择需要多层时，必须启用至少一种玻璃材料。</value>
+  </data>
+  <data name="Error_NeedMoreRam" xml:space="preserve">
+    <value>内存不足。如果问题仍然存在，请重试或减小图像尺寸。</value>
+  </data>
+  <data name="Error_NonGlassRequired" xml:space="preserve">
+    <value>必须至少选择一种非玻璃材料。</value>
+  </data>
+  <data name="Error_OneMaterialRequired" xml:space="preserve">
+    <value>必须始终启用至少一种材料。</value>
+  </data>
+  <data name="Error_SomethingIsWrong" xml:space="preserve">
+    <value>这里不对劲。</value>
+  </data>
+  <data name="MaterialSelect_ColorProfile" xml:space="preserve">
+    <value>颜色配置文件</value>
+  </data>
+  <data name="MaterialSelect_IsMultiLayer" xml:space="preserve">
+    <value>启用第二层</value>
+  </data>
+  <data name="MaterialSelect_IsMultiLayerRequired" xml:space="preserve">
+    <value>需要第二层</value>
+  </data>
+  <data name="MaterialSelect_IsSideView" xml:space="preserve">
+    <value>侧面图</value>
+  </data>
+  <data name="MaterialSelect_Title" xml:space="preserve">
+    <value>材料选择</value>
+  </data>
+  <data name="OtherOptions_ConfirmFactoryReset" xml:space="preserve">
+    <value>您确定要将所有PixelStacker选项重置为默认设置吗？包括材料，尺寸，视图状态，渲染选项等。</value>
+  </data>
+  <data name="OtherOptions_Title" xml:space="preserve">
+    <value>其他选择</value>
+  </data>
+  <data name="PreRenderOptions_Algorithm" xml:space="preserve">
+    <value>算法</value>
+  </data>
+  <data name="PreRenderOptions_Algorithm_Tooltip" xml:space="preserve">
+    <value>不同的算法使用不同的策略
+将颜色组合在一起。有些使用色桶，
+其他人则使用与附近颜色的位置距离。尝试
+他们所有，并决定哪一个是您的最爱。</value>
+  </data>
+  <data name="PreRenderOptions_ColorCache" xml:space="preserve">
+    <value>颜色缓存</value>
+  </data>
+  <data name="PreRenderOptions_ColorCacheSize" xml:space="preserve">
+    <value>颜色缓存大小</value>
+  </data>
+  <data name="PreRenderOptions_ColorCacheSize_Tooltip" xml:space="preserve">
+    <value>较小的值更快但准确性较低。
+较高的值较慢，但更准确。</value>
+  </data>
+  <data name="PreRenderOptions_ColorCount" xml:space="preserve">
+    <value>色数</value>
+  </data>
+  <data name="PreRenderOptions_ColorCount_Tooltip" xml:space="preserve">
+    <value>最大颜色数。</value>
+  </data>
+  <data name="PreRenderOptions_Dither" xml:space="preserve">
+    <value>颤动</value>
+  </data>
+  <data name="PreRenderOptions_Dither_Tooltip" xml:space="preserve">
+    <value>有些人喜欢抖动。
+我不。我从来没有做。我恨
+抖动。但是，嘿-你做到了。</value>
+  </data>
+  <data name="PreRenderOptions_Parallel" xml:space="preserve">
+    <value>平行线</value>
+  </data>
+  <data name="PreRenderOptions_Parallel_Tooltip" xml:space="preserve">
+    <value>通过采取以下措施来加速量化过程
+多核CPU的优势。
+
+较低的值=更稳定
+更高的值=更快
+超高值=可能出现故障</value>
+  </data>
+  <data name="PreRenderOptions_QuantizerSettings" xml:space="preserve">
+    <value>量化器设置</value>
+  </data>
+  <data name="Progress_CompilingColorMap" xml:space="preserve">
+    <value>编译颜色图。</value>
+  </data>
+  <data name="Progress_Finished" xml:space="preserve">
+    <value>完成的。</value>
+  </data>
+  <data name="Progress_PreparingCanvasForTextures" xml:space="preserve">
+    <value>准备绘画的画布。</value>
+  </data>
+  <data name="Progress_QuantizingImage" xml:space="preserve">
+    <value>量化影像</value>
+  </data>
+</root>

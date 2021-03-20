@@ -19,7 +19,7 @@ using System.Windows.Forms;
 
 namespace PixelStacker
 {
-    public partial class ErrorSender : Form
+    public partial class ErrorSender : Form, ILocalized
     {
         public Exception CurrentException { get; set; } = null;
 
@@ -66,6 +66,15 @@ namespace PixelStacker
         {
             ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/Pangamma/PixelStacker/issues");  // Adf.ly
             Process.Start(sInfo);
+        }
+
+        public void ApplyLocalization(System.Globalization.CultureInfo locale)
+        {
+            ComponentResourceManager resources = new ComponentResourceManager(this.GetType());
+            foreach (Control c in this.Controls)
+            {
+                resources.ApplyResources(c, c.Name, locale);
+            }
         }
     }
 }

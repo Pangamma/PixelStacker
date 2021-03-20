@@ -33,7 +33,7 @@ namespace PixelStacker.Logic.Collections
 
 
         public BestMatchCacheMap BestMatchCache { get; private set; } = new BestMatchCacheMap().Load();
-        private KDColorTree colorPalette = new KDColorTree();
+        private IColorMatchProvider colorPalette = new KDColorTree();
         public Dictionary<Color, Material[]> ColorToMaterialMap { get; private set; } = new Dictionary<Color, Material[]>();
 
         /// <summary>
@@ -264,9 +264,9 @@ namespace PixelStacker.Logic.Collections
 
         public List<Color> FindBestMatches(Color toMatch, int top)
         {
-            var rt = this.colorPalette.Nearest(new double[] { toMatch.R, toMatch.G, toMatch.B }, top + 30)
-                .OrderBy(x => x.Node.Value.GetColorDistance(toMatch))
-                .Select(x => x.Node.Value)
+            var rt = this.colorPalette.Nearest(toMatch, top + 30)
+                .OrderBy(x => x.GetColorDistance(toMatch))
+                .Select(x => x)
                 .Take(top)
                 .ToList();
 

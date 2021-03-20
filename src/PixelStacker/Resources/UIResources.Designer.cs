@@ -103,6 +103,86 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap country_cn {
+            get {
+                object obj = ResourceManager.GetObject("country_cn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap country_de {
+            get {
+                object obj = ResourceManager.GetObject("country_de", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap country_dk {
+            get {
+                object obj = ResourceManager.GetObject("country_dk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap country_fr {
+            get {
+                object obj = ResourceManager.GetObject("country_fr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap country_jp {
+            get {
+                object obj = ResourceManager.GetObject("country_jp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap country_kr {
+            get {
+                object obj = ResourceManager.GetObject("country_kr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap country_mx {
+            get {
+                object obj = ResourceManager.GetObject("country_mx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap country_us {
+            get {
+                object obj = ResourceManager.GetObject("country_us", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cursor_handclosed {
             get {
                 object obj = ResourceManager.GetObject("cursor_handclosed", resourceCulture);
@@ -287,6 +367,16 @@ namespace PixelStacker.Resources {
             get {
                 object obj = ResourceManager.GetObject("weird_intro", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon wool {
+            get {
+                object obj = ResourceManager.GetObject("wool", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

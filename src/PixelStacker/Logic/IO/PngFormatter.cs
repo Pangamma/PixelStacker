@@ -416,6 +416,7 @@ namespace PixelStacker.Logic
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex);
                     blueprint = null;
                 }
             }

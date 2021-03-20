@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -44,6 +45,19 @@ namespace PixelStacker.Logic.Extensions
             if (token == CancellationToken.None) return false;
             if (!token.CanBeCanceled) return false;
             return token.IsCancellationRequested;
+        }
+
+
+        public static IEnumerable<ToolStripItem> Flatten(this ToolStripItemCollection items)
+        {
+            foreach (ToolStripItem item in items)
+            {
+                if (item is ToolStripDropDownItem)
+                    foreach (ToolStripItem subitem in
+                        Flatten(((ToolStripDropDownItem) item).DropDownItems))
+                        yield return subitem;
+                yield return item;
+            }
         }
     }
 }

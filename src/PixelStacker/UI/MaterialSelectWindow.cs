@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ using System.Windows.Forms;
 namespace PixelStacker.UI
 {
     // TODO: Fix weird display when going to narrow viewing windows
-    public partial class MaterialSelectWindow : Form
+    public partial class MaterialSelectWindow : Form, ILocalized
     {
         private Regex regexMatName = new Regex(@"minecraft:([a-zA-Z_09]+)(.*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private OrderedDictionary<string, MaterialSelectTile> materialTiles = new OrderedDictionary<string, MaterialSelectTile>();
@@ -27,6 +28,7 @@ namespace PixelStacker.UI
         public MaterialSelectWindow()
         {
             InitializeComponent();
+            ApplyLocalization(System.Threading.Thread.CurrentThread.CurrentUICulture);
             this.flowLayout.OnCommandKey = (Message msg, Keys keyData) => this.ProcessCmdKeyFromTileGrid(msg, keyData);
 
             bool isv = Options.Get.IsSideView;
@@ -68,7 +70,7 @@ namespace PixelStacker.UI
                 var fis = dirColorProfiles.GetFiles();
                 this.ddlColorProfile.Items.Clear();
 
-                this.ddlColorProfile.Text = "Select profile";
+                this.ddlColorProfile.Text = Resources.Text.DDL_SelectProfile;
                 this.ddlColorProfile.Items.AddRange(fis.Select(x => x.Name).ToArray());
             }
 
@@ -156,8 +158,8 @@ namespace PixelStacker.UI
                 if (!Materials.List.Any(x => x.IsEnabled && x.PixelStackerID != "AIR" && x.Category == "Glass"))
                 {
                     MessageBox.Show(
-                        text: "At least ONE glass material must be enabled when you choose to require multiple layers.",
-                        caption: "Something is wrong here.",
+                        text: Resources.Text.Error_GlassRequiredForMultiLayer,
+                        caption: Resources.Text.Error_SomethingIsWrong,
                         buttons: MessageBoxButtons.OK,
                         icon: MessageBoxIcon.Error
                         );
@@ -169,8 +171,8 @@ namespace PixelStacker.UI
             if (!Materials.List.Any(x => x.IsEnabled && x.PixelStackerID != "AIR"))
             {
                 MessageBox.Show(
-                    text: "At least ONE material must be enabled at all times.",
-                    caption: "Something is wrong here.",
+                    text: Resources.Text.Error_OneMaterialRequired,
+                    caption: Resources.Text.Error_SomethingIsWrong,
                     buttons: MessageBoxButtons.OK,
                     icon: MessageBoxIcon.Error
                     );
@@ -181,8 +183,8 @@ namespace PixelStacker.UI
             if (!Materials.List.Any(x => x.IsEnabled && x.Category != "Glass" && x.PixelStackerID != "AIR"))
             {
                 MessageBox.Show(
-                    text: "At least one non glass material must be selected.",
-                    caption: "Something is wrong here.",
+                    text: Resources.Text.Error_NonGlassRequired,
+                    caption: Resources.Text.Error_SomethingIsWrong,
                     buttons: MessageBoxButtons.OK,
                     icon: MessageBoxIcon.Error
                     );
@@ -503,6 +505,17 @@ namespace PixelStacker.UI
                     this.ddlColorProfile.SelectedItem = new FileInfo(this.dlgSave.FileName).Name;
                 }
             }
+        }
+
+        public void ApplyLocalization(CultureInfo locale)
+        {
+            this.Text = Resources.Text.MaterialSelect_Title;
+            lblColorProfile.Text = Resources.Text.MaterialSelect_ColorProfile;
+            lblFilter.Text = Resources.Text.Action_Filter;
+            btnEditColorProfiles.Text = Resources.Text.Action_Save;
+            cbxIsMultiLayer.Text = Resources.Text.MaterialSelect_IsMultiLayer;
+            cbxIsSideView.Text = Resources.Text.MaterialSelect_IsSideView;
+            cbxRequire2ndLayer.Text = Resources.Text.MaterialSelect_IsMultiLayerRequired;
         }
     }
 }

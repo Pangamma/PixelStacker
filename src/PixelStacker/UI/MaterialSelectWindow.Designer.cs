@@ -28,22 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.Icon = global::PixelStacker.Resources.UIResources.wool;
             this.dlgSave = new System.Windows.Forms.SaveFileDialog();
-            this.flowVertical = new PixelStacker.UI.CustomFlowLayoutPanel();
+            this.flowVertical = new PixelStacker.Components.CustomFlowLayoutPanel();
             this.flowRow1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panelFilter = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblFilter = new System.Windows.Forms.Label();
             this.tbxMaterialFilter = new System.Windows.Forms.ComboBox();
             this.panelColorProfile = new System.Windows.Forms.Panel();
             this.btnEditColorProfiles = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblColorProfile = new System.Windows.Forms.Label();
             this.ddlColorProfile = new System.Windows.Forms.ComboBox();
-            this.customFlowLayoutPanel1 = new PixelStacker.UI.CustomFlowLayoutPanel();
+            this.customFlowLayoutPanel1 = new PixelStacker.Components.CustomFlowLayoutPanel();
             this.cbxIsMultiLayer = new System.Windows.Forms.CheckBox();
+            this.cbxRequire2ndLayer = new System.Windows.Forms.CheckBox();
             this.cbxIsSideView = new System.Windows.Forms.CheckBox();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.flowLayout = new PixelStacker.UI.CustomFlowLayoutPanel();
-            this.cbxRequire2ndLayer = new System.Windows.Forms.CheckBox();
+            this.flowLayout = new PixelStacker.Components.CustomFlowLayoutPanel();
             this.flowVertical.SuspendLayout();
             this.flowRow1.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -87,7 +88,7 @@
             // panelFilter
             // 
             this.panelFilter.BackColor = System.Drawing.SystemColors.Control;
-            this.panelFilter.Controls.Add(this.label1);
+            this.panelFilter.Controls.Add(this.lblFilter);
             this.panelFilter.Controls.Add(this.tbxMaterialFilter);
             this.panelFilter.Location = new System.Drawing.Point(3, 3);
             this.panelFilter.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
@@ -96,16 +97,16 @@
             this.panelFilter.Size = new System.Drawing.Size(290, 33);
             this.panelFilter.TabIndex = 0;
             // 
-            // label1
+            // lblFilter
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.Location = new System.Drawing.Point(8, -1);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 33);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Filter";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblFilter.Location = new System.Drawing.Point(8, -1);
+            this.lblFilter.Name = "lblFilter";
+            this.lblFilter.Size = new System.Drawing.Size(39, 33);
+            this.lblFilter.TabIndex = 1;
+            this.lblFilter.Text = "Filter";
+            this.lblFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbxMaterialFilter
             // 
@@ -122,7 +123,7 @@
             // 
             this.panelColorProfile.BackColor = System.Drawing.SystemColors.Control;
             this.panelColorProfile.Controls.Add(this.btnEditColorProfiles);
-            this.panelColorProfile.Controls.Add(this.label2);
+            this.panelColorProfile.Controls.Add(this.lblColorProfile);
             this.panelColorProfile.Controls.Add(this.ddlColorProfile);
             this.panelColorProfile.Location = new System.Drawing.Point(316, 3);
             this.panelColorProfile.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
@@ -141,13 +142,13 @@
             this.btnEditColorProfiles.UseVisualStyleBackColor = true;
             this.btnEditColorProfiles.Click += new System.EventHandler(this.btnEditColorProfiles_Click);
             // 
-            // label2
+            // lblColorProfile
             // 
-            this.label2.Location = new System.Drawing.Point(3, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 24);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Color Profile";
+            this.lblColorProfile.Location = new System.Drawing.Point(3, 6);
+            this.lblColorProfile.Name = "lblColorProfile";
+            this.lblColorProfile.Size = new System.Drawing.Size(85, 24);
+            this.lblColorProfile.TabIndex = 3;
+            this.lblColorProfile.Text = "Color Profile";
             // 
             // ddlColorProfile
             // 
@@ -190,6 +191,17 @@
             this.cbxIsMultiLayer.UseVisualStyleBackColor = true;
             this.cbxIsMultiLayer.CheckedChanged += new System.EventHandler(this.cbxIsMultiLayer_CheckedChanged);
             // 
+            // cbxRequire2ndLayer
+            // 
+            this.cbxRequire2ndLayer.AutoSize = true;
+            this.cbxRequire2ndLayer.Location = new System.Drawing.Point(146, 3);
+            this.cbxRequire2ndLayer.Name = "cbxRequire2ndLayer";
+            this.cbxRequire2ndLayer.Size = new System.Drawing.Size(143, 21);
+            this.cbxRequire2ndLayer.TabIndex = 6;
+            this.cbxRequire2ndLayer.Text = "Require 2nd layer";
+            this.cbxRequire2ndLayer.UseVisualStyleBackColor = true;
+            this.cbxRequire2ndLayer.CheckedChanged += new System.EventHandler(this.cbxRequire2ndLayer_CheckedChanged);
+            // 
             // cbxIsSideView
             // 
             this.cbxIsSideView.AutoSize = true;
@@ -223,21 +235,11 @@
             this.flowLayout.Size = new System.Drawing.Size(860, 380);
             this.flowLayout.TabIndex = 2;
             // 
-            // cbxRequire2ndLayer
-            // 
-            this.cbxRequire2ndLayer.AutoSize = true;
-            this.cbxRequire2ndLayer.Location = new System.Drawing.Point(146, 3);
-            this.cbxRequire2ndLayer.Name = "cbxRequire2ndLayer";
-            this.cbxRequire2ndLayer.Size = new System.Drawing.Size(143, 21);
-            this.cbxRequire2ndLayer.TabIndex = 6;
-            this.cbxRequire2ndLayer.Text = "Require 2nd layer";
-            this.cbxRequire2ndLayer.UseVisualStyleBackColor = true;
-            this.cbxRequire2ndLayer.CheckedChanged += new System.EventHandler(this.cbxRequire2ndLayer_CheckedChanged);
-            // 
             // MaterialSelectWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(864, 477);
             this.Controls.Add(this.flowVertical);
             this.Controls.Add(this.flowLayout);
@@ -261,19 +263,19 @@
         #endregion
 
         private System.Windows.Forms.ComboBox tbxMaterialFilter;
-        private System.Windows.Forms.Label label1;
-        private CustomFlowLayoutPanel flowLayout;
+        private System.Windows.Forms.Label lblFilter;
+        private PixelStacker.Components.CustomFlowLayoutPanel flowLayout;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.CheckBox cbxIsMultiLayer;
         private System.Windows.Forms.CheckBox cbxIsSideView;
         private System.Windows.Forms.Button btnEditColorProfiles;
         private System.Windows.Forms.ComboBox ddlColorProfile;
-        private System.Windows.Forms.Label label2;
-        private CustomFlowLayoutPanel flowVertical;
+        private System.Windows.Forms.Label lblColorProfile;
+        private PixelStacker.Components.CustomFlowLayoutPanel flowVertical;
         private System.Windows.Forms.FlowLayoutPanel flowRow1;
         private System.Windows.Forms.Panel panelFilter;
         private System.Windows.Forms.Panel panelColorProfile;
-        private CustomFlowLayoutPanel customFlowLayoutPanel1;
+        private PixelStacker.Components.CustomFlowLayoutPanel customFlowLayoutPanel1;
         private System.Windows.Forms.SaveFileDialog dlgSave;
         private System.Windows.Forms.CheckBox cbxRequire2ndLayer;
     }

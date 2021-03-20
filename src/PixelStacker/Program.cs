@@ -1,11 +1,12 @@
-﻿using PixelStacker.Logic;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using PixelStacker.Logic;
+using PixelStacker.UI;
 
 namespace PixelStacker
 {
@@ -28,8 +29,7 @@ namespace PixelStacker
                 Application.ThreadException += MainForm.OnThreadException;
                 AppDomain.CurrentDomain.UnhandledException += MainForm.OnUnhandledException;
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-
-                SetLocaleByTextureSize(Constants.TextureSize);
+                //SetLocaleByTextureSize(Constants.TextureSize);
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -138,6 +138,7 @@ namespace PixelStacker
             }
         }
 
+        [Obsolete("We now have ACTUAL localization, so this method's purpose will need to be achieved some other way.")]
         /// <summary>
         /// I am not aware of any way to select RESX files based on parameters other than cultureInfo, so
         /// for now I will have to use this method to select the textures set.
