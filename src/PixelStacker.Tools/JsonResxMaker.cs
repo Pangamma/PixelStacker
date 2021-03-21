@@ -36,6 +36,19 @@ namespace PixelStacker.Tools
 
         private void RipResxIntoJson(string filePath)
         {
+            #region SWAP designer code
+            {
+                var fileToEdit = filePath.Replace(".resx", ".Designer.cs");
+                var fileToEditData = File.ReadAllText(fileToEdit);
+                fileToEditData = fileToEditData.Replace(
+                    "global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(\"PixelStacker.Resources.Text\", typeof(Text).Assembly);",
+                    "global::System.Resources.ResourceManager temp = new global::PixelStacker.Resources.Localization.ResxHelper();""
+                    );
+                File.WriteAllText(fileToEdit, fileToEditData);
+            }
+            #endregion
+
+
             var keys = ReadResxIntoDictionary(filePath);
             string enJsonFilePath = RootDir + "\\PixelStacker\\Resources\\Localization\\en.json";
             var parsedEnglishKeys = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(enJsonFilePath)) ?? new Dictionary<string, string>(); ;
