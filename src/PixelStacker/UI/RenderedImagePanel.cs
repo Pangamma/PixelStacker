@@ -57,12 +57,11 @@ namespace PixelStacker.UI
 
         public void ApplyLocalization(System.Globalization.CultureInfo locale)
         {
-            ComponentResourceManager resources = new ComponentResourceManager(this.GetType());
-            var allMenuItems = this.contextMenu.Items.Flatten().ToList();
-            foreach (var c in allMenuItems)
-            {
-                resources.ApplyResources(c, c.Name, locale);
-            }
+            this.averageColorCodeToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_AvgColorCode;
+            this.removeAllToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_RemoveAll;
+            this.addAllToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_AddAll;
+            this.filterToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_MaterialFilter;
+            this.replaceColorToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_ReplaceColor;
         }
 
         public async Task<bool> ForceReRender()

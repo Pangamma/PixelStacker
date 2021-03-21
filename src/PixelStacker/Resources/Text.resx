@@ -117,6 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutForm_Description" xml:space="preserve">
+    <value>Hi there!
+
+Hope you are enjoying this program so far. I made this program as a proof of concept
+ for creating high quality pixelart. This system provides a few viewing options to help
+you actually build the art in-game. You can also save to PNG or Schematic format.
+Most importantly. you can use the double layer mode which combines stained glass
+panels with newer Minecraft blocks to create an even larger color palett.
+
+Below this are a few links you may find useful.  Check them out if you get a
+chance. 
+
+Taylor Love
+Aka Pangamma</value>
+  </data>
+  <data name="AboutForm_DonateText" xml:space="preserve">
+    <value>Buy me a beer!</value>
+  </data>
+  <data name="AboutForm_DownloadText" xml:space="preserve">
+    <value>Download Location</value>
+  </data>
+  <data name="AboutForm_FontMakerText" xml:space="preserve">
+    <value>Font Maker</value>
+  </data>
+  <data name="AboutForm_LinkedOInText" xml:space="preserve">
+    <value>Taylor's LinkedIn</value>
+  </data>
+  <data name="AboutForm_MyWebsiteText" xml:space="preserve">
+    <value>My website</value>
+  </data>
+  <data name="AboutForm_Title" xml:space="preserve">
+    <value>About Pangamma's PixelStacker</value>
+  </data>
+  <data name="AboutForm_WoolcityProjectText" xml:space="preserve">
+    <value>Visit the Wool City Project</value>
+  </data>
   <data name="Action_Add_0" xml:space="preserve">
     <value>Add '{0}'</value>
   </data>
@@ -129,17 +165,61 @@
   <data name="Action_Filter" xml:space="preserve">
     <value>Filter</value>
   </data>
+  <data name="Action_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Action_Redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
   <data name="Action_Remove_0" xml:space="preserve">
     <value>Remove '{0}'</value>
   </data>
   <data name="Action_Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Action_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Action_View" xml:space="preserve">
+    <value>View</value>
+  </data>
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
   <data name="DDL_SelectProfile" xml:space="preserve">
     <value>Select profile</value>
+  </data>
+  <data name="ErrorSender_ErrorOccurred" xml:space="preserve">
+    <value>An error has occurred.</value>
+  </data>
+  <data name="ErrorSender_Github" xml:space="preserve">
+    <value>Github issue.</value>
+  </data>
+  <data name="ErrorSender_IncludeImage" xml:space="preserve">
+    <value>Are you willing to upload your current image for analysis? (Optional)</value>
+  </data>
+  <data name="ErrorSender_No" xml:space="preserve">
+    <value>No, skip the report for now.</value>
+  </data>
+  <data name="ErrorSender_SavedOptions" xml:space="preserve">
+    <value>Upload current saved option settings. (Required)</value>
+  </data>
+  <data name="ErrorSender_SendMeSomeInfo" xml:space="preserve">
+    <value>Are you willing to send me some information to help me fix this error?
+If yes, the following info will be zipped. Then you can send the info to 
+me as a </value>
+  </data>
+  <data name="ErrorSender_StackTrace" xml:space="preserve">
+    <value>Upload stacktrace + error messages. (Required)</value>
+  </data>
+  <data name="ErrorSender_Title" xml:space="preserve">
+    <value>Error Reporter</value>
+  </data>
+  <data name="ErrorSender_Version" xml:space="preserve">
+    <value>Current PixelStacker version (Required)</value>
+  </data>
+  <data name="ErrorSender_Yes" xml:space="preserve">
+    <value>Yes! Zip some info so the issue can be fixed.</value>
   </data>
   <data name="Error_GlassRequiredForMultiLayer" xml:space="preserve">
     <value>At least one glass material must be enabled when you choose to require multiple layers.</value>
@@ -156,6 +236,129 @@
   <data name="Error_SomethingIsWrong" xml:space="preserve">
     <value>Something is wrong here.</value>
   </data>
+  <data name="MainForm_Open_Title" xml:space="preserve">
+    <value>Open File</value>
+  </data>
+  <data name="MainForm_SaveColorPalette_Title" xml:space="preserve">
+    <value>Save Color Palette</value>
+  </data>
+  <data name="MainForm_Save_Title" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Pangamma's PixelStacker</value>
+  </data>
+  <data name="MainMenu_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MainMenu_CP_AllColors_Compact" xml:space="preserve">
+    <value>All colors (compact)</value>
+  </data>
+  <data name="MainMenu_CP_AllColors_Detailed" xml:space="preserve">
+    <value>All colors (detailed)</value>
+  </data>
+  <data name="MainMenu_CP_Brick" xml:space="preserve">
+    <value>Brick</value>
+  </data>
+  <data name="MainMenu_CP_Graph" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="MainMenu_CP_Square" xml:space="preserve">
+    <value>Square</value>
+  </data>
+  <data name="MainMenu_DownOneLayer" xml:space="preserve">
+    <value>Down 1 Layer</value>
+  </data>
+  <data name="MainMenu_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="MainMenu_ExportSettings" xml:space="preserve">
+    <value>Export Settings </value>
+  </data>
+  <data name="MainMenu_File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="MainMenu_Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="MainMenu_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="MainMenu_Lang_Chinese" xml:space="preserve">
+    <value>Chinese (Simplified)</value>
+  </data>
+  <data name="MainMenu_Lang_Danish" xml:space="preserve">
+    <value>Danish</value>
+  </data>
+  <data name="MainMenu_Lang_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="MainMenu_Lang_French" xml:space="preserve">
+    <value>French</value>
+  </data>
+  <data name="MainMenu_Lang_German" xml:space="preserve">
+    <value>German</value>
+  </data>
+  <data name="MainMenu_Lang_Japanese" xml:space="preserve">
+    <value>Japanese</value>
+  </data>
+  <data name="MainMenu_Lang_Korean" xml:space="preserve">
+    <value>Korean</value>
+  </data>
+  <data name="MainMenu_Lang_Spanish" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
+  <data name="MainMenu_LayerFiltering" xml:space="preserve">
+    <value>Layer Filtering</value>
+  </data>
+  <data name="MainMenu_MaterialOptions" xml:space="preserve">
+    <value>Material Options</value>
+  </data>
+  <data name="MainMenu_OtherOptions" xml:space="preserve">
+    <value>Other Options</value>
+  </data>
+  <data name="MainMenu_PreRender" xml:space="preserve">
+    <value>Pre-Render</value>
+  </data>
+  <data name="MainMenu_QuantizerOptions" xml:space="preserve">
+    <value>Quantizer Options</value>
+  </data>
+  <data name="MainMenu_Render" xml:space="preserve">
+    <value>Render</value>
+  </data>
+  <data name="MainMenu_ReOpen" xml:space="preserve">
+    <value>Re-Open</value>
+  </data>
+  <data name="MainMenu_SaveColorPalette" xml:space="preserve">
+    <value>Save color palette</value>
+  </data>
+  <data name="MainMenu_SaveSettings" xml:space="preserve">
+    <value>Save Settings</value>
+  </data>
+  <data name="MainMenu_ToggleBorder" xml:space="preserve">
+    <value>Toggle Border</value>
+  </data>
+  <data name="MainMenu_ToggleGrid" xml:space="preserve">
+    <value>Toggle Grid</value>
+  </data>
+  <data name="MainMenu_ToggleHideTexture" xml:space="preserve">
+    <value>Toggle Hide Texture</value>
+  </data>
+  <data name="MainMenu_ToggleLayerFilter" xml:space="preserve">
+    <value>Toggle Layer Filter</value>
+  </data>
+  <data name="MainMenu_TogglePalette" xml:space="preserve">
+    <value>Toggle Palette</value>
+  </data>
+  <data name="MainMenu_ToggleProgress" xml:space="preserve">
+    <value>Toggle Progress</value>
+  </data>
+  <data name="MainMenu_Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="MainMenu_UpOneLayer" xml:space="preserve">
+    <value>Up 1 Layer</value>
+  </data>
   <data name="MaterialSelect_ColorProfile" xml:space="preserve">
     <value>Color Profile</value>
   </data>
@@ -171,8 +374,32 @@
   <data name="MaterialSelect_Title" xml:space="preserve">
     <value>Material Selection</value>
   </data>
+  <data name="OtherOptions_btnFactoryReset" xml:space="preserve">
+    <value>Factory Reset</value>
+  </data>
+  <data name="OtherOptions_cbxIsFrugalWithMaterials" xml:space="preserve">
+    <value>Add extra depth shadows to renders</value>
+  </data>
+  <data name="OtherOptions_cbxIsSideView" xml:space="preserve">
+    <value>Side View? (Affects output orientation)</value>
+  </data>
+  <data name="OtherOptions_cbxSkipShadowRendering" xml:space="preserve">
+    <value>Skip shadow rendering</value>
+  </data>
   <data name="OtherOptions_ConfirmFactoryReset" xml:space="preserve">
     <value>Are you sure you want to reset all PixelStacker options back to default settings? Includes materials, sizes, view states, rendering options, etc.</value>
+  </data>
+  <data name="OtherOptions_GridColor" xml:space="preserve">
+    <value>Grid Color</value>
+  </data>
+  <data name="OtherOptions_GridSize" xml:space="preserve">
+    <value>Grid Size</value>
+  </data>
+  <data name="OtherOptions_MaxHeight" xml:space="preserve">
+    <value>Max Height</value>
+  </data>
+  <data name="OtherOptions_MaxWidth" xml:space="preserve">
+    <value>Max Width</value>
   </data>
   <data name="OtherOptions_Title" xml:space="preserve">
     <value>Other Options</value>
@@ -235,5 +462,20 @@ Super high values = possible glitches</value>
   </data>
   <data name="Progress_QuantizingImage" xml:space="preserve">
     <value>Quantizing Image</value>
+  </data>
+  <data name="RenderedImagePanel_AddAll" xml:space="preserve">
+    <value>Add all</value>
+  </data>
+  <data name="RenderedImagePanel_AvgColorCode" xml:space="preserve">
+    <value>Average Color Code</value>
+  </data>
+  <data name="RenderedImagePanel_MaterialFilter" xml:space="preserve">
+    <value>Material Filter</value>
+  </data>
+  <data name="RenderedImagePanel_RemoveAll" xml:space="preserve">
+    <value>Remove all</value>
+  </data>
+  <data name="RenderedImagePanel_ReplaceColor" xml:space="preserve">
+    <value>Replace Color (Requires Re-Render)</value>
   </data>
 </root>

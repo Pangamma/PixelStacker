@@ -117,52 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="replaceColorToolStripMenuItem.Text" xml:space="preserve">
-    <value>Remplacer la couleur (nécessite un nouveau rendu)</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="da" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>da.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnAddMat0_Filter.Text" xml:space="preserve">
-    <value>Ajouter du matériau 1</value>
+  <data name="de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>de.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnAddMat1_Filter.Text" xml:space="preserve">
-    <value>Ajouter du matériau 2</value>
+  <data name="en" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>en.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="addAllToolStripMenuItem.Text" xml:space="preserve">
-    <value>Tout ajouter</value>
+  <data name="es" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>es.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="removeAllToolStripMenuItem.Text" xml:space="preserve">
-    <value>Enlever tout</value>
+  <data name="fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>fr.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnRemoveMat0_Filter.Text" xml:space="preserve">
-    <value>Retirer le matériau 1</value>
+  <data name="ja" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ja.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnRemoveMat1_Filter.Text" xml:space="preserve">
-    <value>Retirer le matériau 2</value>
+  <data name="ko" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ko.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="filterToolStripMenuItem.Text" xml:space="preserve">
-    <value>Filtre matériel</value>
-  </data>
-  <data name="ts_xyz.Text" xml:space="preserve">
-    <value>X:</value>
-  </data>
-  <data name="ts_MaterialName.Text" xml:space="preserve">
-    <value>Y:</value>
-  </data>
-  <data name="averageColorCodeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Code couleur moyen</value>
-  </data>
-  <data name="rGBAToolStripMenuItem.Text" xml:space="preserve">
-    <value>RGBA</value>
-  </data>
-  <data name="replaceMenuItems_1.Text" xml:space="preserve">
-    <value>1 à 10</value>
-  </data>
-  <data name="replaceMenuItems_2.Text" xml:space="preserve">
-    <value>11 - 20</value>
-  </data>
-  <data name="replaceMenuItems_3.Text" xml:space="preserve">
-    <value>21 - 30</value>
-  </data>
-  <data name="replaceMenuItems_4.Text" xml:space="preserve">
-    <value>31 - 40</value>
+  <data name="zh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>zh.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

@@ -257,6 +257,8 @@
     <Compile Include="PreRender\Quantizers\XiaolinWu\WuColorQuantizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Localization\ResxContainer.Designer.cs" />
+    <Compile Include="Resources\Localization\ResxHelper.cs" />
     <Compile Include="Resources\Text.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -361,27 +363,7 @@
     <Compile Include="UI\TextPrompt.Designer.cs">
       <DependentUpon>TextPrompt.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Resources\Text.da.resx">
-      <DependentUpon>Text.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Text.de.resx">
-      <DependentUpon>Text.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Text.es.resx">
-      <DependentUpon>Text.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Text.fr.resx">
-      <DependentUpon>Text.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Text.ja.resx">
-      <DependentUpon>Text.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Text.ko.resx">
-      <DependentUpon>Text.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Text.zh.resx">
-      <DependentUpon>Text.resx</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\ResxContainer.resx" />
     <EmbeddedResource Include="Resources\Text.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Text.Designer.cs</LastGenOutput>
@@ -404,81 +386,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UIResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\AboutForm.da.resx">
-      <DependentUpon>AboutForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AboutForm.de.resx">
-      <DependentUpon>AboutForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AboutForm.es.resx">
-      <DependentUpon>AboutForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AboutForm.fr.resx">
-      <DependentUpon>AboutForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AboutForm.ja.resx">
-      <DependentUpon>AboutForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AboutForm.ko.resx">
-      <DependentUpon>AboutForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AboutForm.zh.resx">
-      <DependentUpon>AboutForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ErrorSender.da.resx">
-      <DependentUpon>ErrorSender.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ErrorSender.de.resx">
-      <DependentUpon>ErrorSender.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ErrorSender.es.resx">
-      <DependentUpon>ErrorSender.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ErrorSender.fr.resx">
-      <DependentUpon>ErrorSender.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ErrorSender.ja.resx">
-      <DependentUpon>ErrorSender.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ErrorSender.ko.resx">
-      <DependentUpon>ErrorSender.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\ErrorSender.resx">
       <DependentUpon>ErrorSender.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ErrorSender.zh.resx">
-      <DependentUpon>ErrorSender.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ImagePanel.resx">
       <DependentUpon>ImagePanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.da.resx">
-      <DependentUpon>MainForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.de.resx">
-      <DependentUpon>MainForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.es.resx">
-      <DependentUpon>MainForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.fr.resx">
-      <DependentUpon>MainForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.ja.resx">
-      <DependentUpon>MainForm.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.ko.resx">
-      <DependentUpon>MainForm.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.zh.resx">
-      <DependentUpon>MainForm.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MaterialSelectTile.resx">
       <DependentUpon>MaterialSelectTile.cs</DependentUpon>
@@ -486,56 +402,8 @@
     <EmbeddedResource Include="UI\MaterialSelectWindow.resx">
       <DependentUpon>MaterialSelectWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\OtherOptionsWindow.da.resx">
-      <DependentUpon>OtherOptionsWindow.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\OtherOptionsWindow.de.resx">
-      <DependentUpon>OtherOptionsWindow.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\OtherOptionsWindow.es.resx">
-      <DependentUpon>OtherOptionsWindow.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\OtherOptionsWindow.fr.resx">
-      <DependentUpon>OtherOptionsWindow.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\OtherOptionsWindow.ja.resx">
-      <DependentUpon>OtherOptionsWindow.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\OtherOptionsWindow.ko.resx">
-      <DependentUpon>OtherOptionsWindow.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\OtherOptionsWindow.resx">
-      <DependentUpon>OtherOptionsWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\OtherOptionsWindow.zh.resx">
-      <DependentUpon>OtherOptionsWindow.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\PreRenderOptionsForm.resx">
       <DependentUpon>PreRenderOptionsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RenderedImagePanel.da.resx">
-      <DependentUpon>RenderedImagePanel.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RenderedImagePanel.de.resx">
-      <DependentUpon>RenderedImagePanel.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RenderedImagePanel.es.resx">
-      <DependentUpon>RenderedImagePanel.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RenderedImagePanel.fr.resx">
-      <DependentUpon>RenderedImagePanel.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RenderedImagePanel.ja.resx">
-      <DependentUpon>RenderedImagePanel.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RenderedImagePanel.ko.resx">
-      <DependentUpon>RenderedImagePanel.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RenderedImagePanel.resx">
-      <DependentUpon>RenderedImagePanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RenderedImagePanel.zh.resx">
-      <DependentUpon>RenderedImagePanel.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TextPrompt.resx">
       <DependentUpon>TextPrompt.cs</DependentUpon>
@@ -552,6 +420,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\Localization\da.json"><DependentUpon>en.json</DependentUpon></None>
+    <None Include="Resources\Localization\de.json" ><DependentUpon>en.json</DependentUpon></None>
+    <None Include="Resources\Localization\en.json" />
+    <None Include="Resources\Localization\es.json" ><DependentUpon>en.json</DependentUpon></None>
+    <None Include="Resources\Localization\fr.json" ><DependentUpon>en.json</DependentUpon></None>
+    <None Include="Resources\Localization\ja.json" ><DependentUpon>en.json</DependentUpon></None>
+    <None Include="Resources\Localization\ko.json" ><DependentUpon>en.json</DependentUpon></None>
+    <None Include="Resources\Localization\zh.json" ><DependentUpon>en.json</DependentUpon></None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

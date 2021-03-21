@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RenderedImagePanel));
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.replaceColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceMenuItems_1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +60,7 @@
             this.averageColorCodeToolStripMenuItem,
             this.rGBAToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            resources.ApplyResources(this.contextMenu, "contextMenu");
+            this.contextMenu.Size = new System.Drawing.Size(317, 148);
             // 
             // replaceColorToolStripMenuItem
             // 
@@ -70,29 +69,35 @@
             this.replaceMenuItems_2,
             this.replaceMenuItems_3,
             this.replaceMenuItems_4});
-            resources.ApplyResources(this.replaceColorToolStripMenuItem, "replaceColorToolStripMenuItem");
+            this.replaceColorToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.replaceColorToolStripMenuItem.Name = "replaceColorToolStripMenuItem";
             this.replaceColorToolStripMenuItem.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
+            this.replaceColorToolStripMenuItem.Size = new System.Drawing.Size(316, 24);
+            this.replaceColorToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_ReplaceColor;
             // 
             // replaceMenuItems_1
             // 
             this.replaceMenuItems_1.Name = "replaceMenuItems_1";
-            resources.ApplyResources(this.replaceMenuItems_1, "replaceMenuItems_1");
+            this.replaceMenuItems_1.Size = new System.Drawing.Size(138, 26);
+            this.replaceMenuItems_1.Text = "1 - 10";
             // 
             // replaceMenuItems_2
             // 
             this.replaceMenuItems_2.Name = "replaceMenuItems_2";
-            resources.ApplyResources(this.replaceMenuItems_2, "replaceMenuItems_2");
+            this.replaceMenuItems_2.Size = new System.Drawing.Size(138, 26);
+            this.replaceMenuItems_2.Text = "11 - 20";
             // 
             // replaceMenuItems_3
             // 
             this.replaceMenuItems_3.Name = "replaceMenuItems_3";
-            resources.ApplyResources(this.replaceMenuItems_3, "replaceMenuItems_3");
+            this.replaceMenuItems_3.Size = new System.Drawing.Size(138, 26);
+            this.replaceMenuItems_3.Text = "21 - 30";
             // 
             // replaceMenuItems_4
             // 
             this.replaceMenuItems_4.Name = "replaceMenuItems_4";
-            resources.ApplyResources(this.replaceMenuItems_4, "replaceMenuItems_4");
+            this.replaceMenuItems_4.Size = new System.Drawing.Size(138, 26);
+            this.replaceMenuItems_4.Text = "31 - 40";
             // 
             // filterToolStripMenuItem
             // 
@@ -104,72 +109,89 @@
             this.btnRemoveMat0_Filter,
             this.btnRemoveMat1_Filter});
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            resources.ApplyResources(this.filterToolStripMenuItem, "filterToolStripMenuItem");
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(316, 24);
+            this.filterToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_MaterialFilter;
             // 
             // btnAddMat0_Filter
             // 
             this.btnAddMat0_Filter.Name = "btnAddMat0_Filter";
-            resources.ApplyResources(this.btnAddMat0_Filter, "btnAddMat0_Filter");
+            this.btnAddMat0_Filter.Size = new System.Drawing.Size(217, 26);
+            this.btnAddMat0_Filter.Text = "Add material 1";
             this.btnAddMat0_Filter.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_Add_Click);
             // 
             // btnAddMat1_Filter
             // 
             this.btnAddMat1_Filter.Name = "btnAddMat1_Filter";
-            resources.ApplyResources(this.btnAddMat1_Filter, "btnAddMat1_Filter");
+            this.btnAddMat1_Filter.Size = new System.Drawing.Size(217, 26);
+            this.btnAddMat1_Filter.Text = "Add material 2";
             this.btnAddMat1_Filter.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_Add_Click);
             // 
             // addAllToolStripMenuItem
             // 
             this.addAllToolStripMenuItem.Name = "addAllToolStripMenuItem";
-            resources.ApplyResources(this.addAllToolStripMenuItem, "addAllToolStripMenuItem");
+            this.addAllToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.addAllToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_AddAll;
             this.addAllToolStripMenuItem.Click += new System.EventHandler(this.addAllToolStripMenuItem_Click);
             // 
             // removeAllToolStripMenuItem
             // 
             this.removeAllToolStripMenuItem.Name = "removeAllToolStripMenuItem";
-            resources.ApplyResources(this.removeAllToolStripMenuItem, "removeAllToolStripMenuItem");
+            this.removeAllToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.removeAllToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_RemoveAll;
             this.removeAllToolStripMenuItem.Click += new System.EventHandler(this.clearMaterialFilterToolStripMenuItem_Click);
             // 
             // btnRemoveMat0_Filter
             // 
             this.btnRemoveMat0_Filter.Name = "btnRemoveMat0_Filter";
-            resources.ApplyResources(this.btnRemoveMat0_Filter, "btnRemoveMat0_Filter");
+            this.btnRemoveMat0_Filter.Size = new System.Drawing.Size(217, 26);
+            this.btnRemoveMat0_Filter.Text = "Remove material 1";
             this.btnRemoveMat0_Filter.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_Remove_Click);
             // 
             // btnRemoveMat1_Filter
             // 
             this.btnRemoveMat1_Filter.Name = "btnRemoveMat1_Filter";
-            resources.ApplyResources(this.btnRemoveMat1_Filter, "btnRemoveMat1_Filter");
+            this.btnRemoveMat1_Filter.Size = new System.Drawing.Size(217, 26);
+            this.btnRemoveMat1_Filter.Text = "Remove material 2";
             this.btnRemoveMat1_Filter.Click += new System.EventHandler(this.RenderedImagePanel_MaterialFilter_Remove_Click);
             // 
             // ts_xyz
             // 
-            resources.ApplyResources(this.ts_xyz, "ts_xyz");
+            this.ts_xyz.Enabled = false;
             this.ts_xyz.Name = "ts_xyz";
+            this.ts_xyz.Size = new System.Drawing.Size(316, 24);
+            this.ts_xyz.Text = "X: ";
             // 
             // ts_MaterialName
             // 
-            resources.ApplyResources(this.ts_MaterialName, "ts_MaterialName");
+            this.ts_MaterialName.Enabled = false;
             this.ts_MaterialName.Name = "ts_MaterialName";
+            this.ts_MaterialName.Size = new System.Drawing.Size(316, 24);
+            this.ts_MaterialName.Text = "Y:";
             // 
             // averageColorCodeToolStripMenuItem
             // 
-            resources.ApplyResources(this.averageColorCodeToolStripMenuItem, "averageColorCodeToolStripMenuItem");
+            this.averageColorCodeToolStripMenuItem.Enabled = false;
             this.averageColorCodeToolStripMenuItem.Name = "averageColorCodeToolStripMenuItem";
+            this.averageColorCodeToolStripMenuItem.Size = new System.Drawing.Size(316, 24);
+            this.averageColorCodeToolStripMenuItem.Text = global::PixelStacker.Resources.Text.RenderedImagePanel_AvgColorCode;
             // 
             // rGBAToolStripMenuItem
             // 
-            resources.ApplyResources(this.rGBAToolStripMenuItem, "rGBAToolStripMenuItem");
+            this.rGBAToolStripMenuItem.Enabled = false;
             this.rGBAToolStripMenuItem.Name = "rGBAToolStripMenuItem";
+            this.rGBAToolStripMenuItem.Size = new System.Drawing.Size(316, 24);
+            this.rGBAToolStripMenuItem.Text = "RGBA";
             // 
             // RenderedImagePanel
             // 
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RenderedImagePanel";
+            this.Size = new System.Drawing.Size(679, 366);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RenderedImagePanel_MouseClick);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.RenderedImagePanel_DoubleClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);

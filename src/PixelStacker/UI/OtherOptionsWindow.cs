@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using System.Windows.Forms;
 
 namespace PixelStacker.UI
 {
-    public partial class OtherOptionsWindow : Form
+    public partial class OtherOptionsWindow : Form, ILocalized
     {
         private bool suspendOptionsSave = false;
         public OtherOptionsWindow()
@@ -150,6 +151,18 @@ namespace PixelStacker.UI
         {
             if (suspendOptionsSave) return;
             Options.Get.IsShadowRenderingSkipped = cbxSkipShadowRendering.Checked;
+        }
+
+        public void ApplyLocalization(CultureInfo locale)
+        {
+            this.Text = global::PixelStacker.Resources.Text.OtherOptions_Title;
+            this.cbxSkipShadowRendering.Text = global::PixelStacker.Resources.Text.OtherOptions_cbxSkipShadowRendering;
+            this.cbxIsFrugalWithMaterials.Text = global::PixelStacker.Resources.Text.OtherOptions_cbxIsFrugalWithMaterials;
+            this.lblGridColor.Text = global::PixelStacker.Resources.Text.OtherOptions_GridColor;
+            this.btnFactoryReset.Text = global::PixelStacker.Resources.Text.OtherOptions_btnFactoryReset;
+            this.cbxIsSideView.Text = global::PixelStacker.Resources.Text.OtherOptions_cbxIsSideView;
+            this.label3.Text = global::PixelStacker.Resources.Text.OtherOptions_MaxWidth;
+            this.label2.Text = global::PixelStacker.Resources.Text.OtherOptions_MaxHeight;
         }
     }
 }

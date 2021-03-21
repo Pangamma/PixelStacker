@@ -39,7 +39,7 @@ namespace PixelStacker.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PixelStacker.Resources.Text", typeof(Text).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::PixelStacker.Resources.Localization.ResxHelper();
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,87 @@ namespace PixelStacker.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi there!
+        ///
+        ///Hope you are enjoying this program so far. I made this program as a proof of concept
+        /// for creating high quality pixelart. This system provides a few viewing options to help
+        ///you actually build the art in-game. You can also save to PNG or Schematic format.
+        ///Most importantly. you can use the double layer mode which combines stained glass
+        ///panels with newer Minecraft blocks to create an even larger color palett.
+        ///
+        ///Below this are a few links you may find useful.  Check them out if you get a
+        ///chan [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string AboutForm_Description {
+            get {
+                return ResourceManager.GetString("AboutForm_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy me a beer!.
+        /// </summary>
+        public static string AboutForm_DonateText {
+            get {
+                return ResourceManager.GetString("AboutForm_DonateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Location.
+        /// </summary>
+        public static string AboutForm_DownloadText {
+            get {
+                return ResourceManager.GetString("AboutForm_DownloadText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font Maker.
+        /// </summary>
+        public static string AboutForm_FontMakerText {
+            get {
+                return ResourceManager.GetString("AboutForm_FontMakerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taylor&apos;s LinkedIn.
+        /// </summary>
+        public static string AboutForm_LinkedOInText {
+            get {
+                return ResourceManager.GetString("AboutForm_LinkedOInText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My website.
+        /// </summary>
+        public static string AboutForm_MyWebsiteText {
+            get {
+                return ResourceManager.GetString("AboutForm_MyWebsiteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About Pangamma&apos;s PixelStacker.
+        /// </summary>
+        public static string AboutForm_Title {
+            get {
+                return ResourceManager.GetString("AboutForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visit the Wool City Project.
+        /// </summary>
+        public static string AboutForm_WoolcityProjectText {
+            get {
+                return ResourceManager.GetString("AboutForm_WoolcityProjectText", resourceCulture);
             }
         }
         
@@ -97,6 +178,24 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string Action_Open {
+            get {
+                return ResourceManager.GetString("Action_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redo.
+        /// </summary>
+        public static string Action_Redo {
+            get {
+                return ResourceManager.GetString("Action_Redo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove &apos;{0}&apos;.
         /// </summary>
         public static string Action_Remove_0 {
@@ -111,6 +210,24 @@ namespace PixelStacker.Resources {
         public static string Action_Save {
             get {
                 return ResourceManager.GetString("Action_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo.
+        /// </summary>
+        public static string Action_Undo {
+            get {
+                return ResourceManager.GetString("Action_Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string Action_View {
+            get {
+                return ResourceManager.GetString("Action_View", resourceCulture);
             }
         }
         
@@ -178,6 +295,467 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has occurred..
+        /// </summary>
+        public static string ErrorSender_ErrorOccurred {
+            get {
+                return ResourceManager.GetString("ErrorSender_ErrorOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Github issue..
+        /// </summary>
+        public static string ErrorSender_Github {
+            get {
+                return ResourceManager.GetString("ErrorSender_Github", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you willing to upload your current image for analysis? (Optional).
+        /// </summary>
+        public static string ErrorSender_IncludeImage {
+            get {
+                return ResourceManager.GetString("ErrorSender_IncludeImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No, skip the report for now..
+        /// </summary>
+        public static string ErrorSender_No {
+            get {
+                return ResourceManager.GetString("ErrorSender_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload current saved option settings. (Required).
+        /// </summary>
+        public static string ErrorSender_SavedOptions {
+            get {
+                return ResourceManager.GetString("ErrorSender_SavedOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you willing to send me some information to help me fix this error?
+        ///If yes, the following info will be zipped. Then you can send the info to 
+        ///me as a .
+        /// </summary>
+        public static string ErrorSender_SendMeSomeInfo {
+            get {
+                return ResourceManager.GetString("ErrorSender_SendMeSomeInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload stacktrace + error messages. (Required).
+        /// </summary>
+        public static string ErrorSender_StackTrace {
+            get {
+                return ResourceManager.GetString("ErrorSender_StackTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Reporter.
+        /// </summary>
+        public static string ErrorSender_Title {
+            get {
+                return ResourceManager.GetString("ErrorSender_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current PixelStacker version (Required).
+        /// </summary>
+        public static string ErrorSender_Version {
+            get {
+                return ResourceManager.GetString("ErrorSender_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes! Zip some info so the issue can be fixed..
+        /// </summary>
+        public static string ErrorSender_Yes {
+            get {
+                return ResourceManager.GetString("ErrorSender_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open File.
+        /// </summary>
+        public static string MainForm_Open_Title {
+            get {
+                return ResourceManager.GetString("MainForm_Open_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string MainForm_Save_Title {
+            get {
+                return ResourceManager.GetString("MainForm_Save_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Color Palette.
+        /// </summary>
+        public static string MainForm_SaveColorPalette_Title {
+            get {
+                return ResourceManager.GetString("MainForm_SaveColorPalette_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pangamma&apos;s PixelStacker.
+        /// </summary>
+        public static string MainForm_Title {
+            get {
+                return ResourceManager.GetString("MainForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string MainMenu_About {
+            get {
+                return ResourceManager.GetString("MainMenu_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All colors (compact).
+        /// </summary>
+        public static string MainMenu_CP_AllColors_Compact {
+            get {
+                return ResourceManager.GetString("MainMenu_CP_AllColors_Compact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All colors (detailed).
+        /// </summary>
+        public static string MainMenu_CP_AllColors_Detailed {
+            get {
+                return ResourceManager.GetString("MainMenu_CP_AllColors_Detailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brick.
+        /// </summary>
+        public static string MainMenu_CP_Brick {
+            get {
+                return ResourceManager.GetString("MainMenu_CP_Brick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graph.
+        /// </summary>
+        public static string MainMenu_CP_Graph {
+            get {
+                return ResourceManager.GetString("MainMenu_CP_Graph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Square.
+        /// </summary>
+        public static string MainMenu_CP_Square {
+            get {
+                return ResourceManager.GetString("MainMenu_CP_Square", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Down 1 Layer.
+        /// </summary>
+        public static string MainMenu_DownOneLayer {
+            get {
+                return ResourceManager.GetString("MainMenu_DownOneLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string MainMenu_Edit {
+            get {
+                return ResourceManager.GetString("MainMenu_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Settings .
+        /// </summary>
+        public static string MainMenu_ExportSettings {
+            get {
+                return ResourceManager.GetString("MainMenu_ExportSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string MainMenu_File {
+            get {
+                return ResourceManager.GetString("MainMenu_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string MainMenu_Help {
+            get {
+                return ResourceManager.GetString("MainMenu_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese (Simplified).
+        /// </summary>
+        public static string MainMenu_Lang_Chinese {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_Chinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Danish.
+        /// </summary>
+        public static string MainMenu_Lang_Danish {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_Danish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string MainMenu_Lang_English {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to French.
+        /// </summary>
+        public static string MainMenu_Lang_French {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_French", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to German.
+        /// </summary>
+        public static string MainMenu_Lang_German {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_German", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japanese.
+        /// </summary>
+        public static string MainMenu_Lang_Japanese {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_Japanese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korean.
+        /// </summary>
+        public static string MainMenu_Lang_Korean {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_Korean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        public static string MainMenu_Lang_Spanish {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_Spanish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string MainMenu_Language {
+            get {
+                return ResourceManager.GetString("MainMenu_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layer Filtering.
+        /// </summary>
+        public static string MainMenu_LayerFiltering {
+            get {
+                return ResourceManager.GetString("MainMenu_LayerFiltering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material Options.
+        /// </summary>
+        public static string MainMenu_MaterialOptions {
+            get {
+                return ResourceManager.GetString("MainMenu_MaterialOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Options.
+        /// </summary>
+        public static string MainMenu_OtherOptions {
+            get {
+                return ResourceManager.GetString("MainMenu_OtherOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pre-Render.
+        /// </summary>
+        public static string MainMenu_PreRender {
+            get {
+                return ResourceManager.GetString("MainMenu_PreRender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantizer Options.
+        /// </summary>
+        public static string MainMenu_QuantizerOptions {
+            get {
+                return ResourceManager.GetString("MainMenu_QuantizerOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Render.
+        /// </summary>
+        public static string MainMenu_Render {
+            get {
+                return ResourceManager.GetString("MainMenu_Render", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Re-Open.
+        /// </summary>
+        public static string MainMenu_ReOpen {
+            get {
+                return ResourceManager.GetString("MainMenu_ReOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save color palette.
+        /// </summary>
+        public static string MainMenu_SaveColorPalette {
+            get {
+                return ResourceManager.GetString("MainMenu_SaveColorPalette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Settings.
+        /// </summary>
+        public static string MainMenu_SaveSettings {
+            get {
+                return ResourceManager.GetString("MainMenu_SaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Border.
+        /// </summary>
+        public static string MainMenu_ToggleBorder {
+            get {
+                return ResourceManager.GetString("MainMenu_ToggleBorder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Grid.
+        /// </summary>
+        public static string MainMenu_ToggleGrid {
+            get {
+                return ResourceManager.GetString("MainMenu_ToggleGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Hide Texture.
+        /// </summary>
+        public static string MainMenu_ToggleHideTexture {
+            get {
+                return ResourceManager.GetString("MainMenu_ToggleHideTexture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Layer Filter.
+        /// </summary>
+        public static string MainMenu_ToggleLayerFilter {
+            get {
+                return ResourceManager.GetString("MainMenu_ToggleLayerFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Palette.
+        /// </summary>
+        public static string MainMenu_TogglePalette {
+            get {
+                return ResourceManager.GetString("MainMenu_TogglePalette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Progress.
+        /// </summary>
+        public static string MainMenu_ToggleProgress {
+            get {
+                return ResourceManager.GetString("MainMenu_ToggleProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools.
+        /// </summary>
+        public static string MainMenu_Tools {
+            get {
+                return ResourceManager.GetString("MainMenu_Tools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Up 1 Layer.
+        /// </summary>
+        public static string MainMenu_UpOneLayer {
+            get {
+                return ResourceManager.GetString("MainMenu_UpOneLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color Profile.
         /// </summary>
         public static string MaterialSelect_ColorProfile {
@@ -223,11 +801,83 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Factory Reset.
+        /// </summary>
+        public static string OtherOptions_btnFactoryReset {
+            get {
+                return ResourceManager.GetString("OtherOptions_btnFactoryReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add extra depth shadows to renders.
+        /// </summary>
+        public static string OtherOptions_cbxIsFrugalWithMaterials {
+            get {
+                return ResourceManager.GetString("OtherOptions_cbxIsFrugalWithMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Side View? (Affects output orientation).
+        /// </summary>
+        public static string OtherOptions_cbxIsSideView {
+            get {
+                return ResourceManager.GetString("OtherOptions_cbxIsSideView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip shadow rendering.
+        /// </summary>
+        public static string OtherOptions_cbxSkipShadowRendering {
+            get {
+                return ResourceManager.GetString("OtherOptions_cbxSkipShadowRendering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to reset all PixelStacker options back to default settings? Includes materials, sizes, view states, rendering options, etc..
         /// </summary>
         public static string OtherOptions_ConfirmFactoryReset {
             get {
                 return ResourceManager.GetString("OtherOptions_ConfirmFactoryReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid Color.
+        /// </summary>
+        public static string OtherOptions_GridColor {
+            get {
+                return ResourceManager.GetString("OtherOptions_GridColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid Size.
+        /// </summary>
+        public static string OtherOptions_GridSize {
+            get {
+                return ResourceManager.GetString("OtherOptions_GridSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max Height.
+        /// </summary>
+        public static string OtherOptions_MaxHeight {
+            get {
+                return ResourceManager.GetString("OtherOptions_MaxHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max Width.
+        /// </summary>
+        public static string OtherOptions_MaxWidth {
+            get {
+                return ResourceManager.GetString("OtherOptions_MaxWidth", resourceCulture);
             }
         }
         
@@ -392,6 +1042,51 @@ namespace PixelStacker.Resources {
         public static string Progress_QuantizingImage {
             get {
                 return ResourceManager.GetString("Progress_QuantizingImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add all.
+        /// </summary>
+        public static string RenderedImagePanel_AddAll {
+            get {
+                return ResourceManager.GetString("RenderedImagePanel_AddAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Average Color Code.
+        /// </summary>
+        public static string RenderedImagePanel_AvgColorCode {
+            get {
+                return ResourceManager.GetString("RenderedImagePanel_AvgColorCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material Filter.
+        /// </summary>
+        public static string RenderedImagePanel_MaterialFilter {
+            get {
+                return ResourceManager.GetString("RenderedImagePanel_MaterialFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all.
+        /// </summary>
+        public static string RenderedImagePanel_RemoveAll {
+            get {
+                return ResourceManager.GetString("RenderedImagePanel_RemoveAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace Color (Requires Re-Render).
+        /// </summary>
+        public static string RenderedImagePanel_ReplaceColor {
+            get {
+                return ResourceManager.GetString("RenderedImagePanel_ReplaceColor", resourceCulture);
             }
         }
     }

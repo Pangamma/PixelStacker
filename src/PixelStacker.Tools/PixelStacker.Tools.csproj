@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BSTTest.cs" />
+    <Compile Include="JsonResxMaker.cs" />
     <Compile Include="ResxLocalizer.cs" />
     <Compile Include="ColorTests.cs" />
     <Compile Include="ColorMatchTester.cs" />
@@ -149,8 +150,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PixelStacker.Components\PixelStacker.Components.csproj">
+      <Project>{c97f62ac-524e-4892-a86e-a0721f10289f}</Project>
+      <Name>PixelStacker.Components</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PixelStacker\PixelStacker.csproj">
-      <Project>{D21DE6D2-34FE-468C-A322-C3F48681BE16}</Project>
+      <Project>{d21de6d2-34fe-468c-a322-c3f48681be16}</Project>
       <Name>PixelStacker</Name>
     </ProjectReference>
   </ItemGroup>
