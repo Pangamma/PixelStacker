@@ -26,6 +26,18 @@ namespace PixelStacker.UI
             this.MaterialOptions?.ApplyLocalization(locale);
 
             this.Text = global::PixelStacker.Resources.Text.MainForm_Title;
+            this.Text = this.Text + " v" + Constants.Version;
+#if !RELEASE
+            this.Text += " (Debug)";
+#endif
+            if (!Constants.IsFullVersion)
+            {
+#pragma warning disable CS0162 // Unreachable code detected
+                this.Text += " (Free Version)";
+#pragma warning restore CS0162 // Unreachable code detected
+            }
+
+
             this.dlgSaveSettings.Title = global::PixelStacker.Resources.Text.MainMenu_SaveSettings;
             this.dlgSaveColorPalette.Title = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
             this.dlgSave.Title = global::PixelStacker.Resources.Text.Action_Save;

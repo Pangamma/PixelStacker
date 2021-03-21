@@ -42,7 +42,7 @@ namespace PixelStacker.Tools
                 var fileToEditData = File.ReadAllText(fileToEdit);
                 fileToEditData = fileToEditData.Replace(
                     "global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(\"PixelStacker.Resources.Text\", typeof(Text).Assembly);",
-                    "global::System.Resources.ResourceManager temp = new global::PixelStacker.Resources.Localization.ResxHelper();""
+                    "global::System.Resources.ResourceManager temp = new global::PixelStacker.Resources.Localization.ResxHelper();"
                     );
                 File.WriteAllText(fileToEdit, fileToEditData);
             }
