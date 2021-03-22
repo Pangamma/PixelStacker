@@ -442,6 +442,9 @@
     <None Include="Resources\Localization\zh.json">
       <DependentUpon>en.json</DependentUpon>
     </None>
+    <None Include="Resources\Localization\nl.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
