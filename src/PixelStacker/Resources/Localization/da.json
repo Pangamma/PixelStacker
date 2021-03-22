@@ -110,5 +110,6 @@
   "RenderedImagePanel_AvgColorCode": "Gennemsnitlig farvekode",
   "RenderedImagePanel_MaterialFilter": "Materiale filter",
   "RenderedImagePanel_RemoveAll": "Fjern alt",
-  "RenderedImagePanel_ReplaceColor": "Udskift farve (Kræver gengivelse)"
+  "RenderedImagePanel_ReplaceColor": "Udskift farve (Kræver gengivelse)",
+  "Error_CannotExceedWorldHeight_0": "Minecraft understøtter ikke billeder, der er større end {0} blokke i højden."
 }
