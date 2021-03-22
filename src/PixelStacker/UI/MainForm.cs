@@ -102,9 +102,9 @@ namespace PixelStacker.UI
 
                 if (this.PreRenderedImage != null)
                 {
-                    if (this.PreRenderedImage.Height > 256 && Options.Get.IsSideView)
+                    if (this.PreRenderedImage.Height > Constants.WORLD_HEIGHT && Options.Get.IsSideView)
                     {
-                        MessageBox.Show("Minecraft cannot support images larger than 256 blocks in height.");
+                        MessageBox.Show(string.Format(Resources.Text.Error_CannotExceedWorldHeight_0, Constants.WORLD_HEIGHT));
                         return;
                     }
                 }

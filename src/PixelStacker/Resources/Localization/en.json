@@ -29,6 +29,7 @@
   "ErrorSender_Title": "Error Reporter",
   "ErrorSender_Version": "Current PixelStacker version (Required)",
   "ErrorSender_Yes": "Yes! Zip some info so the issue can be fixed.",
+  "Error_CannotExceedWorldHeight_0": "Minecraft cannot support images larger than {0} blocks in height.",
   "Error_GlassRequiredForMultiLayer": "At least one glass material must be enabled when you choose to require multiple layers.",
   "Error_NeedMoreRam": "Not enough memory. Please try again or reduce image size if problem continues.",
   "Error_NonGlassRequired": "At least one non glass material must be selected.",

@@ -250,6 +250,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minecraft cannot support images larger than {0} blocks in height..
+        /// </summary>
+        public static string Error_CannotExceedWorldHeight_0 {
+            get {
+                return ResourceManager.GetString("Error_CannotExceedWorldHeight_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to At least one glass material must be enabled when you choose to require multiple layers..
         /// </summary>
         public static string Error_GlassRequiredForMultiLayer {

@@ -110,5 +110,6 @@
   "RenderedImagePanel_AvgColorCode": "평균 색상 코드",
   "RenderedImagePanel_MaterialFilter": "재료 필터",
   "RenderedImagePanel_RemoveAll": "모두 제거",
-  "RenderedImagePanel_ReplaceColor": "색상 바꾸기 (다시 렌더링 필요)"
+  "RenderedImagePanel_ReplaceColor": "색상 바꾸기 (다시 렌더링 필요)",
+  "Error_CannotExceedWorldHeight_0": "Minecraft는 높이가 {0} 블록보다 큰 이미지를 지원할 수 없습니다."
 }

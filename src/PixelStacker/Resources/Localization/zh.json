@@ -110,5 +110,6 @@
   "RenderedImagePanel_AvgColorCode": "平均色码",
   "RenderedImagePanel_MaterialFilter": "物料过滤器",
   "RenderedImagePanel_RemoveAll": "移除所有",
-  "RenderedImagePanel_ReplaceColor": "替换颜色（需要重新渲染）"
+  "RenderedImagePanel_ReplaceColor": "替换颜色（需要重新渲染）",
+  "Error_CannotExceedWorldHeight_0": "Minecraft无法支持高度大于{0}个图块的图片。"
 }

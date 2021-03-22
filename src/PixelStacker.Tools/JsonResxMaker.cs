@@ -33,7 +33,6 @@ namespace PixelStacker.Tools
             this.RipResxIntoJson($@"{RootDir}\PixelStacker\Resources\{nameof(Resources.Text)}.resx");
         }
 
-
         private void RipResxIntoJson(string filePath)
         {
             #region SWAP designer code
@@ -82,7 +81,6 @@ namespace PixelStacker.Tools
                     }
                 }
 
-
                 foreach (var kvp in keysToBeTranslated)
                     {
                         string translated = GetTranslatedText(kvp.Value, lang);
@@ -105,8 +103,6 @@ namespace PixelStacker.Tools
             int totalKeys = dataNodes.Count;
 
             using (ResXResourceReader rr = new ResXResourceReader(resxFilePath))
-            {
-                //using (ResXResourceWriter rw = new ResXResourceWriter(outputFilePath))
                 {
                     IDictionaryEnumerator di = rr.GetEnumerator();
 
@@ -119,14 +115,6 @@ namespace PixelStacker.Tools
                         if (key.StartsWith(">>")) continue;
 
                         kvps[key] = value;
-                        //if (!String.IsNullOrEmpty(key) && !String.IsNullOrEmpty(value))
-                        //{
-                        //    string translatedValue = GetTranslatedText(value, locale);
-                        //    rw.AddResource(key, translatedValue);
-                        //}
-                    }
-
-                    //rw.Generate();
                 }
             }
             return kvps;

@@ -221,6 +221,9 @@ me as a </value>
   <data name="ErrorSender_Yes" xml:space="preserve">
     <value>Yes! Zip some info so the issue can be fixed.</value>
   </data>
+  <data name="Error_CannotExceedWorldHeight_0" xml:space="preserve">
+    <value>Minecraft cannot support images larger than {0} blocks in height.</value>
+  </data>
   <data name="Error_GlassRequiredForMultiLayer" xml:space="preserve">
     <value>At least one glass material must be enabled when you choose to require multiple layers.</value>
   </data>

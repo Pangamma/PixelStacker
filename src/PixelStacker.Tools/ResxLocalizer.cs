@@ -19,6 +19,7 @@ namespace PixelStacker.Tools
 {
 
     [TestClass]
+    [Obsolete("I will keep this file handy, since it is an automatic resx localizer. But it is no longer used in this project.")]
     public class ResxLocalizer
     {
         private bool SKIP_EXISTING_LOCALES = false;
@@ -28,41 +29,11 @@ namespace PixelStacker.Tools
             "ko-kr", "ja-jp", "fr-fr", "de-de", "es-es", "zh-cn", "da-dk"
         };
 
-
         [TestMethod]
         public void Text_Translate()
         {
+            Assert.Fail();
             this.TranslateFile($@"{RootDir}\PixelStacker\Resources\{nameof(Resources.Text)}.resx", this.OutputLocales);
-        }
-
-        [TestMethod]
-        public void AboutForm_Translate()
-        {
-            this.TranslateFile($@"{RootDir}\PixelStacker\UI\{nameof(AboutForm)}.resx", this.OutputLocales);
-        }
-
-        [TestMethod]
-        public void MainForm_Translate()
-        {
-            this.TranslateFile($@"{RootDir}\PixelStacker\UI\{nameof(MainForm)}.resx", this.OutputLocales);
-        }
-
-        [TestMethod]
-        public void OtherOptions_Translate()
-        {
-            this.TranslateFile($@"{RootDir}\PixelStacker\UI\{nameof(OtherOptionsWindow)}.resx", this.OutputLocales);
-        }
-
-        [TestMethod]
-        public void ErrorSender_Translate()
-        {
-            this.TranslateFile($@"{RootDir}\PixelStacker\UI\{nameof(ErrorSender)}.resx", this.OutputLocales);
-        }
-
-        [TestMethod]
-        public void RenderedImagePanel_Translate()
-        {
-            this.TranslateFile($@"{RootDir}\PixelStacker\UI\{nameof(RenderedImagePanel)}.resx", this.OutputLocales);
         }
 
         [TestMethod]
@@ -84,6 +55,7 @@ namespace PixelStacker.Tools
             }
         }
 
+        [Obsolete("I will keep this file handy, since it is an automatic resx localizer. But it is no longer used in this project.")]
         private void TranslateFile(string filePath, string[] locales)
         {
             foreach(var locale in locales)
@@ -92,6 +64,7 @@ namespace PixelStacker.Tools
             }
         }
 
+        [Obsolete("I will keep this file handy, since it is an automatic resx localizer. But it is no longer used in this project.")]
         protected void TranslateFile(string resxFilePath, string locale)
         {
             XmlDocument doc = new XmlDocument();

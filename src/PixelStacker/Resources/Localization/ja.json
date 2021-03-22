@@ -110,5 +110,6 @@
   "RenderedImagePanel_AvgColorCode": "平均カラーコード",
   "RenderedImagePanel_MaterialFilter": "マテリアルフィルター",
   "RenderedImagePanel_RemoveAll": "すべて削除する",
-  "RenderedImagePanel_ReplaceColor": "色を置き換える（再レンダリングが必要）"
+  "RenderedImagePanel_ReplaceColor": "色を置き換える（再レンダリングが必要）",
+  "Error_CannotExceedWorldHeight_0": "Minecraftは、高さが{0}ブロックを超える画像をサポートできません。"
 }

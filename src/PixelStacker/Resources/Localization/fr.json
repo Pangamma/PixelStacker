@@ -110,5 +110,6 @@
   "RenderedImagePanel_AvgColorCode": "Code couleur moyen",
   "RenderedImagePanel_MaterialFilter": "Filtre matériel",
   "RenderedImagePanel_RemoveAll": "Enlever tout",
-  "RenderedImagePanel_ReplaceColor": "Remplacer la couleur (nécessite un nouveau rendu)"
+  "RenderedImagePanel_ReplaceColor": "Remplacer la couleur (nécessite un nouveau rendu)",
+  "Error_CannotExceedWorldHeight_0": "Minecraft ne peut pas prendre en charge les images de plus de {0} blocs de hauteur."
 }
