@@ -98,7 +98,7 @@
   "PreRenderOptions_ColorCount": "Farvetælling",
   "PreRenderOptions_ColorCount_Tooltip": "Maks. Antal farver.",
   "PreRenderOptions_Dither": "Dither",
-  "PreRenderOptions_Dither_Tooltip": "Nogle kan lide dithering.\r\nDet gør jeg ikke. Det gør jeg aldrig. jeg hader\r\ndithering. Men du vælger selv.",
+  "PreRenderOptions_Dither_Tooltip": "Nogle kan lide dithering.\r\nDet kan jeg ikke. Det kan jeg aldrig. Jeg hader\r\ndithering. Men du vælger selv.",
   "PreRenderOptions_Parallel": "Parallel",
   "PreRenderOptions_Parallel_Tooltip": "Fremskynd kvantiseringsprocessen ved at tage\r\nfordel af en multicore CPU.\r\n\r\nLavere værdier = mere stabile\r\nHøjere værdier = hurtigere\r\nSuper høje værdier = mulige fejl",
   "PreRenderOptions_QuantizerSettings": "Kvantiseringsindstillinger",
@@ -111,6 +111,6 @@
   "RenderedImagePanel_MaterialFilter": "Materiale filter",
   "RenderedImagePanel_RemoveAll": "Fjern alt",
   "RenderedImagePanel_ReplaceColor": "Udskift farve (Kræver gengivelse)",
-  "Error_CannotExceedWorldHeight_0": "Minecraft understøtter ikke billeder, der er større end {0} blokke i højden.",
-  "MainMenu_Lang_Dutch": "hollandske"
+  "Error_CannotExceedWorldHeight_0": "Minecraft understøtter ikke billeder, der er højere end {0} blokke.",
+  "MainMenu_Lang_Dutch": "Hollandsk"
 }
