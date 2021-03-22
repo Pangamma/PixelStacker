@@ -121,10 +121,10 @@
     <value>Hi there!
 
 Hope you are enjoying this program so far. I made this program as a proof of concept
- for creating high quality pixelart. This system provides a few viewing options to help
+ for creating high-quality pixel art. This system provides a few viewing options to help
 you actually build the art in-game. You can also save to PNG or Schematic format.
-Most importantly. you can use the double layer mode which combines stained glass
-panels with newer Minecraft blocks to create an even larger color palett.
+Most importantly. you can use the double-layer mode, which combines stained glass
+panels with newer Minecraft blocks to create an even larger color palette.
 
 Below this are a few links you may find useful.  Check them out if you get a
 chance. 
@@ -142,7 +142,7 @@ Aka Pangamma</value>
     <value>Font Maker</value>
   </data>
   <data name="AboutForm_LinkedOInText" xml:space="preserve">
-    <value>Taylor's LinkedIn</value>
+    <value>My LinkedIn</value>
   </data>
   <data name="AboutForm_MyWebsiteText" xml:space="preserve">
     <value>My website</value>

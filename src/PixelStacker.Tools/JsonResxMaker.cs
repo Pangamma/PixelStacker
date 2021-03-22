@@ -51,7 +51,7 @@ namespace PixelStacker.Tools
 
             var keys = ReadResxIntoDictionary(filePath);
             string enJsonFilePath = RootDir + "\\PixelStacker\\Resources\\Localization\\en.json";
-            var parsedEnglishKeys = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(enJsonFilePath)) ?? new Dictionary<string, string>(); ;
+            var parsedEnglishKeys = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(enJsonFilePath)) ?? new Dictionary<string, string>();
 
             var keysToBeRemoved = parsedEnglishKeys.Where(kvp => !keys.ContainsKey(kvp.Key));
             var keysToBeTranslated = keys.Where(kvp =>
@@ -84,13 +84,10 @@ namespace PixelStacker.Tools
 
 
                 foreach (var kvp in keysToBeTranslated)
-                {
-                    if (!parsed.ContainsKey(kvp.Key))
                     {
                         string translated = GetTranslatedText(kvp.Value, lang);
                         parsed[kvp.Key] = translated;
                     }
-                }
 
                 File.WriteAllText(jsonFilePath, JsonConvert.SerializeObject(parsed, new JsonSerializerSettings()
                 {

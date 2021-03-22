@@ -64,13 +64,13 @@ namespace PixelStacker.Resources {
         ///   Looks up a localized string similar to Hi there!
         ///
         ///Hope you are enjoying this program so far. I made this program as a proof of concept
-        /// for creating high quality pixelart. This system provides a few viewing options to help
+        /// for creating high-quality pixel art. This system provides a few viewing options to help
         ///you actually build the art in-game. You can also save to PNG or Schematic format.
-        ///Most importantly. you can use the double layer mode which combines stained glass
-        ///panels with newer Minecraft blocks to create an even larger color palett.
+        ///Most importantly. you can use the double-layer mode, which combines stained glass
+        ///panels with newer Minecraft blocks to create an even larger color palette.
         ///
         ///Below this are a few links you may find useful.  Check them out if you get a
-        ///chan [rest of string was truncated]&quot;;.
+        ///c [rest of string was truncated]&quot;;.
         /// </summary>
         public static string AboutForm_Description {
             get {
@@ -106,7 +106,7 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Taylor&apos;s LinkedIn.
+        ///   Looks up a localized string similar to My LinkedIn.
         /// </summary>
         public static string AboutForm_LinkedOInText {
             get {
