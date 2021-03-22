@@ -1,9 +1,9 @@
 {
-  "AboutForm_Description": "Hi there!\r\n\r\nHope you are enjoying this program so far. I made this program as a proof of concept\r\n for creating high quality pixelart. This system provides a few viewing options to help\r\nyou actually build the art in-game. You can also save to PNG or Schematic format.\r\nMost importantly. you can use the double layer mode which combines stained glass\r\npanels with newer Minecraft blocks to create an even larger color palett.\r\n\r\nBelow this are a few links you may find useful.  Check them out if you get a\r\nchance. \r\n\r\nTaylor Love\r\nAka Pangamma",
+  "AboutForm_Description": "Hi there!\r\n\r\nHope you are enjoying this program so far. I made this program as a proof of concept\r\n for creating high-quality pixel art. This system provides a few viewing options to help\r\nyou actually build the art in-game. You can also save to PNG or Schematic format.\r\nMost importantly. you can use the double-layer mode, which combines stained glass\r\npanels with newer Minecraft blocks to create an even larger color palette.\r\n\r\nBelow this are a few links you may find useful.  Check them out if you get a\r\nchance. \r\n\r\nTaylor Love\r\nAka Pangamma",
   "AboutForm_DonateText": "Buy me a beer!",
   "AboutForm_DownloadText": "Download Location",
   "AboutForm_FontMakerText": "Font Maker",
-  "AboutForm_LinkedOInText": "Taylor's LinkedIn",
+  "AboutForm_LinkedOInText": "My LinkedIn",
   "AboutForm_MyWebsiteText": "My website",
   "AboutForm_Title": "About Pangamma's PixelStacker",
   "AboutForm_WoolcityProjectText": "Visit the Wool City Project",
