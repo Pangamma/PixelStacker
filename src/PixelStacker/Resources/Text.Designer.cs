@@ -549,6 +549,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dutch.
+        /// </summary>
+        public static string MainMenu_Lang_Dutch {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_Dutch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         public static string MainMenu_Lang_English {

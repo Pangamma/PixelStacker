@@ -44,6 +44,7 @@ namespace PixelStacker.UI
             this.dlgOpen.Title = global::PixelStacker.Resources.Text.MainForm_Open_Title;
             this.aboutToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_About;
             this.helpToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Help;
+            this.dutchToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Dutch;
             this.spanishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Spanish;
             this.koreanToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Korean;
             this.japaneseToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Japanese;
@@ -83,15 +84,6 @@ namespace PixelStacker.UI
             this.reOpenToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ReOpen;
             this.openToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Open;
             this.fileToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_File;
-
-
-            //ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
-
-            //var allMenuItems = this.menuStrip1.Items.Flatten().ToList();
-            //foreach(var c in allMenuItems)
-            //{
-            //    resources.ApplyResources(c, c.Name, locale);
-            //}
         }
 
         private void InitializeThreadLocale()
@@ -111,6 +103,9 @@ namespace PixelStacker.UI
 
         private void chineseSimplifiedToolStripMenuItem_Click(object sender, EventArgs e)
         => this.ApplyLocalization(CultureInfo.GetCultureInfo("zh-cn"));
+
+        private void dutchToolStripMenuItem_Click(object sender, EventArgs e)
+        => this.ApplyLocalization(CultureInfo.GetCultureInfo("nl-nl"));
 
         private void danishToolStripMenuItem_Click(object sender, EventArgs e)
         => this.ApplyLocalization(CultureInfo.GetCultureInfo("da-dk"));

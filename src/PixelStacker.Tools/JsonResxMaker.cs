@@ -24,7 +24,7 @@ namespace PixelStacker.Tools
         private string GOOGLE_API_KEY = "";
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.Tools\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
         private string[] OutputLocales = new string[] {
-            "ko-kr", "ja-jp", "fr-fr", "de-de", "es-es", "zh-cn", "da-dk"
+            "ko-kr", "ja-jp", "fr-fr", "de-de", "es-es", "zh-cn", "da-dk", "nl-nl"
         };
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace PixelStacker.Tools
             var parsedEnglishKeys = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(enJsonFilePath)) ?? new Dictionary<string, string>();
 
             var keysToBeRemoved = parsedEnglishKeys.Where(kvp => !keys.ContainsKey(kvp.Key));
-            var keysToBeTranslated = keys.Where(kvp =>
+            var keysToBeAdded = keys.Where(kvp =>
             {
                 if (!parsedEnglishKeys.ContainsKey(kvp.Key)) return true;
                 if (parsedEnglishKeys[kvp.Key] != kvp.Value) return true;
@@ -70,6 +70,7 @@ namespace PixelStacker.Tools
             {
                 string lang = locale.Split('-').First();
                 string jsonFilePath = RootDir + "\\PixelStacker\\Resources\\Localization\\"+lang+".json";
+                if (!File.Exists(jsonFilePath)) File.WriteAllText(jsonFilePath, "{}");
                 string existingJson = File.ReadAllText(jsonFilePath);
                 Dictionary<string, string> parsed = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(jsonFilePath)) ?? new Dictionary<string, string>();
 
@@ -81,7 +82,13 @@ namespace PixelStacker.Tools
                     }
                 }
 
-                foreach (var kvp in keysToBeTranslated)
+                // keysToBeAdded (bc new in english)
+                // + keys in english not yet in locale, but allow keys 
+                // not yet in english to have THEIR values used as higher priority.
+                var keysToBeTranslatedForCurrentLocale = keys.Where(enKvp => !parsed.ContainsKey(enKvp.Key)).ToDictionary(k => k.Key, v => v.Value);
+                foreach (var kvp in keysToBeAdded) { keysToBeTranslatedForCurrentLocale[kvp.Key] = kvp.Value; }
+
+                foreach (var kvp in keysToBeTranslatedForCurrentLocale)
                     {
                         string translated = GetTranslatedText(kvp.Value, lang);
                         parsed[kvp.Key] = translated;

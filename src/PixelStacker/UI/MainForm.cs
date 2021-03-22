@@ -108,6 +108,7 @@ namespace PixelStacker.UI
                         return;
                     }
                 }
+
                 TaskManager.SafeReport(0, "Getting Blueprint...");
                 BlueprintPA blueprint = BlueprintPA.GetBluePrintAsync(token, this.PreRenderedImage).GetAwaiter().GetResult();
                 TaskManager.SafeReport(0, "Rendering Blueprint...");

@@ -1,19 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Drawing;
-using PixelStacker.Logic.Extensions;
-using System.Threading;
-using System.Globalization;
 using System.Linq;
-using System.Drawing.Imaging;
-using System.Collections.Generic;
 using System.IO;
-using PixelStacker.Logic;
 using System.Xml;
 using System.Resources;
 using System.Collections;
 using Google.Cloud.Translation.V2;
-using PixelStacker.UI;
 
 namespace PixelStacker.Tools
 {
@@ -39,6 +31,7 @@ namespace PixelStacker.Tools
         [TestMethod]
         public void TranslateALL()
         {
+            Assert.Fail();
             var files = Directory.GetFiles(RootDir, "*.resx", SearchOption.AllDirectories);
             for(int fi = 0; fi < files.Length; fi++)
             {
@@ -55,7 +48,6 @@ namespace PixelStacker.Tools
             }
         }
 
-        [Obsolete("I will keep this file handy, since it is an automatic resx localizer. But it is no longer used in this project.")]
         private void TranslateFile(string filePath, string[] locales)
         {
             foreach(var locale in locales)
@@ -64,7 +56,6 @@ namespace PixelStacker.Tools
             }
         }
 
-        [Obsolete("I will keep this file handy, since it is an automatic resx localizer. But it is no longer used in this project.")]
         protected void TranslateFile(string resxFilePath, string locale)
         {
             XmlDocument doc = new XmlDocument();

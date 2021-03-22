@@ -420,14 +420,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resources\Localization\da.json"><DependentUpon>en.json</DependentUpon></None>
-    <None Include="Resources\Localization\de.json" ><DependentUpon>en.json</DependentUpon></None>
+    <None Include="Resources\Localization\da.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
+    <None Include="Resources\Localization\de.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
     <None Include="Resources\Localization\en.json" />
-    <None Include="Resources\Localization\es.json" ><DependentUpon>en.json</DependentUpon></None>
-    <None Include="Resources\Localization\fr.json" ><DependentUpon>en.json</DependentUpon></None>
-    <None Include="Resources\Localization\ja.json" ><DependentUpon>en.json</DependentUpon></None>
-    <None Include="Resources\Localization\ko.json" ><DependentUpon>en.json</DependentUpon></None>
-    <None Include="Resources\Localization\zh.json" ><DependentUpon>en.json</DependentUpon></None>
+    <None Include="Resources\Localization\es.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
+    <None Include="Resources\Localization\fr.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
+    <None Include="Resources\Localization\ja.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
+    <None Include="Resources\Localization\ko.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
+    <None Include="Resources\Localization\zh.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -1046,6 +1060,7 @@
     <None Include="Resources\Images\UI\flags\country_kr.png" />
     <None Include="Resources\Images\UI\flags\country_mx.png" />
     <None Include="Resources\Images\UI\flags\country_us.png" />
+    <None Include="Resources\Images\UI\flags\country_nl.png" />
     <Content Include="wool.ico" />
     <None Include="Resources\Images\UI\pixelstackerlogo.pdn" />
     <None Include="Resources\Images\UI\wool.ico" />
