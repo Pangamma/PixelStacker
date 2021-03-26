@@ -104,6 +104,7 @@ namespace PixelStacker.Logic
             {
                 BlocksMap = blocksTemp,
                 Image = src,
+                WorldEditOrigin = new Point(0, src.Height - 1),
                 MaxDepth = maxDepth
             };
         }
