@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Icon = global::PixelStacker.Resources.UIResources.wool;
             this.dlgSave = new System.Windows.Forms.SaveFileDialog();
             this.flowVertical = new PixelStacker.Components.CustomFlowLayoutPanel();
             this.flowRow1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -243,6 +242,7 @@
             this.ClientSize = new System.Drawing.Size(864, 477);
             this.Controls.Add(this.flowVertical);
             this.Controls.Add(this.flowLayout);
+            this.Icon = global::PixelStacker.Resources.UIResources.wool;
             this.MinimumSize = new System.Drawing.Size(512, 47);
             this.Name = "MaterialSelectWindow";
             this.Text = "Material Selection";
