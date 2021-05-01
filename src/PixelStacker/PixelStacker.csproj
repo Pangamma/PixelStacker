@@ -79,9 +79,10 @@
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;FULL_VERSION</DefineConstants>
     <DebugType>embedded</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -440,6 +441,9 @@
       <DependentUpon>en.json</DependentUpon>
     </None>
     <None Include="Resources\Localization\zh.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
+    <None Include="Resources\Localization\nl.json">
       <DependentUpon>en.json</DependentUpon>
     </None>
   </ItemGroup>

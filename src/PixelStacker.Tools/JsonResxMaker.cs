@@ -89,10 +89,10 @@ namespace PixelStacker.Tools
                 foreach (var kvp in keysToBeAdded) { keysToBeTranslatedForCurrentLocale[kvp.Key] = kvp.Value; }
 
                 foreach (var kvp in keysToBeTranslatedForCurrentLocale)
-                    {
-                        string translated = GetTranslatedText(kvp.Value, lang);
-                        parsed[kvp.Key] = translated;
-                    }
+                {
+                    string translated = GetTranslatedText(kvp.Value, lang);
+                    parsed[kvp.Key] = translated;
+                }
 
                 File.WriteAllText(jsonFilePath, JsonConvert.SerializeObject(parsed, new JsonSerializerSettings()
                 {
@@ -110,18 +110,18 @@ namespace PixelStacker.Tools
             int totalKeys = dataNodes.Count;
 
             using (ResXResourceReader rr = new ResXResourceReader(resxFilePath))
+            {
+                IDictionaryEnumerator di = rr.GetEnumerator();
+
+                foreach (DictionaryEntry de in rr)
                 {
-                    IDictionaryEnumerator di = rr.GetEnumerator();
+                    string key = de.Key as string;
+                    string value = de.Value as string;
 
-                    foreach (DictionaryEntry de in rr)
-                    {
-                        string key = de.Key as string;
-                        string value = de.Value as string;
+                    if (key.StartsWith("$")) continue;
+                    if (key.StartsWith(">>")) continue;
 
-                        if (key.StartsWith("$")) continue;
-                        if (key.StartsWith(">>")) continue;
-
-                        kvps[key] = value;
+                    kvps[key] = value;
                 }
             }
             return kvps;
