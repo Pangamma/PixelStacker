@@ -26,6 +26,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SimplePaletteQuantizer
@@ -156,7 +157,7 @@ namespace SimplePaletteQuantizer
         /// </summary>
         /// <param name="sourceImage"></param>
         /// <returns></returns>
-        public Bitmap RenderImage(Bitmap sourceImage)
+        public Bitmap RenderImage(CancellationToken _worker, Bitmap sourceImage)
         {
             //// prepares quantizer
             errorCache.Clear();
@@ -168,13 +169,21 @@ namespace SimplePaletteQuantizer
             Int32 colorCount = Options.Get.PreRender_ColorCount;
 
             //TaskScheduler uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
-            
-            // For some reason the super quick algo failed. Need to fail over to this super safe one.
-            using (Image targetImage = ImageBuffer.QuantizeImage(sourceImage, activeQuantizer, activeDitherer, colorCount, parallelTaskCount))
+            try
             {
-                Bitmap output = targetImage.To32bppBitmap();
-                ApplyBitmaskForTransparency(sourceImage, output);
-                return output;
+                // For some reason the super quick algo failed. Need to fail over to this super safe one.
+                using (Image targetImage = ImageBuffer.QuantizeImage(sourceImage, activeQuantizer, activeDitherer, colorCount, parallelTaskCount))
+                {
+                    Bitmap output = targetImage.To32bppBitmap();
+                    ApplyBitmaskForTransparency(sourceImage, output);
+                    return output;
+                }
+            }
+            catch(Exception)
+            {
+                // Throw THIS type if cancellation caused the issue
+                _worker.SafeThrowIfCancellationRequested();
+                throw; // Throw whatever type was already there if it is something else.
             }
 
         }

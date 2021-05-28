@@ -42,6 +42,7 @@
             this.allPossibilitiescompactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allColorsdetailedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,6 +83,7 @@
             this.imagePanelMain = new PixelStacker.UI.ImagePanel();
             this.renderedImagePanel = new PixelStacker.UI.RenderedImagePanel();
             this.dlgSaveSettings = new System.Windows.Forms.SaveFileDialog();
+            this.dlgLoadSettings = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,7 +110,8 @@
             this.reOpenToolStripMenuItem,
             this.exportSchematicToolStripMenuItem,
             this.saveColorPaletteToolStripMenuItem,
-            this.exportSettingsToolStripMenuItem});
+            this.exportSettingsToolStripMenuItem,
+            this.importSettingsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
@@ -119,7 +122,7 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Open;
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -128,7 +131,7 @@
             this.reOpenToolStripMenuItem.Enabled = false;
             this.reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
             this.reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.reOpenToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ReOpen;
             this.reOpenToolStripMenuItem.Click += new System.EventHandler(this.reOpenToolStripMenuItem_Click);
             // 
@@ -137,7 +140,7 @@
             this.exportSchematicToolStripMenuItem.Enabled = false;
             this.exportSchematicToolStripMenuItem.Name = "exportSchematicToolStripMenuItem";
             this.exportSchematicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.exportSchematicToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exportSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
             this.exportSchematicToolStripMenuItem.Click += new System.EventHandler(this.saveMenuClick);
             // 
@@ -152,7 +155,7 @@
             this.saveColorPaletteToolStripMenuItem.Enabled = false;
             this.saveColorPaletteToolStripMenuItem.Name = "saveColorPaletteToolStripMenuItem";
             this.saveColorPaletteToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.saveColorPaletteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveColorPaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
             // 
             // graphToolStripMenuItem
@@ -205,9 +208,17 @@
             // 
             this.exportSettingsToolStripMenuItem.BackColor = System.Drawing.Color.PaleTurquoise;
             this.exportSettingsToolStripMenuItem.Name = "exportSettingsToolStripMenuItem";
-            this.exportSettingsToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.exportSettingsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exportSettingsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ExportSettings;
             this.exportSettingsToolStripMenuItem.Click += new System.EventHandler(this.exportSettingsToolStripMenuItem_Click);
+            // 
+            // importSettingsToolStripMenuItem
+            // 
+            this.importSettingsToolStripMenuItem.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.importSettingsToolStripMenuItem.Name = "importSettingsToolStripMenuItem";
+            this.importSettingsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.importSettingsToolStripMenuItem.Text = "Import Settings";
+            this.importSettingsToolStripMenuItem.Click += new System.EventHandler(this.importSettingsToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -589,6 +600,13 @@
             this.dlgSaveSettings.Title = global::PixelStacker.Resources.Text.MainMenu_SaveSettings;
             this.dlgSaveSettings.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSaveSettings_FileOk);
             // 
+            // dlgLoadSettings
+            // 
+            this.dlgLoadSettings.FileName = "openFileDialog1";
+            this.dlgLoadSettings.Filter = "Json|*.json";
+            this.dlgLoadSettings.Title = global::PixelStacker.Resources.Text.MainForm_Open_Title;
+            this.dlgLoadSettings.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgLoadSettings_FileOk);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -666,6 +684,8 @@
         private System.Windows.Forms.ToolStripMenuItem koreanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem frenchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dutchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importSettingsToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog dlgLoadSettings;
     }
 }
 

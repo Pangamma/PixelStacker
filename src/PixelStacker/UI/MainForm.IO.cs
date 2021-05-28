@@ -283,10 +283,20 @@ namespace PixelStacker.UI
             dlgSaveSettings.ShowDialog();
         }
 
+        private void importSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dlgLoadSettings.ShowDialog();
+        }
         private void dlgSaveSettings_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveFileDialog dlg = (SaveFileDialog) sender;
             Options.Export(dlg.FileName);
+        }
+
+        private void dlgLoadSettings_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            OpenFileDialog dlg = (OpenFileDialog)sender;
+            Options.Import(dlg.FileName);
         }
     }
 }

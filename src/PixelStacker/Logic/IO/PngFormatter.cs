@@ -113,7 +113,7 @@ namespace PixelStacker.Logic
 
             if (Options.Get.PreRender_IsEnabled)
             {
-                Bitmap img = engine.RenderImage(srcImage);
+                Bitmap img = engine.RenderImage(_worker, srcImage);
                 srcImage.DisposeSafely();
                 srcImage = img;
                 _worker.SafeThrowIfCancellationRequested();
