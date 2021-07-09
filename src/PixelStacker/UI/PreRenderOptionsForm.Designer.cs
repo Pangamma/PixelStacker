@@ -224,9 +224,9 @@ namespace PixelStacker.UI
             this.lblColorCacheSize.Location = new System.Drawing.Point(17, 49);
             this.lblColorCacheSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblColorCacheSize.Name = "lblColorCacheSize";
-            this.lblColorCacheSize.Size = new System.Drawing.Size(116, 17);
+            this.lblColorCacheSize.Size = new System.Drawing.Size(122, 17);
             this.lblColorCacheSize.TabIndex = 13;
-            this.lblColorCacheSize.Text = "Color Cache Size";
+            this.lblColorCacheSize.Text = "Max unique colors";
             // 
             // ddlMaxNormalizedColorCount
             // 

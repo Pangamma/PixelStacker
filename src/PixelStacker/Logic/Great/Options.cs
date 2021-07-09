@@ -69,7 +69,7 @@ namespace PixelStacker.Logic
         /// Basically, 251 would become 250. This is used by the Color cache size
         /// settings dropdown in the pre-render/quantizer options menu.
         /// </summary>
-        public int PreRender_ColorCacheFragmentSize { get; set; } = 5;
+        public int PreRender_ColorCacheFragmentSize { get; set; } = 1;
 
         public int GridSize { get; set; } = 16;
         public Color GridColor { get; set; } = Color.Black;
