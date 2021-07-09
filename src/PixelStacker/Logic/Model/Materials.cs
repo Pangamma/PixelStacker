@@ -6,9 +6,6 @@ using PixelStacker.Logic.Extensions;
 using System.Threading;
 using PixelStacker.Logic.Great;
 using PixelStacker.Resources;
-using PixelStacker.UI;
-using System.Collections.Concurrent;
-using PixelStacker.Logic.Collections;
 
 namespace PixelStacker.Logic
 {
@@ -72,6 +69,7 @@ namespace PixelStacker.Logic
                         new Material("1.7", false, "Glass", "GLASS_14", "Red Glass", 95, 14, Textures.red_stained_glass, Textures.red_stained_glass, $"minecraft:{nameof(Textures.red_stained_glass)}", $"minecraft:{nameof(Textures.red_stained_glass)}", "minecraft:stained_glass"),
                         new Material("1.7", false, "Glass", "GLASS_15", "Black Glass", 95, 15, Textures.black_stained_glass, Textures.black_stained_glass, $"minecraft:{nameof(Textures.black_stained_glass)}", $"minecraft:{nameof(Textures.black_stained_glass)}", "minecraft:stained_glass"),
                         new Material("1.7", true, "Glass", "GLASS_CLR", "Clear Glass", 20, 0, Textures.glass, Textures.glass, $"minecraft:{nameof(Textures.glass)}", $"minecraft:{nameof(Textures.glass)}", "minecraft:glass"),
+                        new Material("1.17", true, "Glass", "GLASS_TINTED", "Tinted Glass", 95, 15, Textures.tinted_glass, Textures.tinted_glass, $"minecraft:{nameof(Textures.tinted_glass)}", $"minecraft:{nameof(Textures.tinted_glass)}", ""),
 
                         new Material("1.7", false, "Wool", "WOOL_00", "White Wool", 35, 0, Textures.white_wool, Textures.white_wool, $"minecraft:{nameof(Textures.white_wool)}", $"minecraft:{nameof(Textures.white_wool)}", "minecraft:wool"),
                         new Material("1.7", false, "Wool", "WOOL_01", "Orange Wool", 35, 1, Textures.orange_wool, Textures.orange_wool, $"minecraft:{nameof(Textures.orange_wool)}", $"minecraft:{nameof(Textures.orange_wool)}", "minecraft:wool"),
@@ -201,7 +199,10 @@ namespace PixelStacker.Logic
                         new Material("1.15", true, "Okay", "BEE_NEST", "Bee Nest", 473, 0, Textures.bee_nest_top, Textures.bee_nest_side, $"minecraft:bee_nest[facing=west]", $"minecraft:bee_nest[facing=west]", ""),
                         new Material("1.7", false, "Okay", "BEDROCK", "Bedrock", 7, 0, Textures.bedrock, Textures.bedrock, $"minecraft:{nameof(Textures.bedrock)}", $"minecraft:{nameof(Textures.bedrock)}", "minecraft:bedrock"),
                         new Material("1.7", false, "Okay", "COBBLE", "Cobblestone", 4, 0, Textures.cobblestone, Textures.cobblestone, $"minecraft:{nameof(Textures.cobblestone)}", $"minecraft:{nameof(Textures.cobblestone)}", "minecraft:cobblestone"),
+                        new Material("1.17", false, "Okay", "MOSS_BLOCK", "Moss Block", 1, 0, Textures.moss_block, Textures.moss_block, $"minecraft:{nameof(Textures.moss_block)}", $"minecraft:{nameof(Textures.moss_block)}", ""),
+                        new Material("1.17", false, "Okay", "DIRT_ROOTED", "Rooted Dirt", 3, 1, Textures.rooted_dirt, Textures.rooted_dirt, $"minecraft:{nameof(Textures.rooted_dirt)}", $"minecraft:{nameof(Textures.rooted_dirt)}", ""),
                         new Material("1.7", false, "Okay", "DIRT", "Dirt", 3, 0, Textures.dirt, Textures.dirt, $"minecraft:{nameof(Textures.dirt)}", $"minecraft:{nameof(Textures.dirt)}", "minecraft:dirt"),
+                        new Material("1.17", false, "Okay", "DRIPSTONE", "Dripstone", 3, 0, Textures.dripstone_block, Textures.dripstone_block, $"minecraft:{nameof(Textures.dripstone_block)}", $"minecraft:{nameof(Textures.dripstone_block)}", "minecraft:dripstone_block"),
                         new Material("1.8", false, "Okay", "DIRT_COARSE", "Coarse Dirt", 3, 1, Textures.coarse_dirt, Textures.coarse_dirt, $"minecraft:{nameof(Textures.coarse_dirt)}", $"minecraft:{nameof(Textures.coarse_dirt)}", "minecraft:dirt"),
                         new Material("1.7", false, "Okay", "DIRT_Podzol", "Podzol", 3, 2, Textures.podzol_top, Textures.podzol_side, $"minecraft:podzol", $"minecraft:podzol", "minecraft:dirt"),
                         new Material("1.7", false, "Okay", "ENDSTONE", "Endstone", 121, 0, Textures.end_stone, Textures.end_stone, $"minecraft:{nameof(Textures.end_stone)}", $"minecraft:{nameof(Textures.end_stone)}", "minecraft:end_stone"),
@@ -248,11 +249,23 @@ namespace PixelStacker.Logic
                         new Material("1.16", false, "Nether", "BASALT_SIDE", "Basalt", 166, 0, Textures.basalt_side, Textures.basalt_side, $"minecraft:basalt[axis=x]", $"minecraft:basalt[axis=x]", ""),
                         new Material("1.16", false, "Nether", "BASALT_POLISHED_TOP", "Basalt (Polished)", 166, 0, Textures.polished_basalt_top, Textures.polished_basalt_top, $"minecraft:polished_basalt[axis=y]", $"minecraft:polished_basalt[axis=z]", ""),
                         new Material("1.16", false, "Nether", "BASALT_POLISHED_SIDE", "Basalt (Polished)", 166, 0, Textures.polished_basalt_side, Textures.polished_basalt_side, $"minecraft:polished_basalt[axis=x]", $"minecraft:polished_basalt[axis=x]", ""),
+                        new Material("1.17", false, "Nether", "BASALT_SMOOTH", "Basalt (Smooth)", 166, 0, Textures.smooth_basalt, Textures.smooth_basalt, $"minecraft:smooth_basalt", $"minecraft:smooth_basalt", ""),
                         new Material("1.16", false, "Nether", "NETHERITE_BLOCK", "Netherite Block", 166, 0, Textures.netherite_block, Textures.netherite_block, $"minecraft:{nameof(Textures.netherite_block)}", $"minecraft:{nameof(Textures.netherite_block)}", ""),
                         new Material("1.16", false, "Nether", "NYLIUM_CRIMSON", "Crimson Nylium", 166, 0, Textures.crimson_nylium, Textures.crimson_nylium_side, $"minecraft:{nameof(Textures.crimson_nylium)}", $"minecraft:{nameof(Textures.crimson_nylium)}", ""),
                         new Material("1.16", false, "Nether", "NYLIUM_WARPED", "Warped Nylium", 166, 0, Textures.warped_nylium, Textures.warped_nylium_side, $"minecraft:{nameof(Textures.warped_nylium)}", $"minecraft:{nameof(Textures.warped_nylium)}", ""),
                         new Material("1.16", false, "Nether", "BLK_STONE", "Blackstone", 166, 0, Textures.blackstone_top, Textures.blackstone, $"minecraft:blackstone", $"minecraft:blackstone", ""),
                         new Material("1.7", false, "Nether", "QUARTZ_CHISELED", "Chiseled Quartz Block", 155, 1, Textures.chiseled_quartz_block_top, Textures.chiseled_quartz_block, $"minecraft:chiseled_quartz_block", $"minecraft:chiseled_quartz_block", "minecraft:quartz_block"),
+
+                        new Material("1.17", false, "Other", "CALCITE", "Calcite", 1, 0, Textures.calcite, Textures.calcite, $"minecraft:{nameof(Textures.calcite)}", $"minecraft:{nameof(Textures.calcite)}",""),
+                        new Material("1.17", false, "Other", "CHZL_DEEPSLATE", "Chiseled Deepslate", 1, 0, Textures.chiseled_deepslate, Textures.chiseled_deepslate, $"minecraft:{nameof(Textures.chiseled_deepslate)}", $"minecraft:{nameof(Textures.chiseled_deepslate)}",""),
+                        new Material("1.17", true, "Other", "CRACKED_DEEPSLATE_BRICK", "Cracked Deepslate Bricks", 1, 0, Textures.cracked_deepslate_bricks, Textures.cracked_deepslate_bricks, $"minecraft:{nameof(Textures.cracked_deepslate_bricks)}", $"minecraft:{nameof(Textures.cracked_deepslate_bricks)}",""),
+                        new Material("1.17", true, "Other", "CRACKED_DEEPSLATE_TILE", "Cracked Deepslate Tiles", 1, 0, Textures.cracked_deepslate_tiles, Textures.cracked_deepslate_tiles, $"minecraft:{nameof(Textures.cracked_deepslate_tiles)}", $"minecraft:{nameof(Textures.cracked_deepslate_tiles)}",""),
+                        new Material("1.17", false, "Other", "COBBLE_DEEPSLATE", "Cobbled Deepslate", 1, 0, Textures.cobbled_deepslate, Textures.cobbled_deepslate, $"minecraft:{nameof(Textures.cobbled_deepslate)}", $"minecraft:{nameof(Textures.cobbled_deepslate)}",""),
+                        new Material("1.17", false, "Other", "DEEPSLATE", "Deepslate", 1, 0, Textures.deepslate_top, Textures.deepslate, $"minecraft:{nameof(Textures.deepslate)}", $"minecraft:{nameof(Textures.deepslate)}",""),
+                        new Material("1.17", false, "Other", "DEEPSLATE_BRICK", "Deepslate Bricks", 1, 0, Textures.deepslate_bricks, Textures.deepslate_bricks, $"minecraft:{nameof(Textures.deepslate_bricks)}", $"minecraft:{nameof(Textures.deepslate_bricks)}",""),
+                        new Material("1.17", false, "Other", "DEEPSLATE_TILE", "Deepslate Tiles", 1, 0, Textures.deepslate_tiles, Textures.deepslate_tiles, $"minecraft:{nameof(Textures.deepslate_tiles)}", $"minecraft:{nameof(Textures.deepslate_tiles)}",""),
+                        new Material("1.17", false, "Other", "POLISH_DEEPSLATE", "Polished Deepslatee", 1, 0, Textures.polished_deepslate, Textures.polished_deepslate, $"minecraft:{nameof(Textures.polished_deepslate)}", $"minecraft:{nameof(Textures.polished_deepslate)}",""),
+                        new Material("1.17", false, "Other", "TUFF", "Tuff", 1, 0, Textures.tuff, Textures.tuff, $"minecraft:{nameof(Textures.tuff)}", $"minecraft:{nameof(Textures.tuff)}",""),
 
                         new Material("1.7", false, "Solid Ores", "SLD_ORE_C", "Coal Block", 173, 0, Textures.coal_block, Textures.coal_block, $"minecraft:{nameof(Textures.coal_block)}", $"minecraft:{nameof(Textures.coal_block)}", "minecraft:coal_block"),
                         new Material("1.7", false, "Solid Ores", "SLD_ORE_I", "Iron Block", 42, 0, Textures.iron_block, Textures.iron_block, $"minecraft:{nameof(Textures.iron_block)}", $"minecraft:{nameof(Textures.iron_block)}", "minecraft:iron_block"),
@@ -261,8 +274,19 @@ namespace PixelStacker.Logic
                         new Material("1.7", false, "Solid Ores", "SLD_ORE_L", "Lapis Block", 22, 0, Textures.lapis_block, Textures.lapis_block, $"minecraft:{nameof(Textures.lapis_block)}", $"minecraft:{nameof(Textures.lapis_block)}", "minecraft:lapis_block"),
                         new Material("1.7", false, "Solid Ores", "SLD_ORE_D", "Diamond Block", 57, 0, Textures.diamond_block, Textures.diamond_block, $"minecraft:{nameof(Textures.diamond_block)}", $"minecraft:{nameof(Textures.diamond_block)}", "minecraft:diamond_block"),
                         new Material("1.7", false, "Solid Ores", "SLD_ORE_E", "Emerald Block", 133, 0, Textures.emerald_block, Textures.emerald_block, $"minecraft:{nameof(Textures.emerald_block)}", $"minecraft:{nameof(Textures.emerald_block)}", "minecraft:emerald_block"),
+                        new Material("1.17", false, "Solid Ores", "AMETHYST_BD", "Amethyst Block", 1, 0, Textures.amethyst_block, Textures.amethyst_block, $"minecraft:{nameof(Textures.amethyst_block)}", $"minecraft:{nameof(Textures.amethyst_block)}", ""),
+                        new Material("1.17", false, "Solid Ores", "AMETHYST_BLK", "Budding Amethyst", 1, 0, Textures.budding_amethyst, Textures.budding_amethyst, $"minecraft:{nameof(Textures.budding_amethyst)}", $"minecraft:{nameof(Textures.budding_amethyst)}", ""),
+                        new Material("1.17", false, "Solid Ores", "SLD_ORE_Cu_BLK", "Copper Block (Waxed)", 1, 0, Textures.cut_copper, Textures.cut_copper, $"minecraft:waxed_copper", $"minecraft:waxed_copper",""),
+                        new Material("1.17", false, "Solid Ores", "SLD_ORE_Cu_CUT", "Cut Copper Block (Waxed)", 1, 0, Textures.cut_copper, Textures.cut_copper, $"minecraft:waxed_cut_copper", $"minecraft:waxed_cut_copper",""),
+                        new Material("1.17", false, "Solid Ores", "SLD_ORE_Cu_EXPO", "Exposed Copper Block (Waxed)", 1, 0, Textures.exposed_copper, Textures.exposed_copper, $"minecraft:waxed_exposed_copper", $"minecraft:waxed_exposed_copper",""),
+                        new Material("1.17", false, "Solid Ores", "SLD_ORE_Cu_EXPO_CUT", "Exposed Cut Copper Block (Waxed)", 1, 0, Textures.exposed_cut_copper, Textures.exposed_cut_copper, $"minecraft:waxed_exposed_cut_copper", $"minecraft:waxed_exposed_cut_copper",""),
+                        new Material("1.17", false, "Solid Ores", "SLD_ORE_Cu_OXI", "Oxidized Copper Block (Waxed)", 1, 0, Textures.oxidized_copper, Textures.oxidized_copper, $"minecraft:waxed_oxidized_copper", $"minecraft:waxed_oxidized_copper",""),
+                        new Material("1.17", false, "Solid Ores", "SLD_ORE_Cu_OXI_CUT", "Oxidized Cut Copper Block (Waxed)", 1, 0, Textures.oxidized_cut_copper, Textures.oxidized_cut_copper, $"minecraft:waxed_oxidized_cut_copper", $"minecraft:waxed_oxidized_cut_copper",""),
+                        new Material("1.17", false, "Solid Ores", "SLD_ORE_Cu_WTHER", "Weathered Copper Block (Waxed)", 1, 0, Textures.weathered_copper, Textures.weathered_copper, $"minecraft:waxed_weathered_copper", $"minecraft:waxed_weathered_copper",""),
+                        new Material("1.17", false, "Solid Ores", "SLD_ORE_Cu_WTHER_CUT", "Weathered Cut Copper Block (Waxed)", 1, 0, Textures.weathered_cut_copper, Textures.weathered_cut_copper, $"minecraft:waxed_weathered_cut_copper", $"minecraft:waxed_weathered_cut_copper",""),
 
-                        new Material("1.9", false, "Common", "GRASS_PATH", "Grass Path", 208, 0, Textures.grass_path_top, Textures.grass_path_side, $"minecraft:grass_path", $"minecraft:grass_path", "minecraft:grass_path"),
+
+                        new Material("1.17", false, "Common", "GRASS_PATH", "Dirt Path", 208, 0, Textures.dirt_path_top, Textures.dirt_path_side, $"minecraft:dirt_path", $"minecraft:dirt_path", "minecraft:dirt_path"),
                         new Material("1.10", false, "Common", "BONE_BLK", "Bone Block", 216, 4, Textures.bone_block_side, Textures.bone_block_side, $"minecraft:bone_block[axis=x]", $"minecraft:bone_block[axis=x]", "minecraft:bone_block"),
                         new Material("1.10", false, "Common", "BONE_BLK_TOP", "Bone Block (Top)", 216, 0, Textures.bone_block_top, Textures.bone_block_top, $"minecraft:bone_block[axis=y]", $"minecraft:bone_block[axis=z]", "minecraft:bone_block"),
                         new Material("1.7", false, "Common", "GRAVEL", "gravel", 13, 0, Textures.gravel, Textures.gravel, $"minecraft:{nameof(Textures.gravel)}", $"minecraft:{nameof(Textures.gravel)}", "minecraft:gravel"),
@@ -292,6 +316,7 @@ namespace PixelStacker.Logic
                         new Material("1.13", false, "Dead Coral", "DEAD_CRL_TUBE", "Dead Tube Coral", 166, 0, Textures.dead_tube_coral_block, Textures.dead_tube_coral_block, $"minecraft:{nameof(Textures.dead_tube_coral_block)}", $"minecraft:{nameof(Textures.dead_tube_coral_block)}", ""),
 
                         new Material("1.7", true, "Ores", "ORE_C", "Coal Ore", 16, 0, Textures.coal_ore, Textures.coal_ore, $"minecraft:{nameof(Textures.coal_ore)}", $"minecraft:{nameof(Textures.coal_ore)}", "minecraft:coal_ore"),
+                        new Material("1.7", true, "Ores", "ORE_Cu", "Copper Ore", 1, 0, Textures.copper_ore, Textures.copper_ore, $"minecraft:{nameof(Textures.copper_ore)}", $"minecraft:{nameof(Textures.copper_ore)}", "minecraft:copper_ore"),
                         new Material("1.7", true, "Ores", "ORE_I", "Iron Ore", 15, 0, Textures.iron_ore, Textures.iron_ore, $"minecraft:{nameof(Textures.iron_ore)}", $"minecraft:{nameof(Textures.iron_ore)}", "minecraft:iron_ore"),
                         new Material("1.7", true, "Ores", "ORE_G", "Gold Ore", 14, 0, Textures.gold_ore, Textures.gold_ore, $"minecraft:gold_ore", $"minecraft:gold_ore", "minecraft:gold_ore"),
                         new Material("1.7", true, "Ores", "ORE_R", "Redstone Ore", 73, 0, Textures.redstone_ore, Textures.redstone_ore, $"minecraft:{nameof(Textures.redstone_ore)}", $"minecraft:{nameof(Textures.redstone_ore)}", "minecraft:redstone_ore"),
@@ -301,6 +326,18 @@ namespace PixelStacker.Logic
                         new Material("1.7", false, "Ores", "ORE_QUARTZ", "Quartz Ore", 153, 0, Textures.nether_quartz_ore, Textures.nether_quartz_ore, $"minecraft:{nameof(Textures.nether_quartz_ore)}", $"minecraft:{nameof(Textures.nether_quartz_ore)}", "minecraft:quartz_ore"),
                         new Material("1.16", false, "Ores", "ORE_G_NETHER", "Nether Gold Ore", 166, 0, Textures.nether_gold_ore, Textures.nether_gold_ore, $"minecraft:{nameof(Textures.nether_gold_ore)}", $"minecraft:{nameof(Textures.nether_gold_ore)}", ""),
                         new Material("1.16", false, "Ores", "BLK_STONE_GILDED", "Guilded Blackstone", 166, 0, Textures.gilded_blackstone, Textures.gilded_blackstone, $"minecraft:{nameof(Textures.gilded_blackstone)}", $"minecraft:{nameof(Textures.gilded_blackstone)}", ""),
+                        new Material("1.17", false, "Ores", "ORE_G_RAW", "Raw Gold Block", 41, 0, Textures.raw_gold_block, Textures.raw_gold_block, $"minecraft:{nameof(Textures.raw_gold_block)}", $"minecraft:{nameof(Textures.raw_gold_block)}", ""),
+                        new Material("1.17", false, "Ores", "ORE_Cp_RAW", "Raw Copper Block", 3, 0, Textures.raw_copper_block, Textures.raw_copper_block, $"minecraft:{nameof(Textures.raw_copper_block)}", $"minecraft:{nameof(Textures.raw_copper_block)}", ""),
+                        new Material("1.17", false, "Ores", "ORE_I_RAW", "Raw Iron Block", 42, 0, Textures.raw_iron_block, Textures.raw_iron_block, $"minecraft:{nameof(Textures.raw_iron_block)}", $"minecraft:{nameof(Textures.raw_iron_block)}", ""),
+
+                        new Material("1.17", true, "Deepslate Ores", "ORE_C_DS", "Deepslate Coal Ore", 16, 0, Textures.deepslate_coal_ore, Textures.deepslate_coal_ore, $"minecraft:{nameof(Textures.deepslate_coal_ore)}", $"minecraft:{nameof(Textures.deepslate_coal_ore)}", "minecraft:deepslate_coal_ore"),
+                        new Material("1.17", true, "Deepslate Ores", "ORE_Cu_DS", "Deepslate Copper Ore", 16, 0, Textures.deepslate_copper_ore, Textures.deepslate_copper_ore, $"minecraft:{nameof(Textures.deepslate_copper_ore)}", $"minecraft:{nameof(Textures.deepslate_copper_ore)}", "minecraft:deepslate_copper_ore"),
+                        new Material("1.17", true, "Deepslate Ores", "ORE_I_DS", "Deepslate Iron Ore", 15, 0, Textures.deepslate_iron_ore, Textures.deepslate_iron_ore, $"minecraft:{nameof(Textures.deepslate_iron_ore)}", $"minecraft:{nameof(Textures.deepslate_iron_ore)}", "minecraft:deepslate_iron_ore"),
+                        new Material("1.17", true, "Deepslate Ores", "ORE_G_DS", "Deepslate Gold Ore", 14, 0, Textures.deepslate_gold_ore, Textures.deepslate_gold_ore, $"minecraft:gold_ore", $"minecraft:gold_ore", "minecraft:deepslate_gold_ore"),
+                        new Material("1.17", true, "Deepslate Ores", "ORE_R_DS", "Deepslate Redstone Ore", 73, 0, Textures.deepslate_redstone_ore, Textures.deepslate_redstone_ore, $"minecraft:{nameof(Textures.deepslate_redstone_ore)}", $"minecraft:{nameof(Textures.deepslate_redstone_ore)}", "minecraft:deepslate_redstone_ore"),
+                        new Material("1.17", true, "Deepslate Ores", "ORE_L_DS", "Deepslate Lapis Ore", 21, 0, Textures.deepslate_lapis_ore, Textures.deepslate_lapis_ore, $"minecraft:{nameof(Textures.deepslate_lapis_ore)}", $"minecraft:{nameof(Textures.deepslate_lapis_ore)}", "minecraft:deepslate_lapis_ore"),
+                        new Material("1.17", true, "Deepslate Ores", "ORE_D_DS", "Deepslate Diamond Ore", 56, 0, Textures.deepslate_diamond_ore, Textures.deepslate_diamond_ore, $"minecraft:{nameof(Textures.deepslate_diamond_ore)}", $"minecraft:{nameof(Textures.deepslate_diamond_ore)}", "minecraft:deepslate_diamond_ore"),
+                        new Material("1.17", true, "Deepslate Ores", "ORE_E_DS", "Deepslate Emerald Ore", 129, 0, Textures.deepslate_emerald_ore, Textures.deepslate_emerald_ore, $"minecraft:{nameof(Textures.deepslate_emerald_ore)}", $"minecraft:{nameof(Textures.deepslate_emerald_ore)}", "minecraft:deepslate_emerald_ore"),
 
                         new Material("1.12", true, "Terracotta", "GLAZED_00", "White Terracotta", 235, 0, Textures.white_glazed_terracotta, Textures.white_glazed_terracotta, $"minecraft:{nameof(Textures.white_glazed_terracotta)}", $"minecraft:{nameof(Textures.white_glazed_terracotta)}", "minecraft:white_glazed_terracotta"),
                         new Material("1.12", true, "Terracotta", "GLAZED_01", "Orange Terracotta", 236, 0, Textures.orange_glazed_terracotta, Textures.orange_glazed_terracotta, $"minecraft:{nameof(Textures.orange_glazed_terracotta)}", $"minecraft:{nameof(Textures.orange_glazed_terracotta)}", "minecraft:orange_glazed_terracotta"),
@@ -335,6 +372,7 @@ namespace PixelStacker.Logic
                         new Material("1.7", true, "Carpet", "CARPET_13", "Green Carpet", 171, 13, Textures.green_wool, Textures.green_wool, $"minecraft:green_carpet", $"minecraft:green_carpet", "minecraft:carpet"),
                         new Material("1.7", true, "Carpet", "CARPET_14", "Red Carpet", 171, 14, Textures.red_wool, Textures.red_wool, $"minecraft:red_carpet", $"minecraft:red_carpet", "minecraft:carpet"),
                         new Material("1.7", true, "Carpet", "CARPET_15", "Black Carpet", 171, 15, Textures.black_wool, Textures.black_wool, $"minecraft:black_carpet", $"minecraft:black_carpet", "minecraft:carpet"),
+                        new Material("1.17", true, "Carpet", "CARPET_MOSS", "Moss Carpet", 171, 13, Textures.moss_block, Textures.moss_block, $"minecraft:moss_carpet", $"minecraft:moss_carpet", ""),
                     };
 
                     var notUnique = _List.GroupBy(x => x.PixelStackerID).Where(x => x.Count() > 1);
@@ -361,8 +399,10 @@ namespace PixelStacker.Logic
                         || (m.Category.Contains("Log") && m.BlockID == 17 && !m.Label.Contains("Birch"))
                         || m.PixelStackerID == "SHROOM_INNER"
                         || m.PixelStackerID == "CLAY_HARD_00"
-                        || m.PixelStackerID == "GRANITE"
+                        || m.PixelStackerID.Contains("GRANITE")
                         || m.PixelStackerID == "DIRT"
+                        || m.PixelStackerID == "DRIPSTONE"
+                        || m.PixelStackerID == "DIRT_ROOTED"
                         || m.PixelStackerID == "DIRT_COARSE"
                         || m.PixelStackerID == "SOUL_SOIL"
                         || m.PixelStackerID == "SOUL_SAND"

@@ -17,7 +17,8 @@ namespace PixelStacker
         // - Original image dimensions
         // - Calculated output image dimensions
         // TODO: PanZoomSettings generator based on above inputs ^
-        // 
+        // TODO: Better versioning output format.
+        // composter, loom
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

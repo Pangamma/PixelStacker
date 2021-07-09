@@ -133,17 +133,8 @@
   <data name="ancient_debris_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Ores\ancient_debris_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="andesite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\Textures\x16\andesite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="barrier" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Hidden\barrier.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="basalt_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\Textures\x16\basalt_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="basalt_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\Textures\x16\basalt_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bedrock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\bedrock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -400,11 +391,11 @@
   <data name="granite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\granite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="grass_path_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\Textures\x16\grass_path_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dirt_path_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\dirt_path_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="grass_path_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\Textures\x16\grass_path_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dirt_path_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\dirt_path_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gravel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\gravel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -933,5 +924,128 @@
   </data>
   <data name="yellow_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\Textures\x16\Wool\yellow_wool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tinted_glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\glass\tinted_glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="amethyst_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\amethyst_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="andesite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\andesite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="basalt_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\basalt_side.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="basalt_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\basalt_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="budding_amethyst" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\budding_amethyst.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="calcite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\calcite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chiseled_deepslate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\chiseled_deepslate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cobbled_deepslate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\cobbled_deepslate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="copper_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\copper_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="copper_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\copper_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cracked_deepslate_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\cracked_deepslate_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cracked_deepslate_tiles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\cracked_deepslate_tiles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cut_copper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\cut_copper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\deepslate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\deepslate_bricks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_coal_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\deepslate_coal_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_copper_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\deepslate_copper_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_diamond_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\deepslate_diamond_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_emerald_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\deepslate_emerald_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_gold_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\deepslate_gold_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_iron_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\deepslate_iron_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_lapis_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\deepslate_lapis_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_redstone_ore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\deepslate_redstone_ore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_tiles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\deepslate_tiles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deepslate_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\deepslate_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dripstone_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\dripstone_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="exposed_copper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\exposed_copper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="exposed_cut_copper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\exposed_cut_copper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="moss_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\moss_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="oxidized_copper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\oxidized_copper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="oxidized_cut_copper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\oxidized_cut_copper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="polished_deepslate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\polished_deepslate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="raw_copper_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\raw_copper_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="raw_gold_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\raw_gold_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="raw_iron_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\raw_iron_block.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rooted_dirt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\rooted_dirt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="smooth_basalt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\smooth_basalt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tuff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\tuff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="weathered_copper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\weathered_copper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="weathered_cut_copper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Textures\x16\Ores\weathered_cut_copper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
