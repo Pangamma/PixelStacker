@@ -180,6 +180,7 @@
     <Compile Include="Logic\Utilities\AsyncDuplicateLock.cs" />
     <Compile Include="Logic\IO\SchematicFormatter.cs" />
     <Compile Include="Logic\Utilities\KonamiWatcher.cs" />
+    <Compile Include="Logic\Utilities\RateLimit.cs" />
     <Compile Include="Logic\WIP\EditHistory.cs" />
     <Compile Include="Logic\WIP\ILocalized.cs" />
     <Compile Include="PreRender\ColorCaches\BaseColorCache.cs" />

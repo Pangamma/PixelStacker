@@ -22,6 +22,10 @@ namespace PixelStacker.UI
     // TODO: Fix weird display when going to narrow viewing windows
     public partial class MaterialSelectWindow : Form, ILocalized
     {
+        #region Constructor Stuff
+        // *-----------------+--------------------------------------------------------------------*
+        // *                   C O N S T R U C T I O N                                            *
+        // *-----------------+--------------------------------------------------------------------*
         private Regex regexMatName = new Regex(@"minecraft:([a-zA-Z_09]+)(.*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private OrderedDictionary<string, MaterialSelectTile> materialTiles = new OrderedDictionary<string, MaterialSelectTile>();
         private Dictionary<string, CategoryReferenceContainer> categoryRefs = new Dictionary<string, CategoryReferenceContainer>();
@@ -30,31 +34,25 @@ namespace PixelStacker.UI
         {
             InitializeComponent();
             ApplyLocalization(System.Threading.Thread.CurrentThread.CurrentUICulture);
-
-            bool isv = Options.Get.IsSideView;
             this.InitializeAutoComplete();
             this.InitializeMaterialTiles();
-            this.LoadFromSettings();
         }
 
-        private class CategoryReferenceContainer
+        /// <summary>
+        /// Called when form is first loaded as well as any time it is brought back.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MaterialSelectWindow_VisibleChanged(object sender, EventArgs e)
         {
-            public CheckBox Checkbox { get; set; }
-            public List<MaterialSelectTile> Tiles { get; set; } = new List<MaterialSelectTile>();
-            public CustomFlowLayoutPanel TilePanel { get; internal set; }
-
-            public void SetVisible(bool b)
+            if (this.Visible)
             {
-                this.Checkbox.Visible = true;
+                LoadFromSettings();
+                RepositionCheckboxes();
+                RefreshCheckboxStates();
             }
         }
 
-        /**
-         * I need references to:
-         * - the checkboxes
-         * - the "check-all" checkbox
-         * 
-         */
         private void InitializeMaterialTiles()
         {
             this.materialPanel.SuspendLayout();
@@ -111,7 +109,7 @@ namespace PixelStacker.UI
                     //margin.Top = 8;
                     //matList.Padding = margin;
                 }
-                    
+
                 this.materialPanel.Controls.Add(matList);
                 matList.AutoSize = true;
                 matList.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -130,6 +128,9 @@ namespace PixelStacker.UI
             RepositionCheckboxes();
         }
 
+        /// <summary>
+        /// This ALREADY makes the call to SetVisibleMaterials at the end.
+        /// </summary>
         private void LoadFromSettings()
         {
             cbxIsMultiLayer.Checked = Options.Get.IsMultiLayer;
@@ -146,65 +147,6 @@ namespace PixelStacker.UI
             }
 
             SetVisibleMaterials(Materials.List ?? new List<Material>());
-        }
-
-        private void OnMouseLeave_Tile(object sender, EventArgs e)
-        {
-            if (this.lblInfo.Text != "")
-            {
-                this.lblInfo.Text = "";
-            }
-        }
-
-        private void OnMouseEnter_Tile(object sender, EventArgs e)
-        {
-            this.lblInfo.Text = ((MaterialSelectTile)sender).Material.Label;
-        }
-
-        private MaterialSelectTile previouslyClickedTile = null;
-
-        private KeyValuePair<string, CategoryReferenceContainer> GetCategoryRefForMaterialTile(MaterialSelectTile currentTile)
-        {
-            return this.categoryRefs.FirstOrDefault(x => x.Value.Tiles.Contains(currentTile));
-        }
-
-        [Obsolete("Should do this a different way and be more efficient.", false)]
-        private string GetMaterialTileID(MaterialSelectTile tile, string category = null)
-        {
-            //if (category == null)
-            //{
-            //    category = this.GetCategoryRefForMaterialTile(tile).Key ?? null;
-            //}
-
-            return $"{tile.Material.PixelStackerID}";
-        }
-
-        private void OnMouseClick_Tile(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                var currentTile = (MaterialSelectTile)sender;
-                if (!Control.ModifierKeys.HasFlag(Keys.Shift) || previouslyClickedTile == null)
-                {
-                    previouslyClickedTile = currentTile;
-                }
-                else
-                {
-                    // go time.
-                    int idxA = this.materialTiles.IndexOf(GetMaterialTileID(previouslyClickedTile));
-                    int idxB = this.materialTiles.IndexOf(GetMaterialTileID(currentTile));
-                    int minI = Math.Min(idxA, idxB);
-                    int maxI = Math.Max(idxA, idxB);
-                    this.materialTiles.Skip(minI).Take(maxI - minI).ToList()
-                        .ForEach(x =>
-                        {
-                            x.Value.Material.IsEnabled = !Control.ModifierKeys.HasFlag(Keys.Control);
-                            x.Value.Refresh();
-                        });
-
-                    RefreshCheckboxStates();
-                }
-            }
         }
 
         private void InitializeAutoComplete()
@@ -238,9 +180,98 @@ namespace PixelStacker.UI
                     }
                 }).Distinct().ToArray()
             );
-
         }
 
+        #endregion Constructor Stuff
+
+        #region Mouse Listeners
+        // *-----------------+--------------------------------------------------------------------*
+        // *                   M O U S E _ L I S T E N E R S                                      *
+        // *-----------------+--------------------------------------------------------------------*
+        private void OnMouseLeave_Tile(object sender, EventArgs e)
+        {
+            if (this.lblInfo.Text != "")
+            {
+                this.lblInfo.Text = "";
+            }
+        }
+        private void OnMouseEnter_Tile(object sender, EventArgs e)
+        {
+            this.lblInfo.Text = ((MaterialSelectTile)sender).Material.Label;
+        }
+
+        private MaterialSelectTile previouslyClickedTile = null;
+        private void OnMouseClick_Tile(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                var currentTile = (MaterialSelectTile)sender;
+                if (!Control.ModifierKeys.HasFlag(Keys.Shift) || previouslyClickedTile == null)
+                {
+                    previouslyClickedTile = currentTile;
+                }
+                else
+                {
+                    // go time.
+                    int idxA = this.materialTiles.IndexOf(GetMaterialTileID(previouslyClickedTile));
+                    int idxB = this.materialTiles.IndexOf(GetMaterialTileID(currentTile));
+                    int minI = Math.Min(idxA, idxB);
+                    int maxI = Math.Max(idxA, idxB);
+                    this.materialTiles.Skip(minI).Take(maxI - minI).ToList()
+                        .ForEach(x =>
+                        {
+                            x.Value.Material.IsEnabled = !Control.ModifierKeys.HasFlag(Keys.Control);
+                            x.Value.Refresh();
+                        });
+
+                    RefreshCheckboxStates();
+                }
+            }
+        }
+        #endregion Mouse Listeners
+
+        #region Checkboxes
+        // *-----------------+--------------------------------------------------------------------*
+        // *                   C H E C K B O X E S                                                *
+        // *-----------------+--------------------------------------------------------------------*
+        /// <summary>
+        /// For each category, checked = (numChecked > numTotal/2).
+        /// </summary>
+        private void RefreshCheckboxStates()
+        {
+            RateLimit.Check(3, 2000);
+            foreach (var kvp in this.categoryRefs)
+            {
+                var matsInCat = kvp.Value.Tiles;
+                var numEnabled = matsInCat.Count(x => x.Material.IsEnabled);
+                var numTotal = matsInCat.Count;
+
+                kvp.Value.Checkbox.CheckState = (numEnabled > numTotal / 2)
+                ? CheckState.Checked
+                : CheckState.Unchecked;
+            }
+        }
+
+        /// <summary>
+        /// We tried every type of layout available, and each of them was a bit buggy.
+        /// We had 6 devs try to get it to work. Finally we decided to just manually
+        /// reposition the checkboxes. It works. Checkboxes will be aligned to the
+        /// left of the grid area they represent.
+        /// </summary>
+        private void RepositionCheckboxes()
+        {
+            RateLimit.Check(3, 2000);
+            foreach (var cRef in this.categoryRefs.Values)
+            {
+                cRef.Checkbox.Location = new Point(10, 10 + cRef.TilePanel.Location.Y);
+            }
+        }
+        #endregion Checkboxes
+
+        #region Form visibility
+        // *-----------------+--------------------------------------------------------------------*
+        // *                   F O R M _ V I S I B I L I T Y                                      *
+        // *-----------------+--------------------------------------------------------------------*
         protected async void TryHide()
         {
             if (Options.Get.IsMultiLayerRequired)
@@ -292,61 +323,169 @@ namespace PixelStacker.UI
             this.Hide();
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        [Obsolete("Don't forget to undo the changes!")]
+        private void MaterialSelectWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (keyData == Keys.Escape)
+            // TODO: Undo this
+            //Application.Exit();
+            if (e.CloseReason == CloseReason.UserClosing)
             {
+                e.Cancel = true;
                 this.TryHide();
-                return true;
             }
-
-            MainForm.Self.konamiWatcher.ProcessKey(keyData);
-            return base.ProcessCmdKey(ref msg, keyData);
         }
+        #endregion Form visibility
 
-        private void RefreshCheckboxStates()
+        #region Controls on top.
+        // *-----------------+--------------------------------------------------------------------*
+        // *                   C O N T R O L S _ O N _ T O P                                      *
+        // *-----------------+--------------------------------------------------------------------*
+        private void cbxIsMultiLayer_CheckedChanged(object sender, EventArgs e)
         {
-            foreach (var kvp in this.categoryRefs)
+            CheckBox cbx = (CheckBox)sender;
+            bool isChecked = cbx.CheckState == CheckState.Checked;
+            Options.Get.IsMultiLayer = isChecked;
+            if (isChecked)
             {
-                var matsInCat = kvp.Value.Tiles;
-                var numEnabled = matsInCat.Count(x => x.Material.IsEnabled);
-                var numTotal = matsInCat.Count;
-
-                kvp.Value.Checkbox.CheckState = (numEnabled > numTotal / 2)
-                ? CheckState.Checked
-                : CheckState.Unchecked;
+                Options.Get.IsMultiLayer = true;
+            }
+            else
+            {
+                cbxRequire2ndLayer.Checked = false;
+                Options.Get.IsMultiLayerRequired = false;
+                Options.Get.IsMultiLayer = false;
             }
         }
 
-        protected bool ProcessCmdKeyFromTileGrid(Message msg, Keys keyData)
+        private void cbxRequire2ndLayer_CheckedChanged(object sender, EventArgs e)
         {
-            if (keyData.HasFlag(Keys.A) && keyData.HasFlag(Keys.Control))
+            CheckBox cbx = (CheckBox)sender;
+            bool isChecked = cbx.CheckState == CheckState.Checked;
+            if (isChecked)
             {
-                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
-                {
-                    kvp.Value.Material.IsEnabled = true;
-                    kvp.Value.Refresh();
-                });
-
-                RefreshCheckboxStates();
-
-                return true;
+                cbxIsMultiLayer.Checked = true;
+                Options.Get.IsMultiLayer = true;
+                Options.Get.IsMultiLayerRequired = true;
             }
-
-            if (keyData.HasFlag(Keys.D) && keyData.HasFlag(Keys.Control))
+            else
             {
-                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
-                {
-                    kvp.Value.Material.IsEnabled = false;
-                    kvp.Value.Refresh();
-                });
-                RefreshCheckboxStates();
-                return true;
+                Options.Get.IsMultiLayerRequired = false;
             }
-
-            return this.ProcessCmdKey(ref msg, keyData);
         }
 
+        private void cbxIsSideView_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cbx = (CheckBox)sender;
+            bool isChecked = cbx.CheckState == CheckState.Checked;
+            Options.Get.IsSideView = isChecked;
+
+            this.materialTiles.ToList().ForEach(x =>
+            {
+                x.Value.Refresh();
+            });
+        }
+
+        private void ddlColorProfile_SelectedValueChanged(object sender, EventArgs e)
+        {
+            string item = (string)ddlColorProfile.SelectedItem;
+            string path = Path.Combine(FilePaths.ColorProfilesPath, item);
+
+            if (File.Exists(path))
+            {
+                var existingProfile = JsonConvert.DeserializeObject<ColorProfile>(File.ReadAllText(path));
+                if (existingProfile != null)
+                {
+                    foreach (var mat in existingProfile.Materials)
+                    {
+                        var material = Materials.FromPixelStackerID(mat.Key);
+                        if (material != null)
+                        {
+                            material.IsEnabled = mat.Value;
+                        }
+                        // This WOULD be faster, but what if I decide to change the format later... best to play it safe
+                        // and stable. Time for this iteration takes barely any time at all anyways. Can always optimize
+                        // the material list to become a dictionary later if needed.
+                        //string key = "BLOCK_" + mat.Key;
+                        //Options.Get.EnableStates[key] = mat.Value;
+                    }
+                }
+            }
+
+            tbxMaterialFilter.Text = "enabled";
+            SetSearchFilter("enabled");
+        }
+
+        private void btnEditColorProfiles_Click(object sender, EventArgs e)
+        {
+            this.dlgSave.InitialDirectory = FilePaths.ColorProfilesPath;
+            var result = this.dlgSave.ShowDialog(this);
+
+            if (result == DialogResult.OK)
+            {
+                //Prompt
+                string profileLabel = null;
+                string path = this.dlgSave.FileName;
+
+                if (File.Exists(path))
+                {
+                    try
+                    {
+                        var existingProfile = JsonConvert.DeserializeObject<ColorProfile>(File.ReadAllText(path));
+                        if (existingProfile != null)
+                        {
+                            profileLabel = existingProfile.Label;
+                        }
+                    }
+                    catch (Exception)
+                    { }
+                }
+
+                if (string.IsNullOrWhiteSpace(profileLabel))
+                {
+                    profileLabel = new FileInfo(this.dlgSave.FileName).Name;
+                }
+
+                var profile = new ColorProfile()
+                {
+                    Label = profileLabel,
+                    Materials = Materials.List.ToDictionary(k => k.PixelStackerID, v => v.IsEnabled)
+                };
+
+                string json = JsonConvert.SerializeObject(profile, Formatting.Indented);
+                File.WriteAllText(path, json);
+
+                var dirColorProfiles = new DirectoryInfo(FilePaths.ColorProfilesPath);
+                if (dirColorProfiles.Exists)
+                {
+                    var fis = dirColorProfiles.GetFiles();
+                    this.ddlColorProfile.Items.Clear();
+                    this.ddlColorProfile.Items.AddRange(fis.Select(x => x.Name).ToArray());
+                    this.ddlColorProfile.SelectedItem = new FileInfo(this.dlgSave.FileName).Name;
+                }
+            }
+        }
+
+        #endregion Controls on top.
+
+        private KeyValuePair<string, CategoryReferenceContainer> GetCategoryRefForMaterialTile(MaterialSelectTile currentTile)
+        {
+            return this.categoryRefs.FirstOrDefault(x => x.Value.Tiles.Contains(currentTile));
+        }
+
+        [Obsolete("Should do this a different way and be more efficient.", false)]
+        private string GetMaterialTileID(MaterialSelectTile tile, string category = null)
+        {
+            //if (category == null)
+            //{
+            //    category = this.GetCategoryRefForMaterialTile(tile).Key ?? null;
+            //}
+
+            return $"{tile.Material.PixelStackerID}";
+        }
+
+        // *-----------------+--------------------------------------------------------------------*
+        // *                   S E A R C H                                                        *
+        // *-----------------+--------------------------------------------------------------------*
         private void ddlMaterialSearch_TextChanged(object sender, EventArgs e)
         {
             var needle = tbxMaterialFilter.Text.ToLowerInvariant();
@@ -477,6 +616,7 @@ namespace PixelStacker.UI
 
         public void SetVisibleMaterials(List<Material> mats)
         {
+            RateLimit.Check(5, 4000);
             this.materialPanel.SuspendLayout();
 
             List<Control> controls = new List<Control>();
@@ -525,152 +665,10 @@ namespace PixelStacker.UI
             this.RepositionCheckboxes();
         }
 
-
-        private void materialSelectGrid_Resize(object sender, EventArgs e)
-        {
-            this.Refresh();
-        }
-
-        private void cbxIsMultiLayer_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox cbx = (CheckBox)sender;
-            bool isChecked = cbx.CheckState == CheckState.Checked;
-            Options.Get.IsMultiLayer = isChecked;
-            if (isChecked)
-            {
-                Options.Get.IsMultiLayer = true;
-            }
-            else
-            {
-                cbxRequire2ndLayer.Checked = false;
-                Options.Get.IsMultiLayerRequired = false;
-                Options.Get.IsMultiLayer = false;
-            }
-        }
-
-        private void cbxRequire2ndLayer_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox cbx = (CheckBox)sender;
-            bool isChecked = cbx.CheckState == CheckState.Checked;
-            if (isChecked)
-            {
-                cbxIsMultiLayer.Checked = true;
-                Options.Get.IsMultiLayer = true;
-                Options.Get.IsMultiLayerRequired = true;
-            }
-            else
-            {
-                Options.Get.IsMultiLayerRequired = false;
-            }
-        }
-
-        private void cbxIsSideView_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox cbx = (CheckBox)sender;
-            bool isChecked = cbx.CheckState == CheckState.Checked;
-            Options.Get.IsSideView = isChecked;
-
-            this.materialTiles.ToList().ForEach(x =>
-            {
-                x.Value.Refresh();
-            });
-        }
-
-        private void MaterialSelectWindow_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                this.TryHide();
-            }
-        }
-
-        private void MaterialSelectWindow_VisibleChanged(object sender, EventArgs e)
-        {
-            this.LoadFromSettings();
-            SetVisibleMaterials(Materials.List ?? new List<Material>());
-        }
-
-        private void ddlColorProfile_SelectedValueChanged(object sender, EventArgs e)
-        {
-            string item = (string)ddlColorProfile.SelectedItem;
-            string path = Path.Combine(FilePaths.ColorProfilesPath, item);
-
-            if (File.Exists(path))
-            {
-                var existingProfile = JsonConvert.DeserializeObject<ColorProfile>(File.ReadAllText(path));
-                if (existingProfile != null)
-                {
-                    foreach (var mat in existingProfile.Materials)
-                    {
-                        var material = Materials.FromPixelStackerID(mat.Key);
-                        if (material != null)
-                        {
-                            material.IsEnabled = mat.Value;
-                        }
-                        // This WOULD be faster, but what if I decide to change the format later... best to play it safe
-                        // and stable. Time for this iteration takes barely any time at all anyways. Can always optimize
-                        // the material list to become a dictionary later if needed.
-                        //string key = "BLOCK_" + mat.Key;
-                        //Options.Get.EnableStates[key] = mat.Value;
-                    }
-                }
-            }
-
-            tbxMaterialFilter.Text = "enabled";
-            SetSearchFilter("enabled");
-        }
-
-        private void btnEditColorProfiles_Click(object sender, EventArgs e)
-        {
-            this.dlgSave.InitialDirectory = FilePaths.ColorProfilesPath;
-            var result = this.dlgSave.ShowDialog(this);
-
-            if (result == DialogResult.OK)
-            {
-                //Prompt
-                string profileLabel = null;
-                string path = this.dlgSave.FileName;
-
-                if (File.Exists(path))
-                {
-                    try
-                    {
-                        var existingProfile = JsonConvert.DeserializeObject<ColorProfile>(File.ReadAllText(path));
-                        if (existingProfile != null)
-                        {
-                            profileLabel = existingProfile.Label;
-                        }
-                    }
-                    catch (Exception)
-                    { }
-                }
-
-                if (string.IsNullOrWhiteSpace(profileLabel))
-                {
-                    profileLabel = new FileInfo(this.dlgSave.FileName).Name;
-                }
-
-                var profile = new ColorProfile()
-                {
-                    Label = profileLabel,
-                    Materials = Materials.List.ToDictionary(k => k.PixelStackerID, v => v.IsEnabled)
-                };
-
-                string json = JsonConvert.SerializeObject(profile, Formatting.Indented);
-                File.WriteAllText(path, json);
-
-                var dirColorProfiles = new DirectoryInfo(FilePaths.ColorProfilesPath);
-                if (dirColorProfiles.Exists)
-                {
-                    var fis = dirColorProfiles.GetFiles();
-                    this.ddlColorProfile.Items.Clear();
-                    this.ddlColorProfile.Items.AddRange(fis.Select(x => x.Name).ToArray());
-                    this.ddlColorProfile.SelectedItem = new FileInfo(this.dlgSave.FileName).Name;
-                }
-            }
-        }
-
+        #region OTHER
+        // *-----------------+--------------------------------------------------------------------*
+        // *                   O T H E R                                                          *
+        // *-----------------+--------------------------------------------------------------------*
         public void ApplyLocalization(CultureInfo locale)
         {
             this.Text = Resources.Text.MaterialSelect_Title;
@@ -682,22 +680,61 @@ namespace PixelStacker.UI
             cbxRequire2ndLayer.Text = Resources.Text.MaterialSelect_IsMultiLayerRequired;
         }
 
-
         private void MaterialSelectWindow_Resize(object sender, EventArgs e)
             => RepositionCheckboxes();
 
-        private void RepositionCheckboxes()
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            foreach (var cRef in this.categoryRefs.Values)
+            if (keyData == Keys.Escape)
             {
-                cRef.Checkbox.Location = new Point(10, 10 + cRef.TilePanel.Location.Y);
+                this.TryHide();
+                return true;
             }
+
+            MainForm.Self.konamiWatcher.ProcessKey(keyData);
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void MaterialSelectWindow_Load(object sender, EventArgs e)
+        protected bool ProcessCmdKeyFromTileGrid(Message msg, Keys keyData)
         {
-            RepositionCheckboxes();
-            RefreshCheckboxStates();
+            if (keyData.HasFlag(Keys.A) && keyData.HasFlag(Keys.Control))
+            {
+                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
+                {
+                    kvp.Value.Material.IsEnabled = true;
+                    kvp.Value.Refresh();
+                });
+
+                RefreshCheckboxStates();
+
+                return true;
+            }
+
+            if (keyData.HasFlag(Keys.D) && keyData.HasFlag(Keys.Control))
+            {
+                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
+                {
+                    kvp.Value.Material.IsEnabled = false;
+                    kvp.Value.Refresh();
+                });
+                RefreshCheckboxStates();
+                return true;
+            }
+
+            return this.ProcessCmdKey(ref msg, keyData);
         }
+
+        private class CategoryReferenceContainer
+        {
+            public CheckBox Checkbox { get; set; }
+            public List<MaterialSelectTile> Tiles { get; set; } = new List<MaterialSelectTile>();
+            public CustomFlowLayoutPanel TilePanel { get; internal set; }
+
+            public void SetVisible(bool b)
+            {
+                this.Checkbox.Visible = true;
+            }
+        }
+        #endregion OTHER
     }
 }

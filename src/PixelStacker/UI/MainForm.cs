@@ -52,8 +52,11 @@ namespace PixelStacker.UI
         }
 
         #region Auto update checker + Error Reporting
+        [Obsolete("Don't forget to undo the changes!")]
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //TODO: Undo this
+            //optionsToolStripMenuItem_Click(sender, e);
 #pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
             TaskManager.Get.StartAsync(cancelToken => UpdateChecker.CheckForUpdates(cancelToken));
             //TaskManager.Get.StartAsync(cancelToken => PdbLoader.Load(cancelToken));

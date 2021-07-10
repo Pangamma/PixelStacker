@@ -241,7 +241,6 @@
             this.Name = "MaterialSelectWindow";
             this.Text = "Material Selection";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialSelectWindow_FormClosing);
-            this.Load += new System.EventHandler(this.MaterialSelectWindow_Load);
             this.VisibleChanged += new System.EventHandler(this.MaterialSelectWindow_VisibleChanged);
             this.Resize += new System.EventHandler(this.MaterialSelectWindow_Resize);
             this.flowVertical.ResumeLayout(false);
