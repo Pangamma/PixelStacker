@@ -42,6 +42,29 @@ namespace PixelStacker.Logic.Extensions
         }
 
         /// <summary>
+        /// Useful when searching. And tbh, only useful in one spot in the entire project anyways. But... I guess the
+        /// syntax sugar looks nice. When searching through materials by needle 'R', you don't want to match on EVERY
+        /// material containing the letter R. You want to return mateterials that START with letter 'R'. But as soon
+        /// as you see 'RE', now you will want to search by using contains, since your search is more specific and
+        /// you can handle more results being returned back. That is what this function is for.
+        /// </summary>
+        /// <param name="p_self"></param>
+        /// <param name="needle">Should be lowercase.</param>
+        /// <param name="minLengthForContainsSearch"></param>
+        /// <returns></returns>
+        public static bool StartsWithOrContains(this string p_self, string needle, int minLengthForContainsSearch)
+        {
+            if (needle.Length >= minLengthForContainsSearch)
+            {
+                return p_self.ToLowerInvariant().Contains(needle);
+            } 
+            else
+            {
+                return p_self.ToLowerInvariant().StartsWith(needle);
+            }
+        }
+
+        /// <summary>
         /// Disposes image, and handles nulls gracefully.
         /// </summary>
         /// <param name="src"></param>

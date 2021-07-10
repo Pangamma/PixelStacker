@@ -53,19 +53,8 @@
     <Compile Include="CustomFlowLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MaterialSelectCategory.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MaterialSelectCategory.Designer.cs">
-      <DependentUpon>MaterialSelectCategory.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MaterialSelectCategory.resx">
-      <DependentUpon>MaterialSelectCategory.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

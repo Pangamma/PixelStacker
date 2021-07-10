@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.dlgSave = new System.Windows.Forms.SaveFileDialog();
-            this.materialsLayout = new PixelStacker.Components.CustomTableLayoutPanel();
             this.flowVertical = new System.Windows.Forms.FlowLayoutPanel();
             this.flowRow1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panelFilter = new System.Windows.Forms.Panel();
@@ -44,6 +43,7 @@
             this.cbxRequire2ndLayer = new System.Windows.Forms.CheckBox();
             this.cbxIsSideView = new System.Windows.Forms.CheckBox();
             this.lblInfo = new System.Windows.Forms.Label();
+            this.materialPanel = new PixelStacker.Components.CustomPanel();
             this.flowVertical.SuspendLayout();
             this.flowRow1.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -56,56 +56,17 @@
             this.dlgSave.DefaultExt = "json";
             this.dlgSave.Filter = "json|*.json";
             // 
-            // materialsLayout
-            // 
-            this.materialsLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.materialsLayout.AutoScroll = true;
-            this.materialsLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialsLayout.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.materialsLayout.ColumnCount = 1;
-            this.materialsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.materialsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.materialsLayout.Location = new System.Drawing.Point(3, 97);
-            this.materialsLayout.Name = "materialsLayout";
-            this.materialsLayout.OnCommandKey = null;
-            this.materialsLayout.RowCount = 1;
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 384F));
-            this.materialsLayout.Size = new System.Drawing.Size(820, 384);
-            this.materialsLayout.TabIndex = 9;
-            // 
             // flowVertical
             // 
-            this.flowVertical.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowVertical.BackColor = System.Drawing.Color.Transparent;
             this.flowVertical.Controls.Add(this.flowRow1);
             this.flowVertical.Controls.Add(this.customFlowLayoutPanel1);
+            this.flowVertical.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowVertical.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowVertical.Location = new System.Drawing.Point(3, 9);
+            this.flowVertical.Location = new System.Drawing.Point(0, 0);
             this.flowVertical.Margin = new System.Windows.Forms.Padding(0);
             this.flowVertical.Name = "flowVertical";
-            this.flowVertical.Size = new System.Drawing.Size(820, 85);
+            this.flowVertical.Size = new System.Drawing.Size(824, 85);
             this.flowVertical.TabIndex = 8;
             // 
             // flowRow1
@@ -257,19 +218,32 @@
             this.lblInfo.TabIndex = 3;
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // materialPanel
+            // 
+            this.materialPanel.AutoScroll = true;
+            this.materialPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.materialPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.materialPanel.Location = new System.Drawing.Point(0, 85);
+            this.materialPanel.Name = "materialPanel";
+            this.materialPanel.OnCommandKey = null;
+            this.materialPanel.Size = new System.Drawing.Size(824, 392);
+            this.materialPanel.TabIndex = 9;
+            // 
             // MaterialSelectWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 477);
-            this.Controls.Add(this.materialsLayout);
+            this.Controls.Add(this.materialPanel);
             this.Controls.Add(this.flowVertical);
             this.Icon = global::PixelStacker.Resources.UIResources.wool;
             this.MinimumSize = new System.Drawing.Size(512, 47);
             this.Name = "MaterialSelectWindow";
             this.Text = "Material Selection";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialSelectWindow_FormClosing);
+            this.Load += new System.EventHandler(this.MaterialSelectWindow_Load);
             this.VisibleChanged += new System.EventHandler(this.MaterialSelectWindow_VisibleChanged);
+            this.Resize += new System.EventHandler(this.MaterialSelectWindow_Resize);
             this.flowVertical.ResumeLayout(false);
             this.flowVertical.PerformLayout();
             this.flowRow1.ResumeLayout(false);
@@ -298,6 +272,6 @@
         private PixelStacker.Components.CustomFlowLayoutPanel customFlowLayoutPanel1;
         private System.Windows.Forms.SaveFileDialog dlgSave;
         private System.Windows.Forms.CheckBox cbxRequire2ndLayer;
-        private Components.CustomTableLayoutPanel materialsLayout;
+        private Components.CustomPanel materialPanel;
     }
 }

@@ -15,7 +15,7 @@ namespace PixelStacker.Logic
 
         public static Material FromPixelStackerID(string pixelStackerID)
         {
-            return Materials._List?.FirstOrDefault(x => x.PixelStackerID == pixelStackerID);
+            return Materials.List.FirstOrDefault(x => x.PixelStackerID == pixelStackerID);
         }
 
         private static List<Material> _List = null;

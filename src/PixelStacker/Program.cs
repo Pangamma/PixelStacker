@@ -40,6 +40,7 @@ namespace PixelStacker
                 Bitmap inputImage = null;
                 string outputPath = null;
                 string format = null;
+
                 foreach (var arg in args)
                 {
                     string lArg = arg.ToLowerInvariant();
