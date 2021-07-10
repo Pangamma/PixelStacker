@@ -11,6 +11,7 @@ using PixelStacker.Logic;
 
 namespace PixelStacker.UI
 {
+    [Serializable]
     public partial class MaterialSelectTile : UserControl
     {
         public MaterialSelectTile()

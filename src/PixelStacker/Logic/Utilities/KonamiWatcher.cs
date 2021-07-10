@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,9 +24,12 @@ namespace PixelStacker.Logic.Utilities
             Keys.B, Keys.A
         };
 
+        private DateTime LastEntry = DateTime.MinValue;
         public void ProcessKey(Keys keyData)
         {
-            Console.WriteLine(keyData.ToString());
+            if (DateTime.UtcNow - LastEntry < TimeSpan.FromMilliseconds(20)) return;
+            LastEntry = DateTime.UtcNow;
+
             if (konamiSequence[konamiIndex] == keyData)
             {
                 konamiIndex++;
