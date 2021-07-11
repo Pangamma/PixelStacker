@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -28,9 +29,10 @@ namespace PixelStacker.Logic
                 TaskManager.SafeReport(75, "Checking for updates");
                 settings.LastChecked = DateTime.UtcNow;
                 string latestVersion =
-                    // await DoRequest($"https://taylorlove.info/pixelstacker/update-check.php?v={Constants.Version}")
-                    // ??
-                    await DoRequest("https://api.spigotmc.org/legacy/update.php?resource=46812/");
+                    await DoRequest("https://api.spigotmc.org/legacy/update.php?resource=46812/")
+                    ??
+                    await DoGithubRequest()
+                    ;
 
                 Options.Save();
 
@@ -79,6 +81,7 @@ namespace PixelStacker.Logic
                 client.Timeout = TimeSpan.FromSeconds(15);
                 client.BaseAddress = new Uri(URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("User-Agent", "PixelStacker");
                 HttpResponseMessage response = client.GetAsync(URL).Result;
 
                 if (response.IsSuccessStatusCode)
@@ -99,5 +102,17 @@ namespace PixelStacker.Logic
             return null;
         }
 
+        private static async Task<string> DoGithubRequest()
+        {
+            string json = await DoRequest("https://api.github.com/repos/pangamma/PixelStacker/releases/latest");
+            var parsed = JsonConvert.DeserializeObject<GithubReleaseResponse>(json);
+            string version = parsed.tag_name;
+            return version;
+        }
+    }
+
+    public class GithubReleaseResponse
+    {
+        public string tag_name { get; set; }
     }
 }

@@ -38,12 +38,12 @@
             this.btnEditColorProfiles = new System.Windows.Forms.Button();
             this.lblColorProfile = new System.Windows.Forms.Label();
             this.ddlColorProfile = new System.Windows.Forms.ComboBox();
+            this.materialPanel = new PixelStacker.Components.CustomPanel();
             this.customFlowLayoutPanel1 = new PixelStacker.Components.CustomFlowLayoutPanel();
             this.cbxIsMultiLayer = new System.Windows.Forms.CheckBox();
             this.cbxRequire2ndLayer = new System.Windows.Forms.CheckBox();
             this.cbxIsSideView = new System.Windows.Forms.CheckBox();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.materialPanel = new PixelStacker.Components.CustomPanel();
             this.flowVertical.SuspendLayout();
             this.flowRow1.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -161,6 +161,17 @@
             this.ddlColorProfile.TabIndex = 2;
             this.ddlColorProfile.SelectedValueChanged += new System.EventHandler(this.ddlColorProfile_SelectedValueChanged);
             // 
+            // materialPanel
+            // 
+            this.materialPanel.AutoScroll = true;
+            this.materialPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.materialPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.materialPanel.Location = new System.Drawing.Point(0, 85);
+            this.materialPanel.Name = "materialPanel";
+            this.materialPanel.OnCommandKey = null;
+            this.materialPanel.Size = new System.Drawing.Size(824, 392);
+            this.materialPanel.TabIndex = 9;
+            // 
             // customFlowLayoutPanel1
             // 
             this.customFlowLayoutPanel1.AutoSize = true;
@@ -217,17 +228,6 @@
             this.lblInfo.Size = new System.Drawing.Size(200, 24);
             this.lblInfo.TabIndex = 3;
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // materialPanel
-            // 
-            this.materialPanel.AutoScroll = true;
-            this.materialPanel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.materialPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.materialPanel.Location = new System.Drawing.Point(0, 85);
-            this.materialPanel.Name = "materialPanel";
-            this.materialPanel.OnCommandKey = null;
-            this.materialPanel.Size = new System.Drawing.Size(824, 392);
-            this.materialPanel.TabIndex = 9;
             // 
             // MaterialSelectWindow
             // 

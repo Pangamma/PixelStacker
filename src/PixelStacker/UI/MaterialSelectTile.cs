@@ -39,9 +39,16 @@ namespace PixelStacker.UI
                 Width = 2
             };
 
+            Pen penShadow = new Pen(Color.FromArgb(50, 50, 50, 100))
+            {
+                DashStyle = System.Drawing.Drawing2D.DashStyle.Solid,
+                Width = 2
+            };
+
             if (this.Material != null)
             {
                 g.DrawImage(this.Material.getImage(isv), 0, 0, this.Width, this.Height);
+                g.DrawRectangle(penShadow, 0, 0, this.Width, this.Height);
 
                 if (this.isHovered)
                 {
@@ -60,6 +67,10 @@ namespace PixelStacker.UI
                     g.DrawRectangle(penFocus, 0, 0, this.Width, this.Height);
                 }
             }
+
+            penShadow.Dispose();
+            penFocus.Dispose();
+            brHover.Dispose();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
