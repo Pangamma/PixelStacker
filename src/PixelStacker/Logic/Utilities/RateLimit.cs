@@ -1,5 +1,6 @@
 ﻿using PixelStacker.UI;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace PixelStacker.Logic
         public double NumHits { get; set; } = 0;
         public DateTime LastHit { get; set; } = DateTime.MinValue;
 
-        private static Dictionary<string, RateLimit> Limits = new Dictionary<string, RateLimit>();
+        private static ConcurrentDictionary<string, RateLimit> Limits = new ConcurrentDictionary<string, RateLimit>();
 
         public RateLimit(int maxPerWindow, double windowDurationMilliseconds, string limiterID)
         {
@@ -29,7 +30,16 @@ namespace PixelStacker.Logic
             if (windowDurationMilliseconds < 1) throw new ArgumentOutOfRangeException(nameof(windowDurationMilliseconds), $"'{nameof(windowDurationMilliseconds)}' must be greater than 0.");
         }
 
-        public static void Check(int maxPerWindow, double windowDurationMilliseconds, [CallerFilePath] string filePath = "", [CallerMemberName] string methodName = null, [CallerLineNumber] int lineNumber = 0)
+        /// <summary>
+        /// Returns TRUE if within the window allowable limits.
+        /// </summary>
+        /// <param name="maxPerWindow"></param>
+        /// <param name="windowDurationMilliseconds"></param>
+        /// <param name="filePath"></param>
+        /// <param name="methodName"></param>
+        /// <param name="lineNumber"></param>
+        /// <returns></returns>
+        public static bool Check(int maxPerWindow, double windowDurationMilliseconds, [CallerFilePath] string filePath = "", [CallerMemberName] string methodName = null, [CallerLineNumber] int lineNumber = 0)
         {
             filePath = filePath.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
             string key = $"{filePath}::{methodName}::{lineNumber}";
@@ -41,13 +51,16 @@ namespace PixelStacker.Logic
                 Limits[key] = limit;
             }
 
-            if (!limit.IsWithinLimit())
+            if (!limit.IsWithinLimit(true))
             {
-                Debug.WriteLine($"{key} WAS CALLED ({limit.NumHits}) MORE THAN {limit.MaxRequestsPerWindow} TIMES PER {limit.WindowDurationTime.TotalSeconds}s.");
+                Debug.WriteLine($"[{DateTime.UtcNow.ToLongTimeString()}] {key} WAS CALLED ({limit.NumHits}) MORE THAN {limit.MaxRequestsPerWindow} TIMES PER {limit.WindowDurationTime.TotalSeconds}s.");
+                return false;
             }
+
+            return true;
         }
 
-        public bool IsWithinLimit()
+        public bool IsWithinLimit(bool incrementEvenIfCheckWouldDenyUsage)
         {
             // Set up the default if this is the initialization.
             if (this.LastHit == DateTime.MinValue)
@@ -65,6 +78,13 @@ namespace PixelStacker.Logic
             double hitsToSubtract = tsSinceLastHit.TotalSeconds * this.MaxRequestsPerWindow / this.WindowDurationTime.TotalSeconds;
             if ((this.NumHits - hitsToSubtract) > MaxRequestsPerWindow)
             {
+                if (incrementEvenIfCheckWouldDenyUsage)
+                {
+                    this.NumHits = Math.Max(this.NumHits - hitsToSubtract, 0);
+                    this.LastHit = DateTime.UtcNow; // Increment here just because it affects the hitsToSubtract thing on next call.
+                    this.NumHits++;
+                }
+
                 // Don't increment on this path bc they weren't actually allowed to go to their endpoint.
                 return false;
             }

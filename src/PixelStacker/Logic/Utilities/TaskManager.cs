@@ -108,6 +108,21 @@ namespace PixelStacker.Logic
         }
 
 
+        public async Task<bool> TryTaskCatchCancelAsync(Task task)
+        {
+            try { await task; return true; }
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
+            catch (AggregateException aex)
+            {
+                if (aex.Flatten().InnerExceptions.Any(x =>
+                    x.GetType() != typeof(TaskCanceledException)
+                    && x.GetType() != typeof(OperationCanceledException))
+                ) throw;
+            }
+
+            return false;
+        }
         public bool TryTaskCatchCancelSync(Action task)
         {
             try { task(); return true; }
