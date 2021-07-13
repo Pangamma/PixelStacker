@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.dlgSave = new System.Windows.Forms.SaveFileDialog();
-            this.flowVertical = new PixelStacker.Components.CustomFlowLayoutPanel();
+            this.flowVertical = new System.Windows.Forms.FlowLayoutPanel();
             this.flowRow1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.lblFilter = new System.Windows.Forms.Label();
@@ -38,12 +38,12 @@
             this.btnEditColorProfiles = new System.Windows.Forms.Button();
             this.lblColorProfile = new System.Windows.Forms.Label();
             this.ddlColorProfile = new System.Windows.Forms.ComboBox();
+            this.materialPanel = new PixelStacker.Components.CustomPanel();
             this.customFlowLayoutPanel1 = new PixelStacker.Components.CustomFlowLayoutPanel();
             this.cbxIsMultiLayer = new System.Windows.Forms.CheckBox();
             this.cbxRequire2ndLayer = new System.Windows.Forms.CheckBox();
             this.cbxIsSideView = new System.Windows.Forms.CheckBox();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.flowLayout = new PixelStacker.Components.CustomFlowLayoutPanel();
             this.flowVertical.SuspendLayout();
             this.flowRow1.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -58,18 +58,15 @@
             // 
             // flowVertical
             // 
-            this.flowVertical.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowVertical.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowVertical.BackColor = System.Drawing.Color.Transparent;
             this.flowVertical.Controls.Add(this.flowRow1);
             this.flowVertical.Controls.Add(this.customFlowLayoutPanel1);
+            this.flowVertical.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowVertical.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowVertical.Location = new System.Drawing.Point(3, 9);
+            this.flowVertical.Location = new System.Drawing.Point(0, 0);
             this.flowVertical.Margin = new System.Windows.Forms.Padding(0);
             this.flowVertical.Name = "flowVertical";
-            this.flowVertical.OnCommandKey = null;
-            this.flowVertical.Size = new System.Drawing.Size(860, 85);
+            this.flowVertical.Size = new System.Drawing.Size(824, 85);
             this.flowVertical.TabIndex = 8;
             // 
             // flowRow1
@@ -164,6 +161,17 @@
             this.ddlColorProfile.TabIndex = 2;
             this.ddlColorProfile.SelectedValueChanged += new System.EventHandler(this.ddlColorProfile_SelectedValueChanged);
             // 
+            // materialPanel
+            // 
+            this.materialPanel.AutoScroll = true;
+            this.materialPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.materialPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.materialPanel.Location = new System.Drawing.Point(0, 85);
+            this.materialPanel.Name = "materialPanel";
+            this.materialPanel.OnCommandKey = null;
+            this.materialPanel.Size = new System.Drawing.Size(824, 392);
+            this.materialPanel.TabIndex = 9;
+            // 
             // customFlowLayoutPanel1
             // 
             this.customFlowLayoutPanel1.AutoSize = true;
@@ -221,34 +229,20 @@
             this.lblInfo.TabIndex = 3;
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // flowLayout
-            // 
-            this.flowLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayout.AutoScroll = true;
-            this.flowLayout.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.flowLayout.Location = new System.Drawing.Point(3, 97);
-            this.flowLayout.Name = "flowLayout";
-            this.flowLayout.OnCommandKey = null;
-            this.flowLayout.Size = new System.Drawing.Size(860, 380);
-            this.flowLayout.TabIndex = 2;
-            // 
             // MaterialSelectWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(864, 477);
+            this.ClientSize = new System.Drawing.Size(824, 477);
+            this.Controls.Add(this.materialPanel);
             this.Controls.Add(this.flowVertical);
-            this.Controls.Add(this.flowLayout);
             this.Icon = global::PixelStacker.Resources.UIResources.wool;
             this.MinimumSize = new System.Drawing.Size(512, 47);
             this.Name = "MaterialSelectWindow";
             this.Text = "Material Selection";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialSelectWindow_FormClosing);
             this.VisibleChanged += new System.EventHandler(this.MaterialSelectWindow_VisibleChanged);
+            this.Resize += new System.EventHandler(this.MaterialSelectWindow_Resize);
             this.flowVertical.ResumeLayout(false);
             this.flowVertical.PerformLayout();
             this.flowRow1.ResumeLayout(false);
@@ -264,19 +258,19 @@
 
         private System.Windows.Forms.ComboBox tbxMaterialFilter;
         private System.Windows.Forms.Label lblFilter;
-        private PixelStacker.Components.CustomFlowLayoutPanel flowLayout;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.CheckBox cbxIsMultiLayer;
         private System.Windows.Forms.CheckBox cbxIsSideView;
         private System.Windows.Forms.Button btnEditColorProfiles;
         private System.Windows.Forms.ComboBox ddlColorProfile;
         private System.Windows.Forms.Label lblColorProfile;
-        private PixelStacker.Components.CustomFlowLayoutPanel flowVertical;
+        private System.Windows.Forms.FlowLayoutPanel flowVertical;
         private System.Windows.Forms.FlowLayoutPanel flowRow1;
         private System.Windows.Forms.Panel panelFilter;
         private System.Windows.Forms.Panel panelColorProfile;
         private PixelStacker.Components.CustomFlowLayoutPanel customFlowLayoutPanel1;
         private System.Windows.Forms.SaveFileDialog dlgSave;
         private System.Windows.Forms.CheckBox cbxRequire2ndLayer;
+        private Components.CustomPanel materialPanel;
     }
 }

@@ -456,7 +456,7 @@ namespace PixelStacker.UI
             return null;
         }
 
-        [Obsolete("Only use externally as part of CLI options", false)]
+        [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         public static int? CalculateTextureSize(BlueprintPA image)
         {
             // Calculate texture size so we can handle large images.

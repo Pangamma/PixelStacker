@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
+using static System.Windows.Forms.Control;
 
 namespace PixelStacker.Logic.Extensions
 {
@@ -58,6 +60,27 @@ namespace PixelStacker.Logic.Extensions
                         yield return subitem;
                 yield return item;
             }
+        }
+
+        /// <summary>
+        /// This method is the problem. Why though...
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="toAdd"></param>
+        public static void AddControlsQuick(this Control self, Control[] toAdd)
+        {
+            if (toAdd.Length == 0) return;
+            self.SuspendLayout();
+            self.Controls.AddRange(toAdd);
+            self.ResumeLayout();
+        }
+
+        public static void ClearControlsQuick(this Control self)
+        {
+            if (self.Controls.Count == 0) return;
+            self.SuspendLayout();
+            self.Controls.Clear();
+            self.ResumeLayout();
         }
     }
 }

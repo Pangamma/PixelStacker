@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomTableLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomFlowLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
