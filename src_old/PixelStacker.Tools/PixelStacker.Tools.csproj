@@ -155,9 +155,9 @@
       <Project>{c97f62ac-524e-4892-a86e-a0721f10289f}</Project>
       <Name>PixelStacker.Components</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PixelStacker\PixelStacker.csproj">
+    <ProjectReference Include="..\PixelStacker\PixelStacker %28Old%29.csproj">
       <Project>{d21de6d2-34fe-468c-a322-c3f48681be16}</Project>
-      <Name>PixelStacker</Name>
+      <Name>PixelStacker %28Old%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

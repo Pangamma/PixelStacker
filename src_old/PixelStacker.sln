@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker", "PixelStacker\PixelStacker.csproj", "{D21DE6D2-34FE-468C-A322-C3F48681BE16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker (Old)", "PixelStacker\PixelStacker (Old).csproj", "{D21DE6D2-34FE-468C-A322-C3F48681BE16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Tools", "PixelStacker.Tools\PixelStacker.Tools.csproj", "{137E485B-93EE-4ABD-8C32-CE7006B860A6}"
 EndProject
