@@ -133,15 +133,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BSTTest.cs" />
-    <Compile Include="JsonResxMaker.cs" />
-    <Compile Include="ResxLocalizer.cs" />
-    <Compile Include="ColorTests.cs" />
-    <Compile Include="ColorMatchTester.cs" />
-    <Compile Include="TextureGenerator.cs" />
-    <Compile Include="ShadowTileGenerator.cs" />
+    <Compile Include="MaterialTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextureAnalyzer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig">

@@ -1,4 +1,5 @@
 ﻿using FastBitmapLib;
+using PixelStacker.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PixelStacker.Logic.Extensions
+namespace PixelStacker.Extensions
 {
     /// <summary>
     /// The utility extender class.
@@ -41,7 +42,7 @@ namespace PixelStacker.Logic.Extensions
             R.UnlockBits(dstData);
 
             //Find pixelsize
-            int pixelSize = Image.GetPixelFormatSize(L.PixelFormat); // bits per pixel
+            int _ = Image.GetPixelFormatSize(L.PixelFormat); // bits per pixel
 
             for (int i = 0; i < srcImageBytes.Length; i++)
             {
@@ -53,6 +54,7 @@ namespace PixelStacker.Logic.Extensions
 
             return true;
         }
+
 
         public static Color GetPixelSafely(this Bitmap src, int x, int y)
         {
@@ -70,6 +72,41 @@ namespace PixelStacker.Logic.Extensions
                 Color c = fastbm.GetPixel(x, y);
                 return c;
             }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="normalize">If colors should be put into their buckets of 5 or 15 or or whatever.</param>
+        /// <returns></returns>
+        public static Color GetAverageColor(this Bitmap src, bool normalize = true)
+        {
+            long r = 0;
+            long g = 0;
+            long b = 0;
+            long a = 0;
+            long total = src.Width * src.Height;
+
+            src.ToViewStreamParallel(null, (int x, int y, Color c) =>
+            {
+                Interlocked.Add(ref r, c.R);
+                Interlocked.Add(ref g, c.G);
+                Interlocked.Add(ref b, c.B);
+                Interlocked.Add(ref a, c.A);
+            });
+
+            r /= total;
+            g /= total;
+            b /= total;
+            a /= total;
+
+            if (a > 128)
+            {
+                a = 255;
+            }
+
+            Color rt = Color.FromArgb((int)a, (int)r, (int)g, (int)b);
+            return normalize ? rt.Normalize() : rt;
         }
 
         private static bool CanReadPixel(PixelFormat format)
@@ -119,6 +156,7 @@ namespace PixelStacker.Logic.Extensions
             }
             return output;
         }
+
 
         public static Bitmap BlurBidirectional(this Bitmap src, int radiusH, int radiusV)
         {
@@ -225,7 +263,7 @@ namespace PixelStacker.Logic.Extensions
                     x = 0;
                     y++;
                     worker?.SafeThrowIfCancellationRequested();
-                    TaskManager.SafeReport(100 * y / origImage.Height);
+                    ProgressTracker.SafeReport(100 * y / origImage.Height);
                 }
             }
 
@@ -322,7 +360,7 @@ namespace PixelStacker.Logic.Extensions
 
                 worker?.SafeThrowIfCancellationRequested();
                 Interlocked.Increment(ref numYProcessed);
-                TaskManager.SafeReport((int) (100 * ((float) numYProcessed / heightInPixels)));
+                ProgressTracker.SafeReport((int) (100 * ((float) numYProcessed / heightInPixels)));
             });
 
             //Get the bitmap data
@@ -337,7 +375,7 @@ namespace PixelStacker.Logic.Extensions
 
             //Unlock the bitmap
             dstImage.UnlockBits(dstData);
-            TaskManager.SafeReport(100);
+            ProgressTracker.SafeReport(100);
         }
 
 
@@ -411,7 +449,7 @@ namespace PixelStacker.Logic.Extensions
                     x = 0;
                     y++;
                     worker?.SafeThrowIfCancellationRequested();
-                    TaskManager.SafeReport(100 * y / origImage.Height);
+                    ProgressTracker.SafeReport(100 * y / origImage.Height);
                 }
             }
 
@@ -490,7 +528,7 @@ namespace PixelStacker.Logic.Extensions
                     y++;
 
                     worker?.SafeThrowIfCancellationRequested();
-                    TaskManager.SafeReport(100 * y / origImage.Height);
+                    ProgressTracker.SafeReport(100 * y / origImage.Height);
                 }
             }
 
@@ -579,7 +617,7 @@ namespace PixelStacker.Logic.Extensions
 
                 worker?.SafeThrowIfCancellationRequested();
                 Interlocked.Increment(ref numYProcessed);
-                TaskManager.SafeReport((int) (100 * ((float) numYProcessed / heightInPixels)));
+                ProgressTracker.SafeReport((int) (100 * ((float) numYProcessed / heightInPixels)));
             });
 
             //Get the bitmap data
@@ -651,7 +689,7 @@ namespace PixelStacker.Logic.Extensions
                     x = 0;
                     y++;
                     worker?.SafeThrowIfCancellationRequested();
-                    TaskManager.SafeReport(100 * y / origImage.Height);
+                    ProgressTracker.SafeReport(100 * y / origImage.Height);
                 }
             }
 
@@ -723,7 +761,7 @@ namespace PixelStacker.Logic.Extensions
 
                 worker?.SafeThrowIfCancellationRequested();
                 Interlocked.Increment(ref numYProcessed);
-                TaskManager.SafeReport((int) (100 * ((float) numYProcessed / heightInPixels)));
+                ProgressTracker.SafeReport((int) (100 * ((float) numYProcessed / heightInPixels)));
             });
         }
         #endregion

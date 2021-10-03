@@ -1,11 +1,16 @@
 ﻿using PixelStacker.UI;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace PixelStacker.Logic
+namespace PixelStacker.Utilities
 {
     public class RateLimit
     {
@@ -39,8 +44,7 @@ namespace PixelStacker.Logic
             filePath = filePath.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
             string key = $"{filePath}::{methodName}::{lineNumber}";
 
-            RateLimit limit;
-            if (!Limits.TryGetValue(key, out limit))
+            if (!Limits.TryGetValue(key, out RateLimit limit))
             {
                 limit = new RateLimit(maxPerWindow, windowDurationMilliseconds, key);
                 Limits[key] = limit;

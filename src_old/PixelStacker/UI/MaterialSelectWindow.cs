@@ -426,7 +426,8 @@ namespace PixelStacker.UI
             }
 
             tbxMaterialFilter.Text = "enabled";
-            SetSearchFilter("enabled", CancellationToken.None).RunSynchronously();
+            var task = Task.Run(async () => { await SetSearchFilter("enabled", CancellationToken.None); });
+            task.Wait();
         }
 
         private void btnEditColorProfiles_Click(object sender, EventArgs e)

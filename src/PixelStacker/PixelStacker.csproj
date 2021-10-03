@@ -141,14 +141,45 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Extend.Numbers.cs" />
+    <Compile Include="Extensions\Extend.Color.cs" />
+    <Compile Include="Extensions\Extend.IEnumerable.cs" />
+    <Compile Include="Extensions\Extend.Image.cs" />
+    <Compile Include="Extensions\Extend.Math.cs" />
+    <Compile Include="Extensions\Extend.Misc.cs" />
+    <Compile Include="Extensions\Extend.PixelFormat.cs" />
+    <Compile Include="Extensions\Extend.UI.cs" />
+    <Compile Include="IO\Config\Constants.cs" />
+    <Compile Include="IO\Config\Options.cs" />
+    <Compile Include="IO\Formatters\BitmapJsonTypeConverter.cs" />
+    <Compile Include="IO\Formatters\PixelStackerProjectFormatter.cs" />
+    <Compile Include="IO\Image\AsyncBitmapWrapper.cs" />
+    <Compile Include="IO\UpdateChecker.cs" />
+    <Compile Include="Logic\Model\CanvasData.cs" />
+    <Compile Include="Logic\Model\Material.cs" />
+    <Compile Include="Logic\Model\MaterialPalette.cs" />
+    <Compile Include="Logic\Model\Materials.cs" />
+    <Compile Include="Logic\Model\RenderedCanvas.cs" />
+    <Compile Include="Logic\Model\MaterialCombination.cs" />
+    <Compile Include="Logic\Model\SuperLazy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\DataResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IO\KonamiWatcher.cs" />
+    <Compile Include="Utilities\BaseConverter.cs" />
+    <Compile Include="Utilities\ProgressTracker.cs" />
+    <Compile Include="Utilities\RateLimit.cs" />
+    <Compile Include="Utilities\TaskManager.cs" />
     <None Include="ILMerge.props" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -160,6 +191,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\Files\materialPalette.json" />
     <None Include="Resources\Images\pixelart\weird-intro.pdn" />
     <None Include="Resources\Images\UI\flags\famfamfam_flag_icons.zip" />
     <None Include="Resources\Images\UI\pixelstackerlogo.pdn" />
@@ -172,13 +204,61 @@
     <Content Include="logo.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\DataResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DataResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Textures.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Textures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Resources\Textures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Textures.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\UIResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Resources\UIResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UIResources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\Shadows.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Shadows.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Resources\Shadows.Designer.cs">
+      <DependentUpon>Shadows.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ShadowHelper.cs">
+      <DependentUpon>Shadows.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Text.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Text.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Resources\Text.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Text.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Resources\Localization\ResxContainer.resx" />
     <Compile Include="Resources\Localization\ResxContainer.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>ResxContainer.resx</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="Resources\Localization\ResxHelper.cs" />
-	
     <None Include="Resources\Localization\en.json" />
     <None Include="Resources\Localization\da.json">
       <DependentUpon>en.json</DependentUpon>
@@ -629,9 +709,7 @@
       <Name>PixelStacker.Components</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logic\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>

@@ -380,6 +380,9 @@ me as a </value>
   <data name="MaterialSelect_Title" xml:space="preserve">
     <value>Material Selection</value>
   </data>
+  <data name="Operation_Cancelled" xml:space="preserve">
+    <value>Operation cancelled.</value>
+  </data>
   <data name="OtherOptions_btnFactoryReset" xml:space="preserve">
     <value>Factory Reset</value>
   </data>

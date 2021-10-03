@@ -5,7 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using PixelStacker.Logic;
+using PixelStacker.Logic.Model;
 using PixelStacker.UI;
 
 namespace PixelStacker
@@ -25,9 +27,19 @@ namespace PixelStacker
         [STAThread]
         static void Main(string[] args)
         {
+
+            var canvas = new RenderedCanvas() { 
+                Width = 5,
+                OriginalImage = Resources.Textures.acacia_planks
+            };
+
+            string json = JsonConvert.SerializeObject(canvas);
+            var canvas2 = JsonConvert.DeserializeObject<RenderedCanvas>(json);
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            //Application.Run(new MainForm());
         }
     }
 }
