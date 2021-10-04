@@ -1,76 +1,42 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker", "PixelStacker\PixelStacker.csproj", "{D21DE6D2-34FE-468C-A322-C3F48681BE16}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Tools", "PixelStacker.Tools\PixelStacker.Tools.csproj", "{137E485B-93EE-4ABD-8C32-CE7006B860A6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83BF5772-0D9C-4C5E-9B4F-177FDBA8DF6F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{73515924-4345-4D85-ADB4-143A74B739FA}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Components", "PixelStacker.Components\PixelStacker.Components.csproj", "{C97F62AC-524E-4892-A86E-A0721F10289F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.Tools", "PixelStacker.Tools\PixelStacker.Tools.csproj", "{2E6E34FF-95F4-4E8D-B0AA-862079BAE090}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Logic", "PixelStacker.Logic\PixelStacker.Logic.csproj", "{1FE5C2E4-B194-4298-AD7D-E203ACE7AF23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker", "PixelStacker\PixelStacker.csproj", "{D3845714-A796-4BD7-99E7-45470704A929}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug CLI|Any CPU = Debug CLI|Any CPU
-		Debug CLI|x64 = Debug CLI|x64
 		Debug|Any CPU = Debug|Any CPU
-		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
-		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug CLI|Any CPU.ActiveCfg = Debug CLI|Any CPU
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug CLI|Any CPU.Build.0 = Debug CLI|Any CPU
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug CLI|x64.ActiveCfg = Debug CLI|x64
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug CLI|x64.Build.0 = Debug CLI|x64
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug|x64.ActiveCfg = Debug|x64
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Debug|x64.Build.0 = Debug|x64
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Release|x64.ActiveCfg = Release|x64
-		{D21DE6D2-34FE-468C-A322-C3F48681BE16}.Release|x64.Build.0 = Release|x64
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug CLI|Any CPU.ActiveCfg = Debug CLI|Any CPU
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug CLI|Any CPU.Build.0 = Debug CLI|Any CPU
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug CLI|x64.ActiveCfg = Debug CLI|x64
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug CLI|x64.Build.0 = Debug CLI|x64
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug|x64.ActiveCfg = Debug|x64
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Debug|x64.Build.0 = Debug|x64
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Release|x64.ActiveCfg = Release|x64
-		{137E485B-93EE-4ABD-8C32-CE7006B860A6}.Release|x64.Build.0 = Release|x64
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Debug CLI|Any CPU.ActiveCfg = Debug|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Debug CLI|Any CPU.Build.0 = Debug|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Debug CLI|x64.ActiveCfg = Debug|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Debug CLI|x64.Build.0 = Debug|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Debug|x64.Build.0 = Debug|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Release|x64.ActiveCfg = Release|Any CPU
-		{C97F62AC-524E-4892-A86E-A0721F10289F}.Release|x64.Build.0 = Release|Any CPU
+		{2E6E34FF-95F4-4E8D-B0AA-862079BAE090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E6E34FF-95F4-4E8D-B0AA-862079BAE090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E6E34FF-95F4-4E8D-B0AA-862079BAE090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E6E34FF-95F4-4E8D-B0AA-862079BAE090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE5C2E4-B194-4298-AD7D-E203ACE7AF23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE5C2E4-B194-4298-AD7D-E203ACE7AF23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE5C2E4-B194-4298-AD7D-E203ACE7AF23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE5C2E4-B194-4298-AD7D-E203ACE7AF23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3845714-A796-4BD7-99E7-45470704A929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3845714-A796-4BD7-99E7-45470704A929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3845714-A796-4BD7-99E7-45470704A929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3845714-A796-4BD7-99E7-45470704A929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {226C3CEE-2C5E-4126-AE19-34C2642F6EE5}
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
+		SolutionGuid = {A29988A5-796D-4617-BA27-1E343C883D5E}
 	EndGlobalSection
 EndGlobal

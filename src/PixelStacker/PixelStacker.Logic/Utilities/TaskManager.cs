@@ -1,11 +1,10 @@
-﻿using PixelStacker.Logic.Utilities;
-using PixelStacker.Resources;
+﻿using PixelStacker.Resources;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PixelStacker.Utilities
+namespace PixelStacker.Logic.Utilities
 {
     public class TaskManager
     {

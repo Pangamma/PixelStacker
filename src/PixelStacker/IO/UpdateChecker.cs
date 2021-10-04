@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.IO.Config;
-using PixelStacker.Utilities;
+using PixelStacker.Logic.Utilities;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -11,12 +11,6 @@ using System.Windows.Forms;
 
 namespace PixelStacker.IO
 {
-    public class UpdateSettings
-    {
-        public DateTime? LastChecked { get; set; } = null;
-        public string SkipNotifyIfVersionIs { get; set; } = Constants.Version;
-    }
-
     public class UpdateChecker
     {
         public async static Task CheckForUpdates(CancellationToken cancelToken)
@@ -25,7 +19,7 @@ namespace PixelStacker.IO
 
             if (settings.LastChecked == null || settings.LastChecked.Value < DateTime.UtcNow.AddHours(-2))
             {
-                ProgressTracker.SafeReport(75, "Checking for updates");
+                ProgressX.Report(75, "Checking for updates");
                 settings.LastChecked = DateTime.UtcNow;
                 string latestVersion =
                     await DoRequest("https://api.spigotmc.org/legacy/update.php?resource=46812/")
@@ -37,23 +31,23 @@ namespace PixelStacker.IO
 
                 if (latestVersion == null)
                 {
-                    ProgressTracker.SafeReport(100, "No updates available.");
+                    ProgressX.Report(100, "No updates available.");
                     return;
                 }
 
                 if (latestVersion == Constants.Version)
                 {
-                    ProgressTracker.SafeReport(100, "You are already using the latest version of PixelStacker");
+                    ProgressX.Report(100, "You are already using the latest version of PixelStacker");
                     return;
                 }
 
                 if (latestVersion == settings.SkipNotifyIfVersionIs)
                 {
-                    ProgressTracker.SafeReport(100, "Newest version available is still: "+latestVersion);
+                    ProgressX.Report(100, "Newest version available is still: "+latestVersion);
                     return;
                 }
 
-                ProgressTracker.SafeReport(100, "A new version is available!");
+                ProgressX.Report(100, "A new version is available!");
                 var result = MessageBox.Show("A new update for PixelStacker is available. Would you like to download it? Say YES to go to the download page. Say NO to ignore this update.", "A new update is available.", MessageBoxButtons.YesNo,MessageBoxIcon.Information);
                 if (result == DialogResult.No)
                 {
@@ -112,6 +106,8 @@ namespace PixelStacker.IO
 
     public class GithubReleaseResponse
     {
+#pragma warning disable IDE1006 // Naming Styles
         public string tag_name { get; set; }
+#pragma warning restore IDE1006 // Naming Styles
     }
 }

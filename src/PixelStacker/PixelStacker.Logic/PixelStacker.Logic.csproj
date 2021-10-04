@@ -1,0 +1,105 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastBitmapLib" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\DataResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Localization\ResxContainer.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResxContainer.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Shadows.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Shadows.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+	</Compile>
+    <Compile Update="Resources\ShadowHelper.cs">
+      <DependentUpon>Shadows.resx</DependentUpon>
+	</Compile>
+    <Compile Update="Resources\Text.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Text.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+	</Compile>
+    <Compile Update="Resources\Textures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Textures.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+	</Compile>
+    <Compile Update="Resources\UIResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UIResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+	</Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Localization\ResxHelper.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResxContainer.resx</DependentUpon>
+    </Compile>
+    <None Update="Resources\Localization\*.json">
+      <DependentUpon>en.json</DependentUpon>
+    </None>
+    <EmbeddedResource Update="Resources\DataResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DataResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Localization\ResxContainer.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResxContainer.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Shadows.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Shadows.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Text.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Text.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Textures.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Textures.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\UIResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Resources\Localization\en.json">
+		<DependentUpon>ResxContainer.resx</DependentUpon>
+	</None>
+  </ItemGroup>
+</Project>

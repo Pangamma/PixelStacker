@@ -1,11 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using PixelStacker.Utilities;
 using PixelStacker.Logic;
 using System.Linq;
 using PixelStacker.Logic.Model;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -20,7 +17,7 @@ namespace PixelStacker.Tools
         [TestCategory("Generators")]
         public void GenerateMaterialCombinationPalette()
         {
-            string filePath = RootDir + "\\PixelStacker\\Resources\\Files\\materialPalette.json";
+            string filePath = RootDir + "\\PixelStacker.Logic\\Resources\\Files\\materialPalette.json";
             MaterialPalette palette;
             {
                 string paletteFile = filePath;
@@ -47,10 +44,7 @@ namespace PixelStacker.Tools
 
             if (isModified)
             {
-                string json = JsonConvert.SerializeObject(palette, Formatting.Indented, new JsonSerializerSettings(){ 
-                Formatting = Formatting.Indented,
-                
-                });
+                string json = JsonConvert.SerializeObject(palette, Formatting.Indented);
                 File.WriteAllText(filePath, json);
             }
         }

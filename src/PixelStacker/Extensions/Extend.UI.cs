@@ -1,15 +1,12 @@
-﻿using PixelStacker.IO.Config;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using static System.Windows.Forms.Control;
 
 namespace PixelStacker.Extensions
 {
-    [Obsolete(Constants.Obs_AsyncPreferred)]
-    public static partial class ExtendUI
+    public static class ExtendUI
     {
         public static TResult InvokeEx<TControl, TResult>(this TControl control, Func<TControl, TResult> func) where TControl : Control
         {
@@ -31,24 +28,6 @@ namespace PixelStacker.Extensions
         public static void InvokeEx<TControl>(this TControl control, Action action) where TControl : Control
         {
             control.InvokeEx(c => action());
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <exception cref="System.OperationCanceledException">If cancelled.</exception>
-        /// <param name="token"></param>
-        public static void SafeThrowIfCancellationRequested(this System.Threading.CancellationToken token)
-        {
-            if (token == CancellationToken.None) return;
-            if (!token.CanBeCanceled) return;
-            if (token.IsCancellationRequested) token.ThrowIfCancellationRequested();
-        }
-
-        public static bool SafeIsCancellationRequested(this System.Threading.CancellationToken token)
-        {
-            if (token == CancellationToken.None) return false;
-            if (!token.CanBeCanceled) return false;
-            return token.IsCancellationRequested;
         }
 
 
