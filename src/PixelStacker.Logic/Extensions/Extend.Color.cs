@@ -116,14 +116,14 @@ namespace PixelStacker.Extensions
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static Color Normalize(this Color c)
+        public static Color Normalize(this Color c, int? fragmentSize = null)
         {
-            if (Options.Get.PreRender_ColorCacheFragmentSize < 2)
+            int F = fragmentSize ?? Options.Get.PreRender_ColorCacheFragmentSize;
+            if (F < 2)
             {
                 return c;
             }
 
-            int F = Options.Get.PreRender_ColorCacheFragmentSize;
             int R = (int)Math.Min(255, Math.Round(Convert.ToDecimal(c.R) / F, 0) * F);
             int G = (int)Math.Min(255, Math.Round(Convert.ToDecimal(c.G) / F, 0) * F);
             int B = (int)Math.Min(255, Math.Round(Convert.ToDecimal(c.B) / F, 0) * F);

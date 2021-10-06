@@ -21,12 +21,17 @@ namespace PixelStacker.IO.Config
 
         public const string Obs_TryToRemove = "Try to remove this. Seems useless.";
         public const string Obs_AsyncPreferred = "Switch to async";
+        public const string Obs_Static = "Avoid static properties. We want to have one instance per web user.";
 
         // Data version of MC build. Can be found on wiki.
         // TODO: Auto calc this based on selected materials
         // https://minecraft.fandom.com/wiki/Java_Edition_1.17.1
         public const int DataVersion = 2730;
-
+#if DEBUG
+        public const bool IsDevMode = true;
+#else
+        public const bool IsDevMode = false;
+#endif
 #if FULL_VERSION
         public const bool IsFullVersion = true;
 #else

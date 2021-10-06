@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Extensions;
 using PixelStacker.Logic.IO.Config;
+using PixelStacker.Logic.Model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -38,10 +39,12 @@ namespace PixelStacker.IO.Config
         /// </summary>
         public bool IsMultiLayerRequired { get; set; } = false;
 
-        /// <summary>
-        /// TRUE is a vertical build. FALSE is a horizontal build.
-        /// </summary>
-        public bool IsSideView { get; set; } = false;
+        [Obsolete]
+        public bool IsSideView
+        {
+            get => this.PreprocessorSettings.IsSideView;
+            set => this.PreprocessorSettings.IsSideView = value;
+        }
 
         /// <summary>
         /// Purely for aesthetic rendering. Assuming no block/material filter is set, any blocks with
@@ -87,6 +90,16 @@ namespace PixelStacker.IO.Config
         public int Rendered_RenderedZIndexToShow { get; set; } = 0;
         public bool Rendered_IsRenderedZIndexFilteringEnabled { get; set; } = false;
 
+        /// <summary>
+        /// TRUE is a vertical build. FALSE is a horizontal build.
+        /// </summary>
+        public CanvasPreprocessorSettings PreprocessorSettings { get; set; } = new CanvasPreprocessorSettings()
+        {
+            IsSideView = false,
+            MaxHeight = null,
+            MaxWidth = null
+        };
+
         [JsonIgnore]
         public int? MaxWidth
         {
@@ -120,6 +133,7 @@ namespace PixelStacker.IO.Config
         }
 
         private static Options _self;
+        [Obsolete(Constants.Obs_Static)]
         public static Options Get
         {
             get
@@ -176,7 +190,8 @@ namespace PixelStacker.IO.Config
 
         public static void Save() => StorageProvider.Save(Options.Get);
 
-        public static void Reset() {
+        public static void Reset()
+        {
             StorageProvider.Save(new Options());
             _self = null;
         }

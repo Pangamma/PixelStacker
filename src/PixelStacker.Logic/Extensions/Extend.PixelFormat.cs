@@ -9,83 +9,6 @@ namespace PixelStacker.Extensions
     /// </summary>
     public static partial class Extend
     {
-        [Obsolete(Constants.Obs_TryToRemove)]
-        /// <summary>
-        /// Gets the bit count for a given pixel format.
-        /// </summary>
-        /// <param name="pixelFormat">The pixel format.</param>
-        /// <returns>The bit count.</returns>
-        public static Byte GetBitDepth(this PixelFormat pixelFormat)
-        {
-            switch (pixelFormat)
-            {
-                case PixelFormat.Format1bppIndexed: 
-                    return 1;
-
-                case PixelFormat.Format4bppIndexed: 
-                    return 4;
-
-                case PixelFormat.Format8bppIndexed: 
-                    return 8;
-
-                case PixelFormat.Format16bppArgb1555:
-                case PixelFormat.Format16bppGrayScale:
-                case PixelFormat.Format16bppRgb555:
-                case PixelFormat.Format16bppRgb565:
-                    return 16;
-
-                case PixelFormat.Format24bppRgb: 
-                    return 24;
-
-                case PixelFormat.Format32bppArgb:
-                case PixelFormat.Format32bppPArgb:
-                case PixelFormat.Format32bppRgb:
-                    return 32;
-
-                case PixelFormat.Format48bppRgb: 
-                    return 48;
-
-                case PixelFormat.Format64bppArgb:
-                case PixelFormat.Format64bppPArgb:
-                    return 64;
-
-                default:
-                    String message = string.Format("A pixel format '{0}' not supported!", pixelFormat);
-                    throw new NotSupportedException(message);
-            }
-        }
-
-        [Obsolete(Constants.Obs_TryToRemove)]
-        /// <summary>
-        /// Gets the available color count for a given pixel format.
-        /// </summary>
-        /// <param name="pixelFormat">The pixel format.</param>
-        /// <returns>The available color count.</returns>
-        public static UInt16 GetColorCount(this PixelFormat pixelFormat)
-        {
-            // checks whether a pixel format is indexed, otherwise throw an exception
-            if (!pixelFormat.IsIndexed())
-            {
-                String message = string.Format("Cannot retrieve color count for a non-indexed format '{0}'.", pixelFormat);
-                throw new NotSupportedException(message);
-            }
-
-            switch (pixelFormat)
-            {
-                case PixelFormat.Format1bppIndexed:
-                    return 2;
-
-                case PixelFormat.Format4bppIndexed:
-                    return 16;
-
-                case PixelFormat.Format8bppIndexed:
-                    return 256;
-
-                default:
-                    String message = string.Format("A pixel format '{0}' not supported!", pixelFormat);
-                    throw new NotSupportedException(message);
-            }
-        }
 
         [Obsolete(Constants.Obs_TryToRemove)]
         /// <summary>
@@ -93,7 +16,7 @@ namespace PixelStacker.Extensions
         /// </summary>
         /// <param name="pixelFormat">The pixel format.</param>
         /// <returns></returns>
-        public static String GetFriendlyName(this PixelFormat pixelFormat)
+        public static string GetFriendlyName(this PixelFormat pixelFormat)
         {
             switch (pixelFormat)
             {
@@ -134,7 +57,7 @@ namespace PixelStacker.Extensions
                     return "Truecolor + Alpha (64-bit)";
 
                 default:
-                    String message = string.Format("A pixel format '{0}' not supported!", pixelFormat);
+                    string message = string.Format("A pixel format '{0}' not supported!", pixelFormat);
                     throw new NotSupportedException(message);
             }
         }
@@ -146,7 +69,7 @@ namespace PixelStacker.Extensions
         /// <returns>
         /// 	<c>true</c> if the specified pixel format is indexed; otherwise, <c>false</c>.
         /// </returns>
-        public static Boolean IsIndexed(this PixelFormat pixelFormat)
+        public static bool IsIndexed(this PixelFormat pixelFormat)
         {
             return (pixelFormat & PixelFormat.Indexed) == PixelFormat.Indexed;
         }
@@ -159,7 +82,7 @@ namespace PixelStacker.Extensions
         /// <returns>
         /// 	<c>true</c> if the specified pixel format is supported; otherwise, <c>false</c>.
         /// </returns>
-        public static Boolean IsSupported(this PixelFormat pixelFormat)
+        public static bool IsSupported(this PixelFormat pixelFormat)
         {
             switch (pixelFormat)
             {
@@ -173,69 +96,6 @@ namespace PixelStacker.Extensions
                 case PixelFormat.Format32bppArgb:
                 case PixelFormat.Format32bppPArgb:
                 case PixelFormat.Format32bppRgb:
-                case PixelFormat.Format48bppRgb:
-                case PixelFormat.Format64bppArgb:
-                case PixelFormat.Format64bppPArgb:
-                    return true;
-
-                default:
-                    return false;
-            }
-        }
-
-        [Obsolete(Constants.Obs_TryToRemove)]
-        /// <summary>
-        /// Gets the format by color count.
-        /// </summary>
-        public static PixelFormat GetFormatByColorCount(Int32 colorCount)
-        {
-            if (colorCount <= 0 || colorCount > 256)
-            {
-                String message = string.Format("A color count '{0}' not supported!", colorCount);
-                throw new NotSupportedException(message);
-            }
-
-            PixelFormat result = PixelFormat.Format1bppIndexed;
-
-            if (colorCount > 16)
-            {
-                result = PixelFormat.Format8bppIndexed;
-            }
-            else if (colorCount > 2)
-            {
-                result = PixelFormat.Format4bppIndexed;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Determines whether the specified pixel format has an alpha channel.
-        /// </summary>
-        /// <param name="pixelFormat">The pixel format.</param>
-        /// <returns>
-        /// 	<c>true</c> if the specified pixel format has an alpha channel; otherwise, <c>false</c>.
-        /// </returns>
-        [Obsolete(Constants.Obs_TryToRemove)]
-        public static Boolean HasAlpha(this PixelFormat pixelFormat)
-        {
-            return (pixelFormat & PixelFormat.Alpha) == PixelFormat.Alpha ||
-                   (pixelFormat & PixelFormat.PAlpha) == PixelFormat.PAlpha;
-        }
-
-        /// <summary>
-        /// Determines whether [is deep color] [the specified pixel format].
-        /// </summary>
-        /// <param name="pixelFormat">The pixel format.</param>
-        /// <returns>
-        /// 	<c>true</c> if [is deep color] [the specified pixel format]; otherwise, <c>false</c>.
-        /// </returns>
-        [Obsolete(Constants.Obs_TryToRemove)]
-        public static Boolean IsDeepColor(this PixelFormat pixelFormat)
-        {
-            switch (pixelFormat)
-            {
-                case PixelFormat.Format16bppGrayScale:
                 case PixelFormat.Format48bppRgb:
                 case PixelFormat.Format64bppArgb:
                 case PixelFormat.Format64bppPArgb:

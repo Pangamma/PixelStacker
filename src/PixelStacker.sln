@@ -10,9 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.Tools", "PixelStacker.Tools\PixelStacker.Tools.csproj", "{2E6E34FF-95F4-4E8D-B0AA-862079BAE090}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Logic", "PixelStacker.Logic\PixelStacker.Logic.csproj", "{1FE5C2E4-B194-4298-AD7D-E203ACE7AF23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.Logic", "PixelStacker.Logic\PixelStacker.Logic.csproj", "{1FE5C2E4-B194-4298-AD7D-E203ACE7AF23}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker", "PixelStacker\PixelStacker.csproj", "{D3845714-A796-4BD7-99E7-45470704A929}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Benchmarks", "PixelStacker.Benchmarks\PixelStacker.Benchmarks.csproj", "{BA690EDE-E6E8-487A-A4FA-36D3935472CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{D3845714-A796-4BD7-99E7-45470704A929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3845714-A796-4BD7-99E7-45470704A929}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3845714-A796-4BD7-99E7-45470704A929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA690EDE-E6E8-487A-A4FA-36D3935472CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA690EDE-E6E8-487A-A4FA-36D3935472CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA690EDE-E6E8-487A-A4FA-36D3935472CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA690EDE-E6E8-487A-A4FA-36D3935472CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

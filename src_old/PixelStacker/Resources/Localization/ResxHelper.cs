@@ -2,6 +2,7 @@
 using PixelStacker.Resources.Localization;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading;
@@ -10,7 +11,6 @@ namespace PixelStacker.Resources.Localization
 {
     public class ResxHelper : ResourceManager
     {
-        public ResxHelper() { }
         /// <summary>
         /// [en] => [[MyFoo_String] => [Value]]
         /// </summary>

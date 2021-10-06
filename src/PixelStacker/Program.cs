@@ -1,5 +1,6 @@
 using PixelStacker.IO;
 using PixelStacker.IO.Config;
+using PixelStacker.Resources.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,13 @@ namespace PixelStacker
         [STAThread]
         static void Main()
         {
+            ResxHelper.InjectIntoTextResx();
             Options.StorageProvider = new LocalDataOptionsStorage();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.Run(new Form1());
         }
     }
 }

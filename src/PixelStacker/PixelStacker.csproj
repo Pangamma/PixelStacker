@@ -28,7 +28,6 @@
   <ItemGroup>
     <PackageReference Include="FastBitmapLib" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="OpenTK" Version="4.6.7" />
   </ItemGroup>
 
   <ItemGroup>

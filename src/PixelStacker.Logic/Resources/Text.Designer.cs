@@ -39,7 +39,7 @@ namespace PixelStacker.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PixelStacker.Logic.Resources.Text", typeof(Text).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::PixelStacker.Resources.Localization.ResxHelper(); 
                     resourceMan = temp;
                 }
                 return resourceMan;

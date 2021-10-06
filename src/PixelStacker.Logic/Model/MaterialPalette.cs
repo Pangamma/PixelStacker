@@ -80,6 +80,8 @@ namespace PixelStacker.Logic.Model
             return false;
         }
 
+        public List<MaterialCombination> ToCombinationList() => FromPaletteID.Values.ToList();
+        
         internal static MaterialPalette FromDictionary(Dictionary<int, MaterialCombination> dic)
         {
             return new MaterialPalette()

@@ -102,4 +102,7 @@
 		<DependentUpon>ResxContainer.resx</DependentUpon>
 	</None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Collections\ColorTransformer\" />
+  </ItemGroup>
 </Project>

@@ -94,13 +94,13 @@ csharp_style_pattern_matching_over_as_with_null_check = true
 csharp_style_pattern_matching_over_is_with_cast_check = true
 csharp_style_prefer_not_pattern = true
 csharp_style_prefer_pattern_matching = true
-csharp_style_prefer_switch_expression = false
+csharp_style_prefer_switch_expression =false:suggestion
 
 # Null-checking preferences
 csharp_style_conditional_delegate_call = true
 
 # Modifier preferences
-csharp_prefer_static_local_function =false:suggestion
+csharp_prefer_static_local_function =false:warning
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async
 
 # Code-block preferences

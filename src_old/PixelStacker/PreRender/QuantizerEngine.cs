@@ -100,8 +100,8 @@ namespace SimplePaletteQuantizer
                     ((BaseColorCacheQuantizer)q).ChangeCacheProvider(activeColorCache);
                 }
             }
-
         }
+
 
         public void EnforceValidSettings(PreRenderOptionsForm form)
         {
