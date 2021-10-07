@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
@@ -7,8 +9,9 @@ using PixelStacker.Extensions;
 
 namespace PixelStacker.Logic.Model
 {
-    public class CanvasData
+    public class CanvasData: IEnumerable<CanvasIteratorData>
     {
+        public bool IsSideView { get; set; } = false;
         private int[,] BlocksMap { get; set; } // X, Y
         private int Width => BlocksMap.GetLength(0);
         private int Height => BlocksMap.GetLength(1);
@@ -134,5 +137,48 @@ namespace PixelStacker.Logic.Model
 
             return Task.FromResult(canvas);
         }
+
+        public IEnumerator<CanvasIteratorData> GetEnumerator()
+        {
+            int w = Width;
+            int h = Height;
+            for (int x = 0; x < w; x++)
+            {
+                for (int y = 0; y < h; y++)
+                {
+                    yield return new CanvasIteratorData
+                    {
+                        X = x,
+                        Y = y,
+                        PaletteID = BlocksMap[x, y]
+                    };
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            int w = Width;
+            int h = Height;
+            for (int x = 0; x < w; x++)
+            {
+                for (int y = 0; y < h; y++)
+                {
+                    yield return new CanvasIteratorData
+                    {
+                        X = x,
+                        Y = y,
+                        PaletteID = BlocksMap[x, y]
+                    };
+                }
+            }
+        }
+    }
+
+    public class CanvasIteratorData
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int PaletteID { get; set; }
     }
 }

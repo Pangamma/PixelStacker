@@ -8,6 +8,8 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
     <PackageReference Include="BenchmarkDotNet2Highcharts" Version="1.0.0" />
+    <PackageReference Include="KdTree" Version="1.4.1" />
+    <PackageReference Include="Supercluster.KDTree" Version="1.0.4" />
   </ItemGroup>
 
   <ItemGroup>

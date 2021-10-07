@@ -208,7 +208,8 @@ namespace PixelStacker.UI
         }
         private void OnMouseEnter_Tile(object sender, EventArgs e)
         {
-            this.lblInfo.Text = ((MaterialSelectTile)sender).Material.Label;
+            //this.lblInfo.Text = ((MaterialSelectTile)sender).Material.Label;
+            this.lblInfo.Text = ((MaterialSelectTile)sender).Material.PixelStackerID;
         }
 
         private MaterialSelectTile previouslyClickedTile = null;
@@ -229,9 +230,9 @@ namespace PixelStacker.UI
                     // go time.
                     int idxA = cRef.TilePanel.Controls.IndexOf(previouslyClickedTile);
                     int idxB = cRef.TilePanel.Controls.IndexOf(currentTile);
-                    
+
                     // Maybe going across different categories.
-                    if (idxA == -1 || idxB == -1) return; 
+                    if (idxA == -1 || idxB == -1) return;
 
 
                     int minI = Math.Min(idxA, idxB);
@@ -671,7 +672,7 @@ namespace PixelStacker.UI
                     _worker?.SafeThrowIfCancellationRequested();
                     await Task.Yield();
                 }
-                
+
                 kvpG.Value.TilePanel.ClearControlsQuick();
                 kvpG.Value.TilePanel.SuspendLayout();
 

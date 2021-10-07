@@ -18,12 +18,5 @@ namespace PixelStacker.Logic.Model
         /// Valid values: 1, 5, 15, 17, 51
         /// </summary>
         public int RgbBucketSize { get; set; } = 1;
-
-
-        /// <summary>
-        /// The list of valid and enabled material combinations. This list will be used for
-        /// color finding operations.
-        /// </summary>
-        public List<MaterialCombination> EnabledMaterialCombinations { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.IO.JsonConverters;
+using PixelStacker.Resources;
+using PixelStacker.Resources.Localization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -82,6 +84,12 @@ namespace PixelStacker.Logic.Model
 
         public List<MaterialCombination> ToCombinationList() => FromPaletteID.Values.ToList();
         
+        public static MaterialPalette FromResx()
+        {
+            var rt = ResxHelper.LoadJson<MaterialPalette>(DataResources.materialPalette);
+            return rt;
+        }
+
         internal static MaterialPalette FromDictionary(Dictionary<int, MaterialCombination> dic)
         {
             return new MaterialPalette()

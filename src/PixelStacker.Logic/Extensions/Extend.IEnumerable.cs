@@ -20,6 +20,44 @@ namespace PixelStacker.Extensions
             if (!items.Any()) throw new InvalidOperationException("List cannot be empty.");
             return items.OrderBy(selector).Skip(items.Count() / 2).Take(1).Select(selector).FirstOrDefault();
         }
+        #region AverageByPercentile
+        public static List<double> AverageByPercentile<T,TKey>(this IEnumerable<T> items, float percentChunkSize, Func<T, TKey> selector)
+        {
+            if (!items.Any())
+                throw new InvalidOperationException("List cannot be empty.");
+            if (percentChunkSize < 0)
+                throw new ArgumentOutOfRangeException(nameof(percentChunkSize), percentChunkSize, "Must be greater than 0.");
+            if (!typeof(TKey).IsPrimitive)
+                throw new ArgumentException(nameof(selector), "Selector must be a selector for a numeric type.");
+            
+            var ordered = items.OrderByDescending(selector);
+            double max = items.Count();
+            int itemsPerChunk = (int)Math.Ceiling(max * (percentChunkSize/ 100));
+            double numChunks = Math.Ceiling( max / itemsPerChunk);
+            List<double> avgs = new List<double>();
+
+
+           
+            for (int i = 0; i < numChunks; i++)
+            {
+                double avg; if (selector is Func<T, int> funcInt)
+                    avg = ordered.Skip(i * itemsPerChunk).Take(itemsPerChunk).Average(funcInt);
+                else if (selector is Func<T, long> funcLong)
+                    avg = ordered.Skip(i * itemsPerChunk).Take(itemsPerChunk).Average(funcLong);
+                else if (selector is Func<T, decimal> funcDec)
+                    avg = (double)ordered.Skip(i * itemsPerChunk).Take(itemsPerChunk).Average(funcDec);
+                else if (selector is Func<T, float> funcFloat)
+                    avg = ordered.Skip(i * itemsPerChunk).Take(itemsPerChunk).Average(funcFloat);
+                else if (selector is Func<T, double> funcDub)
+                    avg = ordered.Skip(i * itemsPerChunk).Take(itemsPerChunk).Average(funcDub);
+                else throw new ArgumentException(nameof(selector), "Selector must select a numeric format.");
+
+                avgs.Add(Math.Round(avg,2));
+            }
+
+            return avgs;
+        }
+        #endregion AverageByPercentile
 
         public static List<List<T>> SplitInto<T>(this IEnumerable<T> items, int numSubLists)
         {

@@ -79,6 +79,22 @@ namespace PixelStacker.Extensions
         /// <param name="src"></param>
         /// <param name="normalize">If colors should be put into their buckets of 5 or 15 or or whatever.</param>
         /// <returns></returns>
+        public static List<Color> GetColorsInImage(this Bitmap src, bool normalize = true)
+        {
+            List<Color> cs = new List<Color>();
+            src.ToViewStream(null, (int x, int y, Color c) =>
+            {
+                cs.Add(normalize ? c.Normalize() : c);
+            });
+
+            return cs;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="normalize">If colors should be put into their buckets of 5 or 15 or or whatever.</param>
+        /// <returns></returns>
         public static Color GetAverageColor(this Bitmap src, bool normalize = true)
         {
             long r = 0;
@@ -282,6 +298,7 @@ namespace PixelStacker.Extensions
             dstImage.UnlockBits(bitmapData);
         }
 
+        [Obsolete("Fix this for concurrency, and also make it so it outputs a patched image instead.", false)]
         /// <summary>
         /// Image MUST be 32bppARGB
         /// </summary>
@@ -380,12 +397,13 @@ namespace PixelStacker.Extensions
 
 
         /// <summary>
+        /// Returns a NEW image.
         /// Image MUST be 32bppARGB
         /// (int x, int y, Color cOrig, cDest) => { return newColorDest; }
         /// </summary>
         /// <param name="origImage"></param>
         /// <returns></returns>
-        public static void ToMergeStream(this Bitmap origImage, Bitmap dstImage, CancellationToken? worker, Func<int, int, Color, Color, Color> callback)
+        public static Bitmap ToMergeStream(this Bitmap origImage, Bitmap dstImage, CancellationToken? worker, Func<int, int, Color, Color, Color> callback)
         {
             if (origImage.PixelFormat != PixelFormat.Format32bppArgb)
             {
@@ -397,51 +415,65 @@ namespace PixelStacker.Extensions
                 throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");
             }
 
-            //Get the bitmap data
-            var srcData = origImage.LockBits(new Rectangle(0, 0, origImage.Width, origImage.Height), ImageLockMode.ReadOnly, origImage.PixelFormat);
-            var dstData = dstImage.LockBits(new Rectangle(0, 0, dstImage.Width, dstImage.Height), ImageLockMode.ReadOnly, dstImage.PixelFormat);
+            BitmapData srcData;
+            BitmapData dstData;
+            byte[] srcImageBytes;
+            byte[] dstImageBytes;
 
-            //Initialize an array for all the image data
-            byte[] srcImageBytes = new byte[srcData.Stride * origImage.Height];
-            byte[] dstImageBytes = new byte[dstData.Stride * dstImage.Height];
+            byte[] outImageBytes;
+            var outImage = new Bitmap(origImage.Width, origImage.Height, PixelFormat.Format32bppArgb);
 
-            //Copy the bitmap data to the local array
-            System.Runtime.InteropServices.Marshal.Copy(srcData.Scan0, srcImageBytes, 0, srcImageBytes.Length);
-            System.Runtime.InteropServices.Marshal.Copy(dstData.Scan0, dstImageBytes, 0, dstImageBytes.Length);
+            lock (origImage)
+            {
+                lock (dstImage)
+                {
+                    //Get the bitmap data
+                    srcData = origImage.LockBits(new Rectangle(0, 0, origImage.Width, origImage.Height), ImageLockMode.ReadOnly, origImage.PixelFormat);
+                    dstData = dstImage.LockBits(new Rectangle(0, 0, dstImage.Width, dstImage.Height), ImageLockMode.ReadOnly, dstImage.PixelFormat);
+                    //Initialize an array for all the image data
+                    srcImageBytes = new byte[srcData.Stride * origImage.Height];
+                    dstImageBytes = new byte[dstData.Stride * dstImage.Height];
+                    outImageBytes = new byte[dstData.Stride * dstImage.Height];
 
-            //Unlock the bitmap
-            origImage.UnlockBits(srcData);
-            dstImage.UnlockBits(dstData);
+                    //Copy the bitmap data to the local array
+                    System.Runtime.InteropServices.Marshal.Copy(srcData.Scan0, srcImageBytes, 0, srcImageBytes.Length);
+                    System.Runtime.InteropServices.Marshal.Copy(dstData.Scan0, dstImageBytes, 0, dstImageBytes.Length);
+
+                    //Unlock the bitmap
+                    origImage.UnlockBits(srcData);
+                    dstImage.UnlockBits(dstData);
+                }
+            }
 
             //Find pixelsize
             int pixelSize = Image.GetPixelFormatSize(origImage.PixelFormat); // bits per pixel
             int bytesPerPixel = pixelSize / 8;
             int x = 0; int y = 0;
             var srcPixelData = new byte[bytesPerPixel];
-            var dstPixelData = new byte[bytesPerPixel];
+            var outPixelData = new byte[bytesPerPixel];
             for (int i = 0; i < srcImageBytes.Length; i += bytesPerPixel)
             {
                 //Copy the bits into a local array
                 Array.Copy(srcImageBytes, i, srcPixelData, 0, bytesPerPixel);
-                Array.Copy(dstImageBytes, i, dstPixelData, 0, bytesPerPixel);
+                Array.Copy(dstImageBytes, i, outPixelData, 0, bytesPerPixel);
 
                 if (!BitConverter.IsLittleEndian)
                 {
                     Array.Reverse(srcPixelData);
-                    Array.Reverse(dstPixelData);
+                    Array.Reverse(outPixelData);
                 }
 
                 //Get the color of a pixel
                 // On a little-endian machine, the byte order is bb gg rr aa
                 Color srcColor = Color.FromArgb(srcPixelData[3], srcPixelData[2], srcPixelData[1], srcPixelData[0]);
-                Color dstColor = Color.FromArgb(dstPixelData[3], dstPixelData[2], dstPixelData[1], dstPixelData[0]);
+                Color dstColor = Color.FromArgb(outPixelData[3], outPixelData[2], outPixelData[1], outPixelData[0]);
 
                 Color nColor = callback(x, y, srcColor, dstColor);
-                dstPixelData[3] = nColor.A;
-                dstPixelData[2] = nColor.R;
-                dstPixelData[1] = nColor.G;
-                dstPixelData[0] = nColor.B;
-                Array.Copy(dstPixelData, 0, dstImageBytes, i, bytesPerPixel);
+                outPixelData[3] = nColor.A;
+                outPixelData[2] = nColor.R;
+                outPixelData[1] = nColor.G;
+                outPixelData[0] = nColor.B;
+                Array.Copy(outPixelData, 0, outImageBytes, i, bytesPerPixel);
 
                 x++;
                 if (x > origImage.Width - 1)
@@ -455,17 +487,19 @@ namespace PixelStacker.Extensions
 
 
             //Get the bitmap data
-            dstData = dstImage.LockBits(
-                new Rectangle(0, 0, dstImage.Width, dstImage.Height),
+            BitmapData outData = outImage.LockBits(
+                new Rectangle(0, 0, outImage.Width, outImage.Height),
                 ImageLockMode.WriteOnly,
-                dstImage.PixelFormat
+                outImage.PixelFormat
             );
 
             //Copy the changed data into the bitmap again.
-            System.Runtime.InteropServices.Marshal.Copy(dstImageBytes, 0, dstData.Scan0, dstImageBytes.Length);
+            System.Runtime.InteropServices.Marshal.Copy(outImageBytes, 0, outData.Scan0, outImageBytes.Length);
 
             //Unlock the bitmap
-            dstImage.UnlockBits(dstData);
+            outImage.UnlockBits(outData);
+
+            return outImage;
         }
 
         /// <summary>

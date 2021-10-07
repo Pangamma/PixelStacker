@@ -20,7 +20,8 @@ namespace PixelStacker.Benchmarks.ColorMap
     //[ShortRunJob]
 
     [JsonExporterAttribute.Brief]
-    [SimpleJob(launchCount: 1, warmupCount: 2, targetCount: 2)]
+    //[SimpleJob(launchCount: 1, warmupCount: 2, targetCount: 2)]
+    [Config(typeof(FastAndDirtyConfig))]
     [MinColumn, MaxColumn, MeanColumn, MedianColumn, IterationsColumn]
     public class BaseColorMapBenchmarks
     {

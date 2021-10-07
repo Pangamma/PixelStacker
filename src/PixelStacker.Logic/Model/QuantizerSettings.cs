@@ -56,7 +56,7 @@ namespace PixelStacker.Logic.Model
                 this.DitherAlgorithm = "No dithering";
             }
 
-            if (!opts.ColorCacheList.ContainsKey(this.ColorCache))
+            if (this.ColorCache != null && !opts.ColorCacheList.ContainsKey(this.ColorCache))
             {
                 if (!fixIfPossible) return false;
                 this.ColorCache = opts.ColorCacheList.Keys.First();

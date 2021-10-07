@@ -244,6 +244,7 @@ namespace PixelStacker.Logic.Extensions
             dstImage.UnlockBits(bitmapData);
         }
 
+        [Obsolete("Needs to be fixed to avoid async crashes", false)]
         /// <summary>
         /// Image MUST be 32bppARGB
         /// </summary>

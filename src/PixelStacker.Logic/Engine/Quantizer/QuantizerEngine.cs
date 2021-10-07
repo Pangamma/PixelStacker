@@ -115,7 +115,8 @@ namespace SimplePaletteQuantizer
                     2, 4, 8, 16, 32, 64, 128, 256
                 };
             }
-            return null;
+
+            return opts;
         }
 
         /// <summary>
@@ -143,15 +144,20 @@ namespace SimplePaletteQuantizer
             int parallelTaskCount = activeQuantizer.AllowParallel ? settings.MaxParallelProcesses : 1;
             int colorCount = settings.MaxColorCount;
             
-            //TaskScheduler uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
             try
             {
                 // For some reason the super quick algo failed. Need to fail over to this super safe one.
                 using (Image targetImage = ImageBuffer.QuantizeImage(sourceImage, activeQuantizer, activeDitherer, colorCount, parallelTaskCount))
                 {
-                    Bitmap output = targetImage.To32bppBitmap();
-                    ApplyBitmaskForTransparency(sourceImage, output);
-                    return output;
+                    using (Bitmap formattedBM = targetImage.To32bppBitmap())
+                    {
+                        var returnVal = sourceImage.ToMergeStream(formattedBM, _worker, (x, y, o, n) => {
+                            if (o.A < 32) return Color.Transparent;
+                            else return n;
+                        });
+
+                        return returnVal;
+                    }
                 }
             }
             catch (Exception)
@@ -161,98 +167,6 @@ namespace SimplePaletteQuantizer
                 throw; // Throw whatever type was already there if it is something else.
             }
 
-        }
-
-        private static void ApplyBitmaskForTransparency_Original(Bitmap origImage, Bitmap dstImage)
-        {
-            //Get the bitmap data
-            var bitmapData = origImage.LockBits(
-                new Rectangle(0, 0, origImage.Width, origImage.Height),
-                ImageLockMode.ReadWrite,
-                origImage.PixelFormat
-            );
-
-            //Initialize an array for all the image data
-            byte[] imageBytes = new byte[bitmapData.Stride * origImage.Height];
-
-            //Copy the bitmap data to the local array
-            System.Runtime.InteropServices.Marshal.Copy(bitmapData.Scan0, imageBytes, 0, imageBytes.Length);
-
-            //Unlock the bitmap
-            origImage.UnlockBits(bitmapData);
-
-            //Find pixelsize
-            int pixelSize = Image.GetPixelFormatSize(origImage.PixelFormat);
-
-            // An example on how to use the pixels, lets make a copy
-            int x = 0;
-            int y = 0;
-            //Loop pixels
-            for (int i = 0; i < imageBytes.Length; i += pixelSize / 8)
-            {
-                //Copy the bits into a local array
-                var pixelData = new byte[4];
-                Array.Copy(imageBytes, i, pixelData, 0, 4);
-
-                //Get the color of a pixel
-                var color = Color.FromArgb(pixelData[3], pixelData[0], pixelData[1], pixelData[2]);
-
-                if (color.A < 32)
-                {
-                    dstImage.SetPixel(x, y, Color.Transparent);
-                }
-
-                //Map the 1D array to (x,y)
-                x++;
-                if (x >= origImage.Width)
-                {
-                    x = 0;
-                    y++;
-                }
-
-            }
-        }
-
-        private static void ApplyBitmaskForTransparency(Bitmap origImage, Bitmap dstImage)
-        {
-            try
-            {
-                origImage.ToMergeStreamParallel(dstImage, null, (int x, int y, Color o, Color n) =>
-                {
-                    if (o.A < 32) return Color.Transparent;
-                    else return n;
-                });
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                for (int x = 0; x < origImage.Width; x++)
-                {
-                    for (int y = 0; y < origImage.Height; y++)
-                    {
-                        Color c = origImage.GetPixel(x, y);
-                        if (c.A < 32)
-                        {
-                            dstImage.SetPixel(x, y, Color.Transparent);
-                        }
-                    }
-                }
-            }
-        }
-
-        private static Image GetConvertedImage(Image image, ImageFormat newFormat, out int imageSize)
-        {
-            Image result;
-
-            // saves the image to the stream, and then reloads it as a new image format; thus conversion.. kind of
-            using (MemoryStream stream = new MemoryStream())
-            {
-                image.Save(stream, newFormat);
-                stream.Seek(0, SeekOrigin.Begin);
-                imageSize = (int)stream.Length;
-                result = Image.FromStream(stream);
-            }
-
-            return result;
         }
     }
 }

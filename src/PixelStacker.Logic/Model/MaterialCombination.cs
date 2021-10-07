@@ -2,10 +2,13 @@
 using PixelStacker.Extensions;
 using PixelStacker.IO.JsonConverters;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace PixelStacker.Logic.Model
 {
+    [Serializable]
     [JsonConverter(typeof(MaterialCombinationJsonConverter))]
     public class MaterialCombination : IEquatable<MaterialCombination>
     {
@@ -31,35 +34,110 @@ namespace PixelStacker.Logic.Model
         public Material Top { get; }
         public Material Bottom { get; }
 
-        public Color GetAverageColor(bool isSide) => this.LazyValue(() => {
-            return this.GetImage(isSide).GetAverageColor();
-        });
+        private Color? _GetAverageColorSide;
+        private Color? _GetAverageColorTop;
+        public Color GetAverageColor(bool isSide)
+        {
+            if (isSide)
+            {
+                _GetAverageColorSide ??= SideImage.GetAverageColor();
+                return _GetAverageColorSide.Value;
+            }
+            else
+            {
+                _GetAverageColorTop ??= TopImage.GetAverageColor();
+                return _GetAverageColorTop.Value;
+            }
+        }
+
+        private List<Tuple<Color, int>> _ColorsInImageSide;
+        private List<Tuple<Color, int>> _ColorsInImageTop;
+        public List<Tuple<Color, int>> GetColorsInImage(bool isSide)
+        {
+            if (isSide)
+            {
+                _ColorsInImageSide ??= SideImage.GetColorsInImage()
+                    .GroupBy(x => x)
+                    .Select(x => new Tuple<Color, int>(x.Key, x.Count()))
+                    .ToList();
+                return _ColorsInImageSide;
+            }
+            else
+            {
+                _ColorsInImageTop ??= TopImage.GetColorsInImage()
+                    .GroupBy(x => x)
+                    .Select(x => new Tuple<Color, int>(x.Key, x.Count()))
+                    .ToList();
+                return _ColorsInImageTop;
+            }
+        }
 
         public Bitmap GetImage(bool isSide) => isSide ? this.SideImage : this.TopImage;
-        public Bitmap TopImage => this.LazyValue(() => {
-            Bitmap rt = Top.TopImage.To32bppBitmap();
-            if (IsMultiLayer) return rt;
-            Bottom.TopImage.ToMergeStreamParallel(rt, null, (x, y, cLower, cUpper) => cLower.OverlayColor(cUpper));
-            return rt;
-        });
+        
+        private Bitmap _TopImage;
+        public Bitmap TopImage
+        {
+            get
+            {
+                if (_TopImage == null)
+                {
+                    _TopImage = Top.TopImage.To32bppBitmap();
+                    if (IsMultiLayer)
+                    {
+                        Bottom.TopImage.ToMergeStream(_TopImage, null, (x, y, cLower, cUpper) => cLower.OverlayColor(cUpper));
+                    }
+                }
 
-        public Bitmap SideImage => this.LazyValue(() => {
-            Bitmap rt = Top.SideImage.To32bppBitmap();
-            if (IsMultiLayer) return rt;
-            Bottom.SideImage.ToMergeStreamParallel(rt, null, (x, y, cLower, cUpper) => cLower.OverlayColor(cUpper));
-            return rt;
-        });
+                return _TopImage;
+            }
+        }
+
+        private Bitmap _SideImage;
+        public Bitmap SideImage
+        {
+            get
+            {
+                if (_SideImage == null)
+                {
+                    if (IsMultiLayer)
+                    {
+                        _SideImage = Bottom.SideImage.ToMergeStream(Top.SideImage, null, (x, y, cLower, cUpper) => cLower.OverlayColor(cUpper));
+                    } 
+                    else
+                    {
+                        _SideImage = Bottom.SideImage.To32bppBitmap();
+                    }
+                }
+
+                return _SideImage;
+            }
+        }
 
 
         #region Equality/ Override methods
         public bool Equals(MaterialCombination y)
         {
-            var x = this;
-            if (x != null ^ y != null) return false;
-            if (x == null && y == null) return true;
+            return this == y;
+            //var x = this;
+            //if (null != x ^ null != y) return false;
+            //if (null == x && null == y) return true;
+            //if (x.Top.PixelStackerID != y.Top.PixelStackerID) return false;
+            //if (x.Bottom.PixelStackerID != y.Bottom.PixelStackerID) return false;
+            //return true;
+        }
+
+        public static bool operator ==(MaterialCombination x, MaterialCombination y)
+        {
+            if ((x is not null) ^ (y is not null)) return false;
+            if ((x is null) && (y is null)) return true;
             if (x.Top.PixelStackerID != y.Top.PixelStackerID) return false;
             if (x.Bottom.PixelStackerID != y.Bottom.PixelStackerID) return false;
             return true;
+        }
+
+        public static bool operator !=(MaterialCombination a, MaterialCombination b)
+        {
+            return !(a == b);
         }
 
         public override bool Equals(object obj)
@@ -70,7 +148,7 @@ namespace PixelStacker.Logic.Model
 
         public int GetHashCode(MaterialCombination x)
         {
-            return (x.Top.PixelStackerID+"::"+x.Bottom.PixelStackerID).GetHashCode();
+            return (x.Top.PixelStackerID + "::" + x.Bottom.PixelStackerID).GetHashCode();
         }
 
         public override string ToString()

@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
@@ -14,11 +12,13 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         private Dictionary<Color, MaterialCombination> Cache { get; set; } = new Dictionary<Color, MaterialCombination>();
         public List<MaterialCombination> Combos { get; private set; }
         public bool IsSideView { get; private set; }
+        public MaterialPalette Palette { get; private set; }
 
         public void SetSeedData(List<MaterialCombination> combos,  MaterialPalette mats, bool isSideView)
         {
             this.Combos = combos;
             this.IsSideView = isSideView;
+            this.Palette = mats;
         }
 
         public MaterialCombination FindBestMatch(Color c)

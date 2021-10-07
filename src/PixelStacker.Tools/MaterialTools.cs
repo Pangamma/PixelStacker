@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PixelStacker.Logic;
 using System.Linq;
 using PixelStacker.Logic.Model;
+using PixelStacker.Extensions;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -12,7 +13,7 @@ namespace PixelStacker.Tools
     public class MaterialTools
     {
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.Tools\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-     
+
         [TestMethod]
         [TestCategory("Generators")]
         public void GenerateMaterialCombinationPalette()
@@ -24,7 +25,7 @@ namespace PixelStacker.Tools
                 string json = File.ReadAllText(paletteFile);
                 palette = JsonConvert.DeserializeObject<MaterialPalette>(json) ?? new MaterialPalette();
             }
-            
+
             var glasses = Materials.List.Where(m2 => m2.Category == "Glass");
             var solids = Materials.List.Where(m2 => m2.Category != "Glass" && m2.Category != "Air");
 
@@ -47,6 +48,32 @@ namespace PixelStacker.Tools
                 string json = JsonConvert.SerializeObject(palette, Formatting.Indented);
                 File.WriteAllText(filePath, json);
             }
+        }
+
+        [TestMethod]
+        [TestCategory("Research")]
+        public void AnalyzeRoughnessOfTextures()
+        {
+            var palette = MaterialPalette.FromResx().ToCombinationList();
+            var data = palette.Select(mc => new
+            {
+                mc = mc,
+                AvgColor = mc.GetAverageColor(false),
+                ErrorDist = mc.GetAverageColor(false).GetAverageColorDistance(mc.GetColorsInImage(false))
+            }).AverageByPercentile(5, x => x.ErrorDist);
+        }
+
+        [TestMethod]
+        [TestCategory("Research")]
+        public void AnalyzeColorDiversity()
+        {
+            //.Where(x => x.Top.IsEnabled && x.Bottom.IsEnabled && !x.IsMultiLayer).ToList()
+            var palette = MaterialPalette.FromResx().ToCombinationList();
+            var data = palette.Select(mc => new
+            {
+                mc = mc,
+                ColorsInImage = mc.GetColorsInImage(false)
+            }).AverageByPercentile(5, x => x.ColorsInImage.Count);
         }
     }
 }

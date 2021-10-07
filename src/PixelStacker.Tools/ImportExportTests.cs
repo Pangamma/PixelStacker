@@ -6,6 +6,11 @@ using PixelStacker.IO.Formatters;
 using PixelStacker.Extensions;
 using System.Text;
 using PixelStacker.Resources;
+using PixelStacker.Logic.Engine;
+using PixelStacker.Logic.Engine.Quantizer.Enums;
+using PixelStacker.Resources.Localization;
+using PixelStacker.Logic.Collections.ColorMapper;
+using System.Linq;
 
 namespace PixelStacker.Tools
 {
@@ -13,25 +18,33 @@ namespace PixelStacker.Tools
     public class ImportExportTests
     {
         private RenderedCanvas Canvas;
-        public ImportExportTests()
-        {
-            string json = Encoding.UTF8.GetString(DataResources.materialPalette);
-            MaterialPalette mat = JsonConvert.DeserializeObject<MaterialPalette>(json);
-            var img = UIResources.weird_intro.To32bppBitmap();
-            Canvas = new RenderedCanvas()
-            {
-                MaterialPalette = mat,
-                OriginalImage = img,
-                WorldEditOrigin = new System.Drawing.Point(0, img.Height - 1),
-                CanvasData = new CanvasData(mat, new int[img.Width, img.Height])
-            };
 
-            Canvas.CanvasData[0, 0] = mat[55];
-            Canvas.CanvasData[0, 1] = mat[55];
-            Canvas.CanvasData[0, 2] = mat[55];
-            Canvas.CanvasData[0, 3] = mat[55];
-            Canvas.CanvasData[0, 4] = mat[55];
-            Canvas.CanvasData[0, 5] = mat[55];
+        [TestInitialize]
+        public async Task Setup()
+        {
+            MaterialPalette palette = MaterialPalette.FromResx();
+            var engine = new RenderCanvasEngine();
+            var img = await engine.PreprocessImageAsync(null,
+                UIResources.pink_girl.To32bppBitmap(),
+                new CanvasPreprocessorSettings()
+                {
+                    IsSideView = false,
+                    RgbBucketSize = 15,
+                    MaxHeight = 10,
+                    QuantizerSettings = new QuantizerSettings()
+                    {
+                        Algorithm = QuantizerAlgorithm.WuColor,
+                        MaxColorCount = 256,
+                        IsEnabled = true,
+                        DitherAlgorithm = "No dithering"
+                    }
+                });
+
+            var mapper = new SeparateColorBruteForceMapper();
+            var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabled && x.Bottom.IsEnabled && x.IsMultiLayer).ToList();
+            mapper.SetSeedData(combos, palette, false);
+
+            this.Canvas = await engine.RenderCanvasAsync(null, img, mapper, palette);
         }
 
         [TestMethod]
@@ -43,7 +56,15 @@ namespace PixelStacker.Tools
             var canv = await formatter.ImportAsync("test.zip", null);
             Assert.AreEqual(Canvas.WorldEditOrigin, canv.WorldEditOrigin);
             Assert.AreEqual(JsonConvert.SerializeObject(Canvas.MaterialPalette), JsonConvert.SerializeObject(canv.MaterialPalette));
-            Assert.AreEqual(Canvas.OriginalImage.Height, canv.OriginalImage.Height);
+            Assert.AreEqual(Canvas.PreprocessedImage.Height, canv.PreprocessedImage.Height);
+        }
+
+        [TestMethod]
+        [TestCategory("IO")]
+        public async Task IE_SvgFormat()
+        {
+            var formatter = new SvgFormatter();
+            await formatter.ExportAsync("test.svg", Canvas, null);
         }
     }
 }

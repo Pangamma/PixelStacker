@@ -70,6 +70,28 @@ namespace PixelStacker.Extensions
         /// <param name="target"></param>
         /// <param name="src"></param>
         /// <returns></returns>
+        public static long GetAverageColorDistance(this Color target, List<Tuple<Color, int>> src)
+        {
+            long r = 0;
+            long t = 0;
+
+            foreach(var c in src)
+            {
+                int dist = target.GetColorDistance(c.Item1);
+                r += dist * c.Item2;
+                t += c.Item2;
+            }
+
+            r /= t;
+            return (int)r;
+        }
+
+        /// <summary>
+        /// Use for SUPER accurate color distance checks. Very slow, but also very accurate.
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="src"></param>
+        /// <returns></returns>
         public static long GetAverageColorDistance(this Color target, Bitmap src)
         {
             long r = 0;

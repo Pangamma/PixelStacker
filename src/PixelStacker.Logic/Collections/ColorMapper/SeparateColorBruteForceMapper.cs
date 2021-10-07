@@ -28,7 +28,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
                 return mc;
             }
 
-            var found = Combos.MinBy(x => c.GetAverageColorDistance(x.GetImage(IsSideView)));
+            var found = Combos.MinBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView)));
             Cache[c] = found;
             return found;
         }
@@ -41,7 +41,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         /// <returns></returns>
         public List<MaterialCombination> FindBestMatches(Color c, int maxMatches)
         {
-            var found = Combos.OrderBy(x => c.GetAverageColorDistance(x.GetImage(IsSideView)))
+            var found = Combos.OrderBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView)))
                 .Take(maxMatches).ToList();
 
             return found;
