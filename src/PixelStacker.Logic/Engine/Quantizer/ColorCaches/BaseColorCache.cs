@@ -102,8 +102,7 @@ namespace SimplePaletteQuantizer.ColorCaches
             paletteIndex = cache.AddOrUpdate(key,
                 colorKey =>
                 {
-                    int paletteIndexInside;
-                    OnGetColorPaletteIndex(color, out paletteIndexInside);
+                    OnGetColorPaletteIndex(color, out int paletteIndexInside);
                     return paletteIndexInside;
                 }, 
                 (colorKey, inputIndex) => inputIndex);

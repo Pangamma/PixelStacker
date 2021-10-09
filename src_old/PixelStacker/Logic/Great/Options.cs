@@ -151,7 +151,7 @@ namespace PixelStacker.Logic
         /// <summary>
         /// Contains stuff like "AIR_00"
         /// </summary>
-        public List<string> SelectedMaterialFilter { get; set; } = new List<string>();
+        public HashSet<string> SelectedMaterialFilter { get; set; } = new HashSet<string>();
         public bool IsAdvancedModeEnabled { get; set; } = false;
 
         private string makeKey(string input)

@@ -7,10 +7,10 @@ using PixelStacker.Extensions;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace PixelStacker.Tools
+namespace PixelStacker.Tools.Generators
 {
     [TestClass]
-    public class MaterialTools
+    public class MaterialPaletteGenerator
     {
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.Tools\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
 
@@ -48,32 +48,6 @@ namespace PixelStacker.Tools
                 string json = JsonConvert.SerializeObject(palette, Formatting.Indented);
                 File.WriteAllText(filePath, json);
             }
-        }
-
-        [TestMethod]
-        [TestCategory("Research")]
-        public void AnalyzeRoughnessOfTextures()
-        {
-            var palette = MaterialPalette.FromResx().ToCombinationList();
-            var data = palette.Select(mc => new
-            {
-                mc = mc,
-                AvgColor = mc.GetAverageColor(false),
-                ErrorDist = mc.GetAverageColor(false).GetAverageColorDistance(mc.GetColorsInImage(false))
-            }).AverageByPercentile(5, x => x.ErrorDist);
-        }
-
-        [TestMethod]
-        [TestCategory("Research")]
-        public void AnalyzeColorDiversity()
-        {
-            //.Where(x => x.Top.IsEnabled && x.Bottom.IsEnabled && !x.IsMultiLayer).ToList()
-            var palette = MaterialPalette.FromResx().ToCombinationList();
-            var data = palette.Select(mc => new
-            {
-                mc = mc,
-                ColorsInImage = mc.GetColorsInImage(false)
-            }).AverageByPercentile(5, x => x.ColorsInImage.Count);
         }
     }
 }

@@ -137,10 +137,9 @@ namespace SimplePaletteQuantizer.Quantizers
         {
             // by default unknown index is returned
             paletteIndex = InvalidIndex;
-            short foundIndex;
 
             // if we previously found palette quickly (without quantization), use it
-            if (paletteFound && UniqueColors.TryGetValue(key, out foundIndex))
+            if (paletteFound && UniqueColors.TryGetValue(key, out short foundIndex))
             {
                 paletteIndex = foundIndex;
             }
@@ -201,8 +200,7 @@ namespace SimplePaletteQuantizer.Quantizers
         /// </summary>
         public void AddColor(Color color, int x, int y)
         {
-            int key;
-            color = QuantizationHelper.ConvertAlpha(color, out key);
+            color = QuantizationHelper.ConvertAlpha(color, out int key);
             OnAddColor(color, key, x, y);
         }
 
@@ -227,9 +225,8 @@ namespace SimplePaletteQuantizer.Quantizers
         /// </summary>
         public int GetPaletteIndex(Color color, int x, int y)
         {
-            int result, key;
-            color = QuantizationHelper.ConvertAlpha(color, out key);
-            OnGetPaletteIndex(color, key, x, y, out result);
+            color = QuantizationHelper.ConvertAlpha(color, out int key);
+            OnGetPaletteIndex(color, key, x, y, out int result);
             return result;
         }
 

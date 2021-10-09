@@ -51,6 +51,8 @@ namespace PixelStacker.Logic.Utilities
                 StatusMessage = status;
                 StatusPercent = percent;
             }
+
+            System.Diagnostics.Debug.WriteLine($"{percent}%   {status}: "+ DateTime.Now);
         }
 
         public static void Report(int percent)

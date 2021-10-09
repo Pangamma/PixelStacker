@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Extensions;
+using PixelStacker.IO.Config;
 using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
@@ -72,7 +73,7 @@ namespace PixelStacker.Logic.Engine
         /// <returns></returns>
         public Task<RenderedCanvas> RenderCanvasAsync(
             CancellationToken? worker, 
-            Bitmap preprocessedImage,
+            ref Bitmap preprocessedImage,
             IColorMapper mapper,
             MaterialPalette palette
             )

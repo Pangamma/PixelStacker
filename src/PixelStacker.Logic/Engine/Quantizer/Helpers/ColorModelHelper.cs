@@ -90,8 +90,7 @@ namespace SimplePaletteQuantizer.Helpers
 
         public static void RGBtoLab(int red, int green, int blue, out float l, out float a, out float b)
         {
-            float x, y, z;
-            RGBtoXYZ(red, green, blue, out x, out y, out z);
+            RGBtoXYZ(red, green, blue, out float x, out float y, out float z);
             XYZtoLab(x, y, z, out l, out a, out b);
         }
 
@@ -135,8 +134,7 @@ namespace SimplePaletteQuantizer.Helpers
 
         public static long GetColorEuclideanDistance(ColorModel colorModel, Color requestedColor, Color realColor)
         {
-            float componentA, componentB, componentC;
-            GetColorComponents(colorModel, requestedColor, realColor, out componentA, out componentB, out componentC);
+            GetColorComponents(colorModel, requestedColor, realColor, out float componentA, out float componentB, out float componentC);
             return (long) (componentA * componentA + componentB * componentB + componentC * componentC);
         }
 
@@ -191,7 +189,7 @@ namespace SimplePaletteQuantizer.Helpers
                     break;
 
                 case ColorModel.LabColorSpace:
-                    float l, a, b;
+                    float l;
                     RGBtoLab(color.R, color.G, color.B, out l, out _, out _);
                     result = Convert.ToInt32(l * 255.0f);
                     break;
@@ -215,7 +213,7 @@ namespace SimplePaletteQuantizer.Helpers
                     break;
 
                 case ColorModel.LabColorSpace:
-                    float l, a, b;
+                    float a;
                     RGBtoLab(color.R, color.G, color.B, out _, out a, out _);
                     result = Convert.ToInt32(a * 255.0f);
                     break;
@@ -239,7 +237,7 @@ namespace SimplePaletteQuantizer.Helpers
                     break;
 
                 case ColorModel.LabColorSpace:
-                    float l, a, b;
+                    float b;
                     RGBtoLab(color.R, color.G, color.B, out _, out _, out b);
                     result = Convert.ToInt32(b * 255.0f);
                     break;

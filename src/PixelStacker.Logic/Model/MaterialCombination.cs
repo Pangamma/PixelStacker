@@ -81,10 +81,13 @@ namespace PixelStacker.Logic.Model
             {
                 if (_TopImage == null)
                 {
-                    _TopImage = Top.TopImage.To32bppBitmap();
                     if (IsMultiLayer)
                     {
-                        Bottom.TopImage.ToMergeStream(_TopImage, null, (x, y, cLower, cUpper) => cLower.OverlayColor(cUpper));
+                        _TopImage = Bottom.TopImage.ToMergeStream(Top.SideImage, null, (x, y, cLower, cUpper) => cLower.OverlayColor(cUpper));
+                    }
+                    else
+                    {
+                        _TopImage = Bottom.TopImage.To32bppBitmap();
                     }
                 }
 
@@ -118,12 +121,6 @@ namespace PixelStacker.Logic.Model
         public bool Equals(MaterialCombination y)
         {
             return this == y;
-            //var x = this;
-            //if (null != x ^ null != y) return false;
-            //if (null == x && null == y) return true;
-            //if (x.Top.PixelStackerID != y.Top.PixelStackerID) return false;
-            //if (x.Bottom.PixelStackerID != y.Bottom.PixelStackerID) return false;
-            //return true;
         }
 
         public static bool operator ==(MaterialCombination x, MaterialCombination y)

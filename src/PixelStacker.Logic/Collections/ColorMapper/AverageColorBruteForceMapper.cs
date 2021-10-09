@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Extensions;
+using PixelStacker.IO.Config;
 using PixelStacker.Logic.Model;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,10 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         public bool IsSideView { get; private set; }
         public MaterialPalette Palette { get; private set; }
 
+        public double AccuracyRating => 53.725;
+
+        public double SpeedRating => 1425.7;
+
         public void SetSeedData(List<MaterialCombination> combos,  MaterialPalette mats, bool isSideView)
         {
             this.Combos = combos;
@@ -28,6 +33,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
                 return mc;
             }
 
+            if (c.A < 32) return Palette[Constants.MaterialCombinationIDForAir];
             var found = Combos.MinBy(x => x.GetAverageColor(IsSideView).GetColorDistance(c));
             Cache[c] = found;
             return found;
@@ -41,6 +47,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         /// <returns></returns>
         public List<MaterialCombination> FindBestMatches(Color c, int maxMatches)
         {
+            if (c.A < 32) return new List<MaterialCombination>() { Palette[Constants.MaterialCombinationIDForAir] };
             var found = Combos.OrderBy(x => x.GetAverageColor(IsSideView).GetColorDistance(c))
                 .Take(maxMatches).ToList();
 

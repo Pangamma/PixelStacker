@@ -17,13 +17,13 @@ namespace PixelStacker.Benchmarks.ColorMap
     public class BestMatches: BaseColorMapBenchmarks
     {
         //[Params(/*1, 5, 15, 17, */ 51)]
-        public int Increment { get; set; } = 5;
+        public int Increment { get; set; } = 17;
 
         /// <summary>
         /// The number of top matches to fetch. So like "get me the top 5 matches".
         /// </summary>
         //[Params(1, 5 /*,10, 20*/)]
-        public int TopMatchN { get; set; } = 5;
+        public int TopMatchN { get; set; } = 10;
 
         public BestMatches(): base() { }
 
@@ -39,6 +39,15 @@ namespace PixelStacker.Benchmarks.ColorMap
         public void SeparateColorBruteForceMapper_BestMatches()
         {
             var mapper = new SeparateColorBruteForceMapper();
+            mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
+            FindBestMatches(mapper);
+        }
+
+
+        [Benchmark]
+        public void KdTree()
+        {
+            var mapper = new KdTreeMapper();
             mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
             FindBestMatches(mapper);
         }

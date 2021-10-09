@@ -30,7 +30,7 @@ namespace PixelStacker.Benchmarks.ColorMap
 
 
         [Benchmark(Baseline = true)]
-        public void AverageColorBruteForceMapper_BestMatch()
+        public void AverageColorBruteForce()
         {
             var mapper = new AverageColorBruteForceMapper();
             mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
@@ -38,12 +38,30 @@ namespace PixelStacker.Benchmarks.ColorMap
         }
 
         [Benchmark]
-        public void SeparateColorBruteForceMapper_BestMatch()
+        public void SeparateColorBruteForce()
         {
             var mapper = new SeparateColorBruteForceMapper();
             mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
             FindBestMatch(mapper);
         }
+
+        [Benchmark]
+        public void KdTree()
+        {
+            var mapper = new KdTreeMapper();
+            mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
+            FindBestMatch(mapper);
+        }
+
+        [Benchmark]
+        public void FloodFill()
+        {
+            var mapper = new FloodFillMapper();
+            mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
+            FindBestMatch(mapper);
+        }
+
+
         private void FindBestMatch(IColorMapper mapper)
         {
             for (int r = 0; r < 256; r += Increment)

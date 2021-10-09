@@ -93,7 +93,6 @@ namespace SimplePaletteQuantizer.ColorCaches.LocalitySensitiveHash
         private long GetColorBucketIndex(Color color)
         {
             float normalizedDistance = 0.0f;
-            float componentA, componentB, componentC;
 
             switch (ColorModel)
             {
@@ -102,7 +101,7 @@ namespace SimplePaletteQuantizer.ColorCaches.LocalitySensitiveHash
                 case ColorModel.LabColorSpace: normalizedDistance = NormalizedDistanceLab; break;
             }
 
-            ColorModelHelper.GetColorComponents(ColorModel, color, out componentA, out componentB, out componentC);
+            ColorModelHelper.GetColorComponents(ColorModel, color, out float componentA, out float componentB, out float componentC);
             float distance = componentA*componentA + componentB*componentB + componentC*componentC;
             float normalized = distance * normalizedDistance * MaximalDistance;
             long resultHash = (long) normalized / bucketSize;

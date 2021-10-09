@@ -227,6 +227,9 @@ me as a </value>
   <data name="Error_GlassRequiredForMultiLayer" xml:space="preserve">
     <value>At least one glass material must be enabled when you choose to require multiple layers.</value>
   </data>
+  <data name="Error_ImageTooLarge" xml:space="preserve">
+    <value>Your image is too large to process.</value>
+  </data>
   <data name="Error_NeedMoreRam" xml:space="preserve">
     <value>Not enough memory. Please try again or reduce image size if problem continues.</value>
   </data>

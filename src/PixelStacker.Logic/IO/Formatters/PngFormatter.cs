@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.IO.Config;
+using PixelStacker.IO.Image;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
+using PixelStacker.Resources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,54 +19,113 @@ namespace PixelStacker.IO.Formatters
 {
     public class PngFormatter : IExportFormatter
     {
-        public async Task ExportAsync(string filePath, RenderedCanvas canvas, CancellationToken? worker)
+        // Calculate texture size so we can handle large images.
+        public static int? CalculateTextureSize(int width, int height)
         {
+            int safetyMultiplier = 1; // Want to be able to store N of these things in memory
+            int calculatedTextureSize = Constants.TextureSize;
+
+            // Still need to multiply by texture size (4 bytes per pixel / 8 bits per byte = 4 bytes)
+            int bytesInSrcImage = (width * height * 32 / 8);
+
+            bool isSuccess = false;
+
+            do
+            {
+                if (width * calculatedTextureSize >= 30000 || height * calculatedTextureSize >= 30000)
+                {
+                    calculatedTextureSize = Math.Max(1, calculatedTextureSize - 2);
+                    continue;
+                }
+
+                int totalPixels = (width + 1) * height * calculatedTextureSize * calculatedTextureSize * 4;
+                if (totalPixels >= int.MaxValue || totalPixels < 0)
+                {
+                    calculatedTextureSize = Math.Max(1, calculatedTextureSize - 2);
+                    continue;
+                }
+
+                try
+                {
+                    int numMegaBytes = bytesInSrcImage // pixels in base image * bytes per pixel
+                        * calculatedTextureSize * calculatedTextureSize // size of texture tile squared 
+                        / 1024 / 1024       // convert to MB
+                        * safetyMultiplier  // Multiply by safety buffer to plan for a bunch of these layers.
+                        ;
+
+                    if (numMegaBytes > 0)
+                        using (var memoryCheck = new System.Runtime.MemoryFailPoint(numMegaBytes)) { }
+
+                    isSuccess = true;
+                }
+                catch (InsufficientMemoryException)
+                {
+                    calculatedTextureSize = Math.Max(1, calculatedTextureSize - 2);
+                }
+            } while (isSuccess == false && calculatedTextureSize > 1);
+
+            if (!isSuccess)
+            {
+                ProgressX.Report(100, Text.Error_ImageTooLarge);
+                return null;
+            }
+
+            return calculatedTextureSize;
+        }
+
+        public Task ExportAsync(string filePath, RenderedCanvas canvas, CancellationToken? worker)
+        {
+            int? textureSizee = CalculateTextureSize(canvas.Width, canvas.Height);
+            if (textureSizee == null) return Task.CompletedTask;
+            int texSize = textureSizee.Value;
+
+            int H = canvas.Height * textureSizee.Value;
+            int W = canvas.Width * textureSizee.Value;
+            var outputBitmap = new Bitmap(canvas.Width * texSize, canvas.Height * texSize, PixelFormat.Format32bppArgb);
+
             try
             {
                 if (File.Exists(filePath))
                     File.Delete(filePath);
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine($"<svg xmlns='http://www.w3.org/2000/svg' width='{canvas.PreprocessedImage.Width * 16}' height='{canvas.PreprocessedImage.Height * 16}'>");
-                sb.AppendLine("<style>");
-                sb.AppendLine(".mat-tile { height: 16px; width: 16px; }");
 
-                HashSet<int> UniquePaletteIDs = new HashSet<int>();
-                foreach(var tile in canvas.CanvasData)
+                var cd = canvas.CanvasData;
+
+                var aBM = new AsyncBitmapWrapper(outputBitmap);
+                for (int y = 0; y < canvas.Height; y++)
                 {
-                    if (!UniquePaletteIDs.Contains(tile.PaletteID))
-                    {
-                        UniquePaletteIDs.Add(tile.PaletteID);
-                        sb.Append($" .mc{tile.PaletteID} {{");
-                        var bmTile = canvas.MaterialPalette[tile.PaletteID].GetImage(canvas.CanvasData.IsSideView);
+                    //Parallel.For(0, canvas.Height, new ParallelOptions()
+                    //{
+                    //    CancellationToken = worker.Value,
+                    //    MaxDegreeOfParallelism = Math.Max(Environment.ProcessorCount / 2, 1)
+                    //}, (int y) =>
+                    //{
+                    var bmProxy = aBM.ToBitmap();
+                    using Graphics gImg = Graphics.FromImage(bmProxy);
+                    gImg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    gImg.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                    gImg.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
 
-                        using (MemoryStream ms = new MemoryStream())
-                        {
-                            bmTile.Save(ms, ImageFormat.Png);
-                            byte[] byteImage = ms.ToArray();
-                            var SigBase64 = Convert.ToBase64String(byteImage); // Get Base64
-                            sb.Append($"background: url('data:image/png;base64,{SigBase64}');");
-                        }
-                            
-                        sb.AppendLine("}");
+                    for (int x = 0; x < canvas.Width; x++)
+                    {
+                        var mc = cd[x, y];
+                        Bitmap bmTileToPaint = mc.GetImage(cd.IsSideView);
+                        gImg.DrawImage(bmTileToPaint, x * texSize, y * texSize, texSize, texSize);
                     }
                 }
-                
-                sb.AppendLine("</style>");
-                foreach (var tile in canvas.CanvasData)
-                {
-                    sb.AppendLine($"<image class='mat-tile mc{tile.PaletteID}' width='16' height='16' />");
-                }
-                //<linearGradient id='gradient'><stop offset='10%' stop-color='#F00'/><stop offset='90%' stop-color='#fcc'/> </linearGradient><rect fill='url(#gradient)' x='0' y='0' width='100%' height = '100%' />
+                //});
 
-                sb.AppendLine("</svg>");
-
-                string str = sb.ToString();
-                await File.WriteAllTextAsync(filePath, str);
+                outputBitmap.Save(filePath);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
+            finally
+            {
+                outputBitmap.Dispose();
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

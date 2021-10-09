@@ -100,6 +100,7 @@ namespace PixelStacker.IO.Config
             MaxWidth = null
         };
 
+        [Obsolete]
         [JsonIgnore]
         public int? MaxWidth
         {
@@ -116,6 +117,7 @@ namespace PixelStacker.IO.Config
             }
         }
 
+        [Obsolete]
         [JsonIgnore]
         public int? MaxHeight
         {

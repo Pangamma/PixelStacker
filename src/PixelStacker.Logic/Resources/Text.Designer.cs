@@ -39,7 +39,7 @@ namespace PixelStacker.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::PixelStacker.Resources.Localization.ResxHelper(); 
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PixelStacker.Logic.Resources.Text", typeof(Text).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -266,6 +266,15 @@ namespace PixelStacker.Resources {
         public static string Error_GlassRequiredForMultiLayer {
             get {
                 return ResourceManager.GetString("Error_GlassRequiredForMultiLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your image is too large to process..
+        /// </summary>
+        public static string Error_ImageTooLarge {
+            get {
+                return ResourceManager.GetString("Error_ImageTooLarge", resourceCulture);
             }
         }
         

@@ -14,7 +14,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.Logic", "Pixel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker", "PixelStacker\PixelStacker.csproj", "{D3845714-A796-4BD7-99E7-45470704A929}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Benchmarks", "PixelStacker.Benchmarks\PixelStacker.Benchmarks.csproj", "{BA690EDE-E6E8-487A-A4FA-36D3935472CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.Benchmarks", "PixelStacker.Benchmarks\PixelStacker.Benchmarks.csproj", "{BA690EDE-E6E8-487A-A4FA-36D3935472CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.WPF", "PixelStacker.WPF\PixelStacker.WPF.csproj", "{C5458341-A324-469F-93AE-32ADC72A3276}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Tests", "PixelStacker.Tests\PixelStacker.Tests.csproj", "{2C5EA831-1DA3-47E5-8411-AC594DD642A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +42,14 @@ Global
 		{BA690EDE-E6E8-487A-A4FA-36D3935472CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA690EDE-E6E8-487A-A4FA-36D3935472CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA690EDE-E6E8-487A-A4FA-36D3935472CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5458341-A324-469F-93AE-32ADC72A3276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5458341-A324-469F-93AE-32ADC72A3276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5458341-A324-469F-93AE-32ADC72A3276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5458341-A324-469F-93AE-32ADC72A3276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C5EA831-1DA3-47E5-8411-AC594DD642A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C5EA831-1DA3-47E5-8411-AC594DD642A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C5EA831-1DA3-47E5-8411-AC594DD642A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C5EA831-1DA3-47E5-8411-AC594DD642A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

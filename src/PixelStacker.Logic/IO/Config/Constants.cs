@@ -27,6 +27,7 @@ namespace PixelStacker.IO.Config
         // TODO: Auto calc this based on selected materials
         // https://minecraft.fandom.com/wiki/Java_Edition_1.17.1
         public const int DataVersion = 2730;
+        public const int MaterialCombinationIDForAir = 0;
 #if DEBUG
         public const bool IsDevMode = true;
 #else

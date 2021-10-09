@@ -256,7 +256,7 @@ namespace PixelStacker.UI
                                         if (isMaterialFilterViewEnabled)
                                         {
                                             string blockId = m.PixelStackerID;
-                                            isMaterialIncludedInFilter = Options.Get.SelectedMaterialFilter.Any(xm => xm == blockId);
+                                            isMaterialIncludedInFilter = Options.Get.SelectedMaterialFilter.Contains(blockId);
                                         }
 
                                         if (m.BlockID != 0)
@@ -1049,12 +1049,11 @@ namespace PixelStacker.UI
 
                 if (Options.Get.SelectedMaterialFilter.Count == 0)
                 {
-                    var items = new List<string>();
-                    items.AddRange(Materials.List.Where(x => x.BlockID != 0).Select(x => x.PixelStackerID));
+                    var items = new HashSet<string>(Materials.List.Where(x => x.BlockID != 0).Select(x => x.PixelStackerID));
                     Options.Get.SelectedMaterialFilter = items;
                 }
 
-                Options.Get.SelectedMaterialFilter = Options.Get.SelectedMaterialFilter.Except(new List<string>() { matLabel }).ToList();
+                Options.Get.SelectedMaterialFilter = new HashSet<string>(Options.Get.SelectedMaterialFilter.Except(new List<string>() { matLabel }));
 
                 Options.Save();
                 this.InvokeEx(c => c.ForceReRender());
@@ -1071,8 +1070,9 @@ namespace PixelStacker.UI
 
                 // use concat incase some thing somewhere is iterating over the list. This way we
                 // avoid concurrent modification issues.
-                Options.Get.SelectedMaterialFilter = Options.Get.SelectedMaterialFilter
-                    .Concat(new List<string>() { matLabel }).ToList(); 
+                var repl = new HashSet<string>(Options.Get.SelectedMaterialFilter);
+                repl.Add(matLabel);
+                Options.Get.SelectedMaterialFilter = repl;
 
                 Options.Save();
                 this.InvokeEx(c => c.ForceReRender());
@@ -1291,15 +1291,14 @@ namespace PixelStacker.UI
 
         private void clearMaterialFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Options.Get.SelectedMaterialFilter = new List<string>();
+            Options.Get.SelectedMaterialFilter = new HashSet<string>();
             Options.Save();
             this.InvokeEx(c => c.ForceReRender());
         }
 
         private void addAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var items = new List<string>();
-            items.AddRange(Materials.List.Where(x => x.BlockID != 0).Select(x => x.PixelStackerID));
+            var items = new HashSet<string>(Materials.List.Where(x => x.BlockID != 0).Select(x => x.PixelStackerID));
             lock (Options.Get.SelectedMaterialFilter)
             {
                 Options.Get.SelectedMaterialFilter = items;

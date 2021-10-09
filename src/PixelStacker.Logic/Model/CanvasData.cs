@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
 using PixelStacker.Extensions;
+using PixelStacker.Logic.Collections;
 
 namespace PixelStacker.Logic.Model
 {
@@ -13,20 +14,17 @@ namespace PixelStacker.Logic.Model
     {
         public bool IsSideView { get; set; } = false;
         private int[,] BlocksMap { get; set; } // X, Y
-        private int Width => BlocksMap.GetLength(0);
-        private int Height => BlocksMap.GetLength(1);
+        public int Width { get; }
+        public int Height { get; }
 
         private MaterialPalette Palette { get; }
-
-        public CanvasData(MaterialPalette palette)
-        {
-            this.Palette = palette;
-        }
 
         public CanvasData(MaterialPalette palette, int[,] blocksMap)
         {
             this.Palette = palette;
             this.BlocksMap = blocksMap;
+            this.Width = blocksMap.GetLength(0);
+            this.Height = blocksMap.GetLength(1);
         }
 
         public Material this[int x, int y, bool isTopLayer]
@@ -123,8 +121,7 @@ namespace PixelStacker.Logic.Model
             int mHeight = bm.Height;
             int mWidth = bm.Width;
 
-            var canvas = new CanvasData(p);
-            canvas.BlocksMap = new int[mWidth, mHeight];
+            var canvas = new CanvasData(p, new int[mWidth, mHeight]);
 
             for (int x = 0; x < mWidth; x++)
             {

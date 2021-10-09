@@ -70,7 +70,7 @@ namespace PixelStacker.Extensions
         /// <param name="target"></param>
         /// <param name="src"></param>
         /// <returns></returns>
-        public static long GetAverageColorDistance(this Color target, List<Tuple<Color, int>> src)
+        public static int GetAverageColorDistance(this Color target, List<Tuple<Color, int>> src)
         {
             long r = 0;
             long t = 0;
@@ -118,27 +118,30 @@ namespace PixelStacker.Extensions
             int dG = (c.G - toMatch.G);
             int dB = (c.B - toMatch.B);
             int dHue = (int)GetDegreeDistance(c.GetHue(), toMatch.GetHue());
-            //float dSat = (c.GetSaturation() - toMatch.GetSaturation()) * 100;
-            //float dBri = (c.GetBrightness() - toMatch.GetBrightness()) * 100;
 
             int diff = (
                 (dR * dR)
                 + (dG * dG)
                 + (dB * dB)
                 + (int)(Math.Sqrt(dHue * dHue * dHue))
-                //+ (int) (dBri * dBri)
-                //+ (dSat * dSat)
                 );
 
             return diff;
         }
+
+        public static Color Normalize(this Color c, int fragmentSize)
+        => NormalizeActual(c, fragmentSize);
+
+        [Obsolete("Stop using this one.", false)]
+        public static Color Normalize(this Color c)
+        => NormalizeActual(c, null);
 
         /// <summary>
         /// Does not normalize alpha channels
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static Color Normalize(this Color c, int? fragmentSize = null)
+        public static Color NormalizeActual(this Color c, int? fragmentSize = null)
         {
             int F = fragmentSize ?? Options.Get.PreRender_ColorCacheFragmentSize;
             if (F < 2)
