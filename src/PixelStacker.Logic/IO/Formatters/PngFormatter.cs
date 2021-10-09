@@ -75,13 +75,14 @@ namespace PixelStacker.IO.Formatters
 
         public Task ExportAsync(string filePath, RenderedCanvas canvas, CancellationToken? worker)
         {
+            worker ??= CancellationToken.None;
             int? textureSizee = CalculateTextureSize(canvas.Width, canvas.Height);
             if (textureSizee == null) return Task.CompletedTask;
             int texSize = textureSizee.Value;
 
             int H = canvas.Height * textureSizee.Value;
             int W = canvas.Width * textureSizee.Value;
-            var outputBitmap = new Bitmap(canvas.Width * texSize, canvas.Height * texSize, PixelFormat.Format32bppArgb);
+            using var outputBitmap = new Bitmap(canvas.Width * texSize, canvas.Height * texSize, PixelFormat.Format32bppArgb);
 
             try
             {
@@ -91,14 +92,14 @@ namespace PixelStacker.IO.Formatters
                 var cd = canvas.CanvasData;
 
                 var aBM = new AsyncBitmapWrapper(outputBitmap);
-                for (int y = 0; y < canvas.Height; y++)
+                //for (int y = 0; y < canvas.Height; y++)
+                //{
+                Parallel.For(0, canvas.Height, new ParallelOptions()
                 {
-                    //Parallel.For(0, canvas.Height, new ParallelOptions()
-                    //{
-                    //    CancellationToken = worker.Value,
-                    //    MaxDegreeOfParallelism = Math.Max(Environment.ProcessorCount / 2, 1)
-                    //}, (int y) =>
-                    //{
+                    CancellationToken = worker.Value,
+                    MaxDegreeOfParallelism = Math.Max(Environment.ProcessorCount / 2, 1)
+                }, (int y) =>
+                {
                     var bmProxy = aBM.ToBitmap();
                     using Graphics gImg = Graphics.FromImage(bmProxy);
                     gImg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
@@ -109,20 +110,19 @@ namespace PixelStacker.IO.Formatters
                     {
                         var mc = cd[x, y];
                         Bitmap bmTileToPaint = mc.GetImage(cd.IsSideView);
-                        gImg.DrawImage(bmTileToPaint, x * texSize, y * texSize, texSize, texSize);
+                        lock (bmTileToPaint)
+                        {
+                            gImg.DrawImage(bmTileToPaint, x * texSize, y * texSize, texSize, texSize);
+                        }
                     }
-                }
-                //});
+                //}
+                });
 
-                outputBitmap.Save(filePath);
+            outputBitmap.Save(filePath);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-            }
-            finally
-            {
-                outputBitmap.Dispose();
             }
 
             return Task.CompletedTask;

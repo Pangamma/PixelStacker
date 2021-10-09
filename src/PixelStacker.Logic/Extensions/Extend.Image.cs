@@ -147,14 +147,17 @@ namespace PixelStacker.Extensions
         /// <returns></returns>
         public static Bitmap To32bppBitmap(this Image src, int width, int height)
         {
-            Bitmap output = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-            using (Graphics g = Graphics.FromImage(output))
+            lock (src)
             {
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.DrawImage(src, new Rectangle(0, 0, output.Width, output.Height));
+                Bitmap output = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+                using (Graphics g = Graphics.FromImage(output))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                    g.DrawImage(src, new Rectangle(0, 0, output.Width, output.Height));
+                }
+                return output;
             }
-            return output;
         }
 
         /// <summary>
@@ -165,12 +168,15 @@ namespace PixelStacker.Extensions
         /// <returns></returns>
         public static Bitmap To32bppBitmap(this Image src)
         {
-            Bitmap output = new Bitmap(src.Width, src.Height, PixelFormat.Format32bppArgb);
-            using (Graphics g = Graphics.FromImage(output))
+            lock (src)
             {
-                g.DrawImage(src, new Rectangle(0, 0, output.Width, output.Height));
+                Bitmap output = new Bitmap(src.Width, src.Height, PixelFormat.Format32bppArgb);
+                using (Graphics g = Graphics.FromImage(output))
+                {
+                    g.DrawImage(src, new Rectangle(0, 0, output.Width, output.Height));
+                    return output;
+                }
             }
-            return output;
         }
 
 
