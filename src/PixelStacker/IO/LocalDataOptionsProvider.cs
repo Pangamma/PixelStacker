@@ -15,7 +15,7 @@ namespace PixelStacker.IO
         {
             Properties.Settings.Default.Upgrade();
             string json = Properties.Settings.Default.JSON;
-            var rt = JsonConvert.DeserializeObject<Options>(json);
+            var rt = JsonConvert.DeserializeObject<Options>(json) ?? new Options(this);
             rt.StorageProvider = this;
             return rt;
         }

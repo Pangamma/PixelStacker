@@ -9,7 +9,6 @@ namespace PixelStacker.IO.Config
 {
     public class CanvasViewerSettings
     {
-
         /// <summary>
         /// When material filters are enabled, shadows will be rendered to help the viewer 
         /// percieve depth. This helps to visibly separate the different layers from each other.

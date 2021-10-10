@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using PixelStacker.UI;
 
 namespace PixelStacker
 {
@@ -23,10 +24,14 @@ namespace PixelStacker
         {
             ResxHelper.InjectIntoTextResx();
             var provider = new LocalDataOptionsProvider();
+            var options = provider.Load();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            var form = new MaterialSelectWindow(options);
+            Application.Run(form);
             //Application.Run(new Form1());
         }
     }

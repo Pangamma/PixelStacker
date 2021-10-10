@@ -1,12 +1,14 @@
 ﻿using Newtonsoft.Json;
-using PixelStacker.Components;
+using PixelStacker.Extensions;
+using PixelStacker.IO;
+using PixelStacker.IO.Config;
 using PixelStacker.Logic;
-using PixelStacker.Logic.Collections;
-using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO;
 using PixelStacker.Logic.Model;
+using PixelStacker.Logic.Utilities;
+using PixelStacker.Resources;
+using PixelStacker.WF.Components;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -21,7 +23,6 @@ using System.Windows.Forms;
 
 namespace PixelStacker.UI
 {
-
     [Serializable]
     // TODO: Fix weird display when going to narrow viewing windows
     public partial class MaterialSelectWindow : Form, ILocalized
@@ -34,8 +35,7 @@ namespace PixelStacker.UI
         private OrderedDictionary<string, MaterialSelectTile> materialTiles = new OrderedDictionary<string, MaterialSelectTile>();
         private Dictionary<string, CategoryReferenceContainer> categoryRefs = new Dictionary<string, CategoryReferenceContainer>();
 
-
-        public MaterialSelectWindow(): this(Options.Get)
+        public MaterialSelectWindow() : this(Options.Get)
         {
         }
 
@@ -79,6 +79,7 @@ namespace PixelStacker.UI
                 this.categoryRefs[mg.Key] = cRef;
                 var tiles = mg.Select(m => new MaterialSelectTile()
                 {
+                    Opts = this.Options,
                     Material = m,
                     Visible = true
                 }).ToList();
@@ -104,10 +105,10 @@ namespace PixelStacker.UI
                     this.materialPanel.Controls.Add(cRef.Checkbox);
                     cbxCategory.CheckedChanged += (sender, evt) =>
                     {
-                        var visibleTiles = cRef.Tiles.Where(t => t.Visible && t.Material.IsEnabled != cbxCategory.Checked);
+                        var visibleTiles = cRef.Tiles.Where(t => t.Visible && t.Material.IsEnabledF(this.Options) != cbxCategory.Checked);
                         foreach (var t in visibleTiles)
                         {
-                            t.Material.IsEnabled = cbxCategory.Checked;
+                            t.Material.IsEnabledF(this.Options, cbxCategory.Checked);
                         }
                         cRef.TilePanel.Refresh();
                     };
@@ -148,9 +149,9 @@ namespace PixelStacker.UI
         /// </summary>
         private void LoadFromSettings()
         {
-            cbxIsMultiLayer.Checked = Options.Get.IsMultiLayer;
-            cbxIsSideView.Checked = Options.Get.IsSideView;
-            cbxRequire2ndLayer.Checked = Options.Get.IsMultiLayerRequired;
+            cbxIsMultiLayer.Checked = this.Options.IsMultiLayer;
+            cbxIsSideView.Checked = this.Options.IsSideView;
+            cbxRequire2ndLayer.Checked = this.Options.IsMultiLayerRequired;
             var dirColorProfiles = new DirectoryInfo(FilePaths.ColorProfilesPath);
             if (dirColorProfiles.Exists)
             {
@@ -247,7 +248,7 @@ namespace PixelStacker.UI
                         .Skip(minI).Take(maxI - minI).ToList()
                         .ForEach(x =>
                         {
-                            x.Material.IsEnabled = !Control.ModifierKeys.HasFlag(Keys.Control);
+                            x.Material.IsEnabledF(this.Options, !Control.ModifierKeys.HasFlag(Keys.Control));
                             x.Refresh();
                         });
 
@@ -270,7 +271,7 @@ namespace PixelStacker.UI
             foreach (var kvp in this.categoryRefs)
             {
                 var matsInCat = kvp.Value.Tiles;
-                var numEnabled = matsInCat.Count(x => x.Material.IsEnabled);
+                var numEnabled = matsInCat.Count(x => x.Material.IsEnabledF(this.Options));
                 var numTotal = matsInCat.Count;
                 var newCbxState = (numEnabled > numTotal / 2) ? CheckState.Checked : CheckState.Unchecked;
                 kvp.Value.Checkbox.SetCheckStateWithoutRaisingEvents(newCbxState);
@@ -298,9 +299,9 @@ namespace PixelStacker.UI
         // *-----------------+--------------------------------------------------------------------*
         protected async void TryHide()
         {
-            if (Options.Get.IsMultiLayerRequired)
+            if (this.Options.IsMultiLayerRequired)
             {
-                if (!Materials.List.Any(x => x.IsEnabled && x.PixelStackerID != "AIR" && x.Category == "Glass" && x.IsVisible))
+                if (!Materials.List.Any(x => x.IsEnabledF(this.Options) && x.PixelStackerID != "AIR" && x.Category == "Glass" && x.IsVisibleF(this.Options)))
                 {
                     MessageBox.Show(
                         text: Resources.Text.Error_GlassRequiredForMultiLayer,
@@ -313,7 +314,7 @@ namespace PixelStacker.UI
                 }
             }
 
-            if (!Materials.List.Any(x => x.IsEnabled && x.PixelStackerID != "AIR" && x.IsVisible))
+            if (!Materials.List.Any(x => x.IsEnabledF(this.Options) && x.PixelStackerID != "AIR" && x.IsVisibleF(this.Options)))
             {
                 MessageBox.Show(
                     text: Resources.Text.Error_OneMaterialRequired,
@@ -325,7 +326,7 @@ namespace PixelStacker.UI
                 return;
             }
 
-            if (!Materials.List.Any(x => x.IsEnabled && x.Category != "Glass" && x.PixelStackerID != "AIR" && x.IsVisible))
+            if (!Materials.List.Any(x => x.IsEnabledF(this.Options) && x.Category != "Glass" && x.PixelStackerID != "AIR" && x.IsVisible))
             {
                 MessageBox.Show(
                     text: Resources.Text.Error_NonGlassRequired,
@@ -340,8 +341,12 @@ namespace PixelStacker.UI
             Options.Save();
             await TaskManager.Get.StartAsync((token) =>
             {
-                ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
-                .GetAwaiter().GetResult();
+                Debug.WriteLine("FIX THIS SO IT ACTUALLY DOES SOMETHING");
+#if !DEBUG
+                throw new Exception("DONT FORGET THIS");
+#endif
+                //ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
+                //.GetAwaiter().GetResult();
             });
 
             this.Hide();
@@ -355,9 +360,9 @@ namespace PixelStacker.UI
                 this.TryHide();
             }
         }
-        #endregion Form visibility
+#endregion Form visibility
 
-        #region Controls on top.
+#region Controls on top.
         // *-----------------+--------------------------------------------------------------------*
         // *                   C O N T R O L S _ O N _ T O P                                      *
         // *-----------------+--------------------------------------------------------------------*
@@ -365,16 +370,16 @@ namespace PixelStacker.UI
         {
             CheckBox cbx = (CheckBox)sender;
             bool isChecked = cbx.CheckState == CheckState.Checked;
-            Options.Get.IsMultiLayer = isChecked;
+            this.Options.IsMultiLayer = isChecked;
             if (isChecked)
             {
-                Options.Get.IsMultiLayer = true;
+                this.Options.IsMultiLayer = true;
             }
             else
             {
                 cbxRequire2ndLayer.Checked = false;
-                Options.Get.IsMultiLayerRequired = false;
-                Options.Get.IsMultiLayer = false;
+                this.Options.IsMultiLayerRequired = false;
+                this.Options.IsMultiLayer = false;
             }
         }
 
@@ -385,12 +390,12 @@ namespace PixelStacker.UI
             if (isChecked)
             {
                 cbxIsMultiLayer.Checked = true;
-                Options.Get.IsMultiLayer = true;
-                Options.Get.IsMultiLayerRequired = true;
+                this.Options.IsMultiLayer = true;
+                this.Options.IsMultiLayerRequired = true;
             }
             else
             {
-                Options.Get.IsMultiLayerRequired = false;
+                this.Options.IsMultiLayerRequired = false;
             }
         }
 
@@ -398,7 +403,7 @@ namespace PixelStacker.UI
         {
             CheckBox cbx = (CheckBox)sender;
             bool isChecked = cbx.CheckState == CheckState.Checked;
-            Options.Get.IsSideView = isChecked;
+            this.Options.IsSideView = isChecked;
 
             this.materialTiles.ToList().ForEach(x =>
             {
@@ -421,13 +426,13 @@ namespace PixelStacker.UI
                         var material = Materials.FromPixelStackerID(mat.Key);
                         if (material != null)
                         {
-                            material.IsEnabled = mat.Value;
+                            material.IsEnabledF(this.Options, mat.Value);
                         }
                         // This WOULD be faster, but what if I decide to change the format later... best to play it safe
                         // and stable. Time for this iteration takes barely any time at all anyways. Can always optimize
                         // the material list to become a dictionary later if needed.
                         //string key = "BLOCK_" + mat.Key;
-                        //Options.Get.EnableStates[key] = mat.Value;
+                        //this.Options.EnableStates[key] = mat.Value;
                     }
                 }
             }
@@ -470,7 +475,7 @@ namespace PixelStacker.UI
                 var profile = new ColorProfile()
                 {
                     Label = profileLabel,
-                    Materials = Materials.List.ToDictionary(k => k.PixelStackerID, v => v.IsEnabled)
+                    Materials = Materials.List.ToDictionary(k => k.PixelStackerID, v => v.IsEnabledF(this.Options))
                 };
 
                 string json = JsonConvert.SerializeObject(profile, Formatting.Indented);
@@ -487,7 +492,7 @@ namespace PixelStacker.UI
             }
         }
 
-        #endregion Controls on top.
+#endregion Controls on top.
 
         private KeyValuePair<string, CategoryReferenceContainer> GetCategoryRefForMaterialTile(MaterialSelectTile currentTile)
         {
@@ -519,7 +524,8 @@ namespace PixelStacker.UI
         }
 
         private bool AreMaterialsCombined = false;
-        private readonly Options Options;
+
+        public Options Options { get; }
 
         private void SetMaterialsCombinedMode(bool shouldBeCombined)
         {
@@ -584,7 +590,7 @@ namespace PixelStacker.UI
 
             needle = needle.ToLowerInvariant();
             int? idNeedle = needle.ToNullable<int>();
-            bool isv = Options.Get.IsSideView;
+            bool isv = this.Options.IsSideView;
 
             if (needle.StartsWith("#"))
             {
@@ -612,8 +618,8 @@ namespace PixelStacker.UI
 
                     Color cNeedle = Color.FromArgb(255, R, G, B);
                     var found = Materials.List
-                        .Where(x => x.IsVisible)
-                        .OrderBy(m => m.getAverageColor(isv).GetColorDistance(cNeedle))
+                        .Where(x => x.IsVisibleF(this.Options))
+                        .OrderBy(m => m.GetAverageColor(isv).GetColorDistance(cNeedle))
                         .Take(20).ToList();
                     await SetVisibleMaterials(found, _worker);
                 }
@@ -630,12 +636,12 @@ namespace PixelStacker.UI
 
                 if (needle == "on" || needle == "enabled" || needle == "active")
                 {
-                    return x.IsEnabled;
+                    return x.IsEnabledF(this.Options);
                 }
 
                 if (needle == "off" || needle == "disabled" || needle == "inactive")
                 {
-                    return !x.IsEnabled;
+                    return !x.IsEnabledF(this.Options);
                 }
 
                 if (string.IsNullOrWhiteSpace(needle)) return true;
@@ -687,7 +693,7 @@ namespace PixelStacker.UI
                 // ORDER THE TILES IN THE MAT PANEL BY THE MATS ORDERING
                 var orderedTilesInCurrentGroup = kvpG.Value.Tiles.OrderBy(t =>
                 {
-                    if (!t.Material.IsVisible) return int.MaxValue;
+                    if (!t.Material.IsVisibleF(this.Options)) return int.MaxValue;
                     if (!set.TryGetValue(t.Material.PixelStackerID, out int posInMats)) return int.MaxValue - 10;
                     return posInMats;
                 });
@@ -697,7 +703,7 @@ namespace PixelStacker.UI
                 bool isAtLeastOneVisible = false;
                 foreach (var t in orderedTilesInCurrentGroup)
                 {
-                    if (t.Material.IsVisible)
+                    if (t.Material.IsVisibleF(this.Options))
                     {
                         if (set.ContainsKey(t.Material.PixelStackerID))
                         {
@@ -738,7 +744,7 @@ namespace PixelStacker.UI
             this.RepositionCheckboxes();
         }
 
-        #region OTHER
+#region OTHER
         // *-----------------+--------------------------------------------------------------------*
         // *                   O T H E R                                                          *
         // *-----------------+--------------------------------------------------------------------*
@@ -764,7 +770,7 @@ namespace PixelStacker.UI
                 return true;
             }
 
-            MainForm.Self.konamiWatcher.ProcessKey(keyData);
+            new KonamiWatcher(() => { }).ProcessKey(keyData);
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -774,7 +780,7 @@ namespace PixelStacker.UI
             {
                 this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
                 {
-                    kvp.Value.Material.IsEnabled = true;
+                    kvp.Value.Material.IsEnabledF(this.Options, true);
                     kvp.Value.Refresh();
                 });
 
@@ -787,7 +793,7 @@ namespace PixelStacker.UI
             {
                 this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
                 {
-                    kvp.Value.Material.IsEnabled = false;
+                    kvp.Value.Material.IsEnabledF(this.Options, false);
                     kvp.Value.Refresh();
                 });
                 RefreshCheckboxStates();
@@ -814,7 +820,7 @@ namespace PixelStacker.UI
                 return Items.GetEnumerator();
             }
 
-            IEnumerator IEnumerable.GetEnumerator()
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
             {
                 return Items.GetEnumerator();
             }
@@ -850,6 +856,6 @@ namespace PixelStacker.UI
                 this.IsCheckEventEnabled = true;
             }
         }
-        #endregion OTHER
+#endregion OTHER
     }
 }

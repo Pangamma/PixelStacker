@@ -11,16 +11,10 @@ namespace PixelStacker.IO.Config
     public class Options
     {
         [JsonIgnore]
-        public IOptionsProvider StorageProvider { get; set; } = new MemoryOptionsProvider();
+        public IOptionsProvider StorageProvider { get; set; }
         public Options(IOptionsProvider storageProvider)
         {
             this.StorageProvider = storageProvider;
-        }
-
-        public Options()
-        {
-            this.StorageProvider = new MemoryOptionsProvider()
-            { Value = this };
         }
 
 
@@ -128,7 +122,7 @@ namespace PixelStacker.IO.Config
             {
                 if (_self == null)
                 {
-                    _self = new Options();
+                    _self = new Options(new MemoryOptionsProvider());
                 }
                 return _self;
             }
@@ -167,7 +161,7 @@ namespace PixelStacker.IO.Config
 
         public void Reset()
         {
-            StorageProvider.Save(new Options());
+            StorageProvider.Save(new Options(this.StorageProvider));
             _self = null;
         }
     }

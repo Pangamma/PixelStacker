@@ -18,8 +18,7 @@ namespace PixelStacker.IO.Config
         public Options Value;
         public Options Load()
         {
-            Value ??= new Options();
-            Value.StorageProvider = this;
+            Value ??= new Options(this);
             return Value;
         }
 
