@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.IO
 {
-    public class LocalDataOptionsStorage : IStorage<Options>
+    public class LocalDataOptionsProvider : IOptionsProvider
     {
         public Options Load()
         {
             Properties.Settings.Default.Upgrade();
             string json = Properties.Settings.Default.JSON;
             var rt = JsonConvert.DeserializeObject<Options>(json);
+            rt.StorageProvider = this;
             return rt;
         }
 

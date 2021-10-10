@@ -3,7 +3,7 @@ using PixelStacker.Extensions;
 using PixelStacker.Logic.Model;
 using System.Linq;
 
-namespace PixelStacker.Tools.Analyzerss
+namespace PixelStacker.Tools.Analyzers
 {
     public class TextureQuality
     {

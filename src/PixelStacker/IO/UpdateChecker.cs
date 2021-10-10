@@ -13,9 +13,9 @@ namespace PixelStacker.IO
 {
     public class UpdateChecker
     {
-        public async static Task CheckForUpdates(CancellationToken cancelToken)
+        public async static Task CheckForUpdates(Options o, CancellationToken cancelToken)
         {
-            var settings = Options.Get.UpdateSettings;
+            var settings = o.UpdateSettings;
 
             if (settings.LastChecked == null || settings.LastChecked.Value < DateTime.UtcNow.AddHours(-2))
             {
@@ -27,7 +27,7 @@ namespace PixelStacker.IO
                     await DoGithubRequest()
                     ;
 
-                Options.Save();
+                o.Save();
 
                 if (latestVersion == null)
                 {
@@ -60,7 +60,7 @@ namespace PixelStacker.IO
                     Process.Start(sInfo);
                 }
 
-                Options.Save();
+                o.Save();
             }
             return/* false*/;
         }

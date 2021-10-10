@@ -49,6 +49,7 @@ namespace PixelStacker.Logic
             "1.12", "1.13", "1.14", "1.15", "1.16",
             "1.17"
         };
+
         private string _minimumSupportedMinecraftVersion = "NEW";
         public string MinimumSupportedMinecraftVersion
         {
@@ -139,6 +140,22 @@ namespace PixelStacker.Logic
 
         private string SettingsKey { get { return string.Format("BLOCK_{0}", this.PixelStackerID); } }
 
+        public bool IsVisibleF(Options opts)
+        {
+            if (this.BlockID == 0)
+            {
+                return false;
+            }
+
+            if (!opts.IsAdvancedModeEnabled && this.IsAdvanced)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        [Obsolete("IsVisible uses a static reference to Options.Get. Avoid this if you can.")]
         public bool IsVisible
         {
             get
@@ -157,6 +174,38 @@ namespace PixelStacker.Logic
             }
         }
 
+        public bool IsEnabledF(Options opts)
+        {
+#pragma warning disable CS0618 // Type or member is obsolete
+            opts ??= Options.Get;
+#pragma warning restore CS0618 // Type or member is obsolete
+            if (this.BlockID == 0)
+            {
+                return false;
+            }
+
+            if (this.IsAdvanced && !opts.IsAdvancedModeEnabled)
+            {
+                return false;
+            }
+
+            if (!opts.EnableStates.ContainsKey(SettingsKey))
+            {
+                opts.EnableStates[SettingsKey] = !this.IsAdvanced;
+            }
+
+            return opts.EnableStates[SettingsKey];
+        }
+
+        public void IsEnabledF(Options opts, bool val)
+        {
+#pragma warning disable CS0618 // Type or member is obsolete
+            opts ??= Options.Get;
+#pragma warning restore CS0618 // Type or member is obsolete
+            opts.EnableStates[SettingsKey] = val;
+        }
+
+        [Obsolete("IsEnabled uses a static reference to Options.Get. Avoid this if you can.", true)]
         public bool IsEnabled
         {
             get
@@ -180,7 +229,6 @@ namespace PixelStacker.Logic
             }
             set
             {
-                Options.Get.EnableStates[SettingsKey] = value;
             }
         }
 
@@ -221,7 +269,7 @@ namespace PixelStacker.Logic
             }
         }
 
-        private Color GetAverageColor(Bitmap src)
+        private Color GetAverageColor(Bitmap src, int rgbFragmentSize = 1)
         {
             long r = 0;
             long g = 0;
@@ -247,7 +295,7 @@ namespace PixelStacker.Logic
                 a = 255;
             }
 
-            return Color.FromArgb((int)a, (int)r, (int)g, (int)b).Normalize();
+            return Color.FromArgb((int)a, (int)r, (int)g, (int)b).Normalize(rgbFragmentSize);
         }
 
         public override string ToString()

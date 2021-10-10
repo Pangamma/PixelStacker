@@ -13,7 +13,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PixelStacker.Tools.Analyzerss
+namespace PixelStacker.Tools.Analyzers
 {
     [TestClass]
     public class ColorMapperAccuracy

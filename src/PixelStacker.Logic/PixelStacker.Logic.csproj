@@ -19,6 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="API.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="API.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FastBitmapLib" Version="2.1.0" />
     <PackageReference Include="KdTree" Version="1.4.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

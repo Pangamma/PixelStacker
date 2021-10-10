@@ -22,11 +22,12 @@ namespace PixelStacker.Tests
         private Dictionary<string, AsyncLazy<RenderedCanvas>> Canvases = new Dictionary<string, AsyncLazy<RenderedCanvas>>();
 
         [TestInitialize]
-        public async Task Setup()
+        public void Setup()
         {
+            Options opts = new MemoryOptionsProvider().Load();
             MaterialPalette palette = MaterialPalette.FromResx();
             var mapper = new KdTreeMapper();
-            var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabled && x.Bottom.IsEnabled && x.IsMultiLayer).ToList();
+            var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabledF(opts) && x.Bottom.IsEnabledF(opts) && x.IsMultiLayer).ToList();
             mapper.SetSeedData(combos, palette, false);
 
             var engine = new RenderCanvasEngine();
@@ -92,6 +93,7 @@ namespace PixelStacker.Tests
                 return await engine.RenderCanvasAsync(null, ref img, mapper, palette);
             });
 
+            var preLoadIt = this.Canvas;
         }
 
         [TestMethod]
@@ -111,7 +113,7 @@ namespace PixelStacker.Tests
         public async Task IE_SvgFormat()
         {
             var formatter = new SvgFormatter();
-            await formatter.ExportAsync("test.svg", Canvas, null);
+            await formatter.ExportAsync("io_test.svg", Canvas, null);
         }
 
         [TestMethod]

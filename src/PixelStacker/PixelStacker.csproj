@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PixelStacker.Logic\PixelStacker.Logic.csproj" />
+    <ProjectReference Include="..\PixelStacker.WF.Components\PixelStacker.WF.Components.csproj" />
   </ItemGroup>
 
 <ItemGroup>

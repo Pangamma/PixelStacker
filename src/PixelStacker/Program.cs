@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace PixelStacker
 {
@@ -21,7 +22,7 @@ namespace PixelStacker
         static void Main()
         {
             ResxHelper.InjectIntoTextResx();
-            Options.StorageProvider = new LocalDataOptionsStorage();
+            var provider = new LocalDataOptionsProvider();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();

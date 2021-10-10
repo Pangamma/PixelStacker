@@ -19,6 +19,9 @@ namespace PixelStacker.Tests
         [TestMethod]
         public async Task RenderYuuuuugeImage()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
+            var opts = Options.Get;
+#pragma warning restore CS0618 // Type or member is obsolete
             var engine = new RenderCanvasEngine();
             var img = await engine.PreprocessImageAsync(null, 
                 UIResources.yuuuuge.To32bppBitmap(),
@@ -36,7 +39,7 @@ namespace PixelStacker.Tests
                 });
             var palette = ResxHelper.LoadJson<MaterialPalette>(DataResources.materialPalette);
             var mapper = new KdTreeMapper();
-            var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabled && x.Bottom.IsEnabled && x.IsMultiLayer).ToList();
+            var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabledF(opts) && x.Bottom.IsEnabledF(opts) && x.IsMultiLayer).ToList();
             mapper.SetSeedData(combos, palette, false);
 
             var canvas = await engine.RenderCanvasAsync(null, ref img, mapper, palette);

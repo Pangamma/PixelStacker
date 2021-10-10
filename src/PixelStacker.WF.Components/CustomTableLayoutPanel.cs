@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PixelStacker.UI
+namespace PixelStacker.WF.Components
 {
-    [Obsolete]
-    public class CustomFlowLayoutPanel : FlowLayoutPanel
+    public class CustomTableLayoutPanel : TableLayoutPanel
     {
-        public CustomFlowLayoutPanel(): base()
+        public CustomTableLayoutPanel(): base()
         {
             this.DoubleBuffered = true;
         }

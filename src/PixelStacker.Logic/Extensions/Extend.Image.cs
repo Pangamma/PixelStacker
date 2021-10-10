@@ -79,12 +79,12 @@ namespace PixelStacker.Extensions
         /// <param name="src"></param>
         /// <param name="normalize">If colors should be put into their buckets of 5 or 15 or or whatever.</param>
         /// <returns></returns>
-        public static List<Color> GetColorsInImage(this Bitmap src, bool normalize = true)
+        public static List<Color> GetColorsInImage(this Bitmap src, int rgbBucketSize = 1)
         {
             List<Color> cs = new List<Color>();
             src.ToViewStream(null, (int x, int y, Color c) =>
             {
-                cs.Add(normalize ? c.Normalize() : c);
+                cs.Add(rgbBucketSize == 1 ? c : c.Normalize(rgbBucketSize));
             });
 
             return cs;
@@ -95,7 +95,7 @@ namespace PixelStacker.Extensions
         /// <param name="src"></param>
         /// <param name="normalize">If colors should be put into their buckets of 5 or 15 or or whatever.</param>
         /// <returns></returns>
-        public static Color GetAverageColor(this Bitmap src, bool normalize = true)
+        public static Color GetAverageColor(this Bitmap src, int rgbBucketSize = 1)
         {
             long r = 0;
             long g = 0;
@@ -122,7 +122,7 @@ namespace PixelStacker.Extensions
             }
 
             Color rt = Color.FromArgb((int)a, (int)r, (int)g, (int)b);
-            return normalize ? rt.Normalize() : rt;
+            return rgbBucketSize == 1 ? rt : rt.Normalize(rgbBucketSize);
         }
 
         private static bool CanReadPixel(PixelFormat format)

@@ -143,7 +143,9 @@ namespace PixelStacker.Extensions
         /// <returns></returns>
         public static Color NormalizeActual(this Color c, int? fragmentSize = null)
         {
-            int F = fragmentSize ?? Options.Get.PreRender_ColorCacheFragmentSize;
+#pragma warning disable CS0618 // Type or member is obsolete
+            int F = fragmentSize ?? Options.Get.Preprocessor.RgbBucketSize;
+#pragma warning restore CS0618 // Type or member is obsolete
             if (F < 2)
             {
                 return c;
