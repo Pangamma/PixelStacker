@@ -24,13 +24,5 @@ namespace PixelStacker.UI
 
             this.MaterialOptions.ShowDialog(this);
         }
-
-        private static void MaterialSelectWindow_VisibleChanged(object sender, EventArgs e)
-        {
-            if (!((MaterialSelectWindow)sender).Visible)
-            {
-                
-            }
-        }
     }
 }

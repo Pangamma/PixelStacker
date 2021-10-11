@@ -61,6 +61,20 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="languageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHcSURBVChTTZHLSxthFMWv+TsEQUSCKKKCL3RhFoJ0
+        ShbFhtAsXLgrKF0ZiFZEsiq6aHGdhTajbVclRic+KgHRVMPEJhVmTGLSkMx880piMnkRQ28aCL2c5bm/
+        czkX3mz+bsu6Ebas382vsa8cQfNKIDUykjAaYwZDFIADuAcIAzQXGo2G70Z9bjwzAaVer3uvpVqt5rkU
+        yuVyqVQqFotP/yaXy9nt9uYCur9dkK8/xC/nwv5pmj5JuX1/do8T2uKi9tqivKBkk4lMTsovqSAmWDfD
+        zE8VwQfnAoLRjWB0f/I+tqiapimKIsuSqqo0TQPezQTkg7NMi/2ZabI/euOrnpg8NyfNzJCJCXF4ODMw
+        QEwmHyZY1ljEo7tSqaBb1/Xtw3g+n1+i+RZbkiRCiCAIRJKcTidgId4r4val9pjk7lFi6zDu8ETf7vEL
+        O5w4Pi4MDWX6+1NG40NPz8PUlAsTWJatVqutNgqFArKz2WybLYoistPpdBSH5ymKAiz7yeXKLi9rNpti
+        Nsuzs2R6WhwdFQYHM319id5errs70tUV7OwMj429xwS/39/E6zri27VgIe2EZDLJcXwkEgmFQjarFWKG
+        jv8f+QuPBLgFuAD4DuAG2AH4AOAAeIcC+AuOZVk2Zpz+uAAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="englishToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29m
@@ -184,20 +198,6 @@
         8jxmZdpMSfjy7ev379+/ffv29evXL1++fHr37oaW/nVN/WvqOnfcvFeDNDgzZK5tSV3VmLC8JmxR6dfv
         34Aa4HqANtz18AEioOpbTm4rQRpsGRgsGRgMGRj0GRjkGS5evXj9+vXLly9fvHjx/PnzJw8fBjpjIwPD
         WjBaz8AAAOQ4K6y1yJUgAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="languageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHcSURBVChTTZHLSxthFMWv+TsEQUSCKKKCL3RhFoJ0
-        ShbFhtAsXLgrKF0ZiFZEsiq6aHGdhTajbVclRic+KgHRVMPEJhVmTGLSkMx880piMnkRQ28aCL2c5bm/
-        czkX3mz+bsu6Ebas382vsa8cQfNKIDUykjAaYwZDFIADuAcIAzQXGo2G70Z9bjwzAaVer3uvpVqt5rkU
-        yuVyqVQqFotP/yaXy9nt9uYCur9dkK8/xC/nwv5pmj5JuX1/do8T2uKi9tqivKBkk4lMTsovqSAmWDfD
-        zE8VwQfnAoLRjWB0f/I+tqiapimKIsuSqqo0TQPezQTkg7NMi/2ZabI/euOrnpg8NyfNzJCJCXF4ODMw
-        QEwmHyZY1ljEo7tSqaBb1/Xtw3g+n1+i+RZbkiRCiCAIRJKcTidgId4r4val9pjk7lFi6zDu8ETf7vEL
-        O5w4Pi4MDWX6+1NG40NPz8PUlAsTWJatVqutNgqFArKz2WybLYoistPpdBSH5ymKAiz7yeXKLi9rNpti
-        Nsuzs2R6WhwdFQYHM319id5errs70tUV7OwMj429xwS/39/E6zri27VgIe2EZDLJcXwkEgmFQjarFWKG
-        jv8f+QuPBLgFuAD4DuAG2AH4AOAAeIcC+AuOZVk2Zpz+uAAAAABJRU5ErkJggg==
 </value>
   </data>
 </root>

@@ -47,6 +47,23 @@ namespace PixelStacker.UI
             this.japaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.koreanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spanishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectMaterialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preprocessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sizingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toggleGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toggleBorderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.layerFilteringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showTopLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showBottomLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showBothLayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shadowRenderingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.skipShadowRenderirngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addExtraDepthToShadowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.orientationToolStripMenuItem = new System.Windows.Forms.ToolStripComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +73,8 @@ namespace PixelStacker.UI
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.generationToolStripMenuItem,
             this.languageToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -76,14 +95,14 @@ namespace PixelStacker.UI
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -100,14 +119,14 @@ namespace PixelStacker.UI
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.undoToolStripMenuItem.Text = "Undo";
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.redoToolStripMenuItem.Text = "Redo";
             // 
             // languageToolStripMenuItem
@@ -124,6 +143,7 @@ namespace PixelStacker.UI
             this.spanishToolStripMenuItem});
             this.languageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("languageToolStripMenuItem.Image")));
             this.languageToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.languageToolStripMenuItem.MergeIndex = 50;
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
             this.languageToolStripMenuItem.Size = new System.Drawing.Size(30, 24);
             // 
@@ -208,6 +228,139 @@ namespace PixelStacker.UI
             this.spanishToolStripMenuItem.Text = "Spanish";
             this.spanishToolStripMenuItem.Click += new System.EventHandler(this.spanishToolStripMenuItem_Click);
             // 
+            // generationToolStripMenuItem
+            // 
+            this.generationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectMaterialsToolStripMenuItem,
+            this.preprocessingToolStripMenuItem,
+            this.sizingToolStripMenuItem,
+            this.orientationToolStripMenuItem});
+            this.generationToolStripMenuItem.Name = "generationToolStripMenuItem";
+            this.generationToolStripMenuItem.Size = new System.Drawing.Size(96, 24);
+            this.generationToolStripMenuItem.Text = "Generation";
+            // 
+            // selectMaterialsToolStripMenuItem
+            // 
+            this.selectMaterialsToolStripMenuItem.Name = "selectMaterialsToolStripMenuItem";
+            this.selectMaterialsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.selectMaterialsToolStripMenuItem.Text = "Select Materials";
+            // 
+            // preprocessingToolStripMenuItem
+            // 
+            this.preprocessingToolStripMenuItem.Name = "preprocessingToolStripMenuItem";
+            this.preprocessingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.preprocessingToolStripMenuItem.Text = "Preprocessing";
+            // 
+            // sizingToolStripMenuItem
+            // 
+            this.sizingToolStripMenuItem.Name = "sizingToolStripMenuItem";
+            this.sizingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.sizingToolStripMenuItem.Text = "Sizing";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gridToolStripMenuItem,
+            this.toggleBorderToolStripMenuItem,
+            this.layerFilteringToolStripMenuItem,
+            this.shadowRenderingToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // gridToolStripMenuItem
+            // 
+            this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toggleGridToolStripMenuItem,
+            this.gridOptionsToolStripMenuItem});
+            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.gridToolStripMenuItem.Text = "Grid";
+            // 
+            // toggleGridToolStripMenuItem
+            // 
+            this.toggleGridToolStripMenuItem.Name = "toggleGridToolStripMenuItem";
+            this.toggleGridToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(298, 26);
+            this.toggleGridToolStripMenuItem.Text = "Toggle Grid";
+            // 
+            // gridOptionsToolStripMenuItem
+            // 
+            this.gridOptionsToolStripMenuItem.Name = "gridOptionsToolStripMenuItem";
+            this.gridOptionsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gridOptionsToolStripMenuItem.Text = "Grid Options";
+            // 
+            // toggleBorderToolStripMenuItem
+            // 
+            this.toggleBorderToolStripMenuItem.Name = "toggleBorderToolStripMenuItem";
+            this.toggleBorderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.toggleBorderToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.toggleBorderToolStripMenuItem.Text = "Toggle Border";
+            // 
+            // layerFilteringToolStripMenuItem
+            // 
+            this.layerFilteringToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showTopLayerToolStripMenuItem,
+            this.showBottomLayerToolStripMenuItem,
+            this.showBothLayersToolStripMenuItem});
+            this.layerFilteringToolStripMenuItem.Name = "layerFilteringToolStripMenuItem";
+            this.layerFilteringToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.layerFilteringToolStripMenuItem.Text = "Layer Filtering";
+            // 
+            // showTopLayerToolStripMenuItem
+            // 
+            this.showTopLayerToolStripMenuItem.Name = "showTopLayerToolStripMenuItem";
+            this.showTopLayerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.showTopLayerToolStripMenuItem.Text = "Show Top Layer";
+            // 
+            // showBottomLayerToolStripMenuItem
+            // 
+            this.showBottomLayerToolStripMenuItem.Name = "showBottomLayerToolStripMenuItem";
+            this.showBottomLayerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.showBottomLayerToolStripMenuItem.Text = "Show Bottom Layer";
+            // 
+            // showBothLayersToolStripMenuItem
+            // 
+            this.showBothLayersToolStripMenuItem.Checked = true;
+            this.showBothLayersToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showBothLayersToolStripMenuItem.Name = "showBothLayersToolStripMenuItem";
+            this.showBothLayersToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.showBothLayersToolStripMenuItem.Text = "Show Both Layers";
+            // 
+            // shadowRenderingToolStripMenuItem
+            // 
+            this.shadowRenderingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.skipShadowRenderirngToolStripMenuItem,
+            this.addExtraDepthToShadowsToolStripMenuItem});
+            this.shadowRenderingToolStripMenuItem.Name = "shadowRenderingToolStripMenuItem";
+            this.shadowRenderingToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.shadowRenderingToolStripMenuItem.Text = "Shadow Rendering";
+            // 
+            // skipShadowRenderirngToolStripMenuItem
+            // 
+            this.skipShadowRenderirngToolStripMenuItem.Checked = true;
+            this.skipShadowRenderirngToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.skipShadowRenderirngToolStripMenuItem.Name = "skipShadowRenderirngToolStripMenuItem";
+            this.skipShadowRenderirngToolStripMenuItem.Size = new System.Drawing.Size(279, 26);
+            this.skipShadowRenderirngToolStripMenuItem.Text = "Skip shadow rendering";
+            // 
+            // addExtraDepthToShadowsToolStripMenuItem
+            // 
+            this.addExtraDepthToShadowsToolStripMenuItem.Checked = true;
+            this.addExtraDepthToShadowsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.addExtraDepthToShadowsToolStripMenuItem.Name = "addExtraDepthToShadowsToolStripMenuItem";
+            this.addExtraDepthToShadowsToolStripMenuItem.Size = new System.Drawing.Size(279, 26);
+            this.addExtraDepthToShadowsToolStripMenuItem.Text = "Add extra depth to shadows";
+            // 
+            // orientationToolStripMenuItem
+            // 
+            this.orientationToolStripMenuItem.Items.AddRange(new object[] {
+            "Vertical",
+            "Horizontal"});
+            this.orientationToolStripMenuItem.Name = "orientationToolStripMenuItem";
+            this.orientationToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.orientationToolStripMenuItem.Text = "Orientation";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -243,5 +396,22 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem japaneseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem koreanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spanishToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectMaterialsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem preprocessingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sizingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toggleGridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gridOptionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toggleBorderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem layerFilteringToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showTopLayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showBottomLayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showBothLayersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem shadowRenderingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem skipShadowRenderirngToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addExtraDepthToShadowsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox orientationToolStripMenuItem;
     }
 }
