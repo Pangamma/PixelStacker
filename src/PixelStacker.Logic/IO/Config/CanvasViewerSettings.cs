@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.IO.Config
 {
+    public class RenderedCanvasViewerSettings: CanvasViewerSettings
+    {
+
+    }
+
     public class CanvasViewerSettings
     {
         /// <summary>

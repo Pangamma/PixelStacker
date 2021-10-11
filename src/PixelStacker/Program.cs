@@ -23,16 +23,13 @@ namespace PixelStacker
         static void Main()
         {
             ResxHelper.InjectIntoTextResx();
-            var provider = new LocalDataOptionsProvider();
-            var options = provider.Load();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var form = new MaterialSelectWindow(options);
-            Application.Run(form);
-            //Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
+
     }
 }

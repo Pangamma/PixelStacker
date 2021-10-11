@@ -73,6 +73,8 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         */
         public void SetSeedData(List<MaterialCombination> combos, MaterialPalette mats, bool isSideView)
         {
+            this.Cache = null;
+            this.Cache = new int?[256, 256, 256];
             this.Combos = combos;
             this.IsSideView = isSideView;
             this.Palette = mats;

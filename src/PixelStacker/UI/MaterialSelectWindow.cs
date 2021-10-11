@@ -34,6 +34,7 @@ namespace PixelStacker.UI
         private Regex regexMatName = new Regex(@"minecraft:([a-zA-Z_09]+)(.*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private OrderedDictionary<string, MaterialSelectTile> materialTiles = new OrderedDictionary<string, MaterialSelectTile>();
         private Dictionary<string, CategoryReferenceContainer> categoryRefs = new Dictionary<string, CategoryReferenceContainer>();
+        public Action<CancellationToken> OnColorPaletteRecompileRequested;
 
         public MaterialSelectWindow() : this(Options.Get)
         {
@@ -297,7 +298,7 @@ namespace PixelStacker.UI
         // *-----------------+--------------------------------------------------------------------*
         // *                   F O R M _ V I S I B I L I T Y                                      *
         // *-----------------+--------------------------------------------------------------------*
-        protected async void TryHide()
+        protected async Task TryHide()
         {
             if (this.Options.IsMultiLayerRequired)
             {
@@ -339,15 +340,11 @@ namespace PixelStacker.UI
             }
 
             Options.Save();
-            await TaskManager.Get.StartAsync((token) =>
+            
+            if (OnColorPaletteRecompileRequested != null)
             {
-                Debug.WriteLine("FIX THIS SO IT ACTUALLY DOES SOMETHING");
-#if !DEBUG
-                throw new Exception("DONT FORGET THIS");
-#endif
-                //ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
-                //.GetAwaiter().GetResult();
-            });
+                await TaskManager.Get.StartAsync(OnColorPaletteRecompileRequested);
+            }
 
             this.Hide();
         }

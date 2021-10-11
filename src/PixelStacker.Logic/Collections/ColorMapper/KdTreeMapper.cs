@@ -24,6 +24,8 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
         public void SetSeedData(List<MaterialCombination> combos, MaterialPalette palette, bool isSideView)
         {
+            this.Cache = null;
+            this.Cache = new Dictionary<Color, MaterialCombination>();
             this.IsSideView = isSideView;
             this.Palette = palette;
             this.KdTree = new KdTree<float, MaterialCombination>(3, new KdTree.Math.FloatMath());

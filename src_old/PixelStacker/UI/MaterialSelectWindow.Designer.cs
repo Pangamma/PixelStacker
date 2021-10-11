@@ -97,7 +97,7 @@
             // 
             this.lblFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblFilter.Location = new System.Drawing.Point(8, -1);
+            this.lblFilter.Location = new System.Drawing.Point(8, 0);
             this.lblFilter.Name = "lblFilter";
             this.lblFilter.Size = new System.Drawing.Size(39, 33);
             this.lblFilter.TabIndex = 1;
