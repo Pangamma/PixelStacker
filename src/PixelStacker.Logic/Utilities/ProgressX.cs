@@ -22,25 +22,14 @@ namespace PixelStacker.Logic.Utilities
         /// <param name="current"></param>
         /// <param name="setText"></param>
         /// <param name="setPercent"></param>
-        public static void UpdateStatus(int min, int max, int current, Action<string> setText, Action<int> setPercent)
+        public static void UpdateStatus(Action<int, string> setValues)
         {
             lock (Padlock)
             {
-                if (StatusPercent == 100)
-                {
-                    setPercent(0);
-                    //bar.Value = 0;
-                }
-                else if (StatusPercent != current)
-                {
-                    int val = Math.Min(max, StatusPercent);
-                    val = Math.Max(min, val);
-                    setPercent(val > 0 ? val - 1 : val);
-                }
-
+                int sp = StatusPercent == 100 ? 0 : StatusPercent;
                 string displayText = $"{StatusPercent}%   {StatusMessage}";
-                displayText = (StatusPercent == 0 || StatusPercent == 100) ? StatusMessage : displayText;
-                setText(displayText);
+                string dm = (StatusPercent == 0 || StatusPercent == 100) ? StatusMessage : displayText;
+                setValues(sp, dm);
             }
         }
 
@@ -50,6 +39,8 @@ namespace PixelStacker.Logic.Utilities
             {
                 StatusMessage = status;
                 StatusPercent = percent;
+                if (percent > 100) StatusPercent = 100;
+                if (percent < 0) StatusPercent = 0;
             }
 
             System.Diagnostics.Debug.WriteLine($"{percent}%   {status}: "+ DateTime.Now);
@@ -60,6 +51,8 @@ namespace PixelStacker.Logic.Utilities
             lock (Padlock)
             {
                 StatusPercent = percent;
+                if (percent > 100) StatusPercent = 100;
+                if (percent < 0) StatusPercent = 0;
             }
         }
 

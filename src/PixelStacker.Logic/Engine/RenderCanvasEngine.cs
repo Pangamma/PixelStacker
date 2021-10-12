@@ -45,9 +45,9 @@ namespace PixelStacker.Logic.Engine
 
             // Color bucket normalization
             int F = settings.RgbBucketSize;
+            ProgressX.Report(25, $"Pre-processing image. Flattening into RGB buckets of size {F}");
             if (F > 1)
             {
-                ProgressX.Report(10, $"Pre-processing image. Flattening into RGB buckets of size {F}");
                 resized.ToEditStream(worker, (x, y, c) => c.Normalize(F));
             }
 
@@ -55,12 +55,14 @@ namespace PixelStacker.Logic.Engine
 
             if (settings.QuantizerSettings?.IsEnabled == true)
             {
-                ProgressX.Report(10, $"Pre-processing image. Quantizing.");
+                ProgressX.Report(50, $"Pre-processing image. Quantizing.");
                 var quantized = QuantizerEngine.RenderImage(worker, resized, settings.QuantizerSettings);
                 resized.DisposeSafely();
+                ProgressX.Report(100, "Finished pre-processing the image.");
                 return Task.FromResult(quantized);
             }
 
+            ProgressX.Report(100, "Finished pre-processing the image.");
             return Task.FromResult(resized);
         }
 
@@ -86,7 +88,7 @@ namespace PixelStacker.Logic.Engine
                 MaterialPalette = palette,
                 CanvasData = new CanvasData(palette, new int[preprocessedImage.Width, preprocessedImage.Height])
             };
-
+            ProgressX.Report(0, Resources.Text.RenderEngine_ConvertingToBlocks);
             preprocessedImage.ToViewStream(worker, (x, y, c) => {
                 canvas.CanvasData[x, y] = mapper.FindBestMatch(c);
             });

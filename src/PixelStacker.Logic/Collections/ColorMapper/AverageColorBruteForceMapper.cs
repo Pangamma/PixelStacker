@@ -55,5 +55,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
             return found;
         }
+
+        public bool IsSeeded() => Cache.Count > 0;
     }
 }

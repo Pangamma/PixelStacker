@@ -45,38 +45,41 @@ namespace PixelStacker.Logic.Utilities
 
 
         #region CANCEL
-        public async Task<bool> CancelTasks()
+        public Task<bool> CancelTasks()
         {
             //if (callback == null) ProgressX.Report(0, Text.Operation_Cancelled);
-            if (this.CancelTokenSource == null) { return true; }
-            if (this.CancelToken == CancellationToken.None) { return true; }
-            if (!this.CancelToken.CanBeCanceled) { return true; }
-            if (CurrentTask != null && CurrentTask.IsCompleted) { return true; }
+            if (this.CancelTokenSource == null) { return Task.FromResult(true); }
+            if (this.CancelToken == CancellationToken.None) { return Task.FromResult(true); }
+            if (CurrentTask != null && CurrentTask.IsCompleted) { return Task.FromResult(true); }
+            bool askCancel = this.CancelToken.CanBeCanceled && !this.CancelToken.IsCancellationRequested;
 
-            // If not yet requested, just cancel and do new task
-            // TODO: If already requested... need to somehow cancel other task before assigning this task.
-            if (!this.CancelToken.IsCancellationRequested)
+            try
             {
-                await this.TryTaskCatchCancelAsync(() =>
-                {
-                    // Unable to continue after cancelling the task. We must wait it out.
+                if (askCancel)
                     this.CancelTokenSource.Cancel(true);
-                    if (CurrentTask != null)
+                // Now we wait it out until done or cancelled.
+                if (CurrentTask != null)
+                {
+                    for (int i = 15; i > 0; i--)
                     {
-                        for (int i = 15; i > 0; i--)
+                        if (CurrentTask.Wait(50) != false)
                         {
-                            if (CurrentTask.Wait(50) != false)
-                            {
-                                break;
-                            }
+                            break;
                         }
                     }
-                });
-
-                return true;
+                }
+            }
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
+            catch (AggregateException aex)
+            {
+                if (aex.Flatten().InnerExceptions.Any(x =>
+                    x.GetType() != typeof(TaskCanceledException)
+                    && x.GetType() != typeof(OperationCanceledException))
+                ) throw;
             }
 
-            return false;
+            return Task.FromResult(true);
         }
 
         private async Task<T> TryTaskCatchCancelAsync<T>(Task<T> task)
@@ -111,9 +114,9 @@ namespace PixelStacker.Logic.Utilities
             return false;
         }
 
-        private Task<bool> TryTaskCatchCancelAsync(Action task)
+        private void TryTaskCatchCancelAsync(Action task)
         {
-            try { task.Invoke(); return Task.FromResult(true); }
+            try { task.Invoke(); return; }
             catch (TaskCanceledException) { }
             catch (OperationCanceledException) { }
             catch (AggregateException aex)
@@ -123,20 +126,44 @@ namespace PixelStacker.Logic.Utilities
                     && x.GetType() != typeof(OperationCanceledException))
                 ) throw;
             }
+        }
 
-            return Task.FromResult(false);
+        private void TryTaskCatchCancelAsync(CancellationToken token, Action<CancellationToken> task)
+        {
+            try { task.Invoke(token); return; }
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
+            catch (AggregateException aex)
+            {
+                if (aex.Flatten().InnerExceptions.Any(x =>
+                    x.GetType() != typeof(TaskCanceledException)
+                    && x.GetType() != typeof(OperationCanceledException))
+                ) throw;
+            }
         }
         #endregion CANCEL
 
         #region START
         public async Task StartAsync(Action<CancellationToken> task)
         {
-            await this.CancelTasks();
-            this.CancelTokenSource?.DisposeSafely();
-            this.CancelTokenSource = new CancellationTokenSource();
-            this.CancelToken = this.CancelTokenSource.Token;
-            this.CurrentTask = TryTaskCatchCancelAsync(Task.Run(() => task(this.CancelToken)));
-            await this.CurrentTask;
+            try
+            {
+                await this.CancelTasks();
+                this.CancelTokenSource?.DisposeSafely();
+                this.CancelTokenSource = new CancellationTokenSource();
+                this.CancelToken = this.CancelTokenSource.Token;
+                this.CurrentTask = Task.Run(() => task(this.CancelToken));
+                await this.CurrentTask;
+            }
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
+            catch (AggregateException aex)
+            {
+                if (aex.Flatten().InnerExceptions.Any(x =>
+                    x.GetType() != typeof(TaskCanceledException)
+                    && x.GetType() != typeof(OperationCanceledException))
+                ) throw;
+            }
         }
 
         public async Task<T> StartAsync<T>(Func<CancellationToken, Task<T>> task)
@@ -145,9 +172,10 @@ namespace PixelStacker.Logic.Utilities
             this.CancelTokenSource?.DisposeSafely();
             this.CancelTokenSource = new CancellationTokenSource();
             this.CancelToken = this.CancelTokenSource.Token;
-            var tmp = TryTaskCatchCancelAsync(task(this.CancelToken));
-            this.CurrentTask = tmp;
-            return await tmp;
+
+            // This will explode.
+            this.CurrentTask = TryTaskCatchCancelAsync(task(this.CancelToken));
+            return (T)await (Task<T>)this.CurrentTask;
         }
 
         #endregion START

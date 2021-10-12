@@ -10,6 +10,7 @@ namespace PixelStacker.Logic.Collections
 {
     public interface IColorMapper
     {
+        bool IsSeeded();
         void SetSeedData(List<MaterialCombination> combos, MaterialPalette mats, bool isSideView);
         MaterialCombination FindBestMatch(Color c);
         List<MaterialCombination> FindBestMatches(Color c, int maxMatches);

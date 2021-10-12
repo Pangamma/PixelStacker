@@ -13,6 +13,7 @@ using System.Collections;
 using Google.Cloud.Translation.V2;
 using Newtonsoft.Json;
 using System.Resources.NetStandard;
+using Microsoft.Extensions.Configuration;
 
 namespace PixelStacker.Tools.Generators
 {
@@ -26,10 +27,18 @@ namespace PixelStacker.Tools.Generators
             "ko-kr", "ja-jp", "fr-fr", "de-de", "es-es", "zh-cn", "da-dk", "nl-nl"
         };
 
+        public JsonResxMaker()
+        {
+            var config = new ConfigurationBuilder()
+                .AddUserSecrets<JsonResxMaker>()
+                .Build();
+            this.GOOGLE_API_KEY = config["GOOGLE_API_KEY"];
+        }
+
         [TestMethod]
         public void Text_Translate()
         {
-            this.RipResxIntoJson($@"{RootDir}\PixelStacker\Resources\{nameof(Resources.Text)}.resx");
+            this.RipResxIntoJson($@"{RootDir}\PixelStacker.Logic\Resources\{nameof(Resources.Text)}.resx");
         }
 
         private void RipResxIntoJson(string filePath)
@@ -106,22 +115,38 @@ namespace PixelStacker.Tools.Generators
             XmlDocument doc = new XmlDocument();
             doc.Load(resxFilePath);
             XmlNodeList dataNodes = doc.SelectNodes("//root/data");
-
-            using (ResXResourceReader rr = new ResXResourceReader(resxFilePath))
+            
+            foreach(var kvp in dataNodes.OfType<XmlElement>())
             {
-                IDictionaryEnumerator di = rr.GetEnumerator();
-
-                foreach (DictionaryEntry de in rr)
+                if (kvp.HasAttribute("name") && kvp.HasChildNodes)
                 {
-                    string key = de.Key as string;
-                    string value = de.Value as string;
-
+                    string key = kvp.GetAttribute("name");
                     if (key.StartsWith("$")) continue;
                     if (key.StartsWith(">>")) continue;
-
-                    kvps[key] = value;
+                    var child = kvp.ChildNodes.OfType<XmlElement>().FirstOrDefault();
+                    if (child != null)
+                    {
+                        string val = child.InnerText;
+                        kvps[key] = val;
+                    }
                 }
             }
+
+            //using (ResXResourceReader rr = ResXResourceReader.FromFileContents(resxFilePath))
+            //{
+            //    IDictionaryEnumerator di = rr.GetEnumerator();
+
+            //    foreach (DictionaryEntry de in rr)
+            //    {
+            //        string key = de.Key as string;
+            //        string value = de.Value as string;
+
+            //        if (key.StartsWith("$")) continue;
+            //        if (key.StartsWith(">>")) continue;
+
+            //        kvps[key] = value;
+            //    }
+            //}
             return kvps;
         }
 

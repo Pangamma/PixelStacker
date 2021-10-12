@@ -17,6 +17,7 @@ namespace PixelStacker.IO.Config
             this.StorageProvider = storageProvider;
         }
 
+        public MaterialSelectOptions MaterialOptions { get; set; } = new MaterialSelectOptions();
 
         /// <summary>
         /// Tracks how long ago an update check was performed, and if user has decided to skip

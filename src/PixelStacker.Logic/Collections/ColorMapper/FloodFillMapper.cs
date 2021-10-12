@@ -41,6 +41,8 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
     public class FloodFillMapper : IColorMapper
     {
+        public bool IsSeeded() => Combos != null;
+
         // [R,G,B] => null || MaterialCombinationPaletteID
         private int?[,,] Cache = new int?[256,256,256];
         #region TRASH

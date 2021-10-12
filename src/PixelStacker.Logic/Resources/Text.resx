@@ -490,4 +490,7 @@ Super high values = possible glitches</value>
   <data name="RenderedImagePanel_ReplaceColor" xml:space="preserve">
     <value>Replace Color (Requires Re-Render)</value>
   </data>
+  <data name="RenderEngine_ConvertingToBlocks" xml:space="preserve">
+    <value>Converting pixels into Minecraft blocks.</value>
+  </data>
 </root>

@@ -1,7 +1,7 @@
 ﻿using PixelStacker.IO.Config;
 using PixelStacker.Resources;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.UI
 {
+    
     public partial class MainForm : ILocalized
     {
         private Bitmap GetLanguageImage(CultureInfo locale)
@@ -52,6 +53,15 @@ namespace PixelStacker.UI
 #pragma warning restore CS0162 // Unreachable code detected
             }
 
+            this.englishToolStripMenuItem.Image = UIResources.country_us;
+            this.chineseSimplifiedToolStripMenuItem.Image = UIResources.country_cn;
+            this.koreanToolStripMenuItem.Image = UIResources.country_kr;
+            this.japaneseToolStripMenuItem.Image = UIResources.country_jp;
+            this.spanishToolStripMenuItem.Image = UIResources.country_mx;
+            this.germanToolStripMenuItem.Image = UIResources.country_de;
+            this.danishToolStripMenuItem.Image = UIResources.country_dk;
+            this.dutchToolStripMenuItem.Image = UIResources.country_nl;
+            this.frenchToolStripMenuItem.Image = UIResources.country_fr;
 
             //            this.dlgSaveSettings.Title = global::PixelStacker.Resources.Text.MainMenu_SaveSettings;
             //            this.dlgSaveColorPalette.Title = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
