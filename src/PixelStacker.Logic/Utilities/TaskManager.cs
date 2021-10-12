@@ -34,12 +34,10 @@ namespace PixelStacker.Logic.Utilities
         }
 
         private static Lazy<TaskManager> _Get = new Lazy<TaskManager>();
-        private CancellationToken CancelToken;
 
         public static TaskManager Get => _Get.Value;
-
+        private CancellationToken CancelToken;
         private CancellationTokenSource CancelTokenSource { get; set; } = null;
-        //public CancellationToken CancelToken { get; set; } = CancellationToken.None;
         private Task CurrentTask { get; set; } = null;
 
 
@@ -50,7 +48,8 @@ namespace PixelStacker.Logic.Utilities
             //if (callback == null) ProgressX.Report(0, Text.Operation_Cancelled);
             if (this.CancelTokenSource == null) { return Task.FromResult(true); }
             if (this.CancelToken == CancellationToken.None) { return Task.FromResult(true); }
-            if (CurrentTask != null && CurrentTask.IsCompleted) { return Task.FromResult(true); }
+            if (this.CurrentTask == null) return Task.FromResult(true);
+            if (CurrentTask != null && CurrentTask.IsCompleted) return Task.FromResult(true); 
             bool askCancel = this.CancelToken.CanBeCanceled && !this.CancelToken.IsCancellationRequested;
 
             try
@@ -82,69 +81,26 @@ namespace PixelStacker.Logic.Utilities
             return Task.FromResult(true);
         }
 
-        private async Task<T> TryTaskCatchCancelAsync<T>(Task<T> task)
-        {
-            try { return await task; }
-            catch (TaskCanceledException) { }
-            catch (OperationCanceledException) { }
-            catch (AggregateException aex)
-            {
-                if (aex.Flatten().InnerExceptions.Any(x =>
-                    x.GetType() != typeof(TaskCanceledException)
-                    && x.GetType() != typeof(OperationCanceledException))
-                ) throw;
-            }
+        //private async Task<T> TryTaskCatchCancelAsync<T>(Task<T> task)
+        //{
+        //    try { return await task; }
+        //    catch (TaskCanceledException) { }
+        //    catch (OperationCanceledException) { }
+        //    catch (AggregateException aex)
+        //    {
+        //        if (aex.Flatten().InnerExceptions.Any(x =>
+        //            x.GetType() != typeof(TaskCanceledException)
+        //            && x.GetType() != typeof(OperationCanceledException))
+        //        ) throw;
+        //    }
 
-            return default(T);
-        }
+        //    return default(T);
+        //}
 
-        private async Task<bool> TryTaskCatchCancelAsync(Task task)
-        {
-            try { await task; return true; }
-            catch (TaskCanceledException) { }
-            catch (OperationCanceledException) { }
-            catch (AggregateException aex)
-            {
-                if (aex.Flatten().InnerExceptions.Any(x =>
-                    x.GetType() != typeof(TaskCanceledException)
-                    && x.GetType() != typeof(OperationCanceledException))
-                ) throw;
-            }
 
-            return false;
-        }
-
-        private void TryTaskCatchCancelAsync(Action task)
-        {
-            try { task.Invoke(); return; }
-            catch (TaskCanceledException) { }
-            catch (OperationCanceledException) { }
-            catch (AggregateException aex)
-            {
-                if (aex.Flatten().InnerExceptions.Any(x =>
-                    x.GetType() != typeof(TaskCanceledException)
-                    && x.GetType() != typeof(OperationCanceledException))
-                ) throw;
-            }
-        }
-
-        private void TryTaskCatchCancelAsync(CancellationToken token, Action<CancellationToken> task)
-        {
-            try { task.Invoke(token); return; }
-            catch (TaskCanceledException) { }
-            catch (OperationCanceledException) { }
-            catch (AggregateException aex)
-            {
-                if (aex.Flatten().InnerExceptions.Any(x =>
-                    x.GetType() != typeof(TaskCanceledException)
-                    && x.GetType() != typeof(OperationCanceledException))
-                ) throw;
-            }
-        }
         #endregion CANCEL
-
         #region START
-        public async Task StartAsync(Action<CancellationToken> task)
+        public async Task StartAsync(Func<CancellationToken, Task> task)
         {
             try
             {
@@ -152,7 +108,7 @@ namespace PixelStacker.Logic.Utilities
                 this.CancelTokenSource?.DisposeSafely();
                 this.CancelTokenSource = new CancellationTokenSource();
                 this.CancelToken = this.CancelTokenSource.Token;
-                this.CurrentTask = Task.Run(() => task(this.CancelToken));
+                this.CurrentTask = Task.Run(() => task.Invoke(this.CancelToken));
                 await this.CurrentTask;
             }
             catch (TaskCanceledException) { }
@@ -166,16 +122,26 @@ namespace PixelStacker.Logic.Utilities
             }
         }
 
-        public async Task<T> StartAsync<T>(Func<CancellationToken, Task<T>> task)
+        public async Task StartAsync(Action<CancellationToken> task)
         {
-            await this.CancelTasks();
-            this.CancelTokenSource?.DisposeSafely();
-            this.CancelTokenSource = new CancellationTokenSource();
-            this.CancelToken = this.CancelTokenSource.Token;
-
-            // This will explode.
-            this.CurrentTask = TryTaskCatchCancelAsync(task(this.CancelToken));
-            return (T)await (Task<T>)this.CurrentTask;
+            try
+            {
+                await this.CancelTasks();
+                this.CancelTokenSource?.DisposeSafely();
+                this.CancelTokenSource = new CancellationTokenSource();
+                this.CancelToken = this.CancelTokenSource.Token;
+                this.CurrentTask = Task.Run(() => task.Invoke(this.CancelToken));
+                await this.CurrentTask;
+            }
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
+            catch (AggregateException aex)
+            {
+                if (aex.Flatten().InnerExceptions.Any(x =>
+                    x.GetType() != typeof(TaskCanceledException)
+                    && x.GetType() != typeof(OperationCanceledException))
+                ) throw;
+            }
         }
 
         #endregion START

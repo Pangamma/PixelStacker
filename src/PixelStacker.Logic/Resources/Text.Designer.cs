@@ -1048,6 +1048,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color map has been compiled..
+        /// </summary>
+        public static string Progress_CompiledColorMap {
+            get {
+                return ResourceManager.GetString("Progress_CompiledColorMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compiling color map..
         /// </summary>
         public static string Progress_CompilingColorMap {

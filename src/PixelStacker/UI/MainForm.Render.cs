@@ -15,6 +15,8 @@ namespace PixelStacker.UI
 
         private async void renderToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!RateLimit.Check(1, 250)) return;
+
             await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
             {
                 var engine = new RenderCanvasEngine();

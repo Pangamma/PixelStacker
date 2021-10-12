@@ -106,6 +106,7 @@
   "PreRenderOptions_Parallel": "Parallel",
   "PreRenderOptions_Parallel_Tooltip": "Speed up the quantizing process by taking\nadvantage of a multicore CPU. \n\nLower values = more stable\nHigher values = faster\nSuper high values = possible glitches",
   "PreRenderOptions_QuantizerSettings": "QuantizerSettings",
+  "Progress_CompiledColorMap": "Color map has been compiled.",
   "Progress_CompilingColorMap": "Compiling color map.",
   "Progress_Finished": "Finished.",
   "Progress_PreparingCanvasForTextures": "Preparing canvas for painting.",

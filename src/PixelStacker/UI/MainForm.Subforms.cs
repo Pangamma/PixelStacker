@@ -15,7 +15,7 @@ namespace PixelStacker.UI
         {
             if (this.MaterialOptions == null)
             {
-                this.MaterialOptions = new MaterialSelectWindow();
+                this.MaterialOptions = new MaterialSelectWindow(this.Options);
 
                 this.MaterialOptions.OnColorPaletteRecompileRequested = (token) => {
                     ProgressX.Report(40, Resources.Text.Progress_CompilingColorMap);
@@ -28,6 +28,7 @@ namespace PixelStacker.UI
                     .ToList();
 
                     this.ColorMapper.SetSeedData(combos, this.Palette, this.Options.Preprocessor.IsSideView);
+                    ProgressX.Report(100, Resources.Text.Progress_CompiledColorMap);
                 };
             }
 

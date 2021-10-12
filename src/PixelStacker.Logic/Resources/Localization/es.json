@@ -115,5 +115,6 @@
   "MainMenu_Lang_Dutch": "holandés",
   "Error_ImageTooLarge": "Tu imagen es demasiado grande para procesarla.",
   "Operation_Cancelled": "Operación cancelada.",
-  "RenderEngine_ConvertingToBlocks": "Conversión de píxeles en bloques de Minecraft."
+  "RenderEngine_ConvertingToBlocks": "Conversión de píxeles en bloques de Minecraft.",
+  "Progress_CompiledColorMap": "Se ha compilado el mapa de colores."
 }

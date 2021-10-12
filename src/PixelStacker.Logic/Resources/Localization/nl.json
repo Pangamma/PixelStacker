@@ -115,5 +115,6 @@
   "RenderedImagePanel_ReplaceColor": "Kleur vervangen (vereist opnieuw renderen)",
   "Error_ImageTooLarge": "Uw afbeelding is te groot om te verwerken.",
   "Operation_Cancelled": "Operatie geannuleerd.",
-  "RenderEngine_ConvertingToBlocks": "Pixels omzetten in Minecraft-blokken."
+  "RenderEngine_ConvertingToBlocks": "Pixels omzetten in Minecraft-blokken.",
+  "Progress_CompiledColorMap": "Kleurenkaart is samengesteld."
 }

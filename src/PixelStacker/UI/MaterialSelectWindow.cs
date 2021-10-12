@@ -343,7 +343,7 @@ namespace PixelStacker.UI
             
             if (OnColorPaletteRecompileRequested != null)
             {
-                await TaskManager.Get.StartAsync(OnColorPaletteRecompileRequested);
+                await Task.Run(() => TaskManager.Get.StartAsync(OnColorPaletteRecompileRequested));
             }
 
             this.Hide();

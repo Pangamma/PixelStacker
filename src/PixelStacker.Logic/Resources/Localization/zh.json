@@ -115,5 +115,6 @@
   "MainMenu_Lang_Dutch": "荷兰语",
   "Error_ImageTooLarge": "您的图像太大而无法处理。",
   "Operation_Cancelled": "操作取消。",
-  "RenderEngine_ConvertingToBlocks": "将像素转换为 Minecraft 块。"
+  "RenderEngine_ConvertingToBlocks": "将像素转换为 Minecraft 块。",
+  "Progress_CompiledColorMap": "色图已编译。"
 }

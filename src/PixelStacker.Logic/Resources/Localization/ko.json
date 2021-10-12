@@ -115,5 +115,6 @@
   "MainMenu_Lang_Dutch": "네덜란드 사람",
   "Error_ImageTooLarge": "이미지가 너무 커서 처리할 수 없습니다.",
   "Operation_Cancelled": "작업이 취소되었습니다.",
-  "RenderEngine_ConvertingToBlocks": "픽셀을 Minecraft 블록으로 변환합니다."
+  "RenderEngine_ConvertingToBlocks": "픽셀을 Minecraft 블록으로 변환합니다.",
+  "Progress_CompiledColorMap": "컬러 맵이 컴파일되었습니다."
 }

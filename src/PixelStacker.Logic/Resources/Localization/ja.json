@@ -115,5 +115,6 @@
   "MainMenu_Lang_Dutch": "オランダの",
   "Error_ImageTooLarge": "画像が大きすぎて処理できません。",
   "Operation_Cancelled": "操作はキャンセルされました。",
-  "RenderEngine_ConvertingToBlocks": "ピクセルをMinecraftブロックに変換します。"
+  "RenderEngine_ConvertingToBlocks": "ピクセルをMinecraftブロックに変換します。",
+  "Progress_CompiledColorMap": "カラーマップを作成しました。"
 }

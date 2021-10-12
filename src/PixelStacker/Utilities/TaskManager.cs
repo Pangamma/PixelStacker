@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Utilities
 {
-    [Obsolete("Use the one in logic instead.")]
+    [Obsolete("Use the one in logic instead.", true)]
     public class TaskManager
     {
         private static TaskManager _Get = null;

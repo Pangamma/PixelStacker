@@ -463,6 +463,9 @@ Super high values = possible glitches</value>
   <data name="PreRenderOptions_QuantizerSettings" xml:space="preserve">
     <value>QuantizerSettings</value>
   </data>
+  <data name="Progress_CompiledColorMap" xml:space="preserve">
+    <value>Color map has been compiled.</value>
+  </data>
   <data name="Progress_CompilingColorMap" xml:space="preserve">
     <value>Compiling color map.</value>
   </data>

@@ -62,6 +62,7 @@ namespace PixelStacker.Logic
                     int ww = cW; // Make local variables
                     int hh = cH;
                     tasks[i++] = Task.Run(() => {
+                        worker.Value.ThrowIfCancellationRequested();
                         RenderToBitmap(ww, hh, srcPixelsPerChunk, data, canvas);
                         int nVal = Interlocked.Increment(ref numChunksSoFar);
                         ProgressX.Report(100 * nVal / totalChunks);
