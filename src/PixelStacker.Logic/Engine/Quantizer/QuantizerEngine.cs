@@ -82,7 +82,6 @@ namespace SimplePaletteQuantizer
                 opts.DithererList = new OrderedDictionary<string, IColorDitherer>
                 {
                     { "No dithering", null },
-                    { "--[ Ordered ]--", null },
                     { "Bayer dithering (4x4)", new BayerDitherer4() },
                     { "Bayer dithering (8x8)", new BayerDitherer8() },
                     { "Clustered dot (4x4)", new ClusteredDotDitherer() },

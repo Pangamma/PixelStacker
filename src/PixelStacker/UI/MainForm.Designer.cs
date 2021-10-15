@@ -31,6 +31,7 @@ namespace PixelStacker.UI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            PixelStacker.IO.Config.PanZoomSettings panZoomSettings1 = new PixelStacker.IO.Config.PanZoomSettings();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,6 +73,7 @@ namespace PixelStacker.UI
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblProgress = new System.Windows.Forms.Label();
+            this.imagePanel1 = new PixelStacker.WF.Components.ImagePanel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -247,20 +249,20 @@ namespace PixelStacker.UI
             // selectMaterialsToolStripMenuItem
             // 
             this.selectMaterialsToolStripMenuItem.Name = "selectMaterialsToolStripMenuItem";
-            this.selectMaterialsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.selectMaterialsToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.selectMaterialsToolStripMenuItem.Text = "Select Materials";
             this.selectMaterialsToolStripMenuItem.Click += new System.EventHandler(this.selectMaterialsToolStripMenuItem_Click);
             // 
             // preprocessingToolStripMenuItem
             // 
             this.preprocessingToolStripMenuItem.Name = "preprocessingToolStripMenuItem";
-            this.preprocessingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.preprocessingToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.preprocessingToolStripMenuItem.Text = "Preprocessing";
             // 
             // sizingToolStripMenuItem
             // 
             this.sizingToolStripMenuItem.Name = "sizingToolStripMenuItem";
-            this.sizingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.sizingToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.sizingToolStripMenuItem.Text = "Sizing";
             // 
             // orientationToolStripMenuItem
@@ -269,7 +271,7 @@ namespace PixelStacker.UI
             this.horizontalToolStripMenuItem,
             this.verticalToolStripMenuItem});
             this.orientationToolStripMenuItem.Name = "orientationToolStripMenuItem";
-            this.orientationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.orientationToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.orientationToolStripMenuItem.Text = "Orientation";
             // 
             // horizontalToolStripMenuItem
@@ -290,7 +292,7 @@ namespace PixelStacker.UI
             // 
             this.renderToolStripMenuItem.Name = "renderToolStripMenuItem";
             this.renderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.renderToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.renderToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.renderToolStripMenuItem.Text = "Render";
             this.renderToolStripMenuItem.Click += new System.EventHandler(this.renderToolStripMenuItem_Click);
             // 
@@ -416,6 +418,18 @@ namespace PixelStacker.UI
             this.lblProgress.TabIndex = 2;
             this.lblProgress.Text = "Progress status message";
             // 
+            // imagePanel1
+            // 
+            this.imagePanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.imagePanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imagePanel1.BackgroundImage")));
+            this.imagePanel1.Location = new System.Drawing.Point(0, 31);
+            this.imagePanel1.Name = "imagePanel1";
+            this.imagePanel1.PanZoomSettings = panZoomSettings1;
+            this.imagePanel1.Size = new System.Drawing.Size(800, 391);
+            this.imagePanel1.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -424,6 +438,7 @@ namespace PixelStacker.UI
             this.Controls.Add(this.lblProgress);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.imagePanel1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MainForm";
@@ -477,5 +492,6 @@ namespace PixelStacker.UI
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.ToolStripMenuItem helloToolStripMenuItem;
+        private WF.Components.ImagePanel imagePanel1;
     }
 }

@@ -1,4 +1,5 @@
-﻿using PixelStacker.Logic;
+﻿using PixelStacker.IO.Config;
+using PixelStacker.Logic;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
@@ -12,6 +13,10 @@ namespace PixelStacker.UI
 {
     public partial class MainForm
     {
+        private void RenderToImagePanel()
+        {
+            this.imagePanel1.SetImage(this.LoadedImage, null);
+        }
 
         private async void renderToolStripMenuItem_Click(object sender, EventArgs e)
         {

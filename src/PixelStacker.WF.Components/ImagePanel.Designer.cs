@@ -1,4 +1,5 @@
-﻿namespace PixelStacker.UI
+﻿
+namespace PixelStacker.WF.Components
 {
     partial class ImagePanel
     {
@@ -16,7 +17,6 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
-                this.image.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -29,18 +29,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.repaintTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // repaintTimer
+            // 
+            this.repaintTimer.Enabled = true;
+            this.repaintTimer.Interval = 15;
+            this.repaintTimer.Tick += new System.EventHandler(this.repaintTimer_Tick);
             // 
             // ImagePanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
-            this.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.DoubleBuffered = true;
-            this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
             this.Name = "ImagePanel";
-            this.Size = new System.Drawing.Size(509, 297);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseUp);
@@ -49,5 +52,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer repaintTimer;
     }
 }

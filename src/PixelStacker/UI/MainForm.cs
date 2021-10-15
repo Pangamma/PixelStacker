@@ -35,7 +35,7 @@ namespace PixelStacker.UI
             this.Palette = MaterialPalette.FromResx();
 
             InitializeComponent();
-
+            RenderToImagePanel();
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(this.Options.Locale ?? "en-us");
             ApplyLocalization(System.Threading.Thread.CurrentThread.CurrentUICulture);
         }

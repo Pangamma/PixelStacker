@@ -26,6 +26,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Properties\UIResources.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FastBitmapLib" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>

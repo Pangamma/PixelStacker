@@ -111,7 +111,7 @@ namespace PixelStacker.UI
             if (e.Delta != 0)
             {
                 Point panelPoint = e.Location;
-                Point imagePoint = this.getPointOnImage(panelPoint, EstimateProp.Round);
+                Point imagePoint = this.GetPointOnImage(panelPoint, EstimateProp.Round);
                 if (e.Delta < 0)
                 {
                     MainForm.PanZoomSettings.zoomLevel *= 0.8;
@@ -155,7 +155,7 @@ namespace PixelStacker.UI
 
         #endregion 
 
-        private Point getPointOnImage(Point pointOnPanel, EstimateProp prop)
+        private Point GetPointOnImage(Point pointOnPanel, EstimateProp prop)
         {
             if (prop == EstimateProp.Ceil)
             {
@@ -189,7 +189,7 @@ namespace PixelStacker.UI
         [Obsolete("Not in use.")]
         private Point getShowingStart()
         {
-            Point showingStart = getPointOnImage(new Point(0, 0), EstimateProp.Floor);
+            Point showingStart = GetPointOnImage(new Point(0, 0), EstimateProp.Floor);
             showingStart.X = (showingStart.X < 0 ? 0 : showingStart.X);
             showingStart.Y = (showingStart.Y < 0 ? 0 : showingStart.Y);
             return showingStart;
@@ -198,7 +198,7 @@ namespace PixelStacker.UI
         [Obsolete("Not in use.")]
         private Point getShowingEnd(double origW, double origH)
         {
-            Point showingEnd = getPointOnImage(new Point(Width, Height), EstimateProp.Ceil);
+            Point showingEnd = GetPointOnImage(new Point(Width, Height), EstimateProp.Ceil);
             showingEnd.X = (showingEnd.X > origW ? (int)origW : showingEnd.X);
             showingEnd.Y = (showingEnd.Y > origH ? (int)origH : showingEnd.Y);
             return showingEnd;

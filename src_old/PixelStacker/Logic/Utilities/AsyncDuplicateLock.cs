@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Logic
 {
+    /// <summary>
+    /// Still not sure why I ever used this in the past.
+    /// </summary>
     public sealed class AsyncDuplicateLock
     {
         public static AsyncDuplicateLock Get { get { if (AsyncDuplicateLock._self == null) { AsyncDuplicateLock._self = new AsyncDuplicateLock(); } return AsyncDuplicateLock._self; } }
