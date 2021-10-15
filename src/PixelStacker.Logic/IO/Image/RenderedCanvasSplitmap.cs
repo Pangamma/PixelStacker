@@ -109,21 +109,21 @@ namespace PixelStacker.Logic
                 }
             }
 
-            double scale = 1;
-            for (int i = 1; i < splitmap.Bitmaps.Count; i++)
-            {
-                scale /= 2;
+            //double scale = 1;
+            //for (int i = 1; i < splitmap.Bitmaps.Count; i++)
+            //{
+            //    scale /= 2;
 
-                Bitmap bmSmall = new Bitmap((int)(bmW * scale), (int) (bmH * scale), System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                using (Graphics g = Graphics.FromImage(bmSmall))
-                {
-                    lock (bm)
-                    {
-                        g.DrawImage(bm, 0, 0, bmSmall.Width, bmSmall.Height);
-                    splitmap.Bitmaps[i][cW, cH] = bmSmall;
-                    }
-                }
-            }
+            //    Bitmap bmSmall = new Bitmap((int)(bmW * scale), (int) (bmH * scale), System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            //    using (Graphics g = Graphics.FromImage(bmSmall))
+            //    {
+            //        lock (bm)
+            //        {
+            //            g.DrawImage(bm, 0, 0, bmSmall.Width, bmSmall.Height);
+            //        splitmap.Bitmaps[i][cW, cH] = bmSmall;
+            //        }
+            //    }
+            //}
         }
 
         public void Render(Graphics g)
