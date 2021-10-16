@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PixelStacker.UI
+namespace PixelStacker.WF.Components
 {
     public partial class MaterialSelectTile : UserControl
     {

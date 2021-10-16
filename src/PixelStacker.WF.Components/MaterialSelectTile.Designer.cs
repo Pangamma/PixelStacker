@@ -1,7 +1,7 @@
 ﻿
 namespace PixelStacker.WF.Components
 {
-    partial class ImagePanel
+    partial class MaterialSelectTile
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,30 +29,27 @@ namespace PixelStacker.WF.Components
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.repaintTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // repaintTimer
-            // 
-            this.repaintTimer.Enabled = true;
-            this.repaintTimer.Interval = 15;
-            this.repaintTimer.Tick += new System.EventHandler(this.repaintTimer_Tick);
-            // 
-            // ImagePanel
+            // MaterialSelectTile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "ImagePanel";
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseUp);
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Name = "MaterialSelectTile";
+            this.Size = new System.Drawing.Size(64, 64);
+            this.Click += new System.EventHandler(this.MaterialSelectTile_Click);
+            this.Enter += new System.EventHandler(this.MaterialSelectTile_Enter);
+            this.Leave += new System.EventHandler(this.MaterialSelectTile_Leave);
+            this.MouseEnter += new System.EventHandler(this.MaterialSelectTile_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.MaterialSelectTile_MouseLeave);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer repaintTimer;
     }
 }

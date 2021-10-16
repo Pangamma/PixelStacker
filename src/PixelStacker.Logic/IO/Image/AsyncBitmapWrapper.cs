@@ -41,7 +41,7 @@ namespace PixelStacker.IO.Image
             try
             {
                 bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
-                    ImageLockMode.ReadOnly, bitmap.PixelFormat);
+                    ImageLockMode.ReadWrite, bitmap.PixelFormat);
 
                 Buffer = bitmapData.Scan0;
                 Stride = bitmapData.Stride;

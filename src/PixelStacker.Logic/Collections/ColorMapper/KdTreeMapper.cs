@@ -51,7 +51,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
                     return mc;
                 }
 
-                if (c.A < 32) return Palette[Constants.MaterialCombinationIDForAir];
+                if (c.A < 32)return Palette[Constants.MaterialCombinationIDForAir];
                 var closest = KdTree.GetNearestNeighbours(new float[] { c.R, c.G, c.B }, 10);
                 var found = closest.MinBy(x => c.GetAverageColorDistance(x.Value.GetColorsInImage(this.IsSideView)));
                 Cache[c] = found.Value;

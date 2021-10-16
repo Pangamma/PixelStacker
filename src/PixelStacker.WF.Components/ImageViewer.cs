@@ -14,10 +14,10 @@ using System.Windows.Forms;
 
 namespace PixelStacker.WF.Components
 {
-    [ToolboxItemFilter("PixelStacker.WF.Components.ImagePanel", ToolboxItemFilterType.Require)]
-    public partial class ImagePanel : UserControl
+    [ToolboxItemFilter("PixelStacker.WF.Components.ImageViewer", ToolboxItemFilterType.Require)]
+    public partial class ImageViewer : UserControl
     {
-        private Point initialDragPoint;
+        private Point InitialDragPoint;
         private object Padlock = new { };
         private bool IsDragging = false;
         private bool _WasDragged = false;
@@ -41,7 +41,7 @@ namespace PixelStacker.WF.Components
 
         public PanZoomSettings PanZoomSettings { get; set; }
 
-        public ImagePanel()
+        public ImageViewer()
         {
             this.DoubleBuffered = true;
             InitializeComponent();
@@ -101,7 +101,7 @@ namespace PixelStacker.WF.Components
             return settings;
         }
 
-        [Category("ImagePanel")]
+        [Category("ImageViewer")]
         [Browsable(true)]
         private Bitmap Image { get; set; }
 
@@ -116,7 +116,7 @@ namespace PixelStacker.WF.Components
 
             if (this.DesignMode && this.BackgroundImage != null)
             {
-                using Brush bgBrush = new TextureBrush(this.BackgroundImage);
+                using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
                 g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
             }
 
@@ -219,28 +219,28 @@ namespace PixelStacker.WF.Components
             }
         }
 
-        private void ImagePanel_MouseDown(object sender, MouseEventArgs e)
+        private void ImageViewer_MouseDown(object sender, MouseEventArgs e)
         {
-            this.initialDragPoint = e.Location;
+            this.InitialDragPoint = e.Location;
             this.PanZoomSettings.initialImageX = this.PanZoomSettings.imageX;
             this.PanZoomSettings.initialImageY = this.PanZoomSettings.imageY;
             this.Cursor = new Cursor(Resources.UIResources.cursor_handclosed.GetHicon());
             this.IsDragging = true;
         }
 
-        private void ImagePanel_MouseUp(object sender, MouseEventArgs e)
+        private void ImageViewer_MouseUp(object sender, MouseEventArgs e)
         {
             this.Cursor = Cursors.Arrow;
             this.IsDragging = false;
         }
 
-        private void ImagePanel_MouseMove(object sender, MouseEventArgs e)
+        private void ImageViewer_MouseMove(object sender, MouseEventArgs e)
         {
             if (IsDragging)
             {
                 Point point = e.Location;
-                this.PanZoomSettings.imageX = this.PanZoomSettings.initialImageX - (this.initialDragPoint.X - point.X);
-                this.PanZoomSettings.imageY = this.PanZoomSettings.initialImageY - (this.initialDragPoint.Y - point.Y);
+                this.PanZoomSettings.imageX = this.PanZoomSettings.initialImageX - (this.InitialDragPoint.X - point.X);
+                this.PanZoomSettings.imageY = this.PanZoomSettings.initialImageY - (this.InitialDragPoint.Y - point.Y);
                 this.WasDragged = true;
             }
         }

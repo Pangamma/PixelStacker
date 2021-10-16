@@ -1,0 +1,49 @@
+﻿using PixelStacker.IO.Config;
+using PixelStacker.Logic.Engine;
+using PixelStacker.Logic.Model;
+using PixelStacker.Logic.Utilities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace PixelStacker.UI
+{
+    public partial class RenderedImagePanel : UserControl
+    {
+        private Point initialDragPoint;
+        private object Padlock = new { };
+        private bool IsDragging = false;
+        private bool _WasDragged = false;
+        public RenderedCanvas Canvas { get; private set; }
+        private PanZoomSettings PanZoomSettings { get; set; }
+
+        public RenderedImagePanel()
+        {
+            InitializeComponent();
+            this.BackgroundImage = Resources.UIResources.bg_imagepanel;
+        }
+
+        public async Task SetRenderedImage(RenderedCanvas canvas, PanZoomSettings zoom = null)
+        {
+            int? textureSizeOut = RenderCanvasEngine.CalculateTextureSize(canvas.Width, canvas.Height, 2);
+            if (textureSizeOut == null)
+            {
+                ProgressX.Report(100, Resources.Text.Error_ImageTooLarge);
+                return;
+            }
+            
+            int textureSize = textureSizeOut.Value;
+            // possible to use faster math?
+
+            // DO not set these until ready
+            this.Canvas = canvas;
+            this.PanZoomSettings = zoom;
+        }
+    }
+}

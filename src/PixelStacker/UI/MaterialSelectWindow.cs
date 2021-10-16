@@ -217,15 +217,15 @@ namespace PixelStacker.UI
         private void OnMouseEnter_Tile(object sender, EventArgs e)
         {
             //this.lblInfo.Text = ((MaterialSelectTile)sender).Material.Label;
-            this.lblInfo.Text = ((MaterialSelectTile)sender).Material.PixelStackerID;
+            this.lblInfo.Text = ((PixelStacker.WF.Components.MaterialSelectTile)sender).Material.PixelStackerID;
         }
 
-        private MaterialSelectTile previouslyClickedTile = null;
+        private PixelStacker.WF.Components.MaterialSelectTile previouslyClickedTile = null;
         private void OnMouseClick_Tile(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                var currentTile = (MaterialSelectTile)sender;
+                var currentTile = (PixelStacker.WF.Components.MaterialSelectTile)sender;
                 if (!Control.ModifierKeys.HasFlag(Keys.Shift) || previouslyClickedTile == null)
                 {
                     previouslyClickedTile = currentTile;
@@ -245,7 +245,7 @@ namespace PixelStacker.UI
 
                     int minI = Math.Min(idxA, idxB);
                     int maxI = Math.Max(idxA, idxB);
-                    cRef.TilePanel.Controls.OfType<MaterialSelectTile>()
+                    cRef.TilePanel.Controls.OfType<PixelStacker.WF.Components.MaterialSelectTile>()
                         .Skip(minI).Take(maxI - minI).ToList()
                         .ForEach(x =>
                         {

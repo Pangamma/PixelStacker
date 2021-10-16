@@ -1005,6 +1005,10 @@ namespace PixelStacker.UI
             return showingEnd;
         }
 
+        public enum EstimateProp
+        {
+            Floor, Ceil, Round
+        }
 
         private int getRoundedZoomDistance(int x, int deltaX)
         {
@@ -1019,11 +1023,6 @@ namespace PixelStacker.UI
         private int getRoundedZoomY(int val, int blockSize)
         {
             return (int) Math.Floor(MainForm.PanZoomSettings.imageY + val * blockSize * MainForm.PanZoomSettings.zoomLevel);
-        }
-
-        public enum EstimateProp
-        {
-            Floor, Ceil, Round
         }
 
         private void RenderedImagePanel_DoubleClick(object sender, MouseEventArgs e)

@@ -31,7 +31,7 @@ namespace PixelStacker.UI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            PixelStacker.IO.Config.PanZoomSettings panZoomSettings1 = new PixelStacker.IO.Config.PanZoomSettings();
+            PixelStacker.IO.Config.PanZoomSettings panZoomSettings3 = new PixelStacker.IO.Config.PanZoomSettings();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +73,8 @@ namespace PixelStacker.UI
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblProgress = new System.Windows.Forms.Label();
-            this.imagePanel1 = new PixelStacker.WF.Components.ImagePanel();
+            this.imageViewer = new PixelStacker.WF.Components.ImageViewer();
+            this.canvasEditor = new PixelStacker.UI.CanvasEditor();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -397,7 +398,7 @@ namespace PixelStacker.UI
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(0, 425);
+            this.progressBar1.Location = new System.Drawing.Point(0, 420);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(800, 29);
             this.progressBar1.TabIndex = 1;
@@ -412,23 +413,36 @@ namespace PixelStacker.UI
             this.lblProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblProgress.AutoSize = true;
             this.lblProgress.BackColor = System.Drawing.Color.Transparent;
-            this.lblProgress.Location = new System.Drawing.Point(0, 402);
+            this.lblProgress.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
+            this.lblProgress.Location = new System.Drawing.Point(5, 424);
+            this.lblProgress.Margin = new System.Windows.Forms.Padding(0);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(169, 20);
             this.lblProgress.TabIndex = 2;
             this.lblProgress.Text = "Progress status message";
             // 
-            // imagePanel1
+            // imageViewer
             // 
-            this.imagePanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.imageViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.imagePanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imagePanel1.BackgroundImage")));
-            this.imagePanel1.Location = new System.Drawing.Point(0, 31);
-            this.imagePanel1.Name = "imagePanel1";
-            this.imagePanel1.PanZoomSettings = panZoomSettings1;
-            this.imagePanel1.Size = new System.Drawing.Size(800, 391);
-            this.imagePanel1.TabIndex = 5;
+            this.imageViewer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageViewer.BackgroundImage")));
+            this.imageViewer.Location = new System.Drawing.Point(0, 28);
+            this.imageViewer.Name = "imageViewer";
+            this.imageViewer.PanZoomSettings = panZoomSettings3;
+            this.imageViewer.Size = new System.Drawing.Size(800, 421);
+            this.imageViewer.TabIndex = 5;
+            // 
+            // canvasEditor
+            // 
+            this.canvasEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.canvasEditor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("canvasEditor.BackgroundImage")));
+            this.canvasEditor.Location = new System.Drawing.Point(0, 28);
+            this.canvasEditor.Name = "canvasEditor";
+            this.canvasEditor.Size = new System.Drawing.Size(800, 421);
+            this.canvasEditor.TabIndex = 6;
             // 
             // MainForm
             // 
@@ -438,7 +452,8 @@ namespace PixelStacker.UI
             this.Controls.Add(this.lblProgress);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.imagePanel1);
+            this.Controls.Add(this.imageViewer);
+            this.Controls.Add(this.canvasEditor);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MainForm";
@@ -492,6 +507,7 @@ namespace PixelStacker.UI
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.ToolStripMenuItem helloToolStripMenuItem;
-        private WF.Components.ImagePanel imagePanel1;
+        private WF.Components.ImageViewer imageViewer;
+        private CanvasEditor canvasEditor;
     }
 }

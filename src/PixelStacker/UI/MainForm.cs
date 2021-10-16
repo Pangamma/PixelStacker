@@ -25,7 +25,7 @@ namespace PixelStacker.UI
         private Options Options;
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
-        public Bitmap LoadedImage { get; private set; } = UIResources.yuuuuge.To32bppBitmap();
+        public Bitmap LoadedImage { get; private set; } = UIResources.colorwheel.To32bppBitmap();
         private RenderedCanvas RenderedCanvas;
 
         public MainForm()
@@ -35,7 +35,13 @@ namespace PixelStacker.UI
             this.Palette = MaterialPalette.FromResx();
 
             InitializeComponent();
-            RenderToImagePanel();
+            this.imageViewer.SetImage(this.LoadedImage);
+            ShowImageViewer();
+            this.lblProgress.Parent = this.progressBar1;
+            this.lblProgress.BackColor = Color.Transparent;
+
+
+            // Localization
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(this.Options.Locale ?? "en-us");
             ApplyLocalization(System.Threading.Thread.CurrentThread.CurrentUICulture);
         }

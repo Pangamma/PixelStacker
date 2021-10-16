@@ -1,7 +1,7 @@
 ﻿
 namespace PixelStacker.UI
 {
-    partial class MaterialSelectTile
+    partial class RenderedImagePanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,27 +29,28 @@ namespace PixelStacker.UI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.timerPaint = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // MaterialSelectTile
+            // timerPaint
+            // 
+            this.timerPaint.Enabled = true;
+            this.timerPaint.Interval = 15;
+            this.timerPaint.Tick += new System.EventHandler(this.timerPaint_Tick);
+            // 
+            // RenderedImagePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "MaterialSelectTile";
-            this.Size = new System.Drawing.Size(64, 64);
-            this.Click += new System.EventHandler(this.MaterialSelectTile_Click);
-            this.Enter += new System.EventHandler(this.MaterialSelectTile_Enter);
-            this.Leave += new System.EventHandler(this.MaterialSelectTile_Leave);
-            this.MouseEnter += new System.EventHandler(this.MaterialSelectTile_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.MaterialSelectTile_MouseLeave);
+            this.Name = "RenderedImagePanel";
+            this.Size = new System.Drawing.Size(638, 399);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer timerPaint;
     }
 }

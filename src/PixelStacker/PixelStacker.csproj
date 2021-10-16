@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;FULL_VERSION</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;FULL_VERSION</DefineConstants>
     <OutputPath>bin\Debug\</OutputPath>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +43,21 @@
     </Compile>
     <Compile Update="UI\MainForm.*.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="UI\CanvasViewer.*.cs">
+      <DependentUpon>CanvasViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Update="UI\CanvasEditor.cs">
+    </Compile>
+    <Compile Update="UI\CanvasEditor.*.cs">
+      <DependentUpon>CanvasEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Update="UI\RenderedImagePanel.cs">
+    </Compile>
+    <Compile Update="UI\RenderedImagePanel.*.cs">
+      <DependentUpon>RenderedImagePanel.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 
