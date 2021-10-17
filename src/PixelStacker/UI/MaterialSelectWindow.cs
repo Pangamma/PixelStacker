@@ -11,7 +11,6 @@ using PixelStacker.WF.Components;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -298,7 +297,7 @@ namespace PixelStacker.UI
         // *-----------------+--------------------------------------------------------------------*
         // *                   F O R M _ V I S I B I L I T Y                                      *
         // *-----------------+--------------------------------------------------------------------*
-        protected async Task TryHide()
+        protected async Task TryHideAsync()
         {
             if (this.Options.IsMultiLayerRequired)
             {
@@ -327,7 +326,7 @@ namespace PixelStacker.UI
                 return;
             }
 
-            if (!Materials.List.Any(x => x.IsEnabledF(this.Options) && x.Category != "Glass" && x.PixelStackerID != "AIR" && x.IsVisible))
+            if (!Materials.List.Any(x => x.IsEnabledF(this.Options) && x.Category != "Glass" && x.PixelStackerID != "AIR" && x.IsVisibleF(this.Options)))
             {
                 MessageBox.Show(
                     text: Resources.Text.Error_NonGlassRequired,
@@ -349,12 +348,12 @@ namespace PixelStacker.UI
             this.Hide();
         }
 
-        private void MaterialSelectWindow_FormClosing(object sender, FormClosingEventArgs e)
+        private async void MaterialSelectWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
-                this.TryHide();
+                await this.TryHideAsync();
             }
         }
 #endregion Form visibility
@@ -629,7 +628,7 @@ namespace PixelStacker.UI
 
             var newList = Materials.List.Where(x =>
             {
-                if (!x.IsVisible) return false;
+                if (!x.IsVisibleF(this.Options)) return false;
 
                 if (needle == "on" || needle == "enabled" || needle == "active")
                 {
@@ -763,7 +762,8 @@ namespace PixelStacker.UI
         {
             if (keyData == Keys.Escape)
             {
-                this.TryHide();
+                var task = this.TryHideAsync();
+                task.Wait();
                 return true;
             }
 

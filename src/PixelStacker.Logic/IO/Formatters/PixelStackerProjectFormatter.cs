@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PixelStacker.IO.Formatters
+namespace PixelStacker.Logic.IO.Formatters
 {
     public class PixelStackerProjectFormatter : IImportFormatter, IExportFormatter
     {
@@ -38,6 +38,9 @@ namespace PixelStacker.IO.Formatters
             string rt = buffer.ToString();
             return rt;
         }
+
+        public bool CanImportFile(string filePath)
+            => filePath.EndsWith("pxlzip");
 
         public async Task ExportAsync(string filePath, RenderedCanvas canvas, CancellationToken? worker)
         {

@@ -83,7 +83,7 @@ namespace PixelStacker.Logic.Model
                 {
                     if (IsMultiLayer)
                     {
-                        _TopImage = Bottom.TopImage.ToMergeStream(Top.SideImage, null, (x, y, cLower, cUpper) => cLower.OverlayColor(cUpper));
+                        _TopImage = Bottom.TopImage.ToMergeStream(Top.TopImage, null, (x, y, cLower, cUpper) => cLower.OverlayColor(cUpper));
                     }
                     else
                     {

@@ -1,11 +1,5 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.IO.Config;
-using PixelStacker.Logic.IO.Config;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PixelStacker.IO
 {

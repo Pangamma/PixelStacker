@@ -1,17 +1,13 @@
 ﻿using PixelStacker.IO.Config;
 using PixelStacker.Resources;
 using System;
-using System.ComponentModel.Design.Serialization;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace PixelStacker.UI
 {
-    
+
     public partial class MainForm : ILocalized
     {
         private Bitmap GetLanguageImage(CultureInfo locale)

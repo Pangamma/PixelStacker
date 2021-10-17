@@ -1,7 +1,6 @@
 ﻿using PixelStacker.Logic.Model;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.IO.Formatters
 {
-    public interface IImportFormatter
+    public class SchemFormatter : IExportFormatter
     {
-        Task<RenderedCanvas> ImportAsync(string filePath, CancellationToken? worker = null);
-        bool CanImportFile(string filePath);
+        public Task ExportAsync(string filePath, RenderedCanvas canvas, CancellationToken? worker = null)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

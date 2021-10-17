@@ -1,13 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker.Extensions
 {
     public static class ExtendUI
     {
+        public static async Task<TResult> InvokeEx<TControl, TResult>(this TControl control, Func<TControl, Task<TResult>> func) where TControl : Control
+        {
+            TResult rt = default(TResult);
+            if (!control.IsDisposed)
+            {
+                var tsk = control.InvokeRequired
+                    ? (Task<TResult>)control.Invoke(func, control)
+                    : func(control);
+                rt = await tsk;
+            }
+            return rt;
+        }
+
         public static TResult InvokeEx<TControl, TResult>(this TControl control, Func<TControl, TResult> func) where TControl : Control
         {
             TResult rt = default(TResult);

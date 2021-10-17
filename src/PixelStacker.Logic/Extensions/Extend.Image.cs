@@ -414,15 +414,19 @@ namespace PixelStacker.Extensions
         /// <returns></returns>
         public static Bitmap ToMergeStream(this Bitmap origImage, Bitmap dstImage, CancellationToken? worker, Func<int, int, Color, Color, Color> callback)
         {
-            if (origImage.PixelFormat != PixelFormat.Format32bppArgb)
-            {
-                throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");
-            }
+            //if ((origImage.PixelFormat & PixelFormat.Format32bppArgb) != PixelFormat.Format32bppArgb)
+            //{
+            //    throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");
+            //}
 
-            if (dstImage.PixelFormat != PixelFormat.Format32bppArgb)
-            {
-                throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");
-            }
+            //if ((dstImage.PixelFormat & PixelFormat.Format32bppArgb) != PixelFormat.Format32bppArgb)
+            //{
+            //    throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");
+            //}
+            //if (dstImage.PixelFormat != PixelFormat.Format32bppArgb)
+            //{
+            //    throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");
+            //}
 
             BitmapData srcData;
             BitmapData dstData;
@@ -432,10 +436,10 @@ namespace PixelStacker.Extensions
             byte[] outImageBytes;
             var outImage = new Bitmap(origImage.Width, origImage.Height, PixelFormat.Format32bppArgb);
 
-            lock (origImage)
-            {
-                lock (dstImage)
-                {
+            //lock (origImage)
+            //{
+            //    lock (dstImage)
+            //    {
                     //Get the bitmap data
                     srcData = origImage.LockBits(new Rectangle(0, 0, origImage.Width, origImage.Height), ImageLockMode.ReadOnly, origImage.PixelFormat);
                     dstData = dstImage.LockBits(new Rectangle(0, 0, dstImage.Width, dstImage.Height), ImageLockMode.ReadOnly, dstImage.PixelFormat);
@@ -451,8 +455,8 @@ namespace PixelStacker.Extensions
                     //Unlock the bitmap
                     origImage.UnlockBits(srcData);
                     dstImage.UnlockBits(dstData);
-                }
-            }
+            //    }
+            //}
 
             //Find pixelsize
             int pixelSize = Image.GetPixelFormatSize(origImage.PixelFormat); // bits per pixel

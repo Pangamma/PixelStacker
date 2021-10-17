@@ -87,7 +87,21 @@ namespace PixelStacker.Logic.Model
         public static MaterialPalette FromResx()
         {
             var rt = ResxHelper.LoadJson<MaterialPalette>(DataResources.materialPalette);
+            rt.PrimePalette();
             return rt;
+        }
+
+        public void PrimePalette()
+        {
+            foreach(var kvp in ToPaletteID)
+            {
+                _ = kvp.Key.Top.TopImage;
+                _ = kvp.Key.Bottom.TopImage;
+                _ = kvp.Key.Top.SideImage;
+                _ = kvp.Key.Bottom.SideImage;
+                _ = kvp.Key.SideImage;
+                _ = kvp.Key.TopImage;
+            }
         }
 
         internal static MaterialPalette FromDictionary(Dictionary<int, MaterialCombination> dic)

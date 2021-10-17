@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PixelStacker.IO.Formatters
+namespace PixelStacker.Logic.IO.Formatters
 {
     public class SvgFormatter : IExportFormatter
     {

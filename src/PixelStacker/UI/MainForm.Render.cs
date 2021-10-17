@@ -4,10 +4,8 @@ using PixelStacker.Logic;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PixelStacker.UI
@@ -16,10 +14,18 @@ namespace PixelStacker.UI
     {
         private RenderedCanvasPainter CanvasPainter;
 
+        bool IsCanvasEditorVisible = false;
+        private void switchPanelsToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (IsCanvasEditorVisible) ShowImageViewer();
+            else ShowCanvasEditor();
+        }
+
         private void ShowImageViewer()
         {
             //this.imageViewer.SetImage(this.LoadedImage, null);
             this.canvasEditor.SendToBack();
+            this.IsCanvasEditorVisible = false;
         }
 
         private void ShowCanvasEditor()
@@ -28,6 +34,7 @@ namespace PixelStacker.UI
             //var pz = this.imageViewer.PanZoomSettings;
             //this.canvasEditor.SetCanvas(canvas, pz);
             this.imageViewer.SendToBack();
+            this.IsCanvasEditorVisible = true;
         }
 
         private async void renderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -63,6 +70,7 @@ namespace PixelStacker.UI
                 self.InvokeEx(cc =>
                 {
                     cc.ShowCanvasEditor();
+                    cc.TS_OnRenderCanvas();
                 });
             }));
         }

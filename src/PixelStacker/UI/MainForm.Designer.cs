@@ -31,11 +31,13 @@ namespace PixelStacker.UI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            PixelStacker.IO.Config.PanZoomSettings panZoomSettings2 = new PixelStacker.IO.Config.PanZoomSettings();
+            PixelStacker.IO.Config.PanZoomSettings panZoomSettings3 = new PixelStacker.IO.Config.PanZoomSettings();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +77,9 @@ namespace PixelStacker.UI
             this.lblProgress = new System.Windows.Forms.Label();
             this.imageViewer = new PixelStacker.WF.Components.ImageViewer();
             this.canvasEditor = new PixelStacker.UI.CanvasEditor();
+            this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
+            this.dlgSave = new System.Windows.Forms.SaveFileDialog();
+            this.switchPanelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,7 +102,9 @@ namespace PixelStacker.UI
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
-            this.saveToolStripMenuItem});
+            this.reOpenToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
@@ -106,16 +113,37 @@ namespace PixelStacker.UI
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
             this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // reOpenToolStripMenuItem
+            // 
+            this.reOpenToolStripMenuItem.Enabled = false;
+            this.reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
+            this.reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.reOpenToolStripMenuItem.Text = "Re-Open";
+            this.reOpenToolStripMenuItem.Click += new System.EventHandler(this.reOpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
+            this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Enabled = false;
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -130,14 +158,14 @@ namespace PixelStacker.UI
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.undoToolStripMenuItem.Text = "Undo";
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.redoToolStripMenuItem.Text = "Redo";
             // 
             // viewToolStripMenuItem
@@ -146,7 +174,8 @@ namespace PixelStacker.UI
             this.gridToolStripMenuItem,
             this.toggleBorderToolStripMenuItem,
             this.layerFilteringToolStripMenuItem,
-            this.shadowRenderingToolStripMenuItem});
+            this.shadowRenderingToolStripMenuItem,
+            this.switchPanelsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.viewToolStripMenuItem.Text = "View";
@@ -431,7 +460,7 @@ namespace PixelStacker.UI
             this.imageViewer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageViewer.BackgroundImage")));
             this.imageViewer.Location = new System.Drawing.Point(0, 28);
             this.imageViewer.Name = "imageViewer";
-            this.imageViewer.PanZoomSettings = panZoomSettings2;
+            this.imageViewer.PanZoomSettings = panZoomSettings3;
             this.imageViewer.Size = new System.Drawing.Size(800, 421);
             this.imageViewer.TabIndex = 5;
             // 
@@ -445,6 +474,30 @@ namespace PixelStacker.UI
             this.canvasEditor.Name = "canvasEditor";
             this.canvasEditor.Size = new System.Drawing.Size(800, 421);
             this.canvasEditor.TabIndex = 6;
+            // 
+            // dlgOpen
+            // 
+            this.dlgOpen.FileName = "openFileDialog1";
+            this.dlgOpen.Filter = "Supported Format|*.png;*.jpeg;*.jpg;*pxlzip|png|*.png|Jpeg|*.jpg;*.jpeg|PixelStac" +
+    "ker Project|*.pxlzip|All Files|*.*";
+            this.dlgOpen.Title = "Open File";
+            this.dlgOpen.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgOpen_FileOk);
+            // 
+            // dlgSave
+            // 
+            this.dlgSave.DefaultExt = "pxlzip";
+            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv|Pixe" +
+    "lStacker Project|*.pxlzip";
+            this.dlgSave.FilterIndex = 5;
+            this.dlgSave.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSave_FileOk);
+            // 
+            // switchPanelsToolStripMenuItem
+            // 
+            this.switchPanelsToolStripMenuItem.Name = "switchPanelsToolStripMenuItem";
+            this.switchPanelsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
+            this.switchPanelsToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.switchPanelsToolStripMenuItem.Text = "Switch Panels";
+            this.switchPanelsToolStripMenuItem.Click += new System.EventHandler(this.switchPanelsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -511,5 +564,10 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem helloToolStripMenuItem;
         private WF.Components.ImageViewer imageViewer;
         private CanvasEditor canvasEditor;
+        private System.Windows.Forms.OpenFileDialog dlgOpen;
+        private System.Windows.Forms.ToolStripMenuItem reOpenToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog dlgSave;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem switchPanelsToolStripMenuItem;
     }
 }

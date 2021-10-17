@@ -1,15 +1,6 @@
-using PixelStacker.IO;
-using PixelStacker.IO.Config;
-using PixelStacker.Logic.Engine;
-using PixelStacker.Resources;
-using PixelStacker.Extensions;
 using PixelStacker.Resources.Localization;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
 using PixelStacker.UI;
 
 namespace PixelStacker
