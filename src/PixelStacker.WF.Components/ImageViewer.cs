@@ -247,6 +247,7 @@ namespace PixelStacker.WF.Components
 
         #endregion
 
+        [System.Diagnostics.DebuggerStepThrough]
         private void repaintTimer_Tick(object sender, EventArgs e)
         {
             if (WasDragged)

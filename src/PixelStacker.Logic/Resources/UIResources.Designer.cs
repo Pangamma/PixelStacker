@@ -63,6 +63,26 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap _8k_dubai {
+            get {
+                object obj = ResourceManager.GetObject("_8k_dubai", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _8k_planet {
+            get {
+                object obj = ResourceManager.GetObject("_8k_planet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap advanced_frame_128 {
             get {
                 object obj = ResourceManager.GetObject("advanced_frame_128", resourceCulture);
@@ -326,6 +346,16 @@ namespace PixelStacker.Resources {
         public static System.Drawing.Bitmap pixelstackerlogo_400x400 {
             get {
                 object obj = ResourceManager.GetObject("pixelstackerlogo_400x400", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap psg {
+            get {
+                object obj = ResourceManager.GetObject("psg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -31,7 +31,7 @@ namespace PixelStacker.UI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            PixelStacker.IO.Config.PanZoomSettings panZoomSettings3 = new PixelStacker.IO.Config.PanZoomSettings();
+            PixelStacker.IO.Config.PanZoomSettings panZoomSettings2 = new PixelStacker.IO.Config.PanZoomSettings();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -399,9 +399,11 @@ namespace PixelStacker.UI
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(0, 420);
+            this.progressBar1.MarqueeAnimationSpeed = 200;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(800, 29);
             this.progressBar1.TabIndex = 1;
+            this.progressBar1.Value = 1;
             // 
             // timer1
             // 
@@ -429,7 +431,7 @@ namespace PixelStacker.UI
             this.imageViewer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageViewer.BackgroundImage")));
             this.imageViewer.Location = new System.Drawing.Point(0, 28);
             this.imageViewer.Name = "imageViewer";
-            this.imageViewer.PanZoomSettings = panZoomSettings3;
+            this.imageViewer.PanZoomSettings = panZoomSettings2;
             this.imageViewer.Size = new System.Drawing.Size(800, 421);
             this.imageViewer.TabIndex = 5;
             // 

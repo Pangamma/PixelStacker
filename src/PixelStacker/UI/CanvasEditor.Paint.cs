@@ -14,6 +14,7 @@ namespace PixelStacker.UI
     {
         private ThreadSafe<bool> IsPainting = new ThreadSafe<bool>(false);
 
+        [System.Diagnostics.DebuggerStepThrough]
         private void timerPaint_Tick(object sender, EventArgs e)
         {
             if (this.RepaintRequested)

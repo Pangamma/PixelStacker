@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.Utilities
 {
+    public interface IDummyArg { }
+
     public class ProgressX
     {
         private static object Padlock { get; set; } = new { };
@@ -33,7 +36,7 @@ namespace PixelStacker.Logic.Utilities
             }
         }
 
-        public static void Report(int percent, string status)
+        public static void Report(int percent, string status, IDummyArg arg = null, [CallerFilePath] string filePath = "", [CallerMemberName] string methodName = null, [CallerLineNumber] int lineNumber = 0)
         {
             lock (Padlock)
             {
@@ -41,18 +44,19 @@ namespace PixelStacker.Logic.Utilities
                 StatusPercent = percent;
                 if (percent > 100) StatusPercent = 100;
                 if (percent < 0) StatusPercent = 0;
+                //System.Diagnostics.Debug.WriteLine($"{percent}% STAT: {methodName}::{lineNumber}");
             }
 
-            System.Diagnostics.Debug.WriteLine($"{percent}%   {status}: "+ DateTime.Now);
         }
 
-        public static void Report(int percent)
+        public static void Report(int percent, IDummyArg arg = null, [CallerFilePath] string filePath = "", [CallerMemberName] string methodName = null, [CallerLineNumber] int lineNumber = 0)
         {
             lock (Padlock)
             {
                 StatusPercent = percent;
                 if (percent > 100) StatusPercent = 100;
                 if (percent < 0) StatusPercent = 0;
+                //System.Diagnostics.Debug.WriteLine($"{percent}%: {methodName}::{lineNumber}");
             }
         }
 

@@ -43,10 +43,11 @@ namespace PixelStacker.UI
                 {
                     this.ColorMapper.SetSeedData(this.Palette.ToCombinationList()
                         .Where(mc => mc.Bottom.IsVisibleF(Options) && mc.Top.IsVisibleF(Options))
-                            //.Where(mc => Options.IsMultiLayerRequired ? mc.IsMultiLayer : true)
-                            //.Where(mc => mc.Bottom.IsEnabledF(Options) && mc.Top.IsEnabledF(Options))
-                            //.Where(mc => Options.IsMultiLayer ? true : !mc.IsMultiLayer)
-                            .ToList(), this.Palette, Options.Preprocessor.IsSideView);
+                        .Where(mc => mc.Bottom.IsEnabledF(Options) && mc.Top.IsEnabledF(Options))
+                        //.Where(mc => !mc.IsMultiLayer)
+                        //.Where(mc => Options.IsMultiLayerRequired ? mc.IsMultiLayer : true)
+                        //.Where(mc => Options.IsMultiLayer ? true : !mc.IsMultiLayer)
+                        .ToList(), this.Palette, Options.Preprocessor.IsSideView);
                     worker.ThrowIfCancellationRequested();
                 }
 

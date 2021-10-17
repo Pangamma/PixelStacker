@@ -285,7 +285,8 @@ namespace PixelStacker.Extensions
                     x = 0;
                     y++;
                     worker?.SafeThrowIfCancellationRequested();
-                    ProgressX.Report(100 * y / origImage.Height);
+                    if (worker != null)
+                        ProgressX.Report(100 * y / origImage.Height);
                 }
             }
 
@@ -383,7 +384,8 @@ namespace PixelStacker.Extensions
 
                 worker?.SafeThrowIfCancellationRequested();
                 Interlocked.Increment(ref numYProcessed);
-                ProgressX.Report((int) (100 * ((float) numYProcessed / heightInPixels)));
+                if (worker != null)
+                    ProgressX.Report((int) (100 * ((float) numYProcessed / heightInPixels)));
             });
 
             //Get the bitmap data
@@ -398,7 +400,8 @@ namespace PixelStacker.Extensions
 
             //Unlock the bitmap
             dstImage.UnlockBits(dstData);
-            ProgressX.Report(100);
+            if (worker != null)
+                ProgressX.Report(100);
         }
 
 
@@ -487,7 +490,8 @@ namespace PixelStacker.Extensions
                     x = 0;
                     y++;
                     worker?.SafeThrowIfCancellationRequested();
-                    ProgressX.Report(100 * y / origImage.Height);
+                    if (worker != null)
+                        ProgressX.Report(100 * y / origImage.Height);
                 }
             }
 
@@ -568,7 +572,8 @@ namespace PixelStacker.Extensions
                     y++;
 
                     worker?.SafeThrowIfCancellationRequested();
-                    ProgressX.Report(100 * y / origImage.Height);
+                    if (worker != null)
+                        ProgressX.Report(100 * y / origImage.Height);
                 }
             }
 
@@ -657,7 +662,8 @@ namespace PixelStacker.Extensions
 
                 worker?.SafeThrowIfCancellationRequested();
                 Interlocked.Increment(ref numYProcessed);
-                ProgressX.Report((int) (100 * ((float) numYProcessed / heightInPixels)));
+                if (worker != null)
+                    ProgressX.Report((int) (100 * ((float) numYProcessed / heightInPixels)));
             });
 
             //Get the bitmap data
@@ -729,7 +735,8 @@ namespace PixelStacker.Extensions
                     x = 0;
                     y++;
                     worker?.SafeThrowIfCancellationRequested();
-                    ProgressX.Report(100 * y / origImage.Height);
+                    if (worker != null)
+                        ProgressX.Report(100 * y / origImage.Height);
                 }
             }
 
@@ -801,7 +808,10 @@ namespace PixelStacker.Extensions
 
                 worker?.SafeThrowIfCancellationRequested();
                 Interlocked.Increment(ref numYProcessed);
-                ProgressX.Report((int) (100 * ((float) numYProcessed / heightInPixels)));
+                if (worker != null)
+                {
+                    ProgressX.Report((int)(100 * ((float)numYProcessed / heightInPixels)));
+                }
             });
         }
         #endregion

@@ -64,7 +64,7 @@ namespace PixelStacker.Logic
 
         private static List<Size[,]> CalculateChunkSizes(RenderedCanvas data)
         {
-            int maxLayers = 4;
+            int maxLayers = 5;
             int scaleDivide = 1;
             List<Size[,]> sizesList = new List<Size[,]>();
             Size[,] curSizeSet;
@@ -229,7 +229,6 @@ namespace PixelStacker.Logic
             }
             #endregion OTHER LAYERS
 
-
             return canvas;
         }
 
@@ -293,13 +292,13 @@ namespace PixelStacker.Logic
 
             // The count of ORIGINAL SOURCE pixels in a FULL chunk.
             int srcPixelsPerChunk = RenderedCanvasPainter.BlocksPerChunk * divideAmount;
-            Point srcLocationOfPanelTL = getPointOnImage(new Point(0, 0), pz, EstimateProp.Floor);
+            Point srcLocationOfPanelTL = GetPointOnImage(new Point(0, 0), pz, EstimateProp.Floor);
             // The offset in FULL pixels
             int xOffset = srcLocationOfPanelTL.X * CalculatedTextureSize / divideAmount;
             int yOffset = srcLocationOfPanelTL.Y * CalculatedTextureSize / divideAmount;
 
 
-            Point srcLocationOfPanelBR = getPointOnImage(new Point(parentControlSize.Width, parentControlSize.Height), pz, EstimateProp.Floor);
+            Point srcLocationOfPanelBR = GetPointOnImage(new Point(parentControlSize.Width, parentControlSize.Height), pz, EstimateProp.Floor);
 
             // Figure out min and max chunk indexes for faster iteration.
             int minXIndex = 0; //Math.Max(0, rectSRC.X / srcPixelsPerChunk);
@@ -314,8 +313,8 @@ namespace PixelStacker.Logic
 
                     lock (bmToPaint)
                     {
-                        Point pnlStart = getPointOnPanel(new Point(xChunk * srcPixelsPerChunk, y: yChunk * srcPixelsPerChunk), pz);
-                        Point pnlEnd = getPointOnPanel(new Point(
+                        Point pnlStart = GetPointOnPanel(new Point(xChunk * srcPixelsPerChunk, y: yChunk * srcPixelsPerChunk), pz);
+                        Point pnlEnd = GetPointOnPanel(new Point(
                             x: xChunk * srcPixelsPerChunk + (bmToPaint.Width * divideAmount / Constants.TextureSize)
                             , y: yChunk * srcPixelsPerChunk + (bmToPaint.Height * divideAmount / Constants.TextureSize)
                             ), pz);
@@ -355,7 +354,7 @@ namespace PixelStacker.Logic
         /// <param name="pz"></param>
         /// <param name="prop"></param>
         /// <returns></returns>
-        public Point getPointOnImage(Point pointOnPanel, PanZoomSettings pz, EstimateProp prop)
+        private static Point GetPointOnImage(Point pointOnPanel, PanZoomSettings pz, EstimateProp prop)
         {
             if (prop == EstimateProp.Ceil)
             {
@@ -374,17 +373,8 @@ namespace PixelStacker.Logic
         /// <param name="pointOnImage"></param>
         /// <param name="pz"></param>
         /// <returns></returns>
-        public Point getPointOnPanel(Point pointOnImage, PanZoomSettings pz)
+        private static Point GetPointOnPanel(Point pointOnImage, PanZoomSettings pz)
         {
-            if (pointOnImage == null)
-            {
-#if !RELEASE
-                throw new ArgumentNullException("pointOnImage is null. Please report this to Pangamma along with the stacktrace!");
-#else
-                return new Point(0, 0);
-#endif
-            }
-
             if (pz == null)
             {
 #if !RELEASE

@@ -25,7 +25,7 @@ namespace PixelStacker.UI
         private Options Options;
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
-        public Bitmap LoadedImage { get; private set; } = UIResources.colorwheel.To32bppBitmap();
+        public Bitmap LoadedImage { get; private set; } = UIResources.psg.To32bppBitmap();
         private RenderedCanvas RenderedCanvas;
 
         public MainForm()
@@ -51,8 +51,15 @@ namespace PixelStacker.UI
         {
             ProgressX.UpdateStatus((val, str) =>
             {
-                progressBar1.Value = val;
-                lblProgress.Text = str;
+                if (progressBar1.Value != val)
+                {
+                    progressBar1.Value = val;
+                }
+
+                if (lblProgress.Text != str)
+                {
+                    lblProgress.Text = str;
+                }
             });
         }
     }
