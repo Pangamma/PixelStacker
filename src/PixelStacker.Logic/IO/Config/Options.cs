@@ -47,13 +47,8 @@ namespace PixelStacker.IO.Config
         /// </summary>
         public bool IsMultiLayerRequired { get; set; } = false;
 
-        [Obsolete]
         [JsonIgnore]
-        public bool IsSideView
-        {
-            get => this.Preprocessor.IsSideView;
-            set => this.Preprocessor.IsSideView = value;
-        }
+        public bool IsSideView { get; set; }
 
         /// <summary>
         /// Purely for aesthetic rendering. Assuming no block/material filter is set, any blocks with

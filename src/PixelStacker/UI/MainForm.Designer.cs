@@ -31,7 +31,7 @@ namespace PixelStacker.UI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            PixelStacker.IO.Config.PanZoomSettings panZoomSettings1 = new PixelStacker.IO.Config.PanZoomSettings();
+            PixelStacker.IO.Config.PanZoomSettings panZoomSettings2 = new PixelStacker.IO.Config.PanZoomSettings();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,8 +56,8 @@ namespace PixelStacker.UI
             this.switchPanelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectMaterialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.preprocessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sizingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preprocessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orientationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,7 +72,6 @@ namespace PixelStacker.UI
             this.japaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.koreanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spanishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblProgress = new System.Windows.Forms.Label();
@@ -193,13 +192,13 @@ namespace PixelStacker.UI
             // 
             this.toggleGridToolStripMenuItem.Name = "toggleGridToolStripMenuItem";
             this.toggleGridToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
             this.toggleGridToolStripMenuItem.Text = "Toggle Grid";
             // 
             // gridOptionsToolStripMenuItem
             // 
             this.gridOptionsToolStripMenuItem.Name = "gridOptionsToolStripMenuItem";
-            this.gridOptionsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gridOptionsToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
             this.gridOptionsToolStripMenuItem.Text = "Grid Options";
             // 
             // toggleBorderToolStripMenuItem
@@ -275,10 +274,10 @@ namespace PixelStacker.UI
             // generationToolStripMenuItem
             // 
             this.generationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.orientationToolStripMenuItem,
             this.selectMaterialsToolStripMenuItem,
             this.sizingToolStripMenuItem,
             this.preprocessingToolStripMenuItem,
-            this.orientationToolStripMenuItem,
             this.renderToolStripMenuItem});
             this.generationToolStripMenuItem.Name = "generationToolStripMenuItem";
             this.generationToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
@@ -291,18 +290,18 @@ namespace PixelStacker.UI
             this.selectMaterialsToolStripMenuItem.Text = "Select Materials";
             this.selectMaterialsToolStripMenuItem.Click += new System.EventHandler(this.selectMaterialsToolStripMenuItem_Click);
             // 
-            // preprocessingToolStripMenuItem
-            // 
-            this.preprocessingToolStripMenuItem.Name = "preprocessingToolStripMenuItem";
-            this.preprocessingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.preprocessingToolStripMenuItem.Text = "Preprocessing";
-            // 
             // sizingToolStripMenuItem
             // 
             this.sizingToolStripMenuItem.Name = "sizingToolStripMenuItem";
             this.sizingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.sizingToolStripMenuItem.Text = "Sizing";
             this.sizingToolStripMenuItem.Click += new System.EventHandler(this.sizingToolStripMenuItem_Click);
+            // 
+            // preprocessingToolStripMenuItem
+            // 
+            this.preprocessingToolStripMenuItem.Name = "preprocessingToolStripMenuItem";
+            this.preprocessingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.preprocessingToolStripMenuItem.Text = "Preprocessing";
             // 
             // orientationToolStripMenuItem
             // 
@@ -320,12 +319,14 @@ namespace PixelStacker.UI
             this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
             this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(162, 26);
             this.horizontalToolStripMenuItem.Text = "Horizontal";
+            this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.horizontalToolStripMenuItem_Click);
             // 
             // verticalToolStripMenuItem
             // 
             this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
             this.verticalToolStripMenuItem.Size = new System.Drawing.Size(162, 26);
             this.verticalToolStripMenuItem.Text = "Vertical";
+            this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
             // 
             // renderToolStripMenuItem
             // 
@@ -346,8 +347,7 @@ namespace PixelStacker.UI
             this.germanToolStripMenuItem,
             this.japaneseToolStripMenuItem,
             this.koreanToolStripMenuItem,
-            this.spanishToolStripMenuItem,
-            this.helloToolStripMenuItem});
+            this.spanishToolStripMenuItem});
             this.languageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("languageToolStripMenuItem.Image")));
             this.languageToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.languageToolStripMenuItem.MergeIndex = 50;
@@ -426,12 +426,6 @@ namespace PixelStacker.UI
             this.spanishToolStripMenuItem.Text = "Spanish";
             this.spanishToolStripMenuItem.Click += new System.EventHandler(this.spanishToolStripMenuItem_Click);
             // 
-            // helloToolStripMenuItem
-            // 
-            this.helloToolStripMenuItem.Name = "helloToolStripMenuItem";
-            this.helloToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
-            this.helloToolStripMenuItem.Text = "Hello and goodbye";
-            // 
             // progressBar1
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -469,7 +463,7 @@ namespace PixelStacker.UI
             this.imageViewer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageViewer.BackgroundImage")));
             this.imageViewer.Location = new System.Drawing.Point(0, 28);
             this.imageViewer.Name = "imageViewer";
-            this.imageViewer.PanZoomSettings = panZoomSettings1;
+            this.imageViewer.PanZoomSettings = panZoomSettings2;
             this.imageViewer.Size = new System.Drawing.Size(800, 421);
             this.imageViewer.TabIndex = 5;
             // 
@@ -562,7 +556,6 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblProgress;
-        private System.Windows.Forms.ToolStripMenuItem helloToolStripMenuItem;
         private WF.Components.ImageViewer imageViewer;
         private CanvasEditor canvasEditor;
         private System.Windows.Forms.OpenFileDialog dlgOpen;
