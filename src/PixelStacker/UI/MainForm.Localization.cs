@@ -34,6 +34,7 @@ namespace PixelStacker.UI
             this.Options.Locale = locale.Name;
             this.Options.Save();
             Thread.CurrentThread.CurrentUICulture = locale;
+            CultureInfo.CurrentUICulture = locale;
             this.MaterialOptions?.ApplyLocalization(locale);
             //            this.renderedImagePanel?.ApplyLocalization(locale);
 

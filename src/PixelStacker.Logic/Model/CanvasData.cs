@@ -128,7 +128,8 @@ namespace PixelStacker.Logic.Model
                 worker?.SafeThrowIfCancellationRequested();
                 for (int y = 0; y < mHeight; y++)
                 {
-                    canvas.BlocksMap[x, y] = bm.GetPixel(x, y).ToArgb();
+                    int argb = bm.GetPixel(x, y).ToArgb();
+                    canvas.BlocksMap[x, y] = argb;
                 }
             }
 

@@ -84,7 +84,7 @@ namespace PixelStacker.Extensions
             using (IEnumerator<T> sourceIterator = source.GetEnumerator())
             {
                 if (!sourceIterator.MoveNext()) throw new InvalidOperationException("Sequence was empty");
-                
+
                 T max = sourceIterator.Current;
                 TKey maxKey = selector.Invoke(max);
 

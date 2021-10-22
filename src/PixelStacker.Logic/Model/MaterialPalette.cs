@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PixelStacker.IO.Config;
 using PixelStacker.IO.JsonConverters;
 using PixelStacker.Resources;
 using PixelStacker.Resources.Localization;
@@ -83,10 +84,20 @@ namespace PixelStacker.Logic.Model
         }
 
         public List<MaterialCombination> ToCombinationList() => FromPaletteID.Values.ToList();
-        
+
+        public List<MaterialCombination> ToValidCombinationList(Options opts) {
+            var list = this.FromPaletteID.Values
+            .Where(mc => opts.IsMultiLayerRequired ? mc.IsMultiLayer : true)
+            .Where(mc => mc.Bottom.IsEnabledF(opts) && mc.Top.IsEnabledF(opts))
+            .Where(mc => opts.IsMultiLayer ? true : !mc.IsMultiLayer)
+            .ToList();
+
+            return list;
+        }
+
         public static MaterialPalette FromResx()
         {
-            var rt = ResxHelper.LoadJson<MaterialPalette>(DataResources.materialPalette);
+            var rt = ResxHelper.LoadJson<MaterialPalette>(Resources.Data.materialPalette);
             rt.PrimePalette();
             return rt;
         }

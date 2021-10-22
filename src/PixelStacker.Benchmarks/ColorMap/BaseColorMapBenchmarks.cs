@@ -1,12 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using PixelStacker.Logic.Model;
-using PixelStacker.Resources;
 using PixelStacker.Resources.Localization;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Benchmarks.ColorMap
 {
@@ -27,7 +22,7 @@ namespace PixelStacker.Benchmarks.ColorMap
     {
         public BaseColorMapBenchmarks()
         {
-            this.MaterialPalette = ResxHelper.LoadJson<MaterialPalette>(DataResources.materialPalette);
+            this.MaterialPalette = ResxHelper.LoadJson<MaterialPalette>(Resources.Data.materialPalette);
             this.EnabledMaterials = MaterialPalette.ToCombinationList();
         }
 

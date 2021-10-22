@@ -19,12 +19,13 @@ namespace PixelStacker.UI
 
         public RenderedImagePanel()
         {
-            InitializeComponent();
             this.BackgroundImage = Resources.UIResources.bg_imagepanel;
+            InitializeComponent();
         }
 
         public async Task SetRenderedImage(RenderedCanvas canvas, PanZoomSettings zoom = null)
         {
+            this.BackgroundImage = Resources.UIResources.bg_imagepanel;
             int? textureSizeOut = RenderCanvasEngine.CalculateTextureSize(canvas.Width, canvas.Height, 2);
             if (textureSizeOut == null)
             {

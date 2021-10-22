@@ -19,38 +19,39 @@ namespace PixelStacker.UI
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            this.BackgroundImage = Resources.UIResources.bg_imagepanel;
             base.OnPaint(e);
 
-            Graphics g = e.Graphics;
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+            //Graphics g = e.Graphics;
+            //g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            //g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
 
-            if (this.DesignMode && this.BackgroundImage != null)
-            {
-                using Brush bgBrush = new TextureBrush(this.BackgroundImage);
-                g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
-                return;
-            }
+            //if (this.DesignMode)
+            //{
+            //    using Brush bgBrush = new TextureBrush(this.BackgroundImage);
+            //    g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
+            //    return;
+            //}
 
-            var pz = this.PanZoomSettings;
+            //var pz = this.PanZoomSettings;
 
-            if (pz.zoomLevel < 1.0D)
-            {
-                g.InterpolationMode = InterpolationMode.Low;
-                g.CompositingQuality = CompositingQuality.HighSpeed;
-                g.SmoothingMode = SmoothingMode.HighSpeed;
-            }
-            else
-            {
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                g.CompositingQuality = CompositingQuality.HighSpeed;
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-            }
+            //if (pz.zoomLevel < 1.0D)
+            //{
+            //    g.InterpolationMode = InterpolationMode.Low;
+            //    g.CompositingQuality = CompositingQuality.HighSpeed;
+            //    g.SmoothingMode = SmoothingMode.HighSpeed;
+            //}
+            //else
+            //{
+            //    g.InterpolationMode = InterpolationMode.NearestNeighbor;
+            //    g.CompositingQuality = CompositingQuality.HighSpeed;
+            //    g.SmoothingMode = SmoothingMode.AntiAlias;
+            //}
 
-            DrawWorldEditOrigin(g);
-            DrawGridLines(g);
-            DrawBorder(g);
+            //DrawWorldEditOrigin(g);
+            //DrawGridLines(g);
+            //DrawBorder(g);
 
         }
 

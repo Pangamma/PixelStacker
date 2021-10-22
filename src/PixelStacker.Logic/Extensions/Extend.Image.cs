@@ -1,5 +1,4 @@
-﻿using FastBitmapLib;
-using PixelStacker.Logic.Utilities;
+﻿using PixelStacker.Logic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,6 +16,24 @@ namespace PixelStacker.Extensions
     /// </summary>
     public static partial class Extend
     {
+        public static Bitmap ToBitmap(this byte[] data)
+        {
+            using (var ms = new System.IO.MemoryStream(data))
+            {
+                var bm = new Bitmap(ms);
+                return bm;
+            }
+        }
+
+        public static Bitmap To32bppBitmap(this byte[] data)
+        {
+            using (var ms = new System.IO.MemoryStream(data))
+            {
+                var bm = new Bitmap(ms);
+                return bm;
+            }
+        }
+
         #region bitmap
         public static bool AreEqual(this Bitmap L, Bitmap R)
         {
@@ -67,11 +84,12 @@ namespace PixelStacker.Extensions
                 return c;
             }
 
-            using (var fastbm = src.FastLock())
-            {
-                Color c = fastbm.GetPixel(x, y);
-                return c;
-            }
+            //using (var fastbm = src.FastLock())
+            //{
+            //    Color c = fastbm.GetPixel(x, y);
+            //    return c;
+            //}
+            return Color.Transparent;
         }
 
         /// <summary>
@@ -180,52 +198,53 @@ namespace PixelStacker.Extensions
         }
 
 
-        public static Bitmap BlurBidirectional(this Bitmap src, int radiusH, int radiusV)
-        {
-            Bitmap output = new Bitmap(src.Width, src.Height, PixelFormat.Format32bppArgb);
+        //public static Bitmap BlurBidirectional(this Bitmap src, int radiusH, int radiusV)
+        //{
+        //    Bitmap output = new Bitmap(src.Width, src.Height, PixelFormat.Format32bppArgb);
 
-            using (var src32 = src.To32bppBitmap())
-            {
+        //    using (var src32 = src.To32bppBitmap())
+        //    {
 
-                List<Color>[,] data = new List<Color>[src.Width, src.Height];
+        //        List<Color>[,] data = new List<Color>[src.Width, src.Height];
 
-                using (var input = src32.FastLock())
-                {
-                    {
-                        for (int xi = 0; xi < src32.Width; xi++)
-                        {
-                            for (int yi = 0; yi < src32.Height; yi++)
-                            {
-                                Color toInsert = input.GetPixel(xi, yi);
-                                for (int x = Math.Max(0, xi - radiusH); x < Math.Min(src32.Width, xi + radiusH); x++)
-                                {
-                                    for (int y = Math.Max(0, yi - radiusV); y < Math.Min(src32.Height, y + radiusV); y++)
-                                    {
-                                        if (data[x, y] == null)
-                                        {
-                                            data[x, y] = new List<Color>();
-                                        }
+        //        using (var input = src32.FastLock())
+        //        {
+        //            {
+        //                for (int xi = 0; xi < src32.Width; xi++)
+        //                {
+        //                    for (int yi = 0; yi < src32.Height; yi++)
+        //                    {
+        //                        Color toInsert = input.GetPixel(xi, yi);
+        //                        for (int x = Math.Max(0, xi - radiusH); x < Math.Min(src32.Width, xi + radiusH); x++)
+        //                        {
+        //                            for (int y = Math.Max(0, yi - radiusV); y < Math.Min(src32.Height, y + radiusV); y++)
+        //                            {
+        //                                if (data[x, y] == null)
+        //                                {
+        //                                    data[x, y] = new List<Color>();
+        //                                }
 
-                                        data[x, y].Add(toInsert);
-                                    }
-                                }
-                            }
-                        }
+        //                                data[x, y].Add(toInsert);
+        //                            }
+        //                        }
+        //                    }
+        //                }
 
-                        for (int xi = 0; xi < src32.Width; xi++)
-                        {
-                            for (int yi = 0; yi < src32.Height; yi++)
-                            {
-                                var avg = data[xi, yi].AverageColors();
-                                output.SetPixel(xi, yi, avg);
-                            }
-                        }
-                    }
-                }
-            }
+        //                for (int xi = 0; xi < src32.Width; xi++)
+        //                {
+        //                    for (int yi = 0; yi < src32.Height; yi++)
+        //                    {
+        //                        var avg = data[xi, yi].AverageColors();
+        //                        output.SetPixel(xi, yi, avg);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
 
-            return output;
-        }
+        //    return output;
+        //}
+
         /// <summary>
         /// Image MUST be 32bppARGB
         /// </summary>

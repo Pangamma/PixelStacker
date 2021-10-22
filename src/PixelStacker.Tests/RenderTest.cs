@@ -1,13 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using PixelStacker.Core.Collections.ColorMapper;
+//using PixelStacker.Core.Engine;
+//using PixelStacker.Core.Engine.Quantizer.Enums;
+//using PixelStacker.Core.IO.Config;
+//using PixelStacker.Core.IO.Formatters;
+//using PixelStacker.Core.Model;
 using PixelStacker.Extensions;
 using PixelStacker.IO.Config;
-using PixelStacker.IO.Formatters;
 using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
+using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Model;
 using PixelStacker.Resources;
-using PixelStacker.Resources.Localization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,11 +28,10 @@ namespace PixelStacker.Tests
             var opts = Options.Get;
 #pragma warning restore CS0618 // Type or member is obsolete
             var engine = new RenderCanvasEngine();
-            var img = await engine.PreprocessImageAsync(null, 
-                UIResources.yuuuuge.To32bppBitmap(),
+            var img = await engine.PreprocessImageAsync(null,
+                DevResources.planet_8k.To32bppBitmap(),
                 new CanvasPreprocessorSettings()
                 {
-                    IsSideView = false,
                     RgbBucketSize = 1,
                     QuantizerSettings = new QuantizerSettings()
                     {
@@ -37,13 +41,13 @@ namespace PixelStacker.Tests
                         DitherAlgorithm = "No dithering"
                     }
                 });
-            var palette = ResxHelper.LoadJson<MaterialPalette>(DataResources.materialPalette);
+            var palette = MaterialPalette.FromResx();
             var mapper = new KdTreeMapper();
             var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabledF(opts) && x.Bottom.IsEnabledF(opts) && x.IsMultiLayer).ToList();
             mapper.SetSeedData(combos, palette, false);
 
             var canvas = await engine.RenderCanvasAsync(null, ref img, mapper, palette);
-            await new PixelStackerProjectFormatter().ExportAsync("Test.zip", canvas, null);
+            await new PixelStackerProjectFormatter().ExportAsync("Test.pxlzip", canvas, null);
         }
     }
 }

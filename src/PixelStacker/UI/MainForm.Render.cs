@@ -12,8 +12,6 @@ namespace PixelStacker.UI
 {
     public partial class MainForm
     {
-        private RenderedCanvasPainter CanvasPainter;
-
         bool IsCanvasEditorVisible = false;
         private void switchPanelsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
@@ -48,13 +46,8 @@ namespace PixelStacker.UI
                 var engine = new RenderCanvasEngine();
                 if (!this.ColorMapper.IsSeeded())
                 {
-                    this.ColorMapper.SetSeedData(this.Palette.ToCombinationList()
-                        .Where(mc => mc.Bottom.IsVisibleF(Options) && mc.Top.IsVisibleF(Options))
-                        .Where(mc => mc.Bottom.IsEnabledF(Options) && mc.Top.IsEnabledF(Options))
-                        //.Where(mc => !mc.IsMultiLayer)
-                        //.Where(mc => Options.IsMultiLayerRequired ? mc.IsMultiLayer : true)
-                        //.Where(mc => Options.IsMultiLayer ? true : !mc.IsMultiLayer)
-                        .ToList(), this.Palette, Options.Preprocessor.IsSideView);
+                    this.ColorMapper.SetSeedData(this.Palette.ToValidCombinationList(Options),
+                        this.Palette, Options.Preprocessor.IsSideView);
                     worker.ThrowIfCancellationRequested();
                 }
 

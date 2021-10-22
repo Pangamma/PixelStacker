@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="IO\Config\CRAP\**" />
+    <Compile Remove="IO\Config\NEW\**" />
+    <EmbeddedResource Remove="IO\Config\CRAP\**" />
+    <EmbeddedResource Remove="IO\Config\NEW\**" />
+    <None Remove="IO\Config\CRAP\**" />
+    <None Remove="IO\Config\NEW\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="KdTree" Version="1.4.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PixelStacker.Resources\PixelStacker.Resources.csproj" />
+  </ItemGroup>
+
+</Project>

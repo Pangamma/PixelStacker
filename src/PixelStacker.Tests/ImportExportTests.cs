@@ -1,16 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PixelStacker.Logic.Model;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PixelStacker.IO.Formatters;
-using PixelStacker.Extensions;
-using PixelStacker.Resources;
-using PixelStacker.Logic.Engine;
-using PixelStacker.Logic.Engine.Quantizer.Enums;
-using PixelStacker.Logic.Collections.ColorMapper;
 using System.Linq;
-using PixelStacker.IO.Config;
 using System.Collections.Generic;
+using PixelStacker.IO.Config;
+using PixelStacker.Logic.Model;
+using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.Engine;
+using PixelStacker.Extensions;
+using PixelStacker.Logic.Engine.Quantizer.Enums;
+using PixelStacker.Logic.IO.Formatters;
+using PixelStacker.Resources;
 
 namespace PixelStacker.Tests
 {
@@ -34,10 +34,9 @@ namespace PixelStacker.Tests
 
             this.Canvases["Fast"] = new AsyncLazy<RenderedCanvas>(async () => {
                 var img = await engine.PreprocessImageAsync(null,
-                    UIResources.pink_girl.To32bppBitmap(),
+                    DevResources.pink_girl.To32bppBitmap(),
                     new CanvasPreprocessorSettings()
                     {
-                        IsSideView = false,
                         RgbBucketSize = 15,
                         MaxHeight = 10,
                         QuantizerSettings = new QuantizerSettings()
@@ -56,10 +55,9 @@ namespace PixelStacker.Tests
 
             this.Canvases["Quantizer"] = new AsyncLazy<RenderedCanvas>(async () => {
                 var img = await engine.PreprocessImageAsync(null,
-                    UIResources.pink_girl.To32bppBitmap(),
+                    DevResources.pink_girl.To32bppBitmap(),
                     new CanvasPreprocessorSettings()
                     {
-                        IsSideView = false,
                         RgbBucketSize = 1,
                         QuantizerSettings = new QuantizerSettings()
                         {
@@ -75,10 +73,9 @@ namespace PixelStacker.Tests
 
             this.Canvases["Heavy"] = new AsyncLazy<RenderedCanvas>(async () => {
                 var img = await engine.PreprocessImageAsync(null,
-                    UIResources.yuuuuge.To32bppBitmap(),
+                    DevResources.planet_8k.To32bppBitmap(),
                     new CanvasPreprocessorSettings()
                     {
-                        IsSideView = false,
                         RgbBucketSize = 1,
                         MaxWidth = 1024,
                         QuantizerSettings = new QuantizerSettings()
@@ -108,13 +105,6 @@ namespace PixelStacker.Tests
             Assert.AreEqual(Canvas.PreprocessedImage.Height, canv.PreprocessedImage.Height);
         }
 
-        [TestMethod]
-        [TestCategory("IO")]
-        public async Task IE_SvgFormat()
-        {
-            var formatter = new SvgFormatter();
-            await formatter.ExportAsync("io_test.svg", Canvas, null);
-        }
 
         [TestMethod]
         [TestCategory("IO")]

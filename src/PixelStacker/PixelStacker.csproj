@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <SignAssembly>false</SignAssembly>
@@ -26,19 +26,34 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Properties\UIResources.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FastBitmapLib" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PixelStacker.Logic\PixelStacker.Logic.csproj" />
-    <ProjectReference Include="..\PixelStacker.WF.Components\PixelStacker.WF.Components.csproj" />
+    <ProjectReference Include="..\PixelStacker.Resources\PixelStacker.Resources.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Properties\UIResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UIResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Basic\CustomFlowLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\Basic\CustomPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\Basic\CustomTableLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\ImageViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UI\Basic\MaterialSelectTile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="UI\MainForm.cs">
     </Compile>
     <Compile Update="UI\MainForm.*.cs">
@@ -67,6 +82,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <EmbeddedResource Update="Properties\UIResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
+    </EmbeddedResource>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

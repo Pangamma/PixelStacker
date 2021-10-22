@@ -182,21 +182,29 @@ namespace PixelStacker.Logic.IO.Formatters
 
                         {
                             ZipArchiveEntry entry = archive.GetEntry("canvas-data.png");
-                            using (StreamReader reader = new StreamReader(entry.Open()))
+                            using (var zipStream = entry.Open())
                             {
-                                var img = Bitmap.FromStream(reader.BaseStream);
-                                Bitmap bm = new Bitmap(img);
-                                canvas.CanvasData = await CanvasData.FromBitmapAsync(canvas.MaterialPalette, bm, worker);
+                                using (var ms = new MemoryStream())
+                                {
+                                    zipStream.CopyTo(ms); // here
+                                    ms.Position = 0;
+                                    var bm = new Bitmap(ms);
+                                    canvas.CanvasData = await CanvasData.FromBitmapAsync(canvas.MaterialPalette, bm, worker);
+                                }
                             }
                         }
 
                         {
                             ZipArchiveEntry entry = archive.GetEntry("preprocessed-image.png");
-                            using (StreamReader reader = new StreamReader(entry.Open()))
+                            using (var zipStream = entry.Open())
                             {
-                                var img = Bitmap.FromStream(reader.BaseStream);
-                                Bitmap bm = new Bitmap(img);
-                                canvas.PreprocessedImage = bm;
+                                using (var ms = new MemoryStream())
+                                {
+                                    zipStream.CopyTo(ms); // here
+                                    ms.Position = 0;
+                                    Bitmap bm = new Bitmap(ms);
+                                    canvas.PreprocessedImage = bm;
+                                }
                             }
                         }
 

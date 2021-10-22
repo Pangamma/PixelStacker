@@ -28,107 +28,107 @@ namespace PixelStacker.Tools
             //this.StripSpriteSheet(64);
         }
 
-        [TestMethod]
-        [TestCategory("Generators")]
-        public void ShadowFromManual()
-        {
+        //[TestMethod]
+        //[TestCategory("Generators")]
+        //public void ShadowFromManual()
+        //{
 
-            string rootShadowsPath = @"D:\git\PixelStacker\src\PixelStacker\Resources\Images\UI\shadows";
-            int depth = 16;
-            int textureSize = 16;
+            //string rootShadowsPath = @"D:\git\PixelStacker\src\PixelStacker\Resources\Images\UI\shadows";
+            //int depth = 16;
+            //int textureSize = 16;
 
-            {
-                string fToStrip = $@"{rootShadowsPath}\sprites\sprite-source-x{depth}.png";
-                var saveFile = $@"{rootShadowsPath}\sprites\sprite-x{depth}.png";
-                // Make it so that everything is transparent
-                using (var bm = new Bitmap(depth * 8, depth * 32, PixelFormat.Format32bppArgb))
-                {
-                    using (Graphics g = Graphics.FromImage(bm))
-                    {
-                        g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
-                        g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-                        for (int i = 0; i < 256; i++)
-                        {
-                            int xi = (i % 8) * depth;
-                            int yi = (i / 8) * depth;
-                            ShadeFrom dir = (ShadeFrom) i;
-                            if (dir.HasFlag(ShadeFrom.L))
-                            {
-                                g.DrawImage(Shadows.d16_L, xi, yi, Shadows.d16_L.Width, depth);
-                            }
+            //{
+            //    string fToStrip = $@"{rootShadowsPath}\sprites\sprite-source-x{depth}.png";
+            //    var saveFile = $@"{rootShadowsPath}\sprites\sprite-x{depth}.png";
+            //    // Make it so that everything is transparent
+            //    using (var bm = new Bitmap(depth * 8, depth * 32, PixelFormat.Format32bppArgb))
+            //    {
+            //        using (Graphics g = Graphics.FromImage(bm))
+            //        {
+            //            g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+            //            g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            //            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            //            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            //            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+            //            for (int i = 0; i < 256; i++)
+            //            {
+            //                int xi = (i % 8) * depth;
+            //                int yi = (i / 8) * depth;
+            //                ShadeFrom dir = (ShadeFrom) i;
+            //                if (dir.HasFlag(ShadeFrom.L))
+            //                {
+            //                    g.DrawImage(Shadows.d16_L, xi, yi, Shadows.d16_L.Width, depth);
+            //                }
 
-                            if (dir.HasFlag(ShadeFrom.R))
-                            {
-                                g.DrawImage(image: Shadows.d16_R,
-                                x: (xi + textureSize) - (Shadows.d16_R.Width),
-                                y: yi,
-                                width: Shadows.d16_R.Width,
-                                height: textureSize);
-                            }
+            //                if (dir.HasFlag(ShadeFrom.R))
+            //                {
+            //                    g.DrawImage(image: Shadows.d16_R,
+            //                    x: (xi + textureSize) - (Shadows.d16_R.Width),
+            //                    y: yi,
+            //                    width: Shadows.d16_R.Width,
+            //                    height: textureSize);
+            //                }
 
-                            if (dir.HasFlag(ShadeFrom.T))
-                            {
-                                g.DrawImage(image: Shadows.d16_T,
-                                    x: xi,
-                                    y: yi,
-                                    width: textureSize,
-                                    height: Shadows.d16_T.Height
-                                    );
-                            }
+            //                if (dir.HasFlag(ShadeFrom.T))
+            //                {
+            //                    g.DrawImage(image: Shadows.d16_T,
+            //                        x: xi,
+            //                        y: yi,
+            //                        width: textureSize,
+            //                        height: Shadows.d16_T.Height
+            //                        );
+            //                }
 
-                            if (dir.HasFlag(ShadeFrom.B))
-                            {
-                                g.DrawImage(image: Shadows.d16_B,
-                                    x: xi,
-                                    y: (yi + textureSize) - (Shadows.d16_B.Height),
-                                    width: textureSize,
-                                    height: Shadows.d16_B.Height);
-                            }
+            //                if (dir.HasFlag(ShadeFrom.B))
+            //                {
+            //                    g.DrawImage(image: Shadows.d16_B,
+            //                        x: xi,
+            //                        y: (yi + textureSize) - (Shadows.d16_B.Height),
+            //                        width: textureSize,
+            //                        height: Shadows.d16_B.Height);
+            //                }
 
-                            if (dir.HasFlag(ShadeFrom.BL) && !dir.HasFlag(ShadeFrom.L) && !dir.HasFlag(ShadeFrom.B))
-                            {
-                                g.DrawImage(image: Shadows.d16_BL,
-                                    x: xi,
-                                    y: (yi + textureSize) - (Shadows.d16_BL.Height),
-                                    width: Shadows.d16_BL.Width,
-                                    height: Shadows.d16_BL.Height);
-                            }
+            //                if (dir.HasFlag(ShadeFrom.BL) && !dir.HasFlag(ShadeFrom.L) && !dir.HasFlag(ShadeFrom.B))
+            //                {
+            //                    g.DrawImage(image: Shadows.d16_BL,
+            //                        x: xi,
+            //                        y: (yi + textureSize) - (Shadows.d16_BL.Height),
+            //                        width: Shadows.d16_BL.Width,
+            //                        height: Shadows.d16_BL.Height);
+            //                }
 
-                            if (dir.HasFlag(ShadeFrom.BR) && !dir.HasFlag(ShadeFrom.R) && !dir.HasFlag(ShadeFrom.B))
-                            {
-                                g.DrawImage(image: Shadows.d16_BR,
-                                    x: (xi + textureSize) - (Shadows.d16_BR.Width),
-                                    y: (yi + textureSize) - (Shadows.d16_BR.Height),
-                                    width: Shadows.d16_BR.Width,
-                                    height: Shadows.d16_BR.Height);
-                            }
+            //                if (dir.HasFlag(ShadeFrom.BR) && !dir.HasFlag(ShadeFrom.R) && !dir.HasFlag(ShadeFrom.B))
+            //                {
+            //                    g.DrawImage(image: Shadows.d16_BR,
+            //                        x: (xi + textureSize) - (Shadows.d16_BR.Width),
+            //                        y: (yi + textureSize) - (Shadows.d16_BR.Height),
+            //                        width: Shadows.d16_BR.Width,
+            //                        height: Shadows.d16_BR.Height);
+            //                }
 
-                            if (dir.HasFlag(ShadeFrom.TR) && !dir.HasFlag(ShadeFrom.R) && !dir.HasFlag(ShadeFrom.T))
-                            {
-                                g.DrawImage(image: Shadows.d16_TR,
-                                    x: (xi + textureSize) - (Shadows.d16_TR.Width),
-                                    y: yi,
-                                    width: Shadows.d16_TR.Width,
-                                    height: Shadows.d16_TR.Height);
-                            }
+            //                if (dir.HasFlag(ShadeFrom.TR) && !dir.HasFlag(ShadeFrom.R) && !dir.HasFlag(ShadeFrom.T))
+            //                {
+            //                    g.DrawImage(image: Shadows.d16_TR,
+            //                        x: (xi + textureSize) - (Shadows.d16_TR.Width),
+            //                        y: yi,
+            //                        width: Shadows.d16_TR.Width,
+            //                        height: Shadows.d16_TR.Height);
+            //                }
 
-                            if (dir.HasFlag(ShadeFrom.TL) && !dir.HasFlag(ShadeFrom.L) && !dir.HasFlag(ShadeFrom.T))
-                            {
-                                g.DrawImage(image: Shadows.d16_TL,
-                                    x: (xi),
-                                    y: (yi),
-                                    width: Shadows.d16_TL.Width,
-                                    height: Shadows.d16_TL.Height);
-                            }
-                        }
-                    }
-                    bm.Save(fToStrip);
-                }
-            }
-        }
+            //                if (dir.HasFlag(ShadeFrom.TL) && !dir.HasFlag(ShadeFrom.L) && !dir.HasFlag(ShadeFrom.T))
+            //                {
+            //                    g.DrawImage(image: Shadows.d16_TL,
+            //                        x: (xi),
+            //                        y: (yi),
+            //                        width: Shadows.d16_TL.Width,
+            //                        height: Shadows.d16_TL.Height);
+            //                }
+            //            }
+            //        }
+            //        bm.Save(fToStrip);
+            //    }
+            //}
+        //}
 
 
         public void StripSpriteSheet(int depth)

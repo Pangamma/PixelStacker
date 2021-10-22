@@ -68,7 +68,7 @@ namespace PixelStacker.Properties
         const int NUM_SHADE_TILES_X = 8;
         public static Rectangle GetSpriteRect(int textureSize, ShadeFrom dir)
         {
-            int numDir = (int) dir;
+            int numDir = (int)dir;
             int xOffset = textureSize * (numDir % NUM_SHADE_TILES_X);
             int yOffset = textureSize * (numDir / NUM_SHADE_TILES_X);
 
@@ -78,7 +78,7 @@ namespace PixelStacker.Properties
         private static Bitmap[] shadowSprites = new Bitmap[256];
         public static Bitmap GetSpriteIndividual(int textureSize, ShadeFrom dir)
         {
-            int numDir = (int) dir;
+            int numDir = (int)dir;
             if (shadowSprites[numDir] == null)
             {
                 var bmShadeSprites = ShadowHelper.GetSpriteSheet(textureSize);
@@ -86,7 +86,7 @@ namespace PixelStacker.Properties
 
                 for (int i = 0; i < 256; i++)
                 {
-                    var rectSRC = GetSpriteRect(textureSize, (ShadeFrom) i);
+                    var rectSRC = GetSpriteRect(textureSize, (ShadeFrom)i);
                     var bm = new Bitmap(textureSize, textureSize);
                     using (Graphics g = Graphics.FromImage(bm))
                     {

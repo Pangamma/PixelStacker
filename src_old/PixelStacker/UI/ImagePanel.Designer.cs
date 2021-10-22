@@ -38,7 +38,6 @@
             this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.DoubleBuffered = true;
-            this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
             this.Name = "ImagePanel";
             this.Size = new System.Drawing.Size(509, 297);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);

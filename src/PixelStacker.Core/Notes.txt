@@ -1,0 +1,28 @@
+﻿Color usage:
+	- RGB + Hue
+	- Saturation and Brightness are also nice to have.
+	- Distance calculations
+	- Map lookups (could be replaced with int though)
+	- Quantizing
+	- Dithering
+	- Color bucketting
+Bitmap usage:
+	- Drawing onto canvas, or onto the form
+	- Efficient long-term data storage for tons of pixels
+	- Iteration over data
+		- Color distances (int)
+		- Color counts
+		- Viewing colors (int)
+		- Merging/ Combining (int/byte)
+Image processing:
+- Resizing
+- Splitting
+- Combining
+- Copying from one area to another
+
+
+
+
+IsSideView? Where is it used?
+Preprocessing: Material Selection
+Output: Rendering.

@@ -43,8 +43,9 @@ namespace PixelStacker.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
             this.Name = "CanvasEditor";
-            this.Size = new System.Drawing.Size(414, 303);
+            this.Size = new System.Drawing.Size(611, 382);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseUp);

@@ -185,7 +185,7 @@ namespace PixelStacker.UI
         private async void LoadFileFromPath(string _path)
         {
             string ext = _path.Split('.', StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
-            if (ext == ".pxlzip")
+            if (ext == "pxlzip")
             {
                 var self = this;
                 // pixelstacker project handling
@@ -195,13 +195,43 @@ namespace PixelStacker.UI
 
                     worker.ThrowIfCancellationRequested();
 
+                    // Prepare for generation. This step might be skippable.
+                    this.ColorMapper.SetSeedData(proj.MaterialPalette.ToValidCombinationList(Options), proj.MaterialPalette, Options.Preprocessor.IsSideView);
+
+                    worker.ThrowIfCancellationRequested();
+
                     await self.InvokeEx(async c =>
                     {
-                        c.ColorMapper.SetSeedData(proj.MaterialPalette.ToCombinationList()
-.Where(mc => mc.Bottom.IsVisibleF(Options) && mc.Top.IsVisibleF(Options))
-.Where(mc => mc.Bottom.IsEnabledF(Options) && mc.Top.IsEnabledF(Options))
-.ToList(), proj.MaterialPalette, Options.Preprocessor.IsSideView);
-                        await c.canvasEditor.SetCanvas(worker, proj, null);
+                        // Load the file into regular viewer
+                        c.LoadedImage = proj.PreprocessedImage;
+                        c.imageViewer.SetImage(c.LoadedImage, null);
+
+                        
+
+
+
+
+
+
+                        ////----------
+
+                        //// Super dubious and sketchy logic here. Might crash due to cross-context thread access issues
+                        //self.RenderedCanvas = await engine.RenderCanvasAsync(worker, ref imgPreprocessed, this.ColorMapper, this.Palette);
+                        //worker.ThrowIfCancellationRequested();
+                        //await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, this.imageViewer.PanZoomSettings);
+
+                        //ProgressX.Report(0, "Showing block plan in the viewing window.");
+                        //self.InvokeEx(cc =>
+                        //{
+                        //    cc.ShowCanvasEditor();
+                        //    cc.TS_OnRenderCanvas();
+                        //});
+                        ////-----------
+
+
+
+                        var pz = c.imageViewer.PanZoomSettings;
+                        await c.canvasEditor.SetCanvas(worker, proj, pz);
                         c.ShowCanvasEditor();
                     });
                 }));
