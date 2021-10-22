@@ -117,5 +117,10 @@
   "Operation_Cancelled": "Operation aflyst.",
   "RenderEngine_ConvertingToBlocks": "Konvertering af pixels til Minecraft -blokke.",
   "Progress_CompiledColorMap": "Farvekort er udarbejdet.",
-  "OtherOptions_Instructions": "Indtast en maks. bredde eller maks. højde for at begrænse outputstørrelsen."
+  "OtherOptions_Instructions": "Indtast en maks. bredde eller maks. højde for at begrænse outputstørrelsen.",
+  "Menu_ColorReduction": "Farvereduktion",
+  "Orientation": "Orientering",
+  "Orientation_Horizontal": "Vandret",
+  "Orientation_Vertical": "Lodret",
+  "Sizing": "Dimensionering"
 }

@@ -1,20 +1,8 @@
-﻿using Newtonsoft.Json;
-using PixelStacker.Logic;
-using PixelStacker.Logic.Collections;
-using PixelStacker.Logic.Extensions;
-using PixelStacker.Logic.WIP;
+﻿using PixelStacker.Logic;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker

@@ -1,7 +1,7 @@
-using PixelStacker.Resources.Localization;
 using System;
 using System.Windows.Forms;
 using PixelStacker.UI;
+using PixelStacker.Resources;
 
 namespace PixelStacker
 {

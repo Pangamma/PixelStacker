@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SimplePaletteQuantizer.Helpers.Pixels
+﻿namespace PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels
 {
     public interface IIndexedPixel
     {

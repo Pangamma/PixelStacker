@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Extensions;
 using PixelStacker.IO;
-using PixelStacker.IO.Config;
-using PixelStacker.Logic;
-using PixelStacker.Logic.IO;
+using PixelStacker.Logic.Collections;
+using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
-using PixelStacker.Resources;
+using PixelStacker.Resources.Localization;
+using PixelStacker.UI.Controls;
 using PixelStacker.WF.Components;
 using System;
 using System.Collections.Generic;
@@ -751,7 +752,7 @@ namespace PixelStacker.UI
             lblFilter.Text = Resources.Text.Action_Filter;
             btnEditColorProfiles.Text = Resources.Text.Action_Save;
             cbxIsMultiLayer.Text = Resources.Text.MaterialSelect_IsMultiLayer;
-            cbxIsSideView.Text = Resources.Text.MaterialSelect_IsSideView;
+            cbxIsSideView.Text = Resources.Text.Orientation_Vertical;
             cbxRequire2ndLayer.Text = Resources.Text.MaterialSelect_IsMultiLayerRequired;
         }
 

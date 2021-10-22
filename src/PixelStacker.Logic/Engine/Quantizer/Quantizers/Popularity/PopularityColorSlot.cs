@@ -1,7 +1,6 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
-namespace SimplePaletteQuantizer.Quantizers.Popularity
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.Popularity
 {
     internal class PopularityColorSlot
     {
@@ -58,9 +57,9 @@ namespace SimplePaletteQuantizer.Quantizers.Popularity
         public Color GetAverage()
         {
             // determines the components
-            int finalRed = red/PixelCount;
-            int finalGreen = green/PixelCount;
-            int finalBlue = blue/PixelCount;
+            int finalRed = red / PixelCount;
+            int finalGreen = green / PixelCount;
+            int finalBlue = blue / PixelCount;
 
             // clamps the invalid values
             if (finalRed < 0) finalRed = 0;

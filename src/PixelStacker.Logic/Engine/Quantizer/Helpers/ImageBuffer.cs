@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using SimplePaletteQuantizer.ColorCaches.Common;
-using SimplePaletteQuantizer.Ditherers;
-using SimplePaletteQuantizer.PathProviders;
-using SimplePaletteQuantizer.Quantizers;
 using PixelStacker.Extensions;
 using System.Linq;
+using PixelStacker.Logic.Engine.Quantizer.Ditherers;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Common;
+using PixelStacker.Logic.Engine.Quantizer.PathProviders;
 
-namespace SimplePaletteQuantizer.Helpers
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers
 {
     public class ImageBuffer : IDisposable
     {
@@ -98,7 +97,7 @@ namespace SimplePaletteQuantizer.Helpers
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageBuffer"/> class.
         /// </summary>
-        public ImageBuffer(Image bitmap, ImageLockMode lockMode) : this((Bitmap) bitmap, lockMode) { }
+        public ImageBuffer(Image bitmap, ImageLockMode lockMode) : this((Bitmap)bitmap, lockMode) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageBuffer"/> class.
@@ -125,7 +124,7 @@ namespace SimplePaletteQuantizer.Helpers
 
             // creates internal buffer
             Stride = bitmapData.Stride < 0 ? -bitmapData.Stride : bitmapData.Stride;
-            Size = Stride*Height;
+            Size = Stride * Height;
 
             // precalculates the offsets
             Precalculate();
@@ -144,7 +143,7 @@ namespace SimplePaletteQuantizer.Helpers
             // precalculates the x-coordinates
             for (int x = 0; x < Width; x++)
             {
-                fastBitX[x] = x*BitDepth;
+                fastBitX[x] = x * BitDepth;
                 fastByteX[x] = fastBitX[x] >> 3;
                 fastBitX[x] = fastBitX[x] % 8;
             }
@@ -164,7 +163,7 @@ namespace SimplePaletteQuantizer.Helpers
         public byte[] Copy()
         {
             // transfers whole image to a working memory
-            byte[] result = new byte[Size]; 
+            byte[] result = new byte[Size];
             Marshal.Copy(bitmapData.Scan0, result, 0, Size);
 
             // returns the backup
@@ -231,7 +230,7 @@ namespace SimplePaletteQuantizer.Helpers
             }
 
             // returns the found color
-            return result;    
+            return result;
         }
 
         public int ReadIndexUsingPixel(Pixel pixel, byte[] buffer = null)
@@ -295,7 +294,7 @@ namespace SimplePaletteQuantizer.Helpers
             // determines whether the format is indexed
             if (IsIndexed)
             {
-                pixel.Index = (byte) index;
+                pixel.Index = (byte)index;
             }
             else // cannot write color to an indexed format
             {
@@ -376,14 +375,14 @@ namespace SimplePaletteQuantizer.Helpers
             UpdatePalette();
 
             // prepares parallel processing
-            double pointsPerTask = (1.0*path.Count)/parallelTaskCount;
+            double pointsPerTask = 1.0 * path.Count / parallelTaskCount;
             LineTask[] lineTasks = new LineTask[parallelTaskCount];
             double pointOffset = 0.0;
 
             // creates task for each batch of rows
             for (int index = 0; index < parallelTaskCount; index++)
             {
-                lineTasks[index] = new LineTask((int) pointOffset, (int) (pointOffset + pointsPerTask));
+                lineTasks[index] = new LineTask((int)pointOffset, (int)(pointOffset + pointsPerTask));
                 pointOffset += pointsPerTask;
             }
 
@@ -403,7 +402,7 @@ namespace SimplePaletteQuantizer.Helpers
 
             // determines mode
             bool isAdvanced = processingAction is ProcessPixelAdvancedFunction;
-            
+
             // prepares the per pixel task
             Action<LineTask> processPerPixel = lineTask =>
             {
@@ -424,12 +423,12 @@ namespace SimplePaletteQuantizer.Helpers
                     // process the pixel by custom user operation
                     if (isAdvanced)
                     {
-                        ProcessPixelAdvancedFunction processAdvancedFunction = (ProcessPixelAdvancedFunction) processingAction;
+                        ProcessPixelAdvancedFunction processAdvancedFunction = (ProcessPixelAdvancedFunction)processingAction;
                         allowWrite = processAdvancedFunction(pixel, this);
                     }
                     else // use simplified version with pixel parameter only
                     {
-                        ProcessPixelFunction processFunction = (ProcessPixelFunction) processingAction;
+                        ProcessPixelFunction processFunction = (ProcessPixelFunction)processingAction;
                         allowWrite = processFunction(pixel);
                     }
 
@@ -525,12 +524,12 @@ namespace SimplePaletteQuantizer.Helpers
                     // process the pixel by custom user operation
                     if (isAdvanced)
                     {
-                        TransformPixelAdvancedFunction transformAdvancedFunction = (TransformPixelAdvancedFunction) transformAction;
+                        TransformPixelAdvancedFunction transformAdvancedFunction = (TransformPixelAdvancedFunction)transformAction;
                         allowWrite = transformAdvancedFunction(sourcePixel, targetPixel, this, target);
                     }
                     else // use simplified version with pixel parameters only
                     {
-                        TransformPixelFunction transformFunction = (TransformPixelFunction) transformAction;
+                        TransformPixelFunction transformFunction = (TransformPixelFunction)transformAction;
                         allowWrite = transformFunction(sourcePixel, targetPixel);
                     }
 
@@ -787,7 +786,7 @@ namespace SimplePaletteQuantizer.Helpers
             TransformPerPixel(target, standardPath, calculateMeanError, parallelTaskCount);
 
             // returns the calculates RMSD
-            return Math.Sqrt(totalError/(3.0*Width*Height));
+            return Math.Sqrt(totalError / (3.0 * Width * Height));
         }
 
         public static double CalculateImageMeanError(ImageBuffer source, ImageBuffer target, int parallelTaskCount = 4)
@@ -1106,7 +1105,7 @@ namespace SimplePaletteQuantizer.Helpers
 
             // prepares ditherer for another round
             ditherer.Prepare(quantizer, colorCount, this, target);
-            
+
             // processes the image via the ditherer
             IList<Point> path = ditherer.GetPointPath(Width, Height);
             TransformPerPixel(target, path, ditherer.ProcessPixel, parallelTaskCount);
@@ -1180,7 +1179,7 @@ namespace SimplePaletteQuantizer.Helpers
 
             for (int index = 0; index < 256; ++index)
             {
-                gammaRamp[index] = Clamp((int) ((255.0f*Math.Pow(index/255.0f, 1.0f/gamma)) + 0.5f));
+                gammaRamp[index] = Clamp((int)(255.0f * Math.Pow(index / 255.0f, 1.0f / gamma) + 0.5f));
             }
 
             // use different scanning method depending whether the image format is indexed
@@ -1264,7 +1263,7 @@ namespace SimplePaletteQuantizer.Helpers
             public int EndOffset { get; private set; }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="SimplePaletteQuantizer.Helpers.ImageBuffer.LineTask"/> class.
+            /// Initializes a new instance of the <see cref="LineTask"/> class.
             /// </summary>
             public LineTask(int startOffset, int endOffset)
             {

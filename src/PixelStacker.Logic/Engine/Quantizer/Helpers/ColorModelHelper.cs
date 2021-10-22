@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using SimplePaletteQuantizer.ColorCaches.Common;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Common;
 
-namespace SimplePaletteQuantizer.Helpers
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers
 {
     public class ColorModelHelper
     {
@@ -31,17 +31,17 @@ namespace SimplePaletteQuantizer.Helpers
             if (hue < 0.0f) hue++;
             if (hue > 1.0f) hue--;
 
-            if ((6.0f * hue) < 1.0f)
+            if (6.0f * hue < 1.0f)
             {
-                preresult = v1 + (((v2 - v1) * 6.0f) * hue);
+                preresult = v1 + (v2 - v1) * 6.0f * hue;
             }
-            else if ((2.0f * hue) < 1.0f)
+            else if (2.0f * hue < 1.0f)
             {
                 preresult = v2;
             }
-            else if ((3.0f * hue) < 2.0f)
+            else if (3.0f * hue < 2.0f)
             {
-                preresult = v1 + (((v2 - v1) * (TwoThirds - hue)) * 6.0f);
+                preresult = v1 + (v2 - v1) * (TwoThirds - hue) * 6.0f;
             }
             else
             {
@@ -70,8 +70,8 @@ namespace SimplePaletteQuantizer.Helpers
                 {
                     // converts HSL cylinder to one slice (its factors)
                     float factorHue = hue / 360.0f;
-                    float factorA = brightness < 0.5f ? brightness * (1.0f + saturation) : (brightness + saturation) - (brightness * saturation);
-                    float factorB = (2.0f * brightness) - factorA;
+                    float factorA = brightness < 0.5f ? brightness * (1.0f + saturation) : brightness + saturation - brightness * saturation;
+                    float factorB = 2.0f * brightness - factorA;
 
                     // maps HSL slice to a RGB cube
                     red = GetColorComponent(factorB, factorA, factorHue + OneThird);
@@ -102,9 +102,9 @@ namespace SimplePaletteQuantizer.Helpers
             double blueFactor = blue / 255.0;
 
             // convert to a sRGB form
-            double sRed = (redFactor > 0.04045) ? Math.Pow((redFactor + 0.055) / (1 + 0.055), 2.2) : (redFactor / 12.92);
-            double sGreen = (greenFactor > 0.04045) ? Math.Pow((greenFactor + 0.055) / (1 + 0.055), 2.2) : (greenFactor / 12.92);
-            double sBlue = (blueFactor > 0.04045) ? Math.Pow((blueFactor + 0.055) / (1 + 0.055), 2.2) : (blueFactor / 12.92);
+            double sRed = redFactor > 0.04045 ? Math.Pow((redFactor + 0.055) / (1 + 0.055), 2.2) : redFactor / 12.92;
+            double sGreen = greenFactor > 0.04045 ? Math.Pow((greenFactor + 0.055) / (1 + 0.055), 2.2) : greenFactor / 12.92;
+            double sBlue = blueFactor > 0.04045 ? Math.Pow((blueFactor + 0.055) / (1 + 0.055), 2.2) : blueFactor / 12.92;
 
             // converts
             x = Convert.ToSingle(sRed * 0.4124 + sGreen * 0.3576 + sBlue * 0.1805);
@@ -118,7 +118,7 @@ namespace SimplePaletteQuantizer.Helpers
 
         private static float GetXYZValue(float value)
         {
-            return value > 0.008856f ? (float) Math.Pow(value, OneThird) : (7.787f * value + 16.0f / 116.0f);
+            return value > 0.008856f ? (float)Math.Pow(value, OneThird) : 7.787f * value + 16.0f / 116.0f;
         }
 
         public static void XYZtoLab(float x, float y, float z, out float l, out float a, out float b)
@@ -135,7 +135,7 @@ namespace SimplePaletteQuantizer.Helpers
         public static long GetColorEuclideanDistance(ColorModel colorModel, Color requestedColor, Color realColor)
         {
             GetColorComponents(colorModel, requestedColor, realColor, out float componentA, out float componentB, out float componentC);
-            return (long) (componentA * componentA + componentB * componentB + componentC * componentC);
+            return (long)(componentA * componentA + componentB * componentB + componentC * componentC);
         }
 
         public static int GetEuclideanDistance(Color color, ColorModel colorModel, IList<Color> palette)

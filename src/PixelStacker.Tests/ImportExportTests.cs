@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Collections.Generic;
-using PixelStacker.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Engine;
@@ -11,6 +10,7 @@ using PixelStacker.Extensions;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Resources;
+using PixelStacker.Logic.IO.Config;
 
 namespace PixelStacker.Tests
 {

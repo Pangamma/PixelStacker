@@ -4,16 +4,16 @@ using System;
 using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
-using SimplePaletteQuantizer.ColorCaches;
-using SimplePaletteQuantizer.ColorCaches.Octree;
-using SimplePaletteQuantizer.Helpers;
 using PixelStacker.Extensions;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Octree;
 
 #if (UseDictionary)
 using System.Collections.Concurrent;
 #endif
 
-namespace SimplePaletteQuantizer.Quantizers.DistinctSelection
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.DistinctSelection
 {
     /// <summary>
     /// This is my baby. Read more in the article on the Code Project:

@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
-using PixelStacker.Extensions;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
+using PixelStacker.Logic.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
-namespace PixelStacker.IO.Config
+namespace PixelStacker.Logic.IO.Config
 {
 #pragma warning disable CS0618 // Type or member is obsolete
     public class Options
@@ -14,7 +13,7 @@ namespace PixelStacker.IO.Config
         public IOptionsProvider StorageProvider { get; set; }
         public Options(IOptionsProvider storageProvider)
         {
-            this.StorageProvider = storageProvider;
+            StorageProvider = storageProvider;
         }
 
         public MaterialSelectOptions MaterialOptions { get; set; } = new MaterialSelectOptions();
@@ -57,8 +56,8 @@ namespace PixelStacker.IO.Config
         /// </summary>
         public bool IsExtraShadowDepthEnabled
         {
-            get => _IsExtraShadowDepthEnabled && this.IsAdvancedModeEnabled;
-            set => _IsExtraShadowDepthEnabled = value && this.IsAdvancedModeEnabled;
+            get => _IsExtraShadowDepthEnabled && IsAdvancedModeEnabled;
+            set => _IsExtraShadowDepthEnabled = value && IsAdvancedModeEnabled;
         }
         private bool _IsExtraShadowDepthEnabled = false;
 
@@ -157,7 +156,7 @@ namespace PixelStacker.IO.Config
 
         public void Reset()
         {
-            StorageProvider.Save(new Options(this.StorageProvider));
+            StorageProvider.Save(new Options(StorageProvider));
             _self = null;
         }
     }

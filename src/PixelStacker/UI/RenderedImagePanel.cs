@@ -1,5 +1,5 @@
-﻿using PixelStacker.IO.Config;
-using PixelStacker.Logic.Engine;
+﻿using PixelStacker.Logic.Engine;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using System.Drawing;

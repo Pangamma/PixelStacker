@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels.NonIndexed
 {
     /// <summary>
     /// Name |     Blue     |      Green      |     Red      | 
@@ -22,8 +21,8 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
 
         // processed component values
         public int Alpha { get { return 0xFF; } }
-        public int Red { get { return (red >> 3) & 0xF; } }
-        public int Green { get { return (green >> 5) & 0x1F; } }
+        public int Red { get { return red >> 3 & 0xF; } }
+        public int Green { get { return green >> 5 & 0x1F; } }
         public int Blue { get { return blue & 0xF; } }
 
         /// <summary>
@@ -47,9 +46,9 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         /// </summary>
         public void SetColor(Color color)
         {
-            red = (byte) (color.R >> 3);
-            green = (byte) (color.G >> 2);
-            blue = (byte) (color.B >> 3);
+            red = (byte)(color.R >> 3);
+            green = (byte)(color.G >> 2);
+            blue = (byte)(color.B >> 3);
         }
 
         /// <summary>
@@ -58,7 +57,7 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         public ulong Value
         {
             get { return raw; }
-            set { raw = (ushort) (value & 0xFFFF); }
+            set { raw = (ushort)(value & 0xFFFF); }
         }
     }
 }

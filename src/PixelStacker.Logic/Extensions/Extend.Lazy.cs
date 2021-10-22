@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace PixelStacker.Extensions
+namespace PixelStacker.Logic.Extensions
 {
     public static partial class ExtendLazy
     {
@@ -21,7 +21,7 @@ namespace PixelStacker.Extensions
 
                 if (!cache.TryGetValue(prop, out var cached))
                 {
-                    cache[prop] = (result = factory());
+                    cache[prop] = result = factory();
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Extensions;
-using PixelStacker.IO.JsonConverters;
+using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.JsonConverters;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

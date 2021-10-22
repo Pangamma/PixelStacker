@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Extensions;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Utilities;
 using System;
@@ -13,18 +14,6 @@ namespace PixelStacker.UI
 {
     public partial class MainForm
     {
-        private List<IExportFormatter> ExportFormatters { get; set; } = new List<IExportFormatter>()
-        {
-            new PixelStackerProjectFormatter(),
-            new PngFormatter()
-        };
-
-        private List<IImportFormatter> ImportFormatters { get; set; } = new List<IImportFormatter>()
-        {
-            new PixelStackerProjectFormatter(),
-        };
-
-
         private async void saveAsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             await TaskManager.Get.CancelTasks();

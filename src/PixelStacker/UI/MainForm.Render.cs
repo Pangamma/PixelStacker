@@ -1,11 +1,8 @@
 ﻿using PixelStacker.Extensions;
-using PixelStacker.IO.Config;
-using PixelStacker.Logic;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Utilities;
 using System;
 using System.Drawing;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PixelStacker.UI

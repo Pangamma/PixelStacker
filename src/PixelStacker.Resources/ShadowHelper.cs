@@ -1,8 +1,7 @@
-﻿using PixelStacker.Resources;
-using System;
+﻿using System;
 using System.Drawing;
 
-namespace PixelStacker.Properties
+namespace PixelStacker.Resources
 {
     /* Shadow resolution*/
     public enum ShadeRez
@@ -53,17 +52,17 @@ namespace PixelStacker.Properties
 
     public static class ShadowHelper
     {
-        private static System.Drawing.Bitmap GetSpriteSheet(int textureSize)
+        private static Bitmap GetSpriteSheet(int textureSize)
         {
             string resourceKey = $"sprite_x{textureSize}";
-            return Shadows.ResourceManager.GetObject(resourceKey) as System.Drawing.Bitmap;
+            return Shadows.ResourceManager.GetObject(resourceKey) as Bitmap;
         }
 
 
         const int NUM_SHADE_TILES_X = 8;
         private static Rectangle GetSpriteRect(int textureSize, ShadeFrom dir)
         {
-            int numDir = (int) dir;
+            int numDir = (int)dir;
             int xOffset = textureSize * (numDir % NUM_SHADE_TILES_X);
             int yOffset = textureSize * (numDir / NUM_SHADE_TILES_X);
 
@@ -73,15 +72,15 @@ namespace PixelStacker.Properties
         private static Bitmap[] shadowSprites = new Bitmap[256];
         public static Bitmap GetSpriteIndividual(int textureSize, ShadeFrom dir)
         {
-            int numDir = (int) dir;
+            int numDir = (int)dir;
             if (shadowSprites[numDir] == null)
             {
-                var bmShadeSprites = ShadowHelper.GetSpriteSheet(textureSize);
+                var bmShadeSprites = GetSpriteSheet(textureSize);
                 var rectDST = new Rectangle(0, 0, textureSize, textureSize);
 
                 for (int i = 0; i < 256; i++)
                 {
-                    var rectSRC = GetSpriteRect(textureSize, (ShadeFrom) i);
+                    var rectSRC = GetSpriteRect(textureSize, (ShadeFrom)i);
                     var bm = new Bitmap(textureSize, textureSize);
                     using (Graphics g = Graphics.FromImage(bm))
                     {
@@ -98,7 +97,7 @@ namespace PixelStacker.Properties
             return shadowSprites[numDir];
         }
 
-        private static System.Drawing.Bitmap Get(int textureSize, ShadeDir direction)
+        private static Bitmap Get(int textureSize, ShadeDir direction)
         {
             if (!Enum.IsDefined(typeof(ShadeRez), textureSize / 4))
             {
@@ -109,12 +108,12 @@ namespace PixelStacker.Properties
 
             try
             {
-                return Shadows.ResourceManager.GetObject(resourceKey) as System.Drawing.Bitmap;
+                return Shadows.ResourceManager.GetObject(resourceKey) as Bitmap;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex); // Allow debugging but still log to console
-                return Textures.ResourceManager.GetObject(nameof(Textures.air)) as System.Drawing.Bitmap;
+                return Textures.ResourceManager.GetObject(nameof(Textures.air)) as Bitmap;
             }
         }
     }

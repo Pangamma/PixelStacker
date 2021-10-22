@@ -1,4 +1,4 @@
-﻿namespace SimplePaletteQuantizer.Helpers
+﻿namespace PixelStacker.Logic.Engine.Quantizer.Helpers
 {
     public class PixelTransform
     {

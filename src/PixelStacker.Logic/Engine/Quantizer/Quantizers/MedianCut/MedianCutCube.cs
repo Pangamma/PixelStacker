@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using SimplePaletteQuantizer.ColorCaches.Common;
-using SimplePaletteQuantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Common;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
 
-namespace SimplePaletteQuantizer.Quantizers.MedianCut
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.MedianCut
 {
     internal class MedianCutCube
     {
@@ -204,9 +204,9 @@ namespace SimplePaletteQuantizer.Quantizers.MedianCut
             int green = ColorModelHelper.GetComponentB(ColorModel, color);
             int blue = ColorModelHelper.GetComponentC(ColorModel, color);
 
-            return (red >= redLowBound && red <= redHighBound) &&
-                   (green >= greenLowBound && green <= greenHighBound) &&
-                   (blue >= blueLowBound && blue <= blueHighBound);
+            return red >= redLowBound && red <= redHighBound &&
+                   green >= greenLowBound && green <= greenHighBound &&
+                   blue >= blueLowBound && blue <= blueHighBound;
         }
 
         #endregion

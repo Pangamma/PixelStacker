@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace PixelStacker.IO.Config
+namespace PixelStacker.Logic.IO.Config
 {
     public class QuantizerSettings
     {
@@ -37,31 +37,31 @@ namespace PixelStacker.IO.Config
 
         public bool IsValid(QuantizerAlgorithmOptions opts, bool fixIfPossible = true)
         {
-            if (!QuantizerAlgorithm.Values.Contains(this.Algorithm))
+            if (!QuantizerAlgorithm.Values.Contains(Algorithm))
                 return false;
 
-            if (!opts.MaxParallelProcessesList.Contains(this.MaxParallelProcesses))
+            if (!opts.MaxParallelProcessesList.Contains(MaxParallelProcesses))
             {
                 if (!fixIfPossible) return false;
-                this.MaxParallelProcesses = 1;
+                MaxParallelProcesses = 1;
             }
 
-            if (null != this.DitherAlgorithm && !opts.DithererList.ContainsKey(this.DitherAlgorithm))
+            if (null != DitherAlgorithm && !opts.DithererList.ContainsKey(DitherAlgorithm))
             {
                 if (!fixIfPossible) return false;
-                this.DitherAlgorithm = "No dithering";
+                DitherAlgorithm = "No dithering";
             }
 
-            if (this.ColorCache != null && !opts.ColorCacheList.ContainsKey(this.ColorCache))
+            if (ColorCache != null && !opts.ColorCacheList.ContainsKey(ColorCache))
             {
                 if (!fixIfPossible) return false;
-                this.ColorCache = opts.ColorCacheList.Keys.First();
+                ColorCache = opts.ColorCacheList.Keys.First();
             }
 
-            if (!opts.MaxColorCountsList.Contains(this.MaxColorCount))
+            if (!opts.MaxColorCountsList.Contains(MaxColorCount))
             {
                 if (!fixIfPossible) return false;
-                this.MaxColorCount = 256;
+                MaxColorCount = 256;
             }
 
             return true;

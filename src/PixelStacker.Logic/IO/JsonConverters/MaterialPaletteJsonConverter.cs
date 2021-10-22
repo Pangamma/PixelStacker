@@ -3,7 +3,7 @@ using PixelStacker.Logic.Model;
 using System;
 using System.Collections.Generic;
 
-namespace PixelStacker.IO.JsonConverters
+namespace PixelStacker.Logic.IO.JsonConverters
 {
     public class MaterialPaletteJsonConverter : JsonConverter<MaterialPalette>
     {

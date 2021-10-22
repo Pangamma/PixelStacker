@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PixelStacker.Extensions
+namespace PixelStacker.Logic.Extensions
 {
     public static class StringExtensions
     {
@@ -33,7 +30,7 @@ namespace PixelStacker.Extensions
             {
                 var converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(T));
                 if (converter.IsValid(p_self)) return (T)converter.ConvertFromString(p_self);
-                if (typeof(T).IsEnum) { if (Enum.TryParse<T>(p_self, out T t)) return t; }
+                if (typeof(T).IsEnum) { if (Enum.TryParse(p_self, out T t)) return t; }
             }
 
             return null;

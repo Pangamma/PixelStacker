@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Drawing;
 using System.Collections.Generic;
-using SimplePaletteQuantizer.ColorCaches.Common;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Common;
 
-namespace SimplePaletteQuantizer.ColorCaches
+namespace PixelStacker.Logic.Engine.Quantizer.ColorCaches
 {
     public abstract class BaseColorCache : IColorCache
     {
@@ -104,7 +103,7 @@ namespace SimplePaletteQuantizer.ColorCaches
                 {
                     OnGetColorPaletteIndex(color, out int paletteIndexInside);
                     return paletteIndexInside;
-                }, 
+                },
                 (colorKey, inputIndex) => inputIndex);
         }
 

@@ -4,15 +4,15 @@ using System.Drawing;
 using System.Linq;
 using PixelStacker.Resources;
 
-namespace PixelStacker.Logic
+namespace PixelStacker.Logic.Model
 {
     public class Materials
     {
-        public static Material Air { get; set; } = Materials.List.FirstOrDefault(x => x.PixelStackerID == "AIR");
+        public static Material Air { get; set; } = List.FirstOrDefault(x => x.PixelStackerID == "AIR");
 
         public static Material FromPixelStackerID(string pixelStackerID)
         {
-            return Materials.List.FirstOrDefault(x => x.PixelStackerID == pixelStackerID);
+            return List.FirstOrDefault(x => x.PixelStackerID == pixelStackerID);
         }
 
         private static List<Material> _List = null;
@@ -380,8 +380,8 @@ namespace PixelStacker.Logic
                     _List.ForEach(m =>
                     {
                         List<string> tags = m.Tags;
-                        Materials.AddTagsForColor(m.GetAverageColor(true), ref tags);
-                        Materials.AddTagsForColor(m.GetAverageColor(false), ref tags);
+                        AddTagsForColor(m.GetAverageColor(true), ref tags);
+                        AddTagsForColor(m.GetAverageColor(false), ref tags);
 
                         if (m.IsAdvanced)
                         {
@@ -390,9 +390,9 @@ namespace PixelStacker.Logic
 
                         // The color brown is not as easy to pin down. The brown range is like a rounded triangle on the color grid.
                         if (
-                        (m.Category.Contains("Stripped") && m.BlockID == 17)
-                        || (m.Category.Contains("Planks") && m.BlockID == 5)
-                        || (m.Category.Contains("Log") && m.BlockID == 17 && !m.Label.Contains("Birch"))
+                        m.Category.Contains("Stripped") && m.BlockID == 17
+                        || m.Category.Contains("Planks") && m.BlockID == 5
+                        || m.Category.Contains("Log") && m.BlockID == 17 && !m.Label.Contains("Birch")
                         || m.PixelStackerID == "SHROOM_INNER"
                         || m.PixelStackerID == "CLAY_HARD_00"
                         || m.PixelStackerID.Contains("GRANITE")
@@ -423,7 +423,7 @@ namespace PixelStacker.Logic
                     //Materials._List = Materials._List.OrderBy(x => x.Roughness).ToList();
                 }
 
-                return Materials._List;
+                return _List;
             }
         }
 

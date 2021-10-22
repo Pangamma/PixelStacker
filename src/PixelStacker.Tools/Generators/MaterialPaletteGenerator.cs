@@ -1,9 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PixelStacker.Logic;
 using System.Linq;
 using PixelStacker.Logic.Model;
-using PixelStacker.Extensions;
 using Newtonsoft.Json;
 using System.IO;
 

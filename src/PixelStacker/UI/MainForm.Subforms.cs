@@ -1,6 +1,5 @@
 ﻿using PixelStacker.Logic.Utilities;
 using System;
-using System.Linq;
 
 namespace PixelStacker.UI
 {
@@ -28,6 +27,11 @@ namespace PixelStacker.UI
         {
             var form = new SizeForm(this.Options);
             form.ShowDialog(this);
+        }
+
+        private void preprocessingToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
         }
     }
 }

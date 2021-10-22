@@ -1,5 +1,4 @@
-﻿
-namespace PixelStacker.Extensions
+﻿namespace PixelStacker.Logic.Extensions
 {
     public static class ExtendMath
     {

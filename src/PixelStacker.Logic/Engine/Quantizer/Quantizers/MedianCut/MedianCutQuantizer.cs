@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
-using SimplePaletteQuantizer.ColorCaches;
-using SimplePaletteQuantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
 
-namespace SimplePaletteQuantizer.Quantizers.MedianCut
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.MedianCut
 {
     /// <summary>
     /// The premise behind median cut algorithms is to have every entry in the color map represent 
@@ -46,7 +45,7 @@ namespace SimplePaletteQuantizer.Quantizers.MedianCut
             {
                 // if another new cubes should be over the top; don't do it and just stop here
                 if (newCubes.Count >= colorCount) break;
-                
+
                 MedianCutCube newMedianCutCubeA, newMedianCutCubeB;
 
                 // splits the cube along the red axis
@@ -113,7 +112,7 @@ namespace SimplePaletteQuantizer.Quantizers.MedianCut
 
             // finds the minimum iterations needed to achieve the cube count (color count) we need
             int iterationCount = 1;
-            while ((1 << iterationCount) < colorCount) { iterationCount++; }
+            while (1 << iterationCount < colorCount) { iterationCount++; }
 
             for (int iteration = 0; iteration < iterationCount; iteration++)
             {

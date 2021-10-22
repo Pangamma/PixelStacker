@@ -1,13 +1,4 @@
-﻿using PixelStacker.Resources;
-using PixelStacker.Resources.Localization;
-using SimplePaletteQuantizer.Quantizers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PixelStacker.Logic.Engine.Quantizer.Enums
+﻿namespace PixelStacker.Logic.Engine.Quantizer.Enums
 {
     public class QuantizerAlgorithm
     {

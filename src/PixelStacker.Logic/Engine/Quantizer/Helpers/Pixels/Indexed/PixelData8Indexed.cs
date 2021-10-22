@@ -1,7 +1,6 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace SimplePaletteQuantizer.Helpers.Pixels.Indexed
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels.Indexed
 {
     [StructLayout(LayoutKind.Sequential, Size = 1)]
     public struct PixelData8Indexed : IIndexedPixel

@@ -83,7 +83,11 @@
   "MaterialSelect_IsMultiLayerRequired": "Require 2nd Layer",
   "MaterialSelect_IsSideView": "Side View",
   "MaterialSelect_Title": "Material Selection",
+  "Menu_ColorReduction": "Color Reduction",
   "Operation_Cancelled": "Operation cancelled.",
+  "Orientation": "Orientation",
+  "Orientation_Horizontal": "Horizontal",
+  "Orientation_Vertical": "Vertical",
   "OtherOptions_btnFactoryReset": "Factory Reset",
   "OtherOptions_cbxIsFrugalWithMaterials": "Add extra depth shadows to renders",
   "OtherOptions_cbxIsSideView": "Side View? (Affects output orientation)",
@@ -117,5 +121,6 @@
   "RenderedImagePanel_MaterialFilter": "Material Filter",
   "RenderedImagePanel_RemoveAll": "Remove all",
   "RenderedImagePanel_ReplaceColor": "Replace Color (Requires Re-Render)",
-  "RenderEngine_ConvertingToBlocks": "Converting pixels into Minecraft blocks."
+  "RenderEngine_ConvertingToBlocks": "Converting pixels into Minecraft blocks.",
+  "Sizing": "Sizing"
 }

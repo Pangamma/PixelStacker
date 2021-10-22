@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace SimplePaletteQuantizer.ColorCaches.Octree
+namespace PixelStacker.Logic.Engine.Quantizer.ColorCaches.Octree
 {
     public class OctreeCacheNode
     {
@@ -19,7 +18,7 @@ namespace SimplePaletteQuantizer.ColorCaches.Octree
             nodes = new OctreeCacheNode[8];
             entries = new Dictionary<int, Color>();
         }
-        
+
         /// <summary>
         /// Adds the color.
         /// </summary>
@@ -30,7 +29,7 @@ namespace SimplePaletteQuantizer.ColorCaches.Octree
         {
             // if this node is a leaf, then increase a color amount, and pixel presence
             entries.Add(paletteIndex, color);
-            
+
             if (level < 8) // otherwise goes one level deeper
             {
                 // calculates an index for the next sub-branch
@@ -53,7 +52,7 @@ namespace SimplePaletteQuantizer.ColorCaches.Octree
         public Dictionary<int, Color> GetPaletteIndex(Color color, int level)
         {
             Dictionary<int, Color> result = entries;
-            
+
             if (level < 8)
             {
                 int index = GetColorIndexAtLevel(color, level);

@@ -117,5 +117,10 @@
   "Operation_Cancelled": "操作取消。",
   "RenderEngine_ConvertingToBlocks": "将像素转换为 Minecraft 块。",
   "Progress_CompiledColorMap": "色图已编译。",
-  "OtherOptions_Instructions": "输入最大宽度或最大高度以限制输出尺寸。"
+  "OtherOptions_Instructions": "输入最大宽度或最大高度以限制输出尺寸。",
+  "Menu_ColorReduction": "色彩还原",
+  "Orientation": "方向",
+  "Orientation_Horizontal": "水平的",
+  "Orientation_Vertical": "垂直的",
+  "Sizing": "浆纱"
 }

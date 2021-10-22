@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SimplePaletteQuantizer.Ditherers.Ordered
+﻿namespace PixelStacker.Logic.Engine.Quantizer.Ditherers.Ordered
 {
     public class ClusteredDotDitherer : BaseOrderedDitherer
     {
@@ -9,12 +7,12 @@ namespace SimplePaletteQuantizer.Ditherers.Ordered
         /// </summary>
         protected override byte[,] CreateCoeficientMatrix()
         {
-            return new byte[,] 
+            return new byte[,]
             {
-        		{ 13,  5, 12, 16 },
-			    {  6,  0,  4, 11 },
-			    {  7,  2,  3, 10 },
-			    { 14,  8,  9, 15 }
+                { 13,  5, 12, 16 },
+                {  6,  0,  4, 11 },
+                {  7,  2,  3, 10 },
+                { 14,  8,  9, 15 }
             };
         }
 

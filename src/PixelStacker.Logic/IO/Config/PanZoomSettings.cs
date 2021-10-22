@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PixelStacker.IO.Config
+﻿namespace PixelStacker.Logic.IO.Config
 {
     public class PanZoomSettings
-    { 
+    {
         public int initialImageX = 0;
         public int initialImageY = 0;
         public int imageY = 0;

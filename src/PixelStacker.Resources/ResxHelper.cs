@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -6,13 +7,15 @@ using System.Resources;
 using System.Text;
 using System.Threading;
 
-namespace PixelStacker.Resources.Localization
+namespace PixelStacker.Resources
 {
     public class ResxHelper : ResourceManager
     {
+        private static Lazy<ResourceManager> FallbackResourceManager = new Lazy<ResourceManager>(() => new global::System.Resources.ResourceManager(typeof(PixelStacker.Resources.Text).FullName, typeof(Text).Assembly));
         public ResxHelper() { }
 
-        public static T LoadJson<T>(byte[] data){
+        public static T LoadJson<T>(byte[] data)
+        {
             string json = Encoding.UTF8.GetString(data);
             return JsonConvert.DeserializeObject<T>(json);
         }
@@ -23,7 +26,7 @@ namespace PixelStacker.Resources.Localization
         /// </summary>
         public static void InjectIntoTextResx()
         {
-            var innerField = typeof(Resources.Text).GetField("resourceMan", BindingFlags.NonPublic | BindingFlags.Static);
+            var innerField = typeof(Text).GetField("resourceMan", BindingFlags.NonPublic | BindingFlags.Static);
 
             if (innerField != null)
             {
@@ -37,7 +40,7 @@ namespace PixelStacker.Resources.Localization
         /// </summary>
         Dictionary<string, Dictionary<string, string>> Content = new Dictionary<string, Dictionary<string, string>>();
         public override string GetString(string name)
-            => this.GetString(name, Thread.CurrentThread.CurrentUICulture);
+            => GetString(name, Thread.CurrentThread.CurrentUICulture);
 
         private Dictionary<string, string> ReadResxJson(string twoDigitLangCode)
         {
@@ -47,6 +50,7 @@ namespace PixelStacker.Resources.Localization
             return dic ?? new Dictionary<string, string>();
         }
 
+        
         public override string GetString(string name, CultureInfo culture)
         {
             if (culture == null) culture = CultureInfo.CurrentUICulture;
@@ -65,7 +69,9 @@ namespace PixelStacker.Resources.Localization
                 }
             }
 
-            return Content["en"][name];
+            System.Diagnostics.Debug.WriteLine($"[ResxHelper]: Language '{culture.TwoLetterISOLanguageName}' contains no value for key '{name}'");
+            return FallbackResourceManager.Value.GetString(name, culture);
+            //return Content["en"][name];
         }
     }
 }

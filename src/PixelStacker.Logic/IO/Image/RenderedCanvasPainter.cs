@@ -1,17 +1,16 @@
 ﻿using PixelStacker.Extensions;
-using PixelStacker.IO.Config;
-using PixelStacker.IO.Image;
+using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PixelStacker.Logic
+namespace PixelStacker.Logic.IO.Image
 {
     /// <summary>
     /// Stitch a series of 6RenderedCanvasPainter.BlocksPerChunkx6RenderedCanvasPainter.BlocksPerChunk bitmaps together to make a giant bitmap tile set that renders quickly.
@@ -30,21 +29,21 @@ namespace PixelStacker.Logic
 
         public RenderedCanvasPainter(RenderedCanvas data)
         {
-            this.Data = data;
-            this.Bitmaps = new List<Bitmap[,]>();
+            Data = data;
+            Bitmaps = new List<Bitmap[,]>();
         }
 
         private static Size[,] CalculateChunkSizesForLayer(Size srcImageSize, int scaleDivide)
         {
-            int srcPixelsPerChunk = RenderedCanvasPainter.BlocksPerChunk * scaleDivide;
+            int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
             int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide; // 16 * (RenderedCanvasPainter.BlocksPerChunk * N) / N = 6RenderedCanvasPainter.BlocksPerChunk
-            int numChunksWide = (srcImageSize.Width / srcPixelsPerChunk) + (srcImageSize.Width % srcPixelsPerChunk == 0 ? 0 : 1);
-            int numChunksHigh = (srcImageSize.Height / srcPixelsPerChunk) + (srcImageSize.Height % srcPixelsPerChunk == 0 ? 0 : 1);
+            int numChunksWide = srcImageSize.Width / srcPixelsPerChunk + (srcImageSize.Width % srcPixelsPerChunk == 0 ? 0 : 1);
+            int numChunksHigh = srcImageSize.Height / srcPixelsPerChunk + (srcImageSize.Height % srcPixelsPerChunk == 0 ? 0 : 1);
             var sizeSet = new Size[numChunksWide, numChunksHigh];
 
             // MAX PERFECT WIDTH - ACTUAL WIDTH = difference
-            int deltaX = (numChunksWide * dstPixelsPerChunk) - (Constants.TextureSize * srcImageSize.Width / scaleDivide);
-            int deltaY = (numChunksHigh * dstPixelsPerChunk) - (Constants.TextureSize * srcImageSize.Height / scaleDivide);
+            int deltaX = numChunksWide * dstPixelsPerChunk - Constants.TextureSize * srcImageSize.Width / scaleDivide;
+            int deltaY = numChunksHigh * dstPixelsPerChunk - Constants.TextureSize * srcImageSize.Height / scaleDivide;
             for (int x = 0; x < numChunksWide; x++)
             {
                 int dstWidthOfChunk = x < numChunksWide - 1
@@ -76,7 +75,7 @@ namespace PixelStacker.Logic
                 maxLayers--;
             } while (
             // Do not split if one dimension is unable to be split further.
-            (curSizeSet.GetLength(0) > 2 && curSizeSet.GetLength(1) > 2)
+            curSizeSet.GetLength(0) > 2 && curSizeSet.GetLength(1) > 2
 
             // Do not go on forever
             && maxLayers > 0
@@ -97,9 +96,9 @@ namespace PixelStacker.Logic
             Parallel.For(0, srcHeight, (y) =>
             {
                 using Graphics g = Graphics.FromImage(bmc.ToBitmap());
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                g.SmoothingMode = SmoothingMode.None;
+                g.PixelOffsetMode = PixelOffsetMode.Half;
 
                 for (int x = 0; x < srcWidth; x++)
                 {
@@ -139,7 +138,7 @@ namespace PixelStacker.Logic
                 int scaleDivide = 1;
                 int numChunksWide = sizeSet.GetLength(0);
                 int numChunksHigh = sizeSet.GetLength(1);
-                int srcPixelsPerChunk = RenderedCanvasPainter.BlocksPerChunk * scaleDivide;
+                int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
                 int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide;
                 int iTask = 0;
                 Task[] L0Tasks = new Task[sizes[0].Length];
@@ -182,7 +181,7 @@ namespace PixelStacker.Logic
                     int scaleDivide = (int)Math.Pow(2, l);
                     int numChunksWide = sizeSet.GetLength(0);
                     int numChunksHigh = sizeSet.GetLength(1);
-                    int srcPixelsPerChunk = RenderedCanvasPainter.BlocksPerChunk * scaleDivide;
+                    int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
                     int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide;
 
                     for (int x = 0; x < sizeSet.GetLength(0); x++)
@@ -193,7 +192,7 @@ namespace PixelStacker.Logic
                             Rectangle dstRect = new Rectangle(x, y, dstSize.Width, dstSize.Height);
                             var bm = new Bitmap(dstSize.Width, dstSize.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                             using Graphics g = Graphics.FromImage(bm);
-                            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                             g.InterpolationMode = InterpolationMode.NearestNeighbor;
                             g.SmoothingMode = SmoothingMode.None;
                             g.CompositingMode = CompositingMode.SourceOver;
@@ -203,9 +202,9 @@ namespace PixelStacker.Logic
                             {
                                 for (int yWithinDownsizedChunk = 0; yWithinDownsizedChunk < scaleDivide; yWithinDownsizedChunk++)
                                 {
-                                    int xIndexOIfL0Chunk = xWithinDownsizedChunk + (scaleDivide * x);
-                                    int yIndexOfL0Chunk = yWithinDownsizedChunk + (scaleDivide * y);
-                                    if ((xIndexOIfL0Chunk > canvas.Bitmaps[0].GetLength(0) - 1) || (yIndexOfL0Chunk > canvas.Bitmaps[0].GetLength(1) - 1))
+                                    int xIndexOIfL0Chunk = xWithinDownsizedChunk + scaleDivide * x;
+                                    int yIndexOfL0Chunk = yWithinDownsizedChunk + scaleDivide * y;
+                                    if (xIndexOIfL0Chunk > canvas.Bitmaps[0].GetLength(0) - 1 || yIndexOfL0Chunk > canvas.Bitmaps[0].GetLength(1) - 1)
                                         continue;
 
                                     var bmToPaint = canvas.Bitmaps[0][xIndexOIfL0Chunk, yIndexOfL0Chunk];
@@ -240,19 +239,19 @@ namespace PixelStacker.Logic
                 g.InterpolationMode = InterpolationMode.Low;
                 g.CompositingQuality = CompositingQuality.HighSpeed;
                 g.SmoothingMode = SmoothingMode.HighSpeed;
-                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                g.PixelOffsetMode = PixelOffsetMode.Half;
             }
             else
             {
                 g.InterpolationMode = InterpolationMode.NearestNeighbor;
                 g.CompositingQuality = CompositingQuality.HighSpeed;
                 g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                g.PixelOffsetMode = PixelOffsetMode.Half;
             }
             #endregion SET GRAPHICS SETTINGS
 
             #region GET BITMAP SET
-            List<Bitmap[,]> bitmaps = this.Bitmaps;
+            List<Bitmap[,]> bitmaps = Bitmaps;
             if (bitmaps == null || bitmaps.Count == 0)
             {
 #if !RELEASE
@@ -291,7 +290,7 @@ namespace PixelStacker.Logic
             //Rectangle rectDST = new Rectangle(fStart, fStart.CalculateSize(fEnd));
 
             // The count of ORIGINAL SOURCE pixels in a FULL chunk.
-            int srcPixelsPerChunk = RenderedCanvasPainter.BlocksPerChunk * divideAmount;
+            int srcPixelsPerChunk = BlocksPerChunk * divideAmount;
             Point srcLocationOfPanelTL = GetPointOnImage(new Point(0, 0), pz, EstimateProp.Floor);
             // The offset in FULL pixels
             int xOffset = srcLocationOfPanelTL.X * CalculatedTextureSize / divideAmount;
@@ -315,8 +314,8 @@ namespace PixelStacker.Logic
                     {
                         Point pnlStart = GetPointOnPanel(new Point(xChunk * srcPixelsPerChunk, y: yChunk * srcPixelsPerChunk), pz);
                         Point pnlEnd = GetPointOnPanel(new Point(
-                            x: xChunk * srcPixelsPerChunk + (bmToPaint.Width * divideAmount / Constants.TextureSize)
-                            , y: yChunk * srcPixelsPerChunk + (bmToPaint.Height * divideAmount / Constants.TextureSize)
+                            x: xChunk * srcPixelsPerChunk + bmToPaint.Width * divideAmount / Constants.TextureSize
+                            , y: yChunk * srcPixelsPerChunk + bmToPaint.Height * divideAmount / Constants.TextureSize
                             ), pz);
 
                         //// SRC will be... 
@@ -395,7 +394,7 @@ namespace PixelStacker.Logic
             {
                 if (disposing)
                 {
-                    foreach (var bms in this.Bitmaps)
+                    foreach (var bms in Bitmaps)
                     {
                         foreach (var bm in bms)
                         {
@@ -403,7 +402,7 @@ namespace PixelStacker.Logic
                         }
                     }
 
-                    this.Bitmaps.Clear();
+                    Bitmaps.Clear();
                 }
 
                 disposedValue = true;

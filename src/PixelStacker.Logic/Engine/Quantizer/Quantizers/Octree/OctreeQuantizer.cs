@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using SimplePaletteQuantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
 
-namespace SimplePaletteQuantizer.Quantizers.Octree
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.Octree
 {
     /// <summary>
     /// The idea here is to build a tree structure containing always a maximum of K different 

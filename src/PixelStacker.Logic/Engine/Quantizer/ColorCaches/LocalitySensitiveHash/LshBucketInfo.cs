@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace SimplePaletteQuantizer.ColorCaches.LocalitySensitiveHash
+namespace PixelStacker.Logic.Engine.Quantizer.ColorCaches.LocalitySensitiveHash
 {
     public class BucketInfo
     {

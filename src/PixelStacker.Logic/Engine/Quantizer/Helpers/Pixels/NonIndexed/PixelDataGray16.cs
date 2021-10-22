@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels.NonIndexed
 {
     /// <summary>
     /// Name |                  Grayscale                    |
@@ -16,7 +15,7 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         [FieldOffset(0)] private ushort gray;   // 00 - 15
 
         // processed raw values
-        public int Gray { get { return (0xFF >> 8) & 0xF; } }
+        public int Gray { get { return 0xFF >> 8 & 0xF; } }
         public int Alpha { get { return 0xFF; } }
         public int Red { get { return Gray; } }
         public int Green { get { return Gray; } }
@@ -27,7 +26,7 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         /// </summary>
         public int Argb
         {
-            get { return (Pixel.AlphaMask) | Red << Pixel.RedShift | Green << Pixel.GreenShift | Blue; }
+            get { return Pixel.AlphaMask | Red << Pixel.RedShift | Green << Pixel.GreenShift | Blue; }
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         public void SetColor(Color color)
         {
             int argb = color.ToArgb() & Pixel.RedGreenBlueMask;
-            gray = (byte) (argb >> Pixel.RedShift);
+            gray = (byte)(argb >> Pixel.RedShift);
         }
 
         /// <summary>
@@ -53,7 +52,7 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         public ulong Value
         {
             get { return gray; }
-            set { gray = (ushort) (value & 0xFFFF); }
+            set { gray = (ushort)(value & 0xFFFF); }
         }
     }
 }

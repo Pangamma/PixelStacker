@@ -1,7 +1,6 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace SimplePaletteQuantizer.Helpers.Pixels.Indexed
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels.Indexed
 {
     [StructLayout(LayoutKind.Sequential, Size = 1)]
     public struct PixelData4Indexed : IIndexedPixel
@@ -12,7 +11,7 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.Indexed
         // get - index method
         public byte GetIndex(int offset)
         {
-            return (byte) GetBitRange(8 - offset - 4, 7 - offset);
+            return (byte)GetBitRange(8 - offset - 4, 7 - offset);
         }
 
         // set - index method
@@ -38,7 +37,7 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.Indexed
 
         private bool GetBit(int offset)
         {
-            return (index & (1 << offset)) != 0;
+            return (index & 1 << offset) != 0;
         }
 
         private void SetBitRange(int startOffset, int endOffset, int value)
@@ -57,11 +56,11 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.Indexed
         {
             if (value)
             {
-                index |= (byte) (1 << offset);
+                index |= (byte)(1 << offset);
             }
             else
             {
-                index &= (byte) (~(1 << offset));
+                index &= (byte)~(1 << offset);
             }
         }
     }

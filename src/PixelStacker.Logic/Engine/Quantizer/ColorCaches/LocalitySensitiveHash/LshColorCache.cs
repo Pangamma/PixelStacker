@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
-using SimplePaletteQuantizer.Helpers;
-using SimplePaletteQuantizer.ColorCaches.Common;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Common;
 
-namespace SimplePaletteQuantizer.ColorCaches.LocalitySensitiveHash
+namespace PixelStacker.Logic.Engine.Quantizer.ColorCaches.LocalitySensitiveHash
 {
     public class LshColorCache : BaseColorCache
     {
@@ -102,9 +101,9 @@ namespace SimplePaletteQuantizer.ColorCaches.LocalitySensitiveHash
             }
 
             ColorModelHelper.GetColorComponents(ColorModel, color, out float componentA, out float componentB, out float componentC);
-            float distance = componentA*componentA + componentB*componentB + componentC*componentC;
+            float distance = componentA * componentA + componentB * componentB + componentC * componentC;
             float normalized = distance * normalizedDistance * MaximalDistance;
-            long resultHash = (long) normalized / bucketSize;
+            long resultHash = (long)normalized / bucketSize;
 
             return resultHash;
         }

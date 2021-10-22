@@ -1,7 +1,7 @@
 ﻿using PixelStacker.Extensions;
-using PixelStacker.IO.Config;
+using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;

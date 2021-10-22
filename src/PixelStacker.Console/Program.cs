@@ -1,12 +1,11 @@
 ﻿using PixelStacker.Extensions;
-using PixelStacker.IO.Config;
 using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Model;
 using PixelStacker.Resources;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

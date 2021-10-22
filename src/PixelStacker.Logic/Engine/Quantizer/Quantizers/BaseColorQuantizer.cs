@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
-using SimplePaletteQuantizer.Helpers;
-using SimplePaletteQuantizer.PathProviders;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.PathProviders;
 
-namespace SimplePaletteQuantizer.Quantizers
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers
 {
     public abstract class BaseColorQuantizer : IColorQuantizer
     {
@@ -94,7 +94,7 @@ namespace SimplePaletteQuantizer.Quantizers
         protected virtual void OnAddColor(Color color, int key, int x, int y)
         {
             UniqueColors.AddOrUpdate(key,
-                colorKey => (byte) Interlocked.Increment(ref uniqueColorIndex), 
+                colorKey => (byte)Interlocked.Increment(ref uniqueColorIndex),
                 (colorKey, colorIndex) => colorIndex);
         }
 

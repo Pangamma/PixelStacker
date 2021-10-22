@@ -1,16 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
-using PixelStacker.Logic;
-using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Collections.ColorMapper;
-using PixelStacker.Logic.Model;
-using PixelStacker.Resources;
-using PixelStacker.Resources.Localization;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Benchmarks.ColorMap
 {

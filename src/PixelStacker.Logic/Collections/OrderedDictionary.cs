@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Web;
 
-namespace System.Collections.Generic
+namespace PixelStacker.Logic.Collections
 {
     /// <summary>
     /// Represents a dictionary that tracks the order that items were added.
@@ -43,21 +41,21 @@ namespace System.Collections.Generic
 
             if (o is Dictionary<TKey, TValue> oDic)
             {
-                this.dictionary = new Dictionary<TKey, TValue>(oDic.Count, oDic.Comparer);
+                dictionary = new Dictionary<TKey, TValue>(oDic.Count, oDic.Comparer);
             }
             else
             {
-                this.dictionary = new Dictionary<TKey, TValue>(o.Count);
+                dictionary = new Dictionary<TKey, TValue>(o.Count);
             }
 
-            foreach (var kvp in o) { this.Add(kvp.Key, kvp.Value); }
+            foreach (var kvp in o) { Add(kvp.Key, kvp.Value); }
         }
 
         /// <summary>
         /// Initializes a new instance of an OrderedDictionary.
         /// </summary>
         /// <param name="capacity">The initial capacity of the dictionary.</param>
-        /// <exception cref="System.ArgumentOutOfRangeException">The capacity is less than zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The capacity is less than zero.</exception>
         public OrderedDictionary(int capacity)
         {
             dictionary = new Dictionary<TKey, TValue>(capacity);
@@ -98,8 +96,8 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="key">The key to add to the dictionary.</param>
         /// <param name="value">The value to associated with the key.</param>
-        /// <exception cref="System.ArgumentException">The given key already exists in the dictionary.</exception>
-        /// <exception cref="System.ArgumentNullException">The key is null.</exception>
+        /// <exception cref="ArgumentException">The given key already exists in the dictionary.</exception>
+        /// <exception cref="ArgumentNullException">The key is null.</exception>
         public void Add(TKey key, TValue value)
         {
             dictionary.Add(key, value);
@@ -112,9 +110,9 @@ namespace System.Collections.Generic
         /// <param name="index">The index to insert the key/value pair.</param>
         /// <param name="key">The key to insert.</param>
         /// <param name="value">The value to insert.</param>
-        /// <exception cref="System.ArgumentException">The given key already exists in the dictionary.</exception>
-        /// <exception cref="System.ArgumentNullException">The key is null.</exception>
-        /// <exception cref="System.ArgumentOutOfRangeException">The index is negative -or- larger than the size of the dictionary.</exception>
+        /// <exception cref="ArgumentException">The given key already exists in the dictionary.</exception>
+        /// <exception cref="ArgumentNullException">The key is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The index is negative -or- larger than the size of the dictionary.</exception>
         public void Insert(int index, TKey key, TValue value)
         {
             if (index < 0 || index > dictionary.Count)
@@ -130,9 +128,9 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="key">The key to insert.</param>
         /// <param name="value">The value to insert.</param>
-        /// <exception cref="System.ArgumentException">The given key already exists in the dictionary.</exception>
-        /// <exception cref="System.ArgumentNullException">The key is null.</exception>
-        /// <exception cref="System.ArgumentOutOfRangeException">The index is negative -or- larger than the size of the dictionary.</exception>
+        /// <exception cref="ArgumentException">The given key already exists in the dictionary.</exception>
+        /// <exception cref="ArgumentNullException">The key is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The index is negative -or- larger than the size of the dictionary.</exception>
         public void AddFirst(TKey key, TValue value)
         {
             Insert(0, key, value);
@@ -143,7 +141,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="key">The key to look for.</param>
         /// <returns>True if the key exists in the dictionary; otherwise, false.</returns>
-        /// <exception cref="System.ArgumentNullException">The key is null.</exception>
+        /// <exception cref="ArgumentNullException">The key is null.</exception>
         public bool ContainsKey(TKey key)
         {
             return dictionary.ContainsKey(key);
@@ -154,7 +152,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="index">The index of the key to get.</param>
         /// <returns>The key at the given index.</returns>
-        /// <exception cref="System.ArgumentOutOfRangeException">The index is negative -or- larger than the number of keys.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The index is negative -or- larger than the number of keys.</exception>
         public TKey GetKey(int index)
         {
             return keys[index];
@@ -188,7 +186,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="key">The key of the pair to remove.</param>
         /// <returns>True if the key was found and the pair removed; otherwise, false.</returns>
-        /// <exception cref="System.ArgumentNullException">The key is null.</exception>
+        /// <exception cref="ArgumentNullException">The key is null.</exception>
         /// <remarks>This operation runs in O(n).</remarks>
         public bool Remove(TKey key)
         {
@@ -205,7 +203,7 @@ namespace System.Collections.Generic
         /// Removes the key/value pair at the given index.
         /// </summary>
         /// <param name="index">The index of the key/value pair to remove.</param>
-        /// <exception cref="System.ArgumentOutOfRangeException">The index is negative -or- larger than the size of the dictionary.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The index is negative -or- larger than the size of the dictionary.</exception>
         /// <remarks>This operation runs in O(n).</remarks>
         public void RemoveAt(int index)
         {
@@ -221,7 +219,7 @@ namespace System.Collections.Generic
         /// <param name="key">The key to get the value for.</param>
         /// <param name="value">The value used to hold the results.</param>
         /// <returns>True if the key was found; otherwise, false.</returns>
-        /// <exception cref="System.ArgumentNullException">The key is null.</exception>
+        /// <exception cref="ArgumentNullException">The key is null.</exception>
         public bool TryGetValue(TKey key, out TValue value)
         {
             return dictionary.TryGetValue(key, out value);
@@ -240,8 +238,8 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="key">The key to get the associated value by or to associate with the value.</param>
         /// <returns>The value associated with the given key.</returns>
-        /// <exception cref="System.ArgumentNullException">The key is null.</exception>
-        /// <exception cref="System.Collections.Generic.KeyNotFoundException">The key is not in the dictionary.</exception>
+        /// <exception cref="ArgumentNullException">The key is null.</exception>
+        /// <exception cref="KeyNotFoundException">The key is not in the dictionary.</exception>
         public TValue this[TKey key]
         {
             get
@@ -421,7 +419,7 @@ namespace System.Collections.Generic
             /// Initializes a new instance of a KeyCollection.
             /// </summary>
             /// <param name="dictionary">The OrderedDictionary whose keys to wrap.</param>
-            /// <exception cref="System.ArgumentNullException">The dictionary is null.</exception>
+            /// <exception cref="ArgumentNullException">The dictionary is null.</exception>
             public KeyCollection(OrderedDictionary<TKey, TValue> dictionary)
             {
                 parent = dictionary ?? throw new ArgumentNullException(nameof(dictionary));
@@ -432,9 +430,9 @@ namespace System.Collections.Generic
             /// </summary>
             /// <param name="array">The array to copy the keys to.</param>
             /// <param name="arrayIndex">The index into the array to start copying the keys.</param>
-            /// <exception cref="System.ArgumentNullException">The array is null.</exception>
-            /// <exception cref="System.ArgumentOutOfRangeException">The arrayIndex is negative.</exception>
-            /// <exception cref="System.ArgumentException">The array, starting at the given index, is not large enough to contain all the keys.</exception>
+            /// <exception cref="ArgumentNullException">The array is null.</exception>
+            /// <exception cref="ArgumentOutOfRangeException">The arrayIndex is negative.</exception>
+            /// <exception cref="ArgumentException">The array, starting at the given index, is not large enough to contain all the keys.</exception>
             public void CopyTo(TKey[] array, int arrayIndex)
             {
                 parent.keys.CopyTo(array, arrayIndex);
@@ -504,7 +502,7 @@ namespace System.Collections.Generic
             /// Initializes a new instance of a ValueCollection.
             /// </summary>
             /// <param name="dictionary">The OrderedDictionary whose keys to wrap.</param>
-            /// <exception cref="System.ArgumentNullException">The dictionary is null.</exception>
+            /// <exception cref="ArgumentNullException">The dictionary is null.</exception>
             public ValueCollection(OrderedDictionary<TKey, TValue> dictionary)
             {
                 parent = dictionary ?? throw new ArgumentNullException(nameof(dictionary));
@@ -515,9 +513,9 @@ namespace System.Collections.Generic
             /// </summary>
             /// <param name="array">The array to copy the values to.</param>
             /// <param name="arrayIndex">The index into the array to start copying the values.</param>
-            /// <exception cref="System.ArgumentNullException">The array is null.</exception>
-            /// <exception cref="System.ArgumentOutOfRangeException">The arrayIndex is negative.</exception>
-            /// <exception cref="System.ArgumentException">The array, starting at the given index, is not large enough to contain all the values.</exception>
+            /// <exception cref="ArgumentNullException">The array is null.</exception>
+            /// <exception cref="ArgumentOutOfRangeException">The arrayIndex is negative.</exception>
+            /// <exception cref="ArgumentException">The array, starting at the given index, is not large enough to contain all the values.</exception>
             public void CopyTo(TValue[] array, int arrayIndex)
             {
                 if (array == null)

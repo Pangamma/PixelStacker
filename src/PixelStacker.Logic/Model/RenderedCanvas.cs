@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PixelStacker.IO.JsonConverters;
+using PixelStacker.Logic.IO.JsonConverters;
 using System.Drawing;
 
 namespace PixelStacker.Logic.Model

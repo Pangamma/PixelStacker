@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimplePaletteQuantizer.Helpers
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers
 {
     public static class Guard
     {

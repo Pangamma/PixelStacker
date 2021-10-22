@@ -1,16 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PixelStacker.Extensions;
 using System.IO;
 using System.Drawing.Imaging;
-using Newtonsoft.Json.Converters;
 
-namespace PixelStacker.IO.JsonConverters
+namespace PixelStacker.Logic.IO.JsonConverters
 {
     class BitmapJsonTypeConverter : JsonConverter<Bitmap>
     {
@@ -20,9 +15,10 @@ namespace PixelStacker.IO.JsonConverters
             string b64 = reader.Value as string;
             if (string.IsNullOrEmpty(b64)) return default;
             byte[] bytes = Convert.FromBase64String(b64);
-            using (MemoryStream ms = new MemoryStream()){
+            using (MemoryStream ms = new MemoryStream())
+            {
                 ms.Write(bytes, 0, bytes.Length);
-                Bitmap rt = new Bitmap(Bitmap.FromStream(ms));
+                Bitmap rt = new Bitmap(System.Drawing.Image.FromStream(ms));
                 return rt;
             }
         }

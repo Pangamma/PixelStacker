@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace SimplePaletteQuantizer.Quantizers.Octree
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.Octree
 {
     internal class OctreeNode
     {
@@ -63,9 +63,9 @@ namespace SimplePaletteQuantizer.Quantizers.Octree
                 // determines a color of the leaf
                 if (IsLeaf)
                 {
-                    result = pixelCount == 1 ? 
-                        Color.FromArgb(255, red, green, blue) : 
-                        Color.FromArgb(255, red/pixelCount, green/pixelCount, blue/pixelCount);
+                    result = pixelCount == 1 ?
+                        Color.FromArgb(255, red, green, blue) :
+                        Color.FromArgb(255, red / pixelCount, green / pixelCount, blue / pixelCount);
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace SimplePaletteQuantizer.Quantizers.Octree
         /// <value>The enumerated leaf nodes.</value>
         public IEnumerable<OctreeNode> ActiveNodes
         {
-            get 
+            get
             {
                 List<OctreeNode> result = new List<OctreeNode>();
 

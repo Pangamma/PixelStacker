@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PixelStacker.Extensions;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.Model;
 using System.Linq;
 

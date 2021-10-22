@@ -1,7 +1,6 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
-namespace SimplePaletteQuantizer.Helpers
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers
 {
     public class QuantizationHelper
     {
@@ -11,7 +10,7 @@ namespace SimplePaletteQuantizer.Helpers
 
         static QuantizationHelper()
         {
-            BackgroundColor = Color.FromArgb(0,255,255,255);
+            BackgroundColor = Color.FromArgb(0, 255, 255, 255);
             Factors = PrecalculateFactors();
         }
 
@@ -52,9 +51,9 @@ namespace SimplePaletteQuantizer.Helpers
                 // performs a alpha blending (second color is BackgroundColor, by default a Control color)
                 double colorFactor = Factors[color.A];
                 double backgroundFactor = Factors[255 - color.A];
-                int red = (int) (color.R*colorFactor + BackgroundColor.R*backgroundFactor);
-                int green = (int) (color.G*colorFactor + BackgroundColor.G*backgroundFactor);
-                int blue = (int) (color.B*colorFactor + BackgroundColor.B*backgroundFactor);
+                int red = (int)(color.R * colorFactor + BackgroundColor.R * backgroundFactor);
+                int green = (int)(color.G * colorFactor + BackgroundColor.G * backgroundFactor);
+                int blue = (int)(color.B * colorFactor + BackgroundColor.B * backgroundFactor);
                 argb = red << 16 | green << 8 | blue;
                 result = Color.FromArgb(Alpha | argb);
             }

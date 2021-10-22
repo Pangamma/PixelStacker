@@ -1,7 +1,6 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
-namespace SimplePaletteQuantizer.Helpers.Pixels
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels
 {
     public interface INonIndexedPixel
     {

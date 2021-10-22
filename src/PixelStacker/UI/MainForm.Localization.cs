@@ -1,5 +1,6 @@
-﻿using PixelStacker.IO.Config;
+﻿using PixelStacker.Logic.IO.Config;
 using PixelStacker.Resources;
+using PixelStacker.Resources.Localization;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -108,6 +109,10 @@ namespace PixelStacker.UI
             this.openToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Open;
             this.saveToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
             this.fileToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_File;
+            this.sizingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Sizing;
+            this.orientationToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation;
+            this.verticalToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation_Vertical;
+            this.horizontalToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation_Horizontal;
         }
 
         private void InitializeThreadLocale()

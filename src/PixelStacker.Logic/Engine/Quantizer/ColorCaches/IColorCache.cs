@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace SimplePaletteQuantizer.ColorCaches
+namespace PixelStacker.Logic.Engine.Quantizer.ColorCaches
 {
     public interface IColorCache
     {

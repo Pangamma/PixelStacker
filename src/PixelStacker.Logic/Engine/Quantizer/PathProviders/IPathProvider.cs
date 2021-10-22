@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace SimplePaletteQuantizer.PathProviders
+namespace PixelStacker.Logic.Engine.Quantizer.PathProviders
 {
     public interface IPathProvider
     {

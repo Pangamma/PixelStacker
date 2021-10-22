@@ -1,10 +1,9 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Collections.Generic;
-using SimplePaletteQuantizer.Helpers;
-using SimplePaletteQuantizer.ColorCaches.Common;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Common;
 
-namespace SimplePaletteQuantizer.ColorCaches.EuclideanDistance
+namespace PixelStacker.Logic.Engine.Quantizer.ColorCaches.EuclideanDistance
 {
     public class EuclideanDistanceColorCache : BaseColorCache
     {

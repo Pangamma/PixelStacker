@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SimplePaletteQuantizer.Ditherers.ErrorDiffusion
+﻿namespace PixelStacker.Logic.Engine.Quantizer.Ditherers.ErrorDiffusion
 {
     public class StuckiDitherer : BaseErrorDistributionDitherer
     {

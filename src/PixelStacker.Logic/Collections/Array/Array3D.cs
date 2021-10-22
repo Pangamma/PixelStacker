@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PixelStacker.Logic.Collections
+namespace PixelStacker.Logic.Collections.Array
 {
     /// <summary>
     /// https://discord.com/channels/143867839282020352/312132327348240384/895799131665215508
     /// </summary>
     [Obsolete]
-    public struct Array3D<T>: IEnumerable<T>
+    public struct Array3D<T> : IEnumerable<T>
     {
         public int X { get; }
         public int Y { get; }
@@ -61,9 +58,9 @@ namespace PixelStacker.Logic.Collections
         }
 
         public ref T this[int x, int y, int z] => ref Data[
-            x 
-            + (y * X) 
-            + (z * Y * X)
+            x
+            + y * X
+            + z * Y * X
             ];
     }
 }

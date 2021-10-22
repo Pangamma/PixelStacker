@@ -1,4 +1,6 @@
 ﻿
+using PixelStacker.UI.Controls;
+
 namespace PixelStacker.UI
 {
     partial class MaterialSelectWindow
@@ -39,12 +41,12 @@ namespace PixelStacker.UI
             this.btnEditColorProfiles = new System.Windows.Forms.Button();
             this.lblColorProfile = new System.Windows.Forms.Label();
             this.ddlColorProfile = new System.Windows.Forms.ComboBox();
-            this.customFlowLayoutPanel1 = new PixelStacker.WF.Components.CustomFlowLayoutPanel();
+            this.customFlowLayoutPanel1 = new PixelStacker.UI.Controls.CustomFlowLayoutPanel();
             this.cbxIsMultiLayer = new System.Windows.Forms.CheckBox();
             this.cbxRequire2ndLayer = new System.Windows.Forms.CheckBox();
             this.cbxIsSideView = new System.Windows.Forms.CheckBox();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.materialPanel = new PixelStacker.WF.Components.CustomPanel();
+            this.materialPanel = new PixelStacker.UI.Controls.CustomPanel();
             this.flowVertical.SuspendLayout();
             this.flowRow1.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -206,10 +208,10 @@ namespace PixelStacker.UI
         private System.Windows.Forms.FlowLayoutPanel flowRow1;
         private System.Windows.Forms.Panel panelFilter;
         private System.Windows.Forms.Panel panelColorProfile;
-        private PixelStacker.WF.Components.CustomFlowLayoutPanel customFlowLayoutPanel1;
+        private CustomFlowLayoutPanel customFlowLayoutPanel1;
         private System.Windows.Forms.SaveFileDialog dlgSave;
         private System.Windows.Forms.CheckBox cbxRequire2ndLayer;
-        private PixelStacker.WF.Components.CustomPanel materialPanel;
+        private CustomPanel materialPanel;
         private System.Windows.Forms.Label lblFilter;
     }
 }

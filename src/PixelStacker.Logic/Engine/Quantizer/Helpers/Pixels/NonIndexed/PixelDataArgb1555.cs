@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels.NonIndexed
 {
     /// <summary>
     /// Name |     Blue     |    Green     |     Red      | Alpha (bit)
@@ -22,9 +21,9 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         [FieldOffset(0)] private ushort raw;    // 00 - 15
 
         // processed raw values
-        public int Alpha { get { return (alpha >> 7) & 0x1; } }
-        public int Red { get { return (red >> 2) & 0xF; } }
-        public int Green { get { return (green >> 5) & 0xF; } }
+        public int Alpha { get { return alpha >> 7 & 0x1; } }
+        public int Red { get { return red >> 2 & 0xF; } }
+        public int Green { get { return green >> 5 & 0xF; } }
         public int Blue { get { return blue & 0xF; } }
 
         /// <summary>
@@ -49,10 +48,10 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         public void SetColor(Color color)
         {
             int argb = color.ToArgb();
-            alpha = (argb >> Pixel.AlphaShift) > Pixel.ByteMask ? Pixel.Zero : Pixel.One;
-            red = (byte) (argb >> Pixel.RedShift);
-            green = (byte) (argb >> Pixel.GreenShift);
-            blue = (byte) (argb >> Pixel.BlueShift);
+            alpha = argb >> Pixel.AlphaShift > Pixel.ByteMask ? Pixel.Zero : Pixel.One;
+            red = (byte)(argb >> Pixel.RedShift);
+            green = (byte)(argb >> Pixel.GreenShift);
+            blue = (byte)(argb >> Pixel.BlueShift);
         }
 
         /// <summary>
@@ -61,7 +60,7 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         public ulong Value
         {
             get { return raw; }
-            set { raw = (ushort) (value & 0xFFFF); }
+            set { raw = (ushort)(value & 0xFFFF); }
         }
     }
 }

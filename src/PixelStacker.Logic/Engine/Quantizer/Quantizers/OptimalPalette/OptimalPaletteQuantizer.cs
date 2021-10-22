@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using SimplePaletteQuantizer.ColorCaches;
-using SimplePaletteQuantizer.ColorCaches.Octree;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Octree;
 
-namespace SimplePaletteQuantizer.Quantizers.OptimalPalette
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.OptimalPalette
 {
     public class OptimalPaletteQuantizer : BaseColorCacheQuantizer
     {
@@ -23,8 +22,8 @@ namespace SimplePaletteQuantizer.Quantizers.OptimalPalette
         {
             OptimalPalette = new List<Color>(256);
 
-            Register(000, 000, 000); Register(000, 000, 102); Register(000, 000, 204); Register(000, 023, 051); 
-            Register(000, 023, 153); Register(000, 023, 255); Register(000, 046, 000); Register(000, 046, 102); 
+            Register(000, 000, 000); Register(000, 000, 102); Register(000, 000, 204); Register(000, 023, 051);
+            Register(000, 023, 153); Register(000, 023, 255); Register(000, 046, 000); Register(000, 046, 102);
             Register(000, 046, 204); Register(000, 069, 051); Register(000, 069, 153); Register(000, 069, 255);
             Register(000, 092, 000); Register(000, 092, 102); Register(000, 092, 204); Register(000, 115, 051);
             Register(000, 115, 153); Register(000, 115, 255); Register(000, 139, 000); Register(000, 139, 102);

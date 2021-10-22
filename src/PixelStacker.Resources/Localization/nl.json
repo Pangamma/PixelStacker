@@ -117,5 +117,10 @@
   "Operation_Cancelled": "Operatie geannuleerd.",
   "RenderEngine_ConvertingToBlocks": "Pixels omzetten in Minecraft-blokken.",
   "Progress_CompiledColorMap": "Kleurenkaart is samengesteld.",
-  "OtherOptions_Instructions": "Voer een maximale breedte of maximale hoogte in om de uitvoergrootte te beperken."
+  "OtherOptions_Instructions": "Voer een maximale breedte of maximale hoogte in om de uitvoergrootte te beperken.",
+  "Menu_ColorReduction": "Kleurreductie",
+  "Orientation": "Oriëntatie",
+  "Orientation_Horizontal": "Horizontaal",
+  "Orientation_Vertical": "Verticaal",
+  "Sizing": "Maatvoering"
 }

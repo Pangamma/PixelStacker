@@ -1,18 +1,13 @@
-﻿using ColorMine.ColorSpaces;
-using PixelStacker.Logic.Extensions;
-using PixelStacker.Properties;
+﻿using PixelStacker.Logic.Extensions;
 using PixelStacker.Resources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Logic
 {

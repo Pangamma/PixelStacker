@@ -1,4 +1,4 @@
-﻿using PixelStacker.IO.Config;
+﻿using PixelStacker.Logic.IO.Config;
 using System;
 using System.Drawing.Imaging;
 

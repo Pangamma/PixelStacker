@@ -1,11 +1,6 @@
-﻿using PixelStacker.Logic;
-using PixelStacker.Resources;
+﻿using PixelStacker.Resources;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Properties
 {

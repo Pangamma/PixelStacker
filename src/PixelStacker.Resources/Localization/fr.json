@@ -117,5 +117,10 @@
   "Operation_Cancelled": "Opération annulée.",
   "RenderEngine_ConvertingToBlocks": "Conversion de pixels en blocs Minecraft.",
   "Progress_CompiledColorMap": "La carte des couleurs a été compilée.",
-  "OtherOptions_Instructions": "Entrez une largeur maximale ou une hauteur maximale pour limiter la taille de sortie."
+  "OtherOptions_Instructions": "Entrez une largeur maximale ou une hauteur maximale pour limiter la taille de sortie.",
+  "Menu_ColorReduction": "Réduction des couleurs",
+  "Orientation": "Orientation",
+  "Orientation_Horizontal": "Horizontal",
+  "Orientation_Vertical": "Verticale",
+  "Sizing": "Dimensionnement"
 }

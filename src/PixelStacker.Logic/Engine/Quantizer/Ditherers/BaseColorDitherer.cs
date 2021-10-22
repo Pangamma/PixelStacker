@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using SimplePaletteQuantizer.Helpers;
-using SimplePaletteQuantizer.PathProviders;
-using SimplePaletteQuantizer.Quantizers;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.PathProviders;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers;
 
-namespace SimplePaletteQuantizer.Ditherers
+namespace PixelStacker.Logic.Engine.Quantizer.Ditherers
 {
     public abstract class BaseColorDitherer : IColorDitherer
     {
@@ -65,11 +65,11 @@ namespace SimplePaletteQuantizer.Ditherers
             int result = 0;
 
             for (int y = 0; y < CachedMatrix.GetLength(0); y++)
-            for (int x = 0; x < CachedMatrix.GetLength(1); x++)
-            {
+                for (int x = 0; x < CachedMatrix.GetLength(1); x++)
+                {
                     int value = CachedMatrix[y, x];
-                if (value > result) result = value;
-            }
+                    if (value > result) result = value;
+                }
 
             return result;
         }
@@ -133,10 +133,10 @@ namespace SimplePaletteQuantizer.Ditherers
 
             // caches the matrix (and division by a sum)
             for (int y = 0; y < height; y++)
-            for (int x = 0; x < width; x++)
-            {
-                CachedSummedMatrix[y, x] = CachedMatrix[y, x] / maximum;
-            }
+                for (int x = 0; x < width; x++)
+                {
+                    CachedSummedMatrix[y, x] = CachedMatrix[y, x] / maximum;
+                }
         }
 
         /// <summary>

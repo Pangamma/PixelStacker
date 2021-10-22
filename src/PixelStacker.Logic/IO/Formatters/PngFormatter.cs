@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json;
-using PixelStacker.IO.Config;
-using PixelStacker.IO.Image;
+﻿using PixelStacker.Logic.IO.Config;
+using PixelStacker.Logic.IO.Image;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.IO.Compression;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

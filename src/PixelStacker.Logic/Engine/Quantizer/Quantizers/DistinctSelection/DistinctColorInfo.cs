@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace SimplePaletteQuantizer.Quantizers.DistinctSelection
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.DistinctSelection
 {
     /// <summary>
     /// Stores all the informations about single color only once, to be used later.
@@ -43,9 +43,9 @@ namespace SimplePaletteQuantizer.Quantizers.DistinctSelection
             Color = color.ToArgb();
             Count = 1;
 
-            Hue = Convert.ToInt32(color.GetHue()*Factor);
-            Saturation = Convert.ToInt32(color.GetSaturation()*Factor);
-            Brightness = Convert.ToInt32(color.GetBrightness()*Factor);
+            Hue = Convert.ToInt32(color.GetHue() * Factor);
+            Saturation = Convert.ToInt32(color.GetSaturation() * Factor);
+            Brightness = Convert.ToInt32(color.GetBrightness() * Factor);
         }
 
         /// <summary>

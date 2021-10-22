@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace SimplePaletteQuantizer.Quantizers.DistinctSelection
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.DistinctSelection
 {
     public class DistinctBucket
     {
@@ -56,7 +55,7 @@ namespace SimplePaletteQuantizer.Quantizers.DistinctSelection
                 colorInfo.IncreaseCount();
             }
         }
-        
+
         public List<DistinctColorInfo> GetValues()
         {
             return Buckets.Where(red => red != null).

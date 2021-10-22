@@ -1,12 +1,8 @@
 ﻿using PixelStacker.Logic.Model;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PixelStacker.Logic.Collections
+namespace PixelStacker.Logic.Collections.ColorMapper
 {
     public interface IColorMapper
     {

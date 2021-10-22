@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using SimplePaletteQuantizer.Helpers;
-using SimplePaletteQuantizer.PathProviders;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.PathProviders;
 
-namespace SimplePaletteQuantizer.Quantizers
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers
 {
     /// <summary>
     /// This interface provides a color quantization capabilities.

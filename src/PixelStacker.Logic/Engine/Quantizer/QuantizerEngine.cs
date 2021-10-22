@@ -1,35 +1,31 @@
 ﻿using PixelStacker.Extensions;
-using PixelStacker.IO.Config;
+using PixelStacker.Logic.Collections;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.EuclideanDistance;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.LocalitySensitiveHash;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Octree;
+using PixelStacker.Logic.Engine.Quantizer.Ditherers;
+using PixelStacker.Logic.Engine.Quantizer.Ditherers.ErrorDiffusion;
+using PixelStacker.Logic.Engine.Quantizer.Ditherers.Ordered;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
-using PixelStacker.Logic.Model;
-using SimplePaletteQuantizer.ColorCaches;
-using SimplePaletteQuantizer.ColorCaches.Common;
-using SimplePaletteQuantizer.ColorCaches.EuclideanDistance;
-using SimplePaletteQuantizer.ColorCaches.LocalitySensitiveHash;
-using SimplePaletteQuantizer.ColorCaches.Octree;
-using SimplePaletteQuantizer.Ditherers;
-using SimplePaletteQuantizer.Ditherers.ErrorDiffusion;
-using SimplePaletteQuantizer.Ditherers.Ordered;
-using SimplePaletteQuantizer.Helpers;
-using SimplePaletteQuantizer.Quantizers;
-using SimplePaletteQuantizer.Quantizers.DistinctSelection;
-using SimplePaletteQuantizer.Quantizers.MedianCut;
-using SimplePaletteQuantizer.Quantizers.NeuQuant;
-using SimplePaletteQuantizer.Quantizers.Octree;
-using SimplePaletteQuantizer.Quantizers.OptimalPalette;
-using SimplePaletteQuantizer.Quantizers.Popularity;
-using SimplePaletteQuantizer.Quantizers.Uniform;
-using SimplePaletteQuantizer.Quantizers.XiaolinWu;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers.DistinctSelection;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers.MedianCut;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers.NeuQuant;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers.Octree;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers.OptimalPalette;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers.Popularity;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers.Uniform;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers.XiaolinWu;
+using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
 using System.Threading;
 
-namespace SimplePaletteQuantizer
+namespace PixelStacker.Logic.Engine.Quantizer
 {
     public static class QuantizerEngine
     {
@@ -142,7 +138,7 @@ namespace SimplePaletteQuantizer
             var activeDitherer = opts.DithererList[settings.DitherAlgorithm];
             int parallelTaskCount = activeQuantizer.AllowParallel ? settings.MaxParallelProcesses : 1;
             int colorCount = settings.MaxColorCount;
-            
+
             try
             {
                 // For some reason the super quick algo failed. Need to fail over to this super safe one.
@@ -150,7 +146,8 @@ namespace SimplePaletteQuantizer
                 {
                     using (Bitmap formattedBM = targetImage.To32bppBitmap())
                     {
-                        var returnVal = sourceImage.ToMergeStream(formattedBM, _worker, (x, y, o, n) => {
+                        var returnVal = sourceImage.ToMergeStream(formattedBM, _worker, (x, y, o, n) =>
+                        {
                             if (o.A < 32) return Color.Transparent;
                             else return n;
                         });

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PixelStacker.IO.Config
+namespace PixelStacker.Logic.IO.Config
 {
-    public class RenderedCanvasViewerSettings: CanvasViewerSettings
+    public class RenderedCanvasViewerSettings : CanvasViewerSettings
     {
 
     }
@@ -27,7 +23,7 @@ namespace PixelStacker.IO.Config
 
         [Obsolete(Constants.Obs_TryToRemove)]
         public bool IsSolidColors { get; set; } = false;
-        
+
         [Obsolete(Constants.Obs_TryToRemove)]
         public bool IsColorPalette { get; set; } = false;
         public int RenderedZIndexToShow { get; set; } = 0;

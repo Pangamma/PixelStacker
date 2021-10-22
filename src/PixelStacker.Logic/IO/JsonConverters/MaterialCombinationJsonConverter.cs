@@ -1,12 +1,8 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Logic.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PixelStacker.IO.JsonConverters
+namespace PixelStacker.Logic.IO.JsonConverters
 {
     public class MaterialCombinationJsonConverter : JsonConverter<MaterialCombination>
     {

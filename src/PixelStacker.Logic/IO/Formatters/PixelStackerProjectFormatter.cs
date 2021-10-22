@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PixelStacker.IO.Config;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using System;

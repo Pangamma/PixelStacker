@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SimplePaletteQuantizer.Ditherers.Ordered
+﻿namespace PixelStacker.Logic.Engine.Quantizer.Ditherers.Ordered
 {
     public class DotHalfToneDitherer : BaseOrderedDitherer
     {
@@ -9,7 +7,7 @@ namespace SimplePaletteQuantizer.Ditherers.Ordered
         /// </summary>
         protected override byte[,] CreateCoeficientMatrix()
         {
-            return new byte[,] 
+            return new byte[,]
             {
                 { 25,  9, 23, 31, 35, 45, 43, 33 },
                 { 11,  1,  7, 21, 47, 59, 57, 41 },

@@ -186,6 +186,9 @@ Aka Pangamma</value>
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="ColorReducer_Instructions" xml:space="preserve">
+    <value>Art that has a large number of unique colors will be more difficult to build. Rendering will also be faster if the overall color count is reduced before you start the rendering process. You can use the options below to flatten the color space of your image.</value>
+  </data>
   <data name="DDL_SelectProfile" xml:space="preserve">
     <value>Select profile</value>
   </data>
@@ -383,8 +386,20 @@ me as a </value>
   <data name="MaterialSelect_Title" xml:space="preserve">
     <value>Material Selection</value>
   </data>
+  <data name="Menu_ColorReduction" xml:space="preserve">
+    <value>Color Reduction</value>
+  </data>
   <data name="Operation_Cancelled" xml:space="preserve">
     <value>Operation cancelled.</value>
+  </data>
+  <data name="Orientation" xml:space="preserve">
+    <value>Orientation</value>
+  </data>
+  <data name="Orientation_Horizontal" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="Orientation_Vertical" xml:space="preserve">
+    <value>Vertical</value>
   </data>
   <data name="OtherOptions_btnFactoryReset" xml:space="preserve">
     <value>Factory Reset</value>
@@ -498,5 +513,8 @@ Super high values = possible glitches</value>
   </data>
   <data name="RenderEngine_ConvertingToBlocks" xml:space="preserve">
     <value>Converting pixels into Minecraft blocks.</value>
+  </data>
+  <data name="Sizing" xml:space="preserve">
+    <value>Sizing</value>
   </data>
 </root>

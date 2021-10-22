@@ -1,4 +1,4 @@
-﻿namespace PixelStacker.IO.Config
+﻿namespace PixelStacker.Logic.IO.Config
 {
     public class MaterialSelectOptions
     {

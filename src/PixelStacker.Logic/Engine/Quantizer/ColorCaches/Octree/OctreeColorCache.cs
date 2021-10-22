@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using SimplePaletteQuantizer.ColorCaches.Common;
-using SimplePaletteQuantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.Common;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
 
-namespace SimplePaletteQuantizer.ColorCaches.Octree
+namespace PixelStacker.Logic.Engine.Quantizer.ColorCaches.Octree
 {
     public class OctreeColorCache : BaseColorCache
     {

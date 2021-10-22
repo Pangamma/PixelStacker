@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using static System.Windows.Forms.Control;
 
 namespace PixelStacker.Logic.Extensions
 {

@@ -3,11 +3,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
-using SimplePaletteQuantizer.Helpers.Pixels;
-using SimplePaletteQuantizer.Helpers.Pixels.Indexed;
-using SimplePaletteQuantizer.Helpers.Pixels.NonIndexed;
+using PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels;
+using PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels.Indexed;
+using PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels.NonIndexed;
 
-namespace SimplePaletteQuantizer.Helpers
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers
 {
     /// <summary>
     /// This is a pixel format independent pixel.
@@ -71,8 +71,8 @@ namespace SimplePaletteQuantizer.Helpers
         /// <value>The index.</value>
         public byte Index
         {
-            get { return ((IIndexedPixel) pixelData).GetIndex(bitOffset); }
-            set { ((IIndexedPixel) pixelData).SetIndex(bitOffset, value); }
+            get { return ((IIndexedPixel)pixelData).GetIndex(bitOffset); }
+            set { ((IIndexedPixel)pixelData).SetIndex(bitOffset, value); }
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace SimplePaletteQuantizer.Helpers
         /// <value>The color.</value>
         public Color Color
         {
-            get { return ((INonIndexedPixel) pixelData).GetColor(); }
-            set { ((INonIndexedPixel) pixelData).SetColor(value); }
+            get { return ((INonIndexedPixel)pixelData).GetColor(); }
+            set { ((INonIndexedPixel)pixelData).SetColor(value); }
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace SimplePaletteQuantizer.Helpers
         /// </value>
         public bool IsIndexed
         {
-            get { return Parent.IsIndexed; }    
+            get { return Parent.IsIndexed; }
         }
 
         #endregion
@@ -115,7 +115,7 @@ namespace SimplePaletteQuantizer.Helpers
             // creates pixel data
             pixelType = IsIndexed ? GetIndexedType(Parent.PixelFormat) : GetNonIndexedType(Parent.PixelFormat);
             NewExpression newType = Expression.New(pixelType);
-            UnaryExpression convertNewType = Expression.Convert(newType, typeof (object));
+            UnaryExpression convertNewType = Expression.Convert(newType, typeof(object));
             Expression<Func<object>> indexedExpression = Expression.Lambda<Func<object>>(convertNewType);
             pixelData = indexedExpression.Compile().Invoke();
             pixelDataPointer = MarshalToPointer(pixelData);
@@ -181,8 +181,8 @@ namespace SimplePaletteQuantizer.Helpers
         /// <param name="y">The Y coordinate.</param>
         public void Update(int x, int y)
         {
-            X = x; 
-            Y = y; 
+            X = x;
+            Y = y;
             bitOffset = Parent.GetBitOffset(x);
         }
 

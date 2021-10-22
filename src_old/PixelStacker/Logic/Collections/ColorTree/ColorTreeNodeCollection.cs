@@ -53,7 +53,6 @@ namespace PixelStacker.Logic.Collections
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     ///   Collection of k-dimensional tree nodes.

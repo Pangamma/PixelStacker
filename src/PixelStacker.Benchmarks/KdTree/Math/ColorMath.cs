@@ -1,4 +1,6 @@
-﻿namespace KdTree.Math
+﻿using KdTree;
+
+namespace PixelStacker.Benchmarks.KdTree.Math
 {
     public class ColorMath : ITypeMath<int>
     {

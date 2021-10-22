@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using SimplePaletteQuantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
 
-namespace SimplePaletteQuantizer.Quantizers.Uniform
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.Uniform
 {
     /// <summary>
     /// In uniform quantization each axis of the color space is treated independently. 
@@ -80,16 +79,16 @@ namespace SimplePaletteQuantizer.Quantizers.Uniform
             // NOTE: I was considering either Lambda, or For loop (which should be the fastest), 
             // NOTE: but I used the ForEach loop for the sake of readability. Feel free to convert it.
             foreach (UniformColorSlot redSlot in redSlots)
-            foreach (UniformColorSlot greenSlot in greenSlots)
-            foreach (UniformColorSlot blueSlot in blueSlots)
-            {
+                foreach (UniformColorSlot greenSlot in greenSlots)
+                    foreach (UniformColorSlot blueSlot in blueSlots)
+                    {
                         int red = redSlot.GetAverage();
                         int green = greenSlot.GetAverage();
                         int blue = blueSlot.GetAverage();
 
-                Color color = Color.FromArgb(255, red, green, blue);
-                result.Add(color);
-            }
+                        Color color = Color.FromArgb(255, red, green, blue);
+                        result.Add(color);
+                    }
 
             // returns our new palette
             return result;

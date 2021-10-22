@@ -1,13 +1,7 @@
 ﻿using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Extensions;
-using PixelStacker.UI;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PixelStacker.Logic.Collections
+namespace PixelStacker.Logic.Collections.Array
 {
     /// <summary>
     /// https://discord.com/channels/143867839282020352/312132327348240384/895799131665215508
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Obsolete]
-    public struct Array2D<T>: IEnumerable<T>
+    public struct Array2D<T> : IEnumerable<T>
     {
         public int A { get; }
         public int B { get; }
@@ -22,7 +19,7 @@ namespace PixelStacker.Logic.Collections
         {
             B = d1;
             A = d2;
-            Data = new T[d1 * d2 ];
+            Data = new T[d1 * d2];
         }
 
         public int GetLength(int n)
@@ -37,7 +34,7 @@ namespace PixelStacker.Logic.Collections
 
         public IEnumerator<T> GetEnumerator()
         {
-            foreach(var foo in Data)
+            foreach (var foo in Data)
             {
                 yield return foo;
             }
@@ -56,7 +53,7 @@ namespace PixelStacker.Logic.Collections
         //    {
         //        o[i++] = v;
         //    }
-            
+
         //    var arr = new Array2D<T>(b.GetLength(0), b.GetLength(1));
         //    foreach (var f in b)
         //        arr.Data[i++] = f;
@@ -69,7 +66,7 @@ namespace PixelStacker.Logic.Collections
         {
             int i = 0;
             var arr = new Array2D<T>(b.GetLength(0), b.GetLength(1));
-            foreach(var f in b)
+            foreach (var f in b)
                 arr.Data[i++] = f;
 
             return arr;

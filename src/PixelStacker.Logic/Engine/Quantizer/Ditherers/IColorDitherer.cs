@@ -1,9 +1,8 @@
-﻿using System;
-using SimplePaletteQuantizer.Helpers;
-using SimplePaletteQuantizer.PathProviders;
-using SimplePaletteQuantizer.Quantizers;
+﻿using PixelStacker.Logic.Engine.Quantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.PathProviders;
+using PixelStacker.Logic.Engine.Quantizer.Quantizers;
 
-namespace SimplePaletteQuantizer.Ditherers
+namespace PixelStacker.Logic.Engine.Quantizer.Ditherers
 {
     public interface IColorDitherer : IPathProvider
     {

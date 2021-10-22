@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using PixelStacker.Logic.Extensions;
-using System.Threading;
-using PixelStacker.Logic.Great;
 using PixelStacker.Resources;
 
 namespace PixelStacker.Logic

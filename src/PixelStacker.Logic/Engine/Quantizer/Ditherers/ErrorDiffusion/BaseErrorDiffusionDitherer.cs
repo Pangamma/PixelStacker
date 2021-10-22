@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
-using SimplePaletteQuantizer.Helpers;
+﻿using System.Drawing;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
 
-namespace SimplePaletteQuantizer.Ditherers.ErrorDiffusion
+namespace PixelStacker.Logic.Engine.Quantizer.Ditherers.ErrorDiffusion
 {
     public abstract class BaseErrorDistributionDitherer : BaseColorDitherer
     {
@@ -74,20 +73,20 @@ namespace SimplePaletteQuantizer.Ditherers.ErrorDiffusion
             {
                 // processes the matrix
                 for (int shiftY = -MatrixSideHeight; shiftY <= MatrixSideHeight; shiftY++)
-                for (int shiftX = -MatrixSideWidth; shiftX <= MatrixSideWidth; shiftX++)
-                {
+                    for (int shiftX = -MatrixSideWidth; shiftX <= MatrixSideWidth; shiftX++)
+                    {
                         int targetX = sourcePixel.X + shiftX;
                         int targetY = sourcePixel.Y + shiftY;
                         byte coeficient = CachedMatrix[shiftY + MatrixSideHeight, shiftX + MatrixSideWidth];
                         float coeficientSummed = CachedSummedMatrix[shiftY + MatrixSideHeight, shiftX + MatrixSideWidth];
 
-                    if (coeficient != 0 &&
-                        targetX >= 0 && targetX < TargetBuffer.Width &&
-                        targetY >= 0 && targetY < TargetBuffer.Height)
-                    {
-                        ProcessNeighbor(targetPixel, targetX, targetY, coeficientSummed, redError, greenError, blueError);
+                        if (coeficient != 0 &&
+                            targetX >= 0 && targetX < TargetBuffer.Width &&
+                            targetY >= 0 && targetY < TargetBuffer.Height)
+                        {
+                            ProcessNeighbor(targetPixel, targetX, targetY, coeficientSummed, redError, greenError, blueError);
+                        }
                     }
-                }
             }
 
             // pixels are not processed, only neighbors are

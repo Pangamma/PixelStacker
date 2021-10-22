@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels.NonIndexed
 {
     /// <summary>
     /// Name |          Blue         |        Green          |           Red         |         Unused        |
@@ -56,8 +55,8 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         /// </summary>
         public ulong Value
         {
-            get { return (uint) raw; }
-            set { raw = (int) (value & 0xFFFFFF); }
+            get { return (uint)raw; }
+            set { raw = (int)(value & 0xFFFFFF); }
         }
     }
 }

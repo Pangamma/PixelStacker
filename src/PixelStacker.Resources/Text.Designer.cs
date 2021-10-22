@@ -243,6 +243,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Art that has a large number of unique colors will be more difficult to build. Rendering will also be faster if the overall color count is reduced before you start the rendering process. You can use the options below to flatten the color space of your image..
+        /// </summary>
+        public static string ColorReducer_Instructions {
+            get {
+                return ResourceManager.GetString("ColorReducer_Instructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select profile.
         /// </summary>
         public static string DDL_SelectProfile {
@@ -830,11 +839,47 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color Reduction.
+        /// </summary>
+        public static string Menu_ColorReduction {
+            get {
+                return ResourceManager.GetString("Menu_ColorReduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operation cancelled..
         /// </summary>
         public static string Operation_Cancelled {
             get {
                 return ResourceManager.GetString("Operation_Cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orientation.
+        /// </summary>
+        public static string Orientation {
+            get {
+                return ResourceManager.GetString("Orientation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontal.
+        /// </summary>
+        public static string Orientation_Horizontal {
+            get {
+                return ResourceManager.GetString("Orientation_Horizontal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertical.
+        /// </summary>
+        public static string Orientation_Vertical {
+            get {
+                return ResourceManager.GetString("Orientation_Vertical", resourceCulture);
             }
         }
         
@@ -1152,6 +1197,15 @@ namespace PixelStacker.Resources {
         public static string RenderEngine_ConvertingToBlocks {
             get {
                 return ResourceManager.GetString("RenderEngine_ConvertingToBlocks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sizing.
+        /// </summary>
+        public static string Sizing {
+            get {
+                return ResourceManager.GetString("Sizing", resourceCulture);
             }
         }
     }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SimplePaletteQuantizer.Quantizers.Uniform
+﻿namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.Uniform
 {
     internal struct UniformColorSlot
     {
@@ -27,7 +25,7 @@ namespace SimplePaletteQuantizer.Quantizers.Uniform
 
             if (pixelCount > 0)
             {
-                result = pixelCount == 1 ? value : value/pixelCount;
+                result = pixelCount == 1 ? value : value / pixelCount;
             }
 
             return result;

@@ -1,40 +1,37 @@
-﻿using PixelStacker.IO.Config;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.Threading;
 
-namespace PixelStacker.Extensions
+namespace PixelStacker.Logic.Extensions
 {
     public static class ExtendTasks
     {
         /// <summary>
         /// </summary>
-        /// <exception cref="System.OperationCanceledException">If cancelled.</exception>
+        /// <exception cref="OperationCanceledException">If cancelled.</exception>
         /// <param name="token"></param>
-        public static void SafeThrowIfCancellationRequested(this System.Threading.CancellationToken? token)
+        public static void SafeThrowIfCancellationRequested(this CancellationToken? token)
         {
-            if (token.HasValue) SafeThrowIfCancellationRequested(token.Value);
+            if (token.HasValue) token.Value.SafeThrowIfCancellationRequested();
         }
 
         /// <summary>
         /// </summary>
-        /// <exception cref="System.OperationCanceledException">If cancelled.</exception>
+        /// <exception cref="OperationCanceledException">If cancelled.</exception>
         /// <param name="token"></param>
-        public static void SafeThrowIfCancellationRequested(this System.Threading.CancellationToken token)
+        public static void SafeThrowIfCancellationRequested(this CancellationToken token)
         {
             if (token == CancellationToken.None) return;
             if (!token.CanBeCanceled) return;
             if (token.IsCancellationRequested) token.ThrowIfCancellationRequested();
         }
 
-        public static bool SafeIsCancellationRequested(this System.Threading.CancellationToken? token)
+        public static bool SafeIsCancellationRequested(this CancellationToken? token)
         {
-            if (token.HasValue) SafeIsCancellationRequested(token.Value);
+            if (token.HasValue) token.Value.SafeIsCancellationRequested();
             return false;
         }
 
-        public static bool SafeIsCancellationRequested(this System.Threading.CancellationToken token)
+        public static bool SafeIsCancellationRequested(this CancellationToken token)
         {
             if (token == CancellationToken.None) return false;
             if (!token.CanBeCanceled) return false;

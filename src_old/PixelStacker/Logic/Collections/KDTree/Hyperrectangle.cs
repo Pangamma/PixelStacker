@@ -22,11 +22,7 @@
 
 namespace PixelStacker.Logic.Collections
 {
-    using System.Globalization;
     using System;
-    using System.Linq;
-    using System.Collections.Generic;
-    using System.Collections.Concurrent;
 
     /// <summary>
     ///   Hyperrectangle structure.

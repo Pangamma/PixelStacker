@@ -1,5 +1,4 @@
 ﻿using PixelStacker.Extensions;
-using PixelStacker.Resources;
 using System;
 using System.Linq;
 using System.Threading;

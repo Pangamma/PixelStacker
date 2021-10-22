@@ -117,5 +117,10 @@
   "Operation_Cancelled": "작업이 취소되었습니다.",
   "RenderEngine_ConvertingToBlocks": "픽셀을 Minecraft 블록으로 변환합니다.",
   "Progress_CompiledColorMap": "컬러 맵이 컴파일되었습니다.",
-  "OtherOptions_Instructions": "출력 크기를 제한하려면 최대 너비 또는 최대 높이를 입력합니다."
+  "OtherOptions_Instructions": "출력 크기를 제한하려면 최대 너비 또는 최대 높이를 입력합니다.",
+  "Menu_ColorReduction": "색상 감소",
+  "Orientation": "정위",
+  "Orientation_Horizontal": "수평의",
+  "Orientation_Vertical": "수직의",
+  "Sizing": "사이징"
 }

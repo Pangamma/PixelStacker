@@ -1,13 +1,8 @@
-﻿using SimplePaletteQuantizer.ColorCaches;
-using SimplePaletteQuantizer.ColorCaches.Common;
-using SimplePaletteQuantizer.ColorCaches.EuclideanDistance;
-using SimplePaletteQuantizer.Ditherers;
-using SimplePaletteQuantizer.Quantizers;
-using System;
+﻿using PixelStacker.Logic.Collections;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches.EuclideanDistance;
+using PixelStacker.Logic.Engine.Quantizer.Ditherers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.Engine.Quantizer.Enums
 {

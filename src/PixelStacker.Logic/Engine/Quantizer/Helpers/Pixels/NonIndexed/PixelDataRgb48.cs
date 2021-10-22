@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
+namespace PixelStacker.Logic.Engine.Quantizer.Helpers.Pixels.NonIndexed
 {
     /// <summary>
     /// Name |                     Blue                      |                     Green                     |                      Red                      | 
@@ -47,9 +46,9 @@ namespace SimplePaletteQuantizer.Helpers.Pixels.NonIndexed
         /// </summary>
         public void SetColor(Color color)
         {
-            red = (ushort) (color.R << 8);
-            green = (ushort) (color.G << 8);
-            blue = (ushort) (color.B << 8);
+            red = (ushort)(color.R << 8);
+            green = (ushort)(color.G << 8);
+            blue = (ushort)(color.B << 8);
         }
 
         /// <summary>

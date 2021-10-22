@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace PixelStacker.IO.Image 
+namespace PixelStacker.Logic.IO.Image
 {
     /// <summary>
     /// Bitmap prevents you from working on the same image space concurrently for safety reasons.
@@ -45,7 +44,7 @@ namespace PixelStacker.IO.Image
 
                 Buffer = bitmapData.Scan0;
                 Stride = bitmapData.Stride;
-            } 
+            }
             finally
             {
                 if (bitmapData != null)

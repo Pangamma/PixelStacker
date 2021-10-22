@@ -5,8 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
-using PixelStacker.Extensions;
-using PixelStacker.Logic.Collections;
+using PixelStacker.Logic.Extensions;
 
 namespace PixelStacker.Logic.Model
 {

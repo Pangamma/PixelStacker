@@ -1,5 +1,6 @@
 ﻿using PixelStacker.Extensions;
-using PixelStacker.IO.Config;
+using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Resources;
 using System;
 using System.Collections;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Resources;
 using System.Threading;
 
-namespace PixelStacker.Logic
+namespace PixelStacker.Logic.Model
 {
     [Serializable]
     public class Material
@@ -53,12 +54,12 @@ namespace PixelStacker.Logic
         private string _minimumSupportedMinecraftVersion = "NEW";
         public string MinimumSupportedMinecraftVersion
         {
-            get => this._minimumSupportedMinecraftVersion;
+            get => _minimumSupportedMinecraftVersion;
             set
             {
                 if (string.IsNullOrWhiteSpace(value) || !ValidMinecraftVersions.Contains(value))
                 {
-                    throw new ArgumentNullException($"Invalid MC Version provided. Given '{value}' Expected: {string.Join(", ", Material.ValidMinecraftVersions)}");
+                    throw new ArgumentNullException($"Invalid MC Version provided. Given '{value}' Expected: {string.Join(", ", ValidMinecraftVersions)}");
                 }
 
                 _minimumSupportedMinecraftVersion = value;
@@ -66,23 +67,23 @@ namespace PixelStacker.Logic
         }
 
         public Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, byte[] topImage, byte[] sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
-           : this(minMcVersion, isAdvancedMaterial, category, pixelStackerID, label, blockID, data, topImage.ToBitmap(),sideImage.ToBitmap(), topBlockName, sideBlockName, schematicaMaterialName)
-        {}
+           : this(minMcVersion, isAdvancedMaterial, category, pixelStackerID, label, blockID, data, topImage.ToBitmap(), sideImage.ToBitmap(), topBlockName, sideBlockName, schematicaMaterialName)
+        { }
 
         public Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, Bitmap topImage, Bitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
         {
-            this.MinimumSupportedMinecraftVersion = minMcVersion;
-            this.IsAdvanced = isAdvancedMaterial;
-            this.PixelStackerID = pixelStackerID;
-            this.Label = label;
-            this.BlockID = blockID;
-            this.Data = data;
-            this.TopImage = topImage.To32bppBitmap();
-            this.SideImage = (sideImage ?? topImage).To32bppBitmap();
-            this.Category = category;
-            this.TopBlockName = topBlockName;
-            this.SideBlockName = sideBlockName;
-            this.SchematicaMaterialName = schematicaMaterialName;
+            MinimumSupportedMinecraftVersion = minMcVersion;
+            IsAdvanced = isAdvancedMaterial;
+            PixelStackerID = pixelStackerID;
+            Label = label;
+            BlockID = blockID;
+            Data = data;
+            TopImage = topImage.To32bppBitmap();
+            SideImage = (sideImage ?? topImage).To32bppBitmap();
+            Category = category;
+            TopBlockName = topBlockName;
+            SideBlockName = sideBlockName;
+            SchematicaMaterialName = schematicaMaterialName;
         }
 
         public string ToConstructorString()
@@ -97,7 +98,7 @@ namespace PixelStacker.Logic
                 {
                     if (topImageResource == null)
                     {
-                        if ((resource.Value as Bitmap).AreEqual(this.TopImage))
+                        if ((resource.Value as Bitmap).AreEqual(TopImage))
                         {
                             topImageResource = resource;
                         }
@@ -105,7 +106,7 @@ namespace PixelStacker.Logic
 
                     if (sideImageResource == null)
                     {
-                        if ((resource.Value as Bitmap).AreEqual(this.SideImage))
+                        if ((resource.Value as Bitmap).AreEqual(SideImage))
                         {
                             sideImageResource = resource;
                         }
@@ -123,35 +124,35 @@ namespace PixelStacker.Logic
                 throw new Exception("Side image not found in list");
             }
 
-            string topBlockName = this.TopBlockName.Replace("minecraft:" + topImageResource.Value.Key.ToString(), "minecraft:{nameof(Textures." + topImageResource.Value.Key.ToString() + ")}");
-            string sideBlockName = this.SideBlockName.Replace("minecraft:" + topImageResource.Value.Key.ToString(), "minecraft:{nameof(Textures." + topImageResource.Value.Key.ToString() + ")}");
-       
+            string topBlockName = TopBlockName.Replace("minecraft:" + topImageResource.Value.Key.ToString(), "minecraft:{nameof(Textures." + topImageResource.Value.Key.ToString() + ")}");
+            string sideBlockName = SideBlockName.Replace("minecraft:" + topImageResource.Value.Key.ToString(), "minecraft:{nameof(Textures." + topImageResource.Value.Key.ToString() + ")}");
+
             return $"new Material("
-                + $"\"{this.MinimumSupportedMinecraftVersion}\", "
-                + $"{this.IsAdvanced.ToString().ToLowerInvariant()}, "
-                + $"\"{this.Category}\", "
-                + $"\"{this.PixelStackerID}\", "
-                + $"\"{this.Label}\", "
-                + $"{this.BlockID}, "
-                + $"{this.Data}, "
+                + $"\"{MinimumSupportedMinecraftVersion}\", "
+                + $"{IsAdvanced.ToString().ToLowerInvariant()}, "
+                + $"\"{Category}\", "
+                + $"\"{PixelStackerID}\", "
+                + $"\"{Label}\", "
+                + $"{BlockID}, "
+                + $"{Data}, "
                 + $"Textures.{topImageResource.Value.Key}, "
                 + $"Textures.{sideImageResource.Value.Key}, "
                 + $"$\"{topBlockName}\", "
                 + $"$\"{sideBlockName}\", "
-                + $"\"{this.SchematicaMaterialName}\""
+                + $"\"{SchematicaMaterialName}\""
                 + "),";
         }
 
-        private string SettingsKey { get { return string.Format("BLOCK_{0}", this.PixelStackerID); } }
+        private string SettingsKey { get { return string.Format("BLOCK_{0}", PixelStackerID); } }
 
         public bool IsVisibleF(Options opts)
         {
-            if (this.BlockID == 0)
+            if (BlockID == 0)
             {
                 return false;
             }
 
-            if (!opts.IsAdvancedModeEnabled && this.IsAdvanced)
+            if (!opts.IsAdvancedModeEnabled && IsAdvanced)
             {
                 return false;
             }
@@ -164,12 +165,12 @@ namespace PixelStacker.Logic
         {
             get
             {
-                if (this.BlockID == 0)
+                if (BlockID == 0)
                 {
                     return false;
                 }
 
-                if (!Options.Get.IsAdvancedModeEnabled && this.IsAdvanced)
+                if (!Options.Get.IsAdvancedModeEnabled && IsAdvanced)
                 {
                     return false;
                 }
@@ -183,19 +184,19 @@ namespace PixelStacker.Logic
 #pragma warning disable CS0618 // Type or member is obsolete
             opts ??= Options.Get;
 #pragma warning restore CS0618 // Type or member is obsolete
-            if (this.BlockID == 0)
+            if (BlockID == 0)
             {
                 return false;
             }
 
-            if (this.IsAdvanced && !opts.IsAdvancedModeEnabled)
+            if (IsAdvanced && !opts.IsAdvancedModeEnabled)
             {
                 return false;
             }
 
             if (!opts.EnableStates.ContainsKey(SettingsKey))
             {
-                opts.EnableStates[SettingsKey] = !this.IsAdvanced;
+                opts.EnableStates[SettingsKey] = !IsAdvanced;
             }
 
             return opts.EnableStates[SettingsKey];
@@ -214,19 +215,19 @@ namespace PixelStacker.Logic
         {
             get
             {
-                if (this.BlockID == 0)
+                if (BlockID == 0)
                 {
                     return false;
                 }
 
-                if (this.IsAdvanced && !Options.Get.IsAdvancedModeEnabled)
+                if (IsAdvanced && !Options.Get.IsAdvancedModeEnabled)
                 {
                     return false;
                 }
 
                 if (!Options.Get.EnableStates.ContainsKey(SettingsKey))
                 {
-                    Options.Get.EnableStates[SettingsKey] = !this.IsAdvanced;
+                    Options.Get.EnableStates[SettingsKey] = !IsAdvanced;
                 }
 
                 return Options.Get.EnableStates[SettingsKey];
@@ -238,28 +239,28 @@ namespace PixelStacker.Logic
 
         public string GetBlockNameAndData(bool isSide)
         {
-            return isSide ? this.SideBlockName : this.TopBlockName;
+            return isSide ? SideBlockName : TopBlockName;
         }
 
         public Bitmap GetImage(bool isSide)
         {
             if (isSide)
             {
-                return this.SideImage;
+                return SideImage;
             }
             else
             {
-                return this.TopImage;
+                return TopImage;
             }
         }
-        
+
         public Color GetAverageColor(bool isSide)
         {
             if (isSide)
             {
                 if (_averageColorSide == null)
                 {
-                    _averageColorSide = GetAverageColor(this.SideImage);
+                    _averageColorSide = GetAverageColor(SideImage);
                 }
                 return _averageColorSide.Value;
             }
@@ -267,7 +268,7 @@ namespace PixelStacker.Logic
             {
                 if (_averageColor == null)
                 {
-                    _averageColor = GetAverageColor(this.TopImage);
+                    _averageColor = GetAverageColor(TopImage);
                 }
                 return _averageColor.Value;
             }
@@ -281,7 +282,7 @@ namespace PixelStacker.Logic
             long a = 0;
             long total = src.Width * src.Height;
 
-            src.ToViewStreamParallel(null, (int x, int y, Color c) =>
+            src.ToViewStreamParallel(null, (x, y, c) =>
             {
                 Interlocked.Add(ref r, c.R);
                 Interlocked.Add(ref g, c.G);
@@ -304,7 +305,7 @@ namespace PixelStacker.Logic
 
         public override string ToString()
         {
-            return this.Label;
+            return Label;
         }
 
         public override bool Equals(object obj)

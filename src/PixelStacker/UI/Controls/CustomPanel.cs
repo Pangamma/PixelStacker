@@ -2,22 +2,22 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace PixelStacker.WF.Components
+namespace PixelStacker.UI.Controls
 {
     public class CustomPanel : Panel
     {
-        public CustomPanel(): base()
+        public CustomPanel() : base()
         {
-            this.DoubleBuffered = true;
+            DoubleBuffered = true;
         }
 
         public Func<Message, Keys, bool> OnCommandKey { get; set; } = null;
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (this.OnCommandKey != null)
+            if (OnCommandKey != null)
             {
-                return this.OnCommandKey(msg, keyData);
+                return OnCommandKey(msg, keyData);
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -25,7 +25,7 @@ namespace PixelStacker.WF.Components
 
         protected override Point ScrollToControl(Control activeControl)
         {
-            return this.AutoScrollPosition;
+            return AutoScrollPosition;
         }
     }
 }

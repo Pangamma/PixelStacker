@@ -117,5 +117,10 @@
   "Operation_Cancelled": "操作はキャンセルされました。",
   "RenderEngine_ConvertingToBlocks": "ピクセルをMinecraftブロックに変換します。",
   "Progress_CompiledColorMap": "カラーマップを作成しました。",
-  "OtherOptions_Instructions": "最大幅または最大高さを入力して、出力サイズを制限します。"
+  "OtherOptions_Instructions": "最大幅または最大高さを入力して、出力サイズを制限します。",
+  "Menu_ColorReduction": "減色",
+  "Orientation": "オリエンテーション",
+  "Orientation_Horizontal": "水平",
+  "Orientation_Vertical": "垂直",
+  "Sizing": "サイジング"
 }

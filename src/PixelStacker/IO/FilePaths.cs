@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace PixelStacker.Logic.IO
+namespace PixelStacker.IO
 {
     public static class FilePaths
     {
@@ -35,8 +35,8 @@ namespace PixelStacker.Logic.IO
         {
             get
             {
-                string path = Path.Combine(FilePaths.AppDataDir, "color-profiles");
-                
+                string path = Path.Combine(AppDataDir, "color-profiles");
+
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);

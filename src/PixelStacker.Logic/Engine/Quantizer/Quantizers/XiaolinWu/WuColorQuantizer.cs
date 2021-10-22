@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Collections.Generic;
-using SimplePaletteQuantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
 
-namespace SimplePaletteQuantizer.Quantizers.XiaolinWu
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.XiaolinWu
 {
     /// <summary>
     /// Author:	Xiaolin Wu
@@ -146,22 +145,22 @@ namespace SimplePaletteQuantizer.Quantizers.XiaolinWu
             switch (direction)
             {
                 case Red:
-                    return (moment[position, cube.GreenMaximum, cube.BlueMaximum] -
+                    return moment[position, cube.GreenMaximum, cube.BlueMaximum] -
                             moment[position, cube.GreenMaximum, cube.BlueMinimum] -
                             moment[position, cube.GreenMinimum, cube.BlueMaximum] +
-                            moment[position, cube.GreenMinimum, cube.BlueMinimum]);
+                            moment[position, cube.GreenMinimum, cube.BlueMinimum];
 
                 case Green:
-                    return (moment[cube.RedMaximum, position, cube.BlueMaximum] -
+                    return moment[cube.RedMaximum, position, cube.BlueMaximum] -
                             moment[cube.RedMaximum, position, cube.BlueMinimum] -
                             moment[cube.RedMinimum, position, cube.BlueMaximum] +
-                            moment[cube.RedMinimum, position, cube.BlueMinimum]);
+                            moment[cube.RedMinimum, position, cube.BlueMinimum];
 
                 case Blue:
-                    return (moment[cube.RedMaximum, cube.GreenMaximum, position] -
+                    return moment[cube.RedMaximum, cube.GreenMaximum, position] -
                             moment[cube.RedMaximum, cube.GreenMinimum, position] -
                             moment[cube.RedMinimum, cube.GreenMaximum, position] +
-                            moment[cube.RedMinimum, cube.GreenMinimum, position]);
+                            moment[cube.RedMinimum, cube.GreenMinimum, position];
 
                 default:
                     return 0;
@@ -176,22 +175,22 @@ namespace SimplePaletteQuantizer.Quantizers.XiaolinWu
             switch (direction)
             {
                 case Red:
-                    return (-moment[cube.RedMinimum, cube.GreenMaximum, cube.BlueMaximum] +
+                    return -moment[cube.RedMinimum, cube.GreenMaximum, cube.BlueMaximum] +
                              moment[cube.RedMinimum, cube.GreenMaximum, cube.BlueMinimum] +
                              moment[cube.RedMinimum, cube.GreenMinimum, cube.BlueMaximum] -
-                             moment[cube.RedMinimum, cube.GreenMinimum, cube.BlueMinimum]);
+                             moment[cube.RedMinimum, cube.GreenMinimum, cube.BlueMinimum];
 
                 case Green:
-                    return (-moment[cube.RedMaximum, cube.GreenMinimum, cube.BlueMaximum] +
+                    return -moment[cube.RedMaximum, cube.GreenMinimum, cube.BlueMaximum] +
                              moment[cube.RedMaximum, cube.GreenMinimum, cube.BlueMinimum] +
                              moment[cube.RedMinimum, cube.GreenMinimum, cube.BlueMaximum] -
-                             moment[cube.RedMinimum, cube.GreenMinimum, cube.BlueMinimum]);
+                             moment[cube.RedMinimum, cube.GreenMinimum, cube.BlueMinimum];
 
                 case Blue:
-                    return (-moment[cube.RedMaximum, cube.GreenMaximum, cube.BlueMinimum] +
+                    return -moment[cube.RedMaximum, cube.GreenMaximum, cube.BlueMinimum] +
                              moment[cube.RedMaximum, cube.GreenMinimum, cube.BlueMinimum] +
                              moment[cube.RedMinimum, cube.GreenMaximum, cube.BlueMinimum] -
-                             moment[cube.RedMinimum, cube.GreenMinimum, cube.BlueMinimum]);
+                             moment[cube.RedMinimum, cube.GreenMinimum, cube.BlueMinimum];
                 default:
                     return 0;
             }
@@ -208,9 +207,9 @@ namespace SimplePaletteQuantizer.Quantizers.XiaolinWu
             float volumeMoment = VolumeFloat(cube, moments);
             float volumeWeight = Volume(cube, weights);
 
-            float distance = volumeRed*volumeRed + volumeGreen*volumeGreen + volumeBlue*volumeBlue;
+            float distance = volumeRed * volumeRed + volumeGreen * volumeGreen + volumeBlue * volumeBlue;
 
-            return volumeMoment - (distance/volumeWeight);
+            return volumeMoment - distance / volumeWeight;
         }
 
         /// <summary>
@@ -237,8 +236,8 @@ namespace SimplePaletteQuantizer.Quantizers.XiaolinWu
                 // the cube cannot be cut at bottom (this would lead to empty cube)
                 if (halfWeight != 0)
                 {
-                    float halfDistance = halfRed*halfRed + halfGreen*halfGreen + halfBlue*halfBlue;
-                    float temp = halfDistance/halfWeight;
+                    float halfDistance = halfRed * halfRed + halfGreen * halfGreen + halfBlue * halfBlue;
+                    float temp = halfDistance / halfWeight;
 
                     halfRed = wholeRed - halfRed;
                     halfGreen = wholeGreen - halfGreen;
@@ -282,16 +281,16 @@ namespace SimplePaletteQuantizer.Quantizers.XiaolinWu
             float maxGreen = Maximize(first, Green, first.GreenMinimum + 1, first.GreenMaximum, cutGreen, wholeRed, wholeGreen, wholeBlue, wholeWeight);
             float maxBlue = Maximize(first, Blue, first.BlueMinimum + 1, first.BlueMaximum, cutBlue, wholeRed, wholeGreen, wholeBlue, wholeWeight);
 
-            if ((maxRed >= maxGreen) && (maxRed >= maxBlue))
+            if (maxRed >= maxGreen && maxRed >= maxBlue)
             {
                 direction = Red;
 
                 // cannot split empty cube
-                if (cutRed[0] < 0) return false; 
+                if (cutRed[0] < 0) return false;
             }
             else
             {
-                if ((maxGreen >= maxRed) && (maxGreen >= maxBlue))
+                if (maxGreen >= maxRed && maxGreen >= maxBlue)
                 {
                     direction = Green;
                 }
@@ -328,8 +327,8 @@ namespace SimplePaletteQuantizer.Quantizers.XiaolinWu
             }
 
             // determines the volumes after cut
-            first.Volume = (first.RedMaximum - first.RedMinimum)*(first.GreenMaximum - first.GreenMinimum)*(first.BlueMaximum - first.BlueMinimum);
-            second.Volume = (second.RedMaximum - second.RedMinimum)*(second.GreenMaximum - second.GreenMinimum)*(second.BlueMaximum - second.BlueMinimum);
+            first.Volume = (first.RedMaximum - first.RedMinimum) * (first.GreenMaximum - first.GreenMinimum) * (first.BlueMaximum - first.BlueMinimum);
+            second.Volume = (second.RedMaximum - second.RedMinimum) * (second.GreenMaximum - second.GreenMinimum) * (second.BlueMaximum - second.BlueMinimum);
 
             // the cut was successfull
             return true;
@@ -565,7 +564,7 @@ namespace SimplePaletteQuantizer.Quantizers.XiaolinWu
         /// </summary>
         protected override void OnGetPaletteIndex(Color color, int key, int x, int y, out int paletteIndex)
         {
-            paletteIndex = indices[x + y*imageWidth];
+            paletteIndex = indices[x + y * imageWidth];
         }
 
         /// <summary>

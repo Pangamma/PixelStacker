@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SimplePaletteQuantizer.Quantizers.XiaolinWu
+﻿namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.XiaolinWu
 {
     internal class WuColorCube
     {

@@ -1,9 +1,7 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.IO;
-using PixelStacker.IO.Config;
-using PixelStacker.Logic;
-using PixelStacker.Logic.Collections;
 using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources;

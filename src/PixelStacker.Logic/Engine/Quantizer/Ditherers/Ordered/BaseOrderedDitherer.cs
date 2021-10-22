@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using SimplePaletteQuantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
 
-namespace SimplePaletteQuantizer.Ditherers.Ordered
+namespace PixelStacker.Logic.Engine.Quantizer.Ditherers.Ordered
 {
     public abstract class BaseOrderedDitherer : BaseColorDitherer
     {
@@ -51,7 +51,7 @@ namespace SimplePaletteQuantizer.Ditherers.Ordered
 
                 if (TargetBuffer.IsIndexed)
                 {
-                    byte newPixelIndex = (byte) Quantizer.GetPaletteIndex(newColor, targetPixel.X, targetPixel.Y);
+                    byte newPixelIndex = (byte)Quantizer.GetPaletteIndex(newColor, targetPixel.X, targetPixel.Y);
                     targetPixel.Index = newPixelIndex;
                 }
                 else

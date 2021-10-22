@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
-using SimplePaletteQuantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
 
-namespace SimplePaletteQuantizer.Quantizers.NeuQuant
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers.NeuQuant
 {
     /// <summary>
     /// The NeuQuant Neural-Net image quantization algorithm (© Anthony Dekker 1994) 
@@ -22,9 +21,9 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
         private const int AlphaBiasShift = 10;
         private const int AlphaRadiusBias = 1 << AlphaRadiusBetaShift;
         private const int AlphaRadiusBetaShift = AlphaBiasShift + RadiusBiasShift;
-        private const int Beta = (InitialBias >> BetaShift);
+        private const int Beta = InitialBias >> BetaShift;
         private const int BetaShift = 10;
-        private const int BetaGamma = (InitialBias << (GammaShift - BetaShift));
+        private const int BetaGamma = InitialBias << GammaShift - BetaShift;
         private const int DefaultRadius = NetworkSize >> 3;
         private const int DefaultRadiusBiasShift = 6;
         private const int DefaultRadiusBias = 1 << DefaultRadiusBiasShift;
@@ -32,7 +31,7 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
         private const int InitialAlpha = 1 << AlphaBiasShift;
         private const int InitialBias = 1 << InitialBiasShift;
         private const int InitialBiasShift = 16;
-        private const int InitialRadius = (DefaultRadius * DefaultRadiusBias);
+        private const int InitialRadius = DefaultRadius * DefaultRadiusBias;
         private const int MaximalNetworkPosition = NetworkSize - 1;
         private const int NetworkSize = 256;
         private const int NetworkBiasShift = 4;
@@ -51,7 +50,7 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
         private int[] frequency;
         private int[] networkIndexLookup;
         private int[] radiusPower;
-        
+
         private byte quality;
         private int delta;
         private int radius;
@@ -71,8 +70,8 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
         public byte Quality
         {
             get { return quality; }
-            set 
-            { 
+            set
+            {
                 quality = value;
                 alphaDecrease = 30 + (quality - 1);
             }
@@ -139,7 +138,7 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
                 }
 
                 // calculates biase distance
-                int biasDistance = distance - ((bias[index]) >> (InitialBiasShift - NetworkBiasShift));
+                int biasDistance = distance - (bias[index] >> InitialBiasShift - NetworkBiasShift);
 
                 // if best so far, store it
                 if (biasDistance < bestBiasDistance)
@@ -148,9 +147,9 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
                     bestBiasIndex = index;
                 }
 
-                int betaFrequency = (frequency[index] >> BetaShift);
+                int betaFrequency = frequency[index] >> BetaShift;
                 frequency[index] -= betaFrequency;
-                bias[index] += (betaFrequency << GammaShift);
+                bias[index] += betaFrequency << GammaShift;
             }
 
             frequency[bestIndex] += Beta;
@@ -165,9 +164,9 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
         {
             /* alter hit neuron */
             int[] neuron = network[networkIndex];
-            neuron[2] -= (alpha*(neuron[2] - red))/InitialAlpha;
-            neuron[1] -= (alpha*(neuron[1] - green))/InitialAlpha;
-            neuron[0] -= (alpha*(neuron[0] - blue))/InitialAlpha;
+            neuron[2] -= alpha * (neuron[2] - red) / InitialAlpha;
+            neuron[1] -= alpha * (neuron[1] - green) / InitialAlpha;
+            neuron[0] -= alpha * (neuron[0] - blue) / InitialAlpha;
         }
 
         /// <summary>
@@ -197,17 +196,17 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
                 if (increaseIndex < highBound)
                 {
                     neuron = network[increaseIndex++];
-                    neuron[0] -= (alphaMultiplicator*(neuron[0] - blue))/AlphaRadiusBias;
-                    neuron[1] -= (alphaMultiplicator*(neuron[1] - green))/AlphaRadiusBias;
-                    neuron[2] -= (alphaMultiplicator*(neuron[2] - red))/AlphaRadiusBias;
+                    neuron[0] -= alphaMultiplicator * (neuron[0] - blue) / AlphaRadiusBias;
+                    neuron[1] -= alphaMultiplicator * (neuron[1] - green) / AlphaRadiusBias;
+                    neuron[2] -= alphaMultiplicator * (neuron[2] - red) / AlphaRadiusBias;
                 }
 
                 if (decreaseIndex > lowBound)
                 {
                     neuron = network[decreaseIndex--];
-                    neuron[0] -= (alphaMultiplicator*(neuron[0] - blue))/AlphaRadiusBias;
-                    neuron[1] -= (alphaMultiplicator*(neuron[1] - green))/AlphaRadiusBias;
-                    neuron[2] -= (alphaMultiplicator*(neuron[2] - red))/AlphaRadiusBias;
+                    neuron[0] -= alphaMultiplicator * (neuron[0] - blue) / AlphaRadiusBias;
+                    neuron[1] -= alphaMultiplicator * (neuron[1] - green) / AlphaRadiusBias;
+                    neuron[2] -= alphaMultiplicator * (neuron[2] - red) / AlphaRadiusBias;
                 }
             }
         }
@@ -266,7 +265,7 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
                 // if the value is still not optimal
                 if (bestValue != previousValue)
                 {
-                    networkIndexLookup[previousValue] = (startIndex + index) >> 1;
+                    networkIndexLookup[previousValue] = startIndex + index >> 1;
 
                     for (int subIndex = previousValue + 1; subIndex < bestValue; subIndex++)
                     {
@@ -278,7 +277,7 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
                 }
             }
 
-            networkIndexLookup[previousValue] = (startIndex + MaximalNetworkPosition) >> 1;
+            networkIndexLookup[previousValue] = startIndex + MaximalNetworkPosition >> 1;
 
             // resets certain portion of the index lookup
             for (int index = previousValue + 1; index < 256; index++)
@@ -314,7 +313,7 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
             for (int index = 0; index < radius; index++)
             {
                 int indexSquared = index * index;
-                radiusPower[index] = alpha * (((radiusSquared - indexSquared) * RadiusBias) / radiusSquared);
+                radiusPower[index] = alpha * ((radiusSquared - indexSquared) * RadiusBias / radiusSquared);
             }
         }
 
@@ -333,14 +332,14 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
 
             network = new int[NetworkSize][];
             uniqueColors.Clear();
-            
+
             // initializes all the neurons in the network
             for (int neuronIndex = 0; neuronIndex < NetworkSize; neuronIndex++)
             {
                 int[] neuron = new int[4];
 
                 // calculates the base value for all the components
-                int baseValue = (neuronIndex << (NetworkBiasShift + 8)) / NetworkSize;
+                int baseValue = (neuronIndex << NetworkBiasShift + 8) / NetworkSize;
                 neuron[0] = baseValue;
                 neuron[1] = baseValue;
                 neuron[2] = baseValue;
@@ -364,7 +363,7 @@ namespace SimplePaletteQuantizer.Quantizers.NeuQuant
             for (int index = 0; index < radius; index++)
             {
                 int indexSquared = index * index;
-                radiusPower[index] = alpha * (((radiusSquared - indexSquared) * RadiusBias) / radiusSquared);
+                radiusPower[index] = alpha * ((radiusSquared - indexSquared) * RadiusBias / radiusSquared);
             }
         }
 

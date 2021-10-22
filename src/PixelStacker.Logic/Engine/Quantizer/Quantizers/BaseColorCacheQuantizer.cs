@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
-using SimplePaletteQuantizer.ColorCaches;
-using SimplePaletteQuantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.Helpers;
+using PixelStacker.Logic.Engine.Quantizer.ColorCaches;
 
-namespace SimplePaletteQuantizer.Quantizers
+namespace PixelStacker.Logic.Engine.Quantizer.Quantizers
 {
     public abstract class BaseColorCacheQuantizer : BaseColorQuantizer
     {

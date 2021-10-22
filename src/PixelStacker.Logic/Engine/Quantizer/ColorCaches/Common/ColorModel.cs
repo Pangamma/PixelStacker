@@ -1,4 +1,4 @@
-﻿namespace SimplePaletteQuantizer.ColorCaches.Common
+﻿namespace PixelStacker.Logic.Engine.Quantizer.ColorCaches.Common
 {
     public enum ColorModel
     {

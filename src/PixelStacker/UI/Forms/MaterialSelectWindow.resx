@@ -63,117 +63,29 @@
   <data name="dlgSave.Filter" xml:space="preserve">
     <value>json|*.json</value>
   </data>
-  <data name="&gt;&gt;flowRow1.Name" xml:space="preserve">
-    <value>flowRow1</value>
-  </data>
-  <data name="&gt;&gt;flowRow1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;flowRow1.Parent" xml:space="preserve">
-    <value>flowVertical</value>
-  </data>
-  <data name="&gt;&gt;flowRow1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;customFlowLayoutPanel1.Name" xml:space="preserve">
-    <value>customFlowLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;customFlowLayoutPanel1.Type" xml:space="preserve">
-    <value>PixelStacker.WF.Components.CustomFlowLayoutPanel, PixelStacker.WF.Components, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;customFlowLayoutPanel1.Parent" xml:space="preserve">
-    <value>flowVertical</value>
-  </data>
-  <data name="&gt;&gt;customFlowLayoutPanel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="flowVertical.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="flowVertical.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
-    <value>TopDown</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="flowVertical.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="flowVertical.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="flowVertical.Size" type="System.Drawing.Size, System.Drawing">
-    <value>824, 106</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="flowVertical.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;flowVertical.Name" xml:space="preserve">
-    <value>flowVertical</value>
-  </data>
-  <data name="&gt;&gt;flowVertical.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;flowVertical.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;flowVertical.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="flowRow1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="flowRow1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="&gt;&gt;panelFilter.Name" xml:space="preserve">
-    <value>panelFilter</value>
+  <data name="lblFilter.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;panelFilter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 10</value>
   </data>
-  <data name="&gt;&gt;panelFilter.Parent" xml:space="preserve">
-    <value>flowRow1</value>
+  <data name="lblFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 20</value>
   </data>
-  <data name="&gt;&gt;panelFilter.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;panelColorProfile.Name" xml:space="preserve">
-    <value>panelColorProfile</value>
-  </data>
-  <data name="&gt;&gt;panelColorProfile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelColorProfile.Parent" xml:space="preserve">
-    <value>flowRow1</value>
-  </data>
-  <data name="&gt;&gt;panelColorProfile.ZOrder" xml:space="preserve">
+  <data name="lblFilter.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="flowRow1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 4</value>
-  </data>
-  <data name="flowRow1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="flowRow1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>721, 49</value>
-  </data>
-  <data name="flowRow1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;flowRow1.Name" xml:space="preserve">
-    <value>flowRow1</value>
-  </data>
-  <data name="&gt;&gt;flowRow1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;flowRow1.Parent" xml:space="preserve">
-    <value>flowVertical</value>
-  </data>
-  <data name="&gt;&gt;flowRow1.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="lblFilter.Text" xml:space="preserve">
+    <value>Filter</value>
   </data>
   <data name="&gt;&gt;lblFilter.Name" xml:space="preserve">
     <value>lblFilter</value>
@@ -185,6 +97,19 @@
     <value>panelFilter</value>
   </data>
   <data name="&gt;&gt;lblFilter.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tbxMaterialFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>56, 7</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tbxMaterialFilter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="tbxMaterialFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 28</value>
+  </data>
+  <data name="tbxMaterialFilter.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="&gt;&gt;tbxMaterialFilter.Name" xml:space="preserve">
@@ -225,120 +150,6 @@
   </data>
   <data name="&gt;&gt;panelFilter.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="lblFilter.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 10</value>
-  </data>
-  <data name="lblFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 20</value>
-  </data>
-  <data name="lblFilter.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="lblFilter.Text" xml:space="preserve">
-    <value>Filter</value>
-  </data>
-  <data name="&gt;&gt;lblFilter.Name" xml:space="preserve">
-    <value>lblFilter</value>
-  </data>
-  <data name="&gt;&gt;lblFilter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblFilter.Parent" xml:space="preserve">
-    <value>panelFilter</value>
-  </data>
-  <data name="&gt;&gt;lblFilter.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tbxMaterialFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>56, 7</value>
-  </data>
-  <data name="tbxMaterialFilter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="tbxMaterialFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 28</value>
-  </data>
-  <data name="tbxMaterialFilter.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tbxMaterialFilter.Name" xml:space="preserve">
-    <value>tbxMaterialFilter</value>
-  </data>
-  <data name="&gt;&gt;tbxMaterialFilter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbxMaterialFilter.Parent" xml:space="preserve">
-    <value>panelFilter</value>
-  </data>
-  <data name="&gt;&gt;tbxMaterialFilter.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;btnEditColorProfiles.Name" xml:space="preserve">
-    <value>btnEditColorProfiles</value>
-  </data>
-  <data name="&gt;&gt;btnEditColorProfiles.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnEditColorProfiles.Parent" xml:space="preserve">
-    <value>panelColorProfile</value>
-  </data>
-  <data name="&gt;&gt;btnEditColorProfiles.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lblColorProfile.Name" xml:space="preserve">
-    <value>lblColorProfile</value>
-  </data>
-  <data name="&gt;&gt;lblColorProfile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblColorProfile.Parent" xml:space="preserve">
-    <value>panelColorProfile</value>
-  </data>
-  <data name="&gt;&gt;lblColorProfile.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ddlColorProfile.Name" xml:space="preserve">
-    <value>ddlColorProfile</value>
-  </data>
-  <data name="&gt;&gt;ddlColorProfile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ddlColorProfile.Parent" xml:space="preserve">
-    <value>panelColorProfile</value>
-  </data>
-  <data name="&gt;&gt;ddlColorProfile.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="panelColorProfile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>316, 4</value>
-  </data>
-  <data name="panelColorProfile.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 10, 4</value>
-  </data>
-  <data name="panelColorProfile.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 6, 5, 6</value>
-  </data>
-  <data name="panelColorProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>395, 41</value>
-  </data>
-  <data name="panelColorProfile.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panelColorProfile.Name" xml:space="preserve">
-    <value>panelColorProfile</value>
-  </data>
-  <data name="&gt;&gt;panelColorProfile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelColorProfile.Parent" xml:space="preserve">
-    <value>flowRow1</value>
-  </data>
-  <data name="&gt;&gt;panelColorProfile.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="btnEditColorProfiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>312, 3</value>
@@ -427,83 +238,62 @@
   <data name="&gt;&gt;ddlColorProfile.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="panelColorProfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>316, 4</value>
+  </data>
+  <data name="panelColorProfile.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 10, 4</value>
+  </data>
+  <data name="panelColorProfile.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 6, 5, 6</value>
+  </data>
+  <data name="panelColorProfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>395, 41</value>
+  </data>
+  <data name="panelColorProfile.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panelColorProfile.Name" xml:space="preserve">
+    <value>panelColorProfile</value>
+  </data>
+  <data name="&gt;&gt;panelColorProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelColorProfile.Parent" xml:space="preserve">
+    <value>flowRow1</value>
+  </data>
+  <data name="&gt;&gt;panelColorProfile.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="flowRow1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 4</value>
+  </data>
+  <data name="flowRow1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="flowRow1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>721, 49</value>
+  </data>
+  <data name="flowRow1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;flowRow1.Name" xml:space="preserve">
+    <value>flowRow1</value>
+  </data>
+  <data name="&gt;&gt;flowRow1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowRow1.Parent" xml:space="preserve">
+    <value>flowVertical</value>
+  </data>
+  <data name="&gt;&gt;flowRow1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="customFlowLayoutPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="customFlowLayoutPanel1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
-  </data>
-  <data name="&gt;&gt;cbxIsMultiLayer.Name" xml:space="preserve">
-    <value>cbxIsMultiLayer</value>
-  </data>
-  <data name="&gt;&gt;cbxIsMultiLayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbxIsMultiLayer.Parent" xml:space="preserve">
-    <value>customFlowLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;cbxIsMultiLayer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cbxRequire2ndLayer.Name" xml:space="preserve">
-    <value>cbxRequire2ndLayer</value>
-  </data>
-  <data name="&gt;&gt;cbxRequire2ndLayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbxRequire2ndLayer.Parent" xml:space="preserve">
-    <value>customFlowLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;cbxRequire2ndLayer.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;cbxIsSideView.Name" xml:space="preserve">
-    <value>cbxIsSideView</value>
-  </data>
-  <data name="&gt;&gt;cbxIsSideView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbxIsSideView.Parent" xml:space="preserve">
-    <value>customFlowLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;cbxIsSideView.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;lblInfo.Name" xml:space="preserve">
-    <value>lblInfo</value>
-  </data>
-  <data name="&gt;&gt;lblInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblInfo.Parent" xml:space="preserve">
-    <value>customFlowLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;lblInfo.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="customFlowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 61</value>
-  </data>
-  <data name="customFlowLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="customFlowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 34</value>
-  </data>
-  <data name="customFlowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;customFlowLayoutPanel1.Name" xml:space="preserve">
-    <value>customFlowLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;customFlowLayoutPanel1.Type" xml:space="preserve">
-    <value>PixelStacker.WF.Components.CustomFlowLayoutPanel, PixelStacker.WF.Components, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;customFlowLayoutPanel1.Parent" xml:space="preserve">
-    <value>flowVertical</value>
-  </data>
-  <data name="&gt;&gt;customFlowLayoutPanel1.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="cbxIsMultiLayer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -575,13 +365,13 @@
     <value>3, 4, 3, 4</value>
   </data>
   <data name="cbxIsSideView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 24</value>
+    <value>94, 24</value>
   </data>
   <data name="cbxIsSideView.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="cbxIsSideView.Text" xml:space="preserve">
-    <value>Side View</value>
+    <value>Is Vertical</value>
   </data>
   <data name="&gt;&gt;cbxIsSideView.Name" xml:space="preserve">
     <value>cbxIsSideView</value>
@@ -596,7 +386,7 @@
     <value>2</value>
   </data>
   <data name="lblInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>405, 0</value>
+    <value>403, 0</value>
   </data>
   <data name="lblInfo.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>200, 26</value>
@@ -622,6 +412,60 @@
   <data name="&gt;&gt;lblInfo.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="customFlowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 61</value>
+  </data>
+  <data name="customFlowLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="customFlowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>606, 34</value>
+  </data>
+  <data name="customFlowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;customFlowLayoutPanel1.Name" xml:space="preserve">
+    <value>customFlowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;customFlowLayoutPanel1.Type" xml:space="preserve">
+    <value>PixelStacker.WF.Components.CustomFlowLayoutPanel, PixelStacker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;customFlowLayoutPanel1.Parent" xml:space="preserve">
+    <value>flowVertical</value>
+  </data>
+  <data name="&gt;&gt;customFlowLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="flowVertical.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="flowVertical.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
+    <value>TopDown</value>
+  </data>
+  <data name="flowVertical.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="flowVertical.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="flowVertical.Size" type="System.Drawing.Size, System.Drawing">
+    <value>824, 106</value>
+  </data>
+  <data name="flowVertical.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;flowVertical.Name" xml:space="preserve">
+    <value>flowVertical</value>
+  </data>
+  <data name="&gt;&gt;flowVertical.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowVertical.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;flowVertical.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="materialPanel.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -644,7 +488,7 @@
     <value>materialPanel</value>
   </data>
   <data name="&gt;&gt;materialPanel.Type" xml:space="preserve">
-    <value>PixelStacker.WF.Components.CustomPanel, PixelStacker.WF.Components, Culture=neutral, PublicKeyToken=null</value>
+    <value>PixelStacker.WF.Components.CustomPanel, PixelStacker, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;materialPanel.Parent" xml:space="preserve">
     <value>$this</value>

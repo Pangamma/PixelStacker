@@ -1,18 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Drawing;
-using PixelStacker.Extensions;
-using System.Threading;
-using System.Globalization;
 using System.Linq;
-using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using System.Collections;
 using Google.Cloud.Translation.V2;
 using Newtonsoft.Json;
-using System.Resources.NetStandard;
 using Microsoft.Extensions.Configuration;
 
 namespace PixelStacker.Tools.Generators
@@ -38,7 +31,7 @@ namespace PixelStacker.Tools.Generators
         [TestMethod]
         public void Text_Translate()
         {
-            this.RipResxIntoJson($@"{RootDir}\PixelStacker.Logic\Resources\{nameof(Resources.Text)}.resx");
+            this.RipResxIntoJson($@"{RootDir}\PixelStacker.Resources\{nameof(Resources.Text)}.resx");
         }
 
         private void RipResxIntoJson(string filePath)
@@ -49,7 +42,7 @@ namespace PixelStacker.Tools.Generators
                 var fileToEditData = File.ReadAllText(fileToEdit);
                 fileToEditData = fileToEditData.Replace(
                     "global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(\"PixelStacker.Resources.Text\", typeof(Text).Assembly);",
-                    "global::System.Resources.ResourceManager temp = new global::PixelStacker.Resources.Localization.ResxHelper();"
+                    "global::System.Resources.ResourceManager temp = new global::PixelStacker.Resources.ResxHelper();"
                     );
                 File.WriteAllText(fileToEdit, fileToEditData);
             }

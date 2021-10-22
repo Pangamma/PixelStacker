@@ -1,11 +1,12 @@
-﻿using PixelStacker.IO.Config;
+﻿using PixelStacker.Extensions;
+using PixelStacker.Logic.IO.Config;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
 
-namespace PixelStacker.Extensions
+namespace PixelStacker.Logic.Extensions
 {
     // Sat: 0...1
     // Hue: 0...360
@@ -21,9 +22,9 @@ namespace PixelStacker.Extensions
         public static Color OverlayColor(this Color RGBA2_Bottom, Color RGBA1_Top)
         {
             double alpha = Convert.ToDouble(RGBA1_Top.A) / 255;
-            int R = (int)((RGBA1_Top.R * alpha) + (RGBA2_Bottom.R * (1.0 - alpha)));
-            int G = (int)((RGBA1_Top.G * alpha) + (RGBA2_Bottom.G * (1.0 - alpha)));
-            int B = (int)((RGBA1_Top.B * alpha) + (RGBA2_Bottom.B * (1.0 - alpha)));
+            int R = (int)(RGBA1_Top.R * alpha + RGBA2_Bottom.R * (1.0 - alpha));
+            int G = (int)(RGBA1_Top.G * alpha + RGBA2_Bottom.G * (1.0 - alpha));
+            int B = (int)(RGBA1_Top.B * alpha + RGBA2_Bottom.B * (1.0 - alpha));
             return Color.FromArgb(255, R, G, B);
         }
 
@@ -75,7 +76,7 @@ namespace PixelStacker.Extensions
             long r = 0;
             long t = 0;
 
-            foreach(var c in src)
+            foreach (var c in src)
             {
                 int dist = target.GetColorDistance(c.Item1);
                 r += dist * c.Item2;
@@ -97,7 +98,7 @@ namespace PixelStacker.Extensions
             long r = 0;
             long total = src.Width * src.Height;
 
-            src.ToViewStreamParallel(null, (int x, int y, Color c) =>
+            src.ToViewStreamParallel(null, (x, y, c) =>
             {
                 int dist = target.GetColorDistance(c);
                 Interlocked.Add(ref r, dist);
@@ -114,27 +115,27 @@ namespace PixelStacker.Extensions
         /// <returns></returns>
         public static int GetColorDistance(this Color c, Color toMatch)
         {
-            int dR = (c.R - toMatch.R);
-            int dG = (c.G - toMatch.G);
-            int dB = (c.B - toMatch.B);
+            int dR = c.R - toMatch.R;
+            int dG = c.G - toMatch.G;
+            int dB = c.B - toMatch.B;
             int dHue = (int)GetDegreeDistance(c.GetHue(), toMatch.GetHue());
 
-            int diff = (
-                (dR * dR)
-                + (dG * dG)
-                + (dB * dB)
-                + (int)(Math.Sqrt(dHue * dHue * dHue))
-                );
+            int diff =
+                dR * dR
+                + dG * dG
+                + dB * dB
+                + (int)Math.Sqrt(dHue * dHue * dHue)
+                ;
 
             return diff;
         }
 
         public static Color Normalize(this Color c, int fragmentSize)
-        => NormalizeActual(c, fragmentSize);
+        => c.NormalizeActual(fragmentSize);
 
         [Obsolete("Stop using this one.", false)]
         public static Color Normalize(this Color c)
-        => NormalizeActual(c, null);
+        => c.NormalizeActual(null);
 
         /// <summary>
         /// Does not normalize alpha channels

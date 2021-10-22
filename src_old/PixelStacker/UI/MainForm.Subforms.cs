@@ -1,5 +1,4 @@
 ﻿using PixelStacker.Logic;
-using PixelStacker.UI;
 using System;
 
 namespace PixelStacker.UI

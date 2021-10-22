@@ -1,14 +1,12 @@
 ﻿using PixelStacker.Extensions;
-using PixelStacker.IO.Config;
-using PixelStacker.Logic.Collections;
+using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.Engine.Quantizer;
+using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
-using SimplePaletteQuantizer;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

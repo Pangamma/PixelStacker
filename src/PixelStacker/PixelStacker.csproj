@@ -39,19 +39,19 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UIResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="UI\Basic\CustomFlowLayoutPanel.cs">
+    <Compile Update="UI\Controls\CustomFlowLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="UI\Basic\CustomPanel.cs">
+    <Compile Update="UI\Controls\CustomPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="UI\Basic\CustomTableLayoutPanel.cs">
+    <Compile Update="UI\Controls\CustomTableLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="UI\ImageViewer.cs">
+    <Compile Update="UI\Controls\ImageViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UI\Basic\MaterialSelectTile.cs">
+    <Compile Update="UI\Controls\MaterialSelectTile.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="UI\MainForm.cs">
@@ -64,7 +64,7 @@
     <Compile Update="UI\CanvasViewer.*.cs">
       <DependentUpon>CanvasViewer.cs</DependentUpon>
     </Compile>
-    <Compile Update="UI\CanvasEditor.cs">
+    <Compile Update="UI\Controls\CanvasEditor.cs">
     </Compile>
     <Compile Update="UI\CanvasEditor.*.cs">
       <DependentUpon>CanvasEditor.cs</DependentUpon>

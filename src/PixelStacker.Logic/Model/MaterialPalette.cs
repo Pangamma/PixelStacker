@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
-using PixelStacker.IO.Config;
-using PixelStacker.IO.JsonConverters;
+using PixelStacker.Logic.IO.Config;
+using PixelStacker.Logic.IO.JsonConverters;
 using PixelStacker.Resources;
-using PixelStacker.Resources.Localization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
