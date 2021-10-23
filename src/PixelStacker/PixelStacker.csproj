@@ -61,12 +61,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="UI\CanvasViewer.*.cs">
-      <DependentUpon>CanvasViewer.cs</DependentUpon>
-    </Compile>
     <Compile Update="UI\Controls\CanvasEditor.cs">
     </Compile>
-    <Compile Update="UI\CanvasEditor.*.cs">
+    <Compile Update="UI\Controls\CanvasEditor.*.cs">
       <DependentUpon>CanvasEditor.cs</DependentUpon>
     </Compile>
     <Compile Update="UI\RenderedImagePanel.cs">

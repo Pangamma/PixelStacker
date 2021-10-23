@@ -1,10 +1,34 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 
 namespace PixelStacker.Logic.Extensions
 {
     public static class StringExtensions
     {
+        public static string AsTooltipText(this string s, int lineLen = 45)
+        {
+            StringBuilder buffer = new StringBuilder();
+            string line = "";
+            string[] words = s.Replace("\r", "").Replace("\n", "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            foreach (string word in words)
+            {
+                if (line.Length + word.Length + 1 <= lineLen)
+                {
+                    line += " " + word;
+                }
+                else
+                {
+                    buffer.AppendLine(line.Trim());
+                    line = word;
+                }
+            }
+            buffer.AppendLine(line.Trim());
+            string rt = buffer.ToString();
+            return rt;
+
+        }
+
         public static string GetFileExtension(this string filePath)
             => filePath?.Split('.').LastOrDefault();
 

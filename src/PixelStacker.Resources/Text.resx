@@ -189,6 +189,15 @@ Aka Pangamma</value>
   <data name="ColorReducer_Instructions" xml:space="preserve">
     <value>Art that has a large number of unique colors will be more difficult to build. Rendering will also be faster if the overall color count is reduced before you start the rendering process. You can use the options below to flatten the color space of your image.</value>
   </data>
+  <data name="ColorReducer_RgbBucketSize" xml:space="preserve">
+    <value>Rgb bucket size</value>
+  </data>
+  <data name="ColorReducer_RgbBucketSize_Tooltip" xml:space="preserve">
+    <value>Basically, instead of having to figure out the best match for 255^3 combinations, you could instead choose to flatten the color space so you are only finding the best match for 15^3 colors. 255^3 means the most color variety. 5^3 is the fastest.</value>
+  </data>
+  <data name="ColorReducer_Title" xml:space="preserve">
+    <value>Color Reducer</value>
+  </data>
   <data name="DDL_SelectProfile" xml:space="preserve">
     <value>Select profile</value>
   </data>

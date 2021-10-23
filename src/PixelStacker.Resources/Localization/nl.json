@@ -122,5 +122,9 @@
   "Orientation": "Oriëntatie",
   "Orientation_Horizontal": "Horizontaal",
   "Orientation_Vertical": "Verticaal",
-  "Sizing": "Maatvoering"
+  "Sizing": "Maatvoering",
+  "ColorReducer_Instructions": "Kunst met een groot aantal unieke kleuren zal moeilijker te bouwen zijn. Het renderen gaat ook sneller als het totale aantal kleuren wordt verminderd voordat u het renderproces start. U kunt de onderstaande opties gebruiken om de kleurruimte van uw afbeelding af te vlakken.",
+  "ColorReducer_RgbBucketSize": "Grootte RGB-emmer",
+  "ColorReducer_RgbBucketSize_Tooltip": "Kortom, in plaats van de beste match voor 255^3-combinaties te vinden, kunt u ervoor kiezen om de kleurruimte af te vlakken, zodat u alleen de beste match vindt voor 15^3 kleuren. 255^3 betekent de meeste kleurvariatie. 5^3 is de snelste.",
+  "ColorReducer_Title": "Kleurverminderaar"
 }

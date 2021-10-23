@@ -73,7 +73,7 @@ namespace PixelStacker.UI
             this.lblAlgorithm.Location = new System.Drawing.Point(17, 81);
             this.lblAlgorithm.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAlgorithm.Name = "lblAlgorithm";
-            this.lblAlgorithm.Size = new System.Drawing.Size(67, 17);
+            this.lblAlgorithm.Size = new System.Drawing.Size(63, 16);
             this.lblAlgorithm.TabIndex = 1;
             this.lblAlgorithm.Text = "Algorithm";
             // 
@@ -83,7 +83,7 @@ namespace PixelStacker.UI
             this.lblColorCache.Location = new System.Drawing.Point(17, 113);
             this.lblColorCache.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblColorCache.Name = "lblColorCache";
-            this.lblColorCache.Size = new System.Drawing.Size(85, 17);
+            this.lblColorCache.Size = new System.Drawing.Size(81, 16);
             this.lblColorCache.TabIndex = 2;
             this.lblColorCache.Text = "Color Cache";
             // 
@@ -128,7 +128,7 @@ namespace PixelStacker.UI
             this.lblColorCount.Location = new System.Drawing.Point(17, 146);
             this.lblColorCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblColorCount.Name = "lblColorCount";
-            this.lblColorCount.Size = new System.Drawing.Size(82, 17);
+            this.lblColorCount.Size = new System.Drawing.Size(76, 16);
             this.lblColorCount.TabIndex = 4;
             this.lblColorCount.Text = "Color Count";
             // 
@@ -166,7 +166,7 @@ namespace PixelStacker.UI
             this.lblDither.Location = new System.Drawing.Point(17, 214);
             this.lblDither.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDither.Name = "lblDither";
-            this.lblDither.Size = new System.Drawing.Size(46, 17);
+            this.lblDither.Size = new System.Drawing.Size(42, 16);
             this.lblDither.TabIndex = 6;
             this.lblDither.Text = "Dither";
             // 
@@ -195,7 +195,7 @@ namespace PixelStacker.UI
             this.lblParallel.Location = new System.Drawing.Point(17, 179);
             this.lblParallel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblParallel.Name = "lblParallel";
-            this.lblParallel.Size = new System.Drawing.Size(55, 17);
+            this.lblParallel.Size = new System.Drawing.Size(53, 16);
             this.lblParallel.TabIndex = 10;
             this.lblParallel.Text = "Parallel";
             // 
@@ -224,7 +224,7 @@ namespace PixelStacker.UI
             this.lblColorCacheSize.Location = new System.Drawing.Point(17, 49);
             this.lblColorCacheSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblColorCacheSize.Name = "lblColorCacheSize";
-            this.lblColorCacheSize.Size = new System.Drawing.Size(122, 17);
+            this.lblColorCacheSize.Size = new System.Drawing.Size(115, 16);
             this.lblColorCacheSize.TabIndex = 13;
             this.lblColorCacheSize.Text = "Max unique colors";
             // 

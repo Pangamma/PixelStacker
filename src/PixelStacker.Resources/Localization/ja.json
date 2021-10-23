@@ -122,5 +122,9 @@
   "Orientation": "オリエンテーション",
   "Orientation_Horizontal": "水平",
   "Orientation_Vertical": "垂直",
-  "Sizing": "サイジング"
+  "Sizing": "サイジング",
+  "ColorReducer_Instructions": "ユニークな色がたくさんあるアートは、作るのがより難しくなります。レンダリングプロセスを開始する前に全体の色数を減らすと、レンダリングも高速になります。以下のオプションを使用して、画像の色空間を平坦化できます。",
+  "ColorReducer_RgbBucketSize": "RGBバケットサイズ",
+  "ColorReducer_RgbBucketSize_Tooltip": "基本的に、255 ^ 3の組み合わせに最適なものを見つける代わりに、色空間を平坦化することを選択して、15 ^ 3色にのみ最適なものを見つけることができます。 255 ^ 3は、最も色のバリエーションが多いことを意味します。 5 ^ 3が最速です。",
+  "ColorReducer_Title": "減色剤"
 }

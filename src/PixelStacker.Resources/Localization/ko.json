@@ -122,5 +122,9 @@
   "Orientation": "정위",
   "Orientation_Horizontal": "수평의",
   "Orientation_Vertical": "수직의",
-  "Sizing": "사이징"
+  "Sizing": "사이징",
+  "ColorReducer_Instructions": "고유한 색상이 많은 예술 작품은 구축하기가 더 어렵습니다. 렌더링 프로세스를 시작하기 전에 전체 색상 수를 줄이면 렌더링 속도도 빨라집니다. 아래 옵션을 사용하여 이미지의 색상 공간을 평평하게 할 수 있습니다.",
+  "ColorReducer_RgbBucketSize": "RGB 버킷 크기",
+  "ColorReducer_RgbBucketSize_Tooltip": "기본적으로 255^3 조합에 대해 최상의 일치를 찾는 대신 색상 공간을 병합하도록 선택할 수 있으므로 15^3 색상에 대해서만 최상의 일치를 찾을 수 있습니다. 255^3은 가장 다양한 색상을 의미합니다. 5^3이 가장 빠릅니다.",
+  "ColorReducer_Title": "컬러 리듀서"
 }

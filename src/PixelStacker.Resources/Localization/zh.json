@@ -122,5 +122,9 @@
   "Orientation": "方向",
   "Orientation_Horizontal": "水平的",
   "Orientation_Vertical": "垂直的",
-  "Sizing": "浆纱"
+  "Sizing": "浆纱",
+  "ColorReducer_Instructions": "具有大量独特颜色的艺术将更难以构建。如果在开始渲染过程之前减少总体颜色计数，渲染也会更快。您可以使用以下选项来展平图像的色彩空间。",
+  "ColorReducer_RgbBucketSize": "RGB桶大小",
+  "ColorReducer_RgbBucketSize_Tooltip": "基本上，您不必找出 255^3 种组合的最佳匹配，而是可以选择展平颜色空间，这样您就可以只找到 15^3 种颜色的最佳匹配。 255^3 表示颜色种类最多。 5^3 是最快的。",
+  "ColorReducer_Title": "减色剂"
 }

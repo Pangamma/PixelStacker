@@ -122,5 +122,9 @@
   "Orientation": "Orientation",
   "Orientation_Horizontal": "Horizontal",
   "Orientation_Vertical": "Verticale",
-  "Sizing": "Dimensionnement"
+  "Sizing": "Dimensionnement",
+  "ColorReducer_Instructions": "L'art qui a un grand nombre de couleurs uniques sera plus difficile à construire. Le rendu sera également plus rapide si le nombre global de couleurs est réduit avant de commencer le processus de rendu. Vous pouvez utiliser les options ci-dessous pour aplatir l'espace colorimétrique de votre image.",
+  "ColorReducer_RgbBucketSize": "Taille du seau RVB",
+  "ColorReducer_RgbBucketSize_Tooltip": "Fondamentalement, au lieu d'avoir à trouver la meilleure correspondance pour 255^3 combinaisons, vous pouvez choisir d'aplatir l'espace colorimétrique afin de ne trouver la meilleure correspondance que pour 15^3 couleurs. 255^3 signifie la plus grande variété de couleurs. 5^3 est le plus rapide.",
+  "ColorReducer_Title": "Réducteur de couleur"
 }

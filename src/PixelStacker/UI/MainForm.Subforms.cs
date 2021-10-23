@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic.Utilities;
+using PixelStacker.UI.Forms;
 using System;
 
 namespace PixelStacker.UI
@@ -31,7 +32,8 @@ namespace PixelStacker.UI
 
         private void preprocessingToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-
+            var form = new ColorReducerForm(this.Options);
+            form.ShowDialog(this);
         }
     }
 }

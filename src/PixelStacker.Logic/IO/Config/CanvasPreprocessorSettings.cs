@@ -1,10 +1,16 @@
-﻿namespace PixelStacker.Logic.IO.Config
+﻿using System.ComponentModel;
+
+namespace PixelStacker.Logic.IO.Config
 {
     public class CanvasPreprocessorSettings
     {
+        [Category("Dimensions")]
         public int? MaxHeight { get; set; }
+
+        [Category("Dimensions")]
         public int? MaxWidth { get; set; }
 
+        [Category("Colors")]
         /// <summary>
         /// TRUE is a vertical build. FALSE is a horizontal build.
         /// </summary>
@@ -13,6 +19,7 @@
 
         public QuantizerSettings QuantizerSettings { get; set; }
 
+        [Category("Colors")]
         /// <summary>
         /// R/5, G/5, B/5
         /// The value all RGB values should be divided by to achieve awesome truncating.

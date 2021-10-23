@@ -122,5 +122,9 @@
   "Orientation": "Orientierung",
   "Orientation_Horizontal": "Horizontal",
   "Orientation_Vertical": "Vertikal",
-  "Sizing": "Größenbestimmung"
+  "Sizing": "Größenbestimmung",
+  "ColorReducer_Instructions": "Kunst mit einer großen Anzahl einzigartiger Farben wird schwieriger zu bauen sein. Das Rendern wird auch schneller, wenn die Gesamtfarbanzahl reduziert wird, bevor Sie mit dem Rendern beginnen. Sie können die folgenden Optionen verwenden, um den Farbraum Ihres Bildes zu reduzieren.",
+  "ColorReducer_RgbBucketSize": "RGB-Eimergröße",
+  "ColorReducer_RgbBucketSize_Tooltip": "Grundsätzlich können Sie, anstatt die beste Übereinstimmung für 255^3-Kombinationen ermitteln zu müssen, den Farbraum abflachen, sodass Sie nur die beste Übereinstimmung für 15^3-Farben finden. 255^3 bedeutet die größte Farbvielfalt. 5^3 ist am schnellsten.",
+  "ColorReducer_Title": "Farbreduzierer"
 }

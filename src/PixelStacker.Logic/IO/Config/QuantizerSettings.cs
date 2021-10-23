@@ -1,5 +1,6 @@
 ﻿using PixelStacker.Logic.Engine.Quantizer.Enums;
 using System;
+using System.ComponentModel;
 using System.Linq;
 
 namespace PixelStacker.Logic.IO.Config
@@ -8,26 +9,33 @@ namespace PixelStacker.Logic.IO.Config
     {
         public bool IsEnabled { get; set; } = false;
 
+        [Category("Quantizing")]
         /// <summary>
         /// Color cache algorithm
         /// </summary>
         public string ColorCache { get; set; }
 
+        [DisplayName("Max color count")]
+        [Description(description: "The maximum color count for the quantizer algorithm.")]
+        [Category("Quantizing")]
         /// <summary>
         /// Max number of colors.
         /// </summary>
         public int MaxColorCount { get; set; }
 
+        [Category("Quantizing")]
         /// <summary>
         /// The quantizer algorithm to use.
         /// </summary>
         public string Algorithm { get; set; }
 
+        [Category("Dithering")]
         /// <summary>
         /// Dithering method to use. (If any)
         /// </summary>
         public string DitherAlgorithm { get; set; }
 
+        [Category("Dithering")]
         /// <summary>
         /// Acceptable values: 
         /// "1", 2, 4, 8, 16, 32, 64

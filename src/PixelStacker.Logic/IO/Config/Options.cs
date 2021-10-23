@@ -3,6 +3,7 @@ using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.Extensions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace PixelStacker.Logic.IO.Config
 {
@@ -46,7 +47,7 @@ namespace PixelStacker.Logic.IO.Config
         /// </summary>
         public bool IsMultiLayerRequired { get; set; } = false;
 
-        [JsonIgnore]
+        [Category("Colors")]
         public bool IsSideView { get; set; }
 
         /// <summary>

@@ -122,5 +122,9 @@
   "Orientation": "Orientación",
   "Orientation_Horizontal": "Horizontal",
   "Orientation_Vertical": "Vertical",
-  "Sizing": "Dimensionamiento"
+  "Sizing": "Dimensionamiento",
+  "ColorReducer_Instructions": "El arte que tiene una gran cantidad de colores únicos será más difícil de construir. El renderizado también será más rápido si se reduce el recuento general de colores antes de iniciar el proceso de renderizado. Puede utilizar las siguientes opciones para aplanar el espacio de color de su imagen.",
+  "ColorReducer_RgbBucketSize": "Tamaño de la cuchara rgb",
+  "ColorReducer_RgbBucketSize_Tooltip": "Básicamente, en lugar de tener que encontrar la mejor combinación para 255 ^ 3 combinaciones, puede optar por aplanar el espacio de color para que solo encuentre la mejor combinación para 15 ^ 3 colores. 255 ^ 3 significa la mayor variedad de colores. 5 ^ 3 es el más rápido.",
+  "ColorReducer_Title": "Reductor de color"
 }

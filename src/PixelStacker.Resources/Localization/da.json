@@ -122,5 +122,9 @@
   "Orientation": "Orientering",
   "Orientation_Horizontal": "Vandret",
   "Orientation_Vertical": "Lodret",
-  "Sizing": "Dimensionering"
+  "Sizing": "Dimensionering",
+  "ColorReducer_Instructions": "Kunst, der har et stort antal unikke farver, vil være sværere at bygge. Gengivelsen vil også være hurtigere, hvis det samlede farveantal reduceres, før du starter gengivelsesprocessen. Du kan bruge mulighederne nedenfor til at udjævne farverummet i dit billede.",
+  "ColorReducer_RgbBucketSize": "Rgb spand størrelse",
+  "ColorReducer_RgbBucketSize_Tooltip": "Dybest set, i stedet for at skulle finde ud af det bedste match for 255^3 kombinationer, kan du i stedet vælge at udjævne farverummet, så du kun finder det bedste match for 15^3 farver. 255^3 betyder den mest farvevariant. 5^3 er den hurtigste.",
+  "ColorReducer_Title": "Farve Reducer"
 }
