@@ -94,22 +94,6 @@ namespace PixelStacker.Logic.IO.Config
             }
         };
 
-        [Obsolete]
-        [JsonIgnore]
-        public int? MaxWidth
-        {
-            get => Preprocessor.MaxHeight;
-            set => Preprocessor.MaxHeight = value;
-        }
-
-        [Obsolete]
-        [JsonIgnore]
-        public int? MaxHeight
-        {
-            get => Preprocessor.MaxWidth;
-            set => Preprocessor.MaxWidth = value;
-        }
-
         private static Options _self;
         [Obsolete(Constants.Obs_Static)]
         public static Options Get
