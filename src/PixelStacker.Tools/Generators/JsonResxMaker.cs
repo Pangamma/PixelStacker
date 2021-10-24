@@ -7,6 +7,7 @@ using System.Xml;
 using Google.Cloud.Translation.V2;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
+using System.Resources;
 
 namespace PixelStacker.Tools.Generators
 {
@@ -17,7 +18,7 @@ namespace PixelStacker.Tools.Generators
         private string GOOGLE_API_KEY = "";
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.Tools\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
         private string[] OutputLocales = new string[] {
-            "ko-kr", "ja-jp", "fr-fr", "de-de", "es-es", "zh-cn", "da-dk", "nl-nl"
+            "ko-kr", "ja-jp", "fr-fr", "de-de", "es-es", "zh-cn", "da-dk", "nl-nl", "sv-se"
         };
 
         public JsonResxMaker()
@@ -28,10 +29,33 @@ namespace PixelStacker.Tools.Generators
             this.GOOGLE_API_KEY = config["GOOGLE_API_KEY"];
         }
 
+
+        /// <summary>
+        /// Translates any missing keys and adds them to the lang.json files.
+        /// </summary>
         [TestMethod]
         public void Text_Translate()
         {
             this.RipResxIntoJson($@"{RootDir}\PixelStacker.Resources\{nameof(Resources.Text)}.resx");
+        }
+
+        /// <summary>
+        /// Refreshes the ResxContainer hashes
+        /// </summary>
+        [TestMethod]
+        public void Text_RefreshResxContainer()
+        {
+            //ResourceManager rm;
+            ////string localeDir = $@"{RootDir}\PixelStacker.Resources\Localization";
+            //string localeDir = $@"{RootDir}\PixelStacker.Tools";
+            //using (ResXResourceWriter writer = new ResXResourceWriter(Path.Combine(localeDir, "Test.resx")))
+            //{
+            //    writer.AddResource("FooBar", new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 });
+            //    writer.AddResource("Fizz", "Buzz");
+            //}
+           
+            ////reader.GetResourceData(nameof(ResxContainer.ja), out string rsType, out byte[] rsData);
+            ////using var writer = new System.Resources.ResourceWriter(resxFile);
         }
 
         private void RipResxIntoJson(string filePath)

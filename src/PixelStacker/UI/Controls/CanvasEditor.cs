@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using PixelStacker.Logic.IO.Config;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI
@@ -6,6 +7,7 @@ namespace PixelStacker.UI
     [ToolboxItemFilter("PixelStacker.UI.CanvasEditor", ToolboxItemFilterType.Require)]
     public partial class CanvasEditor : UserControl
     {
+        public Options Options { get; set; }
         public CanvasEditor()
         {
             InitializeComponent();

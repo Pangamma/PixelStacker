@@ -8,10 +8,10 @@ namespace PixelStacker.Logic.IO.Formatters
 {
     public class BlockCountCsvFormatter : IExportFormatter
     {
-        public async Task ExportAsync(string filePath, RenderedCanvas canvas, CancellationToken? worker = null)
+        public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker = null)
         {
             Dictionary<Material, int> materialCounts = new Dictionary<Material, int>();
-            bool isv = canvas.CanvasData.IsSideView;
+            bool isv = canvas.IsSideView;
             var data = canvas.CanvasData;
             var Palette = canvas.MaterialPalette;
             bool isMultilayer = data.Any(x => Palette[x.PaletteID].IsMultiLayer);
@@ -20,6 +20,8 @@ namespace PixelStacker.Logic.IO.Formatters
             {
                 for (int y = 0; y < data.Height; y++)
                 {
+                    var mc = data[x, y];
+                    
                 }
             }
             //int xM = this.LoadedBlueprint.Mapper.GetXLength(isv);

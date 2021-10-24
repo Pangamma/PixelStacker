@@ -42,7 +42,7 @@ namespace PixelStacker.Logic.IO.Formatters
         public bool CanImportFile(string filePath)
             => filePath.EndsWith("pxlzip");
 
-        public async Task ExportAsync(string filePath, RenderedCanvas canvas, CancellationToken? worker)
+        public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker)
         {
             try
             {
@@ -119,7 +119,6 @@ namespace PixelStacker.Logic.IO.Formatters
                                 bm.Save(writer.BaseStream, ImageFormat.Png);
                             }
                         }
-
 
                         //{
                         //    var json = JsonConvert.SerializeObject(MainForm.PanZoomSettings);
@@ -213,7 +212,8 @@ namespace PixelStacker.Logic.IO.Formatters
                             using (StreamReader reader = new StreamReader(entry.Open()))
                             {
                                 string json = await reader.ReadToEndAsync();
-                                canvas.WorldEditOrigin = JsonConvert.DeserializeObject<Point>(json);
+                                var xy = JsonConvert.DeserializeObject<int[]>(json) ?? new int[] {0,0};
+                                canvas.WorldEditOrigin = new Point(xy[0], xy[1]);
                             }
                         }
 

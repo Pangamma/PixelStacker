@@ -22,7 +22,7 @@ namespace PixelStacker.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ResxContainer {
+    public class ResxContainer {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace PixelStacker.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PixelStacker.Resources.Localization.ResxContainer", typeof(ResxContainer).Assembly);
@@ -51,7 +51,7 @@ namespace PixelStacker.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] da {
+        public static byte[] da {
             get {
                 object obj = ResourceManager.GetObject("da", resourceCulture);
                 return ((byte[])(obj));
@@ -73,7 +73,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] de {
+        public static byte[] de {
             get {
                 object obj = ResourceManager.GetObject("de", resourceCulture);
                 return ((byte[])(obj));
@@ -83,7 +83,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] en {
+        public static byte[] en {
             get {
                 object obj = ResourceManager.GetObject("en", resourceCulture);
                 return ((byte[])(obj));
@@ -93,7 +93,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] es {
+        public static byte[] es {
             get {
                 object obj = ResourceManager.GetObject("es", resourceCulture);
                 return ((byte[])(obj));
@@ -103,7 +103,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] fr {
+        public static byte[] fr {
             get {
                 object obj = ResourceManager.GetObject("fr", resourceCulture);
                 return ((byte[])(obj));
@@ -113,7 +113,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] ja {
+        public static byte[] ja {
             get {
                 object obj = ResourceManager.GetObject("ja", resourceCulture);
                 return ((byte[])(obj));
@@ -123,7 +123,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] ko {
+        public static byte[] ko {
             get {
                 object obj = ResourceManager.GetObject("ko", resourceCulture);
                 return ((byte[])(obj));
@@ -133,7 +133,7 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] nl {
+        public static byte[] nl {
             get {
                 object obj = ResourceManager.GetObject("nl", resourceCulture);
                 return ((byte[])(obj));
@@ -143,7 +143,17 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] zh {
+        public static byte[] sv {
+            get {
+                object obj = ResourceManager.GetObject("sv", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] zh {
             get {
                 object obj = ResourceManager.GetObject("zh", resourceCulture);
                 return ((byte[])(obj));

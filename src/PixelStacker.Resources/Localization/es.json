@@ -137,5 +137,6 @@
   "ColorReducer_ColorCache_Tooltip": "Lea sobre esto con más detalle aquí:\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nDistancia euclidiana: lenta pero precisa\r\nHash sensible a la localidad: rápido\r\nOctree: rápido y preciso",
   "ColorReducer_ColorCount_Tooltip": "El cuantificador reducirá el número de colores a un número de 256 o menor.",
   "ColorReducer_Dither_Tooltip": "Muchos estilos diferentes para elegir. Personalmente, creo que el dithering de bayer se ve mejor.",
-  "ColorReducer_Parallel_Tooltip": "El número de procesos que se ejecutarán en paralelo. El uso de números más altos puede acelerar el proceso de cuantificación."
+  "ColorReducer_Parallel_Tooltip": "El número de procesos que se ejecutarán en paralelo. El uso de números más altos puede acelerar el proceso de cuantificación.",
+  "MainMenu_Lang_Swedish": "sueco"
 }

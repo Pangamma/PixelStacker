@@ -7,7 +7,7 @@ namespace PixelStacker.Logic.IO.Formatters
 {
     public class SchemFormatter : IExportFormatter
     {
-        public Task ExportAsync(string filePath, RenderedCanvas canvas, CancellationToken? worker = null)
+        public Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker = null)
         {
             throw new NotImplementedException();
         }

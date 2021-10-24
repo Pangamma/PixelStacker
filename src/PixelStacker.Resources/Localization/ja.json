@@ -137,5 +137,6 @@
   "ColorReducer_ColorCache_Tooltip": "詳細については、こちらをご覧ください。\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nユークリッド距離：遅いが正確\r\n局所性鋭敏型ハッシュ：高速\r\nオクトリー：高速で正確",
   "ColorReducer_ColorCount_Tooltip": "量子化器は、色の数を256以下の数に減らします。",
   "ColorReducer_Dither_Tooltip": "から選択する多くの異なるスタイル。個人的には、バイエルディザリングが最適だと思います。",
-  "ColorReducer_Parallel_Tooltip": "並行して実行するプロセスの数。より大きな数値を使用すると、量子化プロセスをスピードアップできます。"
+  "ColorReducer_Parallel_Tooltip": "並行して実行するプロセスの数。より大きな数値を使用すると、量子化プロセスをスピードアップできます。",
+  "MainMenu_Lang_Swedish": "スウェーデンの"
 }

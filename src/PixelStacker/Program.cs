@@ -23,7 +23,7 @@ namespace PixelStacker
 
 
 
-            //ResxHelper.InjectIntoTextResx();
+            ResxHelper.InjectIntoTextResx();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();

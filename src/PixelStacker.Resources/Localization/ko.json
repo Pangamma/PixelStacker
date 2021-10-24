@@ -137,5 +137,6 @@
   "ColorReducer_ColorCache_Tooltip": "여기에서 자세히 읽어보십시오.\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\n유클리드 거리: 느리지만 정확함\r\n지역에 민감한 해싱: 빠름\r\nOctree: 빠르고 정확함",
   "ColorReducer_ColorCount_Tooltip": "양자화기는 색상 수를 256 이하의 숫자로 줄입니다.",
   "ColorReducer_Dither_Tooltip": "선택할 수있는 다양한 스타일. 개인적으로 바이엘 디더링이 가장 좋은 것 같습니다.",
-  "ColorReducer_Parallel_Tooltip": "병렬로 실행할 프로세스 수입니다. 더 높은 숫자를 사용하면 양자화 프로세스의 속도를 높일 수 있습니다."
+  "ColorReducer_Parallel_Tooltip": "병렬로 실행할 프로세스 수입니다. 더 높은 숫자를 사용하면 양자화 프로세스의 속도를 높일 수 있습니다.",
+  "MainMenu_Lang_Swedish": "스웨덴어"
 }

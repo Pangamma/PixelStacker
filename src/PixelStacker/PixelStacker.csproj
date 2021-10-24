@@ -71,8 +71,6 @@
     <Compile Update="UI\Controls\CanvasEditor.*.cs">
       <DependentUpon>CanvasEditor.cs</DependentUpon>
     </Compile>
-    <Compile Update="UI\RenderedImagePanel.cs">
-    </Compile>
     <Compile Update="UI\RenderedImagePanel.*.cs">
       <DependentUpon>RenderedImagePanel.cs</DependentUpon>
     </Compile>

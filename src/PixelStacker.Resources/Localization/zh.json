@@ -137,5 +137,6 @@
   "ColorReducer_ColorCache_Tooltip": "在此处详细了解它：\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\n欧几里得距离：缓慢但准确\r\n局部敏感哈希：快速\r\n八叉树：快速准确",
   "ColorReducer_ColorCount_Tooltip": "量化器会将颜色数量减少到 256 或更低。",
   "ColorReducer_Dither_Tooltip": "许多不同的风格可供选择。我个人认为拜耳抖动看起来最好。",
-  "ColorReducer_Parallel_Tooltip": "要并行运行的进程数。使用更高的数字可以加快量化过程。"
+  "ColorReducer_Parallel_Tooltip": "要并行运行的进程数。使用更高的数字可以加快量化过程。",
+  "MainMenu_Lang_Swedish": "瑞典"
 }

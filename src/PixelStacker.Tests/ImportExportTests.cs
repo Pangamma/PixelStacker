@@ -20,12 +20,14 @@ namespace PixelStacker.Tests
         private RenderedCanvas Canvas => Canvases["Heavy"].Value.Result;
 
         private Dictionary<string, AsyncLazy<RenderedCanvas>> Canvases = new Dictionary<string, AsyncLazy<RenderedCanvas>>();
+        private Options Options;
 
         [TestInitialize]
         public void Setup()
         {
             Options opts = new MemoryOptionsProvider().Load();
             MaterialPalette palette = MaterialPalette.FromResx();
+            this.Options = opts;
             var mapper = new KdTreeMapper();
             var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabledF(opts) && x.Bottom.IsEnabledF(opts) && x.IsMultiLayer).ToList();
             mapper.SetSeedData(combos, palette, false);
@@ -98,7 +100,7 @@ namespace PixelStacker.Tests
         public async Task IE_PixelStackerProjectFormat()
         {
             var formatter = new PixelStackerProjectFormatter();
-            await formatter.ExportAsync("io_test.zip", Canvas, null);
+            await formatter.ExportAsync("io_test.zip", new PixelStackerProjectData(Canvas, this.Options), null);
             var canv = await formatter.ImportAsync("io_test.zip", null);
             Assert.AreEqual(Canvas.WorldEditOrigin, canv.WorldEditOrigin);
             Assert.AreEqual(JsonConvert.SerializeObject(Canvas.MaterialPalette), JsonConvert.SerializeObject(canv.MaterialPalette));
@@ -111,7 +113,7 @@ namespace PixelStacker.Tests
         public async Task IE_PngFormat()
         {
             var formatter = new PngFormatter();
-            await formatter.ExportAsync("io_test.png", Canvas, null);
+            await formatter.ExportAsync("io_test.png", new PixelStackerProjectData(Canvas, this.Options), null);
         }
     }
 }

@@ -43,6 +43,15 @@ namespace PixelStacker.UI
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectMaterialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preprocessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ditheringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sizingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.orientationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,15 +65,6 @@ namespace PixelStacker.UI
             this.skipShadowRenderirngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addExtraDepthToShadowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchPanelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.orientationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectMaterialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sizingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.preprocessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ditheringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chineseSimplifiedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +75,7 @@ namespace PixelStacker.UI
             this.japaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.koreanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spanishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.swedishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblProgress = new System.Windows.Forms.Label();
@@ -91,8 +92,8 @@ namespace PixelStacker.UI
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.viewToolStripMenuItem,
             this.generationToolStripMenuItem,
+            this.viewToolStripMenuItem,
             this.languageToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -170,6 +171,82 @@ namespace PixelStacker.UI
             this.redoToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
             this.redoToolStripMenuItem.Text = "Redo";
             // 
+            // generationToolStripMenuItem
+            // 
+            this.generationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectMaterialsToolStripMenuItem,
+            this.preprocessingToolStripMenuItem,
+            this.ditheringToolStripMenuItem,
+            this.sizingToolStripMenuItem,
+            this.orientationToolStripMenuItem,
+            this.renderToolStripMenuItem});
+            this.generationToolStripMenuItem.Name = "generationToolStripMenuItem";
+            this.generationToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
+            this.generationToolStripMenuItem.Text = "Generate";
+            // 
+            // selectMaterialsToolStripMenuItem
+            // 
+            this.selectMaterialsToolStripMenuItem.Name = "selectMaterialsToolStripMenuItem";
+            this.selectMaterialsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.selectMaterialsToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.selectMaterialsToolStripMenuItem.Text = "Select Materials";
+            this.selectMaterialsToolStripMenuItem.Click += new System.EventHandler(this.selectMaterialsToolStripMenuItem_Click);
+            // 
+            // preprocessingToolStripMenuItem
+            // 
+            this.preprocessingToolStripMenuItem.Name = "preprocessingToolStripMenuItem";
+            this.preprocessingToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.preprocessingToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.preprocessingToolStripMenuItem.Text = "Color Reduction";
+            this.preprocessingToolStripMenuItem.Click += new System.EventHandler(this.preprocessingToolStripMenuItem_Click);
+            // 
+            // ditheringToolStripMenuItem
+            // 
+            this.ditheringToolStripMenuItem.Name = "ditheringToolStripMenuItem";
+            this.ditheringToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.ditheringToolStripMenuItem.Text = "Dithering";
+            this.ditheringToolStripMenuItem.Click += new System.EventHandler(this.preprocessingToolStripMenuItem_Click);
+            // 
+            // sizingToolStripMenuItem
+            // 
+            this.sizingToolStripMenuItem.Name = "sizingToolStripMenuItem";
+            this.sizingToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.sizingToolStripMenuItem.Text = "Sizing";
+            this.sizingToolStripMenuItem.Click += new System.EventHandler(this.sizingToolStripMenuItem_Click);
+            // 
+            // orientationToolStripMenuItem
+            // 
+            this.orientationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.horizontalToolStripMenuItem,
+            this.verticalToolStripMenuItem});
+            this.orientationToolStripMenuItem.Name = "orientationToolStripMenuItem";
+            this.orientationToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.orientationToolStripMenuItem.Text = "Orientation";
+            // 
+            // horizontalToolStripMenuItem
+            // 
+            this.horizontalToolStripMenuItem.Checked = true;
+            this.horizontalToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
+            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(162, 26);
+            this.horizontalToolStripMenuItem.Text = "Horizontal";
+            this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.horizontalToolStripMenuItem_Click);
+            // 
+            // verticalToolStripMenuItem
+            // 
+            this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
+            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(162, 26);
+            this.verticalToolStripMenuItem.Text = "Vertical";
+            this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
+            // 
+            // renderToolStripMenuItem
+            // 
+            this.renderToolStripMenuItem.Name = "renderToolStripMenuItem";
+            this.renderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.renderToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.renderToolStripMenuItem.Text = "Render";
+            this.renderToolStripMenuItem.Click += new System.EventHandler(this.renderToolStripMenuItem_Click);
+            // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -195,13 +272,14 @@ namespace PixelStacker.UI
             // 
             this.toggleGridToolStripMenuItem.Name = "toggleGridToolStripMenuItem";
             this.toggleGridToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.toggleGridToolStripMenuItem.Text = "Toggle Grid";
+            this.toggleGridToolStripMenuItem.Click += new System.EventHandler(this.toggleGridToolStripMenuItem_Click);
             // 
             // gridOptionsToolStripMenuItem
             // 
             this.gridOptionsToolStripMenuItem.Name = "gridOptionsToolStripMenuItem";
-            this.gridOptionsToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.gridOptionsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.gridOptionsToolStripMenuItem.Text = "Grid Options";
             // 
             // toggleBorderToolStripMenuItem
@@ -210,6 +288,7 @@ namespace PixelStacker.UI
             this.toggleBorderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
             this.toggleBorderToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
             this.toggleBorderToolStripMenuItem.Text = "Toggle Border";
+            this.toggleBorderToolStripMenuItem.Click += new System.EventHandler(this.toggleBorderToolStripMenuItem_Click);
             // 
             // layerFilteringToolStripMenuItem
             // 
@@ -274,82 +353,6 @@ namespace PixelStacker.UI
             this.switchPanelsToolStripMenuItem.Text = "Switch Panels";
             this.switchPanelsToolStripMenuItem.Click += new System.EventHandler(this.switchPanelsToolStripMenuItem_Click);
             // 
-            // generationToolStripMenuItem
-            // 
-            this.generationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.selectMaterialsToolStripMenuItem,
-            this.preprocessingToolStripMenuItem,
-            this.ditheringToolStripMenuItem,
-            this.sizingToolStripMenuItem,
-            this.orientationToolStripMenuItem,
-            this.renderToolStripMenuItem});
-            this.generationToolStripMenuItem.Name = "generationToolStripMenuItem";
-            this.generationToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
-            this.generationToolStripMenuItem.Text = "Generate";
-            // 
-            // orientationToolStripMenuItem
-            // 
-            this.orientationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.horizontalToolStripMenuItem,
-            this.verticalToolStripMenuItem});
-            this.orientationToolStripMenuItem.Name = "orientationToolStripMenuItem";
-            this.orientationToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
-            this.orientationToolStripMenuItem.Text = "Orientation";
-            // 
-            // horizontalToolStripMenuItem
-            // 
-            this.horizontalToolStripMenuItem.Checked = true;
-            this.horizontalToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
-            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(162, 26);
-            this.horizontalToolStripMenuItem.Text = "Horizontal";
-            this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.horizontalToolStripMenuItem_Click);
-            // 
-            // verticalToolStripMenuItem
-            // 
-            this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
-            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(162, 26);
-            this.verticalToolStripMenuItem.Text = "Vertical";
-            this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
-            // 
-            // selectMaterialsToolStripMenuItem
-            // 
-            this.selectMaterialsToolStripMenuItem.Name = "selectMaterialsToolStripMenuItem";
-            this.selectMaterialsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.selectMaterialsToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
-            this.selectMaterialsToolStripMenuItem.Text = "Select Materials";
-            this.selectMaterialsToolStripMenuItem.Click += new System.EventHandler(this.selectMaterialsToolStripMenuItem_Click);
-            // 
-            // sizingToolStripMenuItem
-            // 
-            this.sizingToolStripMenuItem.Name = "sizingToolStripMenuItem";
-            this.sizingToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
-            this.sizingToolStripMenuItem.Text = "Sizing";
-            this.sizingToolStripMenuItem.Click += new System.EventHandler(this.sizingToolStripMenuItem_Click);
-            // 
-            // preprocessingToolStripMenuItem
-            // 
-            this.preprocessingToolStripMenuItem.Name = "preprocessingToolStripMenuItem";
-            this.preprocessingToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.preprocessingToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
-            this.preprocessingToolStripMenuItem.Text = "Color Reduction";
-            this.preprocessingToolStripMenuItem.Click += new System.EventHandler(this.preprocessingToolStripMenuItem_Click);
-            // 
-            // ditheringToolStripMenuItem
-            // 
-            this.ditheringToolStripMenuItem.Name = "ditheringToolStripMenuItem";
-            this.ditheringToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
-            this.ditheringToolStripMenuItem.Text = "Dithering";
-            this.ditheringToolStripMenuItem.Click += new System.EventHandler(this.preprocessingToolStripMenuItem_Click);
-            // 
-            // renderToolStripMenuItem
-            // 
-            this.renderToolStripMenuItem.Name = "renderToolStripMenuItem";
-            this.renderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.renderToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
-            this.renderToolStripMenuItem.Text = "Render";
-            this.renderToolStripMenuItem.Click += new System.EventHandler(this.renderToolStripMenuItem_Click);
-            // 
             // languageToolStripMenuItem
             // 
             this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -361,7 +364,8 @@ namespace PixelStacker.UI
             this.germanToolStripMenuItem,
             this.japaneseToolStripMenuItem,
             this.koreanToolStripMenuItem,
-            this.spanishToolStripMenuItem});
+            this.spanishToolStripMenuItem,
+            this.swedishToolStripMenuItem});
             this.languageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("languageToolStripMenuItem.Image")));
             this.languageToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.languageToolStripMenuItem.MergeIndex = 50;
@@ -440,6 +444,13 @@ namespace PixelStacker.UI
             this.spanishToolStripMenuItem.Text = "Spanish";
             this.spanishToolStripMenuItem.Click += new System.EventHandler(this.spanishToolStripMenuItem_Click);
             // 
+            // swedishToolStripMenuItem
+            // 
+            this.swedishToolStripMenuItem.Name = "swedishToolStripMenuItem";
+            this.swedishToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.swedishToolStripMenuItem.Text = "Swedish";
+            this.swedishToolStripMenuItem.Click += new System.EventHandler(this.swedishToolStripMenuItem_Click);
+            // 
             // progressBar1
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -489,6 +500,7 @@ namespace PixelStacker.UI
             this.canvasEditor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("canvasEditor.BackgroundImage")));
             this.canvasEditor.Location = new System.Drawing.Point(0, 28);
             this.canvasEditor.Name = "canvasEditor";
+            this.canvasEditor.Options = null;
             this.canvasEditor.Size = new System.Drawing.Size(800, 421);
             this.canvasEditor.TabIndex = 6;
             // 
@@ -578,5 +590,6 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem switchPanelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ditheringToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem swedishToolStripMenuItem;
     }
 }

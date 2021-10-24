@@ -25,17 +25,20 @@ namespace PixelStacker.Console
         public async Task IE_PixelStackerProjectFormat()
         {
             var formatter = new PixelStackerProjectFormatter();
-            await formatter.ExportAsync("io_test.zip", Canvas, null);
+            await formatter.ExportAsync("io_test.zip", ProjecData, null);
             var canv = await formatter.ImportAsync("io_test.zip", null);
         }
 
         private RenderedCanvas Canvas => Canvases["Heavy"].Value.Result;
+        private PixelStackerProjectData ProjecData => new PixelStackerProjectData(Canvas, Options);
 
         private Dictionary<string, AsyncLazy<RenderedCanvas>> Canvases = new Dictionary<string, AsyncLazy<RenderedCanvas>>();
+        private Options Options;
 
         public void Setup()
         {
-            Options opts = new MemoryOptionsProvider().Load();
+            var opts = new MemoryOptionsProvider().Load();
+            this.Options = opts;
             MaterialPalette palette = MaterialPalette.FromResx();
             var mapper = new KdTreeMapper();
             var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabledF(opts) && x.Bottom.IsEnabledF(opts) && x.IsMultiLayer).ToList();

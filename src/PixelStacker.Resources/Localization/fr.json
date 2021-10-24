@@ -137,5 +137,6 @@
   "ColorReducer_ColorCache_Tooltip": "Lisez à ce sujet plus en détail ici :\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nDistance euclidienne : lente mais précise\r\nHachage sensible à la localité : rapide\r\nOctree : rapide et précis",
   "ColorReducer_ColorCount_Tooltip": "Le quantificateur réduira le nombre de couleurs à un nombre de 256 ou moins.",
   "ColorReducer_Dither_Tooltip": "Beaucoup de styles différents à choisir. Personnellement, je pense que le tramage bayer est le meilleur.",
-  "ColorReducer_Parallel_Tooltip": "Le nombre de processus à exécuter en parallèle. L'utilisation de nombres plus élevés peut accélérer le processus de quantification."
+  "ColorReducer_Parallel_Tooltip": "Le nombre de processus à exécuter en parallèle. L'utilisation de nombres plus élevés peut accélérer le processus de quantification.",
+  "MainMenu_Lang_Swedish": "suédois"
 }

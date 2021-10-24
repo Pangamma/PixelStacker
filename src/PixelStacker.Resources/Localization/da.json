@@ -137,5 +137,6 @@
   "ColorReducer_ColorCache_Tooltip": "Læs mere om det her:\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nEuklidisk afstand: Langsom men nøjagtig\r\nLokalitetsfølsom-hashing: Hurtig\r\nOctree: Hurtig og præcis",
   "ColorReducer_ColorCount_Tooltip": "Kvantizeren vil reducere antallet af farver til et tal, der er 256 eller lavere.",
   "ColorReducer_Dither_Tooltip": "Mange forskellige stilarter at vælge imellem. Personligt synes jeg, at bayer dithering ser bedst ud.",
-  "ColorReducer_Parallel_Tooltip": "Antallet af processer, der skal køre parallelt. Brug af højere tal kan fremskynde kvantiseringsprocessen."
+  "ColorReducer_Parallel_Tooltip": "Antallet af processer, der skal køre parallelt. Brug af højere tal kan fremskynde kvantiseringsprocessen.",
+  "MainMenu_Lang_Swedish": "svensk"
 }

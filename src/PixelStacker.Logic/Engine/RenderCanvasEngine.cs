@@ -128,7 +128,7 @@ namespace PixelStacker.Logic.Engine
         /// <param name="palette">The master lookup table for color palettes</param>
         /// <returns></returns>
         public Task<RenderedCanvas> RenderCanvasAsync(
-            CancellationToken? worker, 
+            CancellationToken? worker,
             ref Bitmap preprocessedImage,
             IColorMapper mapper,
             MaterialPalette palette

@@ -1,6 +1,7 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Formatters;
+using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace PixelStacker.UI
                 }
 
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) => { 
-                    await formatter.ExportAsync(fName, this.RenderedCanvas, worker);
+                    await formatter.ExportAsync(fName, new PixelStackerProjectData(this.RenderedCanvas, this.Options), worker);
                 }));
 
                 //                if (fName.ToLower().EndsWith(".schem"))
@@ -192,8 +193,9 @@ namespace PixelStacker.UI
                     await self.InvokeEx(async c =>
                     {
                         // Load the file into regular viewer
+                        c.PreprocessedImage = proj.PreprocessedImage;
                         c.LoadedImage = proj.PreprocessedImage;
-                        c.imageViewer.SetImage(c.LoadedImage, null);
+                        c.imageViewer.SetImage(c.PreprocessedImage, null);
 
                         
 

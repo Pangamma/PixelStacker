@@ -68,7 +68,7 @@ namespace PixelStacker.Logic.IO.Formatters
             return calculatedTextureSize;
         }
 
-        public Task ExportAsync(string filePath, RenderedCanvas canvas, CancellationToken? worker)
+        public Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker)
         {
             worker ??= CancellationToken.None;
             int? textureSizee = CalculateTextureSize(canvas.Width, canvas.Height);

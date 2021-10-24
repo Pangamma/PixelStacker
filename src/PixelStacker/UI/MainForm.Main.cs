@@ -32,11 +32,14 @@ namespace PixelStacker.UI
             this.Palette = MaterialPalette.FromResx();
 
             InitializeComponent();
+            SetAllMenubarStatesBasedOnOptions(this.Options);
+
             this.konamiWatcher = new KonamiWatcher(() => {
                 this.Options.IsAdvancedModeEnabled = !this.Options.IsAdvancedModeEnabled;
                 MessageBox.Show("Advanced mode " + (this.Options.IsAdvancedModeEnabled ? "enabled" : "disabled") + "!");
                 DoConfigureAdvancedMode();
             });
+            this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);
             ShowImageViewer();
             this.lblProgress.Parent = this.progressBar1;

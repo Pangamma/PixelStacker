@@ -11,6 +11,7 @@ namespace PixelStacker.Logic.Model
 {
     public class CanvasData: IEnumerable<CanvasIteratorData>
     {
+        [Obsolete("You cannot actually save this data to a bitmap.")]
         public bool IsSideView { get; set; } = false;
         private int[,] BlocksMap { get; set; } // X, Y
         public int Width { get; }

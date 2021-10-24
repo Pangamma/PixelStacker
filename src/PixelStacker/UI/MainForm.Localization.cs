@@ -24,6 +24,7 @@ namespace PixelStacker.UI
                 case "de": return UIResources.country_de;
                 case "ja": return UIResources.country_jp;
                 case "ko": return UIResources.country_kr;
+                case "sv": return UIResources.country_se;
                 default:
                     System.Diagnostics.Debug.WriteLine("Unknown locale detected. " + locale.TwoLetterISOLanguageName);
                     return UIResources.country_us;
@@ -61,6 +62,7 @@ namespace PixelStacker.UI
             this.danishToolStripMenuItem.Image = UIResources.country_dk;
             this.dutchToolStripMenuItem.Image = UIResources.country_nl;
             this.frenchToolStripMenuItem.Image = UIResources.country_fr;
+            this.swedishToolStripMenuItem.Image = UIResources.country_se;
 
             //            this.dlgSaveSettings.Title = global::PixelStacker.Resources.Text.MainMenu_SaveSettings;
             //            this.dlgSaveColorPalette.Title = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
@@ -77,6 +79,7 @@ namespace PixelStacker.UI
             this.danishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Danish;
             this.chineseSimplifiedToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Chinese;
             this.englishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_English;
+            this.swedishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Swedish;
             this.languageToolStripMenuItem.Image = GetLanguageImage(locale);
             //            this.languageToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Language;
             //            this.previewSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Render;
@@ -127,6 +130,9 @@ namespace PixelStacker.UI
                 Options.Get.Locale = "en-us";
             }
         }
+
+        private void swedishToolStripMenuItem_Click(object sender, System.EventArgs e)
+        => this.ApplyLocalization(CultureInfo.GetCultureInfo("sv-se"));
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         => this.ApplyLocalization(CultureInfo.GetCultureInfo("en-us"));

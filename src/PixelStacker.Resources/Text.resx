@@ -379,6 +379,9 @@ me as a </value>
   <data name="MainMenu_Lang_Spanish" xml:space="preserve">
     <value>Spanish</value>
   </data>
+  <data name="MainMenu_Lang_Swedish" xml:space="preserve">
+    <value>Swedish</value>
+  </data>
   <data name="MainMenu_LayerFiltering" xml:space="preserve">
     <value>Layer Filtering</value>
   </data>

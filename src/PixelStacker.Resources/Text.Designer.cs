@@ -775,6 +775,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Swedish.
+        /// </summary>
+        public static string MainMenu_Lang_Swedish {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_Swedish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string MainMenu_Language {

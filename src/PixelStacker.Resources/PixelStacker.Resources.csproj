@@ -9,6 +9,9 @@
 	<None Remove="Images\Pixelart\**" />
 	<Compile Remove="Images\Pixelart\**" />
 </ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Remove="Localization\ResxContainer-out.resx" />
+</ItemGroup>
   <ItemGroup>
     <Compile Update="Data.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -19,6 +22,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DevResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\ResxContainer.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResxContainer.resx</DependentUpon>
     </Compile>
     <Compile Update="ShadowHelper.cs">
       <DependentUpon>Shadows.resx</DependentUpon>
@@ -38,11 +46,6 @@
     <None Update="Localization\*.json">
       <DependentUpon>en.json</DependentUpon>
     </None>
-    <Compile Update="Localization\ResxContainer.Designer.cs">
-      <DependentUpon>ResxContainer.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Update="Textures.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -61,8 +64,8 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Localization\ResxContainer.resx">
       <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResxContainer.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Shadows.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -83,6 +86,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Localization\ResxContainer-out.resx" />
   </ItemGroup>
 
 
