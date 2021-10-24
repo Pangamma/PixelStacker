@@ -1,32 +1,31 @@
 ﻿@page "/"
-@using PixelStacker.Logic.IO.Config; 
 
-<InputFile OnChange="@LoadFiles" />
-
+@*<InputFile OnChange="@LoadFiles" />*@
+ARRGGHHHH
 
 @code {
-    private void LoadFiles(InputFileChangeEventArgs e)
-    {
-        var dataStream = e.File.OpenReadStream();
-        System.Drawing.Bitmap bm = new System.Drawing.Bitmap(dataStream);
-        var memProvider = new MemoryOptionsProvider();
-        var opts = new Options(memProvider)
-        {
-            IsMultiLayer = true,
-            IsSideView = false,
-            IsShadowRenderingSkipped = true,
-            Preprocessor = new CanvasPreprocessorSettings()
-            {
-                MaxHeight = 1024,
-                MaxWidth = 1024,
-                RgbBucketSize = 1,
-                QuantizerSettings = new QuantizerSettings()
-                {
-                    IsEnabled = false
-                }
-            }
-        };
+    //private void LoadFiles(InputFileChangeEventArgs e)
+    //{
+    //    var dataStream = e.File.OpenReadStream();
+    //    System.Drawing.Bitmap bm = new System.Drawing.Bitmap(dataStream);
+    //    var memProvider = new MemoryOptionsProvider();
+    //    var opts = new Options(memProvider)
+    //    {
+    //        IsMultiLayer = true,
+    //        IsSideView = false,
+    //        IsShadowRenderingSkipped = true,
+    //        Preprocessor = new CanvasPreprocessorSettings()
+    //        {
+    //            MaxHeight = 1024,
+    //            MaxWidth = 1024,
+    //            RgbBucketSize = 1,
+    //            QuantizerSettings = new QuantizerSettings()
+    //            {
+    //                IsEnabled = false
+    //            }
+    //        }
+    //    };
 
-        System.Diagnostics.Debug.WriteLine("Hello?");
-    }
+    //    System.Diagnostics.Debug.WriteLine("Hello?");
+    //}
 }
