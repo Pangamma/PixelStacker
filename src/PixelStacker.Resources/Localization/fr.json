@@ -123,8 +123,19 @@
   "Orientation_Horizontal": "Horizontal",
   "Orientation_Vertical": "Verticale",
   "Sizing": "Dimensionnement",
-  "ColorReducer_Instructions": "L'art qui a un grand nombre de couleurs uniques sera plus difficile à construire. Le rendu sera également plus rapide si le nombre global de couleurs est réduit avant de commencer le processus de rendu. Vous pouvez utiliser les options ci-dessous pour aplatir l'espace colorimétrique de votre image.",
-  "ColorReducer_RgbBucketSize": "Taille du seau RVB",
-  "ColorReducer_RgbBucketSize_Tooltip": "Fondamentalement, au lieu d'avoir à trouver la meilleure correspondance pour 255^3 combinaisons, vous pouvez choisir d'aplatir l'espace colorimétrique afin de ne trouver la meilleure correspondance que pour 15^3 couleurs. 255^3 signifie la plus grande variété de couleurs. 5^3 est le plus rapide.",
-  "ColorReducer_Title": "Réducteur de couleur"
+  "ColorReducer_Instructions": "Instructions",
+  "ColorReducer_RgbBucketSize": "Couleurs uniques maximum",
+  "ColorReducer_RgbBucketSize_Tooltip": "Accélérez le rendu en réduisant le nombre de couleurs uniques. Au lieu de 255^3 couleurs uniques, vous pouvez réduire le nombre de couleurs uniques 51^3.\r\n\r\nLe plus rapide : 5^3\r\nLe plus précis : 255^3\r\n\r\nÉquation:\r\nF(X) => Min(255, Rond(X/5, 0) * 5)\r\n\r\nExemple:\r\nLorsque la taille du fragment est de 5 (51^3 couleurs) :\r\nf(255) => 255\r\nf(254) => 255\r\nf(251) => 250",
+  "ColorReducer_Title": "Réducteur de couleur",
+  "ColorReducer_Algorithm": "Algorithme de quantification",
+  "ColorReducer_ColorCache": "Cache de couleur",
+  "ColorReducer_Dither": "Tremblement",
+  "ColorReducer_Instructions_Tooltip": "L'art qui a un grand nombre de couleurs uniques prendra plus de temps à construire. Vous pouvez réduire le nombre total de couleurs uniques avant de commencer le processus de rendu. Cliquez sur les en-têtes de texte noir pour plus d'informations.",
+  "ColorReducer_Parallel": "Parallèle",
+  "ColorReducer_QColorCount": "Nombre de couleurs du quantificateur",
+  "ColorReducer_Algorithm_Tooltip": "La quantification des couleurs réduit le nombre de couleurs distinctes d'une image tout en gardant la nouvelle image visuellement similaire à l'originale. De nombreux algorithmes différents existent. Choisissez votre algorithme préféré et utilisez-le.",
+  "ColorReducer_ColorCache_Tooltip": "Lisez à ce sujet plus en détail ici :\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nDistance euclidienne : lente mais précise\r\nHachage sensible à la localité : rapide\r\nOctree : rapide et précis",
+  "ColorReducer_ColorCount_Tooltip": "Le quantificateur réduira le nombre de couleurs à un nombre de 256 ou moins.",
+  "ColorReducer_Dither_Tooltip": "Beaucoup de styles différents à choisir. Personnellement, je pense que le tramage bayer est le meilleur.",
+  "ColorReducer_Parallel_Tooltip": "Le nombre de processus à exécuter en parallèle. L'utilisation de nombres plus élevés peut accélérer le processus de quantification."
 }

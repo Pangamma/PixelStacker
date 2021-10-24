@@ -82,7 +82,7 @@ namespace PixelStacker.Logic.Engine.Quantizer
                     { "Bayer dithering (8x8)", new BayerDitherer8() },
                     { "Clustered dot (4x4)", new ClusteredDotDitherer() },
                     { "Dot halftoning (8x8)", new DotHalfToneDitherer() },
-                    { "--[ Error diffusion ]--", null },
+                    //{ "--[ Error diffusion ]--", null },
                     { "Fan dithering (7x3)", new FanDitherer() },
                     { "Shiau dithering (5x3)", new ShiauDitherer() },
                     { "Sierra dithering (5x3)", new SierraDitherer() },

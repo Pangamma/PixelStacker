@@ -186,14 +186,64 @@ Aka Pangamma</value>
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="ColorReducer_Algorithm" xml:space="preserve">
+    <value>Quantizer Algorithm</value>
+  </data>
+  <data name="ColorReducer_Algorithm_Tooltip" xml:space="preserve">
+    <value>Color quantization reduces the number of distinct colors of an image while keeping the new image visually similar to the original. Many different algorithms exist. Pick your favorite algorithm and use it.</value>
+  </data>
+  <data name="ColorReducer_ColorCache" xml:space="preserve">
+    <value>Color Cache</value>
+  </data>
+  <data name="ColorReducer_ColorCache_Tooltip" xml:space="preserve">
+    <value>Read about it more in detail here:
+https://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C
+
+Euclidian Distance: Slow but accurate
+Locality-sensitive-hashing: Fast
+Octree: Fast and accurate</value>
+  </data>
+  <data name="ColorReducer_ColorCount_Tooltip" xml:space="preserve">
+    <value>The quantizer will reduce the number of colors to a number that is 256 or lower. </value>
+  </data>
+  <data name="ColorReducer_Dither" xml:space="preserve">
+    <value>Dither</value>
+  </data>
+  <data name="ColorReducer_Dither_Tooltip" xml:space="preserve">
+    <value>Many different styles to choose from. Personally I think bayer dithering looks the best.</value>
+  </data>
   <data name="ColorReducer_Instructions" xml:space="preserve">
-    <value>Art that has a large number of unique colors will be more difficult to build. Rendering will also be faster if the overall color count is reduced before you start the rendering process. You can use the options below to flatten the color space of your image.</value>
+    <value>Instructions</value>
+  </data>
+  <data name="ColorReducer_Instructions_Tooltip" xml:space="preserve">
+    <value>Art that has a large number of unique colors will take more time to build. You can reduce the total number of unique colors before you begin the rendering process. Click on the black text headers for more information.</value>
+  </data>
+  <data name="ColorReducer_Parallel" xml:space="preserve">
+    <value>Parallel</value>
+  </data>
+  <data name="ColorReducer_Parallel_Tooltip" xml:space="preserve">
+    <value>The number of processes to run in parallel. Using higher numbers can speed up the quantizing process.</value>
+  </data>
+  <data name="ColorReducer_QColorCount" xml:space="preserve">
+    <value>Quantizer Color Count</value>
   </data>
   <data name="ColorReducer_RgbBucketSize" xml:space="preserve">
-    <value>Rgb bucket size</value>
+    <value>Max unique colors</value>
   </data>
   <data name="ColorReducer_RgbBucketSize_Tooltip" xml:space="preserve">
-    <value>Basically, instead of having to figure out the best match for 255^3 combinations, you could instead choose to flatten the color space so you are only finding the best match for 15^3 colors. 255^3 means the most color variety. 5^3 is the fastest.</value>
+    <value>Speed up rendering by reducing the number of unique colors. Instead of 255^3 unique colors, you can reduce the number of unique colors 51^3. 
+
+Fastest: 5^3
+Most accurate: 255^3
+
+Equation:
+F(X) =&gt; Min(255, Round(X/5, 0) * 5)
+
+Example:
+When fragment size is 5 (51^3 colors):
+f(255) =&gt; 255
+f(254) =&gt; 255
+f(251) =&gt; 250</value>
   </data>
   <data name="ColorReducer_Title" xml:space="preserve">
     <value>Color Reducer</value>

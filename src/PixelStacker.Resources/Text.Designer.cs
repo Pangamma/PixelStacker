@@ -243,7 +243,75 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Art that has a large number of unique colors will be more difficult to build. Rendering will also be faster if the overall color count is reduced before you start the rendering process. You can use the options below to flatten the color space of your image..
+        ///   Looks up a localized string similar to Quantizer Algorithm.
+        /// </summary>
+        public static string ColorReducer_Algorithm {
+            get {
+                return ResourceManager.GetString("ColorReducer_Algorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color quantization reduces the number of distinct colors of an image while keeping the new image visually similar to the original. Many different algorithms exist. Pick your favorite algorithm and use it..
+        /// </summary>
+        public static string ColorReducer_Algorithm_Tooltip {
+            get {
+                return ResourceManager.GetString("ColorReducer_Algorithm_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Cache.
+        /// </summary>
+        public static string ColorReducer_ColorCache {
+            get {
+                return ResourceManager.GetString("ColorReducer_ColorCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read about it more in detail here:
+        ///https://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C
+        ///
+        ///Euclidian Distance: Slow but accurate
+        ///Locality-sensitive-hashing: Fast
+        ///Octree: Fast and accurate.
+        /// </summary>
+        public static string ColorReducer_ColorCache_Tooltip {
+            get {
+                return ResourceManager.GetString("ColorReducer_ColorCache_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The quantizer will reduce the number of colors to a number that is 256 or lower. .
+        /// </summary>
+        public static string ColorReducer_ColorCount_Tooltip {
+            get {
+                return ResourceManager.GetString("ColorReducer_ColorCount_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dither.
+        /// </summary>
+        public static string ColorReducer_Dither {
+            get {
+                return ResourceManager.GetString("ColorReducer_Dither", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Many different styles to choose from. Personally I think bayer dithering looks the best..
+        /// </summary>
+        public static string ColorReducer_Dither_Tooltip {
+            get {
+                return ResourceManager.GetString("ColorReducer_Dither_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instructions.
         /// </summary>
         public static string ColorReducer_Instructions {
             get {
@@ -252,7 +320,43 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rgb bucket size.
+        ///   Looks up a localized string similar to Art that has a large number of unique colors will take more time to build. You can reduce the total number of unique colors before you begin the rendering process. Click on the black text headers for more information..
+        /// </summary>
+        public static string ColorReducer_Instructions_Tooltip {
+            get {
+                return ResourceManager.GetString("ColorReducer_Instructions_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parallel.
+        /// </summary>
+        public static string ColorReducer_Parallel {
+            get {
+                return ResourceManager.GetString("ColorReducer_Parallel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of processes to run in parallel. Using higher numbers can speed up the quantizing process..
+        /// </summary>
+        public static string ColorReducer_Parallel_Tooltip {
+            get {
+                return ResourceManager.GetString("ColorReducer_Parallel_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantizer Color Count.
+        /// </summary>
+        public static string ColorReducer_QColorCount {
+            get {
+                return ResourceManager.GetString("ColorReducer_QColorCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max unique colors.
         /// </summary>
         public static string ColorReducer_RgbBucketSize {
             get {
@@ -261,7 +365,19 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Basically, instead of having to figure out the best match for 255^3 combinations, you could instead choose to flatten the color space so you are only finding the best match for 15^3 colors. 255^3 means the most color variety. 5^3 is the fastest..
+        ///   Looks up a localized string similar to Speed up rendering by reducing the number of unique colors. Instead of 255^3 unique colors, you can reduce the number of unique colors 51^3. 
+        ///
+        ///Fastest: 5^3
+        ///Most accurate: 255^3
+        ///
+        ///Equation:
+        ///F(X) =&gt; Min(255, Round(X/5, 0) * 5)
+        ///
+        ///Example:
+        ///When fragment size is 5 (51^3 colors):
+        ///f(255) =&gt; 255
+        ///f(254) =&gt; 255
+        ///f(251) =&gt; 250.
         /// </summary>
         public static string ColorReducer_RgbBucketSize_Tooltip {
             get {

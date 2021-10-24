@@ -37,6 +37,7 @@ namespace PixelStacker.UI
             Thread.CurrentThread.CurrentUICulture = locale;
             CultureInfo.CurrentUICulture = locale;
             this.MaterialOptions?.ApplyLocalization(locale);
+            this.ColorReducerForm?.ApplyLocalization(locale);
             //            this.renderedImagePanel?.ApplyLocalization(locale);
 
             this.Text = global::PixelStacker.Resources.Text.MainForm_Title;

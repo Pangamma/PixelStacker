@@ -17,36 +17,40 @@ using System.Windows.Forms;
 
 namespace PixelStacker.UI.Forms
 {
-    public partial class ColorReducerForm : Form, ILocalized
+    /// <summary>
+    /// TODO: Localize
+    /// </summary>
+    public partial class ColorReducerForm : Form
     {
+        private MainForm MainForm;
         private Options Options;
+        private bool IsNoisy = false;
+        private Dictionary<string, int> MaxUniqueColorOptions = new Dictionary<string, int>()
+        {
+            ["255^3"] = 1,
+            ["51^3"] = 5,
+            ["17^3"] = 15,
+            ["15^3"] = 17,
+            ["5^3"] = 51
+        };
 
         public ColorReducerForm()
         {
             InitializeComponent();
         }
 
-        //private void RenderGridView()
-        //{
-        //    var opt = this.Options;
-        //    gridView.Add<Options, bool>(opt, opt => opt.IsSideView);
-        //    gridView.Add<Options, int>(opt, opt => opt.Preprocessor.RgbBucketSize);
-        //    gridView.Add<Options, int?>(opt, opt => opt.Preprocessor.MaxHeight);
-        //    gridView.Add<Options, int?>(opt, opt => opt.Preprocessor.MaxWidth);
-        //    gridView.Add<Options, int>(opt, opt => opt.Preprocessor.QuantizerSettings.MaxColorCount);
-        //    gridView.Add<Options, int>(opt, opt => opt.Preprocessor.QuantizerSettings.MaxParallelProcesses);
-        //    gridView.Add<Options, string>(opt, opt => opt.Preprocessor.QuantizerSettings.DitherAlgorithm);
-        //    gridView.Add<Options, string>(opt, opt => opt.Preprocessor.QuantizerSettings.ColorCache);
-        //    gridView.Add<Options, string>(opt, opt => opt.Preprocessor.QuantizerSettings.Algorithm);
-        //    propertyGrid.Refresh();
-        //    this.Refresh();
-        //}
-
-        public ColorReducerForm(Options options)
+        public ColorReducerForm(MainForm mf, Options options)
         {
+            this.MainForm = mf;
             this.Options = options;
             InitializeComponent();
+            InitializeCustom();
+            RevalidateOptions(options);
+            ApplyLocalization(CultureInfo.CurrentUICulture);
+        }
 
+        private void InitializeCustom()
+        {
             cbxEnableQuantizer.Checked = this.Options.Preprocessor.QuantizerSettings.IsEnabled;
             bool isChecked = this.Options.Preprocessor.QuantizerSettings.IsEnabled;
             ddlAlgorithm.Enabled = isChecked;
@@ -54,150 +58,64 @@ namespace PixelStacker.UI.Forms
             ddlDither.Enabled = isChecked;
             ddlColorCount.Enabled = isChecked;
             ddlParallel.Enabled = isChecked;
-
-            ApplyLocalization(CultureInfo.CurrentUICulture);
-            //InitReduceOptions(options);
-            ShowReduceOptions(options);
         }
 
-        private void InitReduceOptions(Options options)
+        private void RevalidateOptions(Options options)
         {
-            var preproc = options.Preprocessor;
-            var quant = preproc.QuantizerSettings;
-            string[] quantizerAlgorithms = QuantizerEngine.GetQuantizerAlgorithms();
-            {
-                ddlAlgorithm.Items.Clear();
-                ddlAlgorithm.Items.AddRange(quantizerAlgorithms);
-                int idx = quantizerAlgorithms.ToList().IndexOf(quant.Algorithm);
-                if (idx == -1) idx = 0; ddlAlgorithm.SelectedIndex = idx;
-            }
-
-        }
-
-        private void ShowReduceOptions(Options options)
-        {
+            IsNoisy = true;
             var preproc = options.Preprocessor;
             var quant = preproc.QuantizerSettings;
             string algo = quant.Algorithm;
             var qOpts = QuantizerEngine.GetQuantizerAlgorithmOptions(algo);
+            if (!quant.IsValid(qOpts, true))
+            {
+                throw new Exception("Invalid quantizer options detected.");
+            }
+
             string[] quantizerAlgorithms = QuantizerEngine.GetQuantizerAlgorithms();
             {
                 ddlAlgorithm.Items.Clear();
                 ddlAlgorithm.Items.AddRange(quantizerAlgorithms);
-                int idx = Math.Max(0, quantizerAlgorithms.ToList().IndexOf(quant.Algorithm));
                 ddlAlgorithm.SelectedItem = quant.Algorithm;
+                ddlAlgorithm.Enabled = quant.IsEnabled;
             }
             {
                 ddlRgbBucketSize.Items.Clear();
-                var rgbBucketOptions = new string[] {
-                "1  :  255^3"
-                ,"5  :  51^3"
-                ,"15  :  17^3"
-                ,"17  :  15^3"
-                ,"51  :  5^3"};
-
-                ddlRgbBucketSize.Items.AddRange(rgbBucketOptions);
-                ddlRgbBucketSize.SelectedItem = rgbBucketOptions.ToList().Find(x => x.StartsWith(preproc.RgbBucketSize.ToString() + " "));
+                ddlRgbBucketSize.Items.AddRange(MaxUniqueColorOptions.Keys.ToArray());
+                ddlRgbBucketSize.SelectedItem = MaxUniqueColorOptions.Where(x => x.Value == preproc.RgbBucketSize).Select(x => x.Key).First();
             }
-
             {
                 ddlParallel.Items.Clear();
                 ddlParallel.Items.AddRange(qOpts.MaxParallelProcessesList.Select(x => x.ToString()).ToArray());
-                ddlParallel.SelectedItem = quant.MaxParallelProcesses.ToString();
-                ddlParallel.Enabled = qOpts.MaxParallelProcessesList.Count > 1;
+                ddlParallel.SelectedItem = qOpts.MaxParallelProcessesList
+                    .Where(x => x == quant.MaxParallelProcesses)
+                    .DefaultIfEmpty(1).First().ToString();
+                ddlParallel.Enabled = qOpts.MaxParallelProcessesList.Count > 1 && quant.IsEnabled;
             }
-        }
-
-        public void ApplyLocalization(CultureInfo locale)
-        {
-            lblInstructions.Text = Resources.Text.ColorReducer_Instructions;
-            lblRgbBucketSize.Text = Resources.Text.ColorReducer_RgbBucketSize;
-            this.toolTip.SetToolTip(this.lblRgbBucketSize, Resources.Text.ColorReducer_RgbBucketSize_Tooltip.AsTooltipText());
-        }
-
-        private void ddlAlgorithm_SelectedValueChanged(object sender, EventArgs e)
-        {
-            string val = ddlAlgorithm.SelectedItem as string;
-            if (val == Options.Preprocessor.QuantizerSettings.Algorithm) return;
-            if (val != null)
             {
-                Options.Preprocessor.QuantizerSettings.Algorithm = val;
-                ShowReduceOptions(Options);
+                ddlColorCache.Items.Clear();
+                ddlColorCache.Items.AddRange(qOpts.ColorCacheList.Keys.ToArray());
+                ddlColorCache.SelectedItem
+                    = qOpts.ColorCacheList.Keys.FirstOrDefault(x => x == quant.ColorCache)
+                    ?? qOpts.ColorCacheList.Keys.First();
+                ddlColorCache.Enabled = qOpts.ColorCacheList.Count > 1 && quant.IsEnabled;
             }
-        }
-
-        private void lblInstructionTitle_Click(object sender, EventArgs e)
-        {
-            lblInstructions.Text = Resources.Text.ColorReducer_Instructions;
-        }
-
-        private void lblRgbBucketSize_Click(object sender, EventArgs e)
-        {
-            lblInstructions.Text = Resources.Text.ColorReducer_RgbBucketSize_Tooltip;
-        }
-
-        private void cbxEnableQuantizer_CheckedChanged(object sender, EventArgs e)
-        {
-            bool isChecked = cbxEnableQuantizer.Checked;
-            ddlAlgorithm.Enabled = isChecked;
-            ddlColorCache.Enabled = isChecked;
-            ddlDither.Enabled = isChecked;
-            ddlColorCount.Enabled = isChecked;
-            ddlParallel.Enabled = isChecked;
-            Options.Preprocessor.QuantizerSettings.IsEnabled = isChecked;
-            Options.Save();
+            {
+                ddlDither.Items.Clear();
+                ddlDither.Items.AddRange(qOpts.DithererList.Keys.ToArray());
+                ddlDither.SelectedItem
+                    = qOpts.DithererList.Keys.FirstOrDefault(x => x == quant.DitherAlgorithm)
+                    ?? qOpts.DithererList.Keys.First();
+                ddlDither.Enabled = qOpts.DithererList.Count > 1 && quant.IsEnabled;
+            }
+            {
+                ddlColorCount.Items.Clear();
+                ddlColorCount.Items.AddRange(qOpts.MaxColorCountsList.Select(x => x.ToString()).ToArray());
+                ddlColorCount.SelectedItem = qOpts.MaxColorCountsList.Where(x => x == quant.MaxColorCount)
+                    .DefaultIfEmpty(qOpts.MaxColorCountsList.First()).First().ToString();
+                ddlColorCount.Enabled = qOpts.MaxColorCountsList.Count > 1 && quant.IsEnabled;
+            }
+            IsNoisy = false;
         }
     }
-
-    public class ColorReducerView : DynamicObject
-    {
-        private readonly IDictionary<string, object> dynamicProperties =
-         new Dictionary<string, object>();
-
-        public override bool TryGetMember(GetMemberBinder binder, out object result)
-        {
-            var memberName = binder.Name;
-            return dynamicProperties.TryGetValue(memberName, out result);
-        }
-
-        public override bool TrySetMember(SetMemberBinder binder, object value)
-        {
-            var memberName = binder.Name;
-            dynamicProperties[memberName] = value;
-            return true;
-        }
-    }
-
-    public class RgbBucketSizeConverter : Int32Converter
-    {
-        public override Boolean GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
-        public override Boolean GetStandardValuesExclusive(ITypeDescriptorContext context) { return true; }
-        public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
-        {
-            List<Int32> list = new List<Int32>();
-            list.Add(1);
-            list.Add(5);
-            list.Add(15);
-            list.Add(17);
-            list.Add(51);
-            list.Add(256);
-            return new StandardValuesCollection(list);
-        }
-    }
-
-    public class ColorReducerOptionsView
-    {
-        public object src = new CanvasPreprocessorSettings();
-
-        [TypeConverter(typeof(RgbBucketSizeConverter))]
-        public int RgbBucketSize { get; set; } = 1;
-
-        private Options opts;
-        
-        public ColorReducerOptionsView(Options opts)
-        {
-            this.opts = opts;
-        }
-    }
-
 }

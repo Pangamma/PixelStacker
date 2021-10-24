@@ -76,7 +76,7 @@
             "G",
             "SADSF",
             "SDDF"});
-            this.ddlAlgorithm.Location = new System.Drawing.Point(3, 160);
+            this.ddlAlgorithm.Location = new System.Drawing.Point(3, 155);
             this.ddlAlgorithm.Name = "ddlAlgorithm";
             this.ddlAlgorithm.Size = new System.Drawing.Size(186, 28);
             this.ddlAlgorithm.TabIndex = 3;
@@ -85,11 +85,11 @@
             // ddlRgbBucketSize
             // 
             this.ddlRgbBucketSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlRgbBucketSize.FormattingEnabled = true;
             this.ddlRgbBucketSize.Location = new System.Drawing.Point(3, 33);
             this.ddlRgbBucketSize.Name = "ddlRgbBucketSize";
             this.ddlRgbBucketSize.Size = new System.Drawing.Size(186, 28);
             this.ddlRgbBucketSize.TabIndex = 4;
+            this.ddlRgbBucketSize.SelectedValueChanged += new System.EventHandler(this.ddlRgbBucketSize_SelectedValueChanged);
             // 
             // toolTip
             // 
@@ -102,10 +102,11 @@
             // 
             this.ddlParallel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlParallel.FormattingEnabled = true;
-            this.ddlParallel.Location = new System.Drawing.Point(3, 382);
+            this.ddlParallel.Location = new System.Drawing.Point(3, 362);
             this.ddlParallel.Name = "ddlParallel";
             this.ddlParallel.Size = new System.Drawing.Size(186, 28);
             this.ddlParallel.TabIndex = 7;
+            this.ddlParallel.SelectedValueChanged += new System.EventHandler(this.ddlParallel_SelectedValueChanged);
             // 
             // panel1
             // 
@@ -156,11 +157,11 @@
             this.lblRgbBucketSize.Location = new System.Drawing.Point(3, 10);
             this.lblRgbBucketSize.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.lblRgbBucketSize.Name = "lblRgbBucketSize";
-            this.lblRgbBucketSize.Size = new System.Drawing.Size(123, 20);
+            this.lblRgbBucketSize.Size = new System.Drawing.Size(137, 20);
             this.lblRgbBucketSize.TabIndex = 15;
             this.lblRgbBucketSize.TabStop = true;
-            this.lblRgbBucketSize.Text = "RGB Bucket Size";
-            this.lblRgbBucketSize.Click += new System.EventHandler(this.lblRgbBucketSize_Click);
+            this.lblRgbBucketSize.Text = "Max unique colors";
+            this.lblRgbBucketSize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblRgbBucketSize_LinkClicked);
             // 
             // panel2
             // 
@@ -173,8 +174,8 @@
             // cbxEnableQuantizer
             // 
             this.cbxEnableQuantizer.AutoSize = true;
-            this.cbxEnableQuantizer.Location = new System.Drawing.Point(3, 100);
-            this.cbxEnableQuantizer.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.cbxEnableQuantizer.Location = new System.Drawing.Point(3, 95);
+            this.cbxEnableQuantizer.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.cbxEnableQuantizer.Name = "cbxEnableQuantizer";
             this.cbxEnableQuantizer.Size = new System.Drawing.Size(144, 24);
             this.cbxEnableQuantizer.TabIndex = 11;
@@ -188,13 +189,14 @@
             this.lblAlgorithm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblAlgorithm.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lblAlgorithm.LinkColor = System.Drawing.SystemColors.ControlText;
-            this.lblAlgorithm.Location = new System.Drawing.Point(3, 137);
+            this.lblAlgorithm.Location = new System.Drawing.Point(3, 132);
             this.lblAlgorithm.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.lblAlgorithm.Name = "lblAlgorithm";
             this.lblAlgorithm.Size = new System.Drawing.Size(153, 20);
             this.lblAlgorithm.TabIndex = 14;
             this.lblAlgorithm.TabStop = true;
             this.lblAlgorithm.Text = "Quantizer Algorithm";
+            this.lblAlgorithm.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblAlgorithm_LinkClicked);
             // 
             // lblColorCache
             // 
@@ -202,22 +204,24 @@
             this.lblColorCache.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblColorCache.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lblColorCache.LinkColor = System.Drawing.SystemColors.ControlText;
-            this.lblColorCache.Location = new System.Drawing.Point(3, 211);
-            this.lblColorCache.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
+            this.lblColorCache.Location = new System.Drawing.Point(3, 201);
+            this.lblColorCache.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.lblColorCache.Name = "lblColorCache";
             this.lblColorCache.Size = new System.Drawing.Size(91, 20);
             this.lblColorCache.TabIndex = 7;
             this.lblColorCache.TabStop = true;
             this.lblColorCache.Text = "Color Cache";
+            this.lblColorCache.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblColorCache_LinkClicked);
             // 
             // ddlColorCache
             // 
             this.ddlColorCache.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlColorCache.FormattingEnabled = true;
-            this.ddlColorCache.Location = new System.Drawing.Point(3, 234);
+            this.ddlColorCache.Location = new System.Drawing.Point(3, 224);
             this.ddlColorCache.Name = "ddlColorCache";
             this.ddlColorCache.Size = new System.Drawing.Size(186, 28);
             this.ddlColorCache.TabIndex = 13;
+            this.ddlColorCache.SelectedValueChanged += new System.EventHandler(this.ddlColorCache_SelectedValueChanged);
             // 
             // lblColorCount
             // 
@@ -225,22 +229,24 @@
             this.lblColorCount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblColorCount.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lblColorCount.LinkColor = System.Drawing.SystemColors.ControlText;
-            this.lblColorCount.Location = new System.Drawing.Point(3, 285);
-            this.lblColorCount.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
+            this.lblColorCount.Location = new System.Drawing.Point(3, 270);
+            this.lblColorCount.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.lblColorCount.Name = "lblColorCount";
-            this.lblColorCount.Size = new System.Drawing.Size(92, 20);
+            this.lblColorCount.Size = new System.Drawing.Size(164, 20);
             this.lblColorCount.TabIndex = 8;
             this.lblColorCount.TabStop = true;
-            this.lblColorCount.Text = "Color Count";
+            this.lblColorCount.Text = "Quantizer Color Count";
+            this.lblColorCount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblColorCount_LinkClicked);
             // 
             // ddlColorCount
             // 
             this.ddlColorCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlColorCount.FormattingEnabled = true;
-            this.ddlColorCount.Location = new System.Drawing.Point(3, 308);
+            this.ddlColorCount.Location = new System.Drawing.Point(3, 293);
             this.ddlColorCount.Name = "ddlColorCount";
             this.ddlColorCount.Size = new System.Drawing.Size(186, 28);
             this.ddlColorCount.TabIndex = 13;
+            this.ddlColorCount.SelectedValueChanged += new System.EventHandler(this.ddlColorCount_SelectedValueChanged);
             // 
             // lblParallel
             // 
@@ -248,13 +254,14 @@
             this.lblParallel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblParallel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lblParallel.LinkColor = System.Drawing.SystemColors.ControlText;
-            this.lblParallel.Location = new System.Drawing.Point(3, 359);
-            this.lblParallel.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
+            this.lblParallel.Location = new System.Drawing.Point(3, 339);
+            this.lblParallel.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.lblParallel.Name = "lblParallel";
             this.lblParallel.Size = new System.Drawing.Size(60, 20);
             this.lblParallel.TabIndex = 9;
             this.lblParallel.TabStop = true;
             this.lblParallel.Text = "Parallel";
+            this.lblParallel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblParallel_LinkClicked);
             // 
             // lblDither
             // 
@@ -262,22 +269,24 @@
             this.lblDither.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblDither.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lblDither.LinkColor = System.Drawing.SystemColors.ControlText;
-            this.lblDither.Location = new System.Drawing.Point(3, 433);
-            this.lblDither.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
+            this.lblDither.Location = new System.Drawing.Point(3, 408);
+            this.lblDither.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.lblDither.Name = "lblDither";
             this.lblDither.Size = new System.Drawing.Size(53, 20);
             this.lblDither.TabIndex = 10;
             this.lblDither.TabStop = true;
             this.lblDither.Text = "Dither";
+            this.lblDither.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDither_LinkClicked);
             // 
             // ddlDither
             // 
             this.ddlDither.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlDither.FormattingEnabled = true;
-            this.ddlDither.Location = new System.Drawing.Point(3, 456);
+            this.ddlDither.Location = new System.Drawing.Point(3, 431);
             this.ddlDither.Name = "ddlDither";
             this.ddlDither.Size = new System.Drawing.Size(186, 28);
             this.ddlDither.TabIndex = 12;
+            this.ddlDither.SelectedValueChanged += new System.EventHandler(this.ddlDither_SelectedValueChanged);
             // 
             // lblInstructionsTitle
             // 
@@ -291,7 +300,7 @@
             this.lblInstructionsTitle.TabIndex = 12;
             this.lblInstructionsTitle.TabStop = true;
             this.lblInstructionsTitle.Text = "Instructions";
-            this.lblInstructionsTitle.Click += new System.EventHandler(this.lblInstructionTitle_Click);
+            this.lblInstructionsTitle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblInstructionsTitle_LinkClicked);
             // 
             // ColorReducerForm
             // 
@@ -303,6 +312,7 @@
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "ColorReducerForm";
             this.Text = "Color Reducer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ColorReducerForm_FormClosing);
             this.panel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();

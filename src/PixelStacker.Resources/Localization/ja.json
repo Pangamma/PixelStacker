@@ -123,8 +123,19 @@
   "Orientation_Horizontal": "水平",
   "Orientation_Vertical": "垂直",
   "Sizing": "サイジング",
-  "ColorReducer_Instructions": "ユニークな色がたくさんあるアートは、作るのがより難しくなります。レンダリングプロセスを開始する前に全体の色数を減らすと、レンダリングも高速になります。以下のオプションを使用して、画像の色空間を平坦化できます。",
-  "ColorReducer_RgbBucketSize": "RGBバケットサイズ",
-  "ColorReducer_RgbBucketSize_Tooltip": "基本的に、255 ^ 3の組み合わせに最適なものを見つける代わりに、色空間を平坦化することを選択して、15 ^ 3色にのみ最適なものを見つけることができます。 255 ^ 3は、最も色のバリエーションが多いことを意味します。 5 ^ 3が最速です。",
-  "ColorReducer_Title": "減色剤"
+  "ColorReducer_Instructions": "手順",
+  "ColorReducer_RgbBucketSize": "最大のユニークな色",
+  "ColorReducer_RgbBucketSize_Tooltip": "固有の色の数を減らすことにより、レンダリングを高速化します。 255 ^ 3の固有の色の代わりに、固有の色の数を51 ^ 3に減らすことができます。\r\n\r\n最速：5 ^ 3\r\n最も正確：255 ^ 3\r\n\r\n方程式：\r\nF（X）=>最小（255、ラウンド（X / 5、0）* 5）\r\n\r\n例：\r\nフラグメントサイズが5（51 ^ 3色）の場合：\r\nf（255）=> 255\r\nf（254）=> 255\r\nf（251）=> 250",
+  "ColorReducer_Title": "減色剤",
+  "ColorReducer_Algorithm": "量子化アルゴリズム",
+  "ColorReducer_ColorCache": "カラーキャッシュ",
+  "ColorReducer_Dither": "ディザ",
+  "ColorReducer_Instructions_Tooltip": "ユニークな色がたくさんあるアートは、構築に時間がかかります。レンダリングプロセスを開始する前に、一意の色の総数を減らすことができます。詳細については、黒いテキストヘッダーをクリックしてください。",
+  "ColorReducer_Parallel": "平行",
+  "ColorReducer_QColorCount": "量子化器の色数",
+  "ColorReducer_Algorithm_Tooltip": "色の量子化は、新しい画像を元の画像と視覚的に類似させたまま、画像の異なる色の数を減らします。多くの異なるアルゴリズムが存在します。お気に入りのアルゴリズムを選択して使用してください。",
+  "ColorReducer_ColorCache_Tooltip": "詳細については、こちらをご覧ください。\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nユークリッド距離：遅いが正確\r\n局所性鋭敏型ハッシュ：高速\r\nオクトリー：高速で正確",
+  "ColorReducer_ColorCount_Tooltip": "量子化器は、色の数を256以下の数に減らします。",
+  "ColorReducer_Dither_Tooltip": "から選択する多くの異なるスタイル。個人的には、バイエルディザリングが最適だと思います。",
+  "ColorReducer_Parallel_Tooltip": "並行して実行するプロセスの数。より大きな数値を使用すると、量子化プロセスをスピードアップできます。"
 }

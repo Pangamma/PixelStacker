@@ -123,8 +123,19 @@
   "Orientation_Horizontal": "Horizontal",
   "Orientation_Vertical": "Vertical",
   "Sizing": "Dimensionamiento",
-  "ColorReducer_Instructions": "El arte que tiene una gran cantidad de colores únicos será más difícil de construir. El renderizado también será más rápido si se reduce el recuento general de colores antes de iniciar el proceso de renderizado. Puede utilizar las siguientes opciones para aplanar el espacio de color de su imagen.",
-  "ColorReducer_RgbBucketSize": "Tamaño de la cuchara rgb",
-  "ColorReducer_RgbBucketSize_Tooltip": "Básicamente, en lugar de tener que encontrar la mejor combinación para 255 ^ 3 combinaciones, puede optar por aplanar el espacio de color para que solo encuentre la mejor combinación para 15 ^ 3 colores. 255 ^ 3 significa la mayor variedad de colores. 5 ^ 3 es el más rápido.",
-  "ColorReducer_Title": "Reductor de color"
+  "ColorReducer_Instructions": "Instrucciones",
+  "ColorReducer_RgbBucketSize": "Max colores únicos",
+  "ColorReducer_RgbBucketSize_Tooltip": "Acelere el renderizado reduciendo el número de colores únicos. En lugar de 255 ^ 3 colores únicos, puede reducir el número de colores únicos 51 ^ 3.\r\n\r\nMás rápido: 5 ^ 3\r\nMás preciso: 255 ^ 3\r\n\r\nEcuación:\r\nF (X) => Min (255, Redondo (X / 5, 0) * 5)\r\n\r\nEjemplo:\r\nCuando el tamaño del fragmento es 5 (51 ^ 3 colores):\r\nf (255) => 255\r\nf (254) => 255\r\nf (251) => 250",
+  "ColorReducer_Title": "Reductor de color",
+  "ColorReducer_Algorithm": "Algoritmo cuantificador",
+  "ColorReducer_ColorCache": "Caché de color",
+  "ColorReducer_Dither": "Vacilar",
+  "ColorReducer_Instructions_Tooltip": "El arte que tiene una gran cantidad de colores únicos llevará más tiempo construirlo. Puede reducir el número total de colores únicos antes de comenzar el proceso de renderizado. Haga clic en los encabezados de texto negro para obtener más información.",
+  "ColorReducer_Parallel": "Paralelo",
+  "ColorReducer_QColorCount": "Recuento de colores del cuantificador",
+  "ColorReducer_Algorithm_Tooltip": "La cuantificación de color reduce el número de colores distintos de una imagen mientras mantiene la nueva imagen visualmente similar a la original. Existen muchos algoritmos diferentes. Elija su algoritmo favorito y utilícelo.",
+  "ColorReducer_ColorCache_Tooltip": "Lea sobre esto con más detalle aquí:\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nDistancia euclidiana: lenta pero precisa\r\nHash sensible a la localidad: rápido\r\nOctree: rápido y preciso",
+  "ColorReducer_ColorCount_Tooltip": "El cuantificador reducirá el número de colores a un número de 256 o menor.",
+  "ColorReducer_Dither_Tooltip": "Muchos estilos diferentes para elegir. Personalmente, creo que el dithering de bayer se ve mejor.",
+  "ColorReducer_Parallel_Tooltip": "El número de procesos que se ejecutarán en paralelo. El uso de números más altos puede acelerar el proceso de cuantificación."
 }

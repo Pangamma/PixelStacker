@@ -61,6 +61,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UI\Forms\ColorReducerForm.cs">
+    </Compile>
+    <Compile Update="UI\Forms\ColorReducerForm.*.cs">
+      <DependentUpon>ColorReducerForm.cs</DependentUpon>
+    </Compile>
     <Compile Update="UI\Controls\CanvasEditor.cs">
     </Compile>
     <Compile Update="UI\Controls\CanvasEditor.*.cs">

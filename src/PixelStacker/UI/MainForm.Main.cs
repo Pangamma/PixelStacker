@@ -20,6 +20,7 @@ namespace PixelStacker.UI
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
         public Bitmap LoadedImage { get; private set; } = UIResources.weird_intro.To32bppBitmap();
+        public Bitmap PreprocessedImage { get; private set; }
         private RenderedCanvas RenderedCanvas;
         private KonamiWatcher konamiWatcher;
 

@@ -7,6 +7,7 @@ namespace PixelStacker.UI
     public partial class MainForm
     {
         private MaterialSelectWindow MaterialOptions { get; set; } = null;
+        private ColorReducerForm ColorReducerForm { get; set; } = null;
 
         private void selectMaterialsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -32,8 +33,15 @@ namespace PixelStacker.UI
 
         private void preprocessingToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            var form = new ColorReducerForm(this.Options);
-            form.ShowDialog(this);
+            if (this.ColorReducerForm == null)
+            {
+                this.ColorReducerForm = new ColorReducerForm(this, this.Options);
+            }
+
+            if (!this.ColorReducerForm.Visible)
+            {
+                this.ColorReducerForm.Show(this);
+            }
         }
     }
 }

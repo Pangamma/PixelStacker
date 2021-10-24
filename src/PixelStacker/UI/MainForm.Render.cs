@@ -3,6 +3,7 @@ using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Utilities;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PixelStacker.UI
@@ -16,9 +17,42 @@ namespace PixelStacker.UI
             else ShowCanvasEditor();
         }
 
+        public void DoPreprocessLoadedImage()
+        {
+            var self = this;
+            // Force a re-render or something.
+            Task.Run(() => TaskManager.Get.StartAsync(async (worker) => {
+                var engine = new RenderCanvasEngine();
+                int? tmpWidth = this.Options.Preprocessor.MaxWidth;
+                try
+                {
+                    this.Options.Preprocessor.MaxWidth = Math.Min(600, this.Options.Preprocessor.MaxWidth ?? 600);
+                    var preproc = await engine.PreprocessImageAsync(worker, this.LoadedImage, this.Options.Preprocessor);
+                    self.InvokeEx((c) => {
+                        var tmp = c.PreprocessedImage;
+                        c.PreprocessedImage = preproc;
+                        tmp.DisposeSafely();
+                        c.ShowPreviewViewer();
+                    });
+                }
+                finally
+                {
+                    this.Options.Preprocessor.MaxWidth = tmpWidth;
+                }
+            }));
+        }
+
+        public void ShowPreviewViewer()
+        {
+            this.imageViewer.SetImage(this.PreprocessedImage);
+            this.canvasEditor.SendToBack();
+            this.IsCanvasEditorVisible = false;
+        }
+
+
         private void ShowImageViewer()
         {
-            //this.imageViewer.SetImage(this.LoadedImage, null);
+            this.imageViewer.SetImage(this.LoadedImage, null);
             this.canvasEditor.SendToBack();
             this.IsCanvasEditorVisible = false;
         }

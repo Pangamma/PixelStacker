@@ -277,11 +277,11 @@ namespace PixelStacker.UI
             // generationToolStripMenuItem
             // 
             this.generationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.orientationToolStripMenuItem,
             this.selectMaterialsToolStripMenuItem,
-            this.sizingToolStripMenuItem,
             this.preprocessingToolStripMenuItem,
             this.ditheringToolStripMenuItem,
+            this.sizingToolStripMenuItem,
+            this.orientationToolStripMenuItem,
             this.renderToolStripMenuItem});
             this.generationToolStripMenuItem.Name = "generationToolStripMenuItem";
             this.generationToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
