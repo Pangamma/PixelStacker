@@ -1,5 +1,8 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.IO.Config;
+using PixelStacker.Resources;
+using SkiaSharp;
+using SkiaSharp.Views.Desktop;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -99,20 +102,29 @@ namespace PixelStacker.WF.Components
         [Browsable(true)]
         private Bitmap Image { get; set; }
 
-        protected override void OnPaint(PaintEventArgs e)
+        private void skCanvas_PaintSurface(object sender, UI.Controls.GenericSKPaintSurfaceEventArgs e)
         {
-            base.OnPaint(e);
-
-            Graphics g = e.Graphics;
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
-            if (this.DesignMode)
+            SKSurface surface = e.Surface;
+            var canvas = surface.Canvas;
+            var bgImg = UIResources.bg_imagepanel.BitmapToSKBitmap();
+            SKShader bgShader = SKShader.CreateBitmap(bgImg, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
+            using (SKPaint paint = new SKPaint())
             {
-                using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
-                g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
+                paint.Shader = bgShader;
+                paint.FilterQuality = SKFilterQuality.High;
+                canvas.DrawRect(e.Rect, paint);
             }
+
+            //Graphics g = e.Graphics;
+            //g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            //g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+
+            //if (this.DesignMode)
+            //{
+            //    using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
+            //    g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
+            //}
 
             // Render the image they are looking at.
             var pz = this.PanZoomSettings;
@@ -132,8 +144,8 @@ namespace PixelStacker.WF.Components
                 pEnd.X *= ts; pEnd.X /= divideAmount;
                 pEnd.Y *= ts; pEnd.Y /= divideAmount;
 
-                Rectangle rectSRC = new Rectangle(pStart, pStart.CalculateSize(pEnd));
-                Rectangle rectDST = new Rectangle(fStart, fStart.CalculateSize(fEnd));
+                SKRect rectSRC = new Rectangle(pStart, pStart.CalculateSize(pEnd)).ToSKRect();
+                SKRect rectDST = new Rectangle(fStart, fStart.CalculateSize(fEnd)).ToSKRect();
 
                 lock (img)
                 {
@@ -142,13 +154,64 @@ namespace PixelStacker.WF.Components
                     int w = (int)(origW * this.PanZoomSettings.zoomLevel);
                     int h = (int)(origH * this.PanZoomSettings.zoomLevel);
 
-                    g.DrawImage(image: img,
-                        srcRect: rectSRC,
-                        destRect: rectDST,
-                        srcUnit: GraphicsUnit.Pixel);
+                    canvas.DrawBitmap(bitmap: img.ToSKBitmap(),
+                        source: rectSRC,
+                        dest: rectDST);
                     //g.DrawImage(img, pz.imageX, pz.imageY, w + 1, h + 1);
                 }
             }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            //Graphics g = e.Graphics;
+            //g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            //g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+
+            //if (this.DesignMode)
+            //{
+            //    using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
+            //    g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
+            //}
+
+            //// Render the image they are looking at.
+            //var pz = this.PanZoomSettings;
+            //var img = this.Image;
+
+            //if (img != null && pz != null)
+            //{
+            //    Point pStart = GetPointOnImage(new Point(0, 0), EstimateProp.Floor);
+            //    Point fStart = GetPointOnPanel(pStart);
+            //    int divideAmount = 1;
+            //    int ts = 1;
+            //    pStart.X *= ts; pStart.X /= divideAmount;
+            //    pStart.Y *= ts; pStart.Y /= divideAmount;
+
+            //    Point pEnd = GetPointOnImage(new Point(this.Width, this.Height), EstimateProp.Ceil);
+            //    Point fEnd = GetPointOnPanel(pEnd);
+            //    pEnd.X *= ts; pEnd.X /= divideAmount;
+            //    pEnd.Y *= ts; pEnd.Y /= divideAmount;
+
+            //    Rectangle rectSRC = new Rectangle(pStart, pStart.CalculateSize(pEnd));
+            //    Rectangle rectDST = new Rectangle(fStart, fStart.CalculateSize(fEnd));
+
+            //    lock (img)
+            //    {
+            //        double origW = img.Width;
+            //        double origH = img.Height;
+            //        int w = (int)(origW * this.PanZoomSettings.zoomLevel);
+            //        int h = (int)(origH * this.PanZoomSettings.zoomLevel);
+
+            //        g.DrawImage(image: img,
+            //            srcRect: rectSRC,
+            //            destRect: rectDST,
+            //            srcUnit: GraphicsUnit.Pixel);
+            //        //g.DrawImage(img, pz.imageX, pz.imageY, w + 1, h + 1);
+            //    }
+            //}
         }
 
         private enum EstimateProp

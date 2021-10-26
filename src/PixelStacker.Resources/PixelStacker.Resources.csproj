@@ -10,18 +10,27 @@
 	<Compile Remove="Images\Pixelart\**" />
 </ItemGroup>
 <ItemGroup>
+  <Compile Remove="DevResources.Designer.cs" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Remove="DevResources.resx" />
   <EmbeddedResource Remove="Localization\ResxContainer-out.resx" />
+</ItemGroup>
+<ItemGroup>
+  <None Remove="Images\Pixelart\avatar.jpg" />
+  <None Remove="Images\Pixelart\nerfman.png" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Images\Pixelart\nerfman.png" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Images\Pixelart\avatar.jpg" />
 </ItemGroup>
   <ItemGroup>
     <Compile Update="Data.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Data.resx</DependentUpon>
-    </Compile>
-    <Compile Update="DevResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DevResources.resx</DependentUpon>
     </Compile>
     <Compile Update="Localization\ResxContainer.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -58,10 +67,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Data.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="DevResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DevResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="Localization\ResxContainer.resx">
       <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -84,7 +89,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="SkiaSharp" Version="2.80.3" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
 

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Drawing;
+﻿using SkiaSharp;
+using System;
 
 namespace PixelStacker.Resources
 {
@@ -52,42 +52,42 @@ namespace PixelStacker.Resources
 
     public static class ShadowHelper
     {
-        private static Bitmap GetSpriteSheet(int textureSize)
+        private static SKBitmap GetSpriteSheet(int textureSize)
         {
             string resourceKey = $"sprite_x{textureSize}";
-            return Shadows.ResourceManager.GetObject(resourceKey) as Bitmap;
+            return Shadows.ResourceManager.GetObject(resourceKey) as SKBitmap;
         }
 
 
         const int NUM_SHADE_TILES_X = 8;
-        private static Rectangle GetSpriteRect(int textureSize, ShadeFrom dir)
+        private static SKRect GetSpriteRect(int textureSize, ShadeFrom dir)
         {
             int numDir = (int)dir;
             int xOffset = textureSize * (numDir % NUM_SHADE_TILES_X);
             int yOffset = textureSize * (numDir / NUM_SHADE_TILES_X);
 
-            return new Rectangle(x: xOffset, y: yOffset, width: textureSize, height: textureSize);
+            return new SKRect(left: xOffset, top: yOffset, right: xOffset + textureSize, bottom: yOffset + textureSize);
         }
 
-        private static Bitmap[] shadowSprites = new Bitmap[256];
-        public static Bitmap GetSpriteIndividual(int textureSize, ShadeFrom dir)
+        private static SKBitmap[] shadowSprites = new SKBitmap[256];
+        public static SKBitmap GetSpriteIndividual(int textureSize, ShadeFrom dir)
         {
             int numDir = (int)dir;
             if (shadowSprites[numDir] == null)
             {
                 var bmShadeSprites = GetSpriteSheet(textureSize);
-                var rectDST = new Rectangle(0, 0, textureSize, textureSize);
+                var rectDST = new SKRect(0, 0, textureSize, textureSize);
 
                 for (int i = 0; i < 256; i++)
                 {
                     var rectSRC = GetSpriteRect(textureSize, (ShadeFrom)i);
-                    var bm = new Bitmap(textureSize, textureSize);
-                    using (Graphics g = Graphics.FromImage(bm))
+                    var bm = new SKBitmap(textureSize, textureSize);
+                    
+                    using (var g = new SKCanvas(bm))
                     {
-                        g.DrawImage(image: bmShadeSprites,
-                            srcRect: rectSRC,
-                            destRect: rectDST,
-                            srcUnit: GraphicsUnit.Pixel);
+                        g.DrawBitmap(bitmap: bmShadeSprites,
+                            source: rectSRC,
+                            dest: rectDST);
                     }
 
                     shadowSprites[i] = bm;
@@ -97,7 +97,7 @@ namespace PixelStacker.Resources
             return shadowSprites[numDir];
         }
 
-        private static Bitmap Get(int textureSize, ShadeDir direction)
+        private static SKBitmap Get(int textureSize, ShadeDir direction)
         {
             if (!Enum.IsDefined(typeof(ShadeRez), textureSize / 4))
             {
@@ -108,12 +108,12 @@ namespace PixelStacker.Resources
 
             try
             {
-                return Shadows.ResourceManager.GetObject(resourceKey) as Bitmap;
+                return Shadows.ResourceManager.GetObject(resourceKey) as SKBitmap;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex); // Allow debugging but still log to console
-                return Textures.ResourceManager.GetObject(nameof(Textures.air)) as Bitmap;
+                return Textures.ResourceManager.GetObject(nameof(Textures.air)) as SKBitmap;
             }
         }
     }

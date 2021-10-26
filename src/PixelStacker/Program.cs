@@ -16,6 +16,7 @@ namespace PixelStacker
         [STAThread]
         static void Main()
         {
+            ResourceHelper.Get();
             //Options opts = new LocalDataOptionsProvider().Load();
             //var model = new CustomGridView();
             //model.Add<Options, bool>(opts => opts.IsSideView);

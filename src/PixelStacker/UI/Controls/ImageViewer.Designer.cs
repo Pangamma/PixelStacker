@@ -31,6 +31,7 @@ namespace PixelStacker.WF.Components
         {
             this.components = new System.ComponentModel.Container();
             this.repaintTimer = new System.Windows.Forms.Timer(this.components);
+            this.skCanvas = new PixelStacker.UI.Controls.SkHybridControl();
             this.SuspendLayout();
             // 
             // repaintTimer
@@ -39,13 +40,26 @@ namespace PixelStacker.WF.Components
             this.repaintTimer.Interval = 15;
             this.repaintTimer.Tick += new System.EventHandler(this.repaintTimer_Tick);
             // 
+            // skCanvas
+            // 
+            this.skCanvas.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
+            this.skCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.skCanvas.Location = new System.Drawing.Point(0, 0);
+            this.skCanvas.Name = "skCanvas";
+            this.skCanvas.Size = new System.Drawing.Size(585, 375);
+            this.skCanvas.TabIndex = 0;
+            this.skCanvas.PaintSurface += new System.EventHandler<PixelStacker.UI.Controls.GenericSKPaintSurfaceEventArgs>(this.skCanvas_PaintSurface);
+            this.skCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImageViewer_MouseDown);
+            this.skCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImageViewer_MouseMove);
+            this.skCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImageViewer_MouseUp);
+            // 
             // ImageViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
+            this.Controls.Add(this.skCanvas);
             this.Name = "ImageViewer";
-            this.Size = new System.Drawing.Size(538, 344);
+            this.Size = new System.Drawing.Size(585, 375);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImageViewer_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImageViewer_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImageViewer_MouseUp);
@@ -56,5 +70,6 @@ namespace PixelStacker.WF.Components
         #endregion
 
         private System.Windows.Forms.Timer repaintTimer;
+        private UI.Controls.SkHybridControl skCanvas;
     }
 }

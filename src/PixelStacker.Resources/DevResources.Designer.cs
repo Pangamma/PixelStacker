@@ -65,7 +65,7 @@ namespace PixelStacker.Resources {
         /// </summary>
         public static System.Drawing.Bitmap challenge {
             get {
-                object obj = ResourceManager.GetObject("challenge", resourceCulture);
+                object obj = ResourceManager.Get("challenge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
