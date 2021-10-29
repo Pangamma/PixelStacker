@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
-    public class CielabMapper : IColorMapper
+    public class CielabColorMapper : IColorMapper
     {
         public double AccuracyRating => 0;
         public double SpeedRating => 0;
@@ -41,7 +41,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
                 foreach (var cb in combos)
                 {
-                    var c = cb.GetAverageColor(isSideView).ToSRGB();
+                    var c = cb.GetAverageColor(isSideView).ToLAB();
                     float[] metrics = ToComponents(c);
                     KdTree.Add(metrics, cb);
                 }
@@ -51,7 +51,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
         public MaterialCombination FindBestMatch(SKColor c)
         {
-            c = c.ToSRGB();
+            c = c.ToLAB();
             lock (Padlock)
             {
                 if (Cache.TryGetValue(c, out MaterialCombination mc))
@@ -61,7 +61,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
                 if (c.Alpha < 32) return Palette[Constants.MaterialCombinationIDForAir];
                 var closest = KdTree.GetNearestNeighbours(ToComponents(c), 10);
-                var found = closest.MinBy(x => c.GetAverageColorDistance(x.Value.GetColorsInImage(this.IsSideView), (a,b) => GetColorDistance(a,b)));
+                var found = closest.MinBy(x => c.GetAverageColorDistance(x.Value.GetColorsInImage(this.IsSideView), (a,b) => GetColorDistance(a,b.ToLAB())));
                 Cache[c] = found.Value;
                 return found.Value;
             }
@@ -75,12 +75,12 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         /// <returns></returns>
         public List<MaterialCombination> FindBestMatches(SKColor c, int maxMatches)
         {
-            c = c.ToSRGB();
+            c = c.ToLAB();
             lock (Padlock)
             {
                 if (c.Alpha < 32) return new List<MaterialCombination>() { Palette[Constants.MaterialCombinationIDForAir] };
                 var closest = KdTree.GetNearestNeighbours(ToComponents(c), 10);
-                var found = closest.OrderBy(x => c.GetAverageColorDistance(x.Value.GetColorsInImage(this.IsSideView), (a, b) => GetColorDistance(a, b)))
+                var found = closest.OrderBy(x => c.GetAverageColorDistance(x.Value.GetColorsInImage(this.IsSideView), (a, b) => GetColorDistance(a, b.ToLAB())))
                     .Take(maxMatches).Select(x => x.Value).ToList();
 
                 return found;
