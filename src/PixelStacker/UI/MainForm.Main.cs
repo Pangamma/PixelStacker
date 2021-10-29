@@ -29,7 +29,7 @@ namespace PixelStacker.UI
         {
             this.Options = new LocalDataOptionsProvider().Load();
             this.Options.Preprocessor.RgbBucketSize = 1;
-            this.ColorMapper = new KdTreeMapper();
+            this.ColorMapper = new CielabMapper();
             this.Palette = MaterialPalette.FromResx();
 
             InitializeComponent();
