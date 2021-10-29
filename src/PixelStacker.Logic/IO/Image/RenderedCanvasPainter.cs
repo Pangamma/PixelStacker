@@ -17,7 +17,7 @@ namespace PixelStacker.Logic.IO.Image
     /// </summary>
     public class RenderedCanvasPainter : IDisposable
     {
-        public const int BlocksPerChunk = 40;
+        public const int BlocksPerChunk = 38;
         public RenderedCanvas Data { get; }
 
         /// Should contain: 

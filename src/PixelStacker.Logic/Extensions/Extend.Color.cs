@@ -253,6 +253,28 @@ namespace PixelStacker.Logic.Extensions
             return diff;
         }
 
+        /// <summary>
+        /// Custom color matching algorithm
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static int GetColorDistanceSRGB(this SKColor c, SKColor toMatch)
+        {
+            int dR = c.Red * c.Red - toMatch.Red*toMatch.Red;
+            int dG = c.Green * c.Green - toMatch.Green * toMatch.Green;
+            int dB = c.Blue * c.Blue - toMatch.Blue * toMatch.Blue;
+            int dHue = (int)GetDegreeDistance(c.GetHue(), toMatch.GetHue());
+
+            int diff =
+                dR * dR
+                + dG * dG
+                + dB * dB
+                + (int)Math.Sqrt(dHue * dHue * dHue)
+                ;
+
+            return diff;
+        }
+
         public static SKColor Normalize(this SKColor c, int fragmentSize)
         => c.NormalizeActual(fragmentSize);
 

@@ -146,7 +146,14 @@ namespace PixelStacker.Logic.Engine
             };
             ProgressX.Report(0, Resources.Text.RenderEngine_ConvertingToBlocks);
             preprocessedImage.ToViewStream(worker, (x, y, c) => {
-                canvas.CanvasData[x, y] = mapper.FindBestMatch(c);
+                var mcId = mapper.FindBestMatch(c);
+                canvas.CanvasData[x, y] = mcId;
+                var mc = palette[mcId];
+                if (c.Red == 255 && c.Blue == 230)
+                {
+
+                }
+                //canvas.CanvasData[x, y] = mapper.FindBestMatch(c);
             });
 
             return Task.FromResult(canvas);

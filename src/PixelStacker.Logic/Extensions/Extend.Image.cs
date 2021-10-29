@@ -551,6 +551,7 @@ namespace PixelStacker.Extensions
         /// <returns></returns>
         public static void ToViewStream(this SKBitmap origImage, CancellationToken? worker, Action<int, int, SKColor> callback)
         {
+
             if (origImage.ColorType != SKColorType.Rgba8888)
             {
                 throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");
@@ -558,16 +559,20 @@ namespace PixelStacker.Extensions
 
             SKColor[] bitmapData = origImage.Pixels;
 
-            for (int i = 0; i < bitmapData.Length; i ++)
+            int oH = origImage.Height;
+            int oW = origImage.Width;
+            int oL = bitmapData.Length;
+
+            for (int i = 0; i < oL; i ++)
             {
                 //Get the color of a pixel
                 // On a little-endian machine, the byte order is bb gg rr aa
                 SKColor color = bitmapData[i];
 
-                callback(i % origImage.Height, i / origImage.Width, color);
+                callback(i % oW, i / oW, color);
                 if (worker != null)
                 {
-                    ProgressX.Report(100 * (i / origImage.Width) / origImage.Height);
+                    ProgressX.Report(100 * (i / oW) / oH);
                     worker?.SafeThrowIfCancellationRequested();
                 }
             }
