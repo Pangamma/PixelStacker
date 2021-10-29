@@ -118,22 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="challenge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\challenge.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="colorwheel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\colorwheel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pink_girl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\pink-girl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planet_8k" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\planet-8k.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pink-girl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\pixelart\pink-girl.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="psg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\psg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>images\pixelart\psg.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="weird_intro" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\pixelart\weird-intro.pdn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="test-tiling" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\pixelart\test-tiling.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

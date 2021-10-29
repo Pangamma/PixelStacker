@@ -1,14 +1,10 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
-using PixelStacker.Resources;
+using SkiaSharp;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Resources;
 using System.Threading;
 
 namespace PixelStacker.Logic.Model
@@ -20,8 +16,8 @@ namespace PixelStacker.Logic.Model
         public string Label { get; set; }
         public int BlockID { get; set; }
         public int Data { get; set; }
-        public Bitmap SideImage { get; private set; }
-        public Bitmap TopImage { get; private set; }
+        public SKBitmap SideImage { get; private set; }
+        public SKBitmap TopImage { get; private set; }
         public string Category { get; set; }
         public string SchematicaMaterialName { get; set; }
         public bool IsAdvanced { get; set; } = false;
@@ -36,8 +32,8 @@ namespace PixelStacker.Logic.Model
         /// </summary>
         private string SideBlockName { get; set; }
 
-        private Color? _averageColor = null;
-        private Color? _averageColorSide = null;
+        private SKColor? _averageColor = null;
+        private SKColor? _averageColorSide = null;
 
         /// <summary>
         /// List of words or phrases ppl can search for to get these materials
@@ -67,10 +63,10 @@ namespace PixelStacker.Logic.Model
         }
 
         public Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, byte[] topImage, byte[] sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
-           : this(minMcVersion, isAdvancedMaterial, category, pixelStackerID, label, blockID, data, topImage.ToBitmap(), sideImage.ToBitmap(), topBlockName, sideBlockName, schematicaMaterialName)
+           : this(minMcVersion, isAdvancedMaterial, category, pixelStackerID, label, blockID, data, SKBitmap.Decode(topImage), SKBitmap.Decode(sideImage), topBlockName, sideBlockName, schematicaMaterialName)
         { }
 
-        public Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, Bitmap topImage, Bitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
+        public Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, SKBitmap topImage, SKBitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
         {
             MinimumSupportedMinecraftVersion = minMcVersion;
             IsAdvanced = isAdvancedMaterial;
@@ -78,69 +74,12 @@ namespace PixelStacker.Logic.Model
             Label = label;
             BlockID = blockID;
             Data = data;
-            TopImage = topImage.To32bppBitmap();
-            SideImage = (sideImage ?? topImage).To32bppBitmap();
+            TopImage = topImage;
+            SideImage = sideImage ?? topImage;
             Category = category;
             TopBlockName = topBlockName;
             SideBlockName = sideBlockName;
             SchematicaMaterialName = schematicaMaterialName;
-        }
-
-        public string ToConstructorString()
-        {
-            ResourceSet resources = Textures.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, false, true);
-            DictionaryEntry? topImageResource = null;
-            DictionaryEntry? sideImageResource = null;
-
-            foreach (DictionaryEntry resource in resources)
-            {
-                if (resource.Value is Bitmap)
-                {
-                    if (topImageResource == null)
-                    {
-                        if ((resource.Value as Bitmap).AreEqual(TopImage))
-                        {
-                            topImageResource = resource;
-                        }
-                    }
-
-                    if (sideImageResource == null)
-                    {
-                        if ((resource.Value as Bitmap).AreEqual(SideImage))
-                        {
-                            sideImageResource = resource;
-                        }
-                    }
-                }
-            }
-
-            if (topImageResource == null)
-            {
-                throw new Exception("Top image not found in list");
-            }
-
-            if (sideImageResource == null)
-            {
-                throw new Exception("Side image not found in list");
-            }
-
-            string topBlockName = TopBlockName.Replace("minecraft:" + topImageResource.Value.Key.ToString(), "minecraft:{nameof(Textures." + topImageResource.Value.Key.ToString() + ")}");
-            string sideBlockName = SideBlockName.Replace("minecraft:" + topImageResource.Value.Key.ToString(), "minecraft:{nameof(Textures." + topImageResource.Value.Key.ToString() + ")}");
-
-            return $"new Material("
-                + $"\"{MinimumSupportedMinecraftVersion}\", "
-                + $"{IsAdvanced.ToString().ToLowerInvariant()}, "
-                + $"\"{Category}\", "
-                + $"\"{PixelStackerID}\", "
-                + $"\"{Label}\", "
-                + $"{BlockID}, "
-                + $"{Data}, "
-                + $"Textures.{topImageResource.Value.Key}, "
-                + $"Textures.{sideImageResource.Value.Key}, "
-                + $"$\"{topBlockName}\", "
-                + $"$\"{sideBlockName}\", "
-                + $"\"{SchematicaMaterialName}\""
-                + "),";
         }
 
         private string SettingsKey { get { return string.Format("BLOCK_{0}", PixelStackerID); } }
@@ -242,7 +181,7 @@ namespace PixelStacker.Logic.Model
             return isSide ? SideBlockName : TopBlockName;
         }
 
-        public Bitmap GetImage(bool isSide)
+        public SKBitmap GetImage(bool isSide)
         {
             if (isSide)
             {
@@ -254,7 +193,7 @@ namespace PixelStacker.Logic.Model
             }
         }
 
-        public Color GetAverageColor(bool isSide)
+        public SKColor GetAverageColor(bool isSide)
         {
             if (isSide)
             {
@@ -274,7 +213,7 @@ namespace PixelStacker.Logic.Model
             }
         }
 
-        private Color GetAverageColor(Bitmap src, int rgbFragmentSize = 1)
+        private SKColor GetAverageColor(SKBitmap src, int rgbFragmentSize = 1)
         {
             long r = 0;
             long g = 0;
@@ -282,12 +221,12 @@ namespace PixelStacker.Logic.Model
             long a = 0;
             long total = src.Width * src.Height;
 
-            src.ToViewStreamParallel(null, (x, y, c) =>
+            src.ToViewStream(null, (x, y, c) =>
             {
-                Interlocked.Add(ref r, c.R);
-                Interlocked.Add(ref g, c.G);
-                Interlocked.Add(ref b, c.B);
-                Interlocked.Add(ref a, c.A);
+                Interlocked.Add(ref r, c.Red);
+                Interlocked.Add(ref g, c.Green);
+                Interlocked.Add(ref b, c.Blue);
+                Interlocked.Add(ref a, c.Alpha);
             });
 
             r /= total;
@@ -300,7 +239,7 @@ namespace PixelStacker.Logic.Model
                 a = 255;
             }
 
-            return Color.FromArgb((int)a, (int)r, (int)g, (int)b).Normalize(rgbFragmentSize);
+            return new SKColor((byte)r, (byte)g, (byte)b, (byte)a).Normalize(rgbFragmentSize);
         }
 
         public override string ToString()

@@ -1,6 +1,6 @@
 ﻿using PixelStacker.Logic.Model;
 using System.Collections.Generic;
-using System.Drawing;
+using SkiaSharp;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
@@ -8,8 +8,8 @@ namespace PixelStacker.Logic.Collections.ColorMapper
     {
         bool IsSeeded();
         void SetSeedData(List<MaterialCombination> combos, MaterialPalette mats, bool isSideView);
-        MaterialCombination FindBestMatch(Color c);
-        List<MaterialCombination> FindBestMatches(Color c, int maxMatches);
+        MaterialCombination FindBestMatch(SKColor c);
+        List<MaterialCombination> FindBestMatches(SKColor c, int maxMatches);
 
         /// <summary>
         /// 0-100 how accurate this is when compared to the SeparateColorBruteForce algorithm.

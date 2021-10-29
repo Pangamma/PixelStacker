@@ -7,7 +7,6 @@ using System.Xml;
 using Google.Cloud.Translation.V2;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
-using System.Resources;
 
 namespace PixelStacker.Tools.Generators
 {
@@ -16,7 +15,7 @@ namespace PixelStacker.Tools.Generators
     public class JsonResxMaker
     {
         private string GOOGLE_API_KEY = "";
-        private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.Tools\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+        private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
         private string[] OutputLocales = new string[] {
             "ko-kr", "ja-jp", "fr-fr", "de-de", "es-es", "zh-cn", "da-dk", "nl-nl", "sv-se"
         };
@@ -36,27 +35,9 @@ namespace PixelStacker.Tools.Generators
         [TestMethod]
         public void Text_Translate()
         {
-            this.RipResxIntoJson($@"{RootDir}\PixelStacker.Resources\{nameof(Resources.Text)}.resx");
+            this.RipResxIntoJson($@"{RootDir}\PixelStacker.Resources\Text.resx");
         }
 
-        /// <summary>
-        /// Refreshes the ResxContainer hashes
-        /// </summary>
-        [TestMethod]
-        public void Text_RefreshResxContainer()
-        {
-            //ResourceManager rm;
-            ////string localeDir = $@"{RootDir}\PixelStacker.Resources\Localization";
-            //string localeDir = $@"{RootDir}\PixelStacker.Tools";
-            //using (ResXResourceWriter writer = new ResXResourceWriter(Path.Combine(localeDir, "Test.resx")))
-            //{
-            //    writer.AddResource("FooBar", new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 });
-            //    writer.AddResource("Fizz", "Buzz");
-            //}
-           
-            ////reader.GetResourceData(nameof(ResxContainer.ja), out string rsType, out byte[] rsData);
-            ////using var writer = new System.Resources.ResourceWriter(resxFile);
-        }
 
         private void RipResxIntoJson(string filePath)
         {
@@ -126,7 +107,7 @@ namespace PixelStacker.Tools.Generators
             }
         }
 
-        protected Dictionary<string, string> ReadResxIntoDictionary(string resxFilePath)
+        protected static Dictionary<string, string> ReadResxIntoDictionary(string resxFilePath)
         {
             Dictionary<string, string> kvps = new Dictionary<string, string>();
             XmlDocument doc = new XmlDocument();
@@ -149,21 +130,6 @@ namespace PixelStacker.Tools.Generators
                 }
             }
 
-            //using (ResXResourceReader rr = ResXResourceReader.FromFileContents(resxFilePath))
-            //{
-            //    IDictionaryEnumerator di = rr.GetEnumerator();
-
-            //    foreach (DictionaryEntry de in rr)
-            //    {
-            //        string key = de.Key as string;
-            //        string value = de.Value as string;
-
-            //        if (key.StartsWith("$")) continue;
-            //        if (key.StartsWith(">>")) continue;
-
-            //        kvps[key] = value;
-            //    }
-            //}
             return kvps;
         }
 

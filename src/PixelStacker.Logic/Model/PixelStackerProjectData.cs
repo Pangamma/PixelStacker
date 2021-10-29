@@ -18,7 +18,7 @@ namespace PixelStacker.Logic.Model
         public int Width => CanvasData.Width;
 
         [JsonIgnore]
-        public Bitmap PreprocessedImage { get; set; }
+        public SkiaSharp.SKBitmap PreprocessedImage { get; set; }
 
         [JsonIgnore]
         public MaterialPalette MaterialPalette { get; set; }
@@ -33,7 +33,7 @@ namespace PixelStacker.Logic.Model
             this.CanvasData = canvas.CanvasData;
             this.IsSideView = opts.IsSideView;
             this.PreprocessedImage = canvas.PreprocessedImage;
-            this.WorldEditOrigin = new int[] { canvas.WorldEditOrigin.X, canvas.WorldEditOrigin.Y };
+            this.WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y };
             this.MaterialPalette = canvas.MaterialPalette;
             this.CanvasData = canvas.CanvasData;
         }

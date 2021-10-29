@@ -6,10 +6,11 @@ using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
 using PixelStacker.Logic.Extensions;
+using SkiaSharp;
 
 namespace PixelStacker.Logic.Model
 {
-    public class CanvasData: IEnumerable<CanvasIteratorData>
+    public class CanvasData : IEnumerable<CanvasIteratorData>
     {
         [Obsolete("You cannot actually save this data to a bitmap.")]
         public bool IsSideView { get; set; } = false;
@@ -96,19 +97,19 @@ namespace PixelStacker.Logic.Model
         /// <exception cref="System.OperationCanceledException">If cancelled.</exception>
         /// <param name="worker"></param>
         /// <returns></returns>
-        public Task<Bitmap> ToBitmapAsync(CancellationToken? worker) 
+        public Task<SKBitmap> ToBitmapAsync(CancellationToken? worker)
         {
             int mHeight = this.Height;
             int mWidth = this.Width;
-            Bitmap bm = new Bitmap(mWidth, mHeight, PixelFormat.Format32bppArgb);
+            SKBitmap bm = new SKBitmap(mWidth, mHeight, SKColorType.Rgba8888, SKAlphaType.Premul);
 
-            for(int x = 0; x < this.Width; x++)
+            for (int x = 0; x < this.Width; x++)
             {
                 worker?.SafeThrowIfCancellationRequested();
                 for (int y = 0; y < this.Height; y++)
                 {
                     int argb = this.BlocksMap[x, y];
-                    Color c = Color.FromArgb(argb);
+                    SKColor c = (SKColor)((uint)argb);
                     bm.SetPixel(x, y, c);
                 }
             }
@@ -116,19 +117,19 @@ namespace PixelStacker.Logic.Model
             return Task.FromResult(bm);
         }
 
-        public static Task<CanvasData> FromBitmapAsync(MaterialPalette p, Bitmap bm, CancellationToken? worker)
+        public static Task<CanvasData> FromBitmapAsync(MaterialPalette p, SKBitmap bm, CancellationToken? worker)
         {
             int mHeight = bm.Height;
             int mWidth = bm.Width;
 
             var canvas = new CanvasData(p, new int[mWidth, mHeight]);
 
-            for (int x = 0; x < mWidth; x++)
+            for (int y = 0; y < mHeight; y++)
             {
                 worker?.SafeThrowIfCancellationRequested();
-                for (int y = 0; y < mHeight; y++)
+                for (int x = 0; x < mWidth; x++)
                 {
-                    int argb = bm.GetPixel(x, y).ToArgb();
+                    int argb = (int)((uint) bm.GetPixel(x, y));
                     canvas.BlocksMap[x, y] = argb;
                 }
             }

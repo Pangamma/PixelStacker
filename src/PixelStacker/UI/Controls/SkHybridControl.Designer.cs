@@ -34,9 +34,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
+            this.DoubleBuffered = true;
             this.Name = "SkHybridControl";
             this.Size = new System.Drawing.Size(445, 315);
             this.ResumeLayout(false);
+
         }
 
         #endregion

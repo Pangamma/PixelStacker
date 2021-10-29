@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using PixelStacker.Resources;
+using PixelStacker.Logic.Extensions;
+using SkiaSharp;
 
 namespace PixelStacker.Logic.Model
 {
@@ -427,9 +428,9 @@ namespace PixelStacker.Logic.Model
             }
         }
 
-        private static void AddTagsForColor(Color c, ref List<string> tags)
+        private static void AddTagsForColor(SKColor c, ref List<string> tags)
         {
-            if (c.A < 240 || c.A < 240) { tags.Add("transparent"); } else { tags.Add("opaque"); }
+            if (c.Alpha < 240 || c.Alpha < 240) { tags.Add("transparent"); } else { tags.Add("opaque"); }
             var hue = c.GetHue();
             var sat = c.GetSaturation();
             var bri = c.GetBrightness();

@@ -2,11 +2,11 @@
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Resources;
 using SkiaSharp;
-using SkiaSharp.Views.Desktop;
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
+using System.Drawing;
+using PixelStacker.Logic.Extensions;
 
 namespace PixelStacker.WF.Components
 {
@@ -45,18 +45,18 @@ namespace PixelStacker.WF.Components
             this.PanZoomSettings = CalculateInitialPanZoomSettings(null);
         }
 
-        public void SetImage(Bitmap src, PanZoomSettings pz = null)
+        public void SetImage(SKBitmap src, PanZoomSettings pz = null)
         {
             Image.DisposeSafely();
             Image = null;
-            Image = src.To32bppBitmap();
+            Image = src.Copy();
             bool preserveZoom = pz != null;
             if (!preserveZoom) this.PanZoomSettings = CalculateInitialPanZoomSettings(Image);
             this.BackgroundImage = Resources.UIResources.bg_imagepanel;
             Refresh(); // Trigger repaint
         }
 
-        private PanZoomSettings CalculateInitialPanZoomSettings(Bitmap src)
+        private PanZoomSettings CalculateInitialPanZoomSettings(SKBitmap src)
         {
             var settings = new PanZoomSettings()
             {
@@ -100,7 +100,7 @@ namespace PixelStacker.WF.Components
 
         [Category("ImageViewer")]
         [Browsable(true)]
-        private Bitmap Image { get; set; }
+        private SKBitmap Image { get; set; }
 
         private void skCanvas_PaintSurface(object sender, UI.Controls.GenericSKPaintSurfaceEventArgs e)
         {
@@ -112,52 +112,36 @@ namespace PixelStacker.WF.Components
             {
                 paint.Shader = bgShader;
                 paint.FilterQuality = SKFilterQuality.High;
+                paint.IsDither = true;
                 canvas.DrawRect(e.Rect, paint);
+                canvas.DrawBitmap(bgImg, 0, 0);
             }
-
-            //Graphics g = e.Graphics;
-            //g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            //g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
-            //if (this.DesignMode)
-            //{
-            //    using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
-            //    g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
-            //}
 
             // Render the image they are looking at.
             var pz = this.PanZoomSettings;
             var img = this.Image;
-
             if (img != null && pz != null)
             {
-                Point pStart = GetPointOnImage(new Point(0, 0), EstimateProp.Floor);
-                Point fStart = GetPointOnPanel(pStart);
+                SKPoint pStart = GetPointOnImage(new SKPoint(0, 0), EstimateProp.Floor);
+                SKPoint fStart = GetPointOnPanel(pStart);
                 int divideAmount = 1;
                 int ts = 1;
                 pStart.X *= ts; pStart.X /= divideAmount;
                 pStart.Y *= ts; pStart.Y /= divideAmount;
 
-                Point pEnd = GetPointOnImage(new Point(this.Width, this.Height), EstimateProp.Ceil);
-                Point fEnd = GetPointOnPanel(pEnd);
+                SKPoint pEnd = GetPointOnImage(new SKPoint(this.Width, this.Height), EstimateProp.Ceil);
+                SKPoint fEnd = GetPointOnPanel(pEnd);
                 pEnd.X *= ts; pEnd.X /= divideAmount;
                 pEnd.Y *= ts; pEnd.Y /= divideAmount;
 
-                SKRect rectSRC = new Rectangle(pStart, pStart.CalculateSize(pEnd)).ToSKRect();
-                SKRect rectDST = new Rectangle(fStart, fStart.CalculateSize(fEnd)).ToSKRect();
+                SKRect rectSRC = pStart.ToRectangle(pEnd);
+                SKRect rectDST = fStart.ToRectangle(fEnd);
 
-                lock (img)
+                //lock (img)
                 {
-                    double origW = img.Width;
-                    double origH = img.Height;
-                    int w = (int)(origW * this.PanZoomSettings.zoomLevel);
-                    int h = (int)(origH * this.PanZoomSettings.zoomLevel);
-
-                    canvas.DrawBitmap(bitmap: img.ToSKBitmap(),
+                    canvas.DrawBitmap(bitmap: img,
                         source: rectSRC,
                         dest: rectDST);
-                    //g.DrawImage(img, pz.imageX, pz.imageY, w + 1, h + 1);
                 }
             }
         }
@@ -219,20 +203,30 @@ namespace PixelStacker.WF.Components
             Floor, Ceil, Round
         }
 
-        private Point GetPointOnImage(Point pointOnPanel, EstimateProp prop)
+        private SKPoint GetPointOnImage(SKPoint pointOnPanel, EstimateProp prop)
         {
+            int x, y;
+
             if (prop == EstimateProp.Ceil)
             {
-                return new Point((int)Math.Ceiling((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel), (int)Math.Ceiling((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel));
+                x = (int)Math.Ceiling((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel);
+                y = (int)Math.Ceiling((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel);
             }
-            if (prop == EstimateProp.Floor)
+            else if (prop == EstimateProp.Floor)
             {
-                return new Point((int)Math.Floor((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel), (int)Math.Floor((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel));
+                x = (int)Math.Floor((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel);
+                y = (int)Math.Floor((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel);
+            } 
+            else
+            {
+                x = (int)Math.Round((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel);
+                y = (int)Math.Round((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel);
             }
-            return new Point((int)Math.Round((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel), (int)Math.Round((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel));
+
+            return new SKPoint(x, y);
         }
 
-        public Point GetPointOnPanel(Point pointOnImage)
+        public SKPoint GetPointOnPanel(SKPoint pointOnImage)
         {
             var pz = this.PanZoomSettings;
             if (pz == null)
@@ -244,7 +238,7 @@ namespace PixelStacker.WF.Components
 #endif
             }
 
-            return new Point((int)Math.Round(pointOnImage.X * pz.zoomLevel + pz.imageX), (int)Math.Round(pointOnImage.Y * pz.zoomLevel + pz.imageY));
+            return new SKPoint((int)Math.Round(pointOnImage.X * pz.zoomLevel + pz.imageX), (int)Math.Round(pointOnImage.Y * pz.zoomLevel + pz.imageY));
         }
 
 
@@ -259,8 +253,8 @@ namespace PixelStacker.WF.Components
             base.OnMouseWheel(e);
             if (e.Delta != 0)
             {
-                Point panelPoint = e.Location;
-                Point imagePoint = this.GetPointOnImage(panelPoint, EstimateProp.Round);
+                SKPoint panelPoint = new SKPoint(e.Location.X, e.Location.Y);
+                SKPoint imagePoint = this.GetPointOnImage(panelPoint, EstimateProp.Round);
                 if (e.Delta < 0)
                 {
                     this.PanZoomSettings.zoomLevel *= 0.8;

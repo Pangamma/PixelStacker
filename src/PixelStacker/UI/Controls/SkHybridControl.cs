@@ -1,21 +1,16 @@
 ﻿using SkiaSharp;
 using SkiaSharp.Views.Desktop;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Controls
 {
     public partial class SkHybridControl : UserControl
     {
-        public static bool IsGpuAvailable => true;
-        private SKGLControl glCanvas;
+        public static bool IsGpuAvailable => false;
+        //private SKGLControl glCanvas;
         private SKControl Canvas;
 
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
@@ -24,12 +19,13 @@ namespace PixelStacker.UI.Controls
         public SkHybridControl()
         {
             InitializeComponent();
-            Control control;
+            if (this.DesignMode) return;
+            Control control = null;
             if (IsGpuAvailable)
             {
-                this.glCanvas = new SKGLControl();
-                this.glCanvas.PaintSurface += this.OnPaintSurfaceInner;
-                control = this.glCanvas;
+                //this.glCanvas = new SKGLControl();
+                //this.glCanvas.PaintSurface += this.OnPaintSurfaceInner;
+                //control = this.glCanvas;
             }
             else
             {
@@ -47,24 +43,38 @@ namespace PixelStacker.UI.Controls
             }
         }
 
-        private void OnPaintSurfaceInner(object sender, SKPaintGLSurfaceEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            if (this.PaintSurface != null)
-            this.PaintSurface(this, new GenericSKPaintSurfaceEventArgs()
+            if (this.DesignMode)
             {
-                Surface = e.Surface,
-                Rect = e.BackendRenderTarget.Rect
-            });
+                Graphics g = e.Graphics;
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
+                g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
+                return;
+            }
         }
+
+        //private void OnPaintSurfaceInner(object sender, SKPaintGLSurfaceEventArgs e)
+        //{
+        //    if (this.PaintSurface != null)
+        //    this.PaintSurface(this, new GenericSKPaintSurfaceEventArgs()
+        //    {
+        //        Surface = e.Surface,
+        //        Rect = e.BackendRenderTarget.Rect
+        //    });
+        //}
 
         private void OnPaintSurfaceInner(object sender, SKPaintSurfaceEventArgs e)
         {
             if (this.PaintSurface != null)
-            this.PaintSurface(this, new GenericSKPaintSurfaceEventArgs()
-            {
-                Surface = e.Surface,
-                Rect = e.Info.Rect,
-            });
+                this.PaintSurface(this, new GenericSKPaintSurfaceEventArgs()
+                {
+                    Surface = e.Surface,
+                    Rect = e.Info.Rect,
+                });
         }
 
         private void SkHybridControl_MouseDown(object sender, MouseEventArgs e)
@@ -83,7 +93,7 @@ namespace PixelStacker.UI.Controls
         }
     }
 
-    public class GenericSKPaintSurfaceEventArgs: EventArgs
+    public class GenericSKPaintSurfaceEventArgs : EventArgs
     {
         public SKSurface Surface { get; set; }
         public SKRectI Rect { get; internal set; }

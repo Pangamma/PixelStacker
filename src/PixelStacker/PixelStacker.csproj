@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;FULL_VERSION</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;FULL_VERSION;IMAGE_SHARP;SKIA_SHARP</DefineConstants>
     <OutputPath>bin\Debug\</OutputPath>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
@@ -28,7 +28,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="SkiaSharp.Views.WindowsForms" Version="2.80.3" />
+    <PackageReference Include="OpenTK.WinForms" Version="4.0.0-pre.6" />
+    <PackageReference Include="SkiaSharp" Version="2.80.3" />
   </ItemGroup>
 
   <ItemGroup>

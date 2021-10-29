@@ -82,7 +82,7 @@ namespace PixelStacker.UI
                     worker.ThrowIfCancellationRequested();
                 }
 
-                Bitmap imgPreprocessed = await engine.PreprocessImageAsync(worker, this.LoadedImage, this.Options.Preprocessor);
+                SkiaSharp.SKBitmap imgPreprocessed = await engine.PreprocessImageAsync(worker, this.LoadedImage, this.Options.Preprocessor);
                 worker.ThrowIfCancellationRequested();
 
                 // Super dubious and sketchy logic here. Might crash due to cross-context thread access issues

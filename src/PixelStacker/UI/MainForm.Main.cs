@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
+using SkiaSharp;
 
 namespace PixelStacker.UI
 {
@@ -19,8 +20,8 @@ namespace PixelStacker.UI
         private Options Options;
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
-        public Bitmap LoadedImage { get; private set; } = UIResources.weird_intro.To32bppBitmap();
-        public Bitmap PreprocessedImage { get; private set; }
+        public SKBitmap LoadedImage { get; private set; } = DevResources.test_tiling;
+        public SKBitmap PreprocessedImage { get; private set; } = DevResources.test_tiling; // UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
         private KonamiWatcher konamiWatcher;
 

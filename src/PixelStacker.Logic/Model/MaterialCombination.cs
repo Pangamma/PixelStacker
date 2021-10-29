@@ -4,8 +4,8 @@ using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.JsonConverters;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using SkiaSharp;
 
 namespace PixelStacker.Logic.Model
 {
@@ -35,9 +35,9 @@ namespace PixelStacker.Logic.Model
         public Material Top { get; }
         public Material Bottom { get; }
 
-        private Color? _GetAverageColorSide;
-        private Color? _GetAverageColorTop;
-        public Color GetAverageColor(bool isSide)
+        private SKColor? _GetAverageColorSide;
+        private SKColor? _GetAverageColorTop;
+        public SKColor GetAverageColor(bool isSide)
         {
             if (isSide)
             {
@@ -51,15 +51,15 @@ namespace PixelStacker.Logic.Model
             }
         }
 
-        private List<Tuple<Color, int>> _ColorsInImageSide;
-        private List<Tuple<Color, int>> _ColorsInImageTop;
-        public List<Tuple<Color, int>> GetColorsInImage(bool isSide)
+        private List<Tuple<SKColor, int>> _ColorsInImageSide;
+        private List<Tuple<SKColor, int>> _ColorsInImageTop;
+        public List<Tuple<SKColor, int>> GetColorsInImage(bool isSide)
         {
             if (isSide)
             {
                 _ColorsInImageSide ??= SideImage.GetColorsInImage()
                     .GroupBy(x => x)
-                    .Select(x => new Tuple<Color, int>(x.Key, x.Count()))
+                    .Select(x => new Tuple<SKColor, int>(x.Key, x.Count()))
                     .ToList();
                 return _ColorsInImageSide;
             }
@@ -67,16 +67,16 @@ namespace PixelStacker.Logic.Model
             {
                 _ColorsInImageTop ??= TopImage.GetColorsInImage()
                     .GroupBy(x => x)
-                    .Select(x => new Tuple<Color, int>(x.Key, x.Count()))
+                    .Select(x => new Tuple<SKColor, int>(x.Key, x.Count()))
                     .ToList();
                 return _ColorsInImageTop;
             }
         }
 
-        public Bitmap GetImage(bool isSide) => isSide ? this.SideImage : this.TopImage;
+        public SKBitmap GetImage(bool isSide) => isSide ? this.SideImage : this.TopImage;
         
-        private Bitmap _TopImage;
-        public Bitmap TopImage
+        private SKBitmap _TopImage;
+        public SKBitmap TopImage
         {
             get
             {
@@ -88,7 +88,7 @@ namespace PixelStacker.Logic.Model
                     }
                     else
                     {
-                        _TopImage = Bottom.TopImage.To32bppBitmap();
+                        _TopImage = Bottom.TopImage.Copy();// To32bppBitmap();
                     }
                 }
 
@@ -96,8 +96,8 @@ namespace PixelStacker.Logic.Model
             }
         }
 
-        private Bitmap _SideImage;
-        public Bitmap SideImage
+        private SKBitmap _SideImage;
+        public SKBitmap SideImage
         {
             get
             {
@@ -109,7 +109,7 @@ namespace PixelStacker.Logic.Model
                     } 
                     else
                     {
-                        _SideImage = Bottom.SideImage.To32bppBitmap();
+                        _SideImage = Bottom.SideImage.Copy(); //  To32bppBitmap();
                     }
                 }
 

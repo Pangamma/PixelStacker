@@ -9,6 +9,7 @@ using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources.Localization;
 using PixelStacker.UI.Controls;
 using PixelStacker.WF.Components;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -613,7 +614,7 @@ namespace PixelStacker.UI
                         return;
                     }
 
-                    Color cNeedle = Color.FromArgb(255, R, G, B);
+                    SKColor cNeedle = new SKColor((byte)R, (byte)G, (byte)B, (byte) 255);
                     var found = Materials.List
                         .Where(x => x.IsVisibleF(this.Options))
                         .OrderBy(m => m.GetAverageColor(isv).GetColorDistance(cNeedle))

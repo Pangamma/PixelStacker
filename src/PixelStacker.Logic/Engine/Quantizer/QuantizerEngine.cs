@@ -114,54 +114,56 @@ namespace PixelStacker.Logic.Engine.Quantizer
             return opts;
         }
 
+        [Obsolete("Fix this so we use skia images")]
         /// <summary>
         ///  SOURCE IMAGE SHOULD BE 32bbpARGB
         /// </summary>
         /// <param name="sourceImage"></param>
         /// <exception cref="OperationCanceledException"></exception>
         /// <returns></returns>
-        public static Bitmap RenderImage(CancellationToken? _worker, Bitmap sourceImage, QuantizerSettings settings, QuantizerAlgorithmOptions opts = null)
+        public static SkiaSharp.SKBitmap RenderImage(CancellationToken? _worker, SkiaSharp.SKBitmap sourceImage, QuantizerSettings settings, QuantizerAlgorithmOptions opts = null)
         {
+            throw new NotImplementedException();
             /// prepares quantizer
-            opts ??= GetQuantizerAlgorithmOptions(settings.Algorithm);
-            if (!settings.IsValid(opts, !Constants.IsDevMode))
-                throw new Exception("Invalid settings. Verify all settings are correct before moving forward!");
+            //opts ??= GetQuantizerAlgorithmOptions(settings.Algorithm);
+            //if (!settings.IsValid(opts, !Constants.IsDevMode))
+            //    throw new Exception("Invalid settings. Verify all settings are correct before moving forward!");
 
-            // tries to retrieve an image based on HSB quantization
-            var activeQuantizer = GetQuantizerByAlgorithmName(settings.Algorithm);
-            if (activeQuantizer is BaseColorCacheQuantizer)
-            {
-                var colorCacheProvider = opts.ColorCacheList[settings.ColorCache];
-                ((BaseColorCacheQuantizer)activeQuantizer).ChangeCacheProvider(colorCacheProvider);
-            }
+            //// tries to retrieve an image based on HSB quantization
+            //var activeQuantizer = GetQuantizerByAlgorithmName(settings.Algorithm);
+            //if (activeQuantizer is BaseColorCacheQuantizer)
+            //{
+            //    var colorCacheProvider = opts.ColorCacheList[settings.ColorCache];
+            //    ((BaseColorCacheQuantizer)activeQuantizer).ChangeCacheProvider(colorCacheProvider);
+            //}
 
-            var activeDitherer = opts.DithererList[settings.DitherAlgorithm];
-            int parallelTaskCount = activeQuantizer.AllowParallel ? settings.MaxParallelProcesses : 1;
-            int colorCount = settings.MaxColorCount;
+            //var activeDitherer = opts.DithererList[settings.DitherAlgorithm];
+            //int parallelTaskCount = activeQuantizer.AllowParallel ? settings.MaxParallelProcesses : 1;
+            //int colorCount = settings.MaxColorCount;
 
-            try
-            {
-                // For some reason the super quick algo failed. Need to fail over to this super safe one.
-                using (Image targetImage = ImageBuffer.QuantizeImage(sourceImage, activeQuantizer, activeDitherer, colorCount, parallelTaskCount))
-                {
-                    using (Bitmap formattedBM = targetImage.To32bppBitmap())
-                    {
-                        var returnVal = sourceImage.ToMergeStream(formattedBM, _worker, (x, y, o, n) =>
-                        {
-                            if (o.A < 32) return Color.Transparent;
-                            else return n;
-                        });
+            //try
+            //{
+            //    // For some reason the super quick algo failed. Need to fail over to this super safe one.
+            //    using (Image targetImage = ImageBuffer.QuantizeImage(sourceImage, activeQuantizer, activeDitherer, colorCount, parallelTaskCount))
+            //    {
+            //        //using 
+            //        Bitmap formattedBM = targetImage.To32bppBitmap();
+            //        //var returnVal = sourceImage.ToMergeStream(formattedBM, _worker, (x, y, o, n) =>
+            //        //{
+            //        //    if (o.A < 32) return Color.Transparent;
+            //        //    else return n;
+            //        //});
 
-                        return returnVal;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // Throw THIS type if cancellation caused the issue
-                _worker.SafeThrowIfCancellationRequested();
-                throw; // Throw whatever type was already there if it is something else.
-            }
+            //        //return returnVal;
+            //        return formattedBM;
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    // Throw THIS type if cancellation caused the issue
+            //    _worker.SafeThrowIfCancellationRequested();
+            //    throw; // Throw whatever type was already there if it is something else.
+            //}
 
         }
     }

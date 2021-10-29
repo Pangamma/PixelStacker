@@ -5,12 +5,13 @@ using PixelStacker.Logic.Model;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using SkiaSharp;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
     public class SeparateColorBruteForceMapper : IColorMapper
     {
-        private Dictionary<Color, MaterialCombination> Cache { get; set; } = new Dictionary<Color, MaterialCombination>();
+        private Dictionary<SKColor, MaterialCombination> Cache { get; set; } = new Dictionary<SKColor, MaterialCombination>();
         public List<MaterialCombination> Combos { get; private set; }
         public bool IsSideView { get; private set; }
 
@@ -23,20 +24,20 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         public void SetSeedData(List<MaterialCombination> combos, MaterialPalette mats, bool isSideView)
         {
             this.Cache = null;
-            this.Cache = new Dictionary<Color, MaterialCombination>();
+            this.Cache = new Dictionary<SKColor, MaterialCombination>();
             this.Combos = combos;
             this.IsSideView = isSideView;
             this.Palette = mats;
         }
 
-        public MaterialCombination FindBestMatch(Color c)
+        public MaterialCombination FindBestMatch(SKColor c)
         {
             if (Cache.TryGetValue(c, out MaterialCombination mc))
             {
                 return mc;
             }
 
-            if (c.A < 32) return Palette[Constants.MaterialCombinationIDForAir];
+            if (c.Alpha < 32) return Palette[Constants.MaterialCombinationIDForAir];
             var found = Combos.MinBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView)));
             Cache[c] = found;
             return found;
@@ -48,9 +49,9 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         /// <param name="c"></param>
         /// <param name="maxMatches"></param>
         /// <returns></returns>
-        public List<MaterialCombination> FindBestMatches(Color c, int maxMatches)
+        public List<MaterialCombination> FindBestMatches(SKColor c, int maxMatches)
         {
-            if (c.A < 32) return new List<MaterialCombination>() { Palette[Constants.MaterialCombinationIDForAir] };
+            if (c.Alpha < 32) return new List<MaterialCombination>() { Palette[Constants.MaterialCombinationIDForAir] };
             var found = Combos.OrderBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView)))
                 .Take(maxMatches).ToList();
 

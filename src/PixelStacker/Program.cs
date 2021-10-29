@@ -16,15 +16,7 @@ namespace PixelStacker
         [STAThread]
         static void Main()
         {
-            ResourceHelper.Get();
-            //Options opts = new LocalDataOptionsProvider().Load();
-            //var model = new CustomGridView();
-            //model.Add<Options, bool>(opts => opts.IsSideView);
-            //model.Add<Options, bool>(opts => opts.Preprocessor.IsSideView);
-
-
-
-            ResxHelper.InjectIntoTextResx();
+            //ResxHelper.InjectIntoTextResx();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();

@@ -1,6 +1,8 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
+using PixelStacker.Resources;
+using SkiaSharp;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -10,40 +12,41 @@ namespace PixelStacker.UI
 {
     public partial class CanvasEditor
     {
-        private ThreadSafe<bool> IsPainting = new ThreadSafe<bool>(false);
+        private bool IsPainting = false;
 
         [System.Diagnostics.DebuggerStepThrough]
         private void timerPaint_Tick(object sender, EventArgs e)
         {
             if (this.RepaintRequested)
             {
-                if (!IsPainting.Value)
+                if (!IsPainting)
                 {
-                    IsPainting.Value = true;
+                    IsPainting = true;
                     // Force repaint
-                    Refresh();
+                    //Refresh();
+                    skiaControl.Refresh();
                     this.RepaintRequested = false;
                 }
             }
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        private void skiaControl_PaintSurface(object sender, Controls.GenericSKPaintSurfaceEventArgs e)
         {
-
-            Graphics g = e.Graphics;
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
-            if (this.DesignMode)
+            IsPainting = true;
+            SKSurface surface = e.Surface;
+            var g = surface.Canvas;
+            var bgImg = UIResources.bg_imagepanel.BitmapToSKBitmap();
+            SKShader bgShader = SKShader.CreateBitmap(bgImg, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
+            using (SKPaint paint = new SKPaint())
             {
-                using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
-                g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
-                return;
+                paint.Shader = bgShader;
+                paint.FilterQuality = SKFilterQuality.High;
+                paint.IsDither = true;
+                g.DrawRect(e.Rect, paint);
+                g.DrawBitmap(bgImg, 0, 0);
             }
 
-            base.OnPaint(e);
-
+            // Render the image they are looking at.
             var painter = this.Painter;
             if (painter == null) return;
 
@@ -53,20 +56,7 @@ namespace PixelStacker.UI
             var canvas = this.Canvas;
             if (canvas == null) return;
 
-            if (pz.zoomLevel < 1.0D)
-            {
-                g.InterpolationMode = InterpolationMode.Low;
-                g.CompositingQuality = CompositingQuality.HighSpeed;
-                g.SmoothingMode = SmoothingMode.HighSpeed;
-            }
-            else
-            {
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                g.CompositingQuality = CompositingQuality.HighSpeed;
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-            }
-
-            painter.RenderToView(g, this.Size, pz);
+            painter.RenderToView(g, new SKSize(this.Width, this.Height), pz);
 
             var options = this.Options;
             if (options == null || options.ViewerSettings == null) return;
@@ -76,41 +66,90 @@ namespace PixelStacker.UI
 
             DrawWorldEditOrigin(g, pz, canvas.WorldEditOrigin);
             if (vs.IsShowGrid) DrawGridLines(g, canvas, vs, pz);
-            
-            IsPainting.Value = false;
+
+            IsPainting = false;
         }
 
-        private void DrawBorder(Graphics g, PanZoomSettings pz)
+        [Obsolete("FIX IT")]
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (this.DesignMode)
+            {
+                Graphics g = e.Graphics;
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
+                g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
+                base.OnPaint(e);
+                return;
+            }
+
+            //base.OnPaint(e);
+
+            //var painter = this.Painter;
+            //if (painter == null) return;
+
+            //var pz = this.PanZoomSettings;
+            //if (pz == null) return;
+
+            //var canvas = this.Canvas;
+            //if (canvas == null) return;
+
+            //if (pz.zoomLevel < 1.0D)
+            //{
+            //    g.InterpolationMode = InterpolationMode.Low;
+            //    g.CompositingQuality = CompositingQuality.HighSpeed;
+            //    g.SmoothingMode = SmoothingMode.HighSpeed;
+            //}
+            //else
+            //{
+            //    g.InterpolationMode = InterpolationMode.NearestNeighbor;
+            //    g.CompositingQuality = CompositingQuality.HighSpeed;
+            //    g.SmoothingMode = SmoothingMode.AntiAlias;
+            //}
+
+            //painter.RenderToView(g, this.Size, pz);
+        }
+
+        private void DrawBorder(SKCanvas g, PanZoomSettings pz)
         {
             Point pp2 = GetPointOnPanel(new Point(0, 0));
-            using (Pen penWE = new Pen(Color.FromArgb(127, 0, 0, 0), (int)pz.zoomLevel))
+            float strokeWidth = (float)Math.Max(1, pz.zoomLevel);
+            float strokeOffset = strokeWidth / 2;
+            using SKPaint penWE = new SKPaint()
             {
-                penWE.Alignment = PenAlignment.Inset;
-                g.DrawRectangle(penWE, pp2.X, pp2.Y, (int)(this.Canvas.Width * pz.zoomLevel), (int)(this.Canvas.Height * pz.zoomLevel));
-            }
+                Color = new SKColor(0, 0, 0, 127),
+                Style = SKPaintStyle.Stroke,
+                StrokeWidth = strokeWidth, // Apparently this will be equal to the size of a block.
+            };
+            //penWE.Alignment = PenAlignment.Inset;
+            g.DrawRect(
+                pp2.X+strokeOffset, pp2.Y + strokeOffset,
+                (int)(this.Canvas.Width * pz.zoomLevel) - strokeWidth, (int)(this.Canvas.Height * pz.zoomLevel) - strokeWidth, penWE);
         }
 
-        private void DrawWorldEditOrigin(Graphics g, PanZoomSettings pz, Point weOrigin)
+        private void DrawWorldEditOrigin(SKCanvas g, PanZoomSettings pz, SkiaSharp.SKPoint weOrigin)
         {
-            var zoom = pz.zoomLevel;
-            using (Brush brush = new SolidBrush(Color.Red))
-            {
-                Point wePoint = GetPointOnPanel(weOrigin);
-                g.FillRectangle(brush, wePoint.X, wePoint.Y, (int)zoom + 1, (int)zoom + 1);
-            }
+            //var zoom = pz.zoomLevel;
+            //using (Brush brush = new SolidBrush(Color.Red))
+            //{
+            //    Point wePoint = GetPointOnPanel(new Point((int)weOrigin.X, (int)weOrigin.Y));
+            //    g.FillRect(brush, wePoint.X, wePoint.Y, (int)zoom + 1, (int)zoom + 1);
+            //}
         }
 
-        protected void DrawGridLines(Graphics g, RenderedCanvas canvas, CanvasViewerSettings vs, PanZoomSettings pz)
+        protected void DrawGridLines(SKCanvas g, RenderedCanvas canvas, CanvasViewerSettings vs, PanZoomSettings pz)
         {
-            if (pz.zoomLevel >= 0.5D)
-            {
-                DrawGridMask(g, pz, vs.GridSize, vs.GridColor);
-                drawGrid(g, canvas, pz, vs.GridSize, vs.GridColor);
-                if (pz.zoomLevel > 5) drawGrid(g, canvas, pz, 1, Color.FromArgb(40, vs.GridColor));
-            }
+            //if (pz.zoomLevel >= 0.5D)
+            //{
+            //    DrawGridMask(g, pz, vs.GridSize, vs.GridColor);
+            //    drawGrid(g, canvas, pz, vs.GridSize, vs.GridColor);
+            //    if (pz.zoomLevel > 5) drawGrid(g, canvas, pz, 1, Color.FromArgb(40, vs.GridColor));
+            //}
         }
 
-        private void DrawGridMask(Graphics g, PanZoomSettings pz, int gridSize, Color c)
+        private void DrawGridMask(SKCanvas g, PanZoomSettings pz, int gridSize, Color c)
         {
             //if (this.gridMaskClip == null) return;
             //Point tL = new Point(this.gridMaskClip.Value.Left, this.gridMaskClip.Value.Top);

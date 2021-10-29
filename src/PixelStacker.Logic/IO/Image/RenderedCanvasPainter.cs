@@ -3,10 +3,10 @@ using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,25 +25,27 @@ namespace PixelStacker.Logic.IO.Image
         /// 1 = 1/2 size
         /// 2 = 1/4 size
         /// 3 = 1/8 size
-        public List<Bitmap[,]> Bitmaps { get; }
+        private List<SKBitmap[,]> Bitmaps { get; }
 
         public RenderedCanvasPainter(RenderedCanvas data)
         {
             Data = data;
-            Bitmaps = new List<Bitmap[,]>();
+            Bitmaps = new List<SKBitmap[,]>();
         }
 
-        private static Size[,] CalculateChunkSizesForLayer(Size srcImageSize, int scaleDivide)
+        private static SKSize[,] CalculateChunkSizesForLayer(SKSize srcImageSize, int scaleDivide)
         {
+            int srcW = (int)srcImageSize.Width;
+            int srcH = (int)srcImageSize.Height;
             int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
             int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide; // 16 * (RenderedCanvasPainter.BlocksPerChunk * N) / N = 6RenderedCanvasPainter.BlocksPerChunk
-            int numChunksWide = srcImageSize.Width / srcPixelsPerChunk + (srcImageSize.Width % srcPixelsPerChunk == 0 ? 0 : 1);
-            int numChunksHigh = srcImageSize.Height / srcPixelsPerChunk + (srcImageSize.Height % srcPixelsPerChunk == 0 ? 0 : 1);
-            var sizeSet = new Size[numChunksWide, numChunksHigh];
+            int numChunksWide = (int)srcW / srcPixelsPerChunk + (srcW % srcPixelsPerChunk == 0 ? 0 : 1);
+            int numChunksHigh = (int)srcH / srcPixelsPerChunk + (srcH % srcPixelsPerChunk == 0 ? 0 : 1);
+            var sizeSet = new SKSize[numChunksWide, numChunksHigh];
 
             // MAX PERFECT WIDTH - ACTUAL WIDTH = difference
-            int deltaX = numChunksWide * dstPixelsPerChunk - Constants.TextureSize * srcImageSize.Width / scaleDivide;
-            int deltaY = numChunksHigh * dstPixelsPerChunk - Constants.TextureSize * srcImageSize.Height / scaleDivide;
+            int deltaX = numChunksWide * dstPixelsPerChunk - Constants.TextureSize * srcW / scaleDivide;
+            int deltaY = numChunksHigh * dstPixelsPerChunk - Constants.TextureSize * srcH / scaleDivide;
             for (int x = 0; x < numChunksWide; x++)
             {
                 int dstWidthOfChunk = x < numChunksWide - 1
@@ -55,21 +57,21 @@ namespace PixelStacker.Logic.IO.Image
                         ? dstPixelsPerChunk // Very simple. We know if it isn't on the tail we can assume a standard full width.
                         : dstPixelsPerChunk - deltaY;
 
-                    sizeSet[x, y] = new Size(width: dstWidthOfChunk, height: dstHeightOfChunk);
+                    sizeSet[x, y] = new SKSize(width: dstWidthOfChunk, height: dstHeightOfChunk);
                 }
             }
             return sizeSet;
         }
 
-        private static List<Size[,]> CalculateChunkSizes(RenderedCanvas data)
+        private static List<SKSize[,]> CalculateChunkSizes(RenderedCanvas data)
         {
             int maxLayers = 5;
             int scaleDivide = 1;
-            List<Size[,]> sizesList = new List<Size[,]>();
-            Size[,] curSizeSet;
+            List<SKSize[,]> sizesList = new List<SKSize[,]>();
+            SKSize[,] curSizeSet;
             do
             {
-                curSizeSet = CalculateChunkSizesForLayer(new Size(data.Width, data.Height), scaleDivide);
+                curSizeSet = CalculateChunkSizesForLayer(new SKSize(data.Width, data.Height), scaleDivide);
                 sizesList.Add(curSizeSet);
                 scaleDivide *= 2;
                 maxLayers--;
@@ -84,32 +86,38 @@ namespace PixelStacker.Logic.IO.Image
             return sizesList;
         }
 
-        private static Bitmap RenderLayer0Image(RenderedCanvas data, Rectangle srcTile, Rectangle dstTile)
+        private static SKBitmap RenderLayer0Image(RenderedCanvas data, SKRect srcTile, SKRect dstTile)
         {
-            var bm = new Bitmap(dstTile.Width, dstTile.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            var bmc = new AsyncBitmapWrapper(bm);
-            int scaleDivide = dstTile.Width / srcTile.Width;
+            var bm = new SKBitmap((int)dstTile.Width, (int)dstTile.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
+            int scaleDivide = (int)(dstTile.Width / srcTile.Width);
 
-            bool isv = data.CanvasData.IsSideView;
-            int srcWidth = srcTile.Width;
-            int srcHeight = srcTile.Height;
-            Parallel.For(0, srcHeight, (y) =>
+            int srcWidth = (int)srcTile.Width;
+            int srcHeight = (int)srcTile.Height;
+            var canvas = new SKCanvas(bm);
+            var paint = new SKPaint()
             {
-                using Graphics g = Graphics.FromImage(bmc.ToBitmap());
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                g.SmoothingMode = SmoothingMode.None;
-                g.PixelOffsetMode = PixelOffsetMode.Half;
+                BlendMode = SKBlendMode.SrcOver,
+                FilterQuality = SKFilterQuality.High,
+                IsAntialias = false,
+                //Style = SKPaintStyle.Fill
+            };
+
+            for (int y = 0; y < srcHeight; y++)
+            //Parallel.For(0, srcHeight, (y) =>
+            {
+                //g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                //g.SmoothingMode = SmoothingMode.None;
+                //g.PixelOffsetMode = PixelOffsetMode.Half;
 
                 for (int x = 0; x < srcWidth; x++)
                 {
-                    var mc = data.CanvasData[srcTile.X + x, srcTile.Y + y];
-                    var toPaint = mc.GetImage(isv);
-                    lock (toPaint)
-                    {
-                        g.DrawImage(toPaint, x * Constants.TextureSize, y * Constants.TextureSize);
-                    }
+                    var loc = srcTile.Location;
+                    var mc = data.CanvasData[(int)loc.X + x, (int)loc.Y + y];
+                    var toPaint = mc.GetImage(data.IsSideView);
+                    canvas.DrawBitmap(toPaint, new SKPoint(x * Constants.TextureSize, y * Constants.TextureSize), paint);
                 }
-            });
+            }
+            //});
 
             return bm;
         }
@@ -127,14 +135,14 @@ namespace PixelStacker.Logic.IO.Image
             foreach (var size in sizes)
             {
                 totalChunksToRender += size.Length;
-                canvas.Bitmaps.Add(new Bitmap[size.GetLength(0), size.GetLength(1)]);
+                canvas.Bitmaps.Add(new SKBitmap[size.GetLength(0), size.GetLength(1)]);
             }
 
 
 
             #region LAYER 0
             {
-                Size[,] sizeSet = sizes[0];
+                SKSize[,] sizeSet = sizes[0];
                 int scaleDivide = 1;
                 int numChunksWide = sizeSet.GetLength(0);
                 int numChunksHigh = sizeSet.GetLength(1);
@@ -146,30 +154,36 @@ namespace PixelStacker.Logic.IO.Image
                 {
                     for (int cH = 0; cH < numChunksHigh; cH++)
                     {
-                        Size tileSize = sizeSet[cW, cH];
-                        Rectangle dstRect = new Rectangle(
-                            x: cW * dstPixelsPerChunk,
-                            y: cH * dstPixelsPerChunk,
-                            width: tileSize.Width,
-                            height: tileSize.Height);
-                        Rectangle srcRect = new Rectangle(
-                            x: cW * srcPixelsPerChunk,
-                            y: cH * srcPixelsPerChunk,
-                            width: tileSize.Width * scaleDivide / Constants.TextureSize,
-                            height: tileSize.Height * scaleDivide / Constants.TextureSize);
-
-                        int cWf = cW; int cHf = cH;
-                        L0Tasks[iTask++] = Task.Run(() =>
+                        SKSize tileSize = sizeSet[cW, cH];
+                        SKRect srcRect = new SKRect()
                         {
-                            var bmToAdd = RenderLayer0Image(data, srcRect, dstRect);
-                            canvas.Bitmaps[0][cWf, cHf] = bmToAdd;
-                            int nVal = Interlocked.Increment(ref chunksFinishedSoFar);
-                            ProgressX.Report(100 * nVal / totalChunksToRender);
-                        }, worker.Value);
+                            Location = new SKPoint(cW * srcPixelsPerChunk, cH * srcPixelsPerChunk),
+                            Size = new SKSize((float)Math.Floor(tileSize.Width * scaleDivide / Constants.TextureSize)
+                            , (float)Math.Floor(tileSize.Height * scaleDivide / Constants.TextureSize))
+                        };
+                        SKRect dstRect = new SKRect()
+                        {
+                            Location = new SKPoint(cW * dstPixelsPerChunk, cH * dstPixelsPerChunk),
+                            Size = new SKSize(tileSize.Width, tileSize.Height)
+                        };
+
+                        int cWf = cW;
+                        int cHf = cH;
+                        //L0Tasks[iTask++] = Task.Run(() =>
+                        //{
+                        var bmToAdd = RenderLayer0Image(data, srcRect, dstRect);
+                        using var fStream = new FileStream($"render-{cWf}-{cHf}.png", FileMode.Create);
+                        bmToAdd.Encode(SKEncodedImageFormat.Png, 100).SaveTo(fStream);
+
+
+                        canvas.Bitmaps[0][cWf, cHf] = bmToAdd;
+                        int nVal = Interlocked.Increment(ref chunksFinishedSoFar);
+                        ProgressX.Report(100 * nVal / totalChunksToRender);
+                        //}, worker.Value);
                     }
                 }
 
-                await Task.WhenAll(L0Tasks);
+                //await Task.WhenAll(L0Tasks);
             }
             #endregion LAYER 0
 
@@ -177,7 +191,7 @@ namespace PixelStacker.Logic.IO.Image
             {
                 for (int l = 1; l < sizes.Count; l++)
                 {
-                    Size[,] sizeSet = sizes[l];
+                    SKSize[,] sizeSet = sizes[l];
                     int scaleDivide = (int)Math.Pow(2, l);
                     int numChunksWide = sizeSet.GetLength(0);
                     int numChunksHigh = sizeSet.GetLength(1);
@@ -188,14 +202,19 @@ namespace PixelStacker.Logic.IO.Image
                     {
                         for (int y = 0; y < sizeSet.GetLength(1); y++)
                         {
-                            Size dstSize = sizeSet[x, y];
-                            Rectangle dstRect = new Rectangle(x, y, dstSize.Width, dstSize.Height);
-                            var bm = new Bitmap(dstSize.Width, dstSize.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                            using Graphics g = Graphics.FromImage(bm);
-                            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                            g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                            g.SmoothingMode = SmoothingMode.None;
-                            g.CompositingMode = CompositingMode.SourceOver;
+                            SKSize dstSize = sizeSet[x, y];
+                            //SKRect dstRect = new SKRect()
+                            //{
+                            //    Location = new SKPoint(x, y),
+                            //    Size = new SKSize(dstSize.Width, dstSize.Height)
+                            //};
+
+                            var bm = new SKBitmap((int)dstSize.Width, (int)dstSize.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
+                            using SKCanvas g = new SKCanvas(bm);
+                            //g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                            //g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                            //g.SmoothingMode = SmoothingMode.None;
+                            //g.CompositingMode = CompositingMode.SourceOver;
 
                             // tiles within the chunk. We iterate over the main src image to get our content for our chunk data.
                             for (int xWithinDownsizedChunk = 0; xWithinDownsizedChunk < scaleDivide; xWithinDownsizedChunk++)
@@ -210,12 +229,16 @@ namespace PixelStacker.Logic.IO.Image
                                     var bmToPaint = canvas.Bitmaps[0][xIndexOIfL0Chunk, yIndexOfL0Chunk];
                                     lock (bmToPaint)
                                     {
-                                        g.DrawImage(
+                                        var rect = new SKRect()
+                                        {
+                                            Location = new SKPoint((float)(xWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide),
+                                                (float)(yWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide)),
+                                            Size = new SKSize(dstPixelsPerChunk / scaleDivide, dstPixelsPerChunk / scaleDivide)
+                                        };
+
+                                        g.DrawBitmap(
                                             bmToPaint,
-                                            xWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide,
-                                            yWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide,
-                                            dstPixelsPerChunk / scaleDivide,
-                                            dstPixelsPerChunk / scaleDivide);
+                                            rect);
                                     }
                                 }
                             }
@@ -231,27 +254,27 @@ namespace PixelStacker.Logic.IO.Image
             return canvas;
         }
 
-        public void RenderToView(Graphics g, Size parentControlSize, PanZoomSettings pz)
+        public void RenderToView(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz)
         {
             #region SET GRAPHICS SETTINGS
-            if (pz.zoomLevel < 1.0D)
-            {
-                g.InterpolationMode = InterpolationMode.Low;
-                g.CompositingQuality = CompositingQuality.HighSpeed;
-                g.SmoothingMode = SmoothingMode.HighSpeed;
-                g.PixelOffsetMode = PixelOffsetMode.Half;
-            }
-            else
-            {
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                g.CompositingQuality = CompositingQuality.HighSpeed;
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.PixelOffsetMode = PixelOffsetMode.Half;
-            }
+            //if (pz.zoomLevel < 1.0D)
+            //{
+            //    g.InterpolationMode = InterpolationMode.Low;
+            //    g.CompositingQuality = CompositingQuality.HighSpeed;
+            //    g.SmoothingMode = SmoothingMode.HighSpeed;
+            //    g.PixelOffsetMode = PixelOffsetMode.Half;
+            //}
+            //else
+            //{
+            //    g.InterpolationMode = InterpolationMode.NearestNeighbor;
+            //    g.CompositingQuality = CompositingQuality.HighSpeed;
+            //    g.SmoothingMode = SmoothingMode.AntiAlias;
+            //    g.PixelOffsetMode = PixelOffsetMode.Half;
+            //}
             #endregion SET GRAPHICS SETTINGS
 
             #region GET BITMAP SET
-            List<Bitmap[,]> bitmaps = Bitmaps;
+            List<SKBitmap[,]> bitmaps = Bitmaps;
             if (bitmaps == null || bitmaps.Count == 0)
             {
 #if !RELEASE
@@ -261,7 +284,7 @@ namespace PixelStacker.Logic.IO.Image
 #endif
             }
 
-            Bitmap[,] toUse = bitmaps[0];
+            SKBitmap[,] toUse = bitmaps[0];
             int divideAmount = 1;
             int i = 1;
             while (pz.zoomLevel <= 10.0D / divideAmount / Constants.SMALL_IMAGE_DIVIDE_SIZE && i < bitmaps.Count)
@@ -291,13 +314,13 @@ namespace PixelStacker.Logic.IO.Image
 
             // The count of ORIGINAL SOURCE pixels in a FULL chunk.
             int srcPixelsPerChunk = BlocksPerChunk * divideAmount;
-            Point srcLocationOfPanelTL = GetPointOnImage(new Point(0, 0), pz, EstimateProp.Floor);
+            SKPoint srcLocationOfPanelTL = GetPointOnImage(new SKPoint(0, 0), pz, EstimateProp.Floor);
             // The offset in FULL pixels
-            int xOffset = srcLocationOfPanelTL.X * CalculatedTextureSize / divideAmount;
-            int yOffset = srcLocationOfPanelTL.Y * CalculatedTextureSize / divideAmount;
+            int xOffset = (int)srcLocationOfPanelTL.X * CalculatedTextureSize / divideAmount;
+            int yOffset = (int)srcLocationOfPanelTL.Y * CalculatedTextureSize / divideAmount;
 
 
-            Point srcLocationOfPanelBR = GetPointOnImage(new Point(parentControlSize.Width, parentControlSize.Height), pz, EstimateProp.Floor);
+            SKPoint srcLocationOfPanelBR = GetPointOnImage(new SKPoint(parentControlSize.Width, parentControlSize.Height), pz, EstimateProp.Floor);
 
             // Figure out min and max chunk indexes for faster iteration.
             int minXIndex = 0; //Math.Max(0, rectSRC.X / srcPixelsPerChunk);
@@ -309,14 +332,21 @@ namespace PixelStacker.Logic.IO.Image
                 for (int yChunk = minYIndex; yChunk <= maxYIndex; yChunk++)
                 {
                     var bmToPaint = toUse[xChunk, yChunk];
-
                     lock (bmToPaint)
                     {
-                        Point pnlStart = GetPointOnPanel(new Point(xChunk * srcPixelsPerChunk, y: yChunk * srcPixelsPerChunk), pz);
-                        Point pnlEnd = GetPointOnPanel(new Point(
-                            x: xChunk * srcPixelsPerChunk + bmToPaint.Width * divideAmount / Constants.TextureSize
-                            , y: yChunk * srcPixelsPerChunk + bmToPaint.Height * divideAmount / Constants.TextureSize
-                            ), pz);
+                        SKPoint pnlStart = GetPointOnPanel(new SKPoint(x: xChunk * srcPixelsPerChunk, y: yChunk * srcPixelsPerChunk), pz);
+                        SKPoint pnlEnd = GetPointOnPanel(new SKPoint(
+                            x: (xChunk * srcPixelsPerChunk) + (bmToPaint.Width * divideAmount / Constants.TextureSize),
+                            y: (yChunk * srcPixelsPerChunk) + (bmToPaint.Height * divideAmount / Constants.TextureSize)),
+                            pz);
+                        SKRect rectDST = pnlStart.ToRectangle(pnlEnd);
+
+                        // TODO: Make it so it leaves out the parts that are cut off outside of the panel area.
+                        SKRect rectSRC = PointExtensions.ToRectangle(0, 0, bmToPaint.Width, bmToPaint.Height); // left, top, right, bottom
+
+                        g.DrawBitmap(bitmap: bmToPaint,
+                        source: rectSRC,
+                        dest: rectDST);
 
                         //// SRC will be... 
                         //Point pStart = getPointOnImage(new Point(0, 0), pz, EstimateProp.Floor);
@@ -332,15 +362,6 @@ namespace PixelStacker.Logic.IO.Image
                         // SRC = Rectangular section of the raw original input image.
                         // DST = Rectangular section that may as well just be the dimensions of the panel to draw on. (Probably.)
                         //Rectangle rectSRC = new Rectangle(pStart, pStart.CalculateSize(pEnd));
-                        Rectangle rectDST = new Rectangle(pnlStart, pnlStart.CalculateSize(pnlEnd));
-
-                        // TODO: Make it so it leaves out the parts that are cut off outside of the panel area.
-                        Rectangle rectSRC = new Rectangle(0, 0, bmToPaint.Width, bmToPaint.Height);
-
-                        g.DrawImage(image: bmToPaint,
-                        srcRect: rectSRC,
-                        destRect: rectDST,
-                        srcUnit: GraphicsUnit.Pixel);
                     }
                 }
             }
@@ -353,17 +374,17 @@ namespace PixelStacker.Logic.IO.Image
         /// <param name="pz"></param>
         /// <param name="prop"></param>
         /// <returns></returns>
-        private static Point GetPointOnImage(Point pointOnPanel, PanZoomSettings pz, EstimateProp prop)
+        private static SKPoint GetPointOnImage(SKPoint pointOnPanel, PanZoomSettings pz, EstimateProp prop)
         {
             if (prop == EstimateProp.Ceil)
             {
-                return new Point((int)Math.Ceiling((pointOnPanel.X - pz.imageX) / pz.zoomLevel), (int)Math.Ceiling((pointOnPanel.Y - pz.imageY) / pz.zoomLevel));
+                return new SKPoint((int)Math.Ceiling((pointOnPanel.X - pz.imageX) / pz.zoomLevel), (int)Math.Ceiling((pointOnPanel.Y - pz.imageY) / pz.zoomLevel));
             }
             if (prop == EstimateProp.Floor)
             {
-                return new Point((int)Math.Floor((pointOnPanel.X - pz.imageX) / pz.zoomLevel), (int)Math.Floor((pointOnPanel.Y - pz.imageY) / pz.zoomLevel));
+                return new SKPoint((int)Math.Floor((pointOnPanel.X - pz.imageX) / pz.zoomLevel), (int)Math.Floor((pointOnPanel.Y - pz.imageY) / pz.zoomLevel));
             }
-            return new Point((int)Math.Round((pointOnPanel.X - pz.imageX) / pz.zoomLevel), (int)Math.Round((pointOnPanel.Y - pz.imageY) / pz.zoomLevel));
+            return new SKPoint((int)Math.Round((pointOnPanel.X - pz.imageX) / pz.zoomLevel), (int)Math.Round((pointOnPanel.Y - pz.imageY) / pz.zoomLevel));
         }
 
         /// <summary>
@@ -372,7 +393,7 @@ namespace PixelStacker.Logic.IO.Image
         /// <param name="pointOnImage"></param>
         /// <param name="pz"></param>
         /// <returns></returns>
-        private static Point GetPointOnPanel(Point pointOnImage, PanZoomSettings pz)
+        private static SKPoint GetPointOnPanel(SKPoint pointOnImage, PanZoomSettings pz)
         {
             if (pz == null)
             {
@@ -383,7 +404,7 @@ namespace PixelStacker.Logic.IO.Image
 #endif
             }
 
-            return new Point((int)Math.Round(pointOnImage.X * pz.zoomLevel + pz.imageX), (int)Math.Round(pointOnImage.Y * pz.zoomLevel + pz.imageY));
+            return new SKPoint((int)Math.Round(pointOnImage.X * pz.zoomLevel + pz.imageX), (int)Math.Round(pointOnImage.Y * pz.zoomLevel + pz.imageY));
         }
 
         #region DISPOSE

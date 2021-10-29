@@ -4,8 +4,8 @@ using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using SkiaSharp;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
@@ -25,13 +25,13 @@ namespace PixelStacker.Logic.Collections.ColorMapper
             B = b;
         }
 
-        public FloodFillNode(int PaletteID, MaterialCombination mc, Color c)
+        public FloodFillNode(int PaletteID, MaterialCombination mc, SKColor c)
         {
             this.PaletteID = PaletteID;
             Value = mc;
-            R = c.R;
-            G = c.G;
-            B = c.B;
+            R = c.Red;
+            G = c.Green;
+            B = c.Blue;
         }
 
         public FloodFillNode Shift(int r, int g, int b)
@@ -122,7 +122,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
                 return false;
 
             // BATTLE TIME
-            Color c = Color.FromArgb(255, node.R, node.G, node.B);
+            SKColor c = new SKColor((byte)node.R, (byte)node.G, (byte)node.B, (byte) 255);
             long distExisting = c.GetAverageColorDistance(Palette[existing.Value].GetColorsInImage(this.IsSideView));
             long distNew = c.GetAverageColorDistance(node.Value.GetColorsInImage(this.IsSideView));
             if (distNew >= distExisting) return false;
@@ -133,11 +133,11 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
         #region TRASH2
 
-        public MaterialCombination FindBestMatch(Color c)
+        public MaterialCombination FindBestMatch(SKColor c)
         {
-            if (c.A < 32) return Palette[Constants.MaterialCombinationIDForAir]; // AIR
+            if (c.Alpha < 32) return Palette[Constants.MaterialCombinationIDForAir]; // AIR
 
-            int? val = Cache[c.R, c.G, c.B];
+            int? val = Cache[c.Red, c.Green, c.Blue];
             if (val != null)
                 return Palette[val.Value];
 
@@ -157,7 +157,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         /// <param name="c"></param>
         /// <param name="maxMatches"></param>
         /// <returns></returns>
-        public List<MaterialCombination> FindBestMatches(Color c, int maxMatches)
+        public List<MaterialCombination> FindBestMatches(SKColor c, int maxMatches)
         {
             var found = Combos.OrderBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView)))
                 .Take(maxMatches).ToList();

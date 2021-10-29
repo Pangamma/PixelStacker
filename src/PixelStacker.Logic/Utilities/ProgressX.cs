@@ -21,6 +21,7 @@ namespace PixelStacker.Logic.Utilities
         /// <param name="current"></param>
         /// <param name="setText"></param>
         /// <param name="setPercent"></param>
+        [System.Diagnostics.DebuggerStepThrough]
         public static void UpdateStatus(Action<int, string> setValues)
         {
             lock (Padlock)

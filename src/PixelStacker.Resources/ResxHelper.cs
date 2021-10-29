@@ -42,7 +42,7 @@ namespace PixelStacker.Resources
         public override string GetString(string name)
             => GetString(name, Thread.CurrentThread.CurrentUICulture);
 
-        private Dictionary<string, string> ReadResxJson(string twoDigitLangCode)
+        private static Dictionary<string, string> ReadResxJson(string twoDigitLangCode)
         {
             byte[] data = ResxContainer.ResourceManager.GetObject(twoDigitLangCode.ToLower()) as byte[];
             var json = Encoding.UTF8.GetString(data);

@@ -11,6 +11,7 @@ using System.IO.Compression;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SkiaSharp;
 
 namespace PixelStacker.Logic.IO.Formatters
 {
@@ -103,44 +104,22 @@ namespace PixelStacker.Logic.IO.Formatters
                         }
 
                         {
-                            Bitmap bm = await canvas.CanvasData.ToBitmapAsync(worker);
+                            SKBitmap bm = await canvas.CanvasData.ToBitmapAsync(worker);
                             ZipArchiveEntry entry = archive.CreateEntry("canvas-data.png");
                             using (StreamWriter writer = new StreamWriter(entry.Open()))
                             {
-                                bm.Save(writer.BaseStream, ImageFormat.Png);
+                                var encoded = bm.Encode(writer.BaseStream, SKEncodedImageFormat.Png, 100);
                             }
                         }
 
                         {
-                            Bitmap bm = canvas.PreprocessedImage;
+                            SKBitmap bm = canvas.PreprocessedImage;
                             ZipArchiveEntry entry = archive.CreateEntry("preprocessed-image.png");
                             using (StreamWriter writer = new StreamWriter(entry.Open()))
                             {
-                                bm.Save(writer.BaseStream, ImageFormat.Png);
+                                var encoded = bm.Encode(writer.BaseStream, SKEncodedImageFormat.Png, 100);
                             }
                         }
-
-                        //{
-                        //    var json = JsonConvert.SerializeObject(MainForm.PanZoomSettings);
-                        //    ZipArchiveEntry entry = archive.CreateEntry("pan-zoom-settings.json");
-                        //    using (StreamWriter writer = new StreamWriter(entry.Open()))
-                        //    {
-                        //        writer.Write(json);
-                        //    }
-                        //}
-
-                        //{
-                        //    // GRID location
-                        //    int weX = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.X ?? 0;
-                        //    int weY = MainForm.Self.LoadedBlueprint?.WorldEditOrigin.Y ?? 0;
-                        //    int[,] blocksMap = MainForm.Self.LoadedBlueprint?.BlocksMap ?? new int[1, 1];
-
-                        //    ZipArchiveEntry entry = archive.CreateEntry("blueprint.json");
-                        //    using (StreamWriter writer = new StreamWriter(entry.Open()))
-                        //    {
-                        //        //writer.Write(json);
-                        //    }
-                        //}
                     }
                 }
             }
@@ -187,7 +166,7 @@ namespace PixelStacker.Logic.IO.Formatters
                                 {
                                     zipStream.CopyTo(ms); // here
                                     ms.Position = 0;
-                                    var bm = new Bitmap(ms);
+                                    SKBitmap bm = SKBitmap.Decode(ms);
                                     canvas.CanvasData = await CanvasData.FromBitmapAsync(canvas.MaterialPalette, bm, worker);
                                 }
                             }
@@ -201,7 +180,8 @@ namespace PixelStacker.Logic.IO.Formatters
                                 {
                                     zipStream.CopyTo(ms); // here
                                     ms.Position = 0;
-                                    Bitmap bm = new Bitmap(ms);
+
+                                    SKBitmap bm = SKBitmap.Decode(ms);
                                     canvas.PreprocessedImage = bm;
                                 }
                             }
@@ -213,7 +193,7 @@ namespace PixelStacker.Logic.IO.Formatters
                             {
                                 string json = await reader.ReadToEndAsync();
                                 var xy = JsonConvert.DeserializeObject<int[]>(json) ?? new int[] {0,0};
-                                canvas.WorldEditOrigin = new Point(xy[0], xy[1]);
+                                canvas.WorldEditOrigin = new SkiaSharp.SKPoint(xy[0], xy[1]);
                             }
                         }
 

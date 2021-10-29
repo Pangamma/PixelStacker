@@ -65,16 +65,6 @@
   <PropertyGroup>
     <StartupObject>PixelStacker.Program</StartupObject>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug CLI|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug CLI\</OutputPath>
-    <DefineConstants>DEBUG;FULL_VERSION</DefineConstants>
-    <DebugType>embedded</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -95,17 +85,6 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug CLI|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug CLI\</OutputPath>
-    <DefineConstants>DEBUG;FULL_VERSION</DefineConstants>
-    <DebugType>embedded</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E40FAADC1D3D77CE0987F9B71B7B64F677AAFF6B</ManifestCertificateThumbprint>
@@ -427,6 +406,9 @@
     <EmbeddedResource Include="UI\TextPrompt.resx">
       <DependentUpon>TextPrompt.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\..\src\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="ILMerge.props" />
     <None Include="packages.config" />
     <Compile Include="Logic\Extensions\Extend.Color.cs" />

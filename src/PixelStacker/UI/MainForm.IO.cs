@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SkiaSharp;
 
 namespace PixelStacker.UI
 {
@@ -229,10 +230,10 @@ namespace PixelStacker.UI
             }
             else
             {
-                using (Bitmap img = (Bitmap)Bitmap.FromFile(_path))
+                using (SKBitmap img = SKBitmap.Decode(_path))
                 {
                     this.LoadedImage.DisposeSafely();
-                    this.LoadedImage = img.To32bppBitmap();
+                    this.LoadedImage = img.Copy();
                 }
 
                 // creates a clone of the img, but in the 32bpp format.

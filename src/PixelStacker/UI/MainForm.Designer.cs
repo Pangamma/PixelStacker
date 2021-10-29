@@ -272,14 +272,14 @@ namespace PixelStacker.UI
             // 
             this.toggleGridToolStripMenuItem.Name = "toggleGridToolStripMenuItem";
             this.toggleGridToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
             this.toggleGridToolStripMenuItem.Text = "Toggle Grid";
             this.toggleGridToolStripMenuItem.Click += new System.EventHandler(this.toggleGridToolStripMenuItem_Click);
             // 
             // gridOptionsToolStripMenuItem
             // 
             this.gridOptionsToolStripMenuItem.Name = "gridOptionsToolStripMenuItem";
-            this.gridOptionsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gridOptionsToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
             this.gridOptionsToolStripMenuItem.Text = "Grid Options";
             // 
             // toggleBorderToolStripMenuItem
@@ -497,6 +497,7 @@ namespace PixelStacker.UI
             this.canvasEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.canvasEditor.BackColor = System.Drawing.Color.RosyBrown;
             this.canvasEditor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("canvasEditor.BackgroundImage")));
             this.canvasEditor.Location = new System.Drawing.Point(0, 28);
             this.canvasEditor.Name = "canvasEditor";

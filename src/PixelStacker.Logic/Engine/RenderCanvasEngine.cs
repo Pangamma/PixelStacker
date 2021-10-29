@@ -6,9 +6,9 @@ using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using System;
-using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
+using SkiaSharp;
 
 namespace PixelStacker.Logic.Engine
 {
@@ -79,6 +79,7 @@ namespace PixelStacker.Logic.Engine
             else return calculatedTextureSize;
         }
 
+        [Obsolete("TODO: How to get nearest neighboor sampling selected?", false)]
         /// <summary>
         /// Processes an image prior to be matched up with existing material combinations.
         /// </summary>
@@ -87,15 +88,16 @@ namespace PixelStacker.Logic.Engine
         /// <param name="settings"></param>
         /// <exception cref="OperationCanceledException"></exception>
         /// <returns></returns>
-        public Task<Bitmap> PreprocessImageAsync(CancellationToken? worker, Bitmap LIM, CanvasPreprocessorSettings settings)
+        public Task<SkiaSharp.SKBitmap> PreprocessImageAsync(CancellationToken? worker, SkiaSharp.SKBitmap LIM, CanvasPreprocessorSettings settings)
         {
             // Resize based on max size
             ProgressX.Report(5, "Pre-processing image. Resizing.");
-            int mH = Math.Min(settings.MaxHeight ?? LIM.Height, LIM.Height);
-            int mW = Math.Min(settings.MaxWidth ?? LIM.Width, LIM.Width);
-            int H = (mW < mH) ? (mW * LIM.Height / LIM.Width) : mH;
-            int W = (mW < mH) ? mW : (mH * LIM.Width / LIM.Height);
-            var resized = new Bitmap(LIM, W, H);
+            int mH = Math.Min(settings.MaxHeight ?? LIM.Info.Height, LIM.Info.Height);
+            int mW = Math.Min(settings.MaxWidth ?? LIM.Info.Width, LIM.Info.Width);
+            int H = (mW < mH) ? (mW * LIM.Info.Height / LIM.Info.Width) : mH;
+            int W = (mW < mH) ? mW : (mH * LIM.Info.Width / LIM.Info.Height);
+            // TODO: How to get "nearest neighboor" sampling selected?
+            var resized = LIM.Resize(new SkiaSharp.SKImageInfo(W, H, SkiaSharp.SKColorType.Rgba8888), SkiaSharp.SKFilterQuality.Low);
 
             // Color bucket normalization
             int F = settings.RgbBucketSize;
@@ -107,14 +109,14 @@ namespace PixelStacker.Logic.Engine
 
             worker.SafeThrowIfCancellationRequested();
 
-            if (settings.QuantizerSettings?.IsEnabled == true)
-            {
-                ProgressX.Report(50, $"Pre-processing image. Quantizing.");
-                var quantized = QuantizerEngine.RenderImage(worker, resized, settings.QuantizerSettings);
-                resized.DisposeSafely();
-                ProgressX.Report(100, "Finished pre-processing the image.");
-                return Task.FromResult(quantized);
-            }
+            //if (settings.QuantizerSettings?.IsEnabled == true)
+            //{
+            //    ProgressX.Report(50, $"Pre-processing image. Quantizing.");
+            //    var quantized = QuantizerEngine.RenderImage(worker, resized, settings.QuantizerSettings);
+            //    resized.DisposeSafely();
+            //    ProgressX.Report(100, "Finished pre-processing the image.");
+            //    return Task.FromResult(quantized);
+            //}
 
             ProgressX.Report(100, "Finished pre-processing the image.");
             return Task.FromResult(resized);
@@ -129,14 +131,14 @@ namespace PixelStacker.Logic.Engine
         /// <returns></returns>
         public Task<RenderedCanvas> RenderCanvasAsync(
             CancellationToken? worker,
-            ref Bitmap preprocessedImage,
+            ref SKBitmap preprocessedImage,
             IColorMapper mapper,
             MaterialPalette palette
             )
         {
             RenderedCanvas canvas = new RenderedCanvas()
             {
-                WorldEditOrigin = new Point(0, preprocessedImage.Height - 1),
+                WorldEditOrigin = new SKPoint(0, preprocessedImage.Height - 1),
                 IsCustomized = false,
                 PreprocessedImage = preprocessedImage,
                 MaterialPalette = palette,

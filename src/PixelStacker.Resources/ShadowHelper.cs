@@ -108,12 +108,13 @@ namespace PixelStacker.Resources
 
             try
             {
-                return Shadows.ResourceManager.GetObject(resourceKey) as SKBitmap;
+                return SKBitmap.Decode((byte[]) Shadows.ResourceManager.GetObject(resourceKey));
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex); // Allow debugging but still log to console
-                return Textures.ResourceManager.GetObject(nameof(Textures.air)) as SKBitmap;
+                throw new Exception("FIx it.");
+                //return Textures.air;
             }
         }
     }
