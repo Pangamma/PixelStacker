@@ -154,36 +154,32 @@ namespace PixelStacker.Logic.IO.Image
                 {
                     for (int cH = 0; cH < numChunksHigh; cH++)
                     {
+                        int cWf = cW;
+                        int cHf = cH;
                         SKSize tileSize = sizeSet[cW, cH];
                         SKRect srcRect = new SKRect()
                         {
-                            Location = new SKPoint(cW * srcPixelsPerChunk, cH * srcPixelsPerChunk),
+                            Location = new SKPoint(cWf * srcPixelsPerChunk, cHf * srcPixelsPerChunk),
                             Size = new SKSize((float)Math.Floor(tileSize.Width * scaleDivide / Constants.TextureSize)
                             , (float)Math.Floor(tileSize.Height * scaleDivide / Constants.TextureSize))
                         };
                         SKRect dstRect = new SKRect()
                         {
-                            Location = new SKPoint(cW * dstPixelsPerChunk, cH * dstPixelsPerChunk),
+                            Location = new SKPoint(cWf * dstPixelsPerChunk, cHf * dstPixelsPerChunk),
                             Size = new SKSize(tileSize.Width, tileSize.Height)
                         };
 
-                        int cWf = cW;
-                        int cHf = cH;
-                        //L0Tasks[iTask++] = Task.Run(() =>
-                        //{
-                        var bmToAdd = RenderLayer0Image(data, srcRect, dstRect);
-                        using var fStream = new FileStream($"render-{cWf}-{cHf}.png", FileMode.Create);
-                        bmToAdd.Encode(SKEncodedImageFormat.Png, 100).SaveTo(fStream);
-
-
-                        canvas.Bitmaps[0][cWf, cHf] = bmToAdd;
-                        int nVal = Interlocked.Increment(ref chunksFinishedSoFar);
-                        ProgressX.Report(100 * nVal / totalChunksToRender);
-                        //}, worker.Value);
+                        L0Tasks[iTask++] = Task.Run(() =>
+                        {
+                            var bmToAdd = RenderLayer0Image(data, srcRect, dstRect);
+                            canvas.Bitmaps[0][cWf, cHf] = bmToAdd;
+                            int nVal = Interlocked.Increment(ref chunksFinishedSoFar);
+                            ProgressX.Report(100 * nVal / totalChunksToRender);
+                        }, worker.Value);
                     }
                 }
 
-                //await Task.WhenAll(L0Tasks);
+                await Task.WhenAll(L0Tasks);
             }
             #endregion LAYER 0
 
@@ -227,19 +223,16 @@ namespace PixelStacker.Logic.IO.Image
                                         continue;
 
                                     var bmToPaint = canvas.Bitmaps[0][xIndexOIfL0Chunk, yIndexOfL0Chunk];
-                                    lock (bmToPaint)
+                                    var rect = new SKRect()
                                     {
-                                        var rect = new SKRect()
-                                        {
-                                            Location = new SKPoint((float)(xWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide),
-                                                (float)(yWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide)),
-                                            Size = new SKSize(dstPixelsPerChunk / scaleDivide, dstPixelsPerChunk / scaleDivide)
-                                        };
+                                        Location = new SKPoint((float)(xWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide),
+                                            (float)(yWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide)),
+                                        Size = new SKSize(dstPixelsPerChunk / scaleDivide, dstPixelsPerChunk / scaleDivide)
+                                    };
 
-                                        g.DrawBitmap(
-                                            bmToPaint,
-                                            rect);
-                                    }
+                                    g.DrawBitmap(
+                                        bmToPaint,
+                                        rect);
                                 }
                             }
 

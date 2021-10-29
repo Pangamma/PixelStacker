@@ -13,6 +13,40 @@ namespace PixelStacker.Logic.Extensions
     // Brightness: 0...1
     public static class ExtendColor
     {
+        public static SKColor FromSRGB(this SKColor c)
+        {
+            //Convert color from 0..255 to 0..1
+            Single r = c.Red / 255f;
+            Single g = c.Green / 255f;
+            Single b = c.Blue / 255f;
+
+            //Inverse Red, Green, and Blue
+            if (r > 0.04045) r = (float)Math.Pow((r + 0.055) / 1.055, 2.4); else r = (float)(r / 12.92);
+            if (g > 0.04045) g = (float)Math.Pow((g + 0.055) / 1.055, 2.4); else g = (float)(g / 12.92);
+            if (b > 0.04045) b = (float)Math.Pow((b + 0.055) / 1.055, 2.4); else b = (float)(b / 12.92);
+
+            //return new color. Convert 0..1 back into 0..255
+            SKColor result = new SKColor((byte)(r * 255), (byte)(g * 255), (byte)(b * 255), 255);
+
+            return result;
+        }
+
+        public static SKColor ToSRGB(this SKColor c)
+        {
+            //Convert color from 0..255 to 0..1
+            Single r = c.Red / 255f;
+            Single g = c.Green / 255f;
+            Single b = c.Blue / 255f;
+
+            //Apply companding to Red, Green, and Blue
+            if (r > 0.0031308) r = 1.055f * (float)(Math.Pow(r, 1 / 2.4f) - 0.055f); else r = (float)(r * 12.92f);
+            if (g > 0.0031308) g = 1.055f * (float)(Math.Pow(g, 1 / 2.4f) - 0.055f); else g = (float)(g * 12.92f);
+            if (b > 0.0031308) b = 1.055f * (float)(Math.Pow(b, 1 / 2.4f) - 0.055f); else b = (float)(b * 12.92f);
+
+            //return new color. Convert 0..1 back into 0..255
+            SKColor result = new SKColor((byte)(r * 255), (byte)(g * 255), (byte)(b * 255), 255);
+            return result;
+        }
 
         /// <summary>
         /// Returns the Hue-Saturation-Lightness (HSL) hue
@@ -202,6 +236,29 @@ namespace PixelStacker.Logic.Extensions
             foreach (var c in src)
             {
                 int dist = target.GetColorDistance(c.Item1);
+                r += dist * c.Item2;
+                t += c.Item2;
+            }
+
+            r /= t;
+            return (int)r;
+        }
+
+
+        /// <summary>
+        /// Use for SUPER accurate color distance checks. Very slow, but also very accurate.
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        public static int GetAverageColorDistance(this SKColor target, List<Tuple<SKColor, int>> src, Func<SKColor, SKColor, int> distFunc)
+        {
+            long r = 0;
+            long t = 0;
+
+            foreach (var c in src)
+            {
+                int dist = distFunc(target, c.Item1);
                 r += dist * c.Item2;
                 t += c.Item2;
             }
