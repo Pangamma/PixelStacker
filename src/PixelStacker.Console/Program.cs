@@ -25,8 +25,8 @@ namespace PixelStacker.Console
         public async Task IE_PixelStackerProjectFormat()
         {
             var formatter = new PixelStackerProjectFormatter();
-            await formatter.ExportAsync("io_test.zip", ProjecData, null);
-            var canv = await formatter.ImportAsync("io_test.zip", null);
+            await formatter.ExportAsync("io_test.pxlzip", ProjecData, null);
+            var canv = await formatter.ImportAsync("io_test.pxlzip", null);
         }
 
         private RenderedCanvas Canvas => Canvases["Heavy"].Value.Result;
@@ -49,7 +49,7 @@ namespace PixelStacker.Console
             this.Canvases["Fast"] = new AsyncLazy<RenderedCanvas>(async () =>
             {
                 var img = await engine.PreprocessImageAsync(null,
-                    DevResources.pink_girl.To32bppBitmap(),
+                    DevResources.pink_girl,
                     new CanvasPreprocessorSettings()
                     {
                         RgbBucketSize = 15,
@@ -70,7 +70,7 @@ namespace PixelStacker.Console
 
             this.Canvases["Quantizer"] = new AsyncLazy<RenderedCanvas>(async () => {
                 var img = await engine.PreprocessImageAsync(null,
-                    DevResources.pink_girl.To32bppBitmap(),
+                    DevResources.pink_girl,
                     new CanvasPreprocessorSettings()
                     {
                         RgbBucketSize = 1,
@@ -88,7 +88,7 @@ namespace PixelStacker.Console
 
             this.Canvases["Heavy"] = new AsyncLazy<RenderedCanvas>(async () => {
                 var img = await engine.PreprocessImageAsync(null,
-                    DevResources.pink_girl.To32bppBitmap(),
+                    DevResources.pink_girl,
                     new CanvasPreprocessorSettings()
                     {
                         RgbBucketSize = 1,

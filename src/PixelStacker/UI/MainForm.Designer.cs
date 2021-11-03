@@ -116,7 +116,7 @@ namespace PixelStacker.UI
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -125,7 +125,7 @@ namespace PixelStacker.UI
             this.reOpenToolStripMenuItem.Enabled = false;
             this.reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
             this.reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.reOpenToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
             this.reOpenToolStripMenuItem.Text = "Re-Open";
             this.reOpenToolStripMenuItem.Click += new System.EventHandler(this.reOpenToolStripMenuItem_Click);
             // 
@@ -134,7 +134,7 @@ namespace PixelStacker.UI
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -142,9 +142,9 @@ namespace PixelStacker.UI
             // 
             this.saveAsToolStripMenuItem.Enabled = false;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 

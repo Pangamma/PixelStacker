@@ -2,6 +2,7 @@
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.IO.JsonConverters;
 using PixelStacker.Resources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -86,6 +87,7 @@ namespace PixelStacker.Logic.Model
 
         public List<MaterialCombination> ToValidCombinationList(Options opts) {
             var list = this.FromPaletteID.Values
+            .Where(mc => mc.Bottom.BlockID != 0 && mc.Top.BlockID != 0)
             .Where(mc => opts.IsMultiLayerRequired ? mc.IsMultiLayer : true)
             .Where(mc => mc.Bottom.IsEnabledF(opts) && mc.Top.IsEnabledF(opts))
             .Where(mc => opts.IsMultiLayer ? true : !mc.IsMultiLayer)
@@ -94,12 +96,13 @@ namespace PixelStacker.Logic.Model
             return list;
         }
 
-        public static MaterialPalette FromResx()
-        {
+        private static Lazy<MaterialPalette> Instance = new Lazy<MaterialPalette>(() => {
             var rt = ResxHelper.LoadJson<MaterialPalette>(Resources.Data.materialPalette);
             rt.PrimePalette();
             return rt;
-        }
+        });
+
+        public static MaterialPalette FromResx() => Instance.Value;
 
         public void PrimePalette()
         {

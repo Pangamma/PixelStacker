@@ -26,5 +26,21 @@ namespace PixelStacker.Extensions
 
             return skiaBitmap;
         }
+
+        public static Bitmap SKBitmapToBitmap(this SKBitmap bitmap)
+        {
+            var info = new Bitmap(bitmap.Width, bitmap.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            for (int i = 0; i < bitmap.Width; i++)
+            {
+                for (int j = 0; j < bitmap.Height; j++)
+                {
+                    SKColor color = bitmap.GetPixel(i, j);
+                    info.SetPixel(i, j, Color.FromArgb((int)color.Alpha, (int)color.Red, (int)color.Green, (int)color.Blue));
+                }
+            }
+
+            return info;
+        }
     }
 }

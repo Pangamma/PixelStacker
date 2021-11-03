@@ -1,0 +1,188 @@
+﻿@page "/"
+@using PixelStacker.Logic.IO.Image
+@using SkiaSharp;
+@using PixelStacker.Logic.IO.Config;
+@using PixelStacker.Logic.Engine;
+@using PixelStacker.Logic.Collections.ColorMapper;
+@using PixelStacker.Logic.Model;
+@using System.IO; 
+
+<InputFile OnChange="@LoadFilesAsync" />
+<div class="container">
+    <div class="row">
+        <div class="col border rounded p-2 canvas-container">
+
+            <SKGLView OnPaintSurface="OnPaintSurface" IgnorePixelScaling="true" 
+                      EnableRenderLoop="true" />
+
+        </div>
+    </div>
+</div>
+
+@code {
+    int tickIndex = 0;
+    long tickSum = 0;
+    long[] tickList = new long[100];
+    long lastTick = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    RenderedCanvas? renderCanvas = null;
+    RenderedCanvasPainter? painter = null;
+
+    void OnPaintSurface(SKPaintGLSurfaceEventArgs e)
+    {
+        var fps = GetCurrentFPS();
+        if (renderCanvas == null)
+        {
+            return;
+        }
+
+        if(painter == null)
+        {
+            return;
+        }
+
+
+        // the the canvas and properties
+        var canvas = e.Surface.Canvas;
+        var surfaceSize = e.Info.Size;
+        var clockSize = Math.Min(surfaceSize.Width, surfaceSize.Height) * 0.4f;
+        var center = new SKPoint(surfaceSize.Width / 2f, surfaceSize.Height / 2f);
+        var now = DateTime.Now;
+
+        painter.PaintSurface(e.Surface.Canvas, surfaceSize, new PanZoomSettings()
+        {
+            zoomLevel = 20,
+            
+        }, new CanvasViewerSettings()
+        {
+            IsShowBorder = true,
+            IsShowGrid = false,
+        });
+
+        //// make sure the canvas is blank
+        //canvas.Clear(SKColors.White);
+
+        using var paint = new SKPaint
+            {
+                IsAntialias = true,
+                StrokeWidth = 5f,
+                StrokeCap = SKStrokeCap.Round,
+                TextAlign = SKTextAlign.Center,
+                TextSize = 24,
+                Style = SKPaintStyle.Fill,
+            };
+
+        //// draw the fps counter
+        //canvas.DrawText($"{fps:0.00}fps", surfaceSize.Width / 2, surfaceSize.Height - 10f, paint);
+
+        //// background
+        //paint.Shader = SKShader.CreateLinearGradient(
+        //    new SKPoint(0, 0),
+        //    new SKPoint(0, surfaceSize.Height),
+        //    new[] { SKColors.LightGray, SKColors.DarkRed },
+        //    SKShaderTileMode.Repeat);
+        //canvas.DrawCircle(center, clockSize * 0.9f, paint);
+        //paint.Shader = null;
+
+        //// border
+        paint.Style = SKPaintStyle.Stroke;
+        canvas.DrawCircle(center, clockSize * 0.9f, paint);
+        //paint.Style = SKPaintStyle.Fill;
+
+        //// draw the clock hands
+        //canvas.RotateDegrees(-90f, center.X, center.Y);
+
+        //// hours
+        //{
+        //    paint.StrokeWidth = 3f;
+        //    canvas.Save();
+        //    canvas.Translate(center);
+        //    canvas.RotateDegrees(360f * (now.Hour / 12f));
+        //    canvas.DrawLine(0, 0, clockSize * 0.4f, 0, paint);
+        //    canvas.Restore();
+        //}
+
+        //// minutes
+        //{
+        //    paint.StrokeWidth = 2f;
+        //    canvas.Save();
+        //    canvas.Translate(center);
+        //    canvas.RotateDegrees(360f * (now.Minute / 60f));
+        //    canvas.DrawLine(0, 0, clockSize * 0.6f, 0, paint);
+        //    canvas.Restore();
+        //}
+
+        //// seconds
+        //{
+        //    paint.StrokeWidth = 1f;
+        //    canvas.Save();
+        //    canvas.Translate(center);
+        //    canvas.RotateDegrees(360f * ((now.Second * 1000f + now.Millisecond) / 1000f / 60f));
+        //    canvas.DrawLine(0, 0, clockSize * 0.8f, 0, paint);
+        //    canvas.Restore();
+        //}
+
+        //// center
+        //canvas.DrawCircle(center, 10f, paint);
+    }
+
+    double GetCurrentFPS()
+    {
+        var newTick = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        var delta = newTick - lastTick;
+        lastTick = newTick;
+
+        tickSum -= tickList[tickIndex];
+        tickSum += delta;
+        tickList[tickIndex] = delta;
+
+        if (++tickIndex == tickList.Length)
+            tickIndex = 0;
+
+        return 1000.0 / ((double)tickSum / tickList.Length);
+    }
+
+    private async Task LoadFilesAsync(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var dataStream = e.File.OpenReadStream();
+            using var ms = new System.IO.MemoryStream();
+            await dataStream.CopyToAsync(ms);
+            ms.Seek(0, System.IO.SeekOrigin.Begin);
+            var data = ms.ToArray();
+            SKBitmap bm = SKBitmap.Decode(data);
+
+            var memProvider = new MemoryOptionsProvider();
+            var opts = new Options(memProvider)
+            {
+                IsMultiLayer = true,
+                IsSideView = false,
+                IsShadowRenderingSkipped = true,
+                Preprocessor = new CanvasPreprocessorSettings()
+                {
+                    MaxHeight = 100,
+                    MaxWidth = 100,
+                    RgbBucketSize = 1,
+                    QuantizerSettings = new QuantizerSettings()
+                    {
+                        IsEnabled = false
+                    }
+                }
+            };
+
+            var colorMapper = new KdTreeMapper();
+            var palette = MaterialPalette.FromResx();
+            colorMapper.SetSeedData(palette.ToCombinationList().Where(x => x.IsEnabled(opts)).ToList(), palette, opts.IsSideView);
+
+            var engine = new RenderCanvasEngine();
+            var preprocessed = await engine.PreprocessImageAsync(null, bm, opts.Preprocessor);
+            var rendered = await engine.RenderCanvasAsync(null, ref preprocessed, colorMapper, palette);
+            renderCanvas = rendered;
+            painter = await RenderedCanvasPainter.Create(null, renderCanvas);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex);
+        }
+    }
+}

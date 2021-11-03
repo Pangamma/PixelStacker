@@ -17,7 +17,6 @@ namespace PixelStacker.Logic.Model
         public int Width => CanvasData.Width;
 
         [JsonIgnore]
-        [JsonConverter(typeof(BitmapJsonTypeConverter))]
         public SKBitmap PreprocessedImage { get; set; }
 
         //[JsonIgnore]

@@ -1,4 +1,5 @@
-﻿using PixelStacker.Logic.Model;
+﻿using PixelStacker.Logic.IO.Config;
+using PixelStacker.Logic.Model;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -44,9 +45,8 @@ namespace PixelStacker.UI
             return new Point((int)Math.Round((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel), (int)Math.Round((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel));
         }
 
-        public Point GetPointOnPanel(Point pointOnImage)
+        public static Point GetPointOnPanel(Point pointOnImage, PanZoomSettings pz)
         {
-            var pz = this.PanZoomSettings;
             if (pz == null)
             {
 #if DEBUG

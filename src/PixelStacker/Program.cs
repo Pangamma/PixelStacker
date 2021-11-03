@@ -5,6 +5,7 @@ using PixelStacker.Resources;
 using PixelStacker.UI.Forms;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.IO;
+using PixelStacker.Logic.Model;
 
 namespace PixelStacker
 {
@@ -17,6 +18,8 @@ namespace PixelStacker
         static void Main()
         {
             //ResxHelper.InjectIntoTextResx();
+            var opts = new LocalDataOptionsProvider().Load();
+            MaterialPalette.FromResx().ToValidCombinationList(opts);
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();

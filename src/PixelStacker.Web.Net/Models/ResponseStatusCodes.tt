@@ -1,0 +1,39 @@
+﻿<#@ include file="StringEnum.ttinclude" #>
+
+
+<#+ 
+public static class Configuration
+{
+	public static readonly string Namespace = "MtCoffee.Web.Models";
+	public static readonly string EnumName = "ResponseStatusCode";
+    public static readonly string ValuePropertyName = "Description";
+	public static readonly bool IncludeComments = true;
+
+    public static readonly object Nodes = new
+    {
+		SUCCESS = "The response was successful.",
+		NON_SUCCESS = "The request was not successful.",
+		RESOURCE_IS_DISCONTINUED = "The resource requested has been discontinued and can no longer be accessed.",
+		NOT_AUTHORIZED = "Authorization is required.",
+		INVALID_USER = "No user could be found by the identifier specified. A valid user was required.",
+		
+// Open to debate on this one... I am using this for cases when they may request product 9999 and we don't have a product 9999.
+		NOT_FOUND = "The requested item could not be found. This should only be used when finding NO item will result in a failure of the method call. If you can find no results and still call it a success, then use the SUCCESS status code.",
+		UNKNOWN = "The response status has not been determined or set yet.",
+		INVALID_MODEL_STATE = "The ModelState was invalid. Please fix the listed errors.",
+		FORBIDDEN = "Access is forbidden.",
+
+		INVALID_ARGUMENTS = "Some or all of the arguments are invalid. Please fix the listed errors.",
+		//INVALID_CERTIFICATE = "The certificate used for authentication has expired, is missing, is unauthorized, or is invalid. Please fix it.",
+
+		//REQUIRES_VERIFIED_USER = "A valid user must be specified, and that user must be a verified student.",
+        //REQUIRES_PRODUCT_VERSION = "A valid product version must be specified.",
+		NOT_YET_CONFIGURED = "This resource has not been configured correctly. Configuration may be in progress, or something unexpected has occurred. This response status code shouldn't occur, but if it does, we give it a very obvious failure message that tells us that we need to fix something.",
+		//TEMPORARILY_UNAVAILABLE = "This resource is temporarily unavailable or out of stock. Please try again later.",
+		INTERNAL_SERVER_ERROR = "Something went wrong on the server.",
+		EXTERNAL_SERVER_ERROR = "Something went wrong on an API server we call.",
+    };
+}
+#>
+
+

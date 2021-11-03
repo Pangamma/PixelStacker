@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
+using PixelStacker.Extensions;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
@@ -144,8 +145,8 @@ namespace PixelStacker.Logic.Collections.ColorMapper
             throw new Exception("Impossible! Did you forget to set the seed data?");
 #else
             var foundMc = Combos.MinBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView)));
-            Color found = foundMc.GetAverageColor(this.IsSideView);
-            Cache[found.R, found.G, found.B] = Palette[foundMc];
+            SKColor found = foundMc.GetAverageColor(this.IsSideView);
+            Cache[found.Red, found.Green, found.Blue] = Palette[foundMc];
             return foundMc;
 #endif
         }

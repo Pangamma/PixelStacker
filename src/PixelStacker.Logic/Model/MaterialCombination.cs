@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
+using PixelStacker.Logic.IO.Config;
 
 namespace PixelStacker.Logic.Model
 {
@@ -30,6 +31,11 @@ namespace PixelStacker.Logic.Model
             if (mTop == null) throw new ArgumentNullException(nameof(mTop));
         }
         #endregion Constructors
+
+        public bool IsEnabled(Options opts)
+        {
+           return Top.IsEnabledF(opts) && Bottom.IsEnabledF(opts);
+        }
 
         public bool IsMultiLayer { get; }
         public Material Top { get; }

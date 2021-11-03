@@ -1,6 +1,5 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Collections.ColorMapper;
-using PixelStacker.Logic.Engine.Quantizer;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
@@ -131,11 +130,12 @@ namespace PixelStacker.Logic.Engine
         /// <returns></returns>
         public Task<RenderedCanvas> RenderCanvasAsync(
             CancellationToken? worker,
-            ref SKBitmap preprocessedImage,
+            SKBitmap preprocessedImage,
             IColorMapper mapper,
             MaterialPalette palette
             )
         {
+            preprocessedImage = preprocessedImage.Copy();
             RenderedCanvas canvas = new RenderedCanvas()
             {
                 WorldEditOrigin = new SKPoint(0, preprocessedImage.Height - 1),
@@ -148,12 +148,6 @@ namespace PixelStacker.Logic.Engine
             preprocessedImage.ToViewStream(worker, (x, y, c) => {
                 var mcId = mapper.FindBestMatch(c);
                 canvas.CanvasData[x, y] = mcId;
-                var mc = palette[mcId];
-                if (c.Red == 255 && c.Blue == 230)
-                {
-
-                }
-                //canvas.CanvasData[x, y] = mapper.FindBestMatch(c);
             });
 
             return Task.FromResult(canvas);

@@ -11,5 +11,10 @@ namespace PixelStacker.Logic.IO.Formatters
         {
             throw new NotImplementedException();
         }
+
+        public Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

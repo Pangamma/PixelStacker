@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using PixelStacker.Logic.IO.JsonConverters;
+using SkiaSharp;
+using System;
 using System.Drawing;
 
 namespace PixelStacker.Logic.IO.Config
@@ -16,7 +19,9 @@ namespace PixelStacker.Logic.IO.Config
         /// </summary>
         public bool IsShadowRenderingSkipped { get; set; } = false;
         public int GridSize { get; set; } = 16;
-        public Color GridColor { get; set; } = Color.Black;
+
+        [JsonConverter(typeof(SKColorJsonTypeConverter))]
+        public SKColor GridColor { get; set; } = new SKColor(0, 0, 0);
 
         public bool IsShowBorder { get; set; } = false;
         public bool IsShowGrid { get; set; } = false;

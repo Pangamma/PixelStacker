@@ -1,5 +1,6 @@
 ﻿using PixelStacker.Logic.Model;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace PixelStacker.Logic.IO.Formatters
 {
     public class BlockCountCsvFormatter : IExportFormatter
     {
-        public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker = null)
+        public async Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
         {
             Dictionary<Material, int> materialCounts = new Dictionary<Material, int>();
             bool isv = canvas.IsSideView;
@@ -57,6 +58,11 @@ namespace PixelStacker.Logic.IO.Formatters
             //}
 
             //File.WriteAllText(fName, sb.ToString());
+
+            return new byte[0];
         }
+
+        public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker = null)
+            => File.WriteAllBytes(filePath, await this.ExportAsync(canvas, worker));
     }
 }

@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.Utilities;
 using SkiaSharp;
 
 namespace PixelStacker.Logic.Model
@@ -102,15 +103,18 @@ namespace PixelStacker.Logic.Model
             int mHeight = this.Height;
             int mWidth = this.Width;
             SKBitmap bm = new SKBitmap(mWidth, mHeight, SKColorType.Rgba8888, SKAlphaType.Premul);
-
-            for (int x = 0; x < this.Width; x++)
+            var canvas = new SKCanvas(bm);
+            for (int y = 0; y < this.Height; y++)
             {
-                worker?.SafeThrowIfCancellationRequested();
-                for (int y = 0; y < this.Height; y++)
+                for (int x = 0; x < this.Width; x++)
                 {
+                    worker?.SafeThrowIfCancellationRequested();
                     int argb = this.BlocksMap[x, y];
-                    SKColor c = (SKColor)((uint)argb);
-                    bm.SetPixel(x, y, c);
+                    uint arg = (uint)argb;
+                    SKColor c = ColorSerializer.FromPaletteID(arg);
+                    //bm.SetPixel(x, y, c);
+                    using var paint = new SKPaint() { Color = c, BlendMode = SKBlendMode.Src };
+                    canvas.DrawPoint(x, y, paint);
                 }
             }
 
@@ -129,7 +133,7 @@ namespace PixelStacker.Logic.Model
                 worker?.SafeThrowIfCancellationRequested();
                 for (int x = 0; x < mWidth; x++)
                 {
-                    int argb = (int)((uint) bm.GetPixel(x, y));
+                    int argb = (int)(ColorSerializer.ToPaletteID(bm.GetPixel(x, y)));
                     canvas.BlocksMap[x, y] = argb;
                 }
             }

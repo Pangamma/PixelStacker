@@ -234,7 +234,7 @@ namespace PixelStacker.WF.Components
 #if DEBUG
                 throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
 #else
-                return new Point(0, 0);
+                return new SKPoint(0, 0);
 #endif
             }
 

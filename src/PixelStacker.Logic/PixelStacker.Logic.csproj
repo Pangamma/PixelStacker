@@ -17,6 +17,10 @@
     <EmbeddedResource Remove="Collections\KDTree\**" />
     <None Remove="Collections\KDTreeMaster\**" />
     <None Remove="Collections\KDTree\**" />
+	
+    <Compile Update="IO\Image\RenderedCanvasPainter.*.cs">
+      <DependentUpon>RenderedCanvasPainter.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +34,8 @@
   <ItemGroup>
     <PackageReference Include="KdTree" Version="1.4.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="SkiaSharp" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.80.3" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>

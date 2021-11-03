@@ -494,7 +494,7 @@ namespace PixelStacker.Extensions
 
             Parallel.For(0, heightInPixels, y =>
             {
-                int bYOffset = (int) (y * widthInBytes);
+                int bYOffset = (int)(y * widthInBytes);
                 for (int x = 0; x < widthInPixels; x++)
                 {
                     int bXOffset = bYOffset + (x * bytesPerPixel);
@@ -526,7 +526,7 @@ namespace PixelStacker.Extensions
                 worker?.SafeThrowIfCancellationRequested();
                 Interlocked.Increment(ref numYProcessed);
                 if (worker != null)
-                    ProgressX.Report((int) (100 * ((float) numYProcessed / heightInPixels)));
+                    ProgressX.Report((int)(100 * ((float)numYProcessed / heightInPixels)));
             });
 
             //Get the bitmap data
