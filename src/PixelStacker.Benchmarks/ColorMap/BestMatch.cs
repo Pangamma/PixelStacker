@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using PixelStacker.Logic.Collections.ColorMapper;
+using SkiaSharp;
 using System.Drawing;
 
 namespace PixelStacker.Benchmarks.ColorMap
@@ -25,7 +26,7 @@ namespace PixelStacker.Benchmarks.ColorMap
             mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
             FindBestMatch(mapper);
         }
-
+        /*
         [Benchmark]
         public void SeparateColorBruteForce()
         {
@@ -33,6 +34,7 @@ namespace PixelStacker.Benchmarks.ColorMap
             mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
             FindBestMatch(mapper);
         }
+        */
 
         [Benchmark]
         public void KdTree()
@@ -42,6 +44,7 @@ namespace PixelStacker.Benchmarks.ColorMap
             FindBestMatch(mapper);
         }
 
+        /*
         [Benchmark]
         public void FloodFill()
         {
@@ -49,6 +52,15 @@ namespace PixelStacker.Benchmarks.ColorMap
             mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
             FindBestMatch(mapper);
         }
+        */
+        [Benchmark]
+        public void SIMDColorBruteForce()
+        {
+            var mapper = new SoASIMDColorMapper();
+            mapper.SetSeedData(EnabledMaterials, MaterialPalette, false);
+            FindBestMatch(mapper);
+        }
+
 
 
         private void FindBestMatch(IColorMapper mapper)
@@ -59,7 +71,7 @@ namespace PixelStacker.Benchmarks.ColorMap
                 {
                     for (int b = 0; b < 256; b += Increment)
                     {
-                        var _ = mapper.FindBestMatch(Color.FromArgb(255, r, g, b));
+                        var _ = mapper.FindBestMatch(new SKColor((byte)r, (byte)g, (byte)b, 255));
                     }
                 }
             }

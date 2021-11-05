@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using PixelStacker.Logic.Collections.ColorMapper;
+using SkiaSharp;
 using System.Drawing;
 
 namespace PixelStacker.Benchmarks.ColorMap
@@ -50,7 +51,7 @@ namespace PixelStacker.Benchmarks.ColorMap
                 {
                     for (int b = 0; b < 256; b += Increment)
                     {
-                        var _ = mapper.FindBestMatches(Color.FromArgb(255, r, g, b), TopMatchN);
+                        var _ = mapper.FindBestMatches(new SKColor((byte)r, (byte)g, (byte)b, 255), TopMatchN);
                     }
                 }
             }

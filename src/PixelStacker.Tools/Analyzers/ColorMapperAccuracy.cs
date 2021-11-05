@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Model;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,6 +23,7 @@ namespace PixelStacker.Tools.Analyzers
                 new ColorMapComparison(new SeparateColorBruteForceMapper(), true),
                 new ColorMapComparison(new AverageColorBruteForceMapper()),
                 new ColorMapComparison(new KdTreeMapper(), false),
+                new ColorMapComparison(new SoASIMDColorMapper(), false)
                 //new ColorMapComparison(new FloodFillMapper())
             };
 
@@ -45,7 +47,7 @@ namespace PixelStacker.Tools.Analyzers
                 {
                     for (int b = 0; b < 256; b += Increment)
                     {
-                        Color c = Color.FromArgb(255, r, g, b);
+                        SKColor c = new SKColor((byte)r, (byte)g, (byte)b, 255);
                         var expected = baseline.Mapper.FindBestMatch(c);
                         ++baseline.Hits;
 
