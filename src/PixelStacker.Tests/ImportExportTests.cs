@@ -17,7 +17,7 @@ namespace PixelStacker.Tests
     [TestClass]
     public class ImportExportTests
     {
-        private RenderedCanvas Canvas => Canvases["Heavy"].Value.Result;
+        private RenderedCanvas Canvas => Canvases["Fast"].Value.Result;
 
         private Dictionary<string, AsyncLazy<RenderedCanvas>> Canvases = new Dictionary<string, AsyncLazy<RenderedCanvas>>();
         private Options Options;
@@ -36,7 +36,7 @@ namespace PixelStacker.Tests
 
             this.Canvases["Fast"] = new AsyncLazy<RenderedCanvas>(async () => {
                 var img = await engine.PreprocessImageAsync(null,
-                    DevResources.pink_girl.To32bppBitmap(),
+                    DevResources.pink_girl,
                     new CanvasPreprocessorSettings()
                     {
                         RgbBucketSize = 15,
@@ -51,13 +51,13 @@ namespace PixelStacker.Tests
                     });
 
 
-                return await engine.RenderCanvasAsync(null, ref img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette);
             });
 
 
             this.Canvases["Quantizer"] = new AsyncLazy<RenderedCanvas>(async () => {
                 var img = await engine.PreprocessImageAsync(null,
-                    DevResources.pink_girl.To32bppBitmap(),
+                    DevResources.pink_girl,
                     new CanvasPreprocessorSettings()
                     {
                         RgbBucketSize = 1,
@@ -70,27 +70,27 @@ namespace PixelStacker.Tests
                         }
                     });
 
-                return await engine.RenderCanvasAsync(null, ref img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette);
             });
 
-            this.Canvases["Heavy"] = new AsyncLazy<RenderedCanvas>(async () => {
-                var img = await engine.PreprocessImageAsync(null,
-                    DevResources.planet_8k.To32bppBitmap(),
-                    new CanvasPreprocessorSettings()
-                    {
-                        RgbBucketSize = 1,
-                        MaxWidth = 1024,
-                        QuantizerSettings = new QuantizerSettings()
-                        {
-                            Algorithm = QuantizerAlgorithm.WuColor,
-                            MaxColorCount = 256,
-                            IsEnabled = false,
-                            DitherAlgorithm = "No dithering"
-                        }
-                    });
+            //this.Canvases["Heavy"] = new AsyncLazy<RenderedCanvas>(async () => {
+            //    var img = await engine.PreprocessImageAsync(null,
+            //        DevResources.planet_8k,
+            //        new CanvasPreprocessorSettings()
+            //        {
+            //            RgbBucketSize = 1,
+            //            MaxWidth = 1024,
+            //            QuantizerSettings = new QuantizerSettings()
+            //            {
+            //                Algorithm = QuantizerAlgorithm.WuColor,
+            //                MaxColorCount = 256,
+            //                IsEnabled = false,
+            //                DitherAlgorithm = "No dithering"
+            //            }
+            //        });
 
-                return await engine.RenderCanvasAsync(null, ref img, mapper, palette);
-            });
+            //    return await engine.RenderCanvasAsync(null, ref img, mapper, palette);
+            //});
 
             var preLoadIt = this.Canvas;
         }

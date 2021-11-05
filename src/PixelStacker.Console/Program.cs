@@ -64,7 +64,7 @@ namespace PixelStacker.Console
                     });
 
 
-                return await engine.RenderCanvasAsync(null, ref img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette);
             });
 
 
@@ -83,7 +83,7 @@ namespace PixelStacker.Console
                         }
                     });
 
-                return await engine.RenderCanvasAsync(null, ref img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette);
             });
 
             this.Canvases["Heavy"] = new AsyncLazy<RenderedCanvas>(async () => {
@@ -102,7 +102,7 @@ namespace PixelStacker.Console
                         }
                     });
 
-                return await engine.RenderCanvasAsync(null, ref img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette);
             });
 
             var preLoadIt = this.Canvas;

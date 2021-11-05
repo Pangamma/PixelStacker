@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
 	<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+	<!-- Makes it use a different gc system that is slower, but uses less memory -->
+    <ServerGarbageCollection>false</ServerGarbageCollection>
   </PropertyGroup>
 
   <ItemGroup>

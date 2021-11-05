@@ -32,7 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.Resources", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.Console", "PixelStacker.Console\PixelStacker.Console.csproj", "{F7C2C4F8-FFF9-4892-9556-02492E898DDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.CodeGenerator", "PixelStacker.CodeGenerator\PixelStacker.CodeGenerator.csproj", "{3C0646DA-B5F1-4CC1-A302-5CE5E03B06A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.CodeGenerator", "PixelStacker.CodeGenerator\PixelStacker.CodeGenerator.csproj", "{3C0646DA-B5F1-4CC1-A302-5CE5E03B06A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FNBT", "FNbt.Core\FNBT.csproj", "{601FE83D-245D-4858-A21A-82770709C875}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,6 +124,14 @@ Global
 		{3C0646DA-B5F1-4CC1-A302-5CE5E03B06A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C0646DA-B5F1-4CC1-A302-5CE5E03B06A8}.Release|x64.ActiveCfg = Release|Any CPU
 		{3C0646DA-B5F1-4CC1-A302-5CE5E03B06A8}.Release|x64.Build.0 = Release|Any CPU
+		{601FE83D-245D-4858-A21A-82770709C875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{601FE83D-245D-4858-A21A-82770709C875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{601FE83D-245D-4858-A21A-82770709C875}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{601FE83D-245D-4858-A21A-82770709C875}.Debug|x64.Build.0 = Debug|Any CPU
+		{601FE83D-245D-4858-A21A-82770709C875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{601FE83D-245D-4858-A21A-82770709C875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{601FE83D-245D-4858-A21A-82770709C875}.Release|x64.ActiveCfg = Release|Any CPU
+		{601FE83D-245D-4858-A21A-82770709C875}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

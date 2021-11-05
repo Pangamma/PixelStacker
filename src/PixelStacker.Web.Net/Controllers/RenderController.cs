@@ -22,7 +22,8 @@ namespace PixelStacker.Web.Net.Controllers
     {
 
         // TODO make this into an LRU to avoid mem crashes and leaks from abusive actors
-        private static LruCache<string, byte[]> Cache { get; set; } = new LruCache<string, byte[]>(100, TimeSpan.FromHours(24));
+        const string contentType = "image/jpeg"; // PNG
+        private static LruCache<string, byte[]> Cache { get; set; } = new LruCache<string, byte[]>(200, TimeSpan.FromHours(24));
         
         private static Lazy<IColorMapper> ColorMapperSideView = new Lazy<IColorMapper>(() =>
         {
@@ -47,7 +48,6 @@ namespace PixelStacker.Web.Net.Controllers
         [HttpGet]
         public async Task<ActionResult> ByURL(string url)
         {
-            string contentType = "image/png"; // PNG
             if (Cache.TryGetValue(url, out byte[] cachedData)){
                 return File(cachedData, contentType);
             }
@@ -69,7 +69,7 @@ namespace PixelStacker.Web.Net.Controllers
                 }
             });
             var canvas = await engine.RenderCanvasAsync(null, preprocessed, ColorMapperTopView.Value, palette);
-            IExportFormatter exporter = new PngFormatter();
+            IExportFormatter exporter = new JpegFormatter();
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
             {
                 CanvasData = canvas.CanvasData,
@@ -77,7 +77,7 @@ namespace PixelStacker.Web.Net.Controllers
                 MaterialPalette = palette,
                 PreprocessedImage = canvas.PreprocessedImage,
                 //WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
-                WorldEditOrigin = new int[] { -500, -500 }
+                WorldEditOrigin = null
             }, null);
 
             Cache.Set(url, data);
@@ -104,18 +104,18 @@ namespace PixelStacker.Web.Net.Controllers
                 }
             });
             var canvas = await engine.RenderCanvasAsync(null, preprocessed, ColorMapperTopView.Value, palette);
-            IExportFormatter exporter = new PngFormatter();
+            IExportFormatter exporter = new JpegFormatter();
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
             {
                 CanvasData = canvas.CanvasData,
                 IsSideView = false,
                 MaterialPalette = palette,
                 PreprocessedImage = canvas.PreprocessedImage,
-                WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
+                //WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
+                WorldEditOrigin = null
             }, null);
 
             //string contentType = "APPLICATION/octet-stream"; // download
-            string contentType = "image/png"; // PNG
             return File(data, contentType);
         }
 
@@ -125,21 +125,29 @@ namespace PixelStacker.Web.Net.Controllers
             var engine = new RenderCanvasEngine();
             SKBitmap bm = model.File.ToSKBitmap();
             var palette = MaterialPalette.FromResx();
-            var preprocessed = await engine.PreprocessImageAsync(null, bm, model.PreprocessSettings);
+            using var preprocessed = await engine.PreprocessImageAsync(null, bm, model.PreprocessSettings);
             var canvas = await engine.RenderCanvasAsync(null, preprocessed, ColorMapperTopView.Value, palette);
-            IExportFormatter exporter = new PngFormatter();
+            IExportFormatter exporter = model.Format.GetFormatter();
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
             {
                 CanvasData = canvas.CanvasData,
                 IsSideView = false,
                 MaterialPalette = palette,
                 PreprocessedImage = canvas.PreprocessedImage,
-                WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
+                //WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
+                WorldEditOrigin = null
             }, null);
 
-            //string contentType = "APPLICATION/octet-stream"; // download
-            string contentType = "image/png"; // PNG
-            return File(data, contentType);
+            var (contentType, fileExt) = model.Format.GetContentTypeData();
+            if (contentType == "application/octet-stream")
+            {
+                return File(data, contentType, "download" + fileExt);
+            } 
+            else
+            {
+                // Image style
+                return File(data, contentType);
+            }
         }
     }
 }

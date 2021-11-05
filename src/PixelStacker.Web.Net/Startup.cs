@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PixelStacker.Web.Net
@@ -53,6 +54,7 @@ namespace PixelStacker.Web.Net
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.JsonSerializerOptions.WriteIndented = true;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
             services.AddSwaggerGen(SwaggerConfig.AddSwaggerGen);

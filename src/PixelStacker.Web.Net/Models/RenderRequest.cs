@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PixelStacker.Logic.IO.Config;
+using PixelStacker.Logic.IO.Formatters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,6 +13,8 @@ namespace PixelStacker.Web.Net.Models
     {
         [Required]
         public IFormFile File { get; set; }
+
+        public ExportFormat Format { get; set; } = ExportFormat.Jpeg;
 
         public CanvasPreprocessorSettings PreprocessSettings { get; set; } = new CanvasPreprocessorSettings()
         {

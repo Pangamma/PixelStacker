@@ -12,7 +12,7 @@ namespace PixelStacker.Logic.Model
     public class PixelStackerProjectData
     {
         public bool IsSideView { get; set; } = false;
-        public int[] WorldEditOrigin { get; set; } = new int[] { 0, 0 };
+        public PxPoint WorldEditOrigin { get; set; }
 
         public int Height => CanvasData.Height;
         public int Width => CanvasData.Width;
@@ -33,7 +33,7 @@ namespace PixelStacker.Logic.Model
             this.CanvasData = canvas.CanvasData;
             this.IsSideView = opts.IsSideView;
             this.PreprocessedImage = canvas.PreprocessedImage;
-            this.WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y };
+            this.WorldEditOrigin = canvas.WorldEditOrigin;
             this.MaterialPalette = canvas.MaterialPalette;
             this.CanvasData = canvas.CanvasData;
         }

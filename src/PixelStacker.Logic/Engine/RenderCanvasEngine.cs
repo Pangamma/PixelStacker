@@ -89,12 +89,13 @@ namespace PixelStacker.Logic.Engine
         /// <returns></returns>
         public Task<SkiaSharp.SKBitmap> PreprocessImageAsync(CancellationToken? worker, SkiaSharp.SKBitmap LIM, CanvasPreprocessorSettings settings)
         {
+            var dims = LIM.Info.Rect;
             // Resize based on max size
             ProgressX.Report(5, "Pre-processing image. Resizing.");
-            int mH = Math.Min(settings.MaxHeight ?? LIM.Info.Height, LIM.Info.Height);
-            int mW = Math.Min(settings.MaxWidth ?? LIM.Info.Width, LIM.Info.Width);
-            int H = (mW < mH) ? (mW * LIM.Info.Height / LIM.Info.Width) : mH;
-            int W = (mW < mH) ? mW : (mH * LIM.Info.Width / LIM.Info.Height);
+            int mH = Math.Min(settings.MaxHeight ?? dims.Height, dims.Height);
+            int mW = Math.Min(settings.MaxWidth ?? dims.Width, dims.Width);
+            int H = (mW < mH) ? (mW * dims.Height / dims.Width) : mH;
+            int W = (mW < mH) ? mW : (mH * dims.Width / dims.Height);
             // TODO: How to get "nearest neighboor" sampling selected?
             var resized = LIM.Resize(new SkiaSharp.SKImageInfo(W, H, SkiaSharp.SKColorType.Rgba8888), SkiaSharp.SKFilterQuality.Low);
 
@@ -103,19 +104,24 @@ namespace PixelStacker.Logic.Engine
             ProgressX.Report(25, $"Pre-processing image. Flattening into RGB buckets of size {F}");
             if (F > 1)
             {
-                resized.ToEditStream(worker, (x, y, c) => c.Normalize(F));
+                var tmp = resized.ToEditStream(worker, (x, y, c) => c.Normalize(F));
+                resized.DisposeSafely();
+                resized = tmp;
             }
 
             worker.SafeThrowIfCancellationRequested();
+            if (settings.QuantizerSettings?.IsEnabled == true)
+            {
+                ProgressX.Report(50, $"Pre-processing image. Quantizing.");
 
-            //if (settings.QuantizerSettings?.IsEnabled == true)
-            //{
-            //    ProgressX.Report(50, $"Pre-processing image. Quantizing.");
-            //    var quantized = QuantizerEngine.RenderImage(worker, resized, settings.QuantizerSettings);
-            //    resized.DisposeSafely();
-            //    ProgressX.Report(100, "Finished pre-processing the image.");
-            //    return Task.FromResult(quantized);
-            //}
+
+                //var quantized = QuantizerEngine.RenderImage(worker, resized, settings.QuantizerSettings);
+
+
+                //resized.DisposeSafely();
+                ProgressX.Report(100, "Finished pre-processing the image.");
+                //return Task.FromResult(quantized);
+            }
 
             ProgressX.Report(100, "Finished pre-processing the image.");
             return Task.FromResult(resized);
@@ -138,7 +144,7 @@ namespace PixelStacker.Logic.Engine
             preprocessedImage = preprocessedImage.Copy();
             RenderedCanvas canvas = new RenderedCanvas()
             {
-                WorldEditOrigin = new SKPoint(0, preprocessedImage.Height - 1),
+                WorldEditOrigin = new PxPoint(0, preprocessedImage.Height - 1),
                 IsCustomized = false,
                 PreprocessedImage = preprocessedImage,
                 MaterialPalette = palette,

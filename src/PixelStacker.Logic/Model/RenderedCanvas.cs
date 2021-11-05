@@ -11,7 +11,7 @@ namespace PixelStacker.Logic.Model
         /// True if the user has made any manual edits to the canvas.
         /// </summary>
         public bool IsCustomized { get; set; } = false;
-        public SKPoint WorldEditOrigin { get; set; } = new SKPoint(0, 0);
+        public PxPoint WorldEditOrigin { get; set; }
 
         public int Height => CanvasData.Height;
         public int Width => CanvasData.Width;

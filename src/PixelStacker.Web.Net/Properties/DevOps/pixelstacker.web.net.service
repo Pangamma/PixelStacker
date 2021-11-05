@@ -1,0 +1,21 @@
+﻿# Install to /etc/systemd/system/pixelstacker.web.net.service
+[Unit]
+Description=PixelStacker web demo
+#
+[Service]
+WorkingDirectory=/var/www/vhosts/taylorlove.info/services/pixelstacker.web.net
+ExecStart=/var/www/vhosts/taylorlove.info/services/pixelstacker.web.net/PixelStacker.Web.Net
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-pixelstacker-web
+User=taylorlove
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+# Environment=DOTNET_BUNDLE_EXTRACT_BASE_DIR=.extract/
+# If you need to run multiple services on different ports set
+# the ports environment variable here:
+# Environment=ASPNETCORE_URLS=http://0.0.0.0:5005
+[Install]
+WantedBy=multi-user.target

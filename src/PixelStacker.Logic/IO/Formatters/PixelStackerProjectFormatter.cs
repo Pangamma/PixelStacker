@@ -203,7 +203,7 @@ namespace PixelStacker.Logic.IO.Formatters
                             {
                                 string json = await reader.ReadToEndAsync();
                                 var xy = JsonConvert.DeserializeObject<int[]>(json) ?? new int[] {0,0};
-                                canvas.WorldEditOrigin = new SkiaSharp.SKPoint(xy[0], xy[1]);
+                                canvas.WorldEditOrigin = new PxPoint(xy[0], xy[1]);
                             }
                         }
 

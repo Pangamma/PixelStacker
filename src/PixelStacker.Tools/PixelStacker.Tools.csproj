@@ -4,7 +4,7 @@
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <IsPackable>false</IsPackable>
 
     <ApplicationIcon />

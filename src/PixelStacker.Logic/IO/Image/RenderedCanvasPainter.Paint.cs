@@ -17,7 +17,7 @@ namespace PixelStacker.Logic.IO.Image
             PaintTilesToView(g, parentControlSize, pz, this.Bitmaps);
             if (vs.IsShowBorder) DrawBorder(g, pz, new SKSize(Data.Width, Data.Height));
             if (vs.IsShowGrid) DrawGridLines(g, Data, vs, pz);
-            DrawWorldEditOrigin(g, pz, Data.WorldEditOrigin);
+            if (Data.WorldEditOrigin != null) DrawWorldEditOrigin(g, pz, Data.WorldEditOrigin);
         }
 
 
@@ -92,7 +92,7 @@ namespace PixelStacker.Logic.IO.Image
         }
 
         #region WE Origin
-        private static void DrawWorldEditOrigin(SKCanvas g, PanZoomSettings pz, SkiaSharp.SKPoint weOrigin)
+        private static void DrawWorldEditOrigin(SKCanvas g, PanZoomSettings pz, PxPoint weOrigin)
         {
             var zoom = pz.zoomLevel;
             var color = new SKColor(255, 0, 0);

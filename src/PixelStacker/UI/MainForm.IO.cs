@@ -48,10 +48,12 @@ namespace PixelStacker.UI
                         formatter = new PixelStackerProjectFormatter();
                         break;
                     case "schem":
-                        formatter = new SchemFormatter();
+                        throw new Exception("Not ready");
+                        //formatter = new SchemFormatter();
                         break;
                     case "schematic":
-                        formatter = new SchematicFormatter();
+                        throw new Exception("Not ready");
+                        //formatter = new SchematicFormatter();
                         break;
                     case "csv":
                         formatter = new BlockCountCsvFormatter();

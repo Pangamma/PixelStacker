@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -20,7 +21,7 @@ namespace MtCoffee.Web.AppStart
             {
                 return apiDesc.First();
             });
-
+            
             c.IgnoreObsoleteActions();
             c.IgnoreObsoleteProperties();
         }
@@ -31,9 +32,11 @@ namespace MtCoffee.Web.AppStart
             c.ShowCommonExtensions();
             c.DocExpansion(DocExpansion.None);
             c.DocumentTitle = "PixelStacker WEB";
-            #if !DEBUG
+            c.InjectStylesheet("../swagger-ui/custom-swagger.css");
+
+#if !DEBUG
             c.RoutePrefix = "";
-            #endif
+#endif
 
         }
 
@@ -54,6 +57,20 @@ namespace MtCoffee.Web.AppStart
                     swagger.Servers = new List<OpenApiServer> { new OpenApiServer { Url = serverUrl } };
                 }
             });
+        }
+    }
+
+    public class EnumSchemaFilter : ISchemaFilter
+    {
+        public void Apply(OpenApiSchema model, SchemaFilterContext context)
+        {
+            if (context.Type.IsEnum)
+            {
+                model.Enum.Clear();
+                Enum.GetNames(context.Type)
+                    .ToList()
+                    .ForEach(n => model.Enum.Add(new OpenApiString(n)));
+            }
         }
     }
 }

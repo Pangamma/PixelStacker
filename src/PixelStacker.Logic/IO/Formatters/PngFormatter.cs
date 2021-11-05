@@ -112,7 +112,7 @@ namespace PixelStacker.Logic.IO.Formatters
                 IsSideView = canvas.IsSideView,
                 MaterialPalette = canvas.MaterialPalette,
                 PreprocessedImage = canvas.PreprocessedImage,
-                WorldEditOrigin = new SKPoint(canvas.WorldEditOrigin[0], canvas.WorldEditOrigin[0]),
+                WorldEditOrigin = canvas.WorldEditOrigin,
                 IsCustomized = false
             }, 1);
 
