@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
@@ -49,8 +50,17 @@ namespace PixelStacker.Resources
             var dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             return dic ?? new Dictionary<string, string>();
         }
+       
+        private static string[] SupportedLocales = new string[] { "en-US", "ko-KR", "ja-JP", "fr-FR", "de-DE", "es-ES", "zh-CN", "da-DK", "nl-NL", "sv-SE", "zu-ZU" };
+        public static string GetSupportedLocale(string attemptedLocale = null)
+        {
+            attemptedLocale ??= System.Globalization.CultureInfo.CurrentUICulture.Name;
+            string match = SupportedLocales.FirstOrDefault(x => attemptedLocale == x)
+                ?? SupportedLocales.FirstOrDefault(x => x.Split("-", StringSplitOptions.RemoveEmptyEntries)[0] == attemptedLocale.Split("-", StringSplitOptions.RemoveEmptyEntries)[0])
+                ?? "en-us";
+            return match;
+        }
 
-        
         public override string GetString(string name, CultureInfo culture)
         {
             if (culture == null) culture = CultureInfo.CurrentUICulture;

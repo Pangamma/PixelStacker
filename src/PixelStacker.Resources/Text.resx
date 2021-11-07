@@ -304,6 +304,12 @@ me as a </value>
   <data name="Error_SomethingIsWrong" xml:space="preserve">
     <value>Something is wrong here.</value>
   </data>
+  <data name="Grid" xml:space="preserve">
+    <value>Grid</value>
+  </data>
+  <data name="GridOptions" xml:space="preserve">
+    <value>Grid Options</value>
+  </data>
   <data name="MainForm_Open_Title" xml:space="preserve">
     <value>Open File</value>
   </data>
@@ -420,6 +426,12 @@ me as a </value>
   </data>
   <data name="MainMenu_SelectMaterials" xml:space="preserve">
     <value>Select Materials</value>
+  </data>
+  <data name="MainMenu_ShadowRendering" xml:space="preserve">
+    <value>Shadow Rendering</value>
+  </data>
+  <data name="MainMenu_SwitchPanels" xml:space="preserve">
+    <value>Switch Panels</value>
   </data>
   <data name="MainMenu_ToggleBorder" xml:space="preserve">
     <value>Toggle Border</value>

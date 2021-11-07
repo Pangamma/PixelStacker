@@ -142,5 +142,9 @@
   "MainMenu_ColorReduction": "減色",
   "MainMenu_Dithering": "ディザリング",
   "MainMenu_Generate": "生成",
-  "MainMenu_SelectMaterials": "材料を選択"
+  "MainMenu_SelectMaterials": "材料を選択",
+  "Grid": "グリッド",
+  "GridOptions": "グリッドオプション",
+  "MainMenu_ShadowRendering": "シャドウレンダリング",
+  "MainMenu_SwitchPanels": "スイッチパネル"
 }

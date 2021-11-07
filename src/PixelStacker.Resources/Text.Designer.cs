@@ -559,6 +559,24 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grid.
+        /// </summary>
+        public static string Grid {
+            get {
+                return ResourceManager.GetString("Grid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid Options.
+        /// </summary>
+        public static string GridOptions {
+            get {
+                return ResourceManager.GetString("GridOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open File.
         /// </summary>
         public static string MainForm_Open_Title {
@@ -906,6 +924,24 @@ namespace PixelStacker.Resources {
         public static string MainMenu_SelectMaterials {
             get {
                 return ResourceManager.GetString("MainMenu_SelectMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shadow Rendering.
+        /// </summary>
+        public static string MainMenu_ShadowRendering {
+            get {
+                return ResourceManager.GetString("MainMenu_ShadowRendering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switch Panels.
+        /// </summary>
+        public static string MainMenu_SwitchPanels {
+            get {
+                return ResourceManager.GetString("MainMenu_SwitchPanels", resourceCulture);
             }
         }
         

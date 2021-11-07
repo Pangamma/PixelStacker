@@ -142,5 +142,9 @@
   "MainMenu_ColorReduction": "Reducción de color",
   "MainMenu_Dithering": "Dithering",
   "MainMenu_Generate": "Generar",
-  "MainMenu_SelectMaterials": "Seleccionar materiales"
+  "MainMenu_SelectMaterials": "Seleccionar materiales",
+  "Grid": "Red",
+  "GridOptions": "Opciones de cuadrícula",
+  "MainMenu_ShadowRendering": "Representación de sombras",
+  "MainMenu_SwitchPanels": "Paneles de interruptores"
 }

@@ -65,6 +65,7 @@ namespace PixelStacker.UI
             this.skipShadowRenderirngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addExtraDepthToShadowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchPanelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chineseSimplifiedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +95,7 @@ namespace PixelStacker.UI
             this.editToolStripMenuItem,
             this.generationToolStripMenuItem,
             this.viewToolStripMenuItem,
+            this.playToolStripMenuItem,
             this.languageToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -353,8 +355,16 @@ namespace PixelStacker.UI
             this.switchPanelsToolStripMenuItem.Text = "Switch Panels";
             this.switchPanelsToolStripMenuItem.Click += new System.EventHandler(this.switchPanelsToolStripMenuItem_Click);
             // 
+            // playToolStripMenuItem
+            // 
+            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(36, 24);
+            this.playToolStripMenuItem.Text = "▶";
+            this.playToolStripMenuItem.Click += new System.EventHandler(this.renderToolStripMenuItem_Click);
+            // 
             // languageToolStripMenuItem
             // 
+            this.languageToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.englishToolStripMenuItem,
             this.chineseSimplifiedToolStripMenuItem,
@@ -370,7 +380,9 @@ namespace PixelStacker.UI
             this.languageToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.languageToolStripMenuItem.MergeIndex = 50;
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(30, 24);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
+            this.languageToolStripMenuItem.Text = "English";
+            this.languageToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
             // englishToolStripMenuItem
             // 
@@ -502,6 +514,7 @@ namespace PixelStacker.UI
             this.canvasEditor.Location = new System.Drawing.Point(0, 28);
             this.canvasEditor.Name = "canvasEditor";
             this.canvasEditor.Options = null;
+            this.canvasEditor.PanZoomSettings = null;
             this.canvasEditor.Size = new System.Drawing.Size(800, 421);
             this.canvasEditor.TabIndex = 6;
             // 
@@ -531,6 +544,7 @@ namespace PixelStacker.UI
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.imageViewer);
             this.Controls.Add(this.canvasEditor);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MainForm";
@@ -592,5 +606,6 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem switchPanelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ditheringToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem swedishToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
     }
 }

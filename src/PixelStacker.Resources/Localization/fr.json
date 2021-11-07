@@ -142,5 +142,9 @@
   "MainMenu_ColorReduction": "Réduction des couleurs",
   "MainMenu_Dithering": "Tramage",
   "MainMenu_Generate": "produire",
-  "MainMenu_SelectMaterials": "Sélectionner des matériaux"
+  "MainMenu_SelectMaterials": "Sélectionner des matériaux",
+  "Grid": "Grille",
+  "GridOptions": "Options de grille",
+  "MainMenu_ShadowRendering": "Rendu des ombres",
+  "MainMenu_SwitchPanels": "Panneaux de commutation"
 }

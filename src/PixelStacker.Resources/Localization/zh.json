@@ -142,5 +142,9 @@
   "MainMenu_ColorReduction": "色彩还原",
   "MainMenu_Dithering": "抖动",
   "MainMenu_Generate": "产生",
-  "MainMenu_SelectMaterials": "选择材料"
+  "MainMenu_SelectMaterials": "选择材料",
+  "Grid": "网格",
+  "GridOptions": "网格选项",
+  "MainMenu_ShadowRendering": "阴影渲染",
+  "MainMenu_SwitchPanels": "开关面板"
 }

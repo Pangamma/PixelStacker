@@ -142,5 +142,9 @@
   "MainMenu_ColorReduction": "Färgreducering",
   "MainMenu_Dithering": "Dithering",
   "MainMenu_Generate": "Generera",
-  "MainMenu_SelectMaterials": "Välj Material"
+  "MainMenu_SelectMaterials": "Välj Material",
+  "Grid": "Rutnät",
+  "GridOptions": "Rutnätsalternativ",
+  "MainMenu_ShadowRendering": "Skuggåtergivning",
+  "MainMenu_SwitchPanels": "Switch paneler"
 }

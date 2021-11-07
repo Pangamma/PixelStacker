@@ -142,5 +142,9 @@
   "MainMenu_ColorReduction": "색상 감소",
   "MainMenu_Dithering": "디더링",
   "MainMenu_Generate": "생성하다",
-  "MainMenu_SelectMaterials": "재료 선택"
+  "MainMenu_SelectMaterials": "재료 선택",
+  "Grid": "그리드",
+  "GridOptions": "그리드 옵션",
+  "MainMenu_ShadowRendering": "그림자 렌더링",
+  "MainMenu_SwitchPanels": "스위치 패널"
 }

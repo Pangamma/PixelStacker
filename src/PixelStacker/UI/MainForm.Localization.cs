@@ -104,7 +104,10 @@ namespace PixelStacker.UI
             //this.graphToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_Graph;
             //this.saveColorPaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
             //this.exportSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
-
+            this.switchPanelsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SwitchPanels;
+            this.shadowRenderingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ShadowRendering;
+            this.gridOptionsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.GridOptions;
+            this.gridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Grid;
             this.layerFilteringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_LayerFiltering;
             this.toggleBorderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleBorder;
             this.toggleGridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleGrid;

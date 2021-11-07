@@ -142,5 +142,9 @@
   "MainMenu_ColorReduction": "Kleurreductie",
   "MainMenu_Dithering": "Dithering",
   "MainMenu_Generate": "genereren",
-  "MainMenu_SelectMaterials": "Selecteer materialen"
+  "MainMenu_SelectMaterials": "Selecteer materialen",
+  "Grid": "Rooster",
+  "GridOptions": "Rasteropties",
+  "MainMenu_ShadowRendering": "Schaduwweergave",
+  "MainMenu_SwitchPanels": "Schakelpanelen"
 }

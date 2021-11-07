@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +27,8 @@ namespace PixelStacker.Logic.IO.Config
         public UpdateSettings UpdateSettings { get; set; } = new UpdateSettings();
         public CanvasViewerSettings ViewerSettings { get; set; } = new CanvasViewerSettings();
 
-        public string Locale { get; set; } = "en-us";
+        public string Locale { get; set; } = ResxHelper.GetSupportedLocale();
+
 
         /// <summary>
         /// Which materials are enabled or disabled. TRUE if enabled. The PixelStacker_ID value

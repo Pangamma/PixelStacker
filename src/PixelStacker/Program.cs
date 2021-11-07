@@ -17,7 +17,7 @@ namespace PixelStacker
         [STAThread]
         static void Main()
         {
-            //ResxHelper.InjectIntoTextResx();
+            ResxHelper.InjectIntoTextResx();
             var opts = new LocalDataOptionsProvider().Load();
             MaterialPalette.FromResx().ToValidCombinationList(opts);
 

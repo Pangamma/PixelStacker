@@ -142,5 +142,9 @@
   "MainMenu_ColorReduction": "Farvereduktion",
   "MainMenu_Dithering": "Dithering",
   "MainMenu_Generate": "Frembringe",
-  "MainMenu_SelectMaterials": "Vælg Materialer"
+  "MainMenu_SelectMaterials": "Vælg Materialer",
+  "Grid": "Gitter",
+  "GridOptions": "Grid muligheder",
+  "MainMenu_ShadowRendering": "Skyggegengivelse",
+  "MainMenu_SwitchPanels": "Switch paneler"
 }
