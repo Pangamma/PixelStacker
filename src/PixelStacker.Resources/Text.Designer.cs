@@ -604,6 +604,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color Reduction.
+        /// </summary>
+        public static string MainMenu_ColorReduction {
+            get {
+                return ResourceManager.GetString("MainMenu_ColorReduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All colors (compact).
         /// </summary>
         public static string MainMenu_CP_AllColors_Compact {
@@ -645,6 +654,15 @@ namespace PixelStacker.Resources {
         public static string MainMenu_CP_Square {
             get {
                 return ResourceManager.GetString("MainMenu_CP_Square", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dithering.
+        /// </summary>
+        public static string MainMenu_Dithering {
+            get {
+                return ResourceManager.GetString("MainMenu_Dithering", resourceCulture);
             }
         }
         

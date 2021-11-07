@@ -23,18 +23,5 @@ namespace PixelStacker.Extensions
             if (src == null) return;
             try { src.Dispose(); } catch { }
         }
-
-        /// <summary>
-        /// Disposes image, and handles nulls gracefully.
-        /// </summary>
-        /// <param name="src"></param>
-        /// <returns></returns>
-        public static void SwapDispose<T>(this T newT, ref T old) where T : IDisposable
-        {
-            var tmp = old;
-            old = newT;
-            if (tmp != null)
-                try { tmp.Dispose(); } catch { }
-        }
     }
 }

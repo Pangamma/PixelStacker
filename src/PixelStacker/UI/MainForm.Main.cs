@@ -20,8 +20,8 @@ namespace PixelStacker.UI
         private Options Options;
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
-        public SKBitmap LoadedImage { get; private set; } = DevResources.test_tiling;
-        public SKBitmap PreprocessedImage { get; private set; } = DevResources.test_tiling; // UIResources.weird_intro.BitmapToSKBitmap();
+        public SKBitmap LoadedImage { get; private set; } = DevResources.colorwheel;
+        public SKBitmap PreprocessedImage { get; private set; } = DevResources.colorwheel.Copy(); // UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
         private KonamiWatcher konamiWatcher;
 

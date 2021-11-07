@@ -138,5 +138,7 @@
   "RenderedImagePanel_RemoveAll": "Ta bort alla",
   "RenderedImagePanel_ReplaceColor": "Byt ut färg (kräver återrendering)",
   "RenderEngine_ConvertingToBlocks": "Konvertera pixlar till Minecraft-block.",
-  "Sizing": "Dimensionering"
+  "Sizing": "Dimensionering",
+  "MainMenu_ColorReduction": "Färgreducering",
+  "MainMenu_Dithering": "Dithering"
 }

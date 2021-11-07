@@ -51,10 +51,9 @@ namespace PixelStacker.UI.Forms
 
         private void InitializeCustom()
         {
-            cbxEnableQuantizer.Checked = this.Options.Preprocessor.QuantizerSettings.IsEnabled;
-            bool isChecked = this.Options.Preprocessor.QuantizerSettings.IsEnabled;
+            cbxEnableQuantizer.Checked = this.Options.Preprocessor.QuantizerSettings?.IsEnabled == true;
+            bool isChecked = this.Options.Preprocessor.QuantizerSettings?.IsEnabled == true;
             ddlAlgorithm.Enabled = isChecked;
-            ddlColorCache.Enabled = isChecked;
             ddlDither.Enabled = isChecked;
             ddlColorCount.Enabled = isChecked;
             ddlParallel.Enabled = isChecked;
@@ -91,14 +90,6 @@ namespace PixelStacker.UI.Forms
                     .Where(x => x == quant.MaxParallelProcesses)
                     .DefaultIfEmpty(1).First().ToString();
                 ddlParallel.Enabled = qOpts.MaxParallelProcessesList.Count > 1 && quant.IsEnabled;
-            }
-            {
-                ddlColorCache.Items.Clear();
-                ddlColorCache.Items.AddRange(qOpts.ColorCacheList.Keys.ToArray());
-                ddlColorCache.SelectedItem
-                    = qOpts.ColorCacheList.Keys.FirstOrDefault(x => x == quant.ColorCache)
-                    ?? qOpts.ColorCacheList.Keys.First();
-                ddlColorCache.Enabled = qOpts.ColorCacheList.Count > 1 && quant.IsEnabled;
             }
             {
                 ddlDither.Items.Clear();

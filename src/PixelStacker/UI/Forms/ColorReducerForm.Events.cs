@@ -11,6 +11,8 @@ namespace PixelStacker.UI.Forms
 {
     public partial class ColorReducerForm
     {
+        /// <summary>
+        /// </summary>
         private void OnSettingsChange()
         {
             Options.Save();
@@ -30,7 +32,6 @@ namespace PixelStacker.UI.Forms
         {
             bool isChecked = cbxEnableQuantizer.Checked;
             ddlAlgorithm.Enabled = isChecked;
-            ddlColorCache.Enabled = isChecked;
             ddlDither.Enabled = isChecked;
             ddlColorCount.Enabled = isChecked;
             ddlParallel.Enabled = isChecked;
@@ -64,14 +65,6 @@ namespace PixelStacker.UI.Forms
             if (val == Options.Preprocessor.RgbBucketSize) return;
             Options.Preprocessor.RgbBucketSize = val;
             RevalidateOptions(Options);
-            OnSettingsChange();
-        }
-
-        private void ddlColorCache_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (IsNoisy) return;
-            Options.Preprocessor.QuantizerSettings.ColorCache = ddlColorCache.SelectedItem as string;
-            RevalidateOptions(Options); 
             OnSettingsChange();
         }
 

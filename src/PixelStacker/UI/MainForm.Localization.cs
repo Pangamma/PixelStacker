@@ -101,6 +101,9 @@ namespace PixelStacker.UI
             this.redoToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Redo;
             this.undoToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Undo;
             this.editToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Edit;
+
+            this.preprocessingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ColorReduction;
+            this.ditheringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Dithering;
             //            this.exportSettingsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ExportSettings;
             //            this.allColorsdetailedToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_AllColors_Detailed;
             //            this.allPossibilitiescompactToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_AllColors_Compact;

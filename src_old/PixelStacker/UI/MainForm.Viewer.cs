@@ -180,6 +180,7 @@ namespace PixelStacker.UI
                 {
                     c.imagePanelMain.SetImage(c.PreRenderedImage);
                     c.ShowImagePanel();
+                    TaskManager.SafeReport(0, "Finished quantizing.");
                 });
             }
         }

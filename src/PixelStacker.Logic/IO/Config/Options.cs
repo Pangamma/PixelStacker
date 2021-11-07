@@ -86,7 +86,7 @@ namespace PixelStacker.Logic.IO.Config
             QuantizerSettings = new QuantizerSettings()
             {
                 IsEnabled = false,
-                Algorithm = QuantizerAlgorithm.HslDistinctSelection,
+                Algorithm = QuantizerAlgorithm.WuColor,
                 ColorCache = "Octree search",
                 MaxColorCount = 256,
                 DitherAlgorithm = "No dithering",

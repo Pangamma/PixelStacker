@@ -21,14 +21,16 @@ namespace PixelStacker.UI
         {
             var self = this;
             // Force a re-render or something.
-            Task.Run(() => TaskManager.Get.StartAsync(async (worker) => {
+            Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+            {
                 var engine = new RenderCanvasEngine();
                 int? tmpWidth = this.Options.Preprocessor.MaxWidth;
                 try
                 {
                     this.Options.Preprocessor.MaxWidth = Math.Min(600, this.Options.Preprocessor.MaxWidth ?? 600);
                     var preproc = await engine.PreprocessImageAsync(worker, this.LoadedImage, this.Options.Preprocessor);
-                    self.InvokeEx((c) => {
+                    self.InvokeEx((c) =>
+                    {
                         var tmp = c.PreprocessedImage;
                         c.PreprocessedImage = preproc;
                         tmp.DisposeSafely();
@@ -86,8 +88,12 @@ namespace PixelStacker.UI
                 worker.ThrowIfCancellationRequested();
 
                 // Super dubious and sketchy logic here. Might crash due to cross-context thread access issues
-                self.RenderedCanvas = await engine.RenderCanvasAsync(worker, imgPreprocessed, this.ColorMapper, this.Palette);
+                var canvasThatIsRendered = await engine.RenderCanvasAsync(worker, imgPreprocessed, this.ColorMapper, this.Palette);
                 worker.ThrowIfCancellationRequested();
+                self.RenderedCanvas = canvasThatIsRendered;
+                //self.RenderedCanvas = await engine.PostprocessImageAsync(worker, canvasThatIsRendered, this.ColorMapper, this.Options.Preprocessor);
+                //worker.ThrowIfCancellationRequested();
+                
                 await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, this.imageViewer.PanZoomSettings);
 
                 ProgressX.Report(0, "Showing block plan in the viewing window.");

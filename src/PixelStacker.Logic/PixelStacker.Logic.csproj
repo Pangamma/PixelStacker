@@ -13,10 +13,13 @@
   <ItemGroup>
     <Compile Remove="Collections\KDTreeMaster\**" />
     <Compile Remove="Collections\KDTree\**" />
+    <Compile Remove="Engine\QuantizerOld\**" />
     <EmbeddedResource Remove="Collections\KDTreeMaster\**" />
     <EmbeddedResource Remove="Collections\KDTree\**" />
+    <EmbeddedResource Remove="Engine\QuantizerOld\**" />
     <None Remove="Collections\KDTreeMaster\**" />
     <None Remove="Collections\KDTree\**" />
+    <None Remove="Engine\QuantizerOld\**" />
 	
     <Compile Update="IO\Image\RenderedCanvasPainter.*.cs">
       <DependentUpon>RenderedCanvasPainter.cs</DependentUpon>

@@ -17,7 +17,7 @@ namespace PixelStacker.Logic.IO.Config
         public bool IsSideView { get; set; } = false;
 
 
-        public QuantizerSettings QuantizerSettings { get; set; }
+        public QuantizerSettings QuantizerSettings { get; set; } = new QuantizerSettings();
 
         [Category("Colors")]
         /// <summary>

@@ -138,5 +138,7 @@
   "ColorReducer_ColorCount_Tooltip": "Le quantificateur réduira le nombre de couleurs à un nombre de 256 ou moins.",
   "ColorReducer_Dither_Tooltip": "Beaucoup de styles différents à choisir. Personnellement, je pense que le tramage bayer est le meilleur.",
   "ColorReducer_Parallel_Tooltip": "Le nombre de processus à exécuter en parallèle. L'utilisation de nombres plus élevés peut accélérer le processus de quantification.",
-  "MainMenu_Lang_Swedish": "suédois"
+  "MainMenu_Lang_Swedish": "suédois",
+  "MainMenu_ColorReduction": "Réduction des couleurs",
+  "MainMenu_Dithering": "Tramage"
 }

@@ -41,8 +41,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.cbxEnableQuantizer = new System.Windows.Forms.CheckBox();
             this.lblAlgorithm = new System.Windows.Forms.LinkLabel();
-            this.lblColorCache = new System.Windows.Forms.LinkLabel();
-            this.ddlColorCache = new System.Windows.Forms.ComboBox();
             this.lblColorCount = new System.Windows.Forms.LinkLabel();
             this.ddlColorCount = new System.Windows.Forms.ComboBox();
             this.lblParallel = new System.Windows.Forms.LinkLabel();
@@ -133,14 +131,12 @@
             this.flowLayoutPanel1.Controls.Add(this.cbxEnableQuantizer);
             this.flowLayoutPanel1.Controls.Add(this.lblAlgorithm);
             this.flowLayoutPanel1.Controls.Add(this.ddlAlgorithm);
-            this.flowLayoutPanel1.Controls.Add(this.lblColorCache);
-            this.flowLayoutPanel1.Controls.Add(this.ddlColorCache);
             this.flowLayoutPanel1.Controls.Add(this.lblColorCount);
             this.flowLayoutPanel1.Controls.Add(this.ddlColorCount);
-            this.flowLayoutPanel1.Controls.Add(this.lblParallel);
-            this.flowLayoutPanel1.Controls.Add(this.ddlParallel);
             this.flowLayoutPanel1.Controls.Add(this.lblDither);
             this.flowLayoutPanel1.Controls.Add(this.ddlDither);
+            this.flowLayoutPanel1.Controls.Add(this.lblParallel);
+            this.flowLayoutPanel1.Controls.Add(this.ddlParallel);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 9);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -198,38 +194,13 @@
             this.lblAlgorithm.Text = "Quantizer Algorithm";
             this.lblAlgorithm.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblAlgorithm_LinkClicked);
             // 
-            // lblColorCache
-            // 
-            this.lblColorCache.AutoSize = true;
-            this.lblColorCache.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblColorCache.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblColorCache.LinkColor = System.Drawing.SystemColors.ControlText;
-            this.lblColorCache.Location = new System.Drawing.Point(3, 201);
-            this.lblColorCache.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
-            this.lblColorCache.Name = "lblColorCache";
-            this.lblColorCache.Size = new System.Drawing.Size(91, 20);
-            this.lblColorCache.TabIndex = 7;
-            this.lblColorCache.TabStop = true;
-            this.lblColorCache.Text = "Color Cache";
-            this.lblColorCache.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblColorCache_LinkClicked);
-            // 
-            // ddlColorCache
-            // 
-            this.ddlColorCache.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlColorCache.FormattingEnabled = true;
-            this.ddlColorCache.Location = new System.Drawing.Point(3, 224);
-            this.ddlColorCache.Name = "ddlColorCache";
-            this.ddlColorCache.Size = new System.Drawing.Size(186, 28);
-            this.ddlColorCache.TabIndex = 13;
-            this.ddlColorCache.SelectedValueChanged += new System.EventHandler(this.ddlColorCache_SelectedValueChanged);
-            // 
             // lblColorCount
             // 
             this.lblColorCount.AutoSize = true;
             this.lblColorCount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblColorCount.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lblColorCount.LinkColor = System.Drawing.SystemColors.ControlText;
-            this.lblColorCount.Location = new System.Drawing.Point(3, 270);
+            this.lblColorCount.Location = new System.Drawing.Point(3, 201);
             this.lblColorCount.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.lblColorCount.Name = "lblColorCount";
             this.lblColorCount.Size = new System.Drawing.Size(164, 20);
@@ -242,7 +213,7 @@
             // 
             this.ddlColorCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlColorCount.FormattingEnabled = true;
-            this.ddlColorCount.Location = new System.Drawing.Point(3, 293);
+            this.ddlColorCount.Location = new System.Drawing.Point(3, 224);
             this.ddlColorCount.Name = "ddlColorCount";
             this.ddlColorCount.Size = new System.Drawing.Size(186, 28);
             this.ddlColorCount.TabIndex = 13;
@@ -269,7 +240,7 @@
             this.lblDither.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblDither.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lblDither.LinkColor = System.Drawing.SystemColors.ControlText;
-            this.lblDither.Location = new System.Drawing.Point(3, 408);
+            this.lblDither.Location = new System.Drawing.Point(3, 270);
             this.lblDither.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.lblDither.Name = "lblDither";
             this.lblDither.Size = new System.Drawing.Size(53, 20);
@@ -282,7 +253,7 @@
             // 
             this.ddlDither.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlDither.FormattingEnabled = true;
-            this.ddlDither.Location = new System.Drawing.Point(3, 431);
+            this.ddlDither.Location = new System.Drawing.Point(3, 293);
             this.ddlDither.Name = "ddlDither";
             this.ddlDither.Size = new System.Drawing.Size(186, 28);
             this.ddlDither.TabIndex = 12;
@@ -330,13 +301,11 @@
         private System.Windows.Forms.ComboBox ddlParallel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.LinkLabel lblColorCache;
         private System.Windows.Forms.LinkLabel lblColorCount;
         private System.Windows.Forms.LinkLabel lblParallel;
         private System.Windows.Forms.LinkLabel lblDither;
         private System.Windows.Forms.CheckBox cbxEnableQuantizer;
         private System.Windows.Forms.ComboBox ddlDither;
-        private System.Windows.Forms.ComboBox ddlColorCache;
         private System.Windows.Forms.ComboBox ddlColorCount;
         private System.Windows.Forms.LinkLabel lblAlgorithm;
         private System.Windows.Forms.LinkLabel lblRgbBucketSize;

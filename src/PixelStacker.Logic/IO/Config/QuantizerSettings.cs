@@ -27,7 +27,8 @@ namespace PixelStacker.Logic.IO.Config
         /// <summary>
         /// The quantizer algorithm to use.
         /// </summary>
-        public string Algorithm { get; set; }
+        public string Algorithm { get; set; } = QuantizerAlgorithm.Values[0];
+
 
         [Category("Dithering")]
         /// <summary>
@@ -54,16 +55,15 @@ namespace PixelStacker.Logic.IO.Config
                 MaxParallelProcesses = 1;
             }
 
+            if (null == DitherAlgorithm && fixIfPossible)
+            {
+                DitherAlgorithm = "No dithering";
+            }
+
             if (null != DitherAlgorithm && !opts.DithererList.ContainsKey(DitherAlgorithm))
             {
                 if (!fixIfPossible) return false;
                 DitherAlgorithm = "No dithering";
-            }
-
-            if (ColorCache != null && !opts.ColorCacheList.ContainsKey(ColorCache))
-            {
-                if (!fixIfPossible) return false;
-                ColorCache = opts.ColorCacheList.Keys.First();
             }
 
             if (!opts.MaxColorCountsList.Contains(MaxColorCount))

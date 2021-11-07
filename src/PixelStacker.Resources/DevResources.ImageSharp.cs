@@ -18,6 +18,15 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _colorwheel = null;
+        public static Image<Rgba32> colorwheel {
+            get {
+                if (_colorwheel == null)
+                    _colorwheel = Image.Load((byte[])ResourceManager.GetObject("colorwheel"));
+                return _colorwheel;
+            }
+        }
+
         private static Image<Rgba32> _pink_girl = null;
         public static Image<Rgba32> pink_girl {
             get {
@@ -33,15 +42,6 @@ namespace PixelStacker.Resources {
                 if (_psg == null)
                     _psg = Image.Load((byte[])ResourceManager.GetObject("psg"));
                 return _psg;
-            }
-        }
-
-        private static Image<Rgba32> _test_tiling = null;
-        public static Image<Rgba32> test_tiling {
-            get {
-                if (_test_tiling == null)
-                    _test_tiling = Image.Load((byte[])ResourceManager.GetObject("test-tiling"));
-                return _test_tiling;
             }
         }
 	}

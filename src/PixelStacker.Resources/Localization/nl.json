@@ -138,5 +138,7 @@
   "ColorReducer_ColorCount_Tooltip": "De quantizer zal het aantal kleuren verminderen tot een aantal van 256 of lager.",
   "ColorReducer_Dither_Tooltip": "Veel verschillende stijlen om uit te kiezen. Persoonlijk vind ik Bayer-dithering er het beste uitzien.",
   "ColorReducer_Parallel_Tooltip": "Het aantal processen dat parallel moet worden uitgevoerd. Het gebruik van hogere getallen kan het kwantiseringsproces versnellen.",
-  "MainMenu_Lang_Swedish": "Zweeds"
+  "MainMenu_Lang_Swedish": "Zweeds",
+  "MainMenu_ColorReduction": "Kleurreductie",
+  "MainMenu_Dithering": "Dithering"
 }

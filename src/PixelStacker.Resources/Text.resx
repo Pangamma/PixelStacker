@@ -319,6 +319,9 @@ me as a </value>
   <data name="MainMenu_About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="MainMenu_ColorReduction" xml:space="preserve">
+    <value>Color Reduction</value>
+  </data>
   <data name="MainMenu_CP_AllColors_Compact" xml:space="preserve">
     <value>All colors (compact)</value>
   </data>
@@ -333,6 +336,9 @@ me as a </value>
   </data>
   <data name="MainMenu_CP_Square" xml:space="preserve">
     <value>Square</value>
+  </data>
+  <data name="MainMenu_Dithering" xml:space="preserve">
+    <value>Dithering</value>
   </data>
   <data name="MainMenu_DownOneLayer" xml:space="preserve">
     <value>Down 1 Layer</value>

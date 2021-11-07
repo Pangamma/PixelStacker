@@ -138,5 +138,7 @@
   "ColorReducer_ColorCount_Tooltip": "量化器会将颜色数量减少到 256 或更低。",
   "ColorReducer_Dither_Tooltip": "许多不同的风格可供选择。我个人认为拜耳抖动看起来最好。",
   "ColorReducer_Parallel_Tooltip": "要并行运行的进程数。使用更高的数字可以加快量化过程。",
-  "MainMenu_Lang_Swedish": "瑞典"
+  "MainMenu_Lang_Swedish": "瑞典",
+  "MainMenu_ColorReduction": "色彩还原",
+  "MainMenu_Dithering": "抖动"
 }

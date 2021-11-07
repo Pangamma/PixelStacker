@@ -17,6 +17,16 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _colorwheel = null;
+        public static SKBitmap colorwheel {
+            get {
+                if (_colorwheel == null)
+                    _colorwheel = SKBitmap.Decode((byte[])ResourceManager.GetObject("colorwheel"))
+                    .Copy(SKColorType.Rgba8888);
+                return _colorwheel;
+            }
+        }
+
         private static SKBitmap _pink_girl = null;
         public static SKBitmap pink_girl {
             get {
@@ -34,16 +44,6 @@ namespace PixelStacker.Resources {
                     _psg = SKBitmap.Decode((byte[])ResourceManager.GetObject("psg"))
                     .Copy(SKColorType.Rgba8888);
                 return _psg;
-            }
-        }
-
-        private static SKBitmap _test_tiling = null;
-        public static SKBitmap test_tiling {
-            get {
-                if (_test_tiling == null)
-                    _test_tiling = SKBitmap.Decode((byte[])ResourceManager.GetObject("test-tiling"))
-                    .Copy(SKColorType.Rgba8888);
-                return _test_tiling;
             }
         }
 	}

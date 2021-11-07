@@ -16,7 +16,6 @@ namespace PixelStacker.UI.Forms
             lblInstructions.Text = Resources.Text.ColorReducer_Instructions_Tooltip;
             lblRgbBucketSize.Text = Resources.Text.ColorReducer_RgbBucketSize;
             lblAlgorithm.Text = Resources.Text.ColorReducer_Algorithm;
-            lblColorCache.Text = Resources.Text.ColorReducer_ColorCache;
             lblColorCount.Text = Resources.Text.ColorReducer_QColorCount;
             lblDither.Text = Resources.Text.ColorReducer_Dither;
             lblInstructionsTitle.Text = Resources.Text.ColorReducer_Instructions;
