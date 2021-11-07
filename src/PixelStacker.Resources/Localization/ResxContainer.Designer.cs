@@ -159,5 +159,15 @@ namespace PixelStacker.Resources {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] zu {
+            get {
+                object obj = ResourceManager.GetObject("zu", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

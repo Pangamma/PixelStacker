@@ -140,5 +140,7 @@
   "RenderEngine_ConvertingToBlocks": "Konvertera pixlar till Minecraft-block.",
   "Sizing": "Dimensionering",
   "MainMenu_ColorReduction": "Färgreducering",
-  "MainMenu_Dithering": "Dithering"
+  "MainMenu_Dithering": "Dithering",
+  "MainMenu_Generate": "Generera",
+  "MainMenu_SelectMaterials": "Välj Material"
 }

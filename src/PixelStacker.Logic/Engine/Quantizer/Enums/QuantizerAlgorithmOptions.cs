@@ -1,7 +1,4 @@
 ﻿using PixelStacker.Logic.Collections;
-using PixelStacker.Logic.Engine.Quantizer.ColorCaches;
-using PixelStacker.Logic.Engine.Quantizer.ColorCaches.EuclideanDistance;
-using PixelStacker.Logic.Engine.Quantizer.Ditherers;
 using SixLabors.ImageSharp.Processing.Processors.Dithering;
 using System.Collections.Generic;
 

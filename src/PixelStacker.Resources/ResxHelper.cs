@@ -70,7 +70,12 @@ namespace PixelStacker.Resources
             }
 
             System.Diagnostics.Debug.WriteLine($"[ResxHelper]: Language '{culture.TwoLetterISOLanguageName}' contains no value for key '{name}'");
-            return FallbackResourceManager.Value.GetString(name, culture);
+            string fallbackContent = FallbackResourceManager.Value.GetString(name, culture);
+#if RELEASE
+            return fallbackContent;
+#else 
+            return "".PadLeft(fallbackContent.Length, '■');
+#endif
             //return Content["en"][name];
         }
     }

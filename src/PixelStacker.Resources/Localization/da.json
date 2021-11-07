@@ -140,5 +140,7 @@
   "ColorReducer_Parallel_Tooltip": "Antallet af processer, der skal køre parallelt. Brug af højere tal kan fremskynde kvantiseringsprocessen.",
   "MainMenu_Lang_Swedish": "svensk",
   "MainMenu_ColorReduction": "Farvereduktion",
-  "MainMenu_Dithering": "Dithering"
+  "MainMenu_Dithering": "Dithering",
+  "MainMenu_Generate": "Frembringe",
+  "MainMenu_SelectMaterials": "Vælg Materialer"
 }

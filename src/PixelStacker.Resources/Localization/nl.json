@@ -140,5 +140,7 @@
   "ColorReducer_Parallel_Tooltip": "Het aantal processen dat parallel moet worden uitgevoerd. Het gebruik van hogere getallen kan het kwantiseringsproces versnellen.",
   "MainMenu_Lang_Swedish": "Zweeds",
   "MainMenu_ColorReduction": "Kleurreductie",
-  "MainMenu_Dithering": "Dithering"
+  "MainMenu_Dithering": "Dithering",
+  "MainMenu_Generate": "genereren",
+  "MainMenu_SelectMaterials": "Selecteer materialen"
 }

@@ -140,5 +140,7 @@
   "ColorReducer_Parallel_Tooltip": "El número de procesos que se ejecutarán en paralelo. El uso de números más altos puede acelerar el proceso de cuantificación.",
   "MainMenu_Lang_Swedish": "sueco",
   "MainMenu_ColorReduction": "Reducción de color",
-  "MainMenu_Dithering": "Dithering"
+  "MainMenu_Dithering": "Dithering",
+  "MainMenu_Generate": "Generar",
+  "MainMenu_SelectMaterials": "Seleccionar materiales"
 }

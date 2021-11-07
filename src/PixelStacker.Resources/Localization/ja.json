@@ -140,5 +140,7 @@
   "ColorReducer_Parallel_Tooltip": "並行して実行するプロセスの数。より大きな数値を使用すると、量子化プロセスをスピードアップできます。",
   "MainMenu_Lang_Swedish": "スウェーデンの",
   "MainMenu_ColorReduction": "減色",
-  "MainMenu_Dithering": "ディザリング"
+  "MainMenu_Dithering": "ディザリング",
+  "MainMenu_Generate": "生成",
+  "MainMenu_SelectMaterials": "材料を選択"
 }

@@ -703,6 +703,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate.
+        /// </summary>
+        public static string MainMenu_Generate {
+            get {
+                return ResourceManager.GetString("MainMenu_Generate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string MainMenu_Help {
@@ -888,6 +897,15 @@ namespace PixelStacker.Resources {
         public static string MainMenu_SaveSettings {
             get {
                 return ResourceManager.GetString("MainMenu_SaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Materials.
+        /// </summary>
+        public static string MainMenu_SelectMaterials {
+            get {
+                return ResourceManager.GetString("MainMenu_SelectMaterials", resourceCulture);
             }
         }
         

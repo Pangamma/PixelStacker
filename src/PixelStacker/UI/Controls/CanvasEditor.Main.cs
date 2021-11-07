@@ -18,7 +18,7 @@ namespace PixelStacker.UI
         private RenderedCanvasPainter Painter;
 
         public RenderedCanvas Canvas { get; private set; }
-        private PanZoomSettings PanZoomSettings { get; set; }
+        public PanZoomSettings PanZoomSettings { get; set; }
 
 
 

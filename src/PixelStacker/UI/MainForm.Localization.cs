@@ -101,6 +101,9 @@ namespace PixelStacker.UI
             this.redoToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Redo;
             this.undoToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Undo;
             this.editToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Edit;
+            this.generationToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Generate;
+            this.selectMaterialsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SelectMaterials;
+            this.renderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Render;
 
             this.preprocessingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ColorReduction;
             this.ditheringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Dithering;
@@ -122,16 +125,14 @@ namespace PixelStacker.UI
             this.horizontalToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation_Horizontal;
         }
 
-        private void InitializeThreadLocale()
+        private void InitializeLocalization()
         {
-            try
-            {
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Options.Get.Locale);
-            }
-            catch (Exception)
-            {
-                Options.Get.Locale = "en-us";
-            }
+#if !RELEASE
+            var testLocaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            testLocaleToolStripMenuItem.Text = "TEST";
+            testLocaleToolStripMenuItem.Click += testLocaleToolStripMenuItem_Click;
+            languageToolStripMenuItem.DropDownItems.Add(testLocaleToolStripMenuItem);
+#endif
         }
 
         private void swedishToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -163,5 +164,8 @@ namespace PixelStacker.UI
 
         private void spanishToolStripMenuItem_Click(object sender, EventArgs e)
         => this.ApplyLocalization(CultureInfo.GetCultureInfo("es-ES"));
+
+        private void testLocaleToolStripMenuItem_Click(object sender, EventArgs e)
+        => this.ApplyLocalization(CultureInfo.GetCultureInfo("zu-ZU"));
     }
 }

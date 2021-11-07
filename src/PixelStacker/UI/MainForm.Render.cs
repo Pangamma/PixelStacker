@@ -46,7 +46,8 @@ namespace PixelStacker.UI
 
         public void ShowPreviewViewer()
         {
-            this.imageViewer.SetImage(this.PreprocessedImage);
+            var pz = this.imageViewer.PanZoomSettings;
+            this.imageViewer.SetImage(this.PreprocessedImage, pz);
             this.canvasEditor.SendToBack();
             this.IsCanvasEditorVisible = false;
         }
@@ -54,13 +55,16 @@ namespace PixelStacker.UI
 
         private void ShowImageViewer()
         {
-            this.imageViewer.SetImage(this.LoadedImage, null);
+            var pz = this.canvasEditor.PanZoomSettings;
+            this.imageViewer.SetImage(this.LoadedImage, pz);
             this.canvasEditor.SendToBack();
             this.IsCanvasEditorVisible = false;
         }
 
         private void ShowCanvasEditor()
         {
+            var pz = this.imageViewer.PanZoomSettings;
+            this.canvasEditor.PanZoomSettings = pz;
             //var canvas = this.RenderedCanvas ?? throw new ArgumentNullException(nameof(RenderedCanvas));
             //var pz = this.imageViewer.PanZoomSettings;
             //this.canvasEditor.SetCanvas(canvas, pz);

@@ -140,5 +140,7 @@
   "ColorReducer_Parallel_Tooltip": "要并行运行的进程数。使用更高的数字可以加快量化过程。",
   "MainMenu_Lang_Swedish": "瑞典",
   "MainMenu_ColorReduction": "色彩还原",
-  "MainMenu_Dithering": "抖动"
+  "MainMenu_Dithering": "抖动",
+  "MainMenu_Generate": "产生",
+  "MainMenu_SelectMaterials": "选择材料"
 }

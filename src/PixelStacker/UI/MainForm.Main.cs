@@ -33,6 +33,7 @@ namespace PixelStacker.UI
             this.Palette = MaterialPalette.FromResx();
 
             InitializeComponent();
+            InitializeLocalization();
             SetAllMenubarStatesBasedOnOptions(this.Options);
 
             this.konamiWatcher = new KonamiWatcher(() => {

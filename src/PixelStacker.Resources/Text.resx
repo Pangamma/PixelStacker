@@ -352,6 +352,9 @@ me as a </value>
   <data name="MainMenu_File" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="MainMenu_Generate" xml:space="preserve">
+    <value>Generate</value>
+  </data>
   <data name="MainMenu_Help" xml:space="preserve">
     <value>Help</value>
   </data>
@@ -414,6 +417,9 @@ me as a </value>
   </data>
   <data name="MainMenu_SaveSettings" xml:space="preserve">
     <value>Save Settings</value>
+  </data>
+  <data name="MainMenu_SelectMaterials" xml:space="preserve">
+    <value>Select Materials</value>
   </data>
   <data name="MainMenu_ToggleBorder" xml:space="preserve">
     <value>Toggle Border</value>

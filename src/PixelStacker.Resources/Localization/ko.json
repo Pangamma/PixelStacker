@@ -140,5 +140,7 @@
   "ColorReducer_Parallel_Tooltip": "병렬로 실행할 프로세스 수입니다. 더 높은 숫자를 사용하면 양자화 프로세스의 속도를 높일 수 있습니다.",
   "MainMenu_Lang_Swedish": "스웨덴어",
   "MainMenu_ColorReduction": "색상 감소",
-  "MainMenu_Dithering": "디더링"
+  "MainMenu_Dithering": "디더링",
+  "MainMenu_Generate": "생성하다",
+  "MainMenu_SelectMaterials": "재료 선택"
 }
