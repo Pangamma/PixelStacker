@@ -61,6 +61,11 @@ namespace PixelStacker.UI
 
         #region Mouse Events
 
+        private void ImagePanel_Click(object sender, MouseEventArgs e)
+        {
+
+        }
+
         private void ImagePanel_DoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)

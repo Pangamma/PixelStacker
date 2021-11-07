@@ -40,6 +40,8 @@ namespace PixelStacker.UI.Controls
                 control.MouseMove += this.SkHybridControl_MouseMove;
                 control.MouseUp += this.SkHybridControl_MouseUp;
                 control.MouseDoubleClick += this.SkHybridControl_MouseDoubleClick;
+                control.MouseClick += this.SkHybridControl_MouseClick;
+
                 this.Controls.Add(control);
             }
         }
@@ -78,24 +80,11 @@ namespace PixelStacker.UI.Controls
                 });
         }
 
-        private void SkHybridControl_MouseDoubleClick(object sender, MouseEventArgs e)
-            => this.OnMouseDoubleClick(e);
-
-
-        private void SkHybridControl_MouseDown(object sender, MouseEventArgs e)
-        {
-            this.OnMouseDown(e);
-        }
-
-        private void SkHybridControl_MouseMove(object sender, MouseEventArgs e)
-        {
-            this.OnMouseMove(e);
-        }
-
-        private void SkHybridControl_MouseUp(object sender, MouseEventArgs e)
-        {
-            this.OnMouseUp(e);
-        }
+        private void SkHybridControl_MouseDoubleClick(object sender, MouseEventArgs e) => this.OnMouseDoubleClick(e);
+        private void SkHybridControl_MouseDown(object sender, MouseEventArgs e) => this.OnMouseDown(e);
+        private void SkHybridControl_MouseMove(object sender, MouseEventArgs e) => this.OnMouseMove(e);
+        private void SkHybridControl_MouseUp(object sender, MouseEventArgs e) => this.OnMouseUp(e);
+        private void SkHybridControl_MouseClick(object sender, MouseEventArgs e) => this.OnMouseClick(e);
     }
 
     public class GenericSKPaintSurfaceEventArgs : EventArgs
