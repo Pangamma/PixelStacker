@@ -64,12 +64,7 @@ namespace PixelStacker.UI
             this.frenchToolStripMenuItem.Image = UIResources.country_fr;
             this.swedishToolStripMenuItem.Image = UIResources.country_se;
 
-            //            this.dlgSaveSettings.Title = global::PixelStacker.Resources.Text.MainMenu_SaveSettings;
-            //            this.dlgSaveColorPalette.Title = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
-            //            this.dlgSave.Title = global::PixelStacker.Resources.Text.Action_Save;
-            //            this.dlgOpen.Title = global::PixelStacker.Resources.Text.MainForm_Open_Title;
-            //            this.aboutToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_About;
-            //            this.helpToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Help;
+
             this.dutchToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Dutch;
             this.spanishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Spanish;
             this.koreanToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Korean;
@@ -81,23 +76,39 @@ namespace PixelStacker.UI
             this.englishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_English;
             this.swedishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Swedish;
             this.languageToolStripMenuItem.Image = GetLanguageImage(locale);
-            //            this.languageToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Language;
-            //            this.previewSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Render;
-            //            this.mi_preRender.Text = global::PixelStacker.Resources.Text.MainMenu_PreRender;
-            //            this.otherOptionsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_OtherOptions;
-            //            this.mi_PreRenderOptions.Text = global::PixelStacker.Resources.Text.MainMenu_QuantizerOptions;
-            //            this.optionsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_MaterialOptions;
-            //            this.toolsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Tools;
-            //            this.down1LayerToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_DownOneLayer;
-            //            this.up1LayerToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_UpOneLayer;
-            //            this.toggleLayerFilterToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleLayerFilter;
-            //            this.layerFilteringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_LayerFiltering;
-            //            this.toggleProgressToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleProgress;
-            //            this.togglePaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_TogglePalette;
-            //            this.toggleBorderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleBorder;
-            //            this.toggleSolidColorsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleHideTexture;
-            //            this.toggleGridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleGrid;
-            //            this.viewToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_View;
+
+            this.dlgSave.Title = global::PixelStacker.Resources.Text.Action_Save;
+            this.dlgOpen.Title = global::PixelStacker.Resources.Text.MainForm_Open_Title;
+            //this.aboutToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_About;
+            //this.helpToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Help;
+            //this.dlgSaveSettings.Title = global::PixelStacker.Resources.Text.MainMenu_SaveSettings;
+            //this.dlgSaveColorPalette.Title = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
+
+            //this.languageToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Language;
+            //this.previewSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Render;
+            //this.mi_preRender.Text = global::PixelStacker.Resources.Text.MainMenu_PreRender;
+            //this.otherOptionsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_OtherOptions;
+            //this.mi_PreRenderOptions.Text = global::PixelStacker.Resources.Text.MainMenu_QuantizerOptions;
+            //this.toolsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Tools;
+            //this.down1LayerToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_DownOneLayer;
+            //this.up1LayerToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_UpOneLayer;
+            //this.toggleLayerFilterToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleLayerFilter;
+            //this.toggleProgressToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleProgress;
+            //this.togglePaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_TogglePalette;
+            //this.toggleSolidColorsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleHideTexture;
+            //this.exportSettingsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ExportSettings;
+            //this.allColorsdetailedToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_AllColors_Detailed;
+            //this.allPossibilitiescompactToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_AllColors_Compact;
+            //this.squareToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_Square;
+            //this.brickToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_Brick;
+            //this.graphToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_Graph;
+            //this.saveColorPaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
+            //this.exportSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
+
+            this.layerFilteringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_LayerFiltering;
+            this.toggleBorderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleBorder;
+            this.toggleGridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleGrid;
+            this.viewToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_View;
             this.redoToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Redo;
             this.undoToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Undo;
             this.editToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Edit;
@@ -107,15 +118,10 @@ namespace PixelStacker.UI
 
             this.preprocessingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ColorReduction;
             this.ditheringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Dithering;
-            //            this.exportSettingsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ExportSettings;
-            //            this.allColorsdetailedToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_AllColors_Detailed;
-            //            this.allPossibilitiescompactToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_AllColors_Compact;
-            //            this.squareToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_Square;
-            //            this.brickToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_Brick;
-            //            this.graphToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_Graph;
-            //            this.saveColorPaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
-            //            this.exportSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
-            //            this.reOpenToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ReOpen;
+            this.reOpenToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ReOpen;
+
+
+
             this.openToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Open;
             this.saveToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
             this.fileToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_File;

@@ -409,7 +409,7 @@ namespace PixelStacker.UI
             });
         }
 
-        private void ddlColorProfile_SelectedValueChanged(object sender, EventArgs e)
+        private async void ddlColorProfile_SelectedValueChanged(object sender, EventArgs e)
         {
             string item = (string)ddlColorProfile.SelectedItem;
             string path = Path.Combine(FilePaths.ColorProfilesPath, item);
@@ -426,18 +426,12 @@ namespace PixelStacker.UI
                         {
                             material.IsEnabledF(this.Options, mat.Value);
                         }
-                        // This WOULD be faster, but what if I decide to change the format later... best to play it safe
-                        // and stable. Time for this iteration takes barely any time at all anyways. Can always optimize
-                        // the material list to become a dictionary later if needed.
-                        //string key = "BLOCK_" + mat.Key;
-                        //this.Options.EnableStates[key] = mat.Value;
                     }
                 }
             }
 
-            tbxMaterialFilter.Text = "enabled";
-            var task = Task.Run(async () => { await SetSearchFilter("enabled", CancellationToken.None); });
-            task.Wait();
+            tbxMaterialFilter.Text = "enabled"; 
+            await SetSearchFilter("enabled", CancellationToken.None);
         }
 
         private void btnEditColorProfiles_Click(object sender, EventArgs e)
