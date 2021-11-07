@@ -31,6 +31,26 @@ namespace PixelStacker.UI
             }
         }
 
+        private string GetLanguageName(CultureInfo locale)
+        {
+            switch (locale.TwoLetterISOLanguageName.ToLowerInvariant())
+            {
+                case "en": return global::PixelStacker.Resources.Text.MainMenu_Lang_English;
+                case "es": return global::PixelStacker.Resources.Text.MainMenu_Lang_Spanish;
+                case "nl": return global::PixelStacker.Resources.Text.MainMenu_Lang_Dutch;
+                case "zh": return global::PixelStacker.Resources.Text.MainMenu_Lang_Chinese;
+                case "da": return global::PixelStacker.Resources.Text.MainMenu_Lang_Danish;
+                case "fr": return global::PixelStacker.Resources.Text.MainMenu_Lang_French;
+                case "de": return global::PixelStacker.Resources.Text.MainMenu_Lang_German;
+                case "ja": return global::PixelStacker.Resources.Text.MainMenu_Lang_Japanese;
+                case "ko": return global::PixelStacker.Resources.Text.MainMenu_Lang_Korean;
+                case "sv": return global::PixelStacker.Resources.Text.MainMenu_Lang_Swedish;
+                default:
+                    System.Diagnostics.Debug.WriteLine("Unknown locale detected. " + locale.TwoLetterISOLanguageName);
+                    return global::PixelStacker.Resources.Text.MainMenu_Lang_English;
+            }
+        }
+
         public void ApplyLocalization(CultureInfo locale)
         {
             this.Options.Locale = locale.Name;
@@ -76,6 +96,7 @@ namespace PixelStacker.UI
             this.englishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_English;
             this.swedishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Swedish;
             this.languageToolStripMenuItem.Image = GetLanguageImage(locale);
+            this.languageToolStripMenuItem.Text = GetLanguageName(locale);
 
             this.dlgSave.Title = global::PixelStacker.Resources.Text.Action_Save;
             this.dlgOpen.Title = global::PixelStacker.Resources.Text.MainForm_Open_Title;
@@ -122,8 +143,6 @@ namespace PixelStacker.UI
             this.preprocessingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ColorReduction;
             this.ditheringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Dithering;
             this.reOpenToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ReOpen;
-
-
 
             this.openToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Open;
             this.saveToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;

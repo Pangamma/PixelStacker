@@ -39,6 +39,7 @@ namespace PixelStacker.UI.Controls
                 control.MouseDown += this.SkHybridControl_MouseDown;
                 control.MouseMove += this.SkHybridControl_MouseMove;
                 control.MouseUp += this.SkHybridControl_MouseUp;
+                control.MouseDoubleClick += this.SkHybridControl_MouseDoubleClick;
                 this.Controls.Add(control);
             }
         }
@@ -76,6 +77,10 @@ namespace PixelStacker.UI.Controls
                     Rect = e.Info.Rect,
                 });
         }
+
+        private void SkHybridControl_MouseDoubleClick(object sender, MouseEventArgs e)
+            => this.OnMouseDoubleClick(e);
+
 
         private void SkHybridControl_MouseDown(object sender, MouseEventArgs e)
         {

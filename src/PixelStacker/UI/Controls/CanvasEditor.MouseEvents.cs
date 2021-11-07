@@ -60,6 +60,17 @@ namespace PixelStacker.UI
         }
 
         #region Mouse Events
+
+        private void ImagePanel_DoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Point loc = GetPointOnImage(e.Location, EstimateProp.Floor);
+                Canvas.WorldEditOrigin = new PxPoint(loc.X, loc.Y);
+                Refresh();
+            }
+        }
+
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);

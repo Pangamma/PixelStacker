@@ -52,6 +52,7 @@ namespace PixelStacker.UI
             this.skiaControl.Size = new System.Drawing.Size(611, 382);
             this.skiaControl.TabIndex = 0;
             this.skiaControl.PaintSurface += new System.EventHandler<PixelStacker.UI.Controls.GenericSKPaintSurfaceEventArgs>(this.skiaControl_PaintSurface);
+            this.skiaControl.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_DoubleClick);
             this.skiaControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
             this.skiaControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
             this.skiaControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseUp);
@@ -65,6 +66,7 @@ namespace PixelStacker.UI
             this.Controls.Add(this.skiaControl);
             this.Name = "CanvasEditor";
             this.Size = new System.Drawing.Size(611, 382);
+            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_DoubleClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseUp);
