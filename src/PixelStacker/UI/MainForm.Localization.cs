@@ -146,6 +146,8 @@ namespace PixelStacker.UI
 
             this.openToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Open;
             this.saveToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
+            this.saveAsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_SaveAs;
+            this.reOpenToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_ReOpen;
             this.fileToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_File;
             this.sizingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Sizing;
             this.orientationToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation;

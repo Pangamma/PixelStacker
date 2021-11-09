@@ -14,14 +14,17 @@
     <Compile Remove="Collections\KDTreeMaster\**" />
     <Compile Remove="Collections\KDTree\**" />
     <Compile Remove="Engine\QuantizerOld\**" />
+    <Compile Remove="IO\Image\**" />
     <EmbeddedResource Remove="Collections\KDTreeMaster\**" />
     <EmbeddedResource Remove="Collections\KDTree\**" />
     <EmbeddedResource Remove="Engine\QuantizerOld\**" />
+    <EmbeddedResource Remove="IO\Image\**" />
     <None Remove="Collections\KDTreeMaster\**" />
     <None Remove="Collections\KDTree\**" />
     <None Remove="Engine\QuantizerOld\**" />
+    <None Remove="IO\Image\**" />
 	
-    <Compile Update="IO\Image\RenderedCanvasPainter.*.cs">
+    <Compile Update="CanvasEditor\RenderedCanvasPainter.*.cs"> 
       <DependentUpon>RenderedCanvasPainter.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -32,7 +35,6 @@
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.80.3" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
 

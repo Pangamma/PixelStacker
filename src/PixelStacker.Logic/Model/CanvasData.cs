@@ -29,6 +29,13 @@ namespace PixelStacker.Logic.Model
             this.Height = blocksMap.GetLength(1);
         }
 
+        [Obsolete("Super dangerous. Be sure to check your inputs before using.", false)]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public void SetDirectly(int x, int y, int PaletteID)
+        {
+            BlocksMap[x, y] = PaletteID;
+        }
+
         public Material this[int x, int y, bool isTopLayer]
         {
             get

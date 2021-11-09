@@ -1,7 +1,6 @@
 ﻿using FNBT;
 using FNBT.Tags;
 using PixelStacker.Logic.IO.Config;
-using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Model;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PixelStacker.Logic
+namespace PixelStacker.Logic.IO.Formatters
 {
     #region Supporting Models
     public class Schem2Details
@@ -26,7 +25,7 @@ namespace PixelStacker.Logic
 
         public Schem2Details()
         {
-            this.MetaData = new SchemMetaData();
+            MetaData = new SchemMetaData();
         }
     }
 
@@ -44,8 +43,8 @@ namespace PixelStacker.Logic
 
     #endregion 
 
-    public class Schem2Formatter: IExportFormatter
-    { 
+    public class Schem2Formatter : IExportFormatter
+    {
         //public static void writeBlueprint(string filePath, BlueprintPA blueprint)
         //{
         //    bool isv = Options.Get.IsSideView;
@@ -250,7 +249,7 @@ namespace PixelStacker.Logic
         public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker = null)
         {
             if (File.Exists(filePath)) File.Delete(filePath);
-            byte[] data = await this.ExportAsync(canvas, worker);
+            byte[] data = await ExportAsync(canvas, worker);
             File.WriteAllBytes(filePath, data);
         }
 
@@ -272,8 +271,8 @@ namespace PixelStacker.Logic
 
                 if (canvas.WorldEditOrigin != null)
                 {
-                    details.MetaData.WEOffsetX = (int)-canvas.WorldEditOrigin.X;
-                    details.MetaData.WEOffsetY = (int)canvas.WorldEditOrigin.Y - yD;
+                    details.MetaData.WEOffsetX = -canvas.WorldEditOrigin.X;
+                    details.MetaData.WEOffsetY = canvas.WorldEditOrigin.Y - yD;
                     details.MetaData.WEOffsetZ = -zD;
                 }
             }

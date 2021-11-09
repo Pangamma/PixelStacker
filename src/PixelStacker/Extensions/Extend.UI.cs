@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PixelStacker.UI;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,6 +44,45 @@ namespace PixelStacker.Extensions
             control.InvokeEx(c => action());
         }
 
+        public static void ModifyRecursive(this ToolStripItem menuStripItem, Action<ToolStripItem> action)
+        {
+            action(menuStripItem);
+            if (menuStripItem is ToolStripMenuItem mi)
+            {
+                if (mi.HasDropDownItems)
+                {
+                    IEnumerable<ToolStripItem> items = mi.DropDownItems.Flatten();
+                    foreach (var item in items)
+                    {
+                        action(item);
+                    }
+                }
+            }
+        }
+
+        public static void ModifyRecursive(this MenuStrip menuStrip, Action<ToolStripItem, MainFormTags> action)
+        {
+            foreach (ToolStripItem menuStripItem in menuStrip.Items)
+            {
+                ModifyRecursive(menuStripItem, action);
+            }
+        }
+
+        public static void ModifyRecursive(this ToolStripItem menuStripItem, Action<ToolStripItem, MainFormTags> action)
+        {
+            action(menuStripItem, menuStripItem.Tag as MainFormTags);
+            if (menuStripItem is ToolStripMenuItem mi)
+            {
+                if (mi.HasDropDownItems)
+                {
+                    IEnumerable<ToolStripItem> items = mi.DropDownItems.Flatten();
+                    foreach (var item in items)
+                    {
+                        action(item, item.Tag as MainFormTags);
+                    }
+                }
+            }
+        }
 
         public static IEnumerable<ToolStripItem> Flatten(this ToolStripItemCollection items)
         {

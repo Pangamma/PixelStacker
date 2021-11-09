@@ -8,20 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PixelStacker.Logic.IO.Image
+namespace PixelStacker.Logic.CanvasEditor
 {
     public partial class RenderedCanvasPainter
     {
         public void PaintSurface(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, CanvasViewerSettings vs)
         {
-            PaintTilesToView(g, parentControlSize, pz, this.Bitmaps);
+            PaintTilesToView(g, parentControlSize, pz, this.Bitmaps, this.Padlocks);
             if (vs.IsShowBorder) DrawBorder(g, pz, new SKSize(Data.Width, Data.Height));
             if (vs.IsShowGrid) DrawGridLines(g, Data, vs, pz);
             if (Data.WorldEditOrigin != null) DrawWorldEditOrigin(g, pz, Data.WorldEditOrigin);
         }
-
-
-
 
         protected static void DrawGridLines(SKCanvas g, RenderedCanvas canvas, CanvasViewerSettings vs, PanZoomSettings pz)
         {
@@ -132,7 +129,7 @@ namespace PixelStacker.Logic.IO.Image
         /// <param name="g"></param>
         /// <param name="parentControlSize"></param>
         /// <param name="pz"></param>
-        private static void PaintTilesToView(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, List<SKBitmap[,]> bitmaps = null)
+        private static void PaintTilesToView(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, List<SKBitmap[,]> bitmaps, List<object[,]> padlocks)
         {
             #region SET GRAPHICS SETTINGS
             //if (pz.zoomLevel < 1.0D)
@@ -152,7 +149,7 @@ namespace PixelStacker.Logic.IO.Image
             #endregion SET GRAPHICS SETTINGS
 
             #region GET BITMAP SET
-            if (bitmaps == null || bitmaps.Count == 0)
+            if (bitmaps == null || bitmaps.Count == 0 || padlocks == null || padlocks.Count == 0)
             {
 #if !RELEASE
                 throw new Exception("BAD STATE. RenderToView is called before view is ready.");
@@ -162,11 +159,13 @@ namespace PixelStacker.Logic.IO.Image
             }
 
             SKBitmap[,] toUse = bitmaps[0];
+            object[,] lockSetToUse = padlocks[0];
             int divideAmount = 1;
             int i = 1;
             while (pz.zoomLevel <= 10.0D / divideAmount / Constants.SMALL_IMAGE_DIVIDE_SIZE && i < bitmaps.Count)
             {
                 toUse = bitmaps[i];
+                lockSetToUse = padlocks[i];
                 divideAmount *= Constants.SMALL_IMAGE_DIVIDE_SIZE;
                 i++;
             }
@@ -205,9 +204,12 @@ namespace PixelStacker.Logic.IO.Image
                     SKRect rectDST = pnlStart.ToRectangle(pnlEnd);
                     SKRect rectSRC = PointExtensions.ToRectangle(0, 0, bmToPaint.Width, bmToPaint.Height); // left, top, right, bottom
 
-                    g.DrawBitmap(bitmap: bmToPaint,
-                    source: rectSRC,
-                    dest: rectDST);
+                    lock (lockSetToUse[xChunk, yChunk])
+                    {
+                        g.DrawBitmap(bitmap: bmToPaint,
+                        source: rectSRC,
+                        dest: rectDST);
+                    }
                 }
             }
         }

@@ -146,5 +146,7 @@
   "Grid": "Rutnät",
   "GridOptions": "Rutnätsalternativ",
   "MainMenu_ShadowRendering": "Skuggåtergivning",
-  "MainMenu_SwitchPanels": "Switch paneler"
+  "MainMenu_SwitchPanels": "Switch paneler",
+  "Action_ReOpen": "Öppna igen",
+  "Action_SaveAs": "Spara som"
 }

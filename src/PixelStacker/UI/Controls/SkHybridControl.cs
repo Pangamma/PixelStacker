@@ -1,5 +1,6 @@
-﻿using SkiaSharp;
-using SkiaSharp.Views.Desktop;
+﻿using PixelStacker.IO;
+using PixelStacker.UI.External;
+using SkiaSharp;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -58,6 +59,12 @@ namespace PixelStacker.UI.Controls
                 g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
                 return;
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            KonamiWatcher.ProcessKey(keyData);
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         //private void OnPaintSurfaceInner(object sender, SKPaintGLSurfaceEventArgs e)

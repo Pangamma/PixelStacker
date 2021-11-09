@@ -23,7 +23,7 @@ namespace PixelStacker.Tests
 #pragma warning restore CS0618 // Type or member is obsolete
             var engine = new RenderCanvasEngine();
             var img = await engine.PreprocessImageAsync(null,
-                DevResources.planet_8k.To32bppBitmap(),
+                DevResources.colorwheel.Copy(),
                 new CanvasPreprocessorSettings()
                 {
                     RgbBucketSize = 1,
@@ -40,7 +40,7 @@ namespace PixelStacker.Tests
             var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabledF(opts) && x.Bottom.IsEnabledF(opts) && x.IsMultiLayer).ToList();
             mapper.SetSeedData(combos, palette, false);
 
-            var canvas = await engine.RenderCanvasAsync(null, ref img, mapper, palette);
+            var canvas = await engine.RenderCanvasAsync(null, img, mapper, palette);
             await new PixelStackerProjectFormatter().ExportAsync("Test.pxlzip", new PixelStackerProjectData(canvas, opts), null);
         }
     }

@@ -146,5 +146,7 @@
   "Grid": "Netz",
   "GridOptions": "Rasteroptionen",
   "MainMenu_ShadowRendering": "Schatten-Rendering",
-  "MainMenu_SwitchPanels": "Schalttafeln"
+  "MainMenu_SwitchPanels": "Schalttafeln",
+  "Action_ReOpen": "Wieder öffnen",
+  "Action_SaveAs": "Speichern als"
 }

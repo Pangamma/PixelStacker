@@ -174,8 +174,14 @@ Aka Pangamma</value>
   <data name="Action_Remove_0" xml:space="preserve">
     <value>Remove '{0}'</value>
   </data>
+  <data name="Action_ReOpen" xml:space="preserve">
+    <value>Re-Open</value>
+  </data>
   <data name="Action_Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Action_SaveAs" xml:space="preserve">
+    <value>Save As</value>
   </data>
   <data name="Action_Undo" xml:space="preserve">
     <value>Undo</value>

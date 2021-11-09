@@ -146,5 +146,7 @@
   "Grid": "グリッド",
   "GridOptions": "グリッドオプション",
   "MainMenu_ShadowRendering": "シャドウレンダリング",
-  "MainMenu_SwitchPanels": "スイッチパネル"
+  "MainMenu_SwitchPanels": "スイッチパネル",
+  "Action_ReOpen": "再オープン",
+  "Action_SaveAs": "名前を付けて保存"
 }

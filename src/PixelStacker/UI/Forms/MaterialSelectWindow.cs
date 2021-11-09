@@ -762,8 +762,8 @@ namespace PixelStacker.UI
                 task.Wait();
                 return true;
             }
-
-            new KonamiWatcher(() => { }).ProcessKey(keyData);
+            
+            KonamiWatcher.ProcessKey(keyData);
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

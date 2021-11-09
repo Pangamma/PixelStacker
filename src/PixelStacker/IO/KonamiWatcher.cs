@@ -3,24 +3,20 @@ using System.Windows.Forms;
 
 namespace PixelStacker.IO
 {
-    public class KonamiWatcher
+    public static class KonamiWatcher
     {
-        public Action OnCodeEntry { get; private set; }
+        public static Action OnCodeEntry { get; set; } = () => { };
 
-        public KonamiWatcher(Action onCodeEntry)
-        {
-            this.OnCodeEntry = onCodeEntry;
-        }
 
-        private int konamiIndex = 0;
-        private Keys[] konamiSequence = new Keys[] {
+        private static int konamiIndex = 0;
+        private static Keys[] konamiSequence = new Keys[] {
             Keys.Up, Keys.Up, Keys.Down, Keys.Down,
             Keys.Left, Keys.Right, Keys.Left, Keys.Right,
             Keys.B, Keys.A
         };
 
-        private DateTime LastEntry = DateTime.MinValue;
-        public void ProcessKey(Keys keyData)
+        private static DateTime LastEntry = DateTime.MinValue;
+        public static void ProcessKey(Keys keyData)
         {
             if (DateTime.UtcNow - LastEntry < TimeSpan.FromMilliseconds(20)) return;
             LastEntry = DateTime.UtcNow;
@@ -31,7 +27,7 @@ namespace PixelStacker.IO
                 if (keyData == Keys.A)
                 {
                     konamiIndex = 0;
-                    this.OnCodeEntry();
+                    KonamiWatcher.OnCodeEntry();
                 }
             }
             else

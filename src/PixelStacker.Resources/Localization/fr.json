@@ -146,5 +146,7 @@
   "Grid": "Grille",
   "GridOptions": "Options de grille",
   "MainMenu_ShadowRendering": "Rendu des ombres",
-  "MainMenu_SwitchPanels": "Panneaux de commutation"
+  "MainMenu_SwitchPanels": "Panneaux de commutation",
+  "Action_ReOpen": "Rouvrir",
+  "Action_SaveAs": "Enregistrer sous"
 }

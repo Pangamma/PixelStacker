@@ -50,6 +50,7 @@ namespace PixelStacker.UI
             this.imageViewer.SetImage(this.PreprocessedImage, pz);
             this.canvasEditor.SendToBack();
             this.IsCanvasEditorVisible = false;
+            this.TS_SetMenuItemStatesByTagObjects();
         }
 
 
@@ -59,6 +60,7 @@ namespace PixelStacker.UI
             this.imageViewer.SetImage(this.LoadedImage, pz);
             this.canvasEditor.SendToBack();
             this.IsCanvasEditorVisible = false;
+            this.TS_SetMenuItemStatesByTagObjects();
         }
 
         private void ShowCanvasEditor()
@@ -70,6 +72,7 @@ namespace PixelStacker.UI
             //this.canvasEditor.SetCanvas(canvas, pz);
             this.imageViewer.SendToBack();
             this.IsCanvasEditorVisible = true;
+            this.TS_SetMenuItemStatesByTagObjects();
         }
 
         private async void renderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -97,7 +100,7 @@ namespace PixelStacker.UI
                 self.RenderedCanvas = canvasThatIsRendered;
                 //self.RenderedCanvas = await engine.PostprocessImageAsync(worker, canvasThatIsRendered, this.ColorMapper, this.Options.Preprocessor);
                 //worker.ThrowIfCancellationRequested();
-                
+
                 await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, this.imageViewer.PanZoomSettings);
 
                 ProgressX.Report(0, "Showing block plan in the viewing window.");
@@ -105,6 +108,7 @@ namespace PixelStacker.UI
                 {
                     cc.ShowCanvasEditor();
                     cc.TS_OnRenderCanvas();
+                    cc.TS_SetMenuItemStatesByTagObjects();
                 });
             }));
         }

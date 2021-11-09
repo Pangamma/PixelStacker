@@ -8,7 +8,7 @@ using Google.Cloud.Translation.V2;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 
-namespace PixelStacker.Tools.Generators
+namespace PixelStacker.CodeGenerator
 {
 
     [TestClass]
@@ -25,7 +25,7 @@ namespace PixelStacker.Tools.Generators
             var config = new ConfigurationBuilder()
                 .AddUserSecrets<JsonResxMaker>()
                 .Build();
-            this.GOOGLE_API_KEY = config["GOOGLE_API_KEY"];
+            GOOGLE_API_KEY = config["GOOGLE_API_KEY"];
         }
 
 
@@ -35,7 +35,7 @@ namespace PixelStacker.Tools.Generators
         [TestMethod]
         public void Text_Translate()
         {
-            this.RipResxIntoJson($@"{RootDir}\PixelStacker.Resources\Text.resx");
+            RipResxIntoJson($@"{RootDir}\PixelStacker.Resources\Text.resx");
         }
 
 
@@ -72,15 +72,15 @@ namespace PixelStacker.Tools.Generators
             }));
 
 
-            foreach(var locale in OutputLocales)
+            foreach (var locale in OutputLocales)
             {
                 string lang = locale.Split('-').First();
-                string jsonFilePath = RootDir + "\\PixelStacker.Resources\\Localization\\"+lang+".json";
+                string jsonFilePath = RootDir + "\\PixelStacker.Resources\\Localization\\" + lang + ".json";
                 if (!File.Exists(jsonFilePath)) File.WriteAllText(jsonFilePath, "{}");
                 string existingJson = File.ReadAllText(jsonFilePath);
                 Dictionary<string, string> parsed = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(jsonFilePath)) ?? new Dictionary<string, string>();
 
-                foreach(var kvp in keysToBeRemoved)
+                foreach (var kvp in keysToBeRemoved)
                 {
                     if (parsed.ContainsKey(kvp.Key))
                     {
@@ -113,8 +113,8 @@ namespace PixelStacker.Tools.Generators
             XmlDocument doc = new XmlDocument();
             doc.Load(resxFilePath);
             XmlNodeList dataNodes = doc.SelectNodes("//root/data");
-            
-            foreach(var kvp in dataNodes.OfType<XmlElement>())
+
+            foreach (var kvp in dataNodes.OfType<XmlElement>())
             {
                 if (kvp.HasAttribute("name") && kvp.HasChildNodes)
                 {
@@ -136,7 +136,7 @@ namespace PixelStacker.Tools.Generators
         private string GetTranslatedText(string text, string localeCode)
         {
             TranslationClient client = TranslationClient.CreateFromApiKey(apiKey: GOOGLE_API_KEY);
-            TranslationResult result = client.TranslateText(text, localeCode.Substring(0,2).ToLower());
+            TranslationResult result = client.TranslateText(text, localeCode.Substring(0, 2).ToLower());
             return result.TranslatedText;
         }
     }

@@ -1,4 +1,5 @@
-﻿using PixelStacker.Logic.Extensions;
+﻿using PixelStacker.IO;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Resources.Localization;
 using System;
@@ -25,6 +26,17 @@ namespace PixelStacker.UI
             ApplyLocalization(CultureInfo.CurrentUICulture);
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+
+            KonamiWatcher.ProcessKey(keyData);
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
         public void ApplyLocalization(CultureInfo locale)
         {

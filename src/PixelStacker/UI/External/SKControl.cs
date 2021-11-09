@@ -1,10 +1,12 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 
-namespace SkiaSharp.Views.Desktop
+// Originally SkiaSharp.Views.Desktop
+namespace PixelStacker.UI.External
 {
     [DefaultEvent("PaintSurface")]
     [DefaultProperty("Name")]

@@ -207,11 +207,29 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re-Open.
+        /// </summary>
+        public static string Action_ReOpen {
+            get {
+                return ResourceManager.GetString("Action_ReOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Action_Save {
             get {
                 return ResourceManager.GetString("Action_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save As.
+        /// </summary>
+        public static string Action_SaveAs {
+            get {
+                return ResourceManager.GetString("Action_SaveAs", resourceCulture);
             }
         }
         

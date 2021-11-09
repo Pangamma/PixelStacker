@@ -10,8 +10,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PixelStacker.Logic.IO.Image
-{
+namespace PixelStacker.Logic.CanvasEditor
+{ 
     public partial class RenderedCanvasPainter
     {
 
@@ -23,6 +23,11 @@ namespace PixelStacker.Logic.IO.Image
         /// 2 = 1/4 size
         /// 3 = 1/8 size
         private List<SKBitmap[,]> Bitmaps { get; }
+        private List<object[,]> Padlocks { get; }
+
+
+        private static int GetChunkIndexX(int srcX) => srcX / BlocksPerChunk;
+        private static int GetChunkIndexY(int srcY) => srcY / BlocksPerChunk;
 
         /// <summary>
         /// Initialize the bitmaps by rendering a canvas into image tiles.

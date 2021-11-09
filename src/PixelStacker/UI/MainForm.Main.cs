@@ -23,7 +23,6 @@ namespace PixelStacker.UI
         public SKBitmap LoadedImage { get; private set; } = DevResources.colorwheel;
         public SKBitmap PreprocessedImage { get; private set; } = DevResources.colorwheel.Copy(); // UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
-        private KonamiWatcher konamiWatcher;
 
         public MainForm()
         {
@@ -31,16 +30,9 @@ namespace PixelStacker.UI
             this.Options.Preprocessor.RgbBucketSize = 1;
             this.ColorMapper = new KdTreeMapper();
             this.Palette = MaterialPalette.FromResx();
-
             InitializeComponent();
-            InitializeLocalization();
-            SetAllMenubarStatesBasedOnOptions(this.Options);
+            InitializeKonamiCodeWatcher();
 
-            this.konamiWatcher = new KonamiWatcher(() => {
-                this.Options.IsAdvancedModeEnabled = !this.Options.IsAdvancedModeEnabled;
-                MessageBox.Show("Advanced mode " + (this.Options.IsAdvancedModeEnabled ? "enabled" : "disabled") + "!");
-                DoConfigureAdvancedMode();
-            });
             this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);
             ShowImageViewer();
@@ -50,17 +42,33 @@ namespace PixelStacker.UI
 
             // Localization
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(this.Options.Locale ?? "en-us");
+            InitializeLocalization();
             ApplyLocalization(System.Threading.Thread.CurrentThread.CurrentUICulture);
+
+            // Menubar initialization
+            TS_SetTagObjects();
+            TS_SetMenuItemStatesByTagObjects();
+            TS_SetAllMenubarStatesBasedOnOptions(this.Options);
         }
 
-        private void DoConfigureAdvancedMode()
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            //bool isAdv = this.Options.IsAdvancedModeEnabled;
-            //mi_preRender.Visible = isAdv;
-            //togglePaletteToolStripMenuItem.Visible = isAdv;
-            //toggleProgressToolStripMenuItem.Visible = isAdv;
-            //exportSettingsToolStripMenuItem.Visible = isAdv;
-            this.MaterialOptions?.SetVisibleMaterials(Materials.List ?? new List<Material>());
+            KonamiWatcher.ProcessKey(keyData);
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void InitializeKonamiCodeWatcher()
+        {
+            KonamiWatcher.OnCodeEntry = () =>
+            {
+                this.InvokeEx(c =>
+                {
+                    c.Options.IsAdvancedModeEnabled = !c.Options.IsAdvancedModeEnabled;
+                    MessageBox.Show("Advanced mode " + (c.Options.IsAdvancedModeEnabled ? "enabled" : "disabled") + "!");
+                    c.MaterialOptions?.SetVisibleMaterials(Materials.List ?? new List<Material>());
+                    c.TS_SetMenuItemStatesByTagObjects();
+                });
+            };
         }
 
         [DebuggerStepThrough]

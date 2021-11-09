@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixelStacker.IO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -20,6 +21,18 @@ namespace PixelStacker.UI.Forms
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+
+            KonamiWatcher.ProcessKey(keyData);
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         #region Assembly Attribute Accessors

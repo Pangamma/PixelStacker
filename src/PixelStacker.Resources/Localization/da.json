@@ -146,5 +146,7 @@
   "Grid": "Gitter",
   "GridOptions": "Grid muligheder",
   "MainMenu_ShadowRendering": "Skyggegengivelse",
-  "MainMenu_SwitchPanels": "Switch paneler"
+  "MainMenu_SwitchPanels": "Switch paneler",
+  "Action_ReOpen": "Åbn igen",
+  "Action_SaveAs": "Gem som"
 }

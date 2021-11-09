@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 
-namespace SkiaSharp.Views.Desktop
+// Originally SkiaSharp.Views.Desktop
+namespace PixelStacker.UI.External
 {
     public class SKPaintSurfaceEventArgs : EventArgs
     {

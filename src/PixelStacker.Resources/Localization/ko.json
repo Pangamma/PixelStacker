@@ -146,5 +146,7 @@
   "Grid": "그리드",
   "GridOptions": "그리드 옵션",
   "MainMenu_ShadowRendering": "그림자 렌더링",
-  "MainMenu_SwitchPanels": "스위치 패널"
+  "MainMenu_SwitchPanels": "스위치 패널",
+  "Action_ReOpen": "다시 열다",
+  "Action_SaveAs": "다른 이름으로 저장"
 }

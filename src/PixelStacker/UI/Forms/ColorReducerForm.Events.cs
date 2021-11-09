@@ -1,4 +1,5 @@
-﻿using PixelStacker.Logic.Extensions;
+﻿using PixelStacker.IO;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.Utilities;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,18 @@ namespace PixelStacker.UI.Forms
 {
     public partial class ColorReducerForm
     {
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+
+            KonamiWatcher.ProcessKey(keyData);
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         /// <summary>
         /// </summary>
         private void OnSettingsChange()
