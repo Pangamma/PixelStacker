@@ -11,19 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Collections\KDTreeMaster\**" />
-    <Compile Remove="Collections\KDTree\**" />
-    <Compile Remove="Engine\QuantizerOld\**" />
-    <Compile Remove="IO\Image\**" />
-    <EmbeddedResource Remove="Collections\KDTreeMaster\**" />
-    <EmbeddedResource Remove="Collections\KDTree\**" />
-    <EmbeddedResource Remove="Engine\QuantizerOld\**" />
-    <EmbeddedResource Remove="IO\Image\**" />
-    <None Remove="Collections\KDTreeMaster\**" />
-    <None Remove="Collections\KDTree\**" />
-    <None Remove="Engine\QuantizerOld\**" />
-    <None Remove="IO\Image\**" />
-	
     <Compile Update="CanvasEditor\RenderedCanvasPainter.*.cs"> 
       <DependentUpon>RenderedCanvasPainter.cs</DependentUpon>
     </Compile>
