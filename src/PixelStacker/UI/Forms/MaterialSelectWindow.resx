@@ -428,7 +428,7 @@
     <value>customFlowLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;customFlowLayoutPanel1.Type" xml:space="preserve">
-    <value>PixelStacker.WF.Components.CustomFlowLayoutPanel, PixelStacker, Culture=neutral, PublicKeyToken=null</value>
+    <value>PixelStacker.UI.Controls.CustomFlowLayoutPanel, PixelStacker, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;customFlowLayoutPanel1.Parent" xml:space="preserve">
     <value>flowVertical</value>
@@ -488,7 +488,7 @@
     <value>materialPanel</value>
   </data>
   <data name="&gt;&gt;materialPanel.Type" xml:space="preserve">
-    <value>PixelStacker.WF.Components.CustomPanel, PixelStacker, Culture=neutral, PublicKeyToken=null</value>
+    <value>PixelStacker.UI.Controls.CustomPanel, PixelStacker, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;materialPanel.Parent" xml:space="preserve">
     <value>$this</value>

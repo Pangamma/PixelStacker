@@ -43,9 +43,9 @@
             this.lblAlgorithm = new System.Windows.Forms.LinkLabel();
             this.lblColorCount = new System.Windows.Forms.LinkLabel();
             this.ddlColorCount = new System.Windows.Forms.ComboBox();
-            this.lblParallel = new System.Windows.Forms.LinkLabel();
             this.lblDither = new System.Windows.Forms.LinkLabel();
             this.ddlDither = new System.Windows.Forms.ComboBox();
+            this.lblParallel = new System.Windows.Forms.LinkLabel();
             this.lblInstructionsTitle = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -219,21 +219,6 @@
             this.ddlColorCount.TabIndex = 13;
             this.ddlColorCount.SelectedValueChanged += new System.EventHandler(this.ddlColorCount_SelectedValueChanged);
             // 
-            // lblParallel
-            // 
-            this.lblParallel.AutoSize = true;
-            this.lblParallel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblParallel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblParallel.LinkColor = System.Drawing.SystemColors.ControlText;
-            this.lblParallel.Location = new System.Drawing.Point(3, 339);
-            this.lblParallel.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
-            this.lblParallel.Name = "lblParallel";
-            this.lblParallel.Size = new System.Drawing.Size(60, 20);
-            this.lblParallel.TabIndex = 9;
-            this.lblParallel.TabStop = true;
-            this.lblParallel.Text = "Parallel";
-            this.lblParallel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblParallel_LinkClicked);
-            // 
             // lblDither
             // 
             this.lblDither.AutoSize = true;
@@ -259,6 +244,21 @@
             this.ddlDither.TabIndex = 12;
             this.ddlDither.SelectedValueChanged += new System.EventHandler(this.ddlDither_SelectedValueChanged);
             // 
+            // lblParallel
+            // 
+            this.lblParallel.AutoSize = true;
+            this.lblParallel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblParallel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lblParallel.LinkColor = System.Drawing.SystemColors.ControlText;
+            this.lblParallel.Location = new System.Drawing.Point(3, 339);
+            this.lblParallel.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.lblParallel.Name = "lblParallel";
+            this.lblParallel.Size = new System.Drawing.Size(60, 20);
+            this.lblParallel.TabIndex = 9;
+            this.lblParallel.TabStop = true;
+            this.lblParallel.Text = "Parallel";
+            this.lblParallel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblParallel_LinkClicked);
+            // 
             // lblInstructionsTitle
             // 
             this.lblInstructionsTitle.AutoSize = true;
@@ -281,8 +281,11 @@
             this.Controls.Add(this.lblInstructionsTitle);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ColorReducerForm";
+            this.ShowInTaskbar = false;
             this.Text = "Color Reducer";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ColorReducerForm_FormClosing);
             this.panel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);

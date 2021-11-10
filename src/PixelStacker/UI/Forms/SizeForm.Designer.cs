@@ -97,8 +97,11 @@
             this.Controls.Add(this.tbxMaxWidth);
             this.Controls.Add(this.lblWidth);
             this.Controls.Add(this.lblInstructions);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "SizeForm";
+            this.ShowInTaskbar = false;
             this.Text = "Output size?";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
