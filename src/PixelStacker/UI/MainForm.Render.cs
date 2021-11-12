@@ -109,6 +109,7 @@ namespace PixelStacker.UI
                     cc.ShowCanvasEditor();
                     cc.TS_OnRenderCanvas();
                     cc.TS_SetMenuItemStatesByTagObjects();
+                    cc.canvasEditorToolsToolStripMenuItem_Click(sender, e);
                 });
             }));
         }

@@ -17,6 +17,26 @@ namespace PixelStacker.UI
 
     public partial class MainForm
     {
+        private void undoToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (this.IsCanvasEditorVisible == false) return;
+            if (this.canvasEditor.Painter.History.IsUndoEnabled)
+            {
+                var toRender = this.canvasEditor.Painter.History.UndoChange();
+                this.canvasEditor.Painter.DoProcessRenderRecords(toRender);
+            }
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (this.IsCanvasEditorVisible == false) return;
+            if (this.canvasEditor.Painter.History.IsRedoEnabled)
+            {
+                var toRender = this.canvasEditor.Painter.History.RedoChange();
+                this.canvasEditor.Painter.DoProcessRenderRecords(toRender);
+            }
+        }
+
         private void TS_SetAllMenubarStatesBasedOnOptions(Options opts)
         {
             this.toggleGridToolStripMenuItem.Checked = opts.ViewerSettings.IsShowGrid;
@@ -27,7 +47,8 @@ namespace PixelStacker.UI
 
         public void TS_SetTagObjects()
         {
-            this.menuStrip1.ModifyRecursive((ts, mft) => {
+            this.menuStrip1.ModifyRecursive((ts, mft) =>
+            {
                 ts.Tag = new MainFormTags();
             });
 
@@ -35,6 +56,8 @@ namespace PixelStacker.UI
             this.editToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
             this.viewToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
             this.shadowRenderingToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
+            this.canvasEditorToolsToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
+            this.swatchToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
 
             {
                 MainFormTags mf = (MainFormTags)this.saveAsToolStripMenuItem.Tag;
@@ -56,7 +79,8 @@ namespace PixelStacker.UI
             bool isAdv = Options.IsAdvancedModeEnabled;
             bool isCanvas = this.IsCanvasEditorVisible;
             bool isLoadPathSet = !string.IsNullOrWhiteSpace(this.loadedImageFilePath);
-            this.menuStrip1.ModifyRecursive((ts, tag) => {
+            this.menuStrip1.ModifyRecursive((ts, tag) =>
+            {
                 if (tag == null) return;
 
                 if (tag.IsAdvancedOnly)

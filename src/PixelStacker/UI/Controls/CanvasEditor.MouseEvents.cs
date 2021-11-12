@@ -1,48 +1,32 @@
 ﻿using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
+using PixelStacker.UI.Forms;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace PixelStacker.UI
+namespace PixelStacker.UI.Controls
 {
     public partial class CanvasEditor
     {
-        private bool _IsRepaintRequested = false;
-        private bool RepaintRequested
-        {
-            get
-            {
-                lock (Padlock)
-                {
-                    return _IsRepaintRequested;
-                }
-            }
-            set
-            {
-                lock (Padlock)
-                {
-                    _IsRepaintRequested = value;
-                }
-            }
-        }
+        public bool RepaintRequested = false;
 
         private void restrictZoom()
         {
             this.PanZoomSettings.zoomLevel = (this.PanZoomSettings.zoomLevel < this.PanZoomSettings.minZoomLevel ? this.PanZoomSettings.minZoomLevel : this.PanZoomSettings.zoomLevel > this.PanZoomSettings.maxZoomLevel ? this.PanZoomSettings.maxZoomLevel : this.PanZoomSettings.zoomLevel);
         }
 
-        private Point GetPointOnImage(Point pointOnPanel, EstimateProp prop)
+        public static Point GetPointOnImage(Point pointOnPanel, PanZoomSettings pz, EstimateProp prop)
         {
             if (prop == EstimateProp.Ceil)
             {
-                return new Point((int)Math.Ceiling((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel), (int)Math.Ceiling((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel));
+                return new Point((int)Math.Ceiling((pointOnPanel.X - pz.imageX) / pz.zoomLevel), (int)Math.Ceiling((pointOnPanel.Y - pz.imageY) / pz.zoomLevel));
             }
             if (prop == EstimateProp.Floor)
             {
-                return new Point((int)Math.Floor((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel), (int)Math.Floor((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel));
+                return new Point((int)Math.Floor((pointOnPanel.X - pz.imageX) / pz.zoomLevel), (int)Math.Floor((pointOnPanel.Y - pz.imageY) / pz.zoomLevel));
             }
-            return new Point((int)Math.Round((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel), (int)Math.Round((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel));
+            return new Point((int)Math.Round((pointOnPanel.X - pz.imageX) / pz.zoomLevel), (int)Math.Round((pointOnPanel.Y - pz.imageY) / pz.zoomLevel));
         }
 
         public static Point GetPointOnPanel(Point pointOnImage, PanZoomSettings pz)
@@ -61,19 +45,19 @@ namespace PixelStacker.UI
 
         #region Mouse Events
 
-        private void ImagePanel_Click(object sender, MouseEventArgs e)
-        {
-
-        }
-
         private void ImagePanel_DoubleClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+        }
+
+        private void ImagePanel_Click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
             {
-                Point loc = GetPointOnImage(e.Location, EstimateProp.Floor);
-                Canvas.WorldEditOrigin = new PxPoint(loc.X, loc.Y);
-                Refresh();
+                PanZoomTool.OnClick(e);
+                return;
             }
+
+            CurrentTool?.OnClick(e);
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -83,7 +67,7 @@ namespace PixelStacker.UI
             if (e.Delta != 0)
             {
                 Point panelPoint = e.Location;
-                Point imagePoint = this.GetPointOnImage(panelPoint, EstimateProp.Round);
+                Point imagePoint = GetPointOnImage(panelPoint, this.PanZoomSettings, EstimateProp.Round);
                 if (e.Delta < 0)
                 {
                     this.PanZoomSettings.zoomLevel *= 0.65;
@@ -101,32 +85,35 @@ namespace PixelStacker.UI
 
         private void ImagePanel_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Middle)
             {
-                this.initialDragPoint = e.Location;
-                this.PanZoomSettings.initialImageX = this.PanZoomSettings.imageX;
-                this.PanZoomSettings.initialImageY = this.PanZoomSettings.imageY;
-                this.Cursor = new Cursor(Resources.UIResources.cursor_handclosed.GetHicon());
-                this.IsDragging = true;
+                this.PanZoomTool.OnMouseDown(e);
+                return;
             }
+
+            this.CurrentTool?.OnMouseDown(e);
         }
 
         private void ImagePanel_MouseUp(object sender, MouseEventArgs e)
         {
-            this.Cursor = Cursors.Arrow;
-            this.IsDragging = false;
+            if (e.Button == MouseButtons.Middle)
+            {
+                this.PanZoomTool.OnMouseUp(e);
+                return;
+            }
+
+            this.CurrentTool?.OnMouseUp(e);
         }
 
         private void ImagePanel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (IsDragging)
+            if (e.Button == MouseButtons.Middle)
             {
-                //EditorPanel.this.fitToSize = false;
-                Point point = e.Location;
-                this.PanZoomSettings.imageX = this.PanZoomSettings.initialImageX - (this.initialDragPoint.X - point.X);
-                this.PanZoomSettings.imageY = this.PanZoomSettings.initialImageY - (this.initialDragPoint.Y - point.Y);
-                this.RepaintRequested = true;
+                this.PanZoomTool.OnMouseMove(e);
+                return;
             }
+
+            this.CurrentTool?.OnMouseMove(e);
         }
         #endregion
 

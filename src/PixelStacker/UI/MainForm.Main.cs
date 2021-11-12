@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 using SkiaSharp;
+using PixelStacker.UI.Helpers;
 
 namespace PixelStacker.UI
 {
@@ -23,6 +24,7 @@ namespace PixelStacker.UI
         public SKBitmap LoadedImage { get; private set; } = DevResources.colorwheel;
         public SKBitmap PreprocessedImage { get; private set; } = DevResources.colorwheel.Copy(); // UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
+        private SnapManager snapManager { get; }
 
         public MainForm()
         {
@@ -32,14 +34,19 @@ namespace PixelStacker.UI
             this.Palette = MaterialPalette.FromResx();
             InitializeComponent();
             InitializeKonamiCodeWatcher();
+            this.snapManager = new SnapManager(this);
 
             this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);
             ShowImageViewer();
-            this.lblProgress.Parent = this.progressBar1;
-            this.lblProgress.BackColor = Color.Transparent;
+            //this.lblProgress.Parent = this.progressBar1;
+            //this.lblProgress.BackColor = Color.Transparent;
 
 
+        }
+
+        private void MainForm_Load(object sender, System.EventArgs e)
+        {
             // Localization
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(this.Options.Locale ?? "en-us");
             InitializeLocalization();

@@ -10,15 +10,14 @@ namespace PixelStacker.Logic.CanvasEditor.History
 {
     public class EditHistory
     {
-        public List<ChangeRecord> HistoryPast { get; set; } = new List<ChangeRecord>();
-        public List<ChangeRecord> HistoryFuture { get; set; } = new List<ChangeRecord>();
-        public Queue<RenderRecord> BufferedRenderQueue { get; set; } = new Queue<RenderRecord>();
+        public List<HistoryRecord> HistoryPast { get; set; } = new List<HistoryRecord>();
+        public List<HistoryRecord> HistoryFuture { get; set; } = new List<HistoryRecord>();
         public bool IsUndoEnabled => HistoryPast.Count > 0;
         public bool IsRedoEnabled => HistoryFuture.Count > 0;
 
         private RenderedCanvas Canvas = null;
 
-        public EditHistory (RenderedCanvas canvas)
+        public EditHistory(RenderedCanvas canvas)
         {
             this.Canvas = canvas;
         }
@@ -27,8 +26,6 @@ namespace PixelStacker.Logic.CanvasEditor.History
         {
             this.HistoryFuture.Clear();
             this.HistoryPast.Clear();
-            this.BufferedRenderQueue.Clear();
-            //this.SetMenuButtonStates();
         }
 
         /// <summary>
@@ -36,22 +33,32 @@ namespace PixelStacker.Logic.CanvasEditor.History
         /// </summary>
         /// <param name="record"></param>
         /// <param name="isForward">If true, it means you are DOING it. False = UNDO</param>
-        private void ApplyChange(ChangeRecord record, bool isForward)
+        private List<RenderRecord> ApplyChange(HistoryRecord records, bool isForward)
         {
-            var colorInt = isForward ? record.PaletteIDAfter : record.PaletteIDBefore;
-            if (this.Canvas.MaterialPalette[colorInt] == null) return;
-            foreach (var xy in record.ChangedPixels)
+            List<RenderRecord> output = new List<RenderRecord>();
+            foreach (var record in records.ChangeRecords)
             {
+                var colorInt = isForward ? record.PaletteIDAfter : record.PaletteIDBefore;
+                if (this.Canvas.MaterialPalette[colorInt] == null) return output;
+                output.Add(new RenderRecord()
+                {
+                    ChangedPixels = record.ChangedPixels,
+                    PaletteID = colorInt
+                });
+
+                foreach (var xy in record.ChangedPixels)
+                {
 #pragma warning disable CS0618 // Type or member is obsolete
-                this.Canvas.CanvasData.SetDirectly(xy.X, xy.Y, colorInt);
+                    this.Canvas.CanvasData.SetDirectly(xy.X, xy.Y, colorInt);
 #pragma warning restore CS0618 // Type or member is obsolete
+                }
             }
 
-            this.BufferedRenderQueue.Enqueue(new RenderRecord() { ChangedPixels = record.ChangedPixels, PaletteID = colorInt });
+            return output;
         }
 
 
-        public void AddChange(ChangeRecord record)
+        public void AddChange(HistoryRecord record)
         {
             this.HistoryFuture.Clear();
             ApplyChange(record, true);
@@ -63,28 +70,33 @@ namespace PixelStacker.Logic.CanvasEditor.History
             }
         }
 
-        public void RedoChange()
+        /// <summary>
+        /// Will re-render as well.
+        /// </summary>
+        public List<RenderRecord> RedoChange()
         {
             // Check if we can
-            if (!this.IsRedoEnabled) return;
+            if (!this.IsRedoEnabled) return new List<RenderRecord>();
 
             var record = this.HistoryFuture.Last();
             this.HistoryFuture.RemoveAt(this.HistoryFuture.Count - 1);
 
-            ApplyChange(record, true);
+            var renderRecords = ApplyChange(record, true);
             this.HistoryPast.Add(record);
+            return renderRecords;
         }
 
-        public void UndoChange()
+        public List<RenderRecord> UndoChange()
         {
             // Check if we can
-            if (!this.IsUndoEnabled) return;
+            if (!this.IsUndoEnabled) return new List<RenderRecord>();
 
             var record = this.HistoryPast.Last();
             this.HistoryPast.RemoveAt(this.HistoryPast.Count - 1);
 
-            ApplyChange(record, false);
+            var renderRecords = ApplyChange(record, false);
             this.HistoryFuture.Add(record);
+            return renderRecords;
         }
     }
 }

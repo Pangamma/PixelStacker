@@ -52,11 +52,18 @@ namespace PixelStacker.UI.Helpers
         public void RegisterChild(Control child)
         {
             child.Move += Child_Move;
+            child.Disposed += Child_Disposed;
             this.Children.Add(new ChildInfo()
             {
                 Control = child,
                 IsSnapped = false
             });
+        }
+
+        private void Child_Disposed(object sender, EventArgs e)
+        {
+            var child = (Control)sender;
+            var info = Children.RemoveAll(x => x.Control == child);
         }
 
         private int Dist(int a, int b)
@@ -85,7 +92,7 @@ namespace PixelStacker.UI.Helpers
             {
                 if (TL.X > -snapTolerance && TL.X < pRect.Right)
                 {
-                    TL.X = Math.Clamp(TL.X, padding, pRect.Right - child.Size.Width - padding);
+                    TL.X = Math.Min(Math.Max(TL.X, padding), pRect.Right - child.Size.Width - padding);
                     isSnapped = true;
                 }
             }
@@ -94,7 +101,7 @@ namespace PixelStacker.UI.Helpers
             {
                 if (TL.Y > -snapTolerance && TL.Y < pRect.Bottom)
                 {
-                    TL.Y = Math.Clamp(TL.Y, padding, pRect.Bottom - child.Size.Height - padding);
+                    TL.Y = Math.Min(Math.Max(TL.Y, padding), pRect.Bottom - child.Size.Height - padding);
                     isSnapped = true;
                 }
             }

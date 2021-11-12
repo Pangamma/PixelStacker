@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PixelStacker.UI
+namespace PixelStacker.UI.Controls
 {
     public partial class CanvasEditor
     {

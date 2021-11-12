@@ -60,6 +60,7 @@ namespace PixelStacker.Extensions
             }
         }
 
+
         public static void ModifyRecursive(this MenuStrip menuStrip, Action<ToolStripItem, MainFormTags> action)
         {
             foreach (ToolStripItem menuStripItem in menuStrip.Items)

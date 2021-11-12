@@ -90,6 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(261, 197);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tbxMaxHeight);
@@ -97,7 +98,7 @@
             this.Controls.Add(this.tbxMaxWidth);
             this.Controls.Add(this.lblWidth);
             this.Controls.Add(this.lblInstructions);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "SizeForm";
             this.ShowInTaskbar = false;
             this.Text = "Output size?";

@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace PixelStacker.UI
+namespace PixelStacker.UI.Controls
 {
     public partial class CanvasEditor
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace PixelStacker.UI
+namespace PixelStacker.UI.Controls
 {
     partial class CanvasEditor
     {
@@ -33,6 +33,7 @@ namespace PixelStacker.UI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CanvasEditor));
             this.timerPaint = new System.Windows.Forms.Timer(this.components);
             this.skiaControl = new PixelStacker.UI.Controls.SkHybridControl();
+            this.timerBufferedChangeQueue = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timerPaint
@@ -58,6 +59,11 @@ namespace PixelStacker.UI
             this.skiaControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
             this.skiaControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseUp);
             // 
+            // timerBufferedChangeQueue
+            // 
+            this.timerBufferedChangeQueue.Enabled = true;
+            this.timerBufferedChangeQueue.Tick += new System.EventHandler(this.timerBufferedChangeQueue_Tick);
+            // 
             // CanvasEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -67,6 +73,7 @@ namespace PixelStacker.UI
             this.Controls.Add(this.skiaControl);
             this.Name = "CanvasEditor";
             this.Size = new System.Drawing.Size(611, 382);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_Click);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_DoubleClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
@@ -78,5 +85,6 @@ namespace PixelStacker.UI
         #endregion
         private System.Windows.Forms.Timer timerPaint;
         private Controls.SkHybridControl skiaControl;
+        private System.Windows.Forms.Timer timerBufferedChangeQueue;
     }
 }

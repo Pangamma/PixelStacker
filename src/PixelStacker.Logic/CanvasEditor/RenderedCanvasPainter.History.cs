@@ -14,19 +14,15 @@ namespace PixelStacker.Logic.CanvasEditor
     public partial class RenderedCanvasPainter
     {
         public EditHistory History { get; }
+        public BufferedHistory HistoryBuffer { get; set; } = new BufferedHistory();
 
         public async Task DoRenderFromHistoryBuffer()
         {
-            List<RenderRecord> records = new List<RenderRecord>();
-            while (History.BufferedRenderQueue.TryDequeue(out RenderRecord toAdd))
-            {
-                records.Add(toAdd);
-            }
-
+            List<RenderRecord> records = HistoryBuffer.ToRenderInstructions(true);
             await DoProcessRenderRecords(records);
         }
 
-        public async Task DoProcessRenderRecords(List<RenderRecord> records)
+        public Task DoProcessRenderRecords(List<RenderRecord> records)
         {
             //var uniqueChunkIndexes = records.SelectMany(x => x.ChangedPixels).Distinct();
             var chunkIndexes = records.SelectMany(x => x.ChangedPixels.Select(cp => new { 
@@ -68,81 +64,7 @@ namespace PixelStacker.Logic.CanvasEditor
                 }
             }
 
-            //foreach (var record in records)
-            //{
-            //    MaterialCombination mc = this.Data.MaterialPalette[record.PaletteID];
-
-            //    foreach(PxPoint loc in record.ChangedPixels)
-            //    {
-            //        // re-paint on the base image tiles then have it propogate.
-
-
-
-
-
-
-
-
-            //        //#region LAYER 0
-            //        //{
-            //        //    SKSize[,] sizeSet = sizes[0];
-            //        //    int scaleDivide = 1;
-            //        //    int numChunksWide = sizeSet.GetLength(0);
-            //        //    int numChunksHigh = sizeSet.GetLength(1);
-            //        //    int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
-            //        //    int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide;
-            //        //    int iTask = 0;
-            //        //    Task[] L0Tasks = new Task[sizes[0].Length];
-            //        //    for (int cW = 0; cW < numChunksWide; cW++)
-            //        //    {
-            //        //        for (int cH = 0; cH < numChunksHigh; cH++)
-            //        //        {
-            //        //            int cWf = cW;
-            //        //            int cHf = cH;
-            //        //            SKSize tileSize = sizeSet[cW, cH];
-            //        //            SKRect srcRect = new SKRect()
-            //        //            {
-            //        //                Location = new SKPoint(cWf * srcPixelsPerChunk, cHf * srcPixelsPerChunk),
-            //        //                Size = new SKSize((float)Math.Floor(tileSize.Width * scaleDivide / Constants.TextureSize)
-            //        //                , (float)Math.Floor(tileSize.Height * scaleDivide / Constants.TextureSize))
-            //        //            };
-            //        //            SKRect dstRect = new SKRect()
-            //        //            {
-            //        //                Location = new SKPoint(cWf * dstPixelsPerChunk, cHf * dstPixelsPerChunk),
-            //        //                Size = new SKSize(tileSize.Width, tileSize.Height)
-            //        //            };
-
-            //        //            L0Tasks[iTask++] = Task.Run(() =>
-            //        //            {
-            //        //                var bmToAdd = CreateLayer0Image(data, srcRect, dstRect);
-            //        //                bitmaps[0][cWf, cHf] = bmToAdd;
-            //        //                int nVal = Interlocked.Increment(ref chunksFinishedSoFar);
-            //        //                ProgressX.Report(100 * nVal / totalChunksToRender);
-            //        //            }, worker.Value);
-            //        //        }
-            //        //    }
-
-            //        //    await Task.WhenAll(L0Tasks);
-            //        //}
-            //        //#endregion LAYER 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //    }
-            //}
+            return Task.CompletedTask;
         }
 
         //public bool IsUndoEnabled { get => this.IsAnyChangePossible && this.History.HistoryPast.Any(); }
