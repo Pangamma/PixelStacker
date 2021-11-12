@@ -39,7 +39,7 @@ namespace PixelStacker.UI.Controls
             // timerPaint
             // 
             this.timerPaint.Enabled = true;
-            this.timerPaint.Interval = 20;
+            this.timerPaint.Interval = 10;
             this.timerPaint.Tick += new System.EventHandler(this.timerPaint_Tick);
             // 
             // skiaControl
@@ -62,6 +62,7 @@ namespace PixelStacker.UI.Controls
             // timerBufferedChangeQueue
             // 
             this.timerBufferedChangeQueue.Enabled = true;
+            this.timerBufferedChangeQueue.Interval = 20;
             this.timerBufferedChangeQueue.Tick += new System.EventHandler(this.timerBufferedChangeQueue_Tick);
             // 
             // CanvasEditor

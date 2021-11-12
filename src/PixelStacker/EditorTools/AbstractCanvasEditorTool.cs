@@ -67,7 +67,7 @@ namespace PixelStacker.EditorTools
 #if DEBUG
                 throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
 #else
-                        return new Point(0, 0);
+                        return new PxPoint(0, 0);
 #endif
             }
 

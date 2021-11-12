@@ -21,6 +21,8 @@ namespace PixelStacker.EditorTools
         {
             if (e.Button != MouseButtons.Left) return;
             Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
+            if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
+            if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
             var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
             var painter = this.CanvasEditor.Painter;
             var buffer = painter.HistoryBuffer;
@@ -35,6 +37,8 @@ namespace PixelStacker.EditorTools
             IsDragging = true;
 
             Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
+            if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
+            if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
             var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
             var painter = this.CanvasEditor.Painter;
             var buffer = painter.HistoryBuffer;
@@ -58,6 +62,8 @@ namespace PixelStacker.EditorTools
             if (!IsDragging) return;
 
             Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
+            if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
+            if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
             var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
             var painter = this.CanvasEditor.Painter;
             var buffer = painter.HistoryBuffer;
