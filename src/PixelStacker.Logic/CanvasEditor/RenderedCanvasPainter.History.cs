@@ -24,8 +24,10 @@ namespace PixelStacker.Logic.CanvasEditor
 
         public Task DoProcessRenderRecords(List<RenderRecord> records)
         {
+            if (records.Count == 0) return Task.CompletedTask;
             //var uniqueChunkIndexes = records.SelectMany(x => x.ChangedPixels).Distinct();
-            var chunkIndexes = records.SelectMany(x => x.ChangedPixels.Select(cp => new { 
+            var chunkIndexes = records.SelectMany(x => x.ChangedPixels.Select(cp => new
+            {
                 PaletteID = x.PaletteID,
                 X = cp.X,
                 Y = cp.Y
@@ -34,12 +36,12 @@ namespace PixelStacker.Logic.CanvasEditor
             // Layer 0
             // Iterate over chunks
             bool isv = Data.IsSideView;
-            foreach(var changeGroup in chunkIndexes)
+            foreach (var changeGroup in chunkIndexes)
             {
                 // Get a lock on the current chunk's image and make a copy
                 PxPoint chunkIndex = changeGroup.Key;
                 SKBitmap bmCopied = null;
-                lock(this.Padlocks[0][chunkIndex.X, chunkIndex.Y])
+                lock (this.Padlocks[0][chunkIndex.X, chunkIndex.Y])
                 {
                     bmCopied = Bitmaps[0][chunkIndex.X, chunkIndex.Y].Copy();
                 }
@@ -48,8 +50,8 @@ namespace PixelStacker.Logic.CanvasEditor
                 int offsetY = chunkIndex.Y * BlocksPerChunk;
                 // Modify the copied chunk
                 using SKCanvas skCanvas = new SKCanvas(bmCopied);
-                using SKPaint paint = new SKPaint() { BlendMode = SKBlendMode.Src};
-                foreach(var pxToModify in changeGroup)
+                using SKPaint paint = new SKPaint() { BlendMode = SKBlendMode.Src };
+                foreach (var pxToModify in changeGroup)
                 {
                     MaterialCombination mc = Data.MaterialPalette[pxToModify.PaletteID];
                     int ix = Constants.TextureSize * (pxToModify.X - offsetX);
@@ -101,16 +103,16 @@ namespace PixelStacker.Logic.CanvasEditor
                                     if (xIndexOIfL0Chunk > Bitmaps[0].GetLength(0) - 1 || yIndexOfL0Chunk > Bitmaps[0].GetLength(1) - 1)
                                         continue;
 
-                                    var bmToPaint = Bitmaps[0][xIndexOIfL0Chunk, yIndexOfL0Chunk];
-                                    var rect = new SKRect()
-                                    {
-                                        Location = new SKPoint((float)(xWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide),
-                                            (float)(yWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide)),
-                                        Size = new SKSize(dstPixelsPerChunk / scaleDivide, dstPixelsPerChunk / scaleDivide)
-                                    };
-
                                     lock (Padlocks[l][x, y])
                                     {
+                                        var bmToPaint = Bitmaps[0][xIndexOIfL0Chunk, yIndexOfL0Chunk];
+                                        var rect = new SKRect()
+                                        {
+                                            Location = new SKPoint((float)(xWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide),
+                                                (float)(yWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide)),
+                                            Size = new SKSize(dstPixelsPerChunk / scaleDivide, dstPixelsPerChunk / scaleDivide)
+                                        };
+
                                         g.DrawBitmap(
                                         bmToPaint,
                                         rect);

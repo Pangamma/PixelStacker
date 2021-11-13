@@ -195,17 +195,17 @@ namespace PixelStacker.Logic.CanvasEditor
             {
                 for (int yChunk = minYIndex; yChunk <= maxYIndex; yChunk++)
                 {
-                    var bmToPaint = toUse[xChunk, yChunk];
-                    SKPoint pnlStart = GetPointOnPanel(new SKPoint(x: xChunk * srcPixelsPerChunk, y: yChunk * srcPixelsPerChunk), pz);
-                    SKPoint pnlEnd = GetPointOnPanel(new SKPoint(
-                        x: (xChunk * srcPixelsPerChunk) + (bmToPaint.Width * divideAmount / Constants.TextureSize),
-                        y: (yChunk * srcPixelsPerChunk) + (bmToPaint.Height * divideAmount / Constants.TextureSize)),
-                        pz);
-                    SKRect rectDST = pnlStart.ToRectangle(pnlEnd);
-                    SKRect rectSRC = PointExtensions.ToRectangle(0, 0, bmToPaint.Width, bmToPaint.Height); // left, top, right, bottom
-
                     lock (lockSetToUse[xChunk, yChunk])
                     {
+                        var bmToPaint = toUse[xChunk, yChunk];
+                        SKPoint pnlStart = GetPointOnPanel(new SKPoint(x: xChunk * srcPixelsPerChunk, y: yChunk * srcPixelsPerChunk), pz);
+                        SKPoint pnlEnd = GetPointOnPanel(new SKPoint(
+                            x: (xChunk * srcPixelsPerChunk) + (bmToPaint.Width * divideAmount / Constants.TextureSize),
+                            y: (yChunk * srcPixelsPerChunk) + (bmToPaint.Height * divideAmount / Constants.TextureSize)),
+                            pz);
+                        SKRect rectDST = pnlStart.ToRectangle(pnlEnd);
+                        SKRect rectSRC = PointExtensions.ToRectangle(0, 0, bmToPaint.Width, bmToPaint.Height); // left, top, right, bottom
+
                         g.DrawBitmap(bitmap: bmToPaint,
                         source: rectSRC,
                         dest: rectDST);

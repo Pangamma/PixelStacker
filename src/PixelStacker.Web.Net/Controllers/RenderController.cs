@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Engine;
+using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Model;
@@ -54,43 +56,34 @@ namespace PixelStacker.Web.Net.Controllers
 
             byte[] dataFromUrl = new WebClient().DownloadData(url);
             var bm = SKBitmap.Decode(dataFromUrl);
-
-            var engine = new RenderCanvasEngine();
-            var palette = MaterialPalette.FromResx();
-            var preprocessed = await engine.PreprocessImageAsync(null, bm, new Logic.IO.Config.CanvasPreprocessorSettings()
-            {
-                IsSideView = false,
-                MaxHeight = 300,
-                MaxWidth = 300,
-                RgbBucketSize = 1,
-                QuantizerSettings = new Logic.IO.Config.QuantizerSettings()
-                {
-                    IsEnabled = false
-                }
-            });
-            var canvas = await engine.RenderCanvasAsync(null, preprocessed, ColorMapperTopView.Value, palette);
-            IExportFormatter exporter = new JpegFormatter();
-            byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
-            {
-                CanvasData = canvas.CanvasData,
-                IsSideView = false,
-                MaterialPalette = palette,
-                PreprocessedImage = canvas.PreprocessedImage,
-                //WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
-                WorldEditOrigin = null
-            }, null);
-
-            Cache.Set(url, data);
-
-            return File(data, contentType);
+            return await this.DoSimple(bm, url);
         }
 
-
         [HttpPost]
-        public async Task<ActionResult> Simple(IFormFile file)
+        public async Task<ActionResult> ByFile(IFormFile file)
         {
-            var engine = new RenderCanvasEngine();
             SKBitmap bm = file.ToSKBitmap();
+            return await this.DoSimple(bm, null);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ByURLAdvanced(UrlRenderRequest model)
+        {
+            byte[] dataFromUrl = new WebClient().DownloadData(model.Url);
+            var bm = SKBitmap.Decode(dataFromUrl);
+            return await DoAdvanced(model, bm);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ByFileAdvanced(FileRenderRequest model)
+        {
+            SKBitmap bm = model.File.ToSKBitmap();
+            return await DoAdvanced(model, bm);
+        }
+
+        private async Task<ActionResult> DoSimple(SKBitmap bm, string cacheKey = null)
+        {
+            var engine = new RenderCanvasEngine();
             var palette = MaterialPalette.FromResx();
             var preprocessed = await engine.PreprocessImageAsync(null, bm, new Logic.IO.Config.CanvasPreprocessorSettings()
             {
@@ -115,23 +108,39 @@ namespace PixelStacker.Web.Net.Controllers
                 WorldEditOrigin = null
             }, null);
 
-            //string contentType = "APPLICATION/octet-stream"; // download
+            if (cacheKey != null)
+                Cache.Set(cacheKey, data);
+
             return File(data, contentType);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Advanced(RenderRequest model)
+        private async Task<ActionResult> DoAdvanced(BaseRenderRequest model, SKBitmap bm)
         {
             var engine = new RenderCanvasEngine();
-            SKBitmap bm = model.File.ToSKBitmap();
             var palette = MaterialPalette.FromResx();
-            using var preprocessed = await engine.PreprocessImageAsync(null, bm, model.PreprocessSettings);
-            var canvas = await engine.RenderCanvasAsync(null, preprocessed, ColorMapperTopView.Value, palette);
+            bool isv = model.IsSideView;
+            using var preprocessed = await engine.PreprocessImageAsync(null, bm, new CanvasPreprocessorSettings()
+            {
+                IsSideView = isv,
+                MaxHeight = model.MaxHeight ?? 300,
+                MaxWidth = model.MaxWidth ?? 300,
+                RgbBucketSize = model.RgbBucketSize,
+                QuantizerSettings = new QuantizerSettings()
+                {
+                    IsEnabled = model.EnableDithering || model.QuantizedColorCount.HasValue,
+                    Algorithm = QuantizerAlgorithm.WuColor,
+                    DitherAlgorithm = model.EnableDithering ? "Atkinson" : "No dithering",
+                    MaxParallelProcesses = 1,
+                    MaxColorCount = model.QuantizedColorCount ?? 256
+                }
+            });
+
+            var canvas = await engine.RenderCanvasAsync(null, preprocessed, isv ? ColorMapperSideView.Value : ColorMapperTopView.Value, palette);
             IExportFormatter exporter = model.Format.GetFormatter();
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
             {
                 CanvasData = canvas.CanvasData,
-                IsSideView = false,
+                IsSideView = isv,
                 MaterialPalette = palette,
                 PreprocessedImage = canvas.PreprocessedImage,
                 //WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
@@ -142,7 +151,7 @@ namespace PixelStacker.Web.Net.Controllers
             if (contentType == "application/octet-stream")
             {
                 return File(data, contentType, "download" + fileExt);
-            } 
+            }
             else
             {
                 // Image style

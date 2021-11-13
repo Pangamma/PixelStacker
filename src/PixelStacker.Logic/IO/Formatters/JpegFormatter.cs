@@ -122,7 +122,7 @@ namespace PixelStacker.Logic.IO.Formatters
             using var bm = new SKBitmap(new SKImageInfo(vWidth, vHeight, SKColorType.Rgba8888, SKAlphaType.Premul));
             var skCanvas = new SKCanvas(bm);
             painter.PaintSurface(skCanvas, new SKSize(vWidth, vHeight), pz, new CanvasViewerSettings() {
-                IsShowBorder = true,
+                IsShowBorder = false,
             });
 
             using var ms = new MemoryStream();

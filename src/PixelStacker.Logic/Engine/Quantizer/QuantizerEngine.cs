@@ -114,7 +114,6 @@ namespace PixelStacker.Logic.Engine.Quantizer
         }
 
 
-        [Obsolete("Fix this so we use skia images")]
         /// <summary>
         ///  SOURCE IMAGE SHOULD BE 32bbpARGB
         /// </summary>

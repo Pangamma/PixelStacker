@@ -84,7 +84,28 @@ namespace PixelStacker.Logic.Engine
             else return calculatedTextureSize;
         }
 
-        [Obsolete("TODO: How to get nearest neighboor sampling selected?", false)]
+        private int[] GetNewSize(int Wdt, int Hgt, int Max_W, int Max_H)
+        {
+            int W_Result = Wdt;
+            int H_Result = Hgt;
+            if (Wdt > Max_W || Hgt > Max_H)
+            {
+                if (Max_W * Hgt < Max_H * Wdt)
+                {
+
+                    W_Result = Max_W;
+                    H_Result = Hgt * Max_W / Wdt;
+                }
+                else
+                {
+
+                    W_Result = Wdt * Max_H / Hgt;
+                    H_Result = Max_H;
+                }
+            }
+            return new int[] { W_Result, H_Result };
+        }
+
         /// <summary>
         /// Processes an image prior to be matched up with existing material combinations.
         /// </summary>
@@ -100,8 +121,12 @@ namespace PixelStacker.Logic.Engine
             ProgressX.Report(5, "Pre-processing image. Resizing.");
             int mH = Math.Min(settings.MaxHeight ?? dims.Height, dims.Height);
             int mW = Math.Min(settings.MaxWidth ?? dims.Width, dims.Width);
-            int H = (mW < mH) ? (mW * dims.Height / dims.Width) : mH;
-            int W = (mW < mH) ? mW : (mH * dims.Width / dims.Height);
+
+
+            int[] WH = GetNewSize(dims.Width, dims.Height, mW, mH);
+
+            int W = WH[0];
+            int H = WH[1];
             // TODO: How to get "nearest neighboor" sampling selected?
             var resized = LIM.Resize(new SkiaSharp.SKImageInfo(W, H, SkiaSharp.SKColorType.Rgba8888), SkiaSharp.SKFilterQuality.Low);
 

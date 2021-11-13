@@ -31,6 +31,7 @@ namespace PixelStacker.UI.Controls
             else
             {
                 this.Canvas = new SKControl();
+                this.Canvas.Enabled = true;
                 this.Canvas.PaintSurface += this.OnPaintSurfaceInner;
                 control = this.Canvas;
             }
@@ -98,7 +99,6 @@ namespace PixelStacker.UI.Controls
     {
         public SKSurface Surface { get; set; }
         public SKRectI Rect { get; internal set; }
-
         public GenericSKPaintSurfaceEventArgs() { }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using PixelStacker.Web.Net.Models.Attributes;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -10,20 +12,21 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace MtCoffee.Web.AppStart
+namespace PixelStacker.Web.Net.AppStart
 {
     public class SwaggerConfig
     {
         public static void AddSwaggerGen(SwaggerGenOptions c)
         {
-            c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "PixelStacker WEB", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "PixelStacker WEB", Version = "v1" });
             c.ResolveConflictingActions(apiDesc =>
             {
                 return apiDesc.First();
             });
-            
+
             c.IgnoreObsoleteActions();
             c.IgnoreObsoleteProperties();
+            c.ParameterFilter<AcceptableValuesFilter>();
         }
 
         public static void UseSwaggerUI(SwaggerUIOptions c)
@@ -34,9 +37,9 @@ namespace MtCoffee.Web.AppStart
             c.DocumentTitle = "PixelStacker WEB";
             c.InjectStylesheet("../swagger-ui/custom-swagger.css");
 
-#if !DEBUG
-            c.RoutePrefix = "";
-#endif
+//#if !DEBUG
+//            c.RoutePrefix = "";
+//#endif
 
         }
 
@@ -57,6 +60,35 @@ namespace MtCoffee.Web.AppStart
                     swagger.Servers = new List<OpenApiServer> { new OpenApiServer { Url = serverUrl } };
                 }
             });
+        }
+    }
+
+    public class AcceptableValuesFilter : IParameterFilter
+    {
+        public void Apply(OpenApiParameter parameter, ParameterFilterContext context)
+        {
+            var meta = context.ApiParameterDescription.ModelMetadata as DefaultModelMetadata;
+            if (meta is null) return;
+            var propAttrs = meta.Attributes.PropertyAttributes;
+            if (propAttrs is null) return;
+
+            foreach (var attr in propAttrs.OfType<AcceptableIntValuesAttribute>())
+            {
+                parameter.Schema.Enum.Clear();
+                foreach (var val in attr.AllowableValues)
+                {
+                    parameter.Schema.Enum.Add(new OpenApiInteger(val));
+                }
+            }
+
+            foreach (var attr in propAttrs.OfType<AcceptableStringValuesAttribute>())
+            {
+                parameter.Schema.Enum.Clear();
+                foreach (var val in attr.AllowableValues)
+                {
+                    parameter.Schema.Enum.Add(new OpenApiString(val));
+                }
+            }
         }
     }
 

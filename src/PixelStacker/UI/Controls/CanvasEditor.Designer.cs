@@ -34,12 +34,17 @@ namespace PixelStacker.UI.Controls
             this.timerPaint = new System.Windows.Forms.Timer(this.components);
             this.skiaControl = new PixelStacker.UI.Controls.SkHybridControl();
             this.timerBufferedChangeQueue = new System.Windows.Forms.Timer(this.components);
+            this.bgWorkerBufferedChangeQueue = new System.ComponentModel.BackgroundWorker();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tsBrushWidth = new System.Windows.Forms.ToolStripLabel();
+            this.tbxBrushWidth = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timerPaint
             // 
             this.timerPaint.Enabled = true;
-            this.timerPaint.Interval = 10;
+            this.timerPaint.Interval = 20;
             this.timerPaint.Tick += new System.EventHandler(this.timerPaint_Tick);
             // 
             // skiaControl
@@ -65,12 +70,47 @@ namespace PixelStacker.UI.Controls
             this.timerBufferedChangeQueue.Interval = 20;
             this.timerBufferedChangeQueue.Tick += new System.EventHandler(this.timerBufferedChangeQueue_Tick);
             // 
+            // bgWorkerBufferedChangeQueue
+            // 
+            this.bgWorkerBufferedChangeQueue.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorkerBufferedChangeQueue_DoWork);
+            this.bgWorkerBufferedChangeQueue.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgWorkerBufferedChangeQueue_RunWorkerCompleted);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsBrushWidth,
+            this.tbxBrushWidth});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(611, 27);
+            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tsBrushWidth
+            // 
+            this.tsBrushWidth.Name = "tsBrushWidth";
+            this.tsBrushWidth.Size = new System.Drawing.Size(89, 24);
+            this.tsBrushWidth.Text = "Brush Width";
+            // 
+            // tbxBrushWidth
+            // 
+            this.tbxBrushWidth.AutoSize = false;
+            this.tbxBrushWidth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbxBrushWidth.Name = "tbxBrushWidth";
+            this.tbxBrushWidth.Size = new System.Drawing.Size(40, 27);
+            this.tbxBrushWidth.Text = "1";
+            this.tbxBrushWidth.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbxBrushWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxBrushWidth_KeyPress);
+            this.tbxBrushWidth.TextChanged += new System.EventHandler(this.tbxBrushWidth_TextChanged);
+            // 
             // CanvasEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
             this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.skiaControl);
             this.Name = "CanvasEditor";
             this.Size = new System.Drawing.Size(611, 382);
@@ -79,7 +119,10 @@ namespace PixelStacker.UI.Controls
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseUp);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -87,5 +130,9 @@ namespace PixelStacker.UI.Controls
         private System.Windows.Forms.Timer timerPaint;
         private Controls.SkHybridControl skiaControl;
         private System.Windows.Forms.Timer timerBufferedChangeQueue;
+        private System.ComponentModel.BackgroundWorker bgWorkerBufferedChangeQueue;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel tsBrushWidth;
+        private System.Windows.Forms.ToolStripTextBox tbxBrushWidth;
     }
 }

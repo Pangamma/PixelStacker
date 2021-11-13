@@ -28,5 +28,7 @@ namespace PixelStacker.Logic.Model
 
         [JsonIgnore]
         public CanvasData CanvasData { get; set; }
+
+        public bool IsInRange(int x, int y) => CanvasData?.IsInRange(x, y) ?? false;
     }
 }

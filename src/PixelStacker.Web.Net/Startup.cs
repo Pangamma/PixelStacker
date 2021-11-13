@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MtCoffee.Web.AppStart;
 using PixelStacker.Web.Net.AppStart;
 using System;
 using System.Collections.Generic;
@@ -32,14 +31,14 @@ namespace PixelStacker.Web.Net
         {
             services.AddCors();
 
-#if !DEBUG 
-            // In production, the React files will be served from this directory  
-            // Add static files  BEFORE adding routing calls.
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/build";
-            });
-#endif
+//#if !DEBUG 
+//            // In production, the React files will be served from this directory  
+//            // Add static files  BEFORE adding routing calls.
+//            services.AddSpaStaticFiles(configuration =>
+//            {
+//                configuration.RootPath = "ClientApp/build";
+//            });
+//#endif
 
             // Must be added before MVC
             //AuthConfig.AddAuthentication(services);
@@ -76,9 +75,9 @@ namespace PixelStacker.Web.Net
                 //.UseAuthentication() // Must be added before MVC
                 .UseStaticFiles()   // Add static files  BEFORE adding routing calls.
                 //.UsePathBase("/projects/pixelstacker")
-#if !DEBUG
-                .UseSpaStaticFiles()
-#endif
+//#if !DEBUG
+//                .UseSpaStaticFiles()
+//#endif
             ;
             // index should be swagger
             app.UseWhen((context) => context.Request.Path.Value == "/", configWhen => {
@@ -89,9 +88,7 @@ namespace PixelStacker.Web.Net
                     return Task.CompletedTask;
                 });
             });
-#if DEBUG
 
-#endif
             app.UseWhen((context) => context.Request.Path.Value.ToLower().StartsWith("/api"),
                 configWhen => configWhen.UseMvc((Microsoft.AspNetCore.Routing.IRouteBuilder routes) =>
                 {
@@ -110,21 +107,21 @@ namespace PixelStacker.Web.Net
             ));
 
 
-#if !DEBUG
-            app.UseWhen((context) =>
-            !context.Request.Path.Value.ToLower().StartsWith("/api")
-            && !context.Request.Path.Value.ToLower().StartsWith("/swagger"),
-                configWhen => configWhen.UseSpa(spa =>
-                {
-                    spa.Options.SourcePath = "PixelStacker.React";
+//#if !DEBUG
+//            app.UseWhen((context) =>
+//            !context.Request.Path.Value.ToLower().StartsWith("/api")
+//            && !context.Request.Path.Value.ToLower().StartsWith("/swagger"),
+//                configWhen => configWhen.UseSpa(spa =>
+//                {
+//                    spa.Options.SourcePath = "PixelStacker.React";
 
-                    //if (env.IsDevelopment())
-                    //{
-                    //    spa.UseReactDevelopmentServer(npmScript: "start");
-                    //}
-                }
-            ));
-#endif
+//                    //if (env.IsDevelopment())
+//                    //{
+//                    //    spa.UseReactDevelopmentServer(npmScript: "start");
+//                    //}
+//                }
+//            ));
+//#endif
 
             if (true || env.IsDevelopment())
             {

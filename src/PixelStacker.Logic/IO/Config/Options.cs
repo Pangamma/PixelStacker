@@ -44,6 +44,8 @@ namespace PixelStacker.Logic.IO.Config
         /// </summary>
         public bool IsMultiLayer { get; set; } = true;
 
+        public ToolSettings Tools { get; set; } = new ToolSettings();
+
         /// <summary>
         /// TRUE if stained glass panes MUST be layered ontop of regular blocks
         /// </summary>
@@ -89,7 +91,6 @@ namespace PixelStacker.Logic.IO.Config
             {
                 IsEnabled = false,
                 Algorithm = QuantizerAlgorithm.WuColor,
-                ColorCache = "Octree search",
                 MaxColorCount = 256,
                 DitherAlgorithm = "No dithering",
                 MaxParallelProcesses = 1

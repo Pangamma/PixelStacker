@@ -36,6 +36,13 @@ namespace PixelStacker.Logic.Model
             BlocksMap[x, y] = PaletteID;
         }
 
+        public bool IsInRange(int x, int y)
+        {
+            if (this.Width <= x || x < 0) return false;
+            if (this.Height <= y || y < 0) return false;
+            return true;
+        }
+
         public Material this[int x, int y, bool isTopLayer]
         {
             get

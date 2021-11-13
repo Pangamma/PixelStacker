@@ -1,6 +1,9 @@
 ﻿using PixelStacker.EditorTools;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.UI.Forms;
 using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace PixelStacker.UI.Controls
 {
@@ -9,11 +12,40 @@ namespace PixelStacker.UI.Controls
         private AbstractCanvasEditorTool CurrentTool { get; set; }
         private PanZoomTool PanZoomTool { get; }
 
-        private async void timerBufferedChangeQueue_Tick(object sender, System.EventArgs e)
+        private void tbxBrushWidth_TextChanged(object sender, System.EventArgs e)
+        {
+            Options.Tools.BrushWidth = tbxBrushWidth.Text.ToNullable<int>() ?? 1;
+        }
+
+        private void tbxBrushWidth_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void bgWorkerBufferedChangeQueue_DoWork(object sender, DoWorkEventArgs e)
+        {
+            e.Result = this.Painter.DoRenderFromHistoryBuffer();
+        }
+
+        private void BgWorkerBufferedChangeQueue_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.RepaintRequested = true;
+        }
+
+        private void timerBufferedChangeQueue_Tick(object sender, System.EventArgs e)
         {
             if (this.Painter == null) return;
-            await this.Painter.DoRenderFromHistoryBuffer();
-            this.RepaintRequested = true;
+            if (bgWorkerBufferedChangeQueue.IsBusy) return;
+            bgWorkerBufferedChangeQueue.RunWorkerAsync();
+            //if (this.Painter == null) return;
+
+            //IsRenderingBuffer = true;
+            //await this.Painter.DoRenderFromHistoryBuffer();
+            //IsRenderingBuffer = false;
+            //this.RepaintRequested = true;
         }
 
         public void SetCanvasToolboxEvents(CanvasTools toolbox)
@@ -21,6 +53,12 @@ namespace PixelStacker.UI.Controls
             toolbox.OnClickPanZoom += Toolbox_OnClickPanZoom;
             toolbox.OnClickWorldEditOrigin += Toolbox_OnClickWorldEditOrigin;
             toolbox.OnClickEraser += Toolbox_OnClickEraser;
+            toolbox.OnClickFill += Toolbox_OnClickFill;
+        }
+
+        private void Toolbox_OnClickFill(object sender, EventArgs e)
+        {
+            this.CurrentTool = new FillTool(this);
         }
 
         private void Toolbox_OnClickEraser(object sender, EventArgs e)

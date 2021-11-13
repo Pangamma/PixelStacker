@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace MtCoffee.Web.Attributes
+namespace PixelStacker.Web.Net.Models.Attributes
 {
     /// <summary>
     /// Only ever use on string types. Use this to automatically set a phone number field to be in

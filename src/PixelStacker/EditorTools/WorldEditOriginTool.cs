@@ -13,6 +13,7 @@ namespace PixelStacker.EditorTools
 {
     public class WorldEditOriginTool : AbstractCanvasEditorTool
     {
+        public override bool UsesBrushWidth => false;
         public WorldEditOriginTool(CanvasEditor editor) : base(editor)
         {
         }

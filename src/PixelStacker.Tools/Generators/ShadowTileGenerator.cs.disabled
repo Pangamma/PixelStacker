@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
 using PixelStacker.Extensions;
-using System.Drawing.Imaging;
 
 namespace PixelStacker.Tools.Generators
 {

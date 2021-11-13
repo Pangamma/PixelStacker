@@ -4,7 +4,7 @@
 <#+ 
 public static class Configuration
 {
-	public static readonly string Namespace = "MtCoffee.Web.Models";
+	public static readonly string Namespace = "PixelStacker.Web.Net.Models";
 	public static readonly string EnumName = "ResponseStatusCode";
     public static readonly string ValuePropertyName = "Description";
 	public static readonly bool IncludeComments = true;

@@ -1,4 +1,4 @@
-﻿namespace MtCoffee.Web.Models
+﻿namespace PixelStacker.Web.Net.Models
 {
     public class RequestPayload<T>
     {

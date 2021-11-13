@@ -9,12 +9,6 @@ namespace PixelStacker.Logic.IO.Config
     {
         public bool IsEnabled { get; set; } = false;
 
-        [Category("Quantizing")]
-        /// <summary>
-        /// Color cache algorithm
-        /// </summary>
-        public string ColorCache { get; set; }
-
         [DisplayName("Max color count")]
         [Description(description: "The maximum color count for the quantizer algorithm.")]
         [Category("Quantizing")]

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MtCoffee.Web.Models.Authentication
+namespace PixelStacker.Web.Net.Models.Authentication
 {
 
     public class UserLoginResult

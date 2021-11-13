@@ -32,7 +32,7 @@ namespace PixelStacker.UI.Controls
             //}
             //int textureSize = textureSizeOut.Value;
 
-            pz ??= CalculateInitialPanZoomSettings(canvas.Width, canvas.Height);
+            pz ??= PanZoomSettings.CalculateDefaultPanZoomSettings(canvas.Width, canvas.Height, this.Width, this.Height);
             // possible to use faster math?
 
 

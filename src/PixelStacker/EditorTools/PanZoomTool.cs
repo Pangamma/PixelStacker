@@ -14,6 +14,7 @@ namespace PixelStacker.EditorTools
     {
         private Point initialDragPoint = new Point(0,0);
         private bool IsDragging;
+        public override bool UsesBrushWidth => false;
 
         public PanZoomTool(CanvasEditor editor) : base(editor)
         {

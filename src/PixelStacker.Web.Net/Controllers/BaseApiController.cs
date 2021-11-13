@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using MtCoffee.Web.Attributes;
 using PixelStacker.Web.Net.AppStart;
+using PixelStacker.Web.Net.Models.Attributes;
 
 namespace PixelStacker.Web.Net.Controllers
 {

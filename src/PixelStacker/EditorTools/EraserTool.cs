@@ -2,6 +2,7 @@
 using PixelStacker.Logic.Model;
 using PixelStacker.UI.Controls;
 using System.Drawing;
+using System.Numerics;
 using System.Windows.Forms;
 
 namespace PixelStacker.EditorTools
@@ -9,7 +10,10 @@ namespace PixelStacker.EditorTools
     public class EraserTool : AbstractCanvasEditorTool
     {
         private MaterialCombination Air { get; }
-        private MaterialPalette Palette => this.CanvasEditor.Canvas.MaterialPalette ?? MaterialPalette.FromResx();
+
+        public override bool UsesBrushWidth => true;
+
+        PxPoint prevMovePoint = null;
 
         public EraserTool(CanvasEditor editor) : base(editor)
         {
@@ -37,6 +41,7 @@ namespace PixelStacker.EditorTools
             IsDragging = true;
 
             Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
+            prevMovePoint = new PxPoint(loc.X, loc.Y);
             if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
             if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
             var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
@@ -62,12 +67,24 @@ namespace PixelStacker.EditorTools
             if (!IsDragging) return;
 
             Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
-            if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
-            if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
-            var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
+            var pointsToAdd = GetPointsBetween(prevMovePoint, new PxPoint(loc.X, loc.Y));
+            prevMovePoint = new PxPoint(loc.X, loc.Y);
+
+            if (!this.CanvasEditor.Canvas.CanvasData.IsInRange(loc.X, loc.Y)) return;
             var painter = this.CanvasEditor.Painter;
             var buffer = painter.HistoryBuffer;
-            buffer.AppendChange(Palette[cd], Palette[this.Air], new PxPoint(loc.X, loc.Y));
+
+            {
+                var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
+                buffer.AppendChange(Palette[cd], Palette[this.Air], new PxPoint(loc.X, loc.Y));
+            }
+
+            foreach (var p in pointsToAdd)
+            {
+                if (!this.CanvasEditor.Canvas.CanvasData.IsInRange(p.X, p.Y)) continue;
+                var cd = this.CanvasEditor.Canvas.CanvasData[p.X, p.Y];
+                buffer.AppendChange(Palette[cd], Palette[this.Air], p);
+            }
         }
     }
 }

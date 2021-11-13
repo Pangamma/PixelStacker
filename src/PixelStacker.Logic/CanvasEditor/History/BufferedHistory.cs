@@ -39,6 +39,8 @@ namespace PixelStacker.Logic.CanvasEditor.History
             lock (padlock)
             {
                 var r = new HistoryRecord();
+                if (Coordinates.Count == 0) return r;
+                
                 Dictionary<PxPoint, BufferedHistoryNode> tmp = Coordinates;
 
                 if (purge)
@@ -63,6 +65,7 @@ namespace PixelStacker.Logic.CanvasEditor.History
         {
             lock (padlock)
             {
+                if (RenderBuffer.Count == 0) return new List<RenderRecord>();
                 var tmp = RenderBuffer;
                 if (purge)
                 {

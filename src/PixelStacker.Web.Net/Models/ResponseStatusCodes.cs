@@ -12,7 +12,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace MtCoffee.Web.Models
+namespace PixelStacker.Web.Net.Models
 {
     public class ResponseStatusCode
     {

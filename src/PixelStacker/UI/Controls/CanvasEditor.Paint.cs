@@ -23,7 +23,6 @@ namespace PixelStacker.UI.Controls
                 {
                     IsPainting = true;
                     // Force repaint
-                    //Refresh();
                     skiaControl.Refresh();
                     this.RepaintRequested = false;
                 }

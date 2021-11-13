@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using MtCoffee.Web.Models;
-using System;
 using System.Linq;
 
-namespace MtCoffee.Web.Attributes
+namespace PixelStacker.Web.Net.Models.Attributes
 {
     public class DisableModelStateValidationAttribute : ActionFilterAttribute
     {
@@ -14,7 +12,7 @@ namespace MtCoffee.Web.Attributes
     {
         public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
-            if (actionContext.Filters.OfType<DisableModelStateValidationAttribute>().Any()) 
+            if (actionContext.Filters.OfType<DisableModelStateValidationAttribute>().Any())
                 return;
             // Passes validation if the param is like, Foo(Model model = null)
             // Fails validation if param is like, Foo(Model model), and the value passed in for model is null.
@@ -23,7 +21,7 @@ namespace MtCoffee.Web.Attributes
             {
                 if (baseParam is IParameterInfoParameterDescriptor)
                 {
-                    var prm = (IParameterInfoParameterDescriptor) baseParam;
+                    var prm = (IParameterInfoParameterDescriptor)baseParam;
                     if (prm.ParameterInfo?.IsOptional == false && prm.ParameterInfo != null)
                     {
                         if (actionContext.ActionArguments.TryGetValue(prm.ParameterInfo.Name, out object val))

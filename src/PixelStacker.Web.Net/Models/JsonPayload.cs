@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 
-namespace MtCoffee.Web.Models
+namespace PixelStacker.Web.Net.Models
 {
     /// <summary>
     /// The intent is to create a standardized JSON payload that can be serialized
@@ -21,7 +21,7 @@ namespace MtCoffee.Web.Models
         private string _StatusCode = null;
         public string StatusCode
         {
-            get => this._StatusCode;
+            get => _StatusCode;
             set => _StatusCode = ResponseStatusCode.ValueOf(value) ?? ResponseStatusCode.UNKNOWN;
         }
 
@@ -31,8 +31,8 @@ namespace MtCoffee.Web.Models
         /// </summary>
         public JsonPayload()
         {
-            this.Errors = new List<string>();
-            this.StatusCode = ResponseStatusCode.SUCCESS;
+            Errors = new List<string>();
+            StatusCode = ResponseStatusCode.SUCCESS;
         }
 
         /// <summary>
@@ -41,9 +41,9 @@ namespace MtCoffee.Web.Models
         /// <param name="data"></param>
         public JsonPayload(T data)
         {
-            this.Payload = data;
-            this.Errors = new List<string>();
-            this.StatusCode = ResponseStatusCode.SUCCESS;
+            Payload = data;
+            Errors = new List<string>();
+            StatusCode = ResponseStatusCode.SUCCESS;
         }
 
         /// <summary>
@@ -53,16 +53,16 @@ namespace MtCoffee.Web.Models
         /// <param name="errors"></param>
         public JsonPayload(T data, List<string> errors)
         {
-            this.Payload = data;
-            this.Errors = errors;
-            if (errors.Any()) this.StatusCode = ResponseStatusCode.NON_SUCCESS;
+            Payload = data;
+            Errors = errors;
+            if (errors.Any()) StatusCode = ResponseStatusCode.NON_SUCCESS;
         }
 
         public JsonPayload(T data, string error)
         {
-            this.Payload = data;
-            this.StatusCode = ResponseStatusCode.NON_SUCCESS;
-            this.Errors = new List<string>() { error };
+            Payload = data;
+            StatusCode = ResponseStatusCode.NON_SUCCESS;
+            Errors = new List<string>() { error };
         }
 
 
@@ -76,8 +76,8 @@ namespace MtCoffee.Web.Models
             if (model.IsValid == false)
             {
                 var errs = model.Where(x => x.Value.Errors.Any()).SelectMany(x => x.Value.Errors.Select(z => z.ErrorMessage));
-                if (errs.Any()) this.StatusCode = ResponseStatusCode.INVALID_MODEL_STATE;
-                this.Errors.AddRange(errs);
+                if (errs.Any()) StatusCode = ResponseStatusCode.INVALID_MODEL_STATE;
+                Errors.AddRange(errs);
             }
 
             return this;
@@ -97,7 +97,7 @@ namespace MtCoffee.Web.Models
 
         public JsonResult ToJsonResult(int? httpStatusCode = 200)
         {
-            var rs = new JsonResult(this, new System.Text.Json.JsonSerializerOptions()
+            var rs = new JsonResult(this, new JsonSerializerOptions()
             {
                 MaxDepth = 10,
                 IgnoreNullValues = false,
