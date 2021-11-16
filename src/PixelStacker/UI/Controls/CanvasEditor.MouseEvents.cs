@@ -1,4 +1,5 @@
-﻿using PixelStacker.Logic.IO.Config;
+﻿using PixelStacker.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.UI.Forms;
 using System;
@@ -57,7 +58,14 @@ namespace PixelStacker.UI.Controls
                 return;
             }
 
+            MaterialCombination mcBefore = Options.Tools.PrimaryColor;
             CurrentTool?.OnClick(e);
+            MaterialCombination mcAfter = Options.Tools.PrimaryColor;
+            if (mcBefore != mcAfter)
+            {
+                var img = mcAfter.GetImage(Options.IsSideView);
+                btnMaterialCombination.Image = img.SKBitmapToBitmap();
+            }
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -105,8 +113,27 @@ namespace PixelStacker.UI.Controls
             this.CurrentTool?.OnMouseUp(e);
         }
 
+        private Point previousCursorPosition = new Point(0, 0);
         private void ImagePanel_MouseMove(object sender, MouseEventArgs e)
         {
+            var pt = GetPointOnImage(e.Location, this.PanZoomSettings, EstimateProp.Floor);
+            var cd = this.Canvas?.CanvasData;
+            MaterialCombination mc = null;
+            if (cd != null)
+            {
+                if (cd.IsInRange(pt.X, pt.Y))
+                {
+                    mc = cd[pt.X, pt.Y];
+                }
+            }
+
+            mc ??= MaterialPalette.FromResx()[Constants.MaterialCombinationIDForAir];
+
+            string hoverText = $"Top: {mc.Top.Label}, Bottom: {mc.Bottom.Label}, X: {pt.X}, Y: {pt.Y}";
+            if (lblHoverInfo.Text != hoverText)
+                lblHoverInfo.Text = hoverText;
+
+            previousCursorPosition = e.Location;
             if (e.Button == MouseButtons.Middle)
             {
                 this.PanZoomTool.OnMouseMove(e);

@@ -10,8 +10,8 @@ namespace PixelStacker.UI.Controls
 {
     public partial class SkHybridControl : UserControl
     {
-        public static bool IsGpuAvailable => false;
-        //private SKGLControl glCanvas;
+        public static bool IsGpuAvailable => true;
+        private SKGLControl glCanvas;
         private SKControl Canvas;
 
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
@@ -24,14 +24,13 @@ namespace PixelStacker.UI.Controls
             Control control = null;
             if (IsGpuAvailable)
             {
-                //this.glCanvas = new SKGLControl();
-                //this.glCanvas.PaintSurface += this.OnPaintSurfaceInner;
-                //control = this.glCanvas;
+                this.glCanvas = new SKGLControl();
+                this.glCanvas.PaintSurface += this.OnPaintSurfaceInner;
+                control = this.glCanvas;
             }
             else
             {
                 this.Canvas = new SKControl();
-                this.Canvas.Enabled = true;
                 this.Canvas.PaintSurface += this.OnPaintSurfaceInner;
                 control = this.Canvas;
             }
@@ -68,15 +67,15 @@ namespace PixelStacker.UI.Controls
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        //private void OnPaintSurfaceInner(object sender, SKPaintGLSurfaceEventArgs e)
-        //{
-        //    if (this.PaintSurface != null)
-        //    this.PaintSurface(this, new GenericSKPaintSurfaceEventArgs()
-        //    {
-        //        Surface = e.Surface,
-        //        Rect = e.BackendRenderTarget.Rect
-        //    });
-        //}
+        private void OnPaintSurfaceInner(object sender, SKPaintGLSurfaceEventArgs e)
+        {
+            if (this.PaintSurface != null)
+                this.PaintSurface(this, new GenericSKPaintSurfaceEventArgs()
+                {
+                    Surface = e.Surface,
+                    Rect = e.BackendRenderTarget.Rect
+                });
+        }
 
         private void OnPaintSurfaceInner(object sender, SKPaintSurfaceEventArgs e)
         {

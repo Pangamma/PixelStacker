@@ -148,6 +148,7 @@
             // 
             this.btnMagicWand.BackgroundImage = global::PixelStacker.Resources.UIResources.magic_wand_1;
             this.btnMagicWand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnMagicWand.Enabled = false;
             this.btnMagicWand.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnMagicWand.FlatAppearance.BorderSize = 0;
             this.btnMagicWand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -176,7 +177,6 @@
             this.Name = "CanvasTools";
             this.ShowInTaskbar = false;
             this.Text = "Toolbox";
-            this.TopMost = true;
             this.ResumeLayout(false);
 
         }

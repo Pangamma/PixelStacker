@@ -27,6 +27,16 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _elsa = null;
+        public static SKBitmap elsa {
+            get {
+                if (_elsa == null)
+                    _elsa = SKBitmap.Decode((byte[])ResourceManager.GetObject("elsa"))
+                    .Copy(SKColorType.Rgba8888);
+                return _elsa;
+            }
+        }
+
         private static SKBitmap _pink_girl = null;
         public static SKBitmap pink_girl {
             get {

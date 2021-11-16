@@ -275,13 +275,11 @@ namespace PixelStacker.WF.Components
             this.InitialDragPoint = e.Location;
             this.PanZoomSettings.initialImageX = this.PanZoomSettings.imageX;
             this.PanZoomSettings.initialImageY = this.PanZoomSettings.imageY;
-            this.Cursor = new Cursor(Resources.UIResources.cursor_handclosed.GetHicon());
             this.IsDragging = true;
         }
 
         private void ImageViewer_MouseUp(object sender, MouseEventArgs e)
         {
-            this.Cursor = Cursors.Arrow;
             this.IsDragging = false;
         }
 

@@ -15,6 +15,7 @@ namespace PixelStacker.EditorTools
         private Point initialDragPoint = new Point(0,0);
         private bool IsDragging;
         public override bool UsesBrushWidth => false;
+        public override Cursor GetCursor() => CursorHelper.PanZoom.Value;
 
         public PanZoomTool(CanvasEditor editor) : base(editor)
         {
@@ -29,13 +30,11 @@ namespace PixelStacker.EditorTools
             this.initialDragPoint = e.Location;
             this.CanvasEditor.PanZoomSettings.initialImageX = this.CanvasEditor.PanZoomSettings.imageX;
             this.CanvasEditor.PanZoomSettings.initialImageY = this.CanvasEditor.PanZoomSettings.imageY;
-            this.CanvasEditor.Cursor = new Cursor(Resources.UIResources.cursor_handclosed.GetHicon());
             this.IsDragging = true;
         }
 
         public override void OnMouseUp(MouseEventArgs e)
         {
-            this.CanvasEditor.Cursor = Cursors.Arrow;
             this.IsDragging = false;
         }
 

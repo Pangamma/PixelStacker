@@ -48,8 +48,7 @@ namespace PixelStacker.UI
                         formatter = new PixelStackerProjectFormatter();
                         break;
                     case "schem":
-                        throw new Exception("Not ready");
-                        //formatter = new SchemFormatter();
+                        formatter = new Schem2Formatter();
                         break;
                     case "schematic":
                         throw new Exception("Not ready");

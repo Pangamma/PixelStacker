@@ -30,19 +30,23 @@ namespace PixelStacker.EditorTools
         protected AbstractCanvasEditorTool(CanvasEditor editor) : base(editor)
         {
         }
-
     }
 
     public abstract class AbstractCanvasEditorTool
     {
         public abstract bool UsesBrushWidth { get; }
+        public int BrushWidth => Options.Tools?.BrushWidth ?? 1;
         protected MaterialPalette Palette => this.CanvasEditor.Canvas.MaterialPalette ?? MaterialPalette.FromResx();
         protected CanvasEditor CanvasEditor { get; }
+        public Options Options { get; }
 
         public AbstractCanvasEditorTool(CanvasEditor editor)
         {
             this.CanvasEditor = editor;
+            this.Options = editor.Options;
         }
+
+        public abstract Cursor GetCursor();
 
         public abstract void OnClick(MouseEventArgs e);
         public abstract void OnMouseDown(MouseEventArgs e);
@@ -75,6 +79,51 @@ namespace PixelStacker.EditorTools
             }
 
             return new PxPoint((int)Math.Round(pointOnImage.X * pz.zoomLevel + pz.imageX), (int)Math.Round(pointOnImage.Y * pz.zoomLevel + pz.imageY));
+        }
+
+        protected List<PxPoint> SquareExpansion(PxPoint seed, int brushWidth)
+        {
+            List<PxPoint> points = new List<PxPoint>();
+            int xMin = seed.X - brushWidth / 2;
+            int xMax = seed.X - brushWidth / 2 + brushWidth; // helps with rounding issues to do it this way. 
+            int yMin = seed.Y - brushWidth / 2;
+            int yMax = seed.Y - brushWidth / 2 + brushWidth;
+            for (int x = xMin; x < xMax; x++)
+            {
+                for (int y = yMin; y < yMax; y++)
+                {
+                    points.Add(new PxPoint(x, y));
+                }
+            }
+
+            return points;
+        }
+
+        /// <summary>
+        /// Returns list of points in between from and to, excluding from and to.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        protected List<PxPoint> SquareExpansion(List<PxPoint> seeds, int brushWidth)
+        {
+            HashSet<PxPoint> points = new HashSet<PxPoint>();
+            foreach (var seed in seeds)
+            {
+                int xMin = seed.X - brushWidth / 2;
+                int xMax = seed.X - brushWidth / 2 + brushWidth; // helps with rounding issues to do it this way. 
+                int yMin = seed.Y - brushWidth / 2;
+                int yMax = seed.Y - brushWidth / 2 + brushWidth;
+                for (int x = xMin; x < xMax; x++)
+                {
+                    for (int y = yMin; y < yMax; y++)
+                    {
+                        points.Add(new PxPoint(x, y));
+                    }
+                }
+            }
+
+            return points.ToList();
         }
 
         /// <summary>

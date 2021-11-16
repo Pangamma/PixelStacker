@@ -24,23 +24,14 @@ namespace PixelStacker.UI
             Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
             {
                 var engine = new RenderCanvasEngine();
-                int? tmpWidth = this.Options.Preprocessor.MaxWidth;
-                try
+                var preproc = await engine.PreprocessImageAsync(worker, this.LoadedImage, this.Options.Preprocessor);
+                self.InvokeEx((c) =>
                 {
-                    this.Options.Preprocessor.MaxWidth = Math.Min(600, this.Options.Preprocessor.MaxWidth ?? 600);
-                    var preproc = await engine.PreprocessImageAsync(worker, this.LoadedImage, this.Options.Preprocessor);
-                    self.InvokeEx((c) =>
-                    {
-                        var tmp = c.PreprocessedImage;
-                        c.PreprocessedImage = preproc;
-                        tmp.DisposeSafely();
-                        c.ShowPreviewViewer();
-                    });
-                }
-                finally
-                {
-                    this.Options.Preprocessor.MaxWidth = tmpWidth;
-                }
+                    var tmp = c.PreprocessedImage;
+                    c.PreprocessedImage = preproc;
+                    tmp.DisposeSafely();
+                    c.ShowPreviewViewer();
+                });
             }));
         }
 

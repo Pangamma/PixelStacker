@@ -38,13 +38,16 @@ namespace PixelStacker.UI.Controls
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsBrushWidth = new System.Windows.Forms.ToolStripLabel();
             this.tbxBrushWidth = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.btnMaterialCombination = new System.Windows.Forms.ToolStripButton();
+            this.lblHoverInfo = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timerPaint
             // 
             this.timerPaint.Enabled = true;
-            this.timerPaint.Interval = 20;
+            this.timerPaint.Interval = 2;
             this.timerPaint.Tick += new System.EventHandler(this.timerPaint_Tick);
             // 
             // skiaControl
@@ -53,6 +56,7 @@ namespace PixelStacker.UI.Controls
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.skiaControl.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("skiaControl.BackgroundImage")));
+            this.skiaControl.Cursor = System.Windows.Forms.Cursors.Default;
             this.skiaControl.Location = new System.Drawing.Point(0, 0);
             this.skiaControl.Name = "skiaControl";
             this.skiaControl.Size = new System.Drawing.Size(611, 382);
@@ -67,7 +71,7 @@ namespace PixelStacker.UI.Controls
             // timerBufferedChangeQueue
             // 
             this.timerBufferedChangeQueue.Enabled = true;
-            this.timerBufferedChangeQueue.Interval = 20;
+            this.timerBufferedChangeQueue.Interval = 3;
             this.timerBufferedChangeQueue.Tick += new System.EventHandler(this.timerBufferedChangeQueue_Tick);
             // 
             // bgWorkerBufferedChangeQueue
@@ -80,7 +84,10 @@ namespace PixelStacker.UI.Controls
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsBrushWidth,
-            this.tbxBrushWidth});
+            this.tbxBrushWidth,
+            this.toolStripLabel1,
+            this.btnMaterialCombination,
+            this.lblHoverInfo});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(611, 27);
@@ -104,6 +111,28 @@ namespace PixelStacker.UI.Controls
             this.tbxBrushWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxBrushWidth_KeyPress);
             this.tbxBrushWidth.TextChanged += new System.EventHandler(this.tbxBrushWidth_TextChanged);
             // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(64, 24);
+            this.toolStripLabel1.Text = "Material";
+            // 
+            // btnMaterialCombination
+            // 
+            this.btnMaterialCombination.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnMaterialCombination.Image = ((System.Drawing.Image)(resources.GetObject("btnMaterialCombination.Image")));
+            this.btnMaterialCombination.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMaterialCombination.Name = "btnMaterialCombination";
+            this.btnMaterialCombination.Size = new System.Drawing.Size(29, 24);
+            this.btnMaterialCombination.Text = "toolStripButton1";
+            // 
+            // lblHoverInfo
+            // 
+            this.lblHoverInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblHoverInfo.Name = "lblHoverInfo";
+            this.lblHoverInfo.Size = new System.Drawing.Size(224, 24);
+            this.lblHoverInfo.Text = "(x, y) Top: bedrock Bottom: glass";
+            // 
             // CanvasEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -112,6 +141,7 @@ namespace PixelStacker.UI.Controls
             this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.skiaControl);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "CanvasEditor";
             this.Size = new System.Drawing.Size(611, 382);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_Click);
@@ -134,5 +164,8 @@ namespace PixelStacker.UI.Controls
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel tsBrushWidth;
         private System.Windows.Forms.ToolStripTextBox tbxBrushWidth;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripButton btnMaterialCombination;
+        private System.Windows.Forms.ToolStripLabel lblHoverInfo;
     }
 }

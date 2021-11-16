@@ -39,5 +39,7 @@ namespace PixelStacker.EditorTools
         public override void OnMouseMove(MouseEventArgs e)
         {
         }
+
+        public override Cursor GetCursor() => CursorHelper.WorldEditOrigin.Value;
     }
 }

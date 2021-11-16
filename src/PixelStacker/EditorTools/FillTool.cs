@@ -38,6 +38,16 @@ namespace PixelStacker.EditorTools
 
         public override void OnClick(MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right)
+            {
+                Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
+                if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
+                if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
+                var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
+                this.Options.Tools.PrimaryColor = cd;
+                return;
+            }
+
             Task.Run(() => TaskManager.Get.StartAsync((worker) =>
             {
                 Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, Logic.Model.EstimateProp.Floor);
@@ -48,7 +58,9 @@ namespace PixelStacker.EditorTools
                 var cd = this.CanvasEditor.Canvas.CanvasData;
                 var painter = this.CanvasEditor.Painter;
 
-                MaterialCombination mc = e.Button == MouseButtons.Left ? Palette[55] : Palette[23];
+                MaterialCombination mc = Options.Tools.PrimaryColor;
+                mc ??= Palette[Constants.MaterialCombinationIDForAir];
+
                 int colorToSet = Palette[mc];
                 int colorToRemove = Palette[cd[loc.X, loc.Y]];
                 if (colorToSet == colorToRemove) return;
@@ -107,6 +119,11 @@ namespace PixelStacker.EditorTools
 
         public override void OnMouseMove(MouseEventArgs e)
         {
+        }
+
+        public override Cursor GetCursor()
+        {
+            return CursorHelper.Fill.Value;
         }
     }
 }

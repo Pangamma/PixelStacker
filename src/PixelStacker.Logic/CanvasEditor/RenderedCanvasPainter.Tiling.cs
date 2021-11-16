@@ -25,7 +25,6 @@ namespace PixelStacker.Logic.CanvasEditor
         private List<SKBitmap[,]> Bitmaps { get; }
         private List<object[,]> Padlocks { get; }
 
-
         private static int GetChunkIndexX(int srcX) => srcX / BlocksPerChunk;
         private static int GetChunkIndexY(int srcY) => srcY / BlocksPerChunk;
 
@@ -186,6 +185,9 @@ namespace PixelStacker.Logic.CanvasEditor
             int scaleDivide = 1;
             List<SKSize[,]> sizesList = new List<SKSize[,]>();
             SKSize[,] curSizeSet;
+
+            // JUST the pixels in a dest chunk no matter what scale it is at.
+            int pixelsPerChunkTile = BlocksPerChunk * Constants.TextureSize; 
             do
             {
                 curSizeSet = CalculateChunkSizesForLayer(new SKSize(data.Width, data.Height), scaleDivide);
@@ -195,7 +197,8 @@ namespace PixelStacker.Logic.CanvasEditor
             } while (
             // Do not split if one dimension is unable to be split further.
             curSizeSet.GetLength(0) > 2 && curSizeSet.GetLength(1) > 2
-
+            && Constants.BIG_IMG_MAX_AREA_B4_SPLIT
+            < (curSizeSet.GetLength(0) * pixelsPerChunkTile * curSizeSet.GetLength(1) * pixelsPerChunkTile)
             // Do not go on forever
             && maxLayers > 0
             );

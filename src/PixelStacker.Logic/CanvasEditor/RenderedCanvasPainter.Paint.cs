@@ -190,7 +190,6 @@ namespace PixelStacker.Logic.CanvasEditor
             maxXIndex = Math.Clamp(maxXIndex, 0, maxX);
             maxYIndex = Math.Clamp(maxYIndex, 0, maxY);
 
-
             for (int xChunk = minXIndex; xChunk <= maxXIndex; xChunk++)
             {
                 for (int yChunk = minYIndex; yChunk <= maxYIndex; yChunk++)

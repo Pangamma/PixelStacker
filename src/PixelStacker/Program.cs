@@ -17,16 +17,19 @@ namespace PixelStacker
         [STAThread]
         static void Main()
         {
-            ResxHelper.InjectIntoTextResx();
-            var opts = new LocalDataOptionsProvider().Load();
-            MaterialPalette.FromResx().ToValidCombinationList(opts);
+            Application.ThreadException += ErrorReporter.OnThreadException;
+            AppDomain.CurrentDomain.UnhandledException += ErrorReporter.OnUnhandledException;
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
+            ResxHelper.InjectIntoTextResx();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             //Application.Run(new TestForm());
-            Application.Run(new MainForm());
+            var form = new MainForm();
+            ErrorReporter.MF = form;
+            Application.Run(form);
         }
 
     }

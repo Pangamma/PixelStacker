@@ -27,6 +27,15 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _elsa = null;
+        public static Image<Rgba32> elsa {
+            get {
+                if (_elsa == null)
+                    _elsa = Image.Load((byte[])ResourceManager.GetObject("elsa"));
+                return _elsa;
+            }
+        }
+
         private static Image<Rgba32> _pink_girl = null;
         public static Image<Rgba32> pink_girl {
             get {

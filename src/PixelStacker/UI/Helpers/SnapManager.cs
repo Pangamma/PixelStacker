@@ -53,6 +53,12 @@ namespace PixelStacker.UI.Helpers
         {
             child.Move += Child_Move;
             child.Disposed += Child_Disposed;
+
+            if (Parent is Form parentForm && child is Form childForm)
+            {
+                parentForm.AddOwnedForm(childForm);
+            }
+
             this.Children.Add(new ChildInfo()
             {
                 Control = child,
@@ -64,6 +70,10 @@ namespace PixelStacker.UI.Helpers
         {
             var child = (Control)sender;
             var info = Children.RemoveAll(x => x.Control == child);
+            if (Parent is Form parentForm && child is Form childForm)
+            {
+                parentForm.RemoveOwnedForm(childForm);
+            }
         }
 
         private int Dist(int a, int b)

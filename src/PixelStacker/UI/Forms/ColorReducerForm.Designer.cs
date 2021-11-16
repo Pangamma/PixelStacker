@@ -285,7 +285,6 @@
             this.Name = "ColorReducerForm";
             this.ShowInTaskbar = false;
             this.Text = "Color Reducer";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ColorReducerForm_FormClosing);
             this.panel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);

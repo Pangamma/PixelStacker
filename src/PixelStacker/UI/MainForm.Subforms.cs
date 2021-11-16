@@ -10,6 +10,11 @@ namespace PixelStacker.UI
         private MaterialSelectWindow MaterialOptions { get; set; } = null;
         private ColorReducerForm ColorReducerForm { get; set; } = null;
 
+
+        private void MainForm_Activated(object sender, System.EventArgs e)
+        {
+        }
+
         private void selectMaterialsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.MaterialOptions == null)

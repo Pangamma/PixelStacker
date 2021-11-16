@@ -18,18 +18,17 @@ namespace PixelStacker.UI
 {
     public partial class MainForm
     {
-        private Options Options;
+        public readonly Options Options;
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
-        public SKBitmap LoadedImage { get; private set; } = DevResources.colorwheel;
-        public SKBitmap PreprocessedImage { get; private set; } = DevResources.colorwheel.Copy(); // UIResources.weird_intro.BitmapToSKBitmap();
+        public SKBitmap LoadedImage { get; private set; } = DevResources.elsa;
+        public SKBitmap PreprocessedImage { get; private set; } = DevResources.elsa.Copy(); // UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
         private SnapManager snapManager { get; }
 
         public MainForm()
         {
             this.Options = new LocalDataOptionsProvider().Load();
-            this.Options.Preprocessor.RgbBucketSize = 1;
             this.ColorMapper = new KdTreeMapper();
             this.Palette = MaterialPalette.FromResx();
             InitializeComponent();
@@ -56,6 +55,11 @@ namespace PixelStacker.UI
             TS_SetTagObjects();
             TS_SetMenuItemStatesByTagObjects();
             TS_SetAllMenubarStatesBasedOnOptions(this.Options);
+
+#pragma warning disable CS4014 // We do not need to wait for this to complete before exiting our synchronized method. Fire and forget.
+            TaskManager.Get.StartAsync(cancelToken => UpdateChecker.CheckForUpdates(this.Options, cancelToken));
+            //TaskManager.Get.StartAsync(cancelToken => PdbLoader.Load(cancelToken));
+#pragma warning restore CS4014
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

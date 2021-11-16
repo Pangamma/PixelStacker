@@ -181,7 +181,6 @@ namespace PixelStacker.UI
             this.Controls.Add(this.flowVertical);
             this.Name = "MaterialSelectWindow";
             this.ShowInTaskbar = false;
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialSelectWindow_FormClosing);
             this.VisibleChanged += new System.EventHandler(this.MaterialSelectWindow_VisibleChanged);
             this.Resize += new System.EventHandler(this.MaterialSelectWindow_Resize);

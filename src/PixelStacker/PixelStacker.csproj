@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>False</SignAssembly>
     <Authors>Pangamma, Taylor Love</Authors>
     <Company>taylorlove.info</Company>
     <Description>A minecraft pixelart generator</Description>
@@ -57,6 +57,9 @@
     </Compile>
     <Compile Update="UI\Controls\MaterialSelectTile.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UI\Forms\ErrorSender.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="UI\MainForm.cs">
     </Compile>

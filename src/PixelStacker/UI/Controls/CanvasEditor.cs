@@ -1,4 +1,5 @@
 ﻿using PixelStacker.EditorTools;
+using PixelStacker.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.UI.Forms;
 using System.ComponentModel;
@@ -9,7 +10,27 @@ namespace PixelStacker.UI.Controls
     [ToolboxItemFilter("PixelStacker.UI.CanvasEditor", ToolboxItemFilterType.Require)]
     public partial class CanvasEditor : UserControl
     {
-        public Options Options { get; set; }
+        private Options _opts = null;
+        public Options Options
+        {
+            get => _opts; set
+            {
+                _opts = value;
+                this.tbxBrushWidth.Text = _opts?.Tools?.BrushWidth.ToString();
+            }
+        }
+
+        public CanvasEditor(Options opts)
+        {
+            this.Options = opts;
+            InitializeComponent();
+            this.BackgroundImage = Resources.UIResources.bg_imagepanel;
+            this.DoubleBuffered = true;
+            this.PanZoomTool = new PanZoomTool(this);
+            this.CurrentTool = new PanZoomTool(this);
+            this.btnMaterialCombination.Image = Resources.Textures.stone.SKBitmapToBitmap();
+        }
+
         public CanvasEditor()
         {
             InitializeComponent();
@@ -17,6 +38,7 @@ namespace PixelStacker.UI.Controls
             this.DoubleBuffered = true;
             this.PanZoomTool = new PanZoomTool(this);
             this.CurrentTool = new PanZoomTool(this);
+            this.btnMaterialCombination.Image = Resources.Textures.stone.SKBitmapToBitmap();
         }
     }
 }

@@ -102,7 +102,6 @@
             this.Name = "SizeForm";
             this.ShowInTaskbar = false;
             this.Text = "Output size?";
-            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

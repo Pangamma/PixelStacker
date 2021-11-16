@@ -35,6 +35,8 @@ namespace PixelStacker.UI.Controls
             SKSurface surface = e.Surface;
             var g = surface.Canvas;
             var bgImg = UIResources.bg_imagepanel.BitmapToSKBitmap();
+
+            // Background shaders
             SKShader bgShader = SKShader.CreateBitmap(bgImg, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
             using (SKPaint paint = new SKPaint())
             {
@@ -60,11 +62,32 @@ namespace PixelStacker.UI.Controls
             if (options == null || options.ViewerSettings == null) return;
             painter.PaintSurface(g, new SKSize(this.Width, this.Height), pz, options.ViewerSettings);
 
-            CanvasViewerSettings vs = options.ViewerSettings;
+            Point cursorLoc = CanvasEditor.GetPointOnPanel(CanvasEditor.GetPointOnImage(previousCursorPosition, pz, EstimateProp.Floor), pz);
 
-            //if (vs.IsShowBorder) DrawBorder(g, pz, new SKSize(Canvas.Width, Canvas.Height));
+            
+            {
+                bool usesBrWidth = this.CurrentTool?.UsesBrushWidth ?? false;
+                int brushWidth = usesBrWidth ? Options.Tools.BrushWidth : 1;
+                using SKPaint pTest = new SKPaint();
+                pTest.Color = new SKColor(255, 255, 255, 128);
+                pTest.StrokeWidth = 4;
+                pTest.IsStroke = true;
 
-            //if (vs.IsShowGrid) DrawGridLines(g, canvas, vs, pz);
+                g.DrawRect(cursorLoc.X - (brushWidth / 2 * (float)pz.zoomLevel),
+                    cursorLoc.Y - (brushWidth / 2 * (float)pz.zoomLevel),
+                    (float)(brushWidth * pz.zoomLevel),
+                    (float)(brushWidth * pz.zoomLevel),
+                    pTest);
+                
+                pTest.StrokeWidth = 1;
+                pTest.Color = new SKColor(0, 0, 0, 255);
+
+                g.DrawRect(cursorLoc.X - (brushWidth / 2 * (float)pz.zoomLevel),
+                    cursorLoc.Y - (brushWidth / 2 * (float)pz.zoomLevel),
+                    (float)(brushWidth * pz.zoomLevel),
+                    (float)(brushWidth * pz.zoomLevel),
+                    pTest);
+            }
 
             IsPainting = false;
         }

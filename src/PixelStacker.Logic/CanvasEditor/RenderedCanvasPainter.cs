@@ -25,7 +25,7 @@ namespace PixelStacker.Logic.CanvasEditor
             History = new EditHistory(Data);
         }
 
-        public static async Task<RenderedCanvasPainter> Create(CancellationToken? worker, RenderedCanvas data, int maxLayers = 4)
+        public static async Task<RenderedCanvasPainter> Create(CancellationToken? worker, RenderedCanvas data, int maxLayers = 10)
         {
             worker ??= CancellationToken.None;
             var canvas = new RenderedCanvasPainter(data);
