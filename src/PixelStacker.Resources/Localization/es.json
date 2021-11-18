@@ -148,5 +148,15 @@
   "MainMenu_ShadowRendering": "Representación de sombras",
   "MainMenu_SwitchPanels": "Paneles de interruptores",
   "Action_ReOpen": "Reabrir",
-  "Action_SaveAs": "Guardar como"
+  "Action_SaveAs": "Guardar como",
+  "Bottom": "Fondo",
+  "Tools_Brush": "Cepillo de pintura",
+  "Tools_BrushWidth": "Ancho del cepillo",
+  "Tools_Eraser": "Borrar",
+  "Tools_Fill": "Llenar",
+  "Tools_PanZoom": "Panorámica y zoom",
+  "Tools_Pencil": "Lápiz",
+  "Tools_Picker": "Selector de color",
+  "Tools_WEOrigin": "Selector de origen de edición mundial",
+  "Top": "Cima"
 }

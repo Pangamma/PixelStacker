@@ -35,6 +35,7 @@ namespace PixelStacker.Logic.CanvasEditor.History
         /// <param name="isForward">If true, it means you are DOING it. False = UNDO</param>
         private List<RenderRecord> ApplyChange(HistoryRecord records, bool isForward)
         {
+            this.Canvas.IsCustomized = true;
             List<RenderRecord> output = new List<RenderRecord>();
             foreach (var record in records.ChangeRecords)
             {

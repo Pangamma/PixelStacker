@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace PixelStacker.EditorTools
 {
-    public class FillTool : AbstractCanvasEditorTool
+    public class FillTool : AbstractRightClickPickerTool
     {
         public override bool UsesBrushWidth => false;
         public FillTool(CanvasEditor editor) : base(editor)
@@ -36,18 +36,8 @@ namespace PixelStacker.EditorTools
             });
         }
 
-        public override void OnClick(MouseEventArgs e)
+        public override void OnLeftClick(MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
-                if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
-                if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
-                var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
-                this.Options.Tools.PrimaryColor = cd;
-                return;
-            }
-
             Task.Run(() => TaskManager.Get.StartAsync((worker) =>
             {
                 Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, Logic.Model.EstimateProp.Floor);

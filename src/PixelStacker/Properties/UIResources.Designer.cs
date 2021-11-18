@@ -303,6 +303,16 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap compass_tool_cur {
+            get {
+                object obj = ResourceManager.GetObject("compass_tool_cur", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap country_cn {
             get {
                 object obj = ResourceManager.GetObject("country_cn", resourceCulture);
@@ -463,9 +473,29 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap eraser_cur {
+            get {
+                object obj = ResourceManager.GetObject("eraser_cur", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap eyedropper {
             get {
                 object obj = ResourceManager.GetObject("eyedropper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap eyedropper_cur {
+            get {
+                object obj = ResourceManager.GetObject("eyedropper_cur", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -603,6 +633,16 @@ namespace PixelStacker.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap paint_bucket_cur {
+            get {
+                object obj = ResourceManager.GetObject("paint_bucket_cur", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap paintbrush {
             get {
                 object obj = ResourceManager.GetObject("paintbrush", resourceCulture);
@@ -616,6 +656,16 @@ namespace PixelStacker.Resources {
         public static System.Drawing.Bitmap paintbrush_1 {
             get {
                 object obj = ResourceManager.GetObject("paintbrush_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap paintbrush_cur {
+            get {
+                object obj = ResourceManager.GetObject("paintbrush_cur", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -686,6 +736,16 @@ namespace PixelStacker.Resources {
         public static System.Drawing.Bitmap pencil_4 {
             get {
                 object obj = ResourceManager.GetObject("pencil_4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap pencil_cur {
+            get {
+                object obj = ResourceManager.GetObject("pencil_cur", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

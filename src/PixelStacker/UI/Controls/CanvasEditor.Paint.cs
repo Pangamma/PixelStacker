@@ -92,7 +92,6 @@ namespace PixelStacker.UI.Controls
             IsPainting = false;
         }
 
-        [Obsolete("FIX IT")]
         protected override void OnPaint(PaintEventArgs e)
         {
             if (this.DesignMode)
@@ -106,32 +105,6 @@ namespace PixelStacker.UI.Controls
                 base.OnPaint(e);
                 return;
             }
-
-            //base.OnPaint(e);
-
-            //var painter = this.Painter;
-            //if (painter == null) return;
-
-            //var pz = this.PanZoomSettings;
-            //if (pz == null) return;
-
-            //var canvas = this.Canvas;
-            //if (canvas == null) return;
-
-            //if (pz.zoomLevel < 1.0D)
-            //{
-            //    g.InterpolationMode = InterpolationMode.Low;
-            //    g.CompositingQuality = CompositingQuality.HighSpeed;
-            //    g.SmoothingMode = SmoothingMode.HighSpeed;
-            //}
-            //else
-            //{
-            //    g.InterpolationMode = InterpolationMode.NearestNeighbor;
-            //    g.CompositingQuality = CompositingQuality.HighSpeed;
-            //    g.SmoothingMode = SmoothingMode.AntiAlias;
-            //}
-
-            //painter.RenderToView(g, this.Size, pz);
         }
     }
 }

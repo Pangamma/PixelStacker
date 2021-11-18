@@ -65,6 +65,7 @@ namespace PixelStacker.UI.Controls
             {
                 var img = mcAfter.GetImage(Options.IsSideView);
                 btnMaterialCombination.Image = img.SKBitmapToBitmap();
+                btnMaterialCombination.ToolTipText = mcAfter.Top.Label + ", " + mcAfter.Bottom.Label;
             }
         }
 
@@ -114,6 +115,7 @@ namespace PixelStacker.UI.Controls
         }
 
         private Point previousCursorPosition = new Point(0, 0);
+
         private void ImagePanel_MouseMove(object sender, MouseEventArgs e)
         {
             var pt = GetPointOnImage(e.Location, this.PanZoomSettings, EstimateProp.Floor);

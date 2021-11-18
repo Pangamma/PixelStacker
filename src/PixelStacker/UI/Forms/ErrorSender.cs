@@ -35,7 +35,6 @@ namespace PixelStacker
             this.Close();
         }
 
-        [Obsolete("Needs to be re-enabled.")]
         private async void btnYes_Click(object sender, EventArgs e)
         {
             string filePath = "pixelstacker-error-report.zip";

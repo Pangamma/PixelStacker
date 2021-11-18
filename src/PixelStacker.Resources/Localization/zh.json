@@ -148,5 +148,15 @@
   "MainMenu_ShadowRendering": "阴影渲染",
   "MainMenu_SwitchPanels": "开关面板",
   "Action_ReOpen": "重新打开",
-  "Action_SaveAs": "另存为"
+  "Action_SaveAs": "另存为",
+  "Bottom": "底部",
+  "Tools_Brush": "画笔",
+  "Tools_BrushWidth": "画笔宽度",
+  "Tools_Eraser": "擦除",
+  "Tools_Fill": "填",
+  "Tools_PanZoom": "平移和缩放",
+  "Tools_Pencil": "铅笔",
+  "Tools_Picker": "颜色选择器",
+  "Tools_WEOrigin": "世界编辑原点选择器",
+  "Top": "最佳"
 }

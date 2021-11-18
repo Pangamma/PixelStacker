@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnFill = new System.Windows.Forms.Button();
             this.btnErase = new System.Windows.Forms.Button();
             this.btnPicker = new System.Windows.Forms.Button();
@@ -36,6 +37,7 @@
             this.btnPan = new System.Windows.Forms.Button();
             this.btnWorldEditOrigin = new System.Windows.Forms.Button();
             this.btnMagicWand = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btnFill
@@ -51,6 +53,7 @@
             this.btnFill.Size = new System.Drawing.Size(32, 32);
             this.btnFill.TabIndex = 0;
             this.btnFill.Text = "c";
+            this.toolTip1.SetToolTip(this.btnFill, "Fill");
             this.btnFill.UseVisualStyleBackColor = true;
             this.btnFill.Click += new System.EventHandler(this.btnFill_Click);
             // 
@@ -66,6 +69,7 @@
             this.btnErase.Name = "btnErase";
             this.btnErase.Size = new System.Drawing.Size(32, 32);
             this.btnErase.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.btnErase, "Eraser");
             this.btnErase.UseVisualStyleBackColor = true;
             this.btnErase.Click += new System.EventHandler(this.btnEraser_Click);
             // 
@@ -81,6 +85,7 @@
             this.btnPicker.Name = "btnPicker";
             this.btnPicker.Size = new System.Drawing.Size(32, 32);
             this.btnPicker.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.btnPicker, "Color Picker");
             this.btnPicker.UseVisualStyleBackColor = true;
             this.btnPicker.Click += new System.EventHandler(this.btnPicker_Click);
             // 
@@ -96,6 +101,7 @@
             this.btnPencil.Name = "btnPencil";
             this.btnPencil.Size = new System.Drawing.Size(32, 32);
             this.btnPencil.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.btnPencil, "Pencil");
             this.btnPencil.UseVisualStyleBackColor = true;
             this.btnPencil.Click += new System.EventHandler(this.btnPencil_Click);
             // 
@@ -111,6 +117,7 @@
             this.btnBrush.Name = "btnBrush";
             this.btnBrush.Size = new System.Drawing.Size(32, 32);
             this.btnBrush.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.btnBrush, "Brush");
             this.btnBrush.UseVisualStyleBackColor = true;
             this.btnBrush.Click += new System.EventHandler(this.btnBrush_Click);
             // 
@@ -126,6 +133,7 @@
             this.btnPan.Name = "btnPan";
             this.btnPan.Size = new System.Drawing.Size(32, 32);
             this.btnPan.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnPan, "Pan and Zoom");
             this.btnPan.UseVisualStyleBackColor = true;
             this.btnPan.Click += new System.EventHandler(this.btnPanZoom_Click);
             // 
@@ -141,12 +149,12 @@
             this.btnWorldEditOrigin.Name = "btnWorldEditOrigin";
             this.btnWorldEditOrigin.Size = new System.Drawing.Size(32, 32);
             this.btnWorldEditOrigin.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.btnWorldEditOrigin, "WorldEdit Origin");
             this.btnWorldEditOrigin.UseVisualStyleBackColor = true;
             this.btnWorldEditOrigin.Click += new System.EventHandler(this.btnWorldEditOrigin_Click);
             // 
             // btnMagicWand
             // 
-            this.btnMagicWand.BackgroundImage = global::PixelStacker.Resources.UIResources.magic_wand_1;
             this.btnMagicWand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnMagicWand.Enabled = false;
             this.btnMagicWand.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
@@ -157,7 +165,12 @@
             this.btnMagicWand.Name = "btnMagicWand";
             this.btnMagicWand.Size = new System.Drawing.Size(32, 32);
             this.btnMagicWand.TabIndex = 8;
+            this.btnMagicWand.Text = "?";
             this.btnMagicWand.UseVisualStyleBackColor = true;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutomaticDelay = 200;
             // 
             // CanvasTools
             // 
@@ -191,5 +204,6 @@
         private System.Windows.Forms.Button btnPan;
         private System.Windows.Forms.Button btnWorldEditOrigin;
         private System.Windows.Forms.Button btnMagicWand;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

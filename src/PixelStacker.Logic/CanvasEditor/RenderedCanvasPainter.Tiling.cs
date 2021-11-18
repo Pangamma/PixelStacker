@@ -186,22 +186,31 @@ namespace PixelStacker.Logic.CanvasEditor
             List<SKSize[,]> sizesList = new List<SKSize[,]>();
             SKSize[,] curSizeSet;
 
+            bool a = false;
+            bool b = false;
+            bool c = false;
             // JUST the pixels in a dest chunk no matter what scale it is at.
-            int pixelsPerChunkTile = BlocksPerChunk * Constants.TextureSize; 
+            int pixelsPerChunkTile = BlocksPerChunk * Constants.TextureSize;
+
+            // We run into integer overflows when doing pixelsPerChunk^2. So we use algebra to say
+            // W*H*PPC*PPC > MAX_AREA is the same as W*W*PPC > MAX_AREA / PPC
+            int MAX_AREA_B4_SPLIT_ADJUSTED = Constants.BIG_IMG_MAX_AREA_B4_SPLIT / pixelsPerChunkTile;
             do
             {
                 curSizeSet = CalculateChunkSizesForLayer(new SKSize(data.Width, data.Height), scaleDivide);
                 sizesList.Add(curSizeSet);
                 scaleDivide *= 2;
                 maxLayers--;
-            } while (
-            // Do not split if one dimension is unable to be split further.
-            curSizeSet.GetLength(0) > 2 && curSizeSet.GetLength(1) > 2
-            && Constants.BIG_IMG_MAX_AREA_B4_SPLIT
-            < (curSizeSet.GetLength(0) * pixelsPerChunkTile * curSizeSet.GetLength(1) * pixelsPerChunkTile)
-            // Do not go on forever
-            && maxLayers > 0
-            );
+                
+                // Do not split if one dimension is unable to be split further.
+                a = curSizeSet.GetLength(0) > 2 && curSizeSet.GetLength(1) > 2;
+
+                long bb = (curSizeSet.GetLength(0)  * curSizeSet.GetLength(1)) * pixelsPerChunkTile;
+                b = MAX_AREA_B4_SPLIT_ADJUSTED < bb;
+
+                // Do not go on forever
+                c = maxLayers > 0;
+            } while (a && b && c);
 
             return sizesList;
         }

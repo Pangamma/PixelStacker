@@ -20,6 +20,7 @@
   "Action_Undo": "Undo",
   "Action_View": "View",
   "AreYouSure": "Are you sure?",
+  "Bottom": "Bottom",
   "ColorReducer_Algorithm": "Quantizer Algorithm",
   "ColorReducer_Algorithm_Tooltip": "Color quantization reduces the number of distinct colors of an image while keeping the new image visually similar to the original. Many different algorithms exist. Pick your favorite algorithm and use it.",
   "ColorReducer_ColorCache": "Color Cache",
@@ -148,5 +149,14 @@
   "RenderedImagePanel_RemoveAll": "Remove all",
   "RenderedImagePanel_ReplaceColor": "Replace Color (Requires Re-Render)",
   "RenderEngine_ConvertingToBlocks": "Converting pixels into Minecraft blocks.",
-  "Sizing": "Sizing"
+  "Sizing": "Sizing",
+  "Tools_Brush": "Paint brush",
+  "Tools_BrushWidth": "Brush width",
+  "Tools_Eraser": "Erase",
+  "Tools_Fill": "Fill",
+  "Tools_PanZoom": "Pan and zoom",
+  "Tools_Pencil": "Pencil",
+  "Tools_Picker": "Color picker",
+  "Tools_WEOrigin": "World Edit origin selector",
+  "Top": "Top"
 }

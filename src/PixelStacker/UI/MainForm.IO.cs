@@ -53,7 +53,6 @@ namespace PixelStacker.UI
                     case "schematic":
                         throw new Exception("Not ready");
                         //formatter = new SchematicFormatter();
-                        break;
                     case "csv":
                         formatter = new BlockCountCsvFormatter();
                         break;

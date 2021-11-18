@@ -148,5 +148,15 @@
   "MainMenu_ShadowRendering": "シャドウレンダリング",
   "MainMenu_SwitchPanels": "スイッチパネル",
   "Action_ReOpen": "再オープン",
-  "Action_SaveAs": "名前を付けて保存"
+  "Action_SaveAs": "名前を付けて保存",
+  "Bottom": "下",
+  "Tools_Brush": "ペイントブラシ",
+  "Tools_BrushWidth": "ブラシ幅",
+  "Tools_Eraser": "消去",
+  "Tools_Fill": "塗りつぶし",
+  "Tools_PanZoom": "パンとズーム",
+  "Tools_Pencil": "鉛筆",
+  "Tools_Picker": "カラーピッカー",
+  "Tools_WEOrigin": "ワールドエディットオリジンセレクター",
+  "Top": "上"
 }

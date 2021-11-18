@@ -148,5 +148,15 @@
   "MainMenu_ShadowRendering": "Schaduwweergave",
   "MainMenu_SwitchPanels": "Schakelpanelen",
   "Action_ReOpen": "Opnieuw openen",
-  "Action_SaveAs": "Opslaan als"
+  "Action_SaveAs": "Opslaan als",
+  "Bottom": "Onderkant",
+  "Tools_Brush": "kwast",
+  "Tools_BrushWidth": "Borstelbreedte",
+  "Tools_Eraser": "Wissen",
+  "Tools_Fill": "Vullen",
+  "Tools_PanZoom": "Pannen en zoomen",
+  "Tools_Pencil": "Potlood",
+  "Tools_Picker": "Kleur kiezer",
+  "Tools_WEOrigin": "Wereld Bewerk oorsprong selector",
+  "Top": "Bovenkant"
 }

@@ -148,5 +148,15 @@
   "MainMenu_ShadowRendering": "Skyggegengivelse",
   "MainMenu_SwitchPanels": "Switch paneler",
   "Action_ReOpen": "Åbn igen",
-  "Action_SaveAs": "Gem som"
+  "Action_SaveAs": "Gem som",
+  "Bottom": "Bund",
+  "Tools_Brush": "Pensel",
+  "Tools_BrushWidth": "Børstebredde",
+  "Tools_Eraser": "Slette",
+  "Tools_Fill": "Fylde",
+  "Tools_PanZoom": "Panorer og zoom",
+  "Tools_Pencil": "Blyant",
+  "Tools_Picker": "Farvevælger",
+  "Tools_WEOrigin": "World Edit oprindelsesvælger",
+  "Top": "Top"
 }

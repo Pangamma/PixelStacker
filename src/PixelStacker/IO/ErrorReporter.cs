@@ -252,7 +252,7 @@ namespace PixelStacker.IO
                     return zipToOpen.ToArray();
                 }
             }
-            catch (Exception ex2)
+            catch (Exception)
             {
                 Console.WriteLine("Oh no. An error occurred.");
             }

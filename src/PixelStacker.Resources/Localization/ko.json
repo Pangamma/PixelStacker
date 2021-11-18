@@ -148,5 +148,15 @@
   "MainMenu_ShadowRendering": "그림자 렌더링",
   "MainMenu_SwitchPanels": "스위치 패널",
   "Action_ReOpen": "다시 열다",
-  "Action_SaveAs": "다른 이름으로 저장"
+  "Action_SaveAs": "다른 이름으로 저장",
+  "Bottom": "맨 아래",
+  "Tools_Brush": "페인트 브러시",
+  "Tools_BrushWidth": "브러시 폭",
+  "Tools_Eraser": "삭제",
+  "Tools_Fill": "채우다",
+  "Tools_PanZoom": "팬 및 확대/축소",
+  "Tools_Pencil": "연필",
+  "Tools_Picker": "색상 선택기",
+  "Tools_WEOrigin": "세계 편집 원점 선택기",
+  "Top": "맨 위"
 }

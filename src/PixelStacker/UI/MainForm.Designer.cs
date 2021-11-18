@@ -32,7 +32,7 @@ namespace PixelStacker.UI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            PixelStacker.Logic.IO.Config.PanZoomSettings panZoomSettings1 = new PixelStacker.Logic.IO.Config.PanZoomSettings();
+            PixelStacker.Logic.IO.Config.PanZoomSettings panZoomSettings2 = new PixelStacker.Logic.IO.Config.PanZoomSettings();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -543,8 +543,8 @@ namespace PixelStacker.UI
             this.imageViewer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageViewer.BackgroundImage")));
             this.imageViewer.Location = new System.Drawing.Point(0, 28);
             this.imageViewer.Name = "imageViewer";
-            this.imageViewer.PanZoomSettings = panZoomSettings1;
-            this.imageViewer.Size = new System.Drawing.Size(800, 421);
+            this.imageViewer.PanZoomSettings = panZoomSettings2;
+            this.imageViewer.Size = new System.Drawing.Size(800, 393);
             this.imageViewer.TabIndex = 5;
             // 
             // canvasEditor

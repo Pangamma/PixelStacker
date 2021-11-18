@@ -261,6 +261,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bottom.
+        /// </summary>
+        public static string Bottom {
+            get {
+                return ResourceManager.GetString("Bottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quantizer Algorithm.
         /// </summary>
         public static string ColorReducer_Algorithm {
@@ -1448,6 +1457,87 @@ namespace PixelStacker.Resources {
         public static string Sizing {
             get {
                 return ResourceManager.GetString("Sizing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paint brush.
+        /// </summary>
+        public static string Tools_Brush {
+            get {
+                return ResourceManager.GetString("Tools_Brush", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brush width.
+        /// </summary>
+        public static string Tools_BrushWidth {
+            get {
+                return ResourceManager.GetString("Tools_BrushWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erase.
+        /// </summary>
+        public static string Tools_Eraser {
+            get {
+                return ResourceManager.GetString("Tools_Eraser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill.
+        /// </summary>
+        public static string Tools_Fill {
+            get {
+                return ResourceManager.GetString("Tools_Fill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pan and zoom.
+        /// </summary>
+        public static string Tools_PanZoom {
+            get {
+                return ResourceManager.GetString("Tools_PanZoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pencil.
+        /// </summary>
+        public static string Tools_Pencil {
+            get {
+                return ResourceManager.GetString("Tools_Pencil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color picker.
+        /// </summary>
+        public static string Tools_Picker {
+            get {
+                return ResourceManager.GetString("Tools_Picker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to World Edit origin selector.
+        /// </summary>
+        public static string Tools_WEOrigin {
+            get {
+                return ResourceManager.GetString("Tools_WEOrigin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top.
+        /// </summary>
+        public static string Top {
+            get {
+                return ResourceManager.GetString("Top", resourceCulture);
             }
         }
     }

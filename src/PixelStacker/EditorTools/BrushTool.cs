@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace PixelStacker.EditorTools
 {
-    public class BrushTool : AbstractCanvasEditorTool
+    public class BrushTool : AbstractRightClickPickerTool
     {
         private MaterialCombination Air { get; }
         public override Cursor GetCursor() => CursorHelper.Brush.Value;
@@ -22,32 +22,20 @@ namespace PixelStacker.EditorTools
             this.Air = palette[Constants.MaterialCombinationIDForAir];
         }
 
-        public override void OnClick(MouseEventArgs e)
+        public override void OnLeftClick(MouseEventArgs e)
         {
             Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
-            if (e.Button == MouseButtons.Right)
+            var painter = this.CanvasEditor.Painter;
+            var buffer = painter.HistoryBuffer;
+            var colorToUse = Options.Tools.PrimaryColor;
+            var pnts = this.SquareExpansion(new PxPoint(loc.X, loc.Y), this.BrushWidth);
+            foreach (var pnt in pnts)
             {
-                if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
-                if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
-                var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
-                this.Options.Tools.PrimaryColor = cd;
-                return;
+                if (pnt.X < 0 || pnt.X > this.CanvasEditor.Canvas.Width - 1) continue;
+                if (pnt.Y < 0 || pnt.Y > this.CanvasEditor.Canvas.Height - 1) continue;
+                var cd = this.CanvasEditor.Canvas.CanvasData[pnt.X, pnt.Y];
+                buffer.AppendChange(Palette[cd], Palette[colorToUse], pnt);
             }
-            else if (e.Button == MouseButtons.Left)
-            {
-                var painter = this.CanvasEditor.Painter;
-                var buffer = painter.HistoryBuffer;
-                var colorToUse = Options.Tools.PrimaryColor;
-                var pnts = this.SquareExpansion(new PxPoint(loc.X, loc.Y), this.BrushWidth);
-                foreach (var pnt in pnts)
-                {
-                    if (pnt.X < 0 || pnt.X > this.CanvasEditor.Canvas.Width - 1) continue;
-                    if (pnt.Y < 0 || pnt.Y > this.CanvasEditor.Canvas.Height - 1) continue;
-                    var cd = this.CanvasEditor.Canvas.CanvasData[pnt.X, pnt.Y];
-                    buffer.AppendChange(Palette[cd], Palette[colorToUse], pnt);
-                }
-            }
-
         }
 
         private bool IsDragging = false;

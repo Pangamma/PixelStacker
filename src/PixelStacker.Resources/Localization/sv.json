@@ -148,5 +148,15 @@
   "MainMenu_ShadowRendering": "Skuggåtergivning",
   "MainMenu_SwitchPanels": "Switch paneler",
   "Action_ReOpen": "Öppna igen",
-  "Action_SaveAs": "Spara som"
+  "Action_SaveAs": "Spara som",
+  "Bottom": "Botten",
+  "Tools_Brush": "Pensel",
+  "Tools_BrushWidth": "Borstens bredd",
+  "Tools_Eraser": "Radera",
+  "Tools_Fill": "Fylla",
+  "Tools_PanZoom": "Panorera och zooma",
+  "Tools_Pencil": "Penna",
+  "Tools_Picker": "Färgväljare",
+  "Tools_WEOrigin": "World Edit ursprungsväljare",
+  "Top": "Topp"
 }

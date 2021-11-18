@@ -21,8 +21,8 @@ namespace PixelStacker.UI
         public readonly Options Options;
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
-        public SKBitmap LoadedImage { get; private set; } = DevResources.elsa;
-        public SKBitmap PreprocessedImage { get; private set; } = DevResources.elsa.Copy(); // UIResources.weird_intro.BitmapToSKBitmap();
+        public SKBitmap LoadedImage { get; private set; } = DevResources.psg;
+        public SKBitmap PreprocessedImage { get; private set; } = DevResources.psg.Copy(); // UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
         private SnapManager snapManager { get; }
 
@@ -38,8 +38,6 @@ namespace PixelStacker.UI
             this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);
             ShowImageViewer();
-            //this.lblProgress.Parent = this.progressBar1;
-            //this.lblProgress.BackColor = Color.Transparent;
 
 
         }

@@ -148,5 +148,15 @@
   "MainMenu_ShadowRendering": "Rendu des ombres",
   "MainMenu_SwitchPanels": "Panneaux de commutation",
   "Action_ReOpen": "Rouvrir",
-  "Action_SaveAs": "Enregistrer sous"
+  "Action_SaveAs": "Enregistrer sous",
+  "Bottom": "Bas",
+  "Tools_Brush": "Pinceau",
+  "Tools_BrushWidth": "Largeur du pinceau",
+  "Tools_Eraser": "Effacer",
+  "Tools_Fill": "Remplir",
+  "Tools_PanZoom": "Panoramique et zoom",
+  "Tools_Pencil": "Crayon",
+  "Tools_Picker": "Pipette à couleurs",
+  "Tools_WEOrigin": "Sélecteur d'origine World Edit",
+  "Top": "Sommet"
 }

@@ -268,37 +268,6 @@ namespace PixelStacker.Logic.CanvasEditor
 
                 return Task.CompletedTask;
             }
-
-            void DrawTileOnLargerTile(int layerToRender, bool[,] upperLayer, SKCanvas g, int xu, int yu, float xOffset, float yOffset, SKPaint paint)
-            {
-                try
-                {
-                    if (upperLayer.GetLength(0) <= xu) return;
-                    if (upperLayer.GetLength(1) <= yu) return;
-                    if (Padlocks[layerToRender - 1].GetLength(0) <= xu) return;
-                    if (Padlocks[layerToRender - 1].GetLength(1) <= yu) return;
-                    if (Padlocks[layerToRender].GetLength(0) <= xu / 2) return;
-                    if (Padlocks[layerToRender].GetLength(1) <= yu / 2) return;
-                    if (upperLayer[xu, yu])
-                    {
-                        lock (Padlocks[layerToRender][xu, yu])
-                        {
-                            SKBitmap bmToCopy = Bitmaps[layerToRender - 0][xu, yu];
-                            var rect = new SKRect()
-                            {
-                                Location = new SKPoint(xOffset, yOffset),
-                                Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
-                            };
-
-                            g.DrawBitmap(bmToCopy, rect, paint);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
-            }
         }
     }
 }

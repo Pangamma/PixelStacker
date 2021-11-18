@@ -148,5 +148,15 @@
   "MainMenu_ShadowRendering": "Schatten-Rendering",
   "MainMenu_SwitchPanels": "Schalttafeln",
   "Action_ReOpen": "Wieder öffnen",
-  "Action_SaveAs": "Speichern als"
+  "Action_SaveAs": "Speichern als",
+  "Bottom": "Unterseite",
+  "Tools_Brush": "Pinsel",
+  "Tools_BrushWidth": "Bürstenbreite",
+  "Tools_Eraser": "Löschen",
+  "Tools_Fill": "Füllen",
+  "Tools_PanZoom": "Schwenken und Zoomen",
+  "Tools_Pencil": "Bleistift",
+  "Tools_Picker": "Farbwähler",
+  "Tools_WEOrigin": "Welt-Edit-Ursprungsauswahl",
+  "Top": "Oberteil"
 }

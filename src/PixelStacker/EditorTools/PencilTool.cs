@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace PixelStacker.EditorTools
 {
-    public class PencilTool : AbstractCanvasEditorTool
+    public class PencilTool : AbstractRightClickPickerTool
     {
         private MaterialCombination Air { get; }
 
@@ -22,25 +22,17 @@ namespace PixelStacker.EditorTools
             this.Air = palette[Constants.MaterialCombinationIDForAir];
         }
 
-        public override void OnClick(MouseEventArgs e)
+        public override void OnLeftClick(MouseEventArgs e)
         {
             Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
             if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
             if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
             var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
-
-            if (e.Button == MouseButtons.Left)
-            {
-                var painter = this.CanvasEditor.Painter;
-                var buffer = painter.HistoryBuffer;
-                var colorToUse = Options.Tools.PrimaryColor;
-                colorToUse ??= this.Air;
-                buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));
-            }
-            else if (e.Button == MouseButtons.Right)
-            {
-                this.Options.Tools.PrimaryColor = cd;
-            }
+            var painter = this.CanvasEditor.Painter;
+            var buffer = painter.HistoryBuffer;
+            var colorToUse = Options.Tools.PrimaryColor;
+            colorToUse ??= this.Air;
+            buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));
         }
 
         private bool IsDragging = false;

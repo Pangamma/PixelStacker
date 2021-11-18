@@ -3,6 +3,7 @@ using PixelStacker.Logic.Extensions;
 using PixelStacker.UI.Forms;
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Controls
@@ -11,23 +12,6 @@ namespace PixelStacker.UI.Controls
     {
         private AbstractCanvasEditorTool CurrentTool { get; set; }
         private PanZoomTool PanZoomTool { get; }
-
-        private void tbxBrushWidth_TextChanged(object sender, System.EventArgs e)
-        {
-            if (Options?.Tools != null)
-            {
-                Options.Tools.BrushWidth = tbxBrushWidth.Text.ToNullable<int>() ?? 1;
-                Options.Save();
-            }
-        }
-
-        private void tbxBrushWidth_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
 
         private void bgWorkerBufferedChangeQueue_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -66,43 +50,71 @@ namespace PixelStacker.UI.Controls
         private void Toolbox_OnClickBrush(object sender, EventArgs e)
         {
             this.CurrentTool = new BrushTool(this);
-            this.Cursor = this.CurrentTool.GetCursor();
+            this.OnToolClicked(sender);
         }
 
         private void Toolbox_OnClickPencil(object sender, EventArgs e)
         {
             this.CurrentTool = new PencilTool(this);
-            this.Cursor = this.CurrentTool.GetCursor();
+            this.OnToolClicked(sender);
         }
 
         private void Toolbox_OnClickPicker(object sender, EventArgs e)
         {
             this.CurrentTool = new PickerTool(this);
-            this.Cursor = this.CurrentTool.GetCursor();
+            this.OnToolClicked(sender);
         }
 
         private void Toolbox_OnClickFill(object sender, EventArgs e)
         {
             this.CurrentTool = new FillTool(this);
-            this.Cursor = this.CurrentTool.GetCursor();
+            this.OnToolClicked(sender);
         }
 
         private void Toolbox_OnClickEraser(object sender, EventArgs e)
         {
             this.CurrentTool = new EraserTool(this);
-            this.Cursor = this.CurrentTool.GetCursor();
+            this.OnToolClicked(sender);
         }
 
         private void Toolbox_OnClickWorldEditOrigin(object sender, EventArgs e)
         {
             this.CurrentTool = new WorldEditOriginTool(this);
-            this.Cursor = this.CurrentTool.GetCursor();
+            this.OnToolClicked(sender);
         }
 
         private void Toolbox_OnClickPanZoom(object sender, EventArgs e)
         {
             this.CurrentTool = new PanZoomTool(this);
+            this.OnToolClicked(sender);
+        }
+
+        private void OnToolClicked(object sender)
+        {
             this.Cursor = this.CurrentTool.GetCursor();
+            if (sender is ToolStripButton btn)
+            {
+                foreach (ToolStripItem item in tsCanvasTools.Items)
+                {
+                    if (item is ToolStripButton otherBtn)
+                    {
+                        if (item == sender)
+                        {
+                            otherBtn.Checked = true;
+                            otherBtn.BackColor = Color.FromArgb(255, 191, 221, 245);
+                            //otherBtn.FlatAppearance.BorderColor = Color.FromArgb(255, 1, 121, 215);
+                            //otherBtn.FlatAppearance.BorderSize = 1;
+                        }
+                        else
+                        {
+                            otherBtn.Checked = false;
+                            otherBtn.BackColor = System.Drawing.SystemColors.Control;
+                            //otherBtn.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+                            //otherBtn.FlatAppearance.BorderSize = 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }

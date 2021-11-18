@@ -190,6 +190,9 @@
   <data name="compass_tool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\compass_tool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="compass_tool_cur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\cursors\compass_tool_cur.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="country_cn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\flags\country_cn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -238,8 +241,14 @@
   <data name="eraser_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\eraser_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="eraser_cur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\cursors\eraser_cur.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="eyedropper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\eyedropper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eyedropper_cur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\cursors\eyedropper_cur.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="hammer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\hammer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -268,6 +277,9 @@
   <data name="paintbrush_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\paintbrush_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="paintbrush_cur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\cursors\paintbrush_cur.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="paint_brush" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\paint_brush.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -285,6 +297,9 @@
   </data>
   <data name="paint_bucket_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\paint_bucket_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="paint_bucket_cur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\cursors\paint_bucket_cur.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pantone" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\pantone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -306,6 +321,9 @@
   </data>
   <data name="pencil_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\pencil_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pencil_cur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\cursors\pencil_cur.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pipette" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\x32\pipette.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

@@ -192,6 +192,9 @@ Aka Pangamma</value>
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
   <data name="ColorReducer_Algorithm" xml:space="preserve">
     <value>Quantizer Algorithm</value>
   </data>
@@ -608,5 +611,32 @@ Super high values = possible glitches</value>
   </data>
   <data name="Sizing" xml:space="preserve">
     <value>Sizing</value>
+  </data>
+  <data name="Tools_Brush" xml:space="preserve">
+    <value>Paint brush</value>
+  </data>
+  <data name="Tools_BrushWidth" xml:space="preserve">
+    <value>Brush width</value>
+  </data>
+  <data name="Tools_Eraser" xml:space="preserve">
+    <value>Erase</value>
+  </data>
+  <data name="Tools_Fill" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="Tools_PanZoom" xml:space="preserve">
+    <value>Pan and zoom</value>
+  </data>
+  <data name="Tools_Pencil" xml:space="preserve">
+    <value>Pencil</value>
+  </data>
+  <data name="Tools_Picker" xml:space="preserve">
+    <value>Color picker</value>
+  </data>
+  <data name="Tools_WEOrigin" xml:space="preserve">
+    <value>World Edit origin selector</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Top</value>
   </data>
 </root>
