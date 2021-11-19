@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.Control;
 
 namespace PixelStacker.Extensions
 {
@@ -61,7 +62,7 @@ namespace PixelStacker.Extensions
         }
 
 
-        public static void ModifyRecursive(this MenuStrip menuStrip, Action<ToolStripItem, MainFormTags> action)
+        public static void ModifyRecursive(this ToolStrip menuStrip, Action<ToolStripItem, MainFormTags> action)
         {
             foreach (ToolStripItem menuStripItem in menuStrip.Items)
             {
@@ -115,6 +116,17 @@ namespace PixelStacker.Extensions
             self.SuspendLayout();
             self.Controls.Clear();
             self.ResumeLayout();
+        }
+
+        public static T[] ToArray<T>(this ControlCollection self) where T : Control
+        {
+            int i = 0;
+            T[] t = new T[self.Count];
+            foreach(var item in self)
+            {
+                t[i++] = (T)item;
+            }
+            return t;
         }
     }
 }

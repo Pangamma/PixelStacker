@@ -22,19 +22,9 @@ namespace PixelStacker.UI.Controls
         public PanZoomSettings PanZoomSettings { get; set; }
 
 
-        private Options _opts = null;
+        public MainForm MainForm { get; set; }
 
-        public Options Options
-        {
-            get => _opts; set
-            {
-                _opts = value;
-                this.tbxBrushWidth.Text = _opts?.Tools?.BrushWidth.ToString();
-                this.btnMaterialCombination.Image =
-                    _opts?.Tools?.PrimaryColor?.GetImage(_opts?.IsSideView ?? false).SKBitmapToBitmap()
-                    ?? Resources.Textures.air.SKBitmapToBitmap();
-            }
-        }
+        public Options Options { get; set; }
 
         public CanvasEditor()
         {
@@ -45,7 +35,6 @@ namespace PixelStacker.UI.Controls
             this.PanZoomTool = new PanZoomTool(this);
             this.CurrentTool = new PanZoomTool(this);
             this.ApplyLocalization(CultureInfo.CurrentUICulture);
-            OnLoadToolstrips();
         }
 
         public async Task SetCanvas(CancellationToken? worker, RenderedCanvas canvas, PanZoomSettings pz)

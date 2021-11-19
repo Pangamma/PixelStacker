@@ -13,6 +13,14 @@ namespace PixelStacker.UI.Controls
     {
         private void CanvasEditor_Load(object sender, System.EventArgs e)
         {
+            OnLoadToolstrips();
+            this.MainForm = this.ParentForm as MainForm;
+            this.Options = this.MainForm.Options;
+            
+            this.tbxBrushWidth.Text = this.Options.Tools?.BrushWidth.ToString();
+            this.btnMaterialCombination.Image =
+                this.Options?.Tools?.PrimaryColor?.GetImage(this.Options?.IsSideView ?? false).SKBitmapToBitmap()
+                ?? Resources.Textures.air.SKBitmapToBitmap();
         }
     }
 

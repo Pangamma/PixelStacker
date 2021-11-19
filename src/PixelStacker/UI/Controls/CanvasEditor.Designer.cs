@@ -35,7 +35,7 @@ namespace PixelStacker.UI.Controls
             this.skiaControl = new PixelStacker.UI.Controls.SkHybridControl();
             this.timerBufferedChangeQueue = new System.Windows.Forms.Timer(this.components);
             this.bgWorkerBufferedChangeQueue = new System.ComponentModel.BackgroundWorker();
-            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.lblHoverInfo = new System.Windows.Forms.ToolStripLabel();
             this.tsCanvasTools = new System.Windows.Forms.ToolStrip();
@@ -52,11 +52,11 @@ namespace PixelStacker.UI.Controls
             this.tbxBrushWidth = new System.Windows.Forms.ToolStripTextBox();
             this.btnBrushWidthAdd = new System.Windows.Forms.ToolStripButton();
             this.btnMaterialCombination = new System.Windows.Forms.ToolStripButton();
-            this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
-            this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.LeftToolStripPanel.SuspendLayout();
-            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
-            this.toolStripContainer1.SuspendLayout();
+            this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
+            this.toolStripContainer.ContentPanel.SuspendLayout();
+            this.toolStripContainer.LeftToolStripPanel.SuspendLayout();
+            this.toolStripContainer.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainer.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.tsCanvasTools.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -95,33 +95,33 @@ namespace PixelStacker.UI.Controls
             this.bgWorkerBufferedChangeQueue.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorkerBufferedChangeQueue_DoWork);
             this.bgWorkerBufferedChangeQueue.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgWorkerBufferedChangeQueue_RunWorkerCompleted);
             // 
-            // toolStripContainer1
+            // toolStripContainer
             // 
             // 
-            // toolStripContainer1.BottomToolStripPanel
+            // toolStripContainer.BottomToolStripPanel
             // 
-            this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.toolStrip2);
+            this.toolStripContainer.BottomToolStripPanel.Controls.Add(this.toolStrip2);
             // 
-            // toolStripContainer1.ContentPanel
+            // toolStripContainer.ContentPanel
             // 
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.skiaControl);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(561, 330);
-            this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripContainer.ContentPanel.Controls.Add(this.skiaControl);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(561, 330);
+            this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
-            // toolStripContainer1.LeftToolStripPanel
+            // toolStripContainer.LeftToolStripPanel
             // 
-            this.toolStripContainer1.LeftToolStripPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.toolStripContainer1.LeftToolStripPanel.Controls.Add(this.tsCanvasTools);
-            this.toolStripContainer1.LeftToolStripPanel.MinimumSize = new System.Drawing.Size(48, 0);
-            this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(611, 382);
-            this.toolStripContainer1.TabIndex = 2;
-            this.toolStripContainer1.Text = "toolStripContainer1";
+            this.toolStripContainer.LeftToolStripPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.toolStripContainer.LeftToolStripPanel.Controls.Add(this.tsCanvasTools);
+            this.toolStripContainer.LeftToolStripPanel.MinimumSize = new System.Drawing.Size(48, 0);
+            this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer.Name = "toolStripContainer";
+            this.toolStripContainer.Size = new System.Drawing.Size(611, 382);
+            this.toolStripContainer.TabIndex = 2;
+            this.toolStripContainer.Text = "toolStripContainer1";
             // 
-            // toolStripContainer1.TopToolStripPanel
+            // toolStripContainer.TopToolStripPanel
             // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.toolStrip1);
             // 
             // toolStrip2
             // 
@@ -132,7 +132,7 @@ namespace PixelStacker.UI.Controls
             this.lblHoverInfo});
             this.toolStrip2.Location = new System.Drawing.Point(431, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(176, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(137, 25);
             this.toolStrip2.TabIndex = 0;
             // 
             // lblHoverInfo
@@ -331,19 +331,19 @@ namespace PixelStacker.UI.Controls
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
-            this.Controls.Add(this.toolStripContainer1);
+            this.Controls.Add(this.toolStripContainer);
             this.Name = "CanvasEditor";
             this.Size = new System.Drawing.Size(611, 382);
             this.Load += new System.EventHandler(this.CanvasEditor_Load);
-            this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
-            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer1.LeftToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.LeftToolStripPanel.PerformLayout();
-            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
-            this.toolStripContainer1.ResumeLayout(false);
-            this.toolStripContainer1.PerformLayout();
+            this.toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer.BottomToolStripPanel.PerformLayout();
+            this.toolStripContainer.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer.LeftToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer.LeftToolStripPanel.PerformLayout();
+            this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer.TopToolStripPanel.PerformLayout();
+            this.toolStripContainer.ResumeLayout(false);
+            this.toolStripContainer.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             this.tsCanvasTools.ResumeLayout(false);
@@ -359,7 +359,6 @@ namespace PixelStacker.UI.Controls
         private Controls.SkHybridControl skiaControl;
         private System.Windows.Forms.Timer timerBufferedChangeQueue;
         private System.ComponentModel.BackgroundWorker bgWorkerBufferedChangeQueue;
-        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStrip tsCanvasTools;
         private System.Windows.Forms.ToolStripButton btnWorldEditOrigin;
         private System.Windows.Forms.ToolStrip toolStrip1;
@@ -376,5 +375,6 @@ namespace PixelStacker.UI.Controls
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripLabel lblHoverInfo;
         private System.Windows.Forms.ToolStripButton btnMaterialCombination;
+        public System.Windows.Forms.ToolStripContainer toolStripContainer;
     }
 }
