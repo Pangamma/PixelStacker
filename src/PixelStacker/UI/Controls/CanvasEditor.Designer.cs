@@ -36,8 +36,6 @@ namespace PixelStacker.UI.Controls
             this.timerBufferedChangeQueue = new System.Windows.Forms.Timer(this.components);
             this.bgWorkerBufferedChangeQueue = new System.ComponentModel.BackgroundWorker();
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.lblHoverInfo = new System.Windows.Forms.ToolStripLabel();
             this.tsCanvasTools = new System.Windows.Forms.ToolStrip();
             this.btnPanZoom = new System.Windows.Forms.ToolStripButton();
             this.btnWorldEditOrigin = new System.Windows.Forms.ToolStripButton();
@@ -52,12 +50,11 @@ namespace PixelStacker.UI.Controls
             this.tbxBrushWidth = new System.Windows.Forms.ToolStripTextBox();
             this.btnBrushWidthAdd = new System.Windows.Forms.ToolStripButton();
             this.btnMaterialCombination = new System.Windows.Forms.ToolStripButton();
-            this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
+            this.lblHoverInfo = new System.Windows.Forms.ToolStripLabel();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.LeftToolStripPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
             this.tsCanvasTools.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -75,7 +72,7 @@ namespace PixelStacker.UI.Controls
             this.skiaControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.skiaControl.Location = new System.Drawing.Point(0, 0);
             this.skiaControl.Name = "skiaControl";
-            this.skiaControl.Size = new System.Drawing.Size(561, 330);
+            this.skiaControl.Size = new System.Drawing.Size(561, 355);
             this.skiaControl.TabIndex = 0;
             this.skiaControl.PaintSurface += new System.EventHandler<PixelStacker.UI.Controls.GenericSKPaintSurfaceEventArgs>(this.skiaControl_PaintSurface);
             this.skiaControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_Click);
@@ -100,12 +97,13 @@ namespace PixelStacker.UI.Controls
             // 
             // toolStripContainer.BottomToolStripPanel
             // 
-            this.toolStripContainer.BottomToolStripPanel.Controls.Add(this.toolStrip2);
+            this.toolStripContainer.BottomToolStripPanel.Enabled = false;
+            this.toolStripContainer.BottomToolStripPanelVisible = false;
             // 
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.skiaControl);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(561, 330);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(561, 355);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer.LeftToolStripPanel
@@ -122,25 +120,6 @@ namespace PixelStacker.UI.Controls
             // toolStripContainer.TopToolStripPanel
             // 
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.toolStrip1);
-            // 
-            // toolStrip2
-            // 
-            this.toolStrip2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblHoverInfo});
-            this.toolStrip2.Location = new System.Drawing.Point(431, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(137, 25);
-            this.toolStrip2.TabIndex = 0;
-            // 
-            // lblHoverInfo
-            // 
-            this.lblHoverInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.lblHoverInfo.Name = "lblHoverInfo";
-            this.lblHoverInfo.Size = new System.Drawing.Size(124, 22);
-            this.lblHoverInfo.Text = "Mouse hover info";
             // 
             // tsCanvasTools
             // 
@@ -273,10 +252,11 @@ namespace PixelStacker.UI.Controls
             this.btnBrushWidthMinus,
             this.tbxBrushWidth,
             this.btnBrushWidthAdd,
-            this.btnMaterialCombination});
+            this.btnMaterialCombination,
+            this.lblHoverInfo});
             this.toolStrip1.Location = new System.Drawing.Point(4, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(228, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(391, 27);
             this.toolStrip1.TabIndex = 0;
             // 
             // lblBrushWidth
@@ -326,6 +306,13 @@ namespace PixelStacker.UI.Controls
             this.btnMaterialCombination.Size = new System.Drawing.Size(29, 24);
             this.btnMaterialCombination.Text = "toolStripButton1";
             // 
+            // lblHoverInfo
+            // 
+            this.lblHoverInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblHoverInfo.Name = "lblHoverInfo";
+            this.lblHoverInfo.Size = new System.Drawing.Size(124, 24);
+            this.lblHoverInfo.Text = "Mouse hover info";
+            // 
             // CanvasEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -335,8 +322,6 @@ namespace PixelStacker.UI.Controls
             this.Name = "CanvasEditor";
             this.Size = new System.Drawing.Size(611, 382);
             this.Load += new System.EventHandler(this.CanvasEditor_Load);
-            this.toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer.BottomToolStripPanel.PerformLayout();
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.LeftToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.LeftToolStripPanel.PerformLayout();
@@ -344,8 +329,6 @@ namespace PixelStacker.UI.Controls
             this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             this.tsCanvasTools.ResumeLayout(false);
             this.tsCanvasTools.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -372,7 +355,6 @@ namespace PixelStacker.UI.Controls
         private System.Windows.Forms.ToolStripButton btnBrush;
         private System.Windows.Forms.ToolStripButton btnFill;
         private System.Windows.Forms.ToolStripButton btnPicker;
-        private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripLabel lblHoverInfo;
         private System.Windows.Forms.ToolStripButton btnMaterialCombination;
         public System.Windows.Forms.ToolStripContainer toolStripContainer;

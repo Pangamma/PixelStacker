@@ -26,9 +26,9 @@ namespace PixelStacker
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //Application.Run(new TestForm());
             var form = new MainForm();
             ErrorReporter.MF = form;
+            //var form = new TestForm();
             Application.Run(form);
         }
 

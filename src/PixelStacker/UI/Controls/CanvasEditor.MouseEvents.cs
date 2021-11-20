@@ -131,7 +131,10 @@ namespace PixelStacker.UI.Controls
 
             mc ??= MaterialPalette.FromResx()[Constants.MaterialCombinationIDForAir];
 
-            string hoverText = $"Top: {mc.Top.Label}, Bottom: {mc.Bottom.Label}, X: {pt.X}, Y: {pt.Y}";
+            string hoverText = $"X: {pt.X},".PadRight(8)
+                + $"Y: {pt.Y},".PadRight(8)
+                + $"Top: {mc.Top.Label}, Bottom: {mc.Bottom.Label}";
+            
             if (lblHoverInfo.Text != hoverText)
                 lblHoverInfo.Text = hoverText;
 

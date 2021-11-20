@@ -34,6 +34,8 @@ namespace PixelStacker.Web.Net.Utility
             this.MaxTTL = maxTTL;
         }
 
+        public List<K> Keys => cacheMap.Keys.ToList();
+
         /// <summary>
         /// Retrieves the vale by key and then attempts to cast to type T. Returns 
         /// default(T) if value not in cache or value is not of needed type.

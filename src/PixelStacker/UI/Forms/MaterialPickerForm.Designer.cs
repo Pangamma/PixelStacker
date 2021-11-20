@@ -1,6 +1,6 @@
 ﻿namespace PixelStacker.UI.Forms
 {
-    partial class TestForm
+    partial class MaterialPickerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,38 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.toolStripContainer1.SuspendLayout();
+            this.materialPicker1 = new PixelStacker.UI.Controls.MaterialPicker();
             this.SuspendLayout();
             // 
-            // toolStripContainer1
+            // materialPicker1
             // 
+            this.materialPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.materialPicker1.Location = new System.Drawing.Point(0, 0);
+            this.materialPicker1.Name = "materialPicker1";
+            this.materialPicker1.Size = new System.Drawing.Size(441, 450);
+            this.materialPicker1.TabIndex = 0;
             // 
-            // toolStripContainer1.ContentPanel
-            // 
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(776, 364);
-            this.toolStripContainer1.Location = new System.Drawing.Point(12, 12);
-            this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(776, 364);
-            this.toolStripContainer1.TabIndex = 0;
-            this.toolStripContainer1.Text = "toolStripContainer1";
-            // 
-            // TestForm
+            // MaterialPickerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 388);
-            this.Controls.Add(this.toolStripContainer1);
-            this.Name = "TestForm";
-            this.Text = "TestForm";
-            this.toolStripContainer1.ResumeLayout(false);
-            this.toolStripContainer1.PerformLayout();
+            this.ClientSize = new System.Drawing.Size(441, 450);
+            this.Controls.Add(this.materialPicker1);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Name = "MaterialPickerForm";
+            this.ShowInTaskbar = false;
+            this.Text = "MaterialPickerForm";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        private Controls.MaterialPicker materialPicker1;
     }
 }

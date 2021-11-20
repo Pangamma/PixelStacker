@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PixelStacker.UI.Forms
 {
-    public partial class MaterialPicker : Form
+    public partial class MaterialPickerForm : Form
     {
-        public MaterialPicker()
+        public MaterialPickerForm()
         {
             InitializeComponent();
         }

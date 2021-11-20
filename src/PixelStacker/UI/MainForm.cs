@@ -33,5 +33,6 @@ namespace PixelStacker.UI
             this.horizontalToolStripMenuItem.Checked = !this.Options.IsSideView;
             this.verticalToolStripMenuItem.Checked = this.Options.IsSideView;
         }
+
     }
 }

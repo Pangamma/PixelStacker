@@ -20,19 +20,54 @@ using SkiaSharp;
 
 namespace PixelStacker.Web.Net.Controllers
 {
+    public class FileNode
+    {
+        public byte[] Data { get; set; }
+        public string ContentType { get; set; }
+        public string SuggestedFileName { get; set; }
+
+        public FileNode(byte[] data, string ct)
+        {
+            this.Data = data;
+            this.ContentType = ct;
+        }
+    }
+
     public class RenderController : BaseApiController
     {
-
         // TODO make this into an LRU to avoid mem crashes and leaks from abusive actors
         const string contentType = "image/jpeg"; // PNG
-        private static LruCache<string, byte[]> Cache { get; set; } = new LruCache<string, byte[]>(200, TimeSpan.FromHours(24));
-        
+        private static LruCache<string, FileNode> Cache { get; set; } = new LruCache<string, FileNode>(100, TimeSpan.FromHours(24));
+
+        #region COLOR MAPPERS
+        private static IColorMapper GetMapper(bool isv, bool isMultilayer)
+        {
+            if (isv)
+            {
+                return isMultilayer ? ColorMapperSideView.Value : ColorMapperSideViewSingleLayer.Value;
+            }
+            else
+            {
+                return isMultilayer ? ColorMapperTopView.Value : ColorMapperTopViewSingleLayer.Value;
+            }
+        }
+
         private static Lazy<IColorMapper> ColorMapperSideView = new Lazy<IColorMapper>(() =>
         {
             var cm = new KdTreeMapper();
             var palette = MaterialPalette.FromResx();
             var opts = new StaticJsonOptionsProvider().Load();
             var combosAvailable = palette.ToValidCombinationList(opts);
+            cm.SetSeedData(combosAvailable, palette, true);
+            return cm;
+        });
+
+        private static Lazy<IColorMapper> ColorMapperSideViewSingleLayer = new Lazy<IColorMapper>(() =>
+        {
+            var cm = new KdTreeMapper();
+            var palette = MaterialPalette.FromResx();
+            var opts = new StaticJsonOptionsProvider().Load();
+            var combosAvailable = palette.ToValidCombinationList(opts).Where(x => x.IsMultiLayer == false).ToList();
             cm.SetSeedData(combosAvailable, palette, true);
             return cm;
         });
@@ -47,41 +82,78 @@ namespace PixelStacker.Web.Net.Controllers
             return cm;
         });
 
+        private static Lazy<IColorMapper> ColorMapperTopViewSingleLayer = new Lazy<IColorMapper>(() =>
+        {
+            var cm = new KdTreeMapper();
+            var palette = MaterialPalette.FromResx();
+            var opts = new StaticJsonOptionsProvider().Load();
+            var combosAvailable = palette.ToValidCombinationList(opts).Where(x => x.IsMultiLayer == false).ToList();
+            cm.SetSeedData(combosAvailable, palette, false);
+            return cm;
+        });
+        #endregion
+
+        [HttpGet]
+        [Obsolete("Do not show this function.", false)]
+        public async Task<JsonResult> Stats()
+        {
+            var data = new Dictionary<string, object>();
+            data["LRU_SIZE"] = Cache.Count;
+            data["LRU_KEYS"] = Cache.Keys;
+            return Json(data);
+        }
+        
         [HttpGet]
         public async Task<ActionResult> ByURL(string url)
         {
-            if (Cache.TryGetValue(url, out byte[] cachedData)){
-                return File(cachedData, contentType);
+            if (Cache.TryGetValue(url, out FileNode cachedData))
+            {
+                return File(cachedData.Data, cachedData.ContentType);
             }
 
             byte[] dataFromUrl = new WebClient().DownloadData(url);
             var bm = SKBitmap.Decode(dataFromUrl);
-            return await this.DoSimple(bm, url);
+            var rs = await this.DoSimple(bm);
+            Cache.Set(url, rs);
+            return File(rs.Data, rs.ContentType);
         }
 
         [HttpPost]
         public async Task<ActionResult> ByFile(IFormFile file)
         {
             SKBitmap bm = file.ToSKBitmap();
-            return await this.DoSimple(bm, null);
+            var rs = await this.DoSimple(bm);
+            return File(rs.Data, rs.ContentType);
         }
 
         [HttpGet]
         public async Task<ActionResult> ByURLAdvanced(UrlRenderRequest model)
         {
+            string key = model.GetCacheKey();
+            if (Cache.TryGetValue(key, out FileNode cd))
+            {
+                if (cd.SuggestedFileName == null)
+                    return File(cd.Data, cd.ContentType);
+                else
+                    return File(cd.Data, cd.ContentType, cd.SuggestedFileName);
+            }
+
             byte[] dataFromUrl = new WebClient().DownloadData(model.Url);
             var bm = SKBitmap.Decode(dataFromUrl);
-            return await DoAdvanced(model, bm);
+            var node = await DoAdvanced(model, bm);
+            Cache.Set(key, node);
+            return node.SuggestedFileName == null ? File(node.Data, node.ContentType) : File(node.Data, node.ContentType, node.SuggestedFileName);
         }
 
         [HttpPost]
         public async Task<ActionResult> ByFileAdvanced(FileRenderRequest model)
         {
             SKBitmap bm = model.File.ToSKBitmap();
-            return await DoAdvanced(model, bm);
+            FileNode node = await DoAdvanced(model, bm);
+            return node.SuggestedFileName == null ? File(node.Data, node.ContentType) : File(node.Data, node.ContentType, node.SuggestedFileName);
         }
 
-        private async Task<ActionResult> DoSimple(SKBitmap bm, string cacheKey = null)
+        private async Task<FileNode> DoSimple(SKBitmap bm)
         {
             var engine = new RenderCanvasEngine();
             var palette = MaterialPalette.FromResx();
@@ -108,13 +180,10 @@ namespace PixelStacker.Web.Net.Controllers
                 WorldEditOrigin = null
             }, null);
 
-            if (cacheKey != null)
-                Cache.Set(cacheKey, data);
-
-            return File(data, contentType);
+            return new FileNode(data, ExportFormat.Jpeg.GetContentTypeData().contentType);
         }
 
-        private async Task<ActionResult> DoAdvanced(BaseRenderRequest model, SKBitmap bm)
+        private async Task<FileNode> DoAdvanced(BaseRenderRequest model, SKBitmap bm)
         {
             var engine = new RenderCanvasEngine();
             var palette = MaterialPalette.FromResx();
@@ -122,8 +191,8 @@ namespace PixelStacker.Web.Net.Controllers
             using var preprocessed = await engine.PreprocessImageAsync(null, bm, new CanvasPreprocessorSettings()
             {
                 IsSideView = isv,
-                MaxHeight = model.MaxHeight ?? 300,
-                MaxWidth = model.MaxWidth ?? 300,
+                MaxHeight = model.MaxHeight ?? 200,
+                MaxWidth = model.MaxWidth ?? 200,
                 RgbBucketSize = model.RgbBucketSize,
                 QuantizerSettings = new QuantizerSettings()
                 {
@@ -134,8 +203,8 @@ namespace PixelStacker.Web.Net.Controllers
                     MaxColorCount = model.QuantizedColorCount ?? 256
                 }
             });
-
-            var canvas = await engine.RenderCanvasAsync(null, preprocessed, isv ? ColorMapperSideView.Value : ColorMapperTopView.Value, palette);
+            var mapper = GetMapper(isv, model.IsMultiLayer);
+            var canvas = await engine.RenderCanvasAsync(null, preprocessed, mapper, palette);
             IExportFormatter exporter = model.Format.GetFormatter();
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
             {
@@ -150,12 +219,15 @@ namespace PixelStacker.Web.Net.Controllers
             var (contentType, fileExt) = model.Format.GetContentTypeData();
             if (contentType == "application/octet-stream")
             {
-                return File(data, contentType, "download" + fileExt);
+                return new FileNode(data, contentType)
+                {
+                    SuggestedFileName = "download" + fileExt
+                };
             }
             else
             {
                 // Image style
-                return File(data, contentType);
+                return new FileNode(data, contentType);
             }
         }
     }

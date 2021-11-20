@@ -23,6 +23,7 @@ namespace PixelStacker.EditorTools
             if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
             var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
             this.Options.Tools.PrimaryColor = cd;
+            this.Options.Save();
         }
 
         public override void OnMouseDown(MouseEventArgs e)

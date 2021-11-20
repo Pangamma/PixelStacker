@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace PixelStacker.UI.Controls
 {
-    [ToolboxItemFilter("PixelStacker.UI.CanvasEditor", ToolboxItemFilterType.Require)]
+    [ToolboxItemFilter("PixelStacker.UI.Controls.CanvasEditor", ToolboxItemFilterType.Require)]
     public partial class CanvasEditor : UserControl
     {
         private void CanvasEditor_Load(object sender, System.EventArgs e)
@@ -20,7 +20,7 @@ namespace PixelStacker.UI.Controls
             this.tbxBrushWidth.Text = this.Options.Tools?.BrushWidth.ToString();
             this.btnMaterialCombination.Image =
                 this.Options?.Tools?.PrimaryColor?.GetImage(this.Options?.IsSideView ?? false).SKBitmapToBitmap()
-                ?? Resources.Textures.air.SKBitmapToBitmap();
+                ?? Resources.Textures.barrier.SKBitmapToBitmap();
         }
     }
 

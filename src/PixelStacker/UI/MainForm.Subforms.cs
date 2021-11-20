@@ -9,10 +9,14 @@ namespace PixelStacker.UI
         private CanvasTools canvasEditorToolbox { get; set; } = null;
         private MaterialSelectWindow MaterialOptions { get; set; } = null;
         private ColorReducerForm ColorReducerForm { get; set; } = null;
+        public MaterialPickerForm MaterialPickerForm { get; private set; }
 
-
-        private void MainForm_Activated(object sender, System.EventArgs e)
+        private void gridOptionsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            using var form = new GridSettingsForm();
+            form.Options = this.Options;
+            this.snapManager.RegisterChild(form);
+            form.ShowDialog(this);
         }
 
         private void selectMaterialsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,6 +60,25 @@ namespace PixelStacker.UI
             var form = new SizeForm(this.Options);
             form.ShowDialog(this);
         }
+
+        private void swatchToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (this.MaterialPickerForm == null || this.MaterialPickerForm.IsDisposed)
+            {
+                this.MaterialPickerForm = new MaterialPickerForm();
+                this.snapManager.RegisterChild(this.MaterialPickerForm);
+            }
+
+            if (!this.MaterialPickerForm.Visible)
+            {
+                this.MaterialPickerForm.Show(this);
+            }
+            else
+            {
+                this.MaterialPickerForm.Hide();
+            }
+        }
+
 
         private void preprocessingToolStripMenuItem_Click(object sender, System.EventArgs e)
         {

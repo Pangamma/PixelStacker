@@ -1,6 +1,4 @@
-﻿using PixelStacker.IO;
-using PixelStacker.UI.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,14 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PixelStacker.UI.Forms
+namespace PixelStacker.UI.Controls
 {
-    public partial class TestForm : Form
+    [ToolboxItemFilter("PixelStacker.UI.Controls.MaterialPicker", ToolboxItemFilterType.Require)]
+    public partial class MaterialPicker : UserControl
     {
-        private SizeForm form;
-        public SnapManager SnapManager { get; }
-
-        public TestForm()
+        public MaterialPicker()
         {
             InitializeComponent();
         }

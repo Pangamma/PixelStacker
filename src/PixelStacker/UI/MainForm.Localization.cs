@@ -67,12 +67,6 @@ namespace PixelStacker.UI
 #if !RELEASE
             this.Text += " (Debug)";
 #endif
-            if (!Constants.IsFullVersion)
-            {
-#pragma warning disable CS0162 // Unreachable code detected
-                this.Text += " (Free Version)";
-#pragma warning restore CS0162 // Unreachable code detected
-            }
 
             this.englishToolStripMenuItem.Image = UIResources.country_us;
             this.chineseSimplifiedToolStripMenuItem.Image = UIResources.country_cn;

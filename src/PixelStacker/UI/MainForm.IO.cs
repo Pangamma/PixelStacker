@@ -24,10 +24,11 @@ namespace PixelStacker.UI
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!loadedImageFilePath.EndsWith(".pxlzip"))
-            {
-                saveAsToolStripMenuItem_Click(sender, e);
-            }
+            if (loadedImageFilePath != null)
+                if (!loadedImageFilePath.EndsWith(".pxlzip"))
+                {
+                    saveAsToolStripMenuItem_Click(sender, e);
+                }
         }
 
         private async void dlgSave_FileOk(object sender, CancelEventArgs e)
@@ -52,7 +53,7 @@ namespace PixelStacker.UI
                         break;
                     case "schematic":
                         throw new Exception("Not ready");
-                        //formatter = new SchematicFormatter();
+                    //formatter = new SchematicFormatter();
                     case "csv":
                         formatter = new BlockCountCsvFormatter();
                         break;
@@ -60,7 +61,8 @@ namespace PixelStacker.UI
                         throw new NotSupportedException($"That file format is not supported. Given: {ext}");
                 }
 
-                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) => { 
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
                     await formatter.ExportAsync(fName, new PixelStackerProjectData(this.RenderedCanvas, this.Options), worker);
                 }));
 
@@ -198,7 +200,7 @@ namespace PixelStacker.UI
                         c.LoadedImage = proj.PreprocessedImage;
                         c.imageViewer.SetImage(c.PreprocessedImage, null);
 
-                        
+
 
 
 

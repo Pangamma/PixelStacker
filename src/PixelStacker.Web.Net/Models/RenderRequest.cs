@@ -14,9 +14,24 @@ namespace PixelStacker.Web.Net.Models
     {
         [Required]
         public string Url { get; set; }
+
+        public string GetCacheKey()
+        {
+            List<string> keys = new List<string>();
+            keys.Add((this.MaxWidth ?? 0).ToString());
+            keys.Add((this.MaxHeight ?? 0).ToString());
+            keys.Add(this.EnableDithering ? "1" : "0");
+            keys.Add(this.Format.ToString());
+            keys.Add(this.IsMultiLayer ? "1" : "0");
+            keys.Add(this.IsSideView ? "1" : "0");
+            keys.Add((this.QuantizedColorCount ?? 0).ToString());
+            keys.Add(this.RgbBucketSize.ToString());
+            keys.Add(this.Url);
+            return String.Join("|", keys);
+        }
     }
 
-    public class FileRenderRequest: BaseRenderRequest
+    public class FileRenderRequest : BaseRenderRequest
     {
         [Required]
         public IFormFile File { get; set; }
@@ -27,6 +42,7 @@ namespace PixelStacker.Web.Net.Models
         public ExportFormat Format { get; set; } = ExportFormat.Jpeg;
 
         public bool IsSideView { get; set; } = false;
+        public bool IsMultiLayer { get; set; } = true;
 
         public int? MaxHeight { get; set; }
         public int? MaxWidth { get; set; }
