@@ -1,0 +1,49 @@
+﻿using System;
+using System.IO;
+
+namespace PixelStacker.IO
+{
+    public static class FilePaths
+    {
+        public static string AppDataDir
+        {
+            get
+            {
+                try
+                {
+                    string appPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    string pixelStackerPath = Path.Combine(appPath, "PixelStacker");
+
+                    if (!Directory.Exists(pixelStackerPath))
+                    {
+                        Directory.CreateDirectory(pixelStackerPath);
+                    }
+
+                    return pixelStackerPath;
+                }
+                catch (Exception ex)
+                {
+                    // not really all that important...
+                    Console.Error.WriteLine(ex);
+                }
+
+                return "";
+            }
+        }
+
+        public static string ColorProfilesPath
+        {
+            get
+            {
+                string path = Path.Combine(AppDataDir, "color-profiles");
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                return path;
+            }
+        }
+    }
+}

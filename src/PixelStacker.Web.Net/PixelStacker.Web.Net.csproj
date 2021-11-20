@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+	<!-- Makes it use a different gc system that is slower, but uses less memory -->
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.20" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.11" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PixelStacker.Logic\PixelStacker.Logic.csproj" />
+    <ProjectReference Include="..\PixelStacker.Resources\PixelStacker.Resources.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PixelStacker.React\" />
+  </ItemGroup>
+
+</Project>

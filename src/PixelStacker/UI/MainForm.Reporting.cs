@@ -1,42 +1,21 @@
-﻿using System;
-using System.Threading;
-using System.Windows.Forms;
+﻿using PixelStacker.Logic.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PixelStacker.UI
 {
-    partial class MainForm
+    public partial class MainForm
     {
-        /// <summary>
-        /// Triggered when exception occurs off of UI thread.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        public static ErrorReportInfo GetErrorReportInfo(MainForm mf) => new ErrorReportInfo
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ErrorSender()
-            {
-                CurrentException = (Exception) e.ExceptionObject
-            });
-        }
-
-        /// <summary>
-        /// Catches exceptions on the UI thread
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public static void OnThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            if (e.Exception != null)
-            {
-                var ui = new ErrorSender()
-                {
-                    CurrentException = e.Exception
-                };
-
-                ui.Show();
-            }
-        }
+            LoadedImage = mf?.LoadedImage,
+            PreprocessedImage = mf?.PreprocessedImage,
+            Options = mf?.Options,
+            RenderedCanvas = mf?.RenderedCanvas,
+            ColorMapper = mf?.ColorMapper
+        };
     }
 }

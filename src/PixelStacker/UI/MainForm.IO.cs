@@ -1,302 +1,256 @@
-﻿using PixelStacker.Logic;
-using PixelStacker.Logic.Collections;
+﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Formatters;
+using PixelStacker.Logic.Model;
+using PixelStacker.Logic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SkiaSharp;
+using PixelStacker.Logic.IO.Config;
 
 namespace PixelStacker.UI
 {
-    partial class MainForm
+    public partial class MainForm
     {
-        private ColorPaletteStyle SelectedColorPaletteStyle { get; set; } = ColorPaletteStyle.DetailedGrid;
-        private string loadedImageFilePath { get; set; }
-
-
-        #region Color palette generation 
-
-        private void dlgSaveColorPalette_FileOk_ColorPalettes(object sender, CancelEventArgs e)
+        private async void saveAsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            if (this.LoadedBlueprint != null)
+            await TaskManager.Get.CancelTasks();
+            dlgSave.ShowDialog(this);
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (loadedImageFilePath != null)
+                if (!loadedImageFilePath.EndsWith(".pxlzip"))
+                {
+                    saveAsToolStripMenuItem_Click(sender, e);
+                }
+        }
+
+        private async void dlgSave_FileOk(object sender, CancelEventArgs e)
+        {
+            if (this.RenderedCanvas != null)
             {
-                SaveFileDialog dlg = (SaveFileDialog) sender;
+                SaveFileDialog dlg = (SaveFileDialog)sender;
                 string fName = dlg.FileName;
-                ColorPaletteFormatter.WriteBlueprint(fName, this.LoadedBlueprint, SelectedColorPaletteStyle);
+                string ext = fName.GetFileExtension().ToLower();
+                int chosenFilterIndex = dlg.FilterIndex;
+                IExportFormatter formatter;
+                switch (ext)
+                {
+                    case "png":
+                        if (fName.EndsWith(".sm.png")) formatter = new PngPreviewFormatter();
+                        else formatter = new PngFormatter();
+                        break;
+                    case "pxlzip":
+                        formatter = new PixelStackerProjectFormatter();
+                        break;
+                    case "schem":
+                        formatter = new Schem2Formatter();
+                        break;
+                    case "schematic":
+                        throw new Exception("Not ready");
+                    //formatter = new SchematicFormatter();
+                    case "csv":
+                        formatter = new BlockCountCsvFormatter();
+                        break;
+                    default:
+                        throw new NotSupportedException($"That file format is not supported. Given: {ext}");
+                }
+
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
+                    await formatter.ExportAsync(fName, new PixelStackerProjectData(this.RenderedCanvas, this.Options), worker);
+                }));
+
+                //                if (fName.ToLower().EndsWith(".schem"))
+                //                {
+                //                    Schem2Formatter.writeBlueprint(fName, this.LoadedBlueprint);
+                //                }
+                //                else if (fName.ToLower().EndsWith(".schematic"))
+                //                {
+                //                    if (Materials.List.Any(x => x.IsEnabled && string.IsNullOrWhiteSpace(x.SchematicaMaterialName)))
+                //                    {
+                //                        DialogResult result = MessageBox.Show(this,
+                //                            "Cannot create a 1.12 schematic when 1.13+ blocks are selected. Do you want to automatically " +
+                //                            "disable invalid materials and restart from the beginning of the rendering process. This " +
+                //                            "will remove any material choice overrides or post rendering changes.\n\nYou will need to " +
+                //                            "re-render the image.",
+                //                            ".schematic does not support 1.13+ blocks!"
+                //                            , MessageBoxButtons.YesNo, MessageBoxIcon.Warning
+                //                            );
+
+                //                        if (result == DialogResult.Yes)
+                //                        {
+                //                            Materials.List.Where(x => x.IsEnabled && string.IsNullOrWhiteSpace(x.SchematicaMaterialName))
+                //                                .ToList().ForEach(x => x.IsEnabled = false);
+                //                            Options.Save();
+                //                            this.InvokeEx(c => c.MaterialOptions.Refresh());
+
+                //#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                //                            TaskManager.Get.StartAsync((token) =>
+                //                            {
+                //                                ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
+                //                                .ConfigureAwait(true).GetAwaiter().GetResult();
+                //                            });
+                //#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                //                            return;
+                //                        }
+                //                    }
+                //                    else
+                //                    {
+                //                        SchematicFormatter.writeBlueprint(fName, this.LoadedBlueprint);
+                //                    }
+                //                }
+                //                else if (fName.ToLower().EndsWith(".csv"))
+                //                {
+                //                    Dictionary<Material, int> materialCounts = new Dictionary<Material, int>();
+                //                    bool isv = Options.Get.IsSideView;
+                //                    int xM = this.LoadedBlueprint.Mapper.GetXLength(isv);
+                //                    int yM = this.LoadedBlueprint.Mapper.GetYLength(isv);
+                //                    int zM = this.LoadedBlueprint.Mapper.GetZLength(isv);
+                //                    for (int x = 0; x < xM; x++)
+                //                    {
+                //                        for (int y = 0; y < yM; y++)
+                //                        {
+                //                            for (int z = 0; z < zM; z++)
+                //                            {
+                //                                Material m = this.LoadedBlueprint.Mapper.GetMaterialAt(isv, x, y, z);
+                //                                if (m != Materials.Air)
+                //                                {
+                //                                    if (!materialCounts.ContainsKey(m))
+                //                                    {
+                //                                        materialCounts.Add(m, 0);
+                //                                    }
+
+                //                                    materialCounts[m] = materialCounts[m] + 1;
+                //                                }
+                //                            }
+                //                        }
+                //                    }
+
+                //                    StringBuilder sb = new StringBuilder();
+                //                    sb.AppendLine("\"Material\",\"Block Count\",\"Full Stacks needed\"");
+                //                    sb.AppendLine("\"Total\"," + materialCounts.Values.Sum());
+
+                //                    foreach (var kvp in materialCounts.OrderByDescending(x => x.Value))
+                //                    {
+                //                        sb.AppendLine($"\"{kvp.Key.GetBlockNameAndData(isv).Replace("\"", "\"\"")}\",{kvp.Value},{kvp.Value / 64} stacks and {kvp.Value % 64} remaining blocks");
+                //                    }
+
+                //                    File.WriteAllText(fName, sb.ToString());
+                //}
+            }
+            else
+            {
+                //this.exportSchematicToolStripMenuItem.Enabled = false;
             }
         }
 
-        private void openSaveForColorPalettes(int filterIndex)
-        {
-            string[] availableExtensions = new string[] { "Color Palette Graph | *.png", "Color Palette Brick|*.png", "Color Palette Square | *.png", "Color Palette All (compact)|*.png", "Color Palette All (detailed)|*.png" };
-            dlgSaveColorPalette.Filter = availableExtensions[filterIndex];
-            dlgSaveColorPalette.DefaultExt = availableExtensions[filterIndex].Substring(availableExtensions[filterIndex].LastIndexOf("*.") + 2);
-            dlgSaveColorPalette.ShowDialog(this);
-        }
 
-        private void allItemsInColorPaletteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var mats = Materials.List.Where(x => x.IsEnabled);
-            var map = new int[10, 1 + (mats.Count() / 10)];
-            BlueprintPA print = new BlueprintPA()
-            {
-                MaxDepth = 1,
-            };
-
-            SchemFormatter.writeBlueprint("./io.schem", print);
-        }
-
-        private void graphToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactGraph;
-            this.openSaveForColorPalettes(0);
-        }
-
-        private void brickToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactBrick;
-            this.openSaveForColorPalettes(1);
-        }
-
-        private void squareToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactSquare;
-            this.openSaveForColorPalettes(2);
-        }
-
-        private void allPossibilitiescompactToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.CompactGrid;
-            this.openSaveForColorPalettes(3);
-        }
-
-        private void allColorsdetailedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.LoadedBlueprint == null)
-            {
-                this.saveColorPaletteToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            this.SelectedColorPaletteStyle = ColorPaletteStyle.DetailedGrid;
-            this.openSaveForColorPalettes(4);
-        }
-
-        #endregion
-
-        #region Load 
-
+        private string loadedImageFilePath;
         private void reOpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.loadedImageFilePath != null)
             {
-                using (Bitmap img = (Bitmap) Bitmap.FromFile(this.loadedImageFilePath))
-                {
-                    this.LoadedImage.DisposeSafely();
-                    this.LoadedImage = img.To32bppBitmap();
-                }
-                MainForm.PanZoomSettings = null;
-                this.imagePanelMain.SetImage(this.LoadedImage);
-                ShowImagePanel();
-                this.PreRenderedImage.DisposeSafely();
-                this.PreRenderedImage = null;
+                this.LoadFileFromPath(this.loadedImageFilePath);
             }
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TaskManager.Get.CancelTasks(() => {
-                this.InvokeEx(c => c.dlgOpen.ShowDialog());
-            });
+            await TaskManager.Get.CancelTasks();
+            dlgOpen.ShowDialog(this);
         }
 
         private void dlgOpen_FileOk(object sender, CancelEventArgs e)
         {
-            OpenFileDialog dialog = (OpenFileDialog) sender;
+            OpenFileDialog dialog = (OpenFileDialog)sender;
             this.loadedImageFilePath = dialog.FileName;
             this.reOpenToolStripMenuItem.Enabled = true;
-            using (Bitmap img = (Bitmap) Bitmap.FromFile(this.loadedImageFilePath))
-            {
-                this.LoadedImage.DisposeSafely();
-                this.LoadedImage = img.To32bppBitmap(); // creates a clone of the img, but in the 32bpp format.
-            }
-
-            MainForm.PanZoomSettings = null;
-            this.imagePanelMain.SetImage(this.LoadedImage);
-            this.PreRenderedImage.DisposeSafely();
-            this.PreRenderedImage = null;
-            this.History.Clear();
-            ShowImagePanel();
+            this.LoadFileFromPath(this.loadedImageFilePath);
         }
-        #endregion
 
-        #region Save Export regular
-
-        private void saveMenuClick(object sender, EventArgs e)
+        private PixelStackerProjectFormatter pxlzipFormatter = new PixelStackerProjectFormatter();
+        private async void LoadFileFromPath(string _path)
         {
-            if (this.LoadedBlueprint != null)
+            string ext = _path.Split('.', StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            if (ext == "pxlzip")
             {
-                dlgSave.ShowDialog();
+                var self = this;
+                // pixelstacker project handling
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
+                    var proj = await pxlzipFormatter.ImportAsync(_path, worker);
+
+                    worker.ThrowIfCancellationRequested();
+
+                    // Prepare for generation. This step might be skippable.
+                    this.ColorMapper.SetSeedData(proj.MaterialPalette.ToValidCombinationList(Options), proj.MaterialPalette, Options.Preprocessor.IsSideView);
+
+                    worker.ThrowIfCancellationRequested();
+
+                    await self.InvokeEx(async c =>
+                    {
+                        // Load the file into regular viewer
+                        c.PreprocessedImage = proj.PreprocessedImage;
+                        c.LoadedImage = proj.PreprocessedImage;
+                        c.imageViewer.SetImage(c.PreprocessedImage, null);
+
+
+
+
+
+
+
+
+                        ////----------
+
+                        //// Super dubious and sketchy logic here. Might crash due to cross-context thread access issues
+                        //self.RenderedCanvas = await engine.RenderCanvasAsync(worker, ref imgPreprocessed, this.ColorMapper, this.Palette);
+                        //worker.ThrowIfCancellationRequested();
+                        //await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, this.imageViewer.PanZoomSettings);
+
+                        //ProgressX.Report(0, "Showing block plan in the viewing window.");
+                        //self.InvokeEx(cc =>
+                        //{
+                        //    cc.ShowCanvasEditor();
+                        //    cc.TS_OnRenderCanvas();
+                        //});
+                        ////-----------
+
+
+
+                        var pz = c.imageViewer.PanZoomSettings;
+                        await c.canvasEditor.SetCanvas(worker, proj, pz, new SpecialCanvasRenderSettings()
+                        {
+                            ZLayerFilter = c.Options.ViewerSettings.ZLayerFilter,
+                        });
+                        c.ShowCanvasEditor();
+                    });
+                }));
             }
             else
             {
-                this.exportSchematicToolStripMenuItem.Enabled = false;
+                using (SKBitmap img = SKBitmap.Decode(_path))
+                {
+                    this.LoadedImage.DisposeSafely();
+                    this.LoadedImage = img.Copy();
+                }
+
+                // creates a clone of the img, but in the 32bpp format.
+                this.imageViewer.SetImage(this.LoadedImage, null);
+                ShowImageViewer();
             }
-        }
 
-        private void dlgSave_FileOk(object sender, CancelEventArgs e)
-        {
-            if (this.LoadedBlueprint != null)
-            {
-                SaveFileDialog dlg = (SaveFileDialog) sender;
-                string fName = dlg.FileName;
-                int chosenFilterIndex = dlg.FilterIndex;
-
-                if (fName.ToLower().EndsWith(".schem"))
-                {
-                    Schem2Formatter.writeBlueprint(fName, this.LoadedBlueprint);
-                }
-                else if (fName.ToLower().EndsWith(".schematic"))
-                {
-                    if (Materials.List.Any(x => x.IsEnabled && string.IsNullOrWhiteSpace(x.SchematicaMaterialName)))
-                    {
-                        DialogResult result = MessageBox.Show(this,
-                            "Cannot create a 1.12 schematic when 1.13+ blocks are selected. Do you want to automatically " +
-                            "disable invalid materials and restart from the beginning of the rendering process. This " +
-                            "will remove any material choice overrides or post rendering changes.\n\nYou will need to " +
-                            "re-render the image.",
-                            ".schematic does not support 1.13+ blocks!"
-                            , MessageBoxButtons.YesNo, MessageBoxIcon.Warning
-                            );
-
-                        if (result == DialogResult.Yes)
-                        {
-                            Materials.List.Where(x => x.IsEnabled && string.IsNullOrWhiteSpace(x.SchematicaMaterialName))
-                                .ToList().ForEach(x => x.IsEnabled = false);
-                            Options.Save();
-                            this.InvokeEx(c => c.MaterialOptions.Refresh());
-
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                            TaskManager.Get.StartAsync((token) =>
-                            {
-                                ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
-                                .ConfigureAwait(true).GetAwaiter().GetResult();
-                            });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        SchematicFormatter.writeBlueprint(fName, this.LoadedBlueprint);
-                    }
-                }
-                else if (fName.ToLower().EndsWith(".png"))
-                {
-                    if (this.renderedImagePanel != null)
-                    {
-                        this.renderedImagePanel.SaveToPNG(fName);
-                    }
-                }
-                else if (fName.ToLower().EndsWith(".pxlzip"))
-                {
-                    PixelStackerProjectFormatter.SaveProject(fName);
-                }
-                else if (fName.ToLower().EndsWith(".csv"))
-                {
-                    Dictionary<Material, int> materialCounts = new Dictionary<Material, int>();
-                    bool isv = Options.Get.IsSideView;
-                    int xM = this.LoadedBlueprint.Mapper.GetXLength(isv);
-                    int yM = this.LoadedBlueprint.Mapper.GetYLength(isv);
-                    int zM = this.LoadedBlueprint.Mapper.GetZLength(isv);
-                    for (int x = 0; x < xM; x++)
-                    {
-                        for (int y = 0; y < yM; y++)
-                        {
-                            for (int z = 0; z < zM; z++)
-                            {
-                                Material m = this.LoadedBlueprint.Mapper.GetMaterialAt(isv, x, y, z);
-                                if (m != Materials.Air)
-                                {
-                                    if (!materialCounts.ContainsKey(m))
-                                    {
-                                        materialCounts.Add(m, 0);
-                                    }
-
-                                    materialCounts[m] = materialCounts[m] + 1;
-                                }
-                            }
-                        }
-                    }
-
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("\"Material\",\"Block Count\",\"Full Stacks needed\"");
-                    sb.AppendLine("\"Total\"," + materialCounts.Values.Sum());
-
-                    foreach (var kvp in materialCounts.OrderByDescending(x => x.Value))
-                    {
-                        sb.AppendLine($"\"{kvp.Key.GetBlockNameAndData(isv).Replace("\"", "\"\"")}\",{kvp.Value},{kvp.Value / 64} stacks and {kvp.Value % 64} remaining blocks");
-                    }
-
-                    File.WriteAllText(fName, sb.ToString());
-                }
-            }
-            else
-            {
-                this.exportSchematicToolStripMenuItem.Enabled = false;
-            }
-        }
-
-        #endregion
-
-        private void exportSettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            dlgSaveSettings.ShowDialog();
-        }
-
-        private void importSettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            dlgLoadSettings.ShowDialog();
-        }
-        private void dlgSaveSettings_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            SaveFileDialog dlg = (SaveFileDialog) sender;
-            Options.Export(dlg.FileName);
-        }
-
-        private void dlgLoadSettings_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            OpenFileDialog dlg = (OpenFileDialog)sender;
-            Options.Import(dlg.FileName);
+            //this.PreRenderedImage.DisposeSafely();
+            //this.PreRenderedImage = null;
+            //this.History.Clear();
         }
     }
 }
