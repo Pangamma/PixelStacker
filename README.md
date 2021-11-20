@@ -4,6 +4,8 @@ A program built to make multi layer pixel art using blocks from Minecraft. It in
 
 [View the website here](https://taylorlove.info/pixelstacker/)
 
+[Try out the API](https://taylorlove.info/projects/pixelstacker/swagger/index.html)
+
 [Download latest releases](https://github.com/Pangamma/PixelStacker/releases)
 
 [Join me on Discord](https://discord.gg/UH7uMh2)
