@@ -56,8 +56,7 @@ namespace PixelStacker.IO
                 else if (result == DialogResult.Yes)
                 {
                     settings.SkipNotifyIfVersionIs = latestVersion;
-                    ProcessStartInfo sInfo = new ProcessStartInfo("https://www.spigotmc.org/resources/pixelstacker.46812/updates");
-                    Process.Start(sInfo);
+                    Process.Start("explorer", "https://www.spigotmc.org/resources/pixelstacker.46812/updates");
                 }
 
                 o.Save();
