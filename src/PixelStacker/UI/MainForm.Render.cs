@@ -42,8 +42,8 @@ namespace PixelStacker.UI
             this.canvasEditor.SendToBack();
             this.IsCanvasEditorVisible = false;
             this.TS_SetMenuItemStatesByTagObjects();
-            progressBar1.Visible = true;
-            lblProgress.Visible = true;
+            //progressBar1.Visible = true;
+            //lblProgress.Visible = true;
         }
 
 
@@ -54,8 +54,8 @@ namespace PixelStacker.UI
             this.canvasEditor.SendToBack();
             this.IsCanvasEditorVisible = false;
             this.TS_SetMenuItemStatesByTagObjects();
-            progressBar1.Visible = true;
-            lblProgress.Visible = true;
+            //progressBar1.Visible = true;
+            //lblProgress.Visible = true;
         }
 
         private void ShowCanvasEditor()
@@ -67,8 +67,8 @@ namespace PixelStacker.UI
             //this.canvasEditor.SetCanvas(canvas, pz);
             this.imageViewer.SendToBack();
             this.IsCanvasEditorVisible = true;
-            progressBar1.Visible = false;
-            lblProgress.Visible = false;
+            //progressBar1.Visible = false;
+            //lblProgress.Visible = false;
             this.TS_SetMenuItemStatesByTagObjects();
         }
 
@@ -100,7 +100,9 @@ namespace PixelStacker.UI
 
                 //var pz = self.imageViewer.PanZoomSettings;
                 //var pz2 = pz.TranslateForNewSize(canvasThatIsRendered.Width, canvasThatIsRendered.Height, self.canvasEditor.Width, self.canvasEditor.Height);
-                await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, null);
+                await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, null, new Logic.IO.Config.SpecialCanvasRenderSettings() {
+                    ZLayerFilter = self.Options.ViewerSettings.ZLayerFilter
+                });
 
                 ProgressX.Report(0, "Showing block plan in the viewing window.");
                 self.InvokeEx(cc =>

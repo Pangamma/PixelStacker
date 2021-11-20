@@ -34,7 +34,7 @@ namespace PixelStacker.Logic.Model
 
         public bool IsEnabled(Options opts)
         {
-           return Top.IsEnabledF(opts) && Bottom.IsEnabledF(opts);
+            return Top.IsEnabledF(opts) && Bottom.IsEnabledF(opts);
         }
 
         public bool IsMultiLayer { get; }
@@ -80,7 +80,15 @@ namespace PixelStacker.Logic.Model
         }
 
         public SKBitmap GetImage(bool isSide) => isSide ? this.SideImage : this.TopImage;
-        
+
+
+        public SKBitmap GetImage(bool isSide, SpecialCanvasRenderSettings srs) {
+            if (srs.ZLayerFilter == null) return isSide ? this.SideImage : this.TopImage;
+            else if (srs.ZLayerFilter == 1) return isSide ? this.Top.SideImage : this.Top.TopImage;
+            else if (srs.ZLayerFilter == 0) return isSide ? this.Bottom.SideImage : this.Bottom.TopImage;
+            else return isSide ? this.SideImage : this.TopImage;
+        }
+
         private SKBitmap _TopImage;
         public SKBitmap TopImage
         {

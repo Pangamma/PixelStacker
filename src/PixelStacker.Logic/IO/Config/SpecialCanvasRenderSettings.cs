@@ -1,6 +1,6 @@
 ﻿namespace PixelStacker.Logic.IO.Config
 {
-    class RenderedCanvasViewingSettings
+    public class SpecialCanvasRenderSettings
     {
         /// <summary>
         /// Purely for aesthetic rendering. Assuming no block/material filter is set, any blocks with
@@ -14,5 +14,6 @@
         //}
         //private bool _IsExtraShadowDepthEnabled = false;
 
+        public int? ZLayerFilter { get; set; } = null;
     }
 }

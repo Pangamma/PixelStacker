@@ -21,8 +21,8 @@ namespace PixelStacker.UI
         public readonly Options Options;
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
-        public SKBitmap LoadedImage { get; private set; } = DevResources.psg;
-        public SKBitmap PreprocessedImage { get; private set; } = DevResources.psg.Copy(); // UIResources.weird_intro.BitmapToSKBitmap();
+        public SKBitmap LoadedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap();
+        public SKBitmap PreprocessedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap(); // UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
         private SnapManager snapManager { get; }
 
@@ -38,7 +38,7 @@ namespace PixelStacker.UI
             this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);
             ShowImageViewer();
-            dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Block Counts CSV|*.csv|PixelStacker Project|*.pxlzip";
+            //dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Block Counts CSV|*.csv|PixelStacker Project|*.pxlzip";
 
 
         }

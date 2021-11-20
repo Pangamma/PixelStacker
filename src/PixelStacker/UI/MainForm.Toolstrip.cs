@@ -3,6 +3,8 @@ using PixelStacker.Logic.IO.Config;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using PixelStacker.Extensions;
+using System.Threading.Tasks;
+using PixelStacker.Logic.Utilities;
 
 namespace PixelStacker.UI
 {
@@ -17,25 +19,6 @@ namespace PixelStacker.UI
 
     public partial class MainForm
     {
-        private void undoToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            if (this.IsCanvasEditorVisible == false) return;
-            if (this.canvasEditor.Painter.History.IsUndoEnabled)
-            {
-                var toRender = this.canvasEditor.Painter.History.UndoChange();
-                this.canvasEditor.Painter.DoProcessRenderRecords(toRender);
-            }
-        }
-
-        private void redoToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            if (this.IsCanvasEditorVisible == false) return;
-            if (this.canvasEditor.Painter.History.IsRedoEnabled)
-            {
-                var toRender = this.canvasEditor.Painter.History.RedoChange();
-                this.canvasEditor.Painter.DoProcessRenderRecords(toRender);
-            }
-        }
 
         private void TS_SetAllMenubarStatesBasedOnOptions(Options opts)
         {
@@ -43,6 +26,9 @@ namespace PixelStacker.UI
             this.toggleBorderToolStripMenuItem.Checked = opts.ViewerSettings.IsShowBorder;
             this.horizontalToolStripMenuItem.Checked = !opts.IsSideView;
             this.verticalToolStripMenuItem.Checked = opts.IsSideView;
+            this.showBottomLayerToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == 0;
+            this.showTopLayerToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == 1;
+            this.showBothLayersToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == null;
         }
 
         public void TS_SetTagObjects()
@@ -57,7 +43,7 @@ namespace PixelStacker.UI
             this.viewToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
             this.swatchToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
             this.shadowRenderingToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
-            this.layerFilteringToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
+            this.layerFilteringToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
 
             {
                 MainFormTags mf = (MainFormTags)this.saveAsToolStripMenuItem.Tag;
@@ -66,6 +52,11 @@ namespace PixelStacker.UI
             {
                 MainFormTags mf = (MainFormTags)this.saveToolStripMenuItem.Tag;
                 mf.IsCanvasEditorRequired = true;
+                mf.IsFileLoadPathRequired = true;
+            }
+            {
+                MainFormTags mf = (MainFormTags)this.reOpenToolStripMenuItem.Tag;
+                mf.IsFileLoadPathRequired = true;
             }
 
             ((MainFormTags)this.viewToolStripMenuItem.Tag).IsCanvasEditorRequired = false;
@@ -92,19 +83,23 @@ namespace PixelStacker.UI
                     }
                 }
 
+                bool isEnabled = true;
+
                 if (tag.IsCanvasEditorRequired)
                 {
-                    ts.Enabled = isCanvas;
+                    isEnabled &= isCanvas;
                 }
                 else if (tag.IsCanvasViewerRequired)
                 {
-                    ts.Enabled = !isCanvas;
+                    isEnabled &= !isCanvas;
                 }
 
                 if (tag.IsFileLoadPathRequired)
                 {
-                    ts.Enabled = isLoadPathSet;
+                    isEnabled &= isLoadPathSet;
                 }
+
+                ts.Enabled = isEnabled;
             });
         }
 
@@ -120,6 +115,118 @@ namespace PixelStacker.UI
             string ext = this.loadedImageFilePath?.GetFileExtension() ?? "NOPE";
             saveToolStripMenuItem.Enabled = "pxlzip".Contains(ext);
             saveAsToolStripMenuItem.Enabled = true;
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (this.IsCanvasEditorVisible == false) return;
+            if (this.canvasEditor.Painter.History.IsUndoEnabled)
+            {
+                var toRender = this.canvasEditor.Painter.History.UndoChange();
+                this.canvasEditor.Painter.DoProcessRenderRecords(toRender);
+            }
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (this.IsCanvasEditorVisible == false) return;
+            if (this.canvasEditor.Painter.History.IsRedoEnabled)
+            {
+                var toRender = this.canvasEditor.Painter.History.RedoChange();
+                this.canvasEditor.Painter.DoProcessRenderRecords(toRender);
+            }
+        }
+
+        private void toggleGridToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.Options.ViewerSettings.IsShowGrid = !this.Options.ViewerSettings.IsShowGrid;
+            toggleGridToolStripMenuItem.Checked = this.Options.ViewerSettings.IsShowGrid;
+            this.canvasEditor.Refresh();
+        }
+        private void toggleBorderToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.Options.ViewerSettings.IsShowBorder = !this.Options.ViewerSettings.IsShowBorder;
+            toggleBorderToolStripMenuItem.Checked = this.Options.ViewerSettings.IsShowBorder;
+            this.canvasEditor.Refresh();
+        }
+
+        private void horizontalToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.Options.IsSideView = false;
+            this.horizontalToolStripMenuItem.Checked = !this.Options.IsSideView;
+            this.verticalToolStripMenuItem.Checked = this.Options.IsSideView;
+        }
+
+        private void verticalToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.Options.IsSideView = true;
+            this.horizontalToolStripMenuItem.Checked = !this.Options.IsSideView;
+            this.verticalToolStripMenuItem.Checked = this.Options.IsSideView;
+        }
+
+        private async void showBothLayersToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.Options.ViewerSettings.ZLayerFilter = null;
+            this.Options.Save();
+            this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
+            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
+            {
+                var self = this;
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
+                    await self.InvokeEx(async c => {
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings()
+                        {
+                            ZLayerFilter = c.Options.ViewerSettings.ZLayerFilter,
+                        });
+                        c.ShowCanvasEditor();
+                    });
+                }));
+            }
+        }
+
+        private async void showBottomLayerToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.Options.ViewerSettings.ZLayerFilter = 0;
+            this.Options.Save();
+            this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
+            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
+            {
+                var self = this;
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
+                    await self.InvokeEx(async c => {
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings()
+                        {
+                            ZLayerFilter = c.Options.ViewerSettings.ZLayerFilter,
+                        });
+                        c.ShowCanvasEditor();
+                    });
+
+                }));
+            }
+        }
+
+        private async void showTopLayerToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.Options.ViewerSettings.ZLayerFilter = 1;
+            this.Options.Save();
+            this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
+            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
+            {
+                var self = this;
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
+                    await self.InvokeEx(async c => {
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings()
+                        {
+                            ZLayerFilter = c.Options.ViewerSettings.ZLayerFilter,
+                        });
+                        c.ShowCanvasEditor();
+                    });
+
+                }));
+            }
         }
     }
 }

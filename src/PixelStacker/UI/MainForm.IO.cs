@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SkiaSharp;
+using PixelStacker.Logic.IO.Config;
 
 namespace PixelStacker.UI
 {
@@ -43,7 +44,8 @@ namespace PixelStacker.UI
                 switch (ext)
                 {
                     case "png":
-                        formatter = new PngFormatter();
+                        if (fName.EndsWith(".sm.png")) formatter = new PngPreviewFormatter();
+                        else formatter = new PngFormatter();
                         break;
                     case "pxlzip":
                         formatter = new PixelStackerProjectFormatter();
@@ -225,7 +227,10 @@ namespace PixelStacker.UI
 
 
                         var pz = c.imageViewer.PanZoomSettings;
-                        await c.canvasEditor.SetCanvas(worker, proj, pz);
+                        await c.canvasEditor.SetCanvas(worker, proj, pz, new SpecialCanvasRenderSettings()
+                        {
+                            ZLayerFilter = c.Options.ViewerSettings.ZLayerFilter,
+                        });
                         c.ShowCanvasEditor();
                     });
                 }));

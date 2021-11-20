@@ -15,7 +15,8 @@ namespace PixelStacker.UI.Controls
 
         private void bgWorkerBufferedChangeQueue_DoWork(object sender, DoWorkEventArgs e)
         {
-            e.Result = this.Painter.DoRenderFromHistoryBuffer();
+            if (this.Painter.HistoryBuffer.RenderCount > 0)
+                e.Result = this.Painter.DoRenderFromHistoryBuffer();
         }
 
         private void BgWorkerBufferedChangeQueue_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

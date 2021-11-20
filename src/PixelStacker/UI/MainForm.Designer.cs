@@ -32,7 +32,7 @@ namespace PixelStacker.UI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            PixelStacker.Logic.IO.Config.PanZoomSettings panZoomSettings1 = new PixelStacker.Logic.IO.Config.PanZoomSettings();
+            PixelStacker.Logic.IO.Config.PanZoomSettings panZoomSettings2 = new PixelStacker.Logic.IO.Config.PanZoomSettings();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -317,12 +317,14 @@ namespace PixelStacker.UI
             this.showTopLayerToolStripMenuItem.Name = "showTopLayerToolStripMenuItem";
             this.showTopLayerToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
             this.showTopLayerToolStripMenuItem.Text = "Show Top Layer";
+            this.showTopLayerToolStripMenuItem.Click += new System.EventHandler(this.showTopLayerToolStripMenuItem_Click);
             // 
             // showBottomLayerToolStripMenuItem
             // 
             this.showBottomLayerToolStripMenuItem.Name = "showBottomLayerToolStripMenuItem";
             this.showBottomLayerToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
             this.showBottomLayerToolStripMenuItem.Text = "Show Bottom Layer";
+            this.showBottomLayerToolStripMenuItem.Click += new System.EventHandler(this.showBottomLayerToolStripMenuItem_Click);
             // 
             // showBothLayersToolStripMenuItem
             // 
@@ -331,6 +333,7 @@ namespace PixelStacker.UI
             this.showBothLayersToolStripMenuItem.Name = "showBothLayersToolStripMenuItem";
             this.showBothLayersToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
             this.showBothLayersToolStripMenuItem.Text = "Show Both Layers";
+            this.showBothLayersToolStripMenuItem.Click += new System.EventHandler(this.showBothLayersToolStripMenuItem_Click);
             // 
             // shadowRenderingToolStripMenuItem
             // 
@@ -535,7 +538,7 @@ namespace PixelStacker.UI
             this.imageViewer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageViewer.BackgroundImage")));
             this.imageViewer.Location = new System.Drawing.Point(0, 28);
             this.imageViewer.Name = "imageViewer";
-            this.imageViewer.PanZoomSettings = panZoomSettings1;
+            this.imageViewer.PanZoomSettings = panZoomSettings2;
             this.imageViewer.Size = new System.Drawing.Size(800, 393);
             this.imageViewer.TabIndex = 5;
             // 
@@ -550,7 +553,7 @@ namespace PixelStacker.UI
             this.canvasEditor.Name = "canvasEditor";
             this.canvasEditor.Options = null;
             this.canvasEditor.PanZoomSettings = null;
-            this.canvasEditor.Size = new System.Drawing.Size(800, 421);
+            this.canvasEditor.Size = new System.Drawing.Size(800, 393);
             this.canvasEditor.TabIndex = 6;
             // 
             // dlgOpen
@@ -564,8 +567,8 @@ namespace PixelStacker.UI
             // dlgSave
             // 
             this.dlgSave.DefaultExt = "pxlzip";
-            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Schematic|*.schematic|Block Counts CSV|*.csv|Pixe" +
-    "lStacker Project|*.pxlzip";
+            this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Small PNG|*.sm.png|Schematic|*.schematic|Block Co" +
+    "unts CSV|*.csv|PixelStacker Project|*.pxlzip";
             this.dlgSave.FilterIndex = 5;
             this.dlgSave.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSave_FileOk);
             // 

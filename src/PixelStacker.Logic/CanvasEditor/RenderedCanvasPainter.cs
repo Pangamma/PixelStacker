@@ -1,6 +1,7 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.CanvasEditor.History;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using SkiaSharp;
 using System;
@@ -16,6 +17,7 @@ namespace PixelStacker.Logic.CanvasEditor
     public partial class RenderedCanvasPainter : IDisposable
     {
         public RenderedCanvas Data { get; }
+        public SpecialCanvasRenderSettings SpecialRenderSettings { get; private set; }
 
         public RenderedCanvasPainter(RenderedCanvas data)
         {
@@ -25,12 +27,13 @@ namespace PixelStacker.Logic.CanvasEditor
             History = new EditHistory(Data);
         }
 
-        public static async Task<RenderedCanvasPainter> Create(CancellationToken? worker, RenderedCanvas data, int maxLayers = 10)
+        public static async Task<RenderedCanvasPainter> Create(CancellationToken? worker, RenderedCanvas data, SpecialCanvasRenderSettings srs, int maxLayers = 10)
         {
             worker ??= CancellationToken.None;
             var canvas = new RenderedCanvasPainter(data);
+            canvas.SpecialRenderSettings = srs;
             worker.SafeThrowIfCancellationRequested();
-            var bms = await RenderIntoTilesAsync(worker, data, maxLayers);
+            var bms = await RenderIntoTilesAsync(worker, data, srs, maxLayers);
 
             var padlocks = new List<object[,]>();
             for (int i = 0; i < bms.Count; i++)

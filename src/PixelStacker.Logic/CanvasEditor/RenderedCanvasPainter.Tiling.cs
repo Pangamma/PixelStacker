@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.CanvasEditor
-{ 
+{
     public partial class RenderedCanvasPainter
     {
 
@@ -32,7 +32,7 @@ namespace PixelStacker.Logic.CanvasEditor
         /// Initialize the bitmaps by rendering a canvas into image tiles.
         /// </summary>
         /// <returns></returns>
-        private static async Task<List<SKBitmap[,]>> RenderIntoTilesAsync(CancellationToken? worker, RenderedCanvas data, int maxLayers)
+        private static async Task<List<SKBitmap[,]>> RenderIntoTilesAsync(CancellationToken? worker, RenderedCanvas data, SpecialCanvasRenderSettings srs, int maxLayers)
         {
             worker ??= CancellationToken.None;
 
@@ -79,7 +79,7 @@ namespace PixelStacker.Logic.CanvasEditor
 
                         L0Tasks[iTask++] = Task.Run(() =>
                         {
-                            var bmToAdd = CreateLayer0Image(data, srcRect, dstRect);
+                            var bmToAdd = CreateLayer0Image(data, srs, srcRect, dstRect);
                             bitmaps[0][cWf, cHf] = bmToAdd;
                             int nVal = Interlocked.Increment(ref chunksFinishedSoFar);
                             ProgressX.Report(100 * nVal / totalChunksToRender);
@@ -91,8 +91,123 @@ namespace PixelStacker.Logic.CanvasEditor
             }
             #endregion LAYER 0
 
-            #region OTHER LAYERS
+
+
+            // OTHER LAYERS 2.0
             {
+                //float pixelsPerHalfChunk = Constants.TextureSize * BlocksPerChunk / 2;
+                //for (int layerIndexToRender = 1; layerIndexToRender < sizes.Count; layerIndexToRender++)
+                //{
+                //    int scaleDivide = (int)Math.Pow(2, layerIndexToRender);
+                //    var curLayer = bitmaps[layerIndexToRender];
+                //    var upperLayer = chunksThatNeedReRendering[layerIndexToRender - 1];
+                //    for (int xIndexCurrentLayer = 0; xIndexCurrentLayer < curLayer.GetLength(0); xIndexCurrentLayer++)
+                //    {
+                //        for (int yIndexCurrentLayer = 0; yIndexCurrentLayer < curLayer.GetLength(1); yIndexCurrentLayer++)
+                //        {
+                //            // No need to re-render this chunk?
+                //            if (!curLayer[xIndexCurrentLayer, yIndexCurrentLayer]) continue;
+
+                //            SKBitmap bmToEdit = null;
+                //            lock (Padlocks[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer])
+                //            {
+                //                bmToEdit = Bitmaps[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer].Copy();
+                //            }
+
+                //            using SKCanvas g = new SKCanvas(bmToEdit);
+                //            //g.DrawRect(0, 0, bmToEdit.Width, bmToEdit.Height, new SKPaint() { Color = new SKColor(255, 0, 0, 255) });
+
+                //            int xUpper = xIndexCurrentLayer * 2;
+                //            int yUpper = yIndexCurrentLayer * 2;
+
+                //            // TL
+                //            if (upperLayer[xIndexCurrentLayer * 2, yIndexCurrentLayer * 2])
+                //            {
+                //                SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper, yUpper];
+                //                var rect = new SKRect()
+                //                {
+                //                    Location = new SKPoint(0, 0),
+                //                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                //                };
+
+                //                g.DrawBitmap(bmToCopy, rect, paint);
+                //            }
+
+                //            // TR
+                //            if (upperLayer.GetLength(0) > xUpper + 1
+                //                && upperLayer.GetLength(1) > yUpper
+                //                && upperLayer[xUpper + 1, yUpper])
+                //            {
+                //                SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper + 1, yUpper];
+                //                var rect = new SKRect()
+                //                {
+                //                    Location = new SKPoint(pixelsPerHalfChunk, 0),
+                //                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                //                };
+
+                //                g.DrawBitmap(bmToCopy, rect, paint);
+                //            }
+
+                //            // BL
+                //            if (upperLayer.GetLength(0) > xUpper
+                //                && upperLayer.GetLength(1) > yUpper + 1
+                //                && upperLayer[xUpper, yUpper + 1])
+                //            {
+                //                SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper, yUpper + 1];
+                //                var rect = new SKRect()
+                //                {
+                //                    Location = new SKPoint(0, pixelsPerHalfChunk),
+                //                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                //                };
+
+                //                g.DrawBitmap(bmToCopy, rect, paint);
+                //            }
+
+                //            // BR
+                //            if (upperLayer.GetLength(0) > xUpper + 1
+                //                && upperLayer.GetLength(1) > yUpper + 1
+                //                && upperLayer[xUpper + 1, yUpper + 1])
+                //            {
+                //                SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper + 1, yUpper + 1];
+                //                var rect = new SKRect()
+                //                {
+                //                    Location = new SKPoint(pixelsPerHalfChunk, pixelsPerHalfChunk),
+                //                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                //                };
+
+                //                g.DrawBitmap(bmToCopy, rect, paint);
+                //            }
+                //            //// Let's talk it out.
+                //            //// L0 is your base set of chunks. 
+                //            //// L1 has half as many chunks as L0.
+                //            //// given L1[x,y] which x,y coordinates would be from L0[x,y]?
+                //            //DrawTileOnLargerTile(layerIndexToRender, upperLayer, g, xUpper, yUpper, 0F, 0F, paint);
+                //            //DrawTileOnLargerTile(layerIndexToRender, upperLayer, g, xu, yu + 1, 0F, pixelsPerHalfChunk, paint);
+                //            //DrawTileOnLargerTile(layerIndexToRender, upperLayer, g, xu + 1, yu, pixelsPerHalfChunk, 0F, paint);
+                //            //DrawTileOnLargerTile(layerIndexToRender, upperLayer, g, xu + 1, yu + 1, pixelsPerHalfChunk, pixelsPerHalfChunk, paint);
+
+                //            lock (Padlocks[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer])
+                //            {
+                //                var tmp = Bitmaps[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer];
+                //                Bitmaps[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer] = bmToEdit;
+                //                tmp.DisposeSafely();
+                //            }
+                //        }
+                //    }
+                }
+                
+                #region OTHER LAYERS
+                {
+
+                var paint = new SKPaint()
+                {
+                    BlendMode = SKBlendMode.Src,
+                    FilterQuality = SKFilterQuality.High,
+                    IsAntialias = false
+                };
+
+                float pixelsPerHalfChunk = Constants.TextureSize * BlocksPerChunk / 2;
+                
                 for (int l = 1; l < sizes.Count; l++)
                 {
                     SKSize[,] sizeSet = sizes[l];
@@ -101,43 +216,115 @@ namespace PixelStacker.Logic.CanvasEditor
                     int numChunksHigh = sizeSet.GetLength(1);
                     int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
                     int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide;
-
-                    for (int x = 0; x < sizeSet.GetLength(0); x++)
+                    int ssWidth = sizeSet.GetLength(0);
+                    int ssHeight = sizeSet.GetLength(1);
+                    var upperLayer = bitmaps[l - 1];
+                    for (int x = 0; x < ssWidth; x++)
                     {
-                        for (int y = 0; y < sizeSet.GetLength(1); y++)
+                        for (int y = 0; y < ssHeight; y++)
                         {
                             SKSize dstSize = sizeSet[x, y];
 
                             var bm = new SKBitmap((int)dstSize.Width, (int)dstSize.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
                             using SKCanvas g = new SKCanvas(bm);
-                            //g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                            //g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                            //g.SmoothingMode = SmoothingMode.None;
-                            //g.CompositingMode = CompositingMode.SourceOver;
 
-                            // tiles within the chunk. We iterate over the main src image to get our content for our chunk data.
-                            for (int xWithinDownsizedChunk = 0; xWithinDownsizedChunk < scaleDivide; xWithinDownsizedChunk++)
+                            int xUpper = x * 2;
+                            int yUpper = y * 2;
+
+                            // TL
+                            //if (upperLayer[x * 2, y * 2])
                             {
-                                for (int yWithinDownsizedChunk = 0; yWithinDownsizedChunk < scaleDivide; yWithinDownsizedChunk++)
+                                SKBitmap bmToCopy = upperLayer[xUpper, yUpper];
+                                var rect = new SKRect()
                                 {
-                                    int xIndexOIfL0Chunk = xWithinDownsizedChunk + scaleDivide * x;
-                                    int yIndexOfL0Chunk = yWithinDownsizedChunk + scaleDivide * y;
-                                    if (xIndexOIfL0Chunk > bitmaps[0].GetLength(0) - 1 || yIndexOfL0Chunk > bitmaps[0].GetLength(1) - 1)
-                                        continue;
+                                    Location = new SKPoint(0, 0),
+                                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                                };
 
-                                    var bmToPaint = bitmaps[0][xIndexOIfL0Chunk, yIndexOfL0Chunk];
-                                    var rect = new SKRect()
-                                    {
-                                        Location = new SKPoint((float)(xWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide),
-                                            (float)(yWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide)),
-                                        Size = new SKSize(dstPixelsPerChunk / scaleDivide, dstPixelsPerChunk / scaleDivide)
-                                    };
-
-                                    g.DrawBitmap(
-                                        bmToPaint,
-                                        rect);
-                                }
+                                g.DrawBitmap(bmToCopy, rect, paint);
                             }
+
+                            // TR
+                            if (upperLayer.GetLength(0) > xUpper + 1
+                                && upperLayer.GetLength(1) > yUpper
+                            //    && upperLayer[xUpper + 1, yUpper]
+                                )
+                            {
+                                SKBitmap bmToCopy = bitmaps[l - 1][xUpper + 1, yUpper];
+                                var rect = new SKRect()
+                                {
+                                    Location = new SKPoint(pixelsPerHalfChunk, 0),
+                                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                                };
+
+                                g.DrawBitmap(bmToCopy, rect, paint);
+                            }
+
+                            // BL
+                            if (upperLayer.GetLength(0) > xUpper
+                                && upperLayer.GetLength(1) > yUpper + 1
+                            //    && upperLayer[xUpper, yUpper + 1]
+                                )
+                            {
+                                SKBitmap bmToCopy = bitmaps[l - 1][xUpper, yUpper + 1];
+                                var rect = new SKRect()
+                                {
+                                    Location = new SKPoint(0, pixelsPerHalfChunk),
+                                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                                };
+
+                                g.DrawBitmap(bmToCopy, rect, paint);
+                            }
+
+                            // BR
+                            if (upperLayer.GetLength(0) > xUpper + 1
+                                && upperLayer.GetLength(1) > yUpper + 1
+                                //&& upperLayer[xUpper + 1, yUpper + 1]
+                                )
+                            {
+                                SKBitmap bmToCopy = bitmaps[l - 1][xUpper + 1, yUpper + 1];
+                                var rect = new SKRect()
+                                {
+                                    Location = new SKPoint(pixelsPerHalfChunk, pixelsPerHalfChunk),
+                                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                                };
+
+                                g.DrawBitmap(bmToCopy, rect, paint);
+                            }
+
+
+                            ////g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                            ////g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                            ////g.SmoothingMode = SmoothingMode.None;
+                            ////g.CompositingMode = CompositingMode.SourceOver;
+
+                            //// tiles within the chunk. We iterate over the main src image to get our content for our chunk data.
+                            //for (int xWithinDownsizedChunk = 0; xWithinDownsizedChunk < scaleDivide; xWithinDownsizedChunk++)
+                            //{
+                            //    for (int yWithinDownsizedChunk = 0; yWithinDownsizedChunk < scaleDivide; yWithinDownsizedChunk++)
+                            //    {
+                            //        int xIndexOIfL0Chunk = xWithinDownsizedChunk + scaleDivide * x;
+                            //        int yIndexOfL0Chunk = yWithinDownsizedChunk + scaleDivide * y;
+                            //        if (xIndexOIfL0Chunk > bitmaps[0].GetLength(0) - 1 || yIndexOfL0Chunk > bitmaps[0].GetLength(1) - 1)
+                            //            continue;
+
+                            //        var bmToPaint = bitmaps[0][xIndexOIfL0Chunk, yIndexOfL0Chunk];
+                            //        var rect = new SKRect()
+                            //        {
+                            //            Location = new SKPoint((float)(xWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide),
+                            //                (float)(yWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide)),
+                            //            Size = new SKSize(dstPixelsPerChunk / scaleDivide, dstPixelsPerChunk / scaleDivide)
+                            //        };
+
+                            //        g.DrawBitmap(
+                            //            bmToPaint,
+                            //            rect);
+                            //    }
+                            //}
+
+
+
+
 
                             bitmaps[l][x, y] = bm;
                             ProgressX.Report(100 * ++chunksFinishedSoFar / totalChunksToRender);
@@ -201,11 +388,11 @@ namespace PixelStacker.Logic.CanvasEditor
                 sizesList.Add(curSizeSet);
                 scaleDivide *= 2;
                 maxLayers--;
-                
+
                 // Do not split if one dimension is unable to be split further.
                 a = curSizeSet.GetLength(0) > 2 && curSizeSet.GetLength(1) > 2;
 
-                long bb = (curSizeSet.GetLength(0)  * curSizeSet.GetLength(1)) * pixelsPerChunkTile;
+                long bb = (curSizeSet.GetLength(0) * curSizeSet.GetLength(1)) * pixelsPerChunkTile;
                 b = MAX_AREA_B4_SPLIT_ADJUSTED < bb;
 
                 // Do not go on forever
@@ -214,7 +401,8 @@ namespace PixelStacker.Logic.CanvasEditor
 
             return sizesList;
         }
-        private static SKBitmap CreateLayer0Image(RenderedCanvas data, SKRect srcTile, SKRect dstTile)
+
+        private static SKBitmap CreateLayer0Image(RenderedCanvas data, SpecialCanvasRenderSettings srs, SKRect srcTile, SKRect dstTile)
         {
             var bm = new SKBitmap((int)dstTile.Width, (int)dstTile.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
             int scaleDivide = (int)(dstTile.Width / srcTile.Width);
@@ -224,27 +412,25 @@ namespace PixelStacker.Logic.CanvasEditor
             var canvas = new SKCanvas(bm);
             var paint = new SKPaint()
             {
-                BlendMode = SKBlendMode.SrcOver,
+                BlendMode = SKBlendMode.Src,
                 FilterQuality = SKFilterQuality.High,
-                IsAntialias = false,
-                //Style = SKPaintStyle.Fill
+                IsAntialias = false
             };
 
-            //for (int y = 0; y < srcHeight; y++)
             Parallel.For(0, srcHeight, (y) =>
             {
-                //g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                //g.SmoothingMode = SmoothingMode.None;
-                //g.PixelOffsetMode = PixelOffsetMode.Half;
-
                 for (int x = 0; x < srcWidth; x++)
                 {
                     var loc = srcTile.Location;
                     var mc = data.CanvasData[(int)loc.X + x, (int)loc.Y + y];
-                    var toPaint = mc.GetImage(data.IsSideView);
+
+                    SKBitmap toPaint;
+                    if (srs.ZLayerFilter == 0) toPaint = mc.Bottom.GetImage(data.IsSideView);
+                    else if (srs.ZLayerFilter == 1) toPaint = mc.Top.GetImage(data.IsSideView);
+                    else toPaint = mc.GetImage(data.IsSideView);
+
                     canvas.DrawBitmap(toPaint, new SKPoint(x * Constants.TextureSize, y * Constants.TextureSize), paint);
                 }
-                //}
             });
 
             return bm;

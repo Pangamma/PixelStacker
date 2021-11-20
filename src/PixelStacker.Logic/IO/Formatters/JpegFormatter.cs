@@ -112,7 +112,7 @@ namespace PixelStacker.Logic.IO.Formatters
                 PreprocessedImage = canvas.PreprocessedImage,
                 WorldEditOrigin = canvas.WorldEditOrigin,
                 IsCustomized = false
-            }, 1);
+            }, new SpecialCanvasRenderSettings(), 1);
 
             int tileSize = CalcMaxTileSize(canvas.Width, canvas.Height);
             int vWidth = tileSize * canvas.Width;

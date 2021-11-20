@@ -88,7 +88,7 @@ namespace PixelStacker.Logic.CanvasEditor
                     MaterialCombination mc = Data.MaterialPalette[pxToModify.PaletteID];
                     int ix = Constants.TextureSize * (pxToModify.X - offsetX);
                     int iy = Constants.TextureSize * (pxToModify.Y - offsetY);
-                    skCanvas.DrawBitmap(mc.GetImage(isv), ix, iy, paint);
+                    skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), ix, iy, paint);
                 }
 
                 lock (this.Padlocks[0][chunkIndex.X, chunkIndex.Y])
@@ -201,70 +201,6 @@ namespace PixelStacker.Logic.CanvasEditor
                         }
                     }
                 }
-                // THIS is where the slow down happens.
-                // Why do we copy every tile in the entire set every time any change occurs? FIX IT.
-                #region OTHER LAYERS
-                //{
-                //    for (int l = 1; l < Bitmaps.Count; l++)
-                //    {
-                //        SKBitmap[,] bmSet = Bitmaps[l];
-                //        int scaleDivide = (int)Math.Pow(2, l);
-                //        int numChunksWide = bmSet.GetLength(0);
-                //        int numChunksHigh = bmSet.GetLength(1);
-                //        int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
-                //        int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide;
-
-                //        for (int x = 0; x < bmSet.GetLength(0); x++)
-                //        {
-                //            for (int y = 0; y < bmSet.GetLength(1); y++)
-                //            {
-                //                SKSize dstSize;
-                //                lock (Padlocks[l][x, y])
-                //                {
-                //                    dstSize = bmSet[x, y].Info.Size;
-                //                }
-
-                //                var bm = new SKBitmap((int)dstSize.Width, (int)dstSize.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
-                //                using SKCanvas g = new SKCanvas(bm);
-
-                //                // tiles within the chunk. We iterate over the main src image to get our content for our chunk data.
-                //                for (int xWithinDownsizedChunk = 0; xWithinDownsizedChunk < scaleDivide; xWithinDownsizedChunk++)
-                //                {
-                //                    for (int yWithinDownsizedChunk = 0; yWithinDownsizedChunk < scaleDivide; yWithinDownsizedChunk++)
-                //                    {
-                //                        int xIndexOIfL0Chunk = xWithinDownsizedChunk + scaleDivide * x;
-                //                        int yIndexOfL0Chunk = yWithinDownsizedChunk + scaleDivide * y;
-                //                        if (xIndexOIfL0Chunk > Bitmaps[0].GetLength(0) - 1 || yIndexOfL0Chunk > Bitmaps[0].GetLength(1) - 1)
-                //                            continue;
-
-                //                        lock (Padlocks[l][x, y])
-                //                        {
-                //                            var bmToPaint = Bitmaps[0][xIndexOIfL0Chunk, yIndexOfL0Chunk];
-                //                            var rect = new SKRect()
-                //                            {
-                //                                Location = new SKPoint((float)(xWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide),
-                //                                    (float)(yWithinDownsizedChunk * dstPixelsPerChunk / scaleDivide)),
-                //                                Size = new SKSize(dstPixelsPerChunk / scaleDivide, dstPixelsPerChunk / scaleDivide)
-                //                            };
-
-                //                            g.DrawBitmap(
-                //                            bmToPaint,
-                //                            rect);
-                //                        }
-                //                    }
-                //                }
-
-                //                lock (Padlocks[l][x, y])
-                //                {
-                //                    Bitmaps[l][x, y].DisposeSafely();
-                //                    Bitmaps[l][x, y] = bm;
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-                #endregion OTHER LAYERS
-
 
                 return Task.CompletedTask;
             }

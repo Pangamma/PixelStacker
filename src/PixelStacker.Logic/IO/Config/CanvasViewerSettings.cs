@@ -6,11 +6,6 @@ using System.Drawing;
 
 namespace PixelStacker.Logic.IO.Config
 {
-    public class RenderedCanvasViewerSettings : CanvasViewerSettings
-    {
-
-    }
-
     public class CanvasViewerSettings
     {
         /// <summary>
@@ -31,7 +26,12 @@ namespace PixelStacker.Logic.IO.Config
 
         [Obsolete(Constants.Obs_TryToRemove)]
         public bool IsColorPalette { get; set; } = false;
-        public int RenderedZIndexToShow { get; set; } = 0;
-        public bool IsRenderedZIndexFilteringEnabled { get; set; } = false;
+
+        /// <summary>
+        /// NULL = show both layers
+        /// 0 = show bottom layer
+        /// 1 = show top layer
+        /// </summary>
+        public int? ZLayerFilter { get; set; } = null;
     }
 }

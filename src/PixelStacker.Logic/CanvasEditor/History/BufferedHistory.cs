@@ -33,6 +33,9 @@ namespace PixelStacker.Logic.CanvasEditor.History
         public object padlock = new { };
         private Dictionary<PxPoint, BufferedHistoryNode> Coordinates = new Dictionary<PxPoint, BufferedHistoryNode>();
         private Dictionary<PxPoint, int> RenderBuffer = new Dictionary<PxPoint, int>();
+        public int RenderCount => RenderBuffer.Count;
+        public int CoordinatesCount => RenderBuffer.Count;
+
 
         public HistoryRecord ToHistoryRecord(bool purge = true)
         {

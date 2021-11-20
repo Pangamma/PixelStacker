@@ -37,7 +37,7 @@ namespace PixelStacker.UI.Controls
             this.ApplyLocalization(CultureInfo.CurrentUICulture);
         }
 
-        public async Task SetCanvas(CancellationToken? worker, RenderedCanvas canvas, PanZoomSettings pz)
+        public async Task SetCanvas(CancellationToken? worker, RenderedCanvas canvas, PanZoomSettings pz, SpecialCanvasRenderSettings vs)
         {
             this.BackgroundImage = UIResources.bg_imagepanel;
 
@@ -45,7 +45,7 @@ namespace PixelStacker.UI.Controls
             // possible to use faster math?
 
             ProgressX.Report(0, "Rendering block plan to viewing window.");
-            var painter = await RenderedCanvasPainter.Create(worker, canvas);
+            var painter = await RenderedCanvasPainter.Create(worker, canvas, vs);
             this.Painter = painter;
 
             this.RepaintRequested = true;
