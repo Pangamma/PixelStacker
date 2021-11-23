@@ -1,13 +1,13 @@
-﻿namespace PixelStacker.UI.Forms
+﻿namespace PixelStacker.UI.Controls.MaterialPicker
 {
-    partial class MaterialPickerForm
+    partial class PickerPanel
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,32 +20,26 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.SuspendLayout();
             // 
-            // MaterialPickerForm
+            // PickerPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 450);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "MaterialPickerForm";
-            this.ShowInTaskbar = false;
-            this.Text = "MaterialPickerForm";
+            this.Name = "PickerPanel";
+            this.Size = new System.Drawing.Size(325, 404);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Controls.MaterialPicker.PickerPanel materialPicker1;
     }
 }

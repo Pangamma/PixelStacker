@@ -83,12 +83,30 @@ namespace PixelStacker.Logic.CanvasEditor
                 int offsetY = chunkIndex.Y * BlocksPerChunk;
                 // Modify the copied chunk
                 using SKCanvas skCanvas = new SKCanvas(bmCopied);
+                bool isSolid = this.SpecialRenderSettings.IsSolidColors;
+                var paintSolid = new SKPaint()
+                {
+                    BlendMode = SKBlendMode.Src,
+                    FilterQuality = SKFilterQuality.High,
+                    IsAntialias = false,
+                    IsStroke = false, // FILL
+                };
+
                 foreach (var pxToModify in changeGroup)
                 {
                     MaterialCombination mc = Data.MaterialPalette[pxToModify.PaletteID];
                     int ix = Constants.TextureSize * (pxToModify.X - offsetX);
                     int iy = Constants.TextureSize * (pxToModify.Y - offsetY);
-                    skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), ix, iy, paint);
+
+                    if (isSolid)
+                    {
+                        paintSolid.Color = mc.GetAverageColor(isv, this.SpecialRenderSettings);
+                        skCanvas.DrawRect(new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(Constants.TextureSize, Constants.TextureSize) }, paintSolid);
+                    }
+                    else
+                    {
+                        skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), ix, iy, paint);
+                    }
                 }
 
                 lock (this.Padlocks[0][chunkIndex.X, chunkIndex.Y])

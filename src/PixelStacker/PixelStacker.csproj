@@ -27,6 +27,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="UI\Controls\MaterialPicker2cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="UI\Controls\MaterialPicker\MaterialPicker2cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="OpenTK.WinForms" Version="4.0.0-pre.6" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />

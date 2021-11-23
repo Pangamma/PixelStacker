@@ -1,5 +1,6 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Engine;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Utilities;
 using System;
 using System.Drawing;
@@ -11,10 +12,24 @@ namespace PixelStacker.UI
     public partial class MainForm
     {
         bool IsCanvasEditorVisible = false;
-        private void switchPanelsToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private async void switchPanelsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            if (IsCanvasEditorVisible) ShowImageViewer();
-            else ShowCanvasEditor();
+
+            this.Options.ViewerSettings.IsSolidColors = !this.Options.ViewerSettings.IsSolidColors;
+            this.Options.Save();
+            this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
+            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
+            {
+                var self = this;
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
+                    await self.InvokeEx(async c => {
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
+                        c.ShowCanvasEditor();
+                    });
+
+                }));
+            }
         }
 
         public void DoPreprocessLoadedImage()
@@ -100,9 +115,7 @@ namespace PixelStacker.UI
 
                 //var pz = self.imageViewer.PanZoomSettings;
                 //var pz2 = pz.TranslateForNewSize(canvasThatIsRendered.Width, canvasThatIsRendered.Height, self.canvasEditor.Width, self.canvasEditor.Height);
-                await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, null, new Logic.IO.Config.SpecialCanvasRenderSettings() {
-                    ZLayerFilter = self.Options.ViewerSettings.ZLayerFilter
-                });
+                await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, null, new Logic.IO.Config.SpecialCanvasRenderSettings(self.Options));
 
                 ProgressX.Report(0, "Showing block plan in the viewing window.");
                 self.InvokeEx(cc =>

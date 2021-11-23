@@ -14,6 +14,14 @@
         //}
         //private bool _IsExtraShadowDepthEnabled = false;
 
-        public int? ZLayerFilter { get; set; } = null;
+        public int? ZLayerFilter { get; private set; } = null;
+        public bool IsSolidColors { get; private set; } = false;
+
+        public SpecialCanvasRenderSettings() { }
+        public SpecialCanvasRenderSettings(Options opts)
+        {
+            this.ZLayerFilter = opts.ViewerSettings.ZLayerFilter;
+            this.IsSolidColors = opts.ViewerSettings.IsSolidColors;
+        }
     }
 }

@@ -41,6 +41,20 @@ namespace PixelStacker.Logic.Model
         public Material Top { get; }
         public Material Bottom { get; }
 
+        public SKColor GetAverageColor(bool isSide, SpecialCanvasRenderSettings specialRenderSettings)
+        {
+            int? Z = specialRenderSettings.ZLayerFilter;
+            if (Z == null)
+                return this.GetAverageColor(isSide);
+            else if (Z == 0)
+                return this.Bottom.GetAverageColor(isSide);
+           else if (Z == 1)
+                return this.Top.GetAverageColor(isSide);
+            else 
+                return this.GetAverageColor(isSide);
+        }
+
+
         private SKColor? _GetAverageColorSide;
         private SKColor? _GetAverageColorTop;
         public SKColor GetAverageColor(bool isSide)

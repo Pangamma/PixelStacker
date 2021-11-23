@@ -175,10 +175,7 @@ namespace PixelStacker.UI
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
                     await self.InvokeEx(async c => {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings()
-                        {
-                            ZLayerFilter = c.Options.ViewerSettings.ZLayerFilter,
-                        });
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
                     });
                 }));
@@ -196,10 +193,7 @@ namespace PixelStacker.UI
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
                     await self.InvokeEx(async c => {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings()
-                        {
-                            ZLayerFilter = c.Options.ViewerSettings.ZLayerFilter,
-                        });
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
                     });
 
@@ -218,10 +212,7 @@ namespace PixelStacker.UI
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
                     await self.InvokeEx(async c => {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings()
-                        {
-                            ZLayerFilter = c.Options.ViewerSettings.ZLayerFilter,
-                        });
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
                     });
 

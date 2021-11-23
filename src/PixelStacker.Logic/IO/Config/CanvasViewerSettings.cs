@@ -21,7 +21,6 @@ namespace PixelStacker.Logic.IO.Config
         public bool IsShowBorder { get; set; } = false;
         public bool IsShowGrid { get; set; } = false;
 
-        [Obsolete(Constants.Obs_TryToRemove)]
         public bool IsSolidColors { get; set; } = false;
 
         [Obsolete(Constants.Obs_TryToRemove)]

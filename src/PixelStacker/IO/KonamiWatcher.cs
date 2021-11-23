@@ -18,6 +18,7 @@ namespace PixelStacker.IO
         private static DateTime LastEntry = DateTime.MinValue;
         public static void ProcessKey(Keys keyData)
         {
+            // Duplicate input detection
             if (DateTime.UtcNow - LastEntry < TimeSpan.FromMilliseconds(20)) return;
             LastEntry = DateTime.UtcNow;
 

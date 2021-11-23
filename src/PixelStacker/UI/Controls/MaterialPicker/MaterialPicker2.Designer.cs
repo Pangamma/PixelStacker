@@ -1,6 +1,6 @@
 ﻿namespace PixelStacker.UI.Controls
 {
-    partial class MaterialPicker
+    partial class MaterialPicker2
     {
         /// <summary> 
         /// Required designer variable.
@@ -34,6 +34,10 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.cbxMultiLayer = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // imgSelectedCombo
@@ -69,7 +73,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(89, 56);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(213, 27);
+            this.textBox1.Size = new System.Drawing.Size(435, 27);
             this.textBox1.TabIndex = 3;
             // 
             // cbxMultiLayer
@@ -92,8 +96,39 @@
             this.checkBox1.Text = "Enable multiple layers";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(3, 149);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(344, 361);
+            this.tabControl1.TabIndex = 6;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(336, 328);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(336, 328);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // MaterialPicker
             // 
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.cbxMultiLayer);
             this.Controls.Add(this.textBox1);
@@ -101,7 +136,8 @@
             this.Controls.Add(this.lblTop);
             this.Controls.Add(this.imgSelectedCombo);
             this.Name = "MaterialPicker";
-            this.Size = new System.Drawing.Size(305, 438);
+            this.Size = new System.Drawing.Size(527, 513);
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -115,5 +151,8 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox cbxMultiLayer;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }

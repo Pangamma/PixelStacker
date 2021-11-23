@@ -227,10 +227,7 @@ namespace PixelStacker.UI
 
 
                         var pz = c.imageViewer.PanZoomSettings;
-                        await c.canvasEditor.SetCanvas(worker, proj, pz, new SpecialCanvasRenderSettings()
-                        {
-                            ZLayerFilter = c.Options.ViewerSettings.ZLayerFilter,
-                        });
+                        await c.canvasEditor.SetCanvas(worker, proj, pz, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
                     });
                 }));

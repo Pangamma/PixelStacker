@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixelStacker.UI.Controls.MaterialPicker;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,17 +13,17 @@ namespace PixelStacker.UI.Controls
     [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.ToolStrip | ToolStripItemDesignerAvailability.StatusStrip)]
     public class ToolStripMaterialPicker : ToolStripControlHost
     {
-        public MaterialPicker Picker => this.Control as MaterialPicker;
+        public PickerPanel Picker => this.Control as PickerPanel;
         public ToolStripMaterialPicker() : base(CreateControlInstance()) {
         }
 
-        public ToolStripMaterialPicker(MaterialPicker c) : base(c)
+        public ToolStripMaterialPicker(PickerPanel c) : base(c)
         {
         }
 
-        private static MaterialPicker CreateControlInstance()
+        private static PickerPanel CreateControlInstance()
         {
-            MaterialPicker mtb = new MaterialPicker();
+            PickerPanel mtb = new PickerPanel();
             mtb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             mtb.MinimumSize = new System.Drawing.Size(100, 200);
             return mtb;

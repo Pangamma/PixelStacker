@@ -8,12 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PixelStacker.UI.Controls
+namespace PixelStacker.UI.Controls.MaterialPicker
 {
-    [ToolboxItemFilter("PixelStacker.UI.Controls.MaterialPicker", ToolboxItemFilterType.Require)]
-    public partial class MaterialPicker : UserControl
+    public partial class PickerPanel : UserControl
     {
-        public MaterialPicker()
+        public PickerPanel()
         {
             InitializeComponent();
         }

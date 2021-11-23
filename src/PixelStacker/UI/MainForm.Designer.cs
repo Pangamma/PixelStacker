@@ -315,14 +315,16 @@ namespace PixelStacker.UI
             // showTopLayerToolStripMenuItem
             // 
             this.showTopLayerToolStripMenuItem.Name = "showTopLayerToolStripMenuItem";
-            this.showTopLayerToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
+            this.showTopLayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
+            this.showTopLayerToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             this.showTopLayerToolStripMenuItem.Text = "Show Top Layer";
             this.showTopLayerToolStripMenuItem.Click += new System.EventHandler(this.showTopLayerToolStripMenuItem_Click);
             // 
             // showBottomLayerToolStripMenuItem
             // 
             this.showBottomLayerToolStripMenuItem.Name = "showBottomLayerToolStripMenuItem";
-            this.showBottomLayerToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
+            this.showBottomLayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
+            this.showBottomLayerToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             this.showBottomLayerToolStripMenuItem.Text = "Show Bottom Layer";
             this.showBottomLayerToolStripMenuItem.Click += new System.EventHandler(this.showBottomLayerToolStripMenuItem_Click);
             // 
@@ -331,7 +333,8 @@ namespace PixelStacker.UI
             this.showBothLayersToolStripMenuItem.Checked = true;
             this.showBothLayersToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showBothLayersToolStripMenuItem.Name = "showBothLayersToolStripMenuItem";
-            this.showBothLayersToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
+            this.showBothLayersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.showBothLayersToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             this.showBothLayersToolStripMenuItem.Text = "Show Both Layers";
             this.showBothLayersToolStripMenuItem.Click += new System.EventHandler(this.showBothLayersToolStripMenuItem_Click);
             // 

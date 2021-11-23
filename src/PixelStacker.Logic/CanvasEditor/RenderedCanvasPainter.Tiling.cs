@@ -36,7 +36,7 @@ namespace PixelStacker.Logic.CanvasEditor
         {
             worker ??= CancellationToken.None;
 
-            var sizes = CalculateChunkSizes(data, maxLayers);
+            var sizes = CalculateChunkSizes(data,srs, maxLayers);
             worker.SafeThrowIfCancellationRequested();
             var bitmaps = new List<SKBitmap[,]>();
 
@@ -367,7 +367,7 @@ namespace PixelStacker.Logic.CanvasEditor
             return sizeSet;
         }
 
-        private static List<SKSize[,]> CalculateChunkSizes(RenderedCanvas data, int maxLayers)
+        private static List<SKSize[,]> CalculateChunkSizes(RenderedCanvas data, SpecialCanvasRenderSettings srs, int maxLayers)
         {
             int scaleDivide = 1;
             List<SKSize[,]> sizesList = new List<SKSize[,]>();
@@ -417,21 +417,52 @@ namespace PixelStacker.Logic.CanvasEditor
                 IsAntialias = false
             };
 
-            Parallel.For(0, srcHeight, (y) =>
+
+            if (srs.IsSolidColors)
             {
-                for (int x = 0; x < srcWidth; x++)
+                Parallel.For(0, srcHeight, (y) =>
                 {
-                    var loc = srcTile.Location;
-                    var mc = data.CanvasData[(int)loc.X + x, (int)loc.Y + y];
+                    var paintSolid = new SKPaint()
+                    {
+                        BlendMode = SKBlendMode.Src,
+                        FilterQuality = SKFilterQuality.High,
+                        IsAntialias = false,
+                        IsStroke = false, // FILL
+                    };
 
-                    SKBitmap toPaint;
-                    if (srs.ZLayerFilter == 0) toPaint = mc.Bottom.GetImage(data.IsSideView);
-                    else if (srs.ZLayerFilter == 1) toPaint = mc.Top.GetImage(data.IsSideView);
-                    else toPaint = mc.GetImage(data.IsSideView);
+                    for (int x = 0; x < srcWidth; x++)
+                    {
+                        var loc = srcTile.Location;
+                        var mc = data.CanvasData[(int)loc.X + x, (int)loc.Y + y];
 
-                    canvas.DrawBitmap(toPaint, new SKPoint(x * Constants.TextureSize, y * Constants.TextureSize), paint);
-                }
-            });
+                        SKColor toPaint = mc.GetAverageColor(data.IsSideView, srs);
+
+                        paintSolid.Color = toPaint;
+                        canvas.DrawRect(new SKRect() { 
+                            Location = new SKPoint(x * Constants.TextureSize, y * Constants.TextureSize),
+                            Size = new SKSize(Constants.TextureSize, Constants.TextureSize) 
+                       }, paintSolid); 
+                    }
+                });
+            }
+            else
+            {
+                Parallel.For(0, srcHeight, (y) =>
+                {
+                    for (int x = 0; x < srcWidth; x++)
+                    {
+                        var loc = srcTile.Location;
+                        var mc = data.CanvasData[(int)loc.X + x, (int)loc.Y + y];
+
+                        SKBitmap toPaint;
+                        if (srs.ZLayerFilter == 0) toPaint = mc.Bottom.GetImage(data.IsSideView);
+                        else if (srs.ZLayerFilter == 1) toPaint = mc.Top.GetImage(data.IsSideView);
+                        else toPaint = mc.GetImage(data.IsSideView);
+
+                        canvas.DrawBitmap(toPaint, new SKPoint(x * Constants.TextureSize, y * Constants.TextureSize), paint);
+                    }
+                });
+            }
 
             return bm;
         }
