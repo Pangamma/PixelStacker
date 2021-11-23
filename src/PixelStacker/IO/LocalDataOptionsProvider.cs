@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Logic.IO.Config;
+using System;
+using System.Configuration;
+using System.Diagnostics;
 
 namespace PixelStacker.IO
 {
@@ -12,11 +15,21 @@ namespace PixelStacker.IO
 
         public Options Load()
         {
-            Properties.Settings.Default.Upgrade();
-            string json = Properties.Settings.Default.JSON;
-            var rt = JsonConvert.DeserializeObject<Options>(json, SerializerSettings) ?? new Options(this);
-            rt.StorageProvider = this;
-            return rt;
+            try
+            {
+                Properties.Settings.Default.Upgrade();
+                string json = Properties.Settings.Default.JSON;
+                var rt = JsonConvert.DeserializeObject<Options>(json, SerializerSettings) ?? new Options(this);
+                rt.StorageProvider = this;
+                return rt;
+            } 
+            catch(ConfigurationErrorsException ex)
+            {
+                Debug.WriteLine("Failed to load config file. Resetting config and starting fresh instead.");
+                Debug.WriteLine(ex);
+            }
+
+            return new Options(this);
         }
 
         public void Save(Options t)
