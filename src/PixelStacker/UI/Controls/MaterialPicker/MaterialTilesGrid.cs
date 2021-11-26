@@ -10,15 +10,6 @@ using System.Windows.Forms;
 
 namespace PixelStacker.UI.Controls.MaterialPicker
 {
-    public class MaterialTile
-    {
-        public string ID { get; set; }
-        public Bitmap Image { get; set; }
-        public string Label { get; set; }
-        public object Data { get; set; }
-    }
-
-
     public partial class MaterialTilesGrid : UserControl
     {
         public MaterialTilesGrid()
@@ -26,16 +17,18 @@ namespace PixelStacker.UI.Controls.MaterialPicker
             InitializeComponent();
         }
 
-        //private List<MaterialTile> _Tiles = new List<MaterialTile>();
-        //public List<MaterialTile> Tiles {
-        //    get => _Tiles;
-        //    set {
-        //        this.flowLayoutPanel1.Controls.Clear();
-        //        this.flowLayoutPanel1.Controls.AddRange();
-        //    }
-        //}
+        private List<MaterialPickerTile> _Tiles = new List<MaterialPickerTile>();
+        public List<MaterialPickerTile> Tiles
+        {
+            get => _Tiles;
+            set
+            {
+                this.flowLayoutPanel1.Controls.Clear();
+                this.flowLayoutPanel1.Controls.AddRange(value.OfType<Control>().ToArray());
+            }
+        }
 
-        public event EventHandler<GenericSKPaintSurfaceEventArgs> PaintSurface;
+
         public event EventHandler<PixelStacker.UI.Events.CommandKeyEvent> OnCommandKey;
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

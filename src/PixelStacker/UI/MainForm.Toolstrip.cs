@@ -41,7 +41,11 @@ namespace PixelStacker.UI
             this.fileToolStripMenuItem.Tag = new MainFormTags() { };
             this.editToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
             this.viewToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
-            this.swatchToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
+            this.swatchToolStripMenuItem.ModifyRecursive((x, tag) =>
+            {
+                tag.IsCanvasEditorRequired = true;
+            });
+
             this.shadowRenderingToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
             this.layerFilteringToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
 
