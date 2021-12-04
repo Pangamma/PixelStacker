@@ -5,6 +5,7 @@ using PixelStacker.UI;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -91,7 +92,9 @@ namespace PixelStacker.IO
                             { "physical-memory-mb", Environment.WorkingSet / 1024 / 1024 },
                             { "page-memory-mb", Environment.SystemPageSize / 1024 / 1024 },
                             { "version", Constants.Version },
-                        }, Formatting.Indented);
+                            { "current-ui-lang", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName },
+                            { "current-thread-lang", System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }
+                            }, Formatting.Indented);
 
                             ZipArchiveEntry entry = archive.CreateEntry("system-info.json");
                             using (StreamWriter writer = new StreamWriter(entry.Open()))

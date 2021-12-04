@@ -44,7 +44,6 @@ namespace PixelStacker.UI
         private void MainForm_Load(object sender, System.EventArgs e)
         {
             // Localization
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(this.Options.Locale ?? "en-us");
             InitializeLocalization();
             ApplyLocalization(System.Threading.Thread.CurrentThread.CurrentUICulture);
 

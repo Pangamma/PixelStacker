@@ -46,6 +46,7 @@ namespace PixelStacker.Resources
         private static Dictionary<string, string> ReadResxJson(string twoDigitLangCode)
         {
             byte[] data = ResxContainer.ResourceManager.GetObject(twoDigitLangCode.ToLower()) as byte[];
+            if (data == null) return new Dictionary<string, string>();
             var json = Encoding.UTF8.GetString(data);
             var dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             return dic ?? new Dictionary<string, string>();
@@ -68,7 +69,8 @@ namespace PixelStacker.Resources
 
             if (!Content.ContainsKey(lang))
             {
-                Content[lang] = ReadResxJson(lang);
+                var data = ReadResxJson(lang);
+                Content[lang] = data;
             }
 
             if (Content[lang].TryGetValue(name, out string value))

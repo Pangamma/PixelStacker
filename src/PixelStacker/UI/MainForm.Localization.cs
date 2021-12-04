@@ -152,6 +152,14 @@ namespace PixelStacker.UI
 
         private void InitializeLocalization()
         {
+            string locale = this.Options.Locale ?? CultureInfo.CurrentUICulture.Name;
+            locale = ResxHelper.GetSupportedLocale(locale);
+            CultureInfo ci = CultureInfo.GetCultureInfo(locale);
+            Thread.CurrentThread.CurrentUICulture = ci;
+            Thread.CurrentThread.CurrentCulture = ci;
+            CultureInfo.CurrentUICulture = ci;
+            CultureInfo.CurrentCulture = ci;
+
 #if !RELEASE
             var testLocaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             testLocaleToolStripMenuItem.Text = "TEST";
