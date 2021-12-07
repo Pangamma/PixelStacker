@@ -45,107 +45,6 @@ namespace PixelStacker.Logic.IO.Formatters
 
     public class Schem2Formatter : IExportFormatter
     {
-        //public static void writeBlueprint(string filePath, BlueprintPA blueprint)
-        //{
-        //    bool isv = Options.Get.IsSideView;
-        //    bool isMultiLayer = Options.Get.IsMultiLayer;
-        //    Material[][][] region;
-        //    var details = new Schem2Details();
-
-        //    int xD, yD, zD;
-
-        //    if (isv)
-        //    {
-        //        xD = canvasData.GetLength(0);
-        //        yD = canvasData.GetLength(1);
-        //        zD = isMultiLayer ? 3 : 1;
-
-        //        if (blueprint.WorldEditOrigin != null)
-        //        {
-        //            details.MetaData.WEOffsetX = -blueprint.WorldEditOrigin.X;
-        //            details.MetaData.WEOffsetY = blueprint.WorldEditOrigin.Y - yD;
-        //            details.MetaData.WEOffsetZ = -zD;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        xD = canvasData.GetLength(0);
-        //        yD = isMultiLayer ? 2 : 1;
-        //        zD = canvasData.GetLength(1);
-
-        //        if (blueprint.WorldEditOrigin != null)
-        //        {
-        //            details.MetaData.WEOffsetX = -blueprint.WorldEditOrigin.X;
-        //            details.MetaData.WEOffsetY = 0;
-        //            details.MetaData.WEOffsetZ = -blueprint.WorldEditOrigin.Y;
-        //        }
-        //    }
-
-        //    region = new Material[xD][][];
-        //    for (int xi = 0; xi < xD; xi++)
-        //    {
-        //        region[xi] = new Material[yD][];
-        //        for (int yi = 0; yi < yD; yi++)
-        //        {
-        //            region[xi][yi] = new Material[zD];
-        //        }
-        //    }
-
-        //    details.RegionXYZ = region;
-        //    details.WidthX = xD;
-        //    details.HeightY = yD;
-        //    details.LengthZ = zD;
-
-        //    // TODO: Populate based on ISV
-        //    if (isv)
-        //    {
-        //        for (int xr = 0; xr < xD; xr++)
-        //        {
-        //            for (int yr = 0; yr < yD; yr++)
-        //            {
-        //                int ci = canvasData[xr, yD - 1 - yr];
-        //                Color c = Color.FromArgb(ci);
-        //                var mm = (ColorMatcher.Get.ColorToMaterialMap.TryGetValue(c, out Material[] found) ? found : null) ?? new Material[] { Materials.Air };
-
-        //                if (isMultiLayer)
-        //                {
-        //                    region[xr][yr][0] = mm.Last();
-        //                    region[xr][yr][1] = mm.First();
-        //                    region[xr][yr][2] = mm.Last();
-        //                }
-        //                else
-        //                {
-        //                    region[xr][yD - yr - 1][0] = mm.First();
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        for (int xr = 0; xr < xD; xr++)
-        //        {
-        //            for (int zr = 0; zr < zD; zr++)
-        //            {
-        //                int ci = canvasData[xr, zr]; // WARN: Maybe this needs to be zD - 1 - zr
-        //                Color c = Color.FromArgb(ci);
-        //                var mm = (ColorMatcher.Get.ColorToMaterialMap.TryGetValue(c, out Material[] found) ? found : null) ?? new Material[] { Materials.Air };
-
-        //                if (isMultiLayer)
-        //                {
-        //                    region[xr][0][zr] = mm.First(); // If this turns out inside-out, then swap First with Last calls. 
-        //                    region[xr][1][zr] = mm.Last();
-        //                }
-        //                else
-        //                {
-        //                    region[xr][0][zr] = mm.First();
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    writeBlueprintDirect(filePath, details);
-        //}
-
         public static byte[] SchematicToNBT(Schem2Details details, bool isMultilayer, bool isv)
         {
             var nbt = new NbtCompound("Schematic");
@@ -253,7 +152,7 @@ namespace PixelStacker.Logic.IO.Formatters
             File.WriteAllBytes(filePath, data);
         }
 
-        public Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
+        public static Schem2Details ConvertCanvasToDetails(PixelStackerProjectData canvas)
         {
             bool isv = canvas.IsSideView;
             bool isMultiLayer = canvas.CanvasData.Any(x => canvas.MaterialPalette[x.PaletteID].IsMultiLayer);
@@ -336,7 +235,7 @@ namespace PixelStacker.Logic.IO.Formatters
 
                         if (isMultiLayer)
                         {
-                            region[xr][0][zr] = mm.Bottom; // If this turns out inside-out, then swap First with Last calls. 
+                            region[xr][0][zr] = mm.Bottom;
                             region[xr][1][zr] = mm.Top;
                         }
                         else
@@ -347,6 +246,14 @@ namespace PixelStacker.Logic.IO.Formatters
                 }
             }
 
+            return details;
+        }
+
+        public Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
+        {
+            bool isv = canvas.IsSideView;
+            bool isMultiLayer = canvas.CanvasData.Any(x => canvas.MaterialPalette[x.PaletteID].IsMultiLayer);
+            Schem2Details details = ConvertCanvasToDetails(canvas);
             byte[] bbData = SchematicToNBT(details, isMultiLayer, isv);
             return Task.FromResult(bbData);
         }

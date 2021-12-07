@@ -37,9 +37,9 @@ namespace PixelStacker.Logic.IO.Formatters
                     return new BlockCountCsvFormatter();
                 case ExportFormat.PixelStackerProject:
                     return new PixelStackerProjectFormatter();
-                //case ExportFormat.Schematic:
-                //case ExportFormat.Schem:
-                //    return new SchemFormatter();
+                case ExportFormat.Schematic:
+                case ExportFormat.Schem:
+                    return new SchematicFormatter();
                 case ExportFormat.Schem2:
                     return new Schem2Formatter();
                 default:
