@@ -45,7 +45,7 @@ namespace PixelStacker.UI
         {
             // Localization
             InitializeLocalization();
-            ApplyLocalization(System.Threading.Thread.CurrentThread.CurrentUICulture);
+            ApplyLocalization(System.Globalization.CultureInfo.CurrentUICulture);
 
             // Menubar initialization
             TS_SetTagObjects();

@@ -33,6 +33,7 @@ namespace PixelStacker.CodeGenerator
         /// Translates any missing keys and adds them to the lang.json files.
         /// </summary>
         [TestMethod]
+        [TestCategory("Generators")]
         public void Text_Translate()
         {
             RipResxIntoJson($@"{RootDir}\PixelStacker.Resources\Text.resx");

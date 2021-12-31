@@ -41,7 +41,7 @@ namespace PixelStacker.Resources
         /// </summary>
         Dictionary<string, Dictionary<string, string>> Content = new Dictionary<string, Dictionary<string, string>>();
         public override string GetString(string name)
-            => GetString(name, Thread.CurrentThread.CurrentUICulture);
+            => GetString(name, System.Globalization.CultureInfo.CurrentUICulture);
 
         private static Dictionary<string, string> ReadResxJson(string twoDigitLangCode)
         {
@@ -56,8 +56,9 @@ namespace PixelStacker.Resources
         public static string GetSupportedLocale(string attemptedLocale = null)
         {
             attemptedLocale ??= System.Globalization.CultureInfo.CurrentUICulture.Name;
+            string preferredLangCode = attemptedLocale.Split("-", StringSplitOptions.RemoveEmptyEntries)[0];
             string match = SupportedLocales.FirstOrDefault(x => attemptedLocale == x)
-                ?? SupportedLocales.FirstOrDefault(x => x.Split("-", StringSplitOptions.RemoveEmptyEntries)[0] == attemptedLocale.Split("-", StringSplitOptions.RemoveEmptyEntries)[0])
+                ?? SupportedLocales.FirstOrDefault(x => x.Split("-", StringSplitOptions.RemoveEmptyEntries)[0] == preferredLangCode)
                 ?? "en-us";
             return match;
         }

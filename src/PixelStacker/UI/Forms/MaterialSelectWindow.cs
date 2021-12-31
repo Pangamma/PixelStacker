@@ -45,7 +45,7 @@ namespace PixelStacker.UI
         {
             this.Options = opts;
             InitializeComponent();
-            ApplyLocalization(System.Threading.Thread.CurrentThread.CurrentUICulture);
+            ApplyLocalization(System.Globalization.CultureInfo.CurrentUICulture);
             this.InitializeAutoComplete();
             this.InitializeMaterialTiles();
         }

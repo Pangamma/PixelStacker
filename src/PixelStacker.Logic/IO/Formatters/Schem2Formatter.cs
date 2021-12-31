@@ -220,7 +220,7 @@ namespace PixelStacker.Logic.IO.Formatters
                         }
                         else
                         {
-                            region[xr][yD - yr - 1][0] = mm.Bottom;
+                            region[xr][yr][0] = mm.Bottom;
                         }
                     }
                 }
