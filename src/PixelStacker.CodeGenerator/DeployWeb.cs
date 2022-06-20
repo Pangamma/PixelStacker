@@ -72,7 +72,12 @@ namespace MtCoffee.Publish
 
             using (SshClient ssh = new SshClient(FTP_HOST, SSH_USERNAME, SSH_PASSWORD))
             {
+                // Improve security by removing weak hash algorithms
+                // https://github.com/Pangamma/PixelStacker/security/dependabot/1
+                ssh.ConnectionInfo.KeyExchangeAlgorithms.Remove("curve25519-sha256");
+                ssh.ConnectionInfo.KeyExchangeAlgorithms.Remove("curve25519-sha256@libssh.org");
                 ssh.Connect();
+
                 string result = "";
                 result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; [ -d {DEPLOY_DIR} ] && echo exists || echo does not exist;").Result.Trim();
 
