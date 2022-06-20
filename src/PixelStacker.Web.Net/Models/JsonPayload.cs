@@ -100,7 +100,7 @@ namespace PixelStacker.Web.Net.Models
             var rs = new JsonResult(this, new JsonSerializerOptions()
             {
                 MaxDepth = 10,
-                IgnoreNullValues = false,
+                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = true
             });

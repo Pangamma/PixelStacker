@@ -39,6 +39,7 @@ namespace MtCoffee.Publish
         private const string SERVICE_NAME = "pixelstacker.web.net.service";
         private const string FTP_MAIN_TO_CHMOD = "PixelStacker.Web.Net";
         private const string CHOWN = "taylorlove:psacln";
+        private static string FTP_HOST;
         private static string FTP_USERNAME;
         private static string FTP_PASSWORD;
         private static string SSH_USERNAME;
@@ -46,7 +47,7 @@ namespace MtCoffee.Publish
         private const bool IS_ZIPPING_ENABLED = true;
         private static readonly Stopwatch sw = new Stopwatch(); 
         private static string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-        private static string UPLOAD_FROM_DIR = Path.Combine(RootDir, "PixelStacker.Web.Net", "bin", "Release", "net5.0", "publish");
+        private static string UPLOAD_FROM_DIR = Path.Combine(RootDir, "PixelStacker.Web.Net", "bin", "Release", "net6.0", "publish");
 
         public DeployWeb()
         {
@@ -57,6 +58,7 @@ namespace MtCoffee.Publish
             FTP_PASSWORD = config["FTP_PASSWORD"];
             SSH_USERNAME = config["SSH_USERNAME"];
             SSH_PASSWORD = config["SSH_PASSWORD"];
+            FTP_HOST = config["FTP_HOST"];
         }
 
 
@@ -68,7 +70,7 @@ namespace MtCoffee.Publish
             if (!ORIG_DIR.StartsWith("./") || ORIG_DIR.EndsWith("/")) throw new ArgumentException("INVALID ORIG_DIR");
             if (!DEPLOY_DIR.StartsWith("./") || DEPLOY_DIR.EndsWith("/")) throw new ArgumentException("INVALID DEPLOY_DIR");
 
-            using (SshClient ssh = new SshClient("wc.lumengaming.com", SSH_USERNAME, SSH_PASSWORD))
+            using (SshClient ssh = new SshClient(FTP_HOST, SSH_USERNAME, SSH_PASSWORD))
             {
                 ssh.Connect();
                 string result = "";
@@ -127,31 +129,47 @@ namespace MtCoffee.Publish
         private readonly static List<FtpClient> clients = new List<FtpClient>();
         private static FtpClient GetFtpClientFromPool()
         {
-            lock (clients)
+            try
             {
-                if (CUR_CONCURRENT_UPLOADS <= MAX_CONCURRENT_UPLOADS)
+                lock (clients)
                 {
-                    if (clients.Count > 0)
+                    if (CUR_CONCURRENT_UPLOADS <= MAX_CONCURRENT_UPLOADS)
                     {
-                        CUR_CONCURRENT_UPLOADS++;
-                        var rt = clients[0];
-                        clients.RemoveAt(0);
-                        return rt;
-                    }
-                    else
-                    {
-                        CUR_CONCURRENT_UPLOADS++;
-                        var ftp = new FtpClient("wc.lumengaming.com", 21, FTP_USERNAME, FTP_PASSWORD)
+                        if (clients.Count > 0)
                         {
-                            UploadRateLimit = 0,
-                            SocketKeepAlive = true
-                        };
+                            CUR_CONCURRENT_UPLOADS++;
+                            var rt = clients[0];
+                            clients.RemoveAt(0);
+                            return rt;
+                        }
+                        else
+                        {
+                            CUR_CONCURRENT_UPLOADS++;
+                            var ftp = new FtpClient(FTP_HOST, 21, FTP_USERNAME, FTP_PASSWORD)
+                            {
+                                UploadRateLimit = 0,
+                                SocketKeepAlive = true,
+                                EncryptionMode = FtpEncryptionMode.Explicit,
+                                //SslProtocols = System.Security.Authentication.SslProtocols.Tls
+                                DataConnectionEncryption = true,
 
-                        ftp.Connect();
-                        return ftp;
+                                // Might potentially get MITM'd from an intruder on the network,
+                                // but at least it's better than an unencrypted connection over
+                                // the wider internet.
+                                ValidateAnyCertificate = true,
+                            };
+
+                            ftp.Connect();
+                            return ftp;
+                        }
                     }
                 }
             }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+
             return null;
         }
 
