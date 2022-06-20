@@ -6,5 +6,6 @@ namespace PixelStacker.Logic.IO.Config
     {
         public DateTime? LastChecked { get; set; } = null;
         public string SkipNotifyIfVersionIs { get; set; } = Constants.Version;
+        public bool AcceptPreReleases { get; set; } = false;
     }
 }

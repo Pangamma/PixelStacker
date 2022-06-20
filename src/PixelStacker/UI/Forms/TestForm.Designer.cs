@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -37,12 +39,21 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(776, 364);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.richTextBox1);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(776, 339);
             this.toolStripContainer1.Location = new System.Drawing.Point(12, 12);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.Size = new System.Drawing.Size(776, 364);
             this.toolStripContainer1.TabIndex = 0;
             this.toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(102, 3);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(578, 263);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
             // 
             // TestForm
             // 
@@ -52,6 +63,7 @@
             this.Controls.Add(this.toolStripContainer1);
             this.Name = "TestForm";
             this.Text = "TestForm";
+            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
             this.ResumeLayout(false);
@@ -61,5 +73,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

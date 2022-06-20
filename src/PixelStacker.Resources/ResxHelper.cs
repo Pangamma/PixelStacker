@@ -59,7 +59,7 @@ namespace PixelStacker.Resources
             string preferredLangCode = attemptedLocale.Split("-", StringSplitOptions.RemoveEmptyEntries)[0];
             string match = SupportedLocales.FirstOrDefault(x => attemptedLocale == x)
                 ?? SupportedLocales.FirstOrDefault(x => x.Split("-", StringSplitOptions.RemoveEmptyEntries)[0] == preferredLangCode)
-                ?? "en-us";
+                ?? "en-US";
             return match;
         }
 

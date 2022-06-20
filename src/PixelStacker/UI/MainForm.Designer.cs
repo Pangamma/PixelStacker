@@ -86,6 +86,7 @@ namespace PixelStacker.UI
             this.canvasEditor = new PixelStacker.UI.Controls.CanvasEditor();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.dlgSave = new System.Windows.Forms.SaveFileDialog();
+            this.updateSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -374,7 +375,8 @@ namespace PixelStacker.UI
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contributorsToolStripMenuItem});
+            this.contributorsToolStripMenuItem,
+            this.updateSettingsToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
@@ -383,7 +385,7 @@ namespace PixelStacker.UI
             // contributorsToolStripMenuItem
             // 
             this.contributorsToolStripMenuItem.Name = "contributorsToolStripMenuItem";
-            this.contributorsToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.contributorsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.contributorsToolStripMenuItem.Text = "Contributors";
             this.contributorsToolStripMenuItem.Click += new System.EventHandler(this.contributorsToolStripMenuItem_Click);
             // 
@@ -575,6 +577,12 @@ namespace PixelStacker.UI
     "unts CSV|*.csv|PixelStacker Project|*.pxlzip";
             this.dlgSave.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSave_FileOk);
             // 
+            // updateSettingsToolStripMenuItem
+            // 
+            this.updateSettingsToolStripMenuItem.Name = "updateSettingsToolStripMenuItem";
+            this.updateSettingsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.updateSettingsToolStripMenuItem.Text = "Update Settings";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -652,5 +660,6 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem swatchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem contributorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateSettingsToolStripMenuItem;
     }
 }
