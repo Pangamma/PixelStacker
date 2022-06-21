@@ -217,8 +217,11 @@ namespace PixelStacker.UI
         }
         private void OnMouseEnter_Tile(object sender, EventArgs e)
         {
-            //this.lblInfo.Text = ((MaterialSelectTile)sender).Material.Label;
+#if DEBUG
             this.lblInfo.Text = ((PixelStacker.WF.Components.MaterialSelectTile)sender).Material.PixelStackerID;
+#else
+            this.lblInfo.Text = ((MaterialSelectTile)sender).Material.Label;
+#endif
         }
 
         private PixelStacker.WF.Components.MaterialSelectTile previouslyClickedTile = null;
@@ -258,9 +261,9 @@ namespace PixelStacker.UI
                 }
             }
         }
-        #endregion Mouse Listeners
+#endregion Mouse Listeners
 
-        #region Checkboxes
+#region Checkboxes
         // *-----------------+--------------------------------------------------------------------*
         // *                   C H E C K B O X E S                                                *
         // *-----------------+--------------------------------------------------------------------*
@@ -293,9 +296,9 @@ namespace PixelStacker.UI
                 cRef.Checkbox.Location = new Point(10, 10 + cRef.TilePanel.Location.Y);
             }
         }
-        #endregion Checkboxes
+#endregion Checkboxes
 
-        #region Form visibility
+#region Form visibility
         // *-----------------+--------------------------------------------------------------------*
         // *                   F O R M _ V I S I B I L I T Y                                      *
         // *-----------------+--------------------------------------------------------------------*
@@ -402,6 +405,7 @@ namespace PixelStacker.UI
             CheckBox cbx = (CheckBox)sender;
             bool isChecked = cbx.CheckState == CheckState.Checked;
             this.Options.IsSideView = isChecked;
+            this.Options.Preprocessor.IsSideView = isChecked;
 
             this.materialTiles.ToList().ForEach(x =>
             {

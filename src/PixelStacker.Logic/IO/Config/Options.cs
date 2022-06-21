@@ -51,8 +51,12 @@ namespace PixelStacker.Logic.IO.Config
         /// </summary>
         public bool IsMultiLayerRequired { get; set; } = false;
 
+        [JsonIgnore]
         [Category("Colors")]
-        public bool IsSideView { get; set; }
+        public bool IsSideView { 
+            get => this.Preprocessor.IsSideView; 
+            set => this.Preprocessor.IsSideView = value; 
+        }
 
         /// <summary>
         /// Purely for aesthetic rendering. Assuming no block/material filter is set, any blocks with
