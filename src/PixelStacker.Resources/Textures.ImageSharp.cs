@@ -648,15 +648,6 @@ namespace PixelStacker.Resources {
             }
         }
 
-        private static Image<Rgba32> _crimson_stem_top = null;
-        public static Image<Rgba32> crimson_stem_top {
-            get {
-                if (_crimson_stem_top == null)
-                    _crimson_stem_top = Image.Load((byte[])ResourceManager.GetObject("crimson_stem_top"));
-                return _crimson_stem_top;
-            }
-        }
-
         private static Image<Rgba32> _crying_obsidian = null;
         public static Image<Rgba32> crying_obsidian {
             get {
@@ -1584,6 +1575,24 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _mangrove_log = null;
+        public static Image<Rgba32> mangrove_log {
+            get {
+                if (_mangrove_log == null)
+                    _mangrove_log = Image.Load((byte[])ResourceManager.GetObject("mangrove_log"));
+                return _mangrove_log;
+            }
+        }
+
+        private static Image<Rgba32> _mangrove_planks = null;
+        public static Image<Rgba32> mangrove_planks {
+            get {
+                if (_mangrove_planks == null)
+                    _mangrove_planks = Image.Load((byte[])ResourceManager.GetObject("mangrove_planks"));
+                return _mangrove_planks;
+            }
+        }
+
         private static Image<Rgba32> _melon_side = null;
         public static Image<Rgba32> melon_side {
             get {
@@ -1629,6 +1638,33 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _mud = null;
+        public static Image<Rgba32> mud {
+            get {
+                if (_mud == null)
+                    _mud = Image.Load((byte[])ResourceManager.GetObject("mud"));
+                return _mud;
+            }
+        }
+
+        private static Image<Rgba32> _muddy_mangrove_roots_top = null;
+        public static Image<Rgba32> muddy_mangrove_roots_top {
+            get {
+                if (_muddy_mangrove_roots_top == null)
+                    _muddy_mangrove_roots_top = Image.Load((byte[])ResourceManager.GetObject("muddy_mangrove_roots_top"));
+                return _muddy_mangrove_roots_top;
+            }
+        }
+
+        private static Image<Rgba32> _mud_bricks = null;
+        public static Image<Rgba32> mud_bricks {
+            get {
+                if (_mud_bricks == null)
+                    _mud_bricks = Image.Load((byte[])ResourceManager.GetObject("mud_bricks"));
+                return _mud_bricks;
+            }
+        }
+
         private static Image<Rgba32> _mushroom_block_inside = null;
         public static Image<Rgba32> mushroom_block_inside {
             get {
@@ -1644,6 +1680,24 @@ namespace PixelStacker.Resources {
                 if (_mushroom_stem == null)
                     _mushroom_stem = Image.Load((byte[])ResourceManager.GetObject("mushroom_stem"));
                 return _mushroom_stem;
+            }
+        }
+
+        private static Image<Rgba32> _mycelium_side = null;
+        public static Image<Rgba32> mycelium_side {
+            get {
+                if (_mycelium_side == null)
+                    _mycelium_side = Image.Load((byte[])ResourceManager.GetObject("mycelium_side"));
+                return _mycelium_side;
+            }
+        }
+
+        private static Image<Rgba32> _mycelium_top = null;
+        public static Image<Rgba32> mycelium_top {
+            get {
+                if (_mycelium_top == null)
+                    _mycelium_top = Image.Load((byte[])ResourceManager.GetObject("mycelium_top"));
+                return _mycelium_top;
             }
         }
 
@@ -1737,6 +1791,24 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _ochre_froglight_side = null;
+        public static Image<Rgba32> ochre_froglight_side {
+            get {
+                if (_ochre_froglight_side == null)
+                    _ochre_froglight_side = Image.Load((byte[])ResourceManager.GetObject("ochre_froglight_side"));
+                return _ochre_froglight_side;
+            }
+        }
+
+        private static Image<Rgba32> _ochre_froglight_top = null;
+        public static Image<Rgba32> ochre_froglight_top {
+            get {
+                if (_ochre_froglight_top == null)
+                    _ochre_froglight_top = Image.Load((byte[])ResourceManager.GetObject("ochre_froglight_top"));
+                return _ochre_froglight_top;
+            }
+        }
+
         private static Image<Rgba32> _orange_concrete = null;
         public static Image<Rgba32> orange_concrete {
             get {
@@ -1815,6 +1887,33 @@ namespace PixelStacker.Resources {
                 if (_packed_ice == null)
                     _packed_ice = Image.Load((byte[])ResourceManager.GetObject("packed_ice"));
                 return _packed_ice;
+            }
+        }
+
+        private static Image<Rgba32> _packed_mud = null;
+        public static Image<Rgba32> packed_mud {
+            get {
+                if (_packed_mud == null)
+                    _packed_mud = Image.Load((byte[])ResourceManager.GetObject("packed_mud"));
+                return _packed_mud;
+            }
+        }
+
+        private static Image<Rgba32> _pearlescent_froglight_side = null;
+        public static Image<Rgba32> pearlescent_froglight_side {
+            get {
+                if (_pearlescent_froglight_side == null)
+                    _pearlescent_froglight_side = Image.Load((byte[])ResourceManager.GetObject("pearlescent_froglight_side"));
+                return _pearlescent_froglight_side;
+            }
+        }
+
+        private static Image<Rgba32> _pearlescent_froglight_top = null;
+        public static Image<Rgba32> pearlescent_froglight_top {
+            get {
+                if (_pearlescent_froglight_top == null)
+                    _pearlescent_froglight_top = Image.Load((byte[])ResourceManager.GetObject("pearlescent_froglight_top"));
+                return _pearlescent_froglight_top;
             }
         }
 
@@ -2250,6 +2349,24 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _reinforced_deepslate_side = null;
+        public static Image<Rgba32> reinforced_deepslate_side {
+            get {
+                if (_reinforced_deepslate_side == null)
+                    _reinforced_deepslate_side = Image.Load((byte[])ResourceManager.GetObject("reinforced_deepslate_side"));
+                return _reinforced_deepslate_side;
+            }
+        }
+
+        private static Image<Rgba32> _reinforced_deepslate_top = null;
+        public static Image<Rgba32> reinforced_deepslate_top {
+            get {
+                if (_reinforced_deepslate_top == null)
+                    _reinforced_deepslate_top = Image.Load((byte[])ResourceManager.GetObject("reinforced_deepslate_top"));
+                return _reinforced_deepslate_top;
+            }
+        }
+
         private static Image<Rgba32> _rooted_dirt = null;
         public static Image<Rgba32> rooted_dirt {
             get {
@@ -2274,6 +2391,15 @@ namespace PixelStacker.Resources {
                 if (_sandstone_top == null)
                     _sandstone_top = Image.Load((byte[])ResourceManager.GetObject("sandstone_top"));
                 return _sandstone_top;
+            }
+        }
+
+        private static Image<Rgba32> _sculk_catalyst_top = null;
+        public static Image<Rgba32> sculk_catalyst_top {
+            get {
+                if (_sculk_catalyst_top == null)
+                    _sculk_catalyst_top = Image.Load((byte[])ResourceManager.GetObject("sculk_catalyst_top"));
+                return _sculk_catalyst_top;
             }
         }
 
@@ -2520,6 +2646,24 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _stripped_mangrove_log = null;
+        public static Image<Rgba32> stripped_mangrove_log {
+            get {
+                if (_stripped_mangrove_log == null)
+                    _stripped_mangrove_log = Image.Load((byte[])ResourceManager.GetObject("stripped_mangrove_log"));
+                return _stripped_mangrove_log;
+            }
+        }
+
+        private static Image<Rgba32> _stripped_mangrove_log_top = null;
+        public static Image<Rgba32> stripped_mangrove_log_top {
+            get {
+                if (_stripped_mangrove_log_top == null)
+                    _stripped_mangrove_log_top = Image.Load((byte[])ResourceManager.GetObject("stripped_mangrove_log_top"));
+                return _stripped_mangrove_log_top;
+            }
+        }
+
         private static Image<Rgba32> _stripped_oak_log = null;
         public static Image<Rgba32> stripped_oak_log {
             get {
@@ -2646,6 +2790,24 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _verdant_froglight_side = null;
+        public static Image<Rgba32> verdant_froglight_side {
+            get {
+                if (_verdant_froglight_side == null)
+                    _verdant_froglight_side = Image.Load((byte[])ResourceManager.GetObject("verdant_froglight_side"));
+                return _verdant_froglight_side;
+            }
+        }
+
+        private static Image<Rgba32> _verdant_froglight_top = null;
+        public static Image<Rgba32> verdant_froglight_top {
+            get {
+                if (_verdant_froglight_top == null)
+                    _verdant_froglight_top = Image.Load((byte[])ResourceManager.GetObject("verdant_froglight_top"));
+                return _verdant_froglight_top;
+            }
+        }
+
         private static Image<Rgba32> _warped_nylium = null;
         public static Image<Rgba32> warped_nylium {
             get {
@@ -2679,15 +2841,6 @@ namespace PixelStacker.Resources {
                 if (_warped_stem == null)
                     _warped_stem = Image.Load((byte[])ResourceManager.GetObject("warped_stem"));
                 return _warped_stem;
-            }
-        }
-
-        private static Image<Rgba32> _warped_stem_top = null;
-        public static Image<Rgba32> warped_stem_top {
-            get {
-                if (_warped_stem_top == null)
-                    _warped_stem_top = Image.Load((byte[])ResourceManager.GetObject("warped_stem_top"));
-                return _warped_stem_top;
             }
         }
 

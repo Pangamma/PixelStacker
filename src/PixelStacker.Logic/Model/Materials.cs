@@ -44,8 +44,6 @@ namespace PixelStacker.Logic.Model
                      * 
                      * "1.8",  TODO ADD SLIME BLOCKS
                      * TODO Go through blocks with edges, see if there are any borderless alternatives.
-                     * 
-                     * "1.8",  Sea lanturns? 
                      */
 
 
@@ -150,6 +148,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", false, "Planks", "PLANK_JUN", "Planks Jungle", 5, 3, Textures.jungle_planks, Textures.jungle_planks, $"minecraft:{nameof(Textures.jungle_planks)}", $"minecraft:{nameof(Textures.jungle_planks)}", "minecraft:planks"),
                         new Material("1.7", false, "Planks", "PLANK_ACA", "Planks Acacia", 5, 4, Textures.acacia_planks, Textures.acacia_planks, $"minecraft:{nameof(Textures.acacia_planks)}", $"minecraft:{nameof(Textures.acacia_planks)}", "minecraft:planks"),
                         new Material("1.7", false, "Planks", "PLANK_DOK", "Planks Dark Oak", 5, 5, Textures.dark_oak_planks, Textures.dark_oak_planks, $"minecraft:{nameof(Textures.dark_oak_planks)}", $"minecraft:{nameof(Textures.dark_oak_planks)}", "minecraft:planks"),
+                        new Material("1.19", false, "Planks", "PLANK_MANGROVE", "Planks Mangrove", NA, 0, Textures.mangrove_planks, Textures.mangrove_planks, $"minecraft:{nameof(Textures.mangrove_planks)}", $"minecraft:{nameof(Textures.mangrove_planks)}", "minecraft:planks"),
                         new Material("1.16", false, "Planks", "PLANK_CRIMSON", "Planks Crimson", NA, 0, Textures.crimson_planks, Textures.crimson_planks, $"minecraft:{nameof(Textures.crimson_planks)}", $"minecraft:{nameof(Textures.crimson_planks)}", ""),
                         new Material("1.16", false, "Planks", "PLANK_WARPED", "Planks Warped", NA, 0, Textures.warped_planks, Textures.warped_planks, $"minecraft:{nameof(Textures.warped_planks)}", $"minecraft:{nameof(Textures.warped_planks)}", ""),
 
@@ -159,6 +158,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.13", false, "Stripped", "STRIP_LOG_JUN", "Stripped Jungle", 17, 0, Textures.stripped_jungle_log, Textures.stripped_jungle_log, $"minecraft:{nameof(Textures.stripped_jungle_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_jungle_log)}[axis=x]", ""),
                         new Material("1.13", false, "Stripped", "STRIP_LOG_ACA", "Stripped Acacia", 17, 0, Textures.stripped_acacia_log, Textures.stripped_acacia_log, $"minecraft:{nameof(Textures.stripped_acacia_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_acacia_log)}[axis=x]", ""),
                         new Material("1.13", false, "Stripped", "STRIP_LOG_DOK", "Stripped Dark Oak", 17, 0, Textures.stripped_dark_oak_log, Textures.stripped_dark_oak_log, $"minecraft:{nameof(Textures.stripped_dark_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_dark_oak_log)}[axis=x]", ""),
+                        new Material("1.19", false, "Stripped", "STRIP_LOG_MANGRO", "Stripped Mangrove", NA, 0, Textures.stripped_mangrove_log, Textures.stripped_mangrove_log, $"minecraft:{nameof(Textures.stripped_mangrove_log)}[axis=x]", $"minecraft:{nameof(Textures.stripped_mangrove_log)}[axis=x]", ""),
                         new Material("1.16", false, "Stripped", "STRIP_LOG_CRIMSON", "Stripped Crimson Hyphae", NA, 0, Textures.stripped_crimson_stem, Textures.stripped_crimson_stem, $"minecraft:stripped_crimson_hyphae[axis=x]", $"minecraft:stripped_crimson_hyphae[axis=x]", ""),
                         new Material("1.16", false, "Stripped", "STRIP_LOG_WARPED", "Stripped Warped Hyphae", NA, 0, Textures.stripped_warped_stem, Textures.stripped_warped_stem, $"minecraft:stripped_warped_hyphae[axis=x]", $"minecraft:stripped_warped_hyphae[axis=x]", ""),
 
@@ -168,6 +168,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", false, "Logs Top", "STUMP_LOG_JUN", "Stripped Jungle (Top)", 17, 0, Textures.stripped_jungle_log_top, Textures.stripped_jungle_log_top, $"minecraft:stripped_jungle_log[axis=y]", $"minecraft:stripped_jungle_log[axis=z]", ""),
                         new Material("1.7", false, "Logs Top", "STUMP_LOG_ACA", "Stripped Acacia (Top)", 17, 0, Textures.stripped_acacia_log_top, Textures.stripped_acacia_log_top, $"minecraft:stripped_acacia_log[axis=y]", $"minecraft:stripped_acacia_log[axis=z]", ""),
                         new Material("1.7", false, "Logs Top", "STUMP_LOG_DOK", "Stripped Dark Oak (Top)", 17, 0, Textures.stripped_dark_oak_log_top, Textures.stripped_dark_oak_log_top, $"minecraft:stripped_dark_oak_log[axis=y]", $"minecraft:stripped_dark_oak_log[axis=z]", ""),
+                        new Material("1.19", false, "Logs Top", "STUMP_LOG_MANGRO", "Stripped Mangrove (Top)", NA, 0, Textures.stripped_mangrove_log_top, Textures.stripped_mangrove_log_top, $"minecraft:{nameof(Textures.stripped_mangrove_log)}[axis=y]", $"minecraft:{nameof(Textures.stripped_mangrove_log)}[axis=z]", ""),
                         new Material("1.16", false, "Logs Top", "STUMP_LOG_CRIMSON", "Crimson Stem (Top)", NA, 0, Textures.stripped_crimson_stem_top, Textures.stripped_crimson_stem_top, $"minecraft:stripped_crimson_stem[axis=y]", $"minecraft:stripped_crimson_stem[axis=z]", ""),
                         new Material("1.16", false, "Logs Top", "STUMP_LOG_WARPED", "Warped Stem (Top)", NA, 0, Textures.stripped_warped_stem_top, Textures.stripped_warped_stem_top, $"minecraft:stripped_warped_stem[axis=y]", $"minecraft:stripped_warped_stem[axis=z]", ""),
 
@@ -177,6 +178,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.13", false, "Logs", "BARK_LOG_JUN", "Bark Jungle", 17, 0, Textures.jungle_log, Textures.jungle_log, $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", $"minecraft:{nameof(Textures.jungle_log)}[axis=x]", ""),
                         new Material("1.13", false, "Logs", "BARK_LOG_ACA", "Bark Acacia", 17, 0, Textures.acacia_log, Textures.acacia_log, $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", $"minecraft:{nameof(Textures.acacia_log)}[axis=x]", ""),
                         new Material("1.13", false, "Logs", "BARK_LOG_DOK", "Bark Dark Oak", 17, 0, Textures.dark_oak_log, Textures.dark_oak_log, $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", $"minecraft:{nameof(Textures.dark_oak_log)}[axis=x]", ""),
+                        new Material("1.19", false, "Logs", "BARK_LOG_MANGRO", "Bark Mangrove", NA, 0, Textures.mangrove_log, Textures.mangrove_log, $"minecraft:{nameof(Textures.mangrove_log)}[axis=x]", $"minecraft:{nameof(Textures.mangrove_log)}[axis=x]", ""),
                         new Material("1.16", false, "Logs", "BARK_LOG_CRIMSON", "Crimson Hyphae", NA, 0, Textures.crimson_stem, Textures.crimson_stem, $"minecraft:crimson_hyphae", $"minecraft:crimson_hyphae", ""),
                         new Material("1.16", false, "Logs", "BARK_LOG_WARPED", "Warped Hyphae", NA, 0, Textures.warped_stem, Textures.warped_stem, $"minecraft:warped_hyphae", $"minecraft:warped_hyphae", ""),
 
@@ -203,10 +205,8 @@ namespace PixelStacker.Logic.Model
                         new Material("1.17", false, "Okay", "MOSS_BLOCK", "Moss Block", 1, 0, Textures.moss_block, Textures.moss_block, $"minecraft:{nameof(Textures.moss_block)}", $"minecraft:{nameof(Textures.moss_block)}", ""),
                         new Material("1.17", false, "Okay", "DRIPSTONE", "Dripstone", 3, 0, Textures.dripstone_block, Textures.dripstone_block, $"minecraft:{nameof(Textures.dripstone_block)}", $"minecraft:{nameof(Textures.dripstone_block)}", "minecraft:dripstone_block"),
                         new Material("1.7", false, "Okay", "ENDSTONE", "Endstone", 121, 0, Textures.end_stone, Textures.end_stone, $"minecraft:{nameof(Textures.end_stone)}", $"minecraft:{nameof(Textures.end_stone)}", "minecraft:end_stone"),
-                        new Material("1.10", false, "Okay", "MAGMA", "Magma", 213, 0, Textures.magma, Textures.magma, $"minecraft:{nameof(Textures.magma)}_block", $"minecraft:{nameof(Textures.magma)}_block", "minecraft:magma"),
                         new Material("1.7", false, "Okay", "NETHERRACK", "Netherrack", 87, 0, Textures.netherrack, Textures.netherrack, $"minecraft:{nameof(Textures.netherrack)}", $"minecraft:{nameof(Textures.netherrack)}", "minecraft:netherrack"),
                         new Material("1.7", false, "Okay", "OBSIDIAN", "Obsidian", 49, 0, Textures.obsidian, Textures.obsidian, $"minecraft:{nameof(Textures.obsidian)}", $"minecraft:{nameof(Textures.obsidian)}", "minecraft:obsidian"),
-                        new Material("1.16", false, "Okay", "OBSIDIAN_CRYING", "Crying Obsidian", NA, 0, Textures.crying_obsidian, Textures.crying_obsidian, $"minecraft:{nameof(Textures.crying_obsidian)}", $"minecraft:{nameof(Textures.crying_obsidian)}", ""),
                         new Material("1.9", false, "Okay", "PURPUR_BLK", "Purpur Block", 201, 0, Textures.purpur_block, Textures.purpur_block, $"minecraft:{nameof(Textures.purpur_block)}", $"minecraft:{nameof(Textures.purpur_block)}", "minecraft:purpur_block"),
                         new Material("1.7", false, "Okay", "ICE_PACKED", "Packed Ice", 174, 0, Textures.packed_ice, Textures.packed_ice, $"minecraft:{nameof(Textures.packed_ice)}", $"minecraft:{nameof(Textures.packed_ice)}", "minecraft:packed_ice"),
                         new Material("1.7", false, "Okay", "SPONGE", "Sponge", 19, 0, Textures.sponge, Textures.sponge, $"minecraft:{nameof(Textures.sponge)}", $"minecraft:{nameof(Textures.sponge)}", "minecraft:sponge"),
@@ -217,7 +217,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.8", false, "Okay", "DIORITE", "Diorite", 1, 3, Textures.diorite, Textures.diorite, $"minecraft:{nameof(Textures.diorite)}", $"minecraft:{nameof(Textures.diorite)}", "minecraft:stone"),
                         new Material("1.8", false, "Okay", "GRANITE", "Granite", 1, 1, Textures.granite, Textures.granite, $"minecraft:{nameof(Textures.granite)}", $"minecraft:{nameof(Textures.granite)}", "minecraft:stone"),
                         new Material("1.16", true, "Okay", "TARGET", "Target", NA, 0, Textures.target_top, Textures.target_side, $"minecraft:target", $"minecraft:target", ""),
-
+                        new Material("1.19", false, "Okay", "SCULK", "Sculk", NA, 0, Textures.sculk_catalyst_top, Textures.sculk_catalyst_top, $"minecraft:sculk", $"minecraft:sculk", ""),
 
                         new Material("1.8", false, "Prismarine", "PRISMARINE_DARK", "Dark Prismarine", 168, 2, Textures.dark_prismarine, Textures.dark_prismarine, $"minecraft:{nameof(Textures.dark_prismarine)}", $"minecraft:{nameof(Textures.dark_prismarine)}", "minecraft:prismarine"),
                         new Material("1.8", false, "Prismarine", "PRISMARINE_BRICK", "Prismarine Bricks", 168, 1, Textures.prismarine_bricks, Textures.prismarine_bricks, $"minecraft:{nameof(Textures.prismarine_bricks)}", $"minecraft:{nameof(Textures.prismarine_bricks)}", "minecraft:prismarine"),
@@ -231,15 +231,15 @@ namespace PixelStacker.Logic.Model
                         new Material("1.16", false, "Bricks", "BLK_STONE_PLSHD_BRK", "Polished Blackstone Bricks", NA, 0, Textures.polished_blackstone_bricks, Textures.polished_blackstone_bricks, $"minecraft:{nameof(Textures.polished_blackstone_bricks)}", $"minecraft:{nameof(Textures.polished_blackstone_bricks)}", ""),
                         new Material("1.16", false, "Bricks", "BLK_STONE_PLSHD", "Polished Blackstone", NA, 0, Textures.polished_blackstone, Textures.polished_blackstone, $"minecraft:{nameof(Textures.polished_blackstone)}", $"minecraft:{nameof(Textures.polished_blackstone)}", ""),
                         new Material("1.16", false, "Bricks", "BLK_STONE_CHISELED", "Chiseled Black Stone", NA, 0, Textures.chiseled_polished_blackstone, Textures.chiseled_polished_blackstone, $"minecraft:{nameof(Textures.chiseled_polished_blackstone)}", $"minecraft:{nameof(Textures.chiseled_polished_blackstone)}", ""),
+                        new Material("1.7", false, "Bricks", "COBBLE_MOSSY_BRICK", "mossy_stone_bricks", 98, 1, Textures.mossy_stone_bricks, Textures.mossy_stone_bricks, $"minecraft:{nameof(Textures.mossy_stone_bricks)}", $"minecraft:{nameof(Textures.mossy_stone_bricks)}", "minecraft:stonebrick"),
+                        new Material("1.7", false, "Bricks", "STONE_BRICK", "stone_bricks", 98, 0, Textures.stone_bricks, Textures.stone_bricks, $"minecraft:{nameof(Textures.stone_bricks)}", $"minecraft:{nameof(Textures.stone_bricks)}", "minecraft:stonebrick"),
+                        new Material("1.7", true, "Bricks", "STONE_BRICK_CRACKED", "cracked_stone_bricks", 98, 2, Textures.cracked_stone_bricks, Textures.cracked_stone_bricks, $"minecraft:{nameof(Textures.cracked_stone_bricks)}", $"minecraft:{nameof(Textures.cracked_stone_bricks)}", "minecraft:stonebrick"),
+                        new Material("1.19", false, "Bricks", "MUD_BRICK", "Muddy Bricks", NA, 0, Textures.mud_bricks,Textures.mud_bricks, $"minecraft:{nameof(Textures.mud_bricks)}",$"minecraft:{nameof(Textures.mud_bricks)}", ""),
+                        new Material("1.9", false, "Bricks", "ENDSTONE_BRICK", "end_stone_bricks", 206, 0, Textures.end_stone_bricks, Textures.end_stone_bricks, $"minecraft:{nameof(Textures.end_stone_bricks)}", $"minecraft:{nameof(Textures.end_stone_bricks)}", "minecraft:end_bricks"),
                         new Material("1.16", false, "Bricks", "QUARTZ_BRICK", "Quartz Bricks", NA, 0, Textures.quartz_bricks, Textures.quartz_bricks, $"minecraft:{nameof(Textures.quartz_bricks)}", $"minecraft:{nameof(Textures.quartz_bricks)}", ""),
                         new Material("1.7", false, "Bricks", "BRICKS_RED", "Bricks", 45, 0, Textures.bricks, Textures.bricks, $"minecraft:{nameof(Textures.bricks)}", $"minecraft:{nameof(Textures.bricks)}", "minecraft:brick_block"),
-                        new Material("1.7", true, "Bricks", "STONE_BRICK_CRACKED", "cracked_stone_bricks", 98, 2, Textures.cracked_stone_bricks, Textures.cracked_stone_bricks, $"minecraft:{nameof(Textures.cracked_stone_bricks)}", $"minecraft:{nameof(Textures.cracked_stone_bricks)}", "minecraft:stonebrick"),
-                        new Material("1.7", false, "Bricks", "STONE_BRICK", "stone_bricks", 98, 0, Textures.stone_bricks, Textures.stone_bricks, $"minecraft:{nameof(Textures.stone_bricks)}", $"minecraft:{nameof(Textures.stone_bricks)}", "minecraft:stonebrick"),
-                        new Material("1.9", false, "Bricks", "ENDSTONE_BRICK", "end_stone_bricks", 206, 0, Textures.end_stone_bricks, Textures.end_stone_bricks, $"minecraft:{nameof(Textures.end_stone_bricks)}", $"minecraft:{nameof(Textures.end_stone_bricks)}", "minecraft:end_bricks"),
-                        new Material("1.7", false, "Bricks", "COBBLE_MOSSY_BRICK", "mossy_stone_bricks", 98, 1, Textures.mossy_stone_bricks, Textures.mossy_stone_bricks, $"minecraft:{nameof(Textures.mossy_stone_bricks)}", $"minecraft:{nameof(Textures.mossy_stone_bricks)}", "minecraft:stonebrick"),
-
+                       
                         new Material("1.16", true, "Nether", "LODESTONE", "Lodestone", NA, 0, Textures.lodestone_top, Textures.lodestone_side, $"minecraft:lodestone", $"minecraft:lodestone", ""),
-                        new Material("1.16", true, "Nether", "SHROOMLIGHT", "Shroomlight", NA, 0, Textures.shroomlight, Textures.shroomlight, $"minecraft:{nameof(Textures.shroomlight)}", $"minecraft:{nameof(Textures.shroomlight)}", ""),
                         new Material("1.16", false, "Nether", "SOUL_SOIL", "Soul Soil", NA, 0, Textures.soul_soil, Textures.soul_soil, $"minecraft:{nameof(Textures.soul_soil)}", $"minecraft:{nameof(Textures.soul_soil)}", ""),
                         new Material("1.16", false, "Nether", "SOUL_SAND", "Soul Sand", 88, 0, Textures.soul_sand, Textures.soul_sand, $"minecraft:{nameof(Textures.soul_sand)}", $"minecraft:{nameof(Textures.soul_sand)}", "minecraft:soul_sand"),
                         new Material("1.16", false, "Nether", "ANCIENT_DEBRIS", "Ancient Debris", NA, 0, Textures.ancient_debris_top, Textures.ancient_debris_side, $"minecraft:ancient_debris", $"minecraft:ancient_debris", ""),
@@ -298,6 +298,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", false, "Other", "MELON_BLOCK", "Melon", 103, 0, Textures.melon_top, Textures.melon_side, $"minecraft:melon", $"minecraft:melon", "minecraft:melon_block"),
                         new Material("1.7", false, "Other", "PUMPKIN_BLOCK", "Pumpkin", 86, 1, Textures.pumpkin_top, Textures.pumpkin_side, $"minecraft:pumpkin", $"minecraft:pumpkin", "minecraft:pumpkin"),
                         new Material("1.7", true, "Other", "PUMPKIN_CARVED", "Pumpkin (Carved)", 86, 0, Textures.pumpkin_top, Textures.carved_pumpkin, $"minecraft:carved_pumpkin", $"minecraft:carved_pumpkin", "minecraft:pumpkin"),
+                        new Material("1.19", false, "Other", "REINFORCED_DS", "Reinforced Deepslate", NA, 0, Textures.reinforced_deepslate_top, Textures.reinforced_deepslate_side, $"minecraft:reinforced_deepslate", $"minecraft:reinforced_deepslate", ""),
 
                         new Material("1.13", true, "Coral", "CRL_BRAIN", "Brain Coral", NA, 0, Textures.brain_coral_block, Textures.brain_coral_block, $"minecraft:{nameof(Textures.brain_coral_block)}", $"minecraft:{nameof(Textures.brain_coral_block)}", ""),
                         new Material("1.13", true, "Coral", "CRL_BUBBLE", "Bubble Coral", NA, 0, Textures.bubble_coral_block, Textures.bubble_coral_block, $"minecraft:{nameof(Textures.bubble_coral_block)}", $"minecraft:{nameof(Textures.bubble_coral_block)}", ""),
@@ -370,10 +371,27 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", true, "Carpet", "CARPET_14", "Red Carpet", 171, 14, Textures.red_wool, Textures.red_wool, $"minecraft:red_carpet", $"minecraft:red_carpet", "minecraft:carpet"),
                         new Material("1.7", true, "Carpet", "CARPET_15", "Black Carpet", 171, 15, Textures.black_wool, Textures.black_wool, $"minecraft:black_carpet", $"minecraft:black_carpet", "minecraft:carpet"),
                         new Material("1.17", true, "Carpet", "CARPET_MOSS", "Moss Carpet", 171, 13, Textures.moss_block, Textures.moss_block, $"minecraft:moss_carpet", $"minecraft:moss_carpet", ""),
+                     
+                        new Material("1.19", false, "Dirt", "MUD_PKD", "Packed Mud", NA, 0, Textures.packed_mud, Textures.packed_mud, $"minecraft:{nameof(Textures.packed_mud)}",  $"minecraft:{nameof(Textures.packed_mud)}", ""),
+                        new Material("1.17", false, "Dirt", "DIRT_ROOTED", "Rooted Dirt", 3, 1, Textures.rooted_dirt, Textures.rooted_dirt, $"minecraft:{nameof(Textures.rooted_dirt)}", $"minecraft:{nameof(Textures.rooted_dirt)}", ""),
                         new Material("1.7", false, "Dirt", "DIRT", "Dirt", 3, 0, Textures.dirt, Textures.dirt, $"minecraft:{nameof(Textures.dirt)}", $"minecraft:{nameof(Textures.dirt)}", "minecraft:dirt"),
                         new Material("1.8", false, "Dirt", "DIRT_COARSE", "Coarse Dirt", 3, 1, Textures.coarse_dirt, Textures.coarse_dirt, $"minecraft:{nameof(Textures.coarse_dirt)}", $"minecraft:{nameof(Textures.coarse_dirt)}", "minecraft:dirt"),
                         new Material("1.17", false, "Dirt", "GRASS_PATH", "Dirt Path", 208, 0, Textures.dirt_path_top, Textures.dirt_path_side, $"minecraft:dirt_path", $"minecraft:dirt_path", "minecraft:dirt_path"),
                         new Material("1.7", false, "Dirt", "DIRT_Podzol", "Podzol", 3, 2, Textures.podzol_top, Textures.podzol_side, $"minecraft:podzol", $"minecraft:podzol", "minecraft:dirt"),
+                        new Material("1.19", false, "Dirt", "MUD_MNGRO_ROOT", "Muddy Mangrove Roots", NA, 0, Textures.muddy_mangrove_roots_top, Textures.muddy_mangrove_roots_top, $"minecraft:muddy_mangrove_roots[axis=y]",  $"minecraft:muddy_mangrove_roots[axis=z]", ""),
+                        new Material("1.19", false, "Dirt", "MUD", "Mud", NA, 0, Textures.mud, Textures.mud, $"minecraft:{nameof(Textures.mud)}",  $"minecraft:{nameof(Textures.mud)}", ""),
+
+                        new Material("1.19", true, "Glowing", "FRG_LT_YELLOW", "Frog Light (Yellow Top)", NA, 0, Textures.ochre_froglight_top, Textures.ochre_froglight_top, $"minecraft:ochre_froglight[axis=y]", $"minecraft:ochre_froglight[axis=z]", ""),
+                        new Material("1.19", true, "Glowing", "FRG_LT_PURPLE", "Frog Light (Purple Top)", NA, 0, Textures.pearlescent_froglight_top, Textures.pearlescent_froglight_top, $"minecraft:pearlescent_froglight[axis=y]", $"minecraft:pearlescent_froglight[axis=z]", ""),
+                        new Material("1.19", true, "Glowing", "FRG_LT_GREEN", "Frog Light (Green Top)", NA, 0, Textures.verdant_froglight_top, Textures.verdant_froglight_top, $"minecraft:verdant_froglight[axis=y]", $"minecraft:verdant_froglight[axis=z]", ""),
+                        new Material("1.19", true, "Glowing", "FRG_LT_YELLOW_SD", "Frog Light (Yellow Side)", NA, 0, Textures.ochre_froglight_side, Textures.ochre_froglight_side, $"minecraft:ochre_froglight[axis=x]", $"minecraft:ochre_froglight[axis=x]", ""),
+                        new Material("1.19", true, "Glowing", "FRG_LT_PURPLE_SD", "Frog Light (Purple Side)", NA, 0, Textures.pearlescent_froglight_side, Textures.pearlescent_froglight_side, $"minecraft:pearlescent_froglight[axis=x]", $"minecraft:pearlescent_froglight[axis=x]", ""),
+                        new Material("1.19", true, "Glowing", "FRG_LT_GREEN_SD", "Frog Light (Green Side)", NA, 0, Textures.verdant_froglight_side, Textures.verdant_froglight_side, $"minecraft:verdant_froglight[axis=x]", $"minecraft:verdant_froglight[axis=x]", ""),
+                        new Material("1.7", true, "Glowing", "JACKOLANTERN", "Jackolantern", 91, 0, Textures.pumpkin_top, Textures.jack_o_lantern, $"minecraft:jack_o_lantern", $"minecraft:jack_o_lantern", "minecraft:pumpkin"),
+                        new Material("1.16", true, "Glowing", "SHROOMLIGHT", "Shroomlight", NA, 0, Textures.shroomlight, Textures.shroomlight, $"minecraft:{nameof(Textures.shroomlight)}", $"minecraft:{nameof(Textures.shroomlight)}", ""),
+                        new Material("1.16", false, "Glowing", "OBSIDIAN_CRYING", "Crying Obsidian", NA, 0, Textures.crying_obsidian, Textures.crying_obsidian, $"minecraft:{nameof(Textures.crying_obsidian)}", $"minecraft:{nameof(Textures.crying_obsidian)}", ""),
+                        new Material("1.10", false, "Glowing", "MAGMA", "Magma", 213, 0, Textures.magma, Textures.magma, $"minecraft:{nameof(Textures.magma)}_block", $"minecraft:{nameof(Textures.magma)}_block", "minecraft:magma"),
+                        new Material("1.13", true, "Glowing", "SEA_LANTURN", "Sea Lanturn", 169, 0, Textures.sea_lantern, Textures.sea_lantern, $"minecraft:{nameof(Textures.sea_lantern)}", $"minecraft:{nameof(Textures.sea_lantern)}", "minecraft:sea_lantern"),
                     };
 
                     var notUnique = _List.GroupBy(x => x.PixelStackerID).Where(x => x.Count() > 1);
@@ -407,6 +425,7 @@ namespace PixelStacker.Logic.Model
                         || m.PixelStackerID == "DIRT_COARSE"
                         || m.PixelStackerID == "SOUL_SOIL"
                         || m.PixelStackerID == "SOUL_SAND"
+                        || m.PixelStackerID == "MUD"
                         )
                         {
                             m.Tags.Add("brown");
