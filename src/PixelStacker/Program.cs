@@ -2,8 +2,6 @@ using System;
 using System.Windows.Forms;
 using PixelStacker.UI;
 using PixelStacker.Resources;
-using PixelStacker.UI.Forms;
-using PixelStacker.Logic.IO.Config;
 using PixelStacker.IO;
 using PixelStacker.Logic.Model;
 using System.IO;
