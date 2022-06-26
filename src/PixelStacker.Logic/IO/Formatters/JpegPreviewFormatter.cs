@@ -18,7 +18,7 @@ namespace PixelStacker.Logic.IO.Formatters
             await File.WriteAllBytesAsync(filePath, data);
         }
 
-        public async Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
+        public Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
         {
             using SKBitmap bm = new SKBitmap(canvas.Width, canvas.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
             bool isv = canvas.IsSideView;
@@ -27,7 +27,7 @@ namespace PixelStacker.Logic.IO.Formatters
             using var ms = new MemoryStream();
             bool isSuccessfulEncode = bmOutput.Encode(ms, SKEncodedImageFormat.Jpeg, 90);
             ms.Seek(0, SeekOrigin.Begin);
-            return ms.ToArray();
+            return Task.FromResult(ms.ToArray());
         }
     }
 }

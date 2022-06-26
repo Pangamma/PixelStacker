@@ -33,7 +33,7 @@ namespace PixelStacker.Web.Net.Controllers
             return new JsonResult(output, new System.Text.Json.JsonSerializerOptions()
             {
                 MaxDepth = 10,
-                IgnoreNullValues = false,
+                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
                 WriteIndented = true
             });
         }

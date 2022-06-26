@@ -717,16 +717,6 @@ namespace PixelStacker.Resources {
             }
         }
 
-        private static SKBitmap _crimson_stem_top = null;
-        public static SKBitmap crimson_stem_top {
-            get {
-                if (_crimson_stem_top == null)
-                    _crimson_stem_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("crimson_stem_top"))
-                    .Copy(SKColorType.Rgba8888);
-                return _crimson_stem_top;
-            }
-        }
-
         private static SKBitmap _crying_obsidian = null;
         public static SKBitmap crying_obsidian {
             get {
@@ -1757,6 +1747,26 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _mangrove_log = null;
+        public static SKBitmap mangrove_log {
+            get {
+                if (_mangrove_log == null)
+                    _mangrove_log = SKBitmap.Decode((byte[])ResourceManager.GetObject("mangrove_log"))
+                    .Copy(SKColorType.Rgba8888);
+                return _mangrove_log;
+            }
+        }
+
+        private static SKBitmap _mangrove_planks = null;
+        public static SKBitmap mangrove_planks {
+            get {
+                if (_mangrove_planks == null)
+                    _mangrove_planks = SKBitmap.Decode((byte[])ResourceManager.GetObject("mangrove_planks"))
+                    .Copy(SKColorType.Rgba8888);
+                return _mangrove_planks;
+            }
+        }
+
         private static SKBitmap _melon_side = null;
         public static SKBitmap melon_side {
             get {
@@ -1807,6 +1817,36 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _mud = null;
+        public static SKBitmap mud {
+            get {
+                if (_mud == null)
+                    _mud = SKBitmap.Decode((byte[])ResourceManager.GetObject("mud"))
+                    .Copy(SKColorType.Rgba8888);
+                return _mud;
+            }
+        }
+
+        private static SKBitmap _muddy_mangrove_roots_top = null;
+        public static SKBitmap muddy_mangrove_roots_top {
+            get {
+                if (_muddy_mangrove_roots_top == null)
+                    _muddy_mangrove_roots_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("muddy_mangrove_roots_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _muddy_mangrove_roots_top;
+            }
+        }
+
+        private static SKBitmap _mud_bricks = null;
+        public static SKBitmap mud_bricks {
+            get {
+                if (_mud_bricks == null)
+                    _mud_bricks = SKBitmap.Decode((byte[])ResourceManager.GetObject("mud_bricks"))
+                    .Copy(SKColorType.Rgba8888);
+                return _mud_bricks;
+            }
+        }
+
         private static SKBitmap _mushroom_block_inside = null;
         public static SKBitmap mushroom_block_inside {
             get {
@@ -1824,6 +1864,26 @@ namespace PixelStacker.Resources {
                     _mushroom_stem = SKBitmap.Decode((byte[])ResourceManager.GetObject("mushroom_stem"))
                     .Copy(SKColorType.Rgba8888);
                 return _mushroom_stem;
+            }
+        }
+
+        private static SKBitmap _mycelium_side = null;
+        public static SKBitmap mycelium_side {
+            get {
+                if (_mycelium_side == null)
+                    _mycelium_side = SKBitmap.Decode((byte[])ResourceManager.GetObject("mycelium_side"))
+                    .Copy(SKColorType.Rgba8888);
+                return _mycelium_side;
+            }
+        }
+
+        private static SKBitmap _mycelium_top = null;
+        public static SKBitmap mycelium_top {
+            get {
+                if (_mycelium_top == null)
+                    _mycelium_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("mycelium_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _mycelium_top;
             }
         }
 
@@ -1927,6 +1987,26 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _ochre_froglight_side = null;
+        public static SKBitmap ochre_froglight_side {
+            get {
+                if (_ochre_froglight_side == null)
+                    _ochre_froglight_side = SKBitmap.Decode((byte[])ResourceManager.GetObject("ochre_froglight_side"))
+                    .Copy(SKColorType.Rgba8888);
+                return _ochre_froglight_side;
+            }
+        }
+
+        private static SKBitmap _ochre_froglight_top = null;
+        public static SKBitmap ochre_froglight_top {
+            get {
+                if (_ochre_froglight_top == null)
+                    _ochre_froglight_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("ochre_froglight_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _ochre_froglight_top;
+            }
+        }
+
         private static SKBitmap _orange_concrete = null;
         public static SKBitmap orange_concrete {
             get {
@@ -2014,6 +2094,36 @@ namespace PixelStacker.Resources {
                     _packed_ice = SKBitmap.Decode((byte[])ResourceManager.GetObject("packed_ice"))
                     .Copy(SKColorType.Rgba8888);
                 return _packed_ice;
+            }
+        }
+
+        private static SKBitmap _packed_mud = null;
+        public static SKBitmap packed_mud {
+            get {
+                if (_packed_mud == null)
+                    _packed_mud = SKBitmap.Decode((byte[])ResourceManager.GetObject("packed_mud"))
+                    .Copy(SKColorType.Rgba8888);
+                return _packed_mud;
+            }
+        }
+
+        private static SKBitmap _pearlescent_froglight_side = null;
+        public static SKBitmap pearlescent_froglight_side {
+            get {
+                if (_pearlescent_froglight_side == null)
+                    _pearlescent_froglight_side = SKBitmap.Decode((byte[])ResourceManager.GetObject("pearlescent_froglight_side"))
+                    .Copy(SKColorType.Rgba8888);
+                return _pearlescent_froglight_side;
+            }
+        }
+
+        private static SKBitmap _pearlescent_froglight_top = null;
+        public static SKBitmap pearlescent_froglight_top {
+            get {
+                if (_pearlescent_froglight_top == null)
+                    _pearlescent_froglight_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("pearlescent_froglight_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _pearlescent_froglight_top;
             }
         }
 
@@ -2497,6 +2607,26 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _reinforced_deepslate_side = null;
+        public static SKBitmap reinforced_deepslate_side {
+            get {
+                if (_reinforced_deepslate_side == null)
+                    _reinforced_deepslate_side = SKBitmap.Decode((byte[])ResourceManager.GetObject("reinforced_deepslate_side"))
+                    .Copy(SKColorType.Rgba8888);
+                return _reinforced_deepslate_side;
+            }
+        }
+
+        private static SKBitmap _reinforced_deepslate_top = null;
+        public static SKBitmap reinforced_deepslate_top {
+            get {
+                if (_reinforced_deepslate_top == null)
+                    _reinforced_deepslate_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("reinforced_deepslate_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _reinforced_deepslate_top;
+            }
+        }
+
         private static SKBitmap _rooted_dirt = null;
         public static SKBitmap rooted_dirt {
             get {
@@ -2524,6 +2654,16 @@ namespace PixelStacker.Resources {
                     _sandstone_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("sandstone_top"))
                     .Copy(SKColorType.Rgba8888);
                 return _sandstone_top;
+            }
+        }
+
+        private static SKBitmap _sculk_catalyst_top = null;
+        public static SKBitmap sculk_catalyst_top {
+            get {
+                if (_sculk_catalyst_top == null)
+                    _sculk_catalyst_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("sculk_catalyst_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _sculk_catalyst_top;
             }
         }
 
@@ -2797,6 +2937,26 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _stripped_mangrove_log = null;
+        public static SKBitmap stripped_mangrove_log {
+            get {
+                if (_stripped_mangrove_log == null)
+                    _stripped_mangrove_log = SKBitmap.Decode((byte[])ResourceManager.GetObject("stripped_mangrove_log"))
+                    .Copy(SKColorType.Rgba8888);
+                return _stripped_mangrove_log;
+            }
+        }
+
+        private static SKBitmap _stripped_mangrove_log_top = null;
+        public static SKBitmap stripped_mangrove_log_top {
+            get {
+                if (_stripped_mangrove_log_top == null)
+                    _stripped_mangrove_log_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("stripped_mangrove_log_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _stripped_mangrove_log_top;
+            }
+        }
+
         private static SKBitmap _stripped_oak_log = null;
         public static SKBitmap stripped_oak_log {
             get {
@@ -2937,6 +3097,26 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _verdant_froglight_side = null;
+        public static SKBitmap verdant_froglight_side {
+            get {
+                if (_verdant_froglight_side == null)
+                    _verdant_froglight_side = SKBitmap.Decode((byte[])ResourceManager.GetObject("verdant_froglight_side"))
+                    .Copy(SKColorType.Rgba8888);
+                return _verdant_froglight_side;
+            }
+        }
+
+        private static SKBitmap _verdant_froglight_top = null;
+        public static SKBitmap verdant_froglight_top {
+            get {
+                if (_verdant_froglight_top == null)
+                    _verdant_froglight_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("verdant_froglight_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _verdant_froglight_top;
+            }
+        }
+
         private static SKBitmap _warped_nylium = null;
         public static SKBitmap warped_nylium {
             get {
@@ -2974,16 +3154,6 @@ namespace PixelStacker.Resources {
                     _warped_stem = SKBitmap.Decode((byte[])ResourceManager.GetObject("warped_stem"))
                     .Copy(SKColorType.Rgba8888);
                 return _warped_stem;
-            }
-        }
-
-        private static SKBitmap _warped_stem_top = null;
-        public static SKBitmap warped_stem_top {
-            get {
-                if (_warped_stem_top == null)
-                    _warped_stem_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("warped_stem_top"))
-                    .Copy(SKColorType.Rgba8888);
-                return _warped_stem_top;
             }
         }
 

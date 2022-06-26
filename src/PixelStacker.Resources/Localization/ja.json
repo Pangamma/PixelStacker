@@ -125,7 +125,7 @@
   "Sizing": "サイジング",
   "ColorReducer_Instructions": "手順",
   "ColorReducer_RgbBucketSize": "最大のユニークな色",
-  "ColorReducer_RgbBucketSize_Tooltip": "固有の色の数を減らすことにより、レンダリングを高速化します。 255 ^ 3の固有の色の代わりに、固有の色の数を51 ^ 3に減らすことができます。\r\n\r\n最速：5 ^ 3\r\n最も正確：255 ^ 3\r\n\r\n方程式：\r\nF（X）=>最小（255、ラウンド（X / 5、0）* 5）\r\n\r\n例：\r\nフラグメントサイズが5（51 ^ 3色）の場合：\r\nf（255）=> 255\r\nf（254）=> 255\r\nf（251）=> 250",
+  "ColorReducer_RgbBucketSize_Tooltip": "固有の色の数を減らすことにより、レンダリングを高速化します。 255 ^ 3の固有の色の代わりに、固有の色の数を51^3に減らすことができます。\n\n最速：5 ^ 3\n最も正確：255 ^ 3\n\n方程式：\nF（X）=> Min（255、Round（X / 5、0）* 5）\n\n例：\nフラグメントサイズが5（51 ^ 3色）の場合：\nf（255）=> 255\nf（254）=> 255\nf（251）=> 250",
   "ColorReducer_Title": "減色剤",
   "ColorReducer_Algorithm": "量子化アルゴリズム",
   "ColorReducer_ColorCache": "カラーキャッシュ",
@@ -134,7 +134,7 @@
   "ColorReducer_Parallel": "平行",
   "ColorReducer_QColorCount": "量子化器の色数",
   "ColorReducer_Algorithm_Tooltip": "色の量子化は、新しい画像を元の画像と視覚的に類似させたまま、画像の異なる色の数を減らします。多くの異なるアルゴリズムが存在します。お気に入りのアルゴリズムを選択して使用してください。",
-  "ColorReducer_ColorCache_Tooltip": "詳細については、こちらをご覧ください。\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nユークリッド距離：遅いが正確\r\n局所性鋭敏型ハッシュ：高速\r\nオクトリー：高速で正確",
+  "ColorReducer_ColorCache_Tooltip": "詳細については、こちらをご覧ください。\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\n\nユークリッド距離：遅いが正確\n局所性鋭敏型ハッシュ：高速\nオクトリー：高速で正確",
   "ColorReducer_ColorCount_Tooltip": "量子化器は、色の数を256以下の数に減らします。",
   "ColorReducer_Dither_Tooltip": "から選択する多くの異なるスタイル。個人的には、バイエルディザリングが最適だと思います。",
   "ColorReducer_Parallel_Tooltip": "並行して実行するプロセスの数。より大きな数値を使用すると、量子化プロセスをスピードアップできます。",
@@ -146,7 +146,7 @@
   "Grid": "グリッド",
   "GridOptions": "グリッドオプション",
   "MainMenu_ShadowRendering": "シャドウレンダリング",
-  "MainMenu_SwitchPanels": "スイッチパネル",
+  "MainMenu_ToggleTextures": "テクスチャを切り替えます",
   "Action_ReOpen": "再オープン",
   "Action_SaveAs": "名前を付けて保存",
   "Bottom": "下",
@@ -158,5 +158,8 @@
   "Tools_Pencil": "鉛筆",
   "Tools_Picker": "カラーピッカー",
   "Tools_WEOrigin": "ワールドエディットオリジンセレクター",
-  "Top": "上"
+  "Top": "上",
+  "MainForm_TS_ShowBothLayers": "両方のレイヤーを表示",
+  "MainForm_TS_ShowBottomLayer": "最下層を表示",
+  "MainForm_TS_ShowTopLayer": "トップレイヤーを表示"
 }

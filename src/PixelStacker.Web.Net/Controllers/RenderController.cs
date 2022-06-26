@@ -111,7 +111,8 @@ namespace PixelStacker.Web.Net.Controllers
                 return File(cachedData.Data, cachedData.ContentType);
             }
 
-            byte[] dataFromUrl = new WebClient().DownloadData(url);
+            //byte[] dataFromUrl = new WebClient().DownloadData(url);
+            byte[] dataFromUrl = await this.DownloadDataAsync(url);
             var bm = SKBitmap.Decode(dataFromUrl);
             var rs = await this.DoSimple(bm);
             Cache.Set(url, rs);
@@ -126,6 +127,13 @@ namespace PixelStacker.Web.Net.Controllers
             return File(rs.Data, rs.ContentType);
         }
 
+        private async Task<byte[]> DownloadDataAsync(string url)
+        {
+            using var client = new System.Net.Http.HttpClient();
+            var reply = await client.GetByteArrayAsync(url);
+            return reply;
+        }
+
         [HttpGet]
         public async Task<ActionResult> ByURLAdvanced(UrlRenderRequest model)
         {
@@ -138,7 +146,8 @@ namespace PixelStacker.Web.Net.Controllers
                     return File(cd.Data, cd.ContentType, cd.SuggestedFileName);
             }
 
-            byte[] dataFromUrl = new WebClient().DownloadData(model.Url);
+            //byte[] dataFromUrl = new WebClient().DownloadData(model.Url);
+            byte[] dataFromUrl = await this.DownloadDataAsync(model.Url);
             var bm = SKBitmap.Decode(dataFromUrl);
             var node = await DoAdvanced(model, bm);
             Cache.Set(key, node);

@@ -19,7 +19,7 @@ namespace PixelStacker.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Text {
@@ -640,6 +640,33 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show both layers.
+        /// </summary>
+        public static string MainForm_TS_ShowBothLayers {
+            get {
+                return ResourceManager.GetString("MainForm_TS_ShowBothLayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show bottom layer.
+        /// </summary>
+        public static string MainForm_TS_ShowBottomLayer {
+            get {
+                return ResourceManager.GetString("MainForm_TS_ShowBottomLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show top layer.
+        /// </summary>
+        public static string MainForm_TS_ShowTopLayer {
+            get {
+                return ResourceManager.GetString("MainForm_TS_ShowTopLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string MainMenu_About {
@@ -964,15 +991,6 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Switch Panels.
-        /// </summary>
-        public static string MainMenu_SwitchPanels {
-            get {
-                return ResourceManager.GetString("MainMenu_SwitchPanels", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toggle Border.
         /// </summary>
         public static string MainMenu_ToggleBorder {
@@ -1023,6 +1041,15 @@ namespace PixelStacker.Resources {
         public static string MainMenu_ToggleProgress {
             get {
                 return ResourceManager.GetString("MainMenu_ToggleProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Textures.
+        /// </summary>
+        public static string MainMenu_ToggleTextures {
+            get {
+                return ResourceManager.GetString("MainMenu_ToggleTextures", resourceCulture);
             }
         }
         

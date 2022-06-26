@@ -125,7 +125,7 @@
   "Sizing": "Dimensionering",
   "ColorReducer_Instructions": "Instruktioner",
   "ColorReducer_RgbBucketSize": "Max unikke farver",
-  "ColorReducer_RgbBucketSize_Tooltip": "Fremskynd gengivelsen ved at reducere antallet af unikke farver. I stedet for 255^3 unikke farver kan du reducere antallet af unikke farver 51^3.\r\n\r\nHurtigste: 5^3\r\nMest nøjagtige: 255^3\r\n\r\nLigning:\r\nF(X) => Min(255, Rund(X/5, 0) * 5)\r\n\r\nEksempel:\r\nNår fragmentstørrelsen er 5 (51^3 farver):\r\nf(255) => 255\r\nf(254) => 255\r\nf(251) => 250",
+  "ColorReducer_RgbBucketSize_Tooltip": "Fremskynd gengivelsen ved at reducere antallet af unikke farver. I stedet for 255^3 unikke farver kan du reducere antallet af unikke farver 51^3.\n\nHurtigste: 5^3\nMest nøjagtige: 255^3\n\nLigning:\nF(X) => Min(255, Rund(X/5, 0) * 5)\n\nEksempel:\nNår fragmentstørrelsen er 5 (51^3 farver):\nf(255) => 255\nf(254) => 255\nf(251) => 250",
   "ColorReducer_Title": "Farve Reducer",
   "ColorReducer_Algorithm": "Kvantiseringsalgoritme",
   "ColorReducer_ColorCache": "Farve cache",
@@ -134,7 +134,7 @@
   "ColorReducer_Parallel": "Parallel",
   "ColorReducer_QColorCount": "Kvantizer Farvetælling",
   "ColorReducer_Algorithm_Tooltip": "Farvekvantisering reducerer antallet af forskellige farver i et billede, mens det nye billede visuelt ligner originalen. Der findes mange forskellige algoritmer. Vælg din yndlingsalgoritme og brug den.",
-  "ColorReducer_ColorCache_Tooltip": "Læs mere om det her:\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nEuklidisk afstand: Langsom men nøjagtig\r\nLokalitetsfølsom-hashing: Hurtig\r\nOctree: Hurtig og præcis",
+  "ColorReducer_ColorCache_Tooltip": "Læs mere om det her:\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\n\nEuklidisk afstand: Langsom men nøjagtig\nLokalitetsfølsom-hashing: Hurtig\nOctree: Hurtig og præcis",
   "ColorReducer_ColorCount_Tooltip": "Kvantizeren vil reducere antallet af farver til et tal, der er 256 eller lavere.",
   "ColorReducer_Dither_Tooltip": "Mange forskellige stilarter at vælge imellem. Personligt synes jeg, at bayer dithering ser bedst ud.",
   "ColorReducer_Parallel_Tooltip": "Antallet af processer, der skal køre parallelt. Brug af højere tal kan fremskynde kvantiseringsprocessen.",
@@ -146,7 +146,7 @@
   "Grid": "Gitter",
   "GridOptions": "Grid muligheder",
   "MainMenu_ShadowRendering": "Skyggegengivelse",
-  "MainMenu_SwitchPanels": "Switch paneler",
+  "MainMenu_ToggleTextures": "Skift teksturer",
   "Action_ReOpen": "Åbn igen",
   "Action_SaveAs": "Gem som",
   "Bottom": "Bund",
@@ -158,5 +158,8 @@
   "Tools_Pencil": "Blyant",
   "Tools_Picker": "Farvevælger",
   "Tools_WEOrigin": "World Edit oprindelsesvælger",
-  "Top": "Top"
+  "Top": "Top",
+  "MainForm_TS_ShowBothLayers": "Vis begge lag",
+  "MainForm_TS_ShowBottomLayer": "Vis nederste lag",
+  "MainForm_TS_ShowTopLayer": "Vis øverste lag"
 }

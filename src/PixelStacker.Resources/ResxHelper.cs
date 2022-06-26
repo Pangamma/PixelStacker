@@ -56,9 +56,10 @@ namespace PixelStacker.Resources
         public static string GetSupportedLocale(string attemptedLocale = null)
         {
             attemptedLocale ??= System.Globalization.CultureInfo.CurrentUICulture.Name;
-            string preferredLangCode = attemptedLocale.Split("-", StringSplitOptions.RemoveEmptyEntries)[0];
+            string preferredLangCode = attemptedLocale.Split("-", StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "";
             string match = SupportedLocales.FirstOrDefault(x => attemptedLocale == x)
-                ?? SupportedLocales.FirstOrDefault(x => x.Split("-", StringSplitOptions.RemoveEmptyEntries)[0] == preferredLangCode)
+                ?? SupportedLocales.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x)
+                    && x.Split("-", StringSplitOptions.RemoveEmptyEntries)[0] == preferredLangCode)
                 ?? "en-US";
             return match;
         }

@@ -11,7 +11,7 @@ namespace PixelStacker.UI
 
     public partial class MainForm : ILocalized
     {
-        private Bitmap GetLanguageImage(CultureInfo locale)
+        private static Bitmap GetLanguageImage(CultureInfo locale)
         {
             switch (locale.TwoLetterISOLanguageName.ToLowerInvariant())
             {
@@ -31,7 +31,7 @@ namespace PixelStacker.UI
             }
         }
 
-        private string GetLanguageName(CultureInfo locale)
+        private static string GetLanguageName(CultureInfo locale)
         {
             switch (locale.TwoLetterISOLanguageName.ToLowerInvariant())
             {
@@ -53,14 +53,13 @@ namespace PixelStacker.UI
 
         public void ApplyLocalization(CultureInfo locale)
         {
-            this.Options.Locale = locale.Name;
+            this.Options.Locale = ResxHelper.GetSupportedLocale(locale.Name);
             this.Options.Save();
             Thread.CurrentThread.CurrentUICulture = locale;
             CultureInfo.CurrentUICulture = locale;
             this.MaterialOptions?.ApplyLocalization(locale);
             this.ColorReducerForm?.ApplyLocalization(locale);
             this.canvasEditor?.ApplyLocalization(locale);
-            //            this.renderedImagePanel?.ApplyLocalization(locale);
 
             this.Text = global::PixelStacker.Resources.Text.MainForm_Title;
             this.Text = this.Text + " v" + Constants.Version;
@@ -90,8 +89,8 @@ namespace PixelStacker.UI
             this.chineseSimplifiedToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Chinese;
             this.englishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_English;
             this.swedishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Swedish;
-            this.languageToolStripMenuItem.Image = GetLanguageImage(locale);
-            this.languageToolStripMenuItem.Text = GetLanguageName(locale);
+            this.languageToolStripMenuItem.Image = MainForm.GetLanguageImage(locale);
+            this.languageToolStripMenuItem.Text = MainForm.GetLanguageName(locale);
 
             this.dlgSave.Title = global::PixelStacker.Resources.Text.Action_Save;
             this.dlgOpen.Title = global::PixelStacker.Resources.Text.MainForm_Open_Title;
@@ -107,8 +106,6 @@ namespace PixelStacker.UI
             //this.mi_PreRenderOptions.Text = global::PixelStacker.Resources.Text.MainMenu_QuantizerOptions;
             //this.toolsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Tools;
             //this.down1LayerToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_DownOneLayer;
-            //this.up1LayerToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_UpOneLayer;
-            //this.toggleLayerFilterToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleLayerFilter;
             //this.toggleProgressToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleProgress;
             //this.togglePaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_TogglePalette;
             //this.toggleSolidColorsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleHideTexture;
@@ -120,11 +117,12 @@ namespace PixelStacker.UI
             //this.graphToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_Graph;
             //this.saveColorPaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
             //this.exportSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
-            this.switchPanelsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SwitchPanels;
+            this.switchPanelsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleTextures;
             this.shadowRenderingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ShadowRendering;
             this.gridOptionsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.GridOptions;
             this.gridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Grid;
-            this.layerFilteringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_LayerFiltering;
+
+
             this.toggleBorderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleBorder;
             this.toggleGridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleGrid;
             this.viewToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_View;
@@ -145,9 +143,17 @@ namespace PixelStacker.UI
             this.reOpenToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_ReOpen;
             this.fileToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_File;
             this.sizingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Sizing;
+
+            // Orientation
             this.orientationToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation;
             this.verticalToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation_Vertical;
             this.horizontalToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation_Horizontal;
+
+            // Layer Filters
+            this.layerFilteringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_LayerFiltering;
+            this.showTopLayerToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainForm_TS_ShowTopLayer;
+            this.showBottomLayerToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainForm_TS_ShowBottomLayer;
+            this.showBothLayersToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainForm_TS_ShowBothLayers;
         }
 
         private void InitializeLocalization()

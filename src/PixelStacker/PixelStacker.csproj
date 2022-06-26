@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <SignAssembly>False</SignAssembly>
     <Authors>Pangamma, Taylor Love</Authors>
@@ -17,8 +16,9 @@
     <ApplicationIcon>logo.ico</ApplicationIcon>
     <StartupObject>PixelStacker.Program</StartupObject>
 	<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-	<AssemblyVersion>1.0.0.1</AssemblyVersion>
-	<FileVersion>1.0.0.1</FileVersion>
+	<AssemblyVersion>1.0.0.2</AssemblyVersion>
+	<FileVersion>1.0.0.2</FileVersion>
+	<TargetFramework>net6.0-windows</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -39,7 +39,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="OpenTK.WinForms" Version="4.0.0-pre.6" />
-    <PackageReference Include="SkiaSharp" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp" Version="2.88.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -125,7 +125,7 @@
   "Sizing": "Maatvoering",
   "ColorReducer_Instructions": "instructies:",
   "ColorReducer_RgbBucketSize": "Max unieke kleuren",
-  "ColorReducer_RgbBucketSize_Tooltip": "Versnel de weergave door het aantal unieke kleuren te verminderen. In plaats van 255^3 unieke kleuren, kunt u het aantal unieke kleuren 51^3 verminderen.\r\n\r\nSnelste: 5^3\r\nMeest nauwkeurig: 255^3\r\n\r\nVergelijking:\r\nF(X) => Min(255, Rond(X/5, 0) * 5)\r\n\r\nVoorbeeld:\r\nAls de fragmentgrootte 5 is (51^3 kleuren):\r\nf(255) => 255\r\nf(254) => 255\r\nf(251) => 250",
+  "ColorReducer_RgbBucketSize_Tooltip": "Versnel de weergave door het aantal unieke kleuren te verminderen. In plaats van 255^3 unieke kleuren, kunt u het aantal unieke kleuren 51^3 verminderen.\n\nSnelste: 5^3\nMeest nauwkeurig: 255^3\n\nVergelijking:\nF(X) => Min(255, Rond(X/5, 0) * 5)\n\nVoorbeeld:\nAls de fragmentgrootte 5 is (51^3 kleuren):\nf(255) => 255\nf(254) => 255\nf(251) => 250",
   "ColorReducer_Title": "Kleurverminderaar",
   "ColorReducer_Algorithm": "Quantizer Algoritme",
   "ColorReducer_ColorCache": "Kleurcache",
@@ -134,7 +134,7 @@
   "ColorReducer_Parallel": "Parallel",
   "ColorReducer_QColorCount": "Aantal kleuren Quantizer",
   "ColorReducer_Algorithm_Tooltip": "Kleurkwantisatie vermindert het aantal verschillende kleuren van een afbeelding, terwijl de nieuwe afbeelding visueel vergelijkbaar blijft met het origineel. Er bestaan veel verschillende algoritmen. Kies je favoriete algoritme en gebruik het.",
-  "ColorReducer_ColorCache_Tooltip": "Lees er hier meer in detail over:\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nEuclidische afstand: langzaam maar nauwkeurig\r\nPlaatsgevoelige hashing: snel\r\nOktober: Snel en nauwkeurig",
+  "ColorReducer_ColorCache_Tooltip": "Lees er hier meer in detail over:\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\n\nEuclidische afstand: langzaam maar nauwkeurig\nPlaatsgevoelige hashing: snel\nOktober: Snel en nauwkeurig",
   "ColorReducer_ColorCount_Tooltip": "De quantizer zal het aantal kleuren verminderen tot een aantal van 256 of lager.",
   "ColorReducer_Dither_Tooltip": "Veel verschillende stijlen om uit te kiezen. Persoonlijk vind ik Bayer-dithering er het beste uitzien.",
   "ColorReducer_Parallel_Tooltip": "Het aantal processen dat parallel moet worden uitgevoerd. Het gebruik van hogere getallen kan het kwantiseringsproces versnellen.",
@@ -146,7 +146,7 @@
   "Grid": "Rooster",
   "GridOptions": "Rasteropties",
   "MainMenu_ShadowRendering": "Schaduwweergave",
-  "MainMenu_SwitchPanels": "Schakelpanelen",
+  "MainMenu_ToggleTextures": "Toggle Texturen",
   "Action_ReOpen": "Opnieuw openen",
   "Action_SaveAs": "Opslaan als",
   "Bottom": "Onderkant",
@@ -158,5 +158,8 @@
   "Tools_Pencil": "Potlood",
   "Tools_Picker": "Kleur kiezer",
   "Tools_WEOrigin": "Wereld Bewerk oorsprong selector",
-  "Top": "Bovenkant"
+  "Top": "Bovenkant",
+  "MainForm_TS_ShowBothLayers": "Beide lagen weergeven",
+  "MainForm_TS_ShowBottomLayer": "Toon onderste laag",
+  "MainForm_TS_ShowTopLayer": "Toon bovenste laag"
 }

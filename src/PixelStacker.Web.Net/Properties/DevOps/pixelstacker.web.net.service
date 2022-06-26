@@ -1,4 +1,5 @@
 ﻿# Install to /etc/systemd/system/pixelstacker.web.net.service
+# Enable on startup with systemctl enable pixelstacker.web.net
 [Unit]
 Description=PixelStacker web demo
 #

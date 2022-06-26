@@ -188,7 +188,7 @@ namespace FNBT
         /// <exception cref="InvalidDataException"> If file compression could not be detected, or decompressing failed. </exception>
         /// <exception cref="NbtFormatException"> If an error occurred while parsing data in NBT format. </exception>
         /// <exception cref="IOException"> If an I/O error occurred while reading the file. </exception>
-        public long LoadFromFile(string fileName, NbtCompression compression, TagSelector selector)
+        public long LoadFromFile(string fileName, NbtCompression compression, TagSelector? selector)
         {
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
 

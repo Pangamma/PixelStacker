@@ -2,3 +2,6 @@
 
 # IDE0079: Remove unnecessary suppression
 dotnet_diagnostic.IDE0079.severity = silent
+
+# IDE1006: Must use pascal casing everywhere even if method was auto generated??
+dotnet_diagnostic.IDE1006.severity = silent

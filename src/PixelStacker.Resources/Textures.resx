@@ -328,9 +328,6 @@
   <data name="crimson_stem" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\logwithbark\crimson_stem.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="crimson_stem_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\x16\logwithbark\crimson_stem_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="crying_obsidian" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\crying_obsidian.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -640,6 +637,12 @@
   <data name="magma" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\magma.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="mangrove_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\logwithbark\mangrove_log.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mangrove_planks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\planks\mangrove_planks.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="melon_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\melon_side.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -654,6 +657,15 @@
   </data>
   <data name="moss_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\moss_block.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mud" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\mud.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="muddy_mangrove_roots_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\muddy_mangrove_roots_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mud_bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\mud_bricks.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="mushroom_block_inside" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\mushroom_block_inside.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -691,6 +703,12 @@
   <data name="obsidian" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\obsidian.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ochre_froglight_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\ochre_froglight_side.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ochre_froglight_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\ochre_froglight_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="orange_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\concrete\orange_concrete.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -717,6 +735,15 @@
   </data>
   <data name="packed_ice" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\packed_ice.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="packed_mud" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\packed_mud.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pearlescent_froglight_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\pearlescent_froglight_side.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pearlescent_froglight_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\pearlescent_froglight_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="pink_concrete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\concrete\pink_concrete.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -862,6 +889,12 @@
   <data name="red_wool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\wool\red_wool.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="reinforced_deepslate_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\reinforced_deepslate_side.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="reinforced_deepslate_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\reinforced_deepslate_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="rooted_dirt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\rooted_dirt.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -870,6 +903,9 @@
   </data>
   <data name="sandstone_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\sandstone_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sculk_catalyst_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\sculk_catalyst_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sea_lantern" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\sea_lantern.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -952,6 +988,12 @@
   <data name="stripped_jungle_log_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\logstripped\stripped_jungle_log_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="stripped_mangrove_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\logstripped\stripped_mangrove_log.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="stripped_mangrove_log_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\logstripped\stripped_mangrove_log_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="stripped_oak_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\logstripped\stripped_oak_log.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -994,6 +1036,12 @@
   <data name="tuff" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\tuff.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="verdant_froglight_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\verdant_froglight_side.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="verdant_froglight_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\verdant_froglight_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="warped_nylium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\warped_nylium.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1005,9 +1053,6 @@
   </data>
   <data name="warped_stem" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\logwithbark\warped_stem.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="warped_stem_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\textures\x16\logwithbark\warped_stem_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="warped_wart_block" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\warped_wart_block.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

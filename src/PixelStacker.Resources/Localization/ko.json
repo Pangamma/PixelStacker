@@ -125,7 +125,7 @@
   "Sizing": "사이징",
   "ColorReducer_Instructions": "지침",
   "ColorReducer_RgbBucketSize": "최대 고유 색상",
-  "ColorReducer_RgbBucketSize_Tooltip": "고유한 색상의 수를 줄여 렌더링 속도를 높입니다. 255^3개의 고유 색상 대신 고유 색상의 수를 51^3개로 줄일 수 있습니다.\r\n\r\n가장 빠름: 5^3\r\n가장 정확함: 255^3\r\n\r\n방정식:\r\nF(X) => 최소(255, 라운드(X/5, 0) * 5)\r\n\r\n예시:\r\n조각 크기가 5(51^3색)인 경우:\r\nf(255) => 255\r\nf(254) => 255\r\nf(251) => 250",
+  "ColorReducer_RgbBucketSize_Tooltip": "고유한 색상의 수를 줄여 렌더링 속도를 높입니다. 255^3개의 고유 색상 대신 고유 색상의 수를 51^3개로 줄일 수 있습니다.\n\n가장 빠름: 5^3\n가장 정확함: 255^3\n\n방정식:\nF(X) => 최소(255, 라운드(X/5, 0) * 5)\n\n예시:\n조각 크기가 5(51^3 색상)인 경우:\nf(255) => 255\nf(254) => 255\nf(251) => 250",
   "ColorReducer_Title": "컬러 리듀서",
   "ColorReducer_Algorithm": "양자화 알고리즘",
   "ColorReducer_ColorCache": "색상 캐시",
@@ -134,7 +134,7 @@
   "ColorReducer_Parallel": "평행 한",
   "ColorReducer_QColorCount": "양자화기 색상 수",
   "ColorReducer_Algorithm_Tooltip": "색상 양자화는 새 이미지를 원본과 시각적으로 유사하게 유지하면서 이미지의 고유한 색상 수를 줄입니다. 다양한 알고리즘이 존재합니다. 좋아하는 알고리즘을 선택하고 사용하십시오.",
-  "ColorReducer_ColorCache_Tooltip": "여기에서 자세히 읽어보십시오.\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\n유클리드 거리: 느리지만 정확함\r\n지역에 민감한 해싱: 빠름\r\nOctree: 빠르고 정확함",
+  "ColorReducer_ColorCache_Tooltip": "여기에서 자세히 읽어보십시오.\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\n\n유클리드 거리: 느리지만 정확함\n지역에 민감한 해싱: 빠름\nOctree: 빠르고 정확함",
   "ColorReducer_ColorCount_Tooltip": "양자화기는 색상 수를 256 이하의 숫자로 줄입니다.",
   "ColorReducer_Dither_Tooltip": "선택할 수있는 다양한 스타일. 개인적으로 바이엘 디더링이 가장 좋은 것 같습니다.",
   "ColorReducer_Parallel_Tooltip": "병렬로 실행할 프로세스 수입니다. 더 높은 숫자를 사용하면 양자화 프로세스의 속도를 높일 수 있습니다.",
@@ -146,7 +146,7 @@
   "Grid": "그리드",
   "GridOptions": "그리드 옵션",
   "MainMenu_ShadowRendering": "그림자 렌더링",
-  "MainMenu_SwitchPanels": "스위치 패널",
+  "MainMenu_ToggleTextures": "텍스처 토글",
   "Action_ReOpen": "다시 열다",
   "Action_SaveAs": "다른 이름으로 저장",
   "Bottom": "맨 아래",
@@ -158,5 +158,8 @@
   "Tools_Pencil": "연필",
   "Tools_Picker": "색상 선택기",
   "Tools_WEOrigin": "세계 편집 원점 선택기",
-  "Top": "맨 위"
+  "Top": "맨 위",
+  "MainForm_TS_ShowBothLayers": "두 레이어 모두 표시",
+  "MainForm_TS_ShowBottomLayer": "하단 레이어 표시",
+  "MainForm_TS_ShowTopLayer": "최상위 레이어 표시"
 }

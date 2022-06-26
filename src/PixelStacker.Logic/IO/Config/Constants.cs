@@ -2,7 +2,7 @@
 {
     public static class Constants
     {
-        public const string Version = "1.18.1a";
+        public const string Version = "1.19.0a";
         public const string Website = "https://taylorlove.info/pixelstacker";
         public const int TextureSize = 16;
         //public const string ERR_DownsizeYourImage = "Your image is too large and cannot be processed. Please downsize your image using the sizing options or else choose a different image.";
@@ -20,8 +20,9 @@
         // Data version of MC build. Can be found on wiki.
         // TODO: Auto calc this based on selected materials
         // https://minecraft.fandom.com/wiki/Java_Edition_1.18.1
-        public const int DataVersion = 2865;
+        public const int DataVersion = 3105;
         public const int MaterialCombinationIDForAir = 0;
+        public const int BlockID_Unavailable = 166; // barrier
 #if DEBUG
         public const bool IsDevMode = true;
 #else
