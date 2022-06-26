@@ -26,7 +26,11 @@ If you want to **modify** an existing key, check out the [modifying](#modifying)
 ![text explorer example](https://user-images.githubusercontent.com/1046026/175829652-6e02ed35-bbeb-493b-b27e-bcf0cd4cd50b.png)
 5. This "test" will generate the localization entries in all of the localized json files, and will automatically localize the content into the other localization json files. 
 ![generated difference](https://user-images.githubusercontent.com/1046026/175829748-03a34ffc-c344-4c59-a795-926d59d0686c.png)
-6. Your key is now ready to be used when you call PixelStacker.Resources.Text.MainForm_ToggleTextures (or whatever your key was). 
+6. For some reason, this alone is not enough to update the content. You must also clear the cache in ResxContainer. First remove the existing json files from the resx container. ![Delete existing json files](https://user-images.githubusercontent.com/1046026/175836077-2d92a621-2f25-43e2-a8c3-05f2a00d1e68.png)
+7. Then you must re-add them. Simply drag en.json over onto the ResxContainer viewer window to re-populate. ![repopulate image](https://user-images.githubusercontent.com/1046026/175836118-da2fb311-ec03-4654-a943-3918625f970f.png)
+
+
+7. Your key is now ready to be used when you call PixelStacker.Resources.Text.MainForm_ToggleTextures (or whatever your key was).
 
 
 ## Modifying an existing entry
