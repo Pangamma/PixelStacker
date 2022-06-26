@@ -146,7 +146,7 @@
   "Grid": "网格",
   "GridOptions": "网格选项",
   "MainMenu_ShadowRendering": "阴影渲染",
-  "MainMenu_SwitchPanels": "开关面板",
+  "MainMenu_ToggleTextures": "切换纹理",
   "Action_ReOpen": "重新打开",
   "Action_SaveAs": "另存为",
   "Bottom": "底部",

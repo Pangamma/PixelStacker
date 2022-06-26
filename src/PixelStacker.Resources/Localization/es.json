@@ -146,7 +146,7 @@
   "Grid": "Red",
   "GridOptions": "Opciones de cuadrícula",
   "MainMenu_ShadowRendering": "Representación de sombras",
-  "MainMenu_SwitchPanels": "Paneles de interruptores",
+  "MainMenu_ToggleTextures": "Alternar texturas",
   "Action_ReOpen": "Reabrir",
   "Action_SaveAs": "Guardar como",
   "Bottom": "Fondo",

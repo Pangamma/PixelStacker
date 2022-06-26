@@ -66,6 +66,7 @@ namespace PixelStacker.UI
             this.switchPanelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contributorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,7 +87,6 @@ namespace PixelStacker.UI
             this.canvasEditor = new PixelStacker.UI.Controls.CanvasEditor();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.dlgSave = new System.Windows.Forms.SaveFileDialog();
-            this.updateSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -277,7 +277,7 @@ namespace PixelStacker.UI
             this.toggleGridToolStripMenuItem,
             this.gridOptionsToolStripMenuItem});
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             this.gridToolStripMenuItem.Text = "Grid";
             // 
             // toggleGridToolStripMenuItem
@@ -299,7 +299,7 @@ namespace PixelStacker.UI
             // 
             this.toggleBorderToolStripMenuItem.Name = "toggleBorderToolStripMenuItem";
             this.toggleBorderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.toggleBorderToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.toggleBorderToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             this.toggleBorderToolStripMenuItem.Text = "Toggle Border";
             this.toggleBorderToolStripMenuItem.Click += new System.EventHandler(this.toggleBorderToolStripMenuItem_Click);
             // 
@@ -310,7 +310,7 @@ namespace PixelStacker.UI
             this.showBottomLayerToolStripMenuItem,
             this.showBothLayersToolStripMenuItem});
             this.layerFilteringToolStripMenuItem.Name = "layerFilteringToolStripMenuItem";
-            this.layerFilteringToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.layerFilteringToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             this.layerFilteringToolStripMenuItem.Text = "Layer Filtering";
             // 
             // showTopLayerToolStripMenuItem
@@ -345,7 +345,7 @@ namespace PixelStacker.UI
             this.skipShadowRenderirngToolStripMenuItem,
             this.addExtraDepthToShadowsToolStripMenuItem});
             this.shadowRenderingToolStripMenuItem.Name = "shadowRenderingToolStripMenuItem";
-            this.shadowRenderingToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.shadowRenderingToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             this.shadowRenderingToolStripMenuItem.Text = "Shadow Rendering";
             // 
             // skipShadowRenderirngToolStripMenuItem
@@ -368,8 +368,8 @@ namespace PixelStacker.UI
             // 
             this.switchPanelsToolStripMenuItem.Name = "switchPanelsToolStripMenuItem";
             this.switchPanelsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.switchPanelsToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
-            this.switchPanelsToolStripMenuItem.Text = "Switch Panels";
+            this.switchPanelsToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.switchPanelsToolStripMenuItem.Text = "Toggle Textures";
             this.switchPanelsToolStripMenuItem.Click += new System.EventHandler(this.switchPanelsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -385,9 +385,15 @@ namespace PixelStacker.UI
             // contributorsToolStripMenuItem
             // 
             this.contributorsToolStripMenuItem.Name = "contributorsToolStripMenuItem";
-            this.contributorsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.contributorsToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
             this.contributorsToolStripMenuItem.Text = "Contributors";
             this.contributorsToolStripMenuItem.Click += new System.EventHandler(this.contributorsToolStripMenuItem_Click);
+            // 
+            // updateSettingsToolStripMenuItem
+            // 
+            this.updateSettingsToolStripMenuItem.Name = "updateSettingsToolStripMenuItem";
+            this.updateSettingsToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.updateSettingsToolStripMenuItem.Text = "Update Settings";
             // 
             // playToolStripMenuItem
             // 
@@ -576,12 +582,6 @@ namespace PixelStacker.UI
             this.dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Small PNG|*.sm.png|Schematic|*.schematic|Block Co" +
     "unts CSV|*.csv|PixelStacker Project|*.pxlzip";
             this.dlgSave.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSave_FileOk);
-            // 
-            // updateSettingsToolStripMenuItem
-            // 
-            this.updateSettingsToolStripMenuItem.Name = "updateSettingsToolStripMenuItem";
-            this.updateSettingsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.updateSettingsToolStripMenuItem.Text = "Update Settings";
             // 
             // MainForm
             // 

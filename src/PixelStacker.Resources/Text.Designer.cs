@@ -964,15 +964,6 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Switch Panels.
-        /// </summary>
-        public static string MainMenu_SwitchPanels {
-            get {
-                return ResourceManager.GetString("MainMenu_SwitchPanels", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toggle Border.
         /// </summary>
         public static string MainMenu_ToggleBorder {
@@ -1023,6 +1014,15 @@ namespace PixelStacker.Resources {
         public static string MainMenu_ToggleProgress {
             get {
                 return ResourceManager.GetString("MainMenu_ToggleProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Textures.
+        /// </summary>
+        public static string MainMenu_ToggleTextures {
+            get {
+                return ResourceManager.GetString("MainMenu_ToggleTextures", resourceCulture);
             }
         }
         

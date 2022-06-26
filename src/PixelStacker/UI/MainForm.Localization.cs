@@ -53,14 +53,13 @@ namespace PixelStacker.UI
 
         public void ApplyLocalization(CultureInfo locale)
         {
-            this.Options.Locale = locale.Name;
+            this.Options.Locale = ResxHelper.GetSupportedLocale(locale.Name);
             this.Options.Save();
             Thread.CurrentThread.CurrentUICulture = locale;
             CultureInfo.CurrentUICulture = locale;
             this.MaterialOptions?.ApplyLocalization(locale);
             this.ColorReducerForm?.ApplyLocalization(locale);
             this.canvasEditor?.ApplyLocalization(locale);
-            //            this.renderedImagePanel?.ApplyLocalization(locale);
 
             this.Text = global::PixelStacker.Resources.Text.MainForm_Title;
             this.Text = this.Text + " v" + Constants.Version;
@@ -120,7 +119,7 @@ namespace PixelStacker.UI
             //this.graphToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_CP_Graph;
             //this.saveColorPaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
             //this.exportSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
-            this.switchPanelsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SwitchPanels;
+            this.switchPanelsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleTextures;
             this.shadowRenderingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ShadowRendering;
             this.gridOptionsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.GridOptions;
             this.gridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Grid;
