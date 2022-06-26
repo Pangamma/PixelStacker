@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Utilities;
 using System;
@@ -23,12 +24,48 @@ namespace PixelStacker.IO
 
     public class UpdateChecker
     {
+        private static bool IsNewerVersionAvailable(string vA_Newer, string vB_Older)
+        {
+            if (string.IsNullOrWhiteSpace(vA_Newer)) return false; // Bad NEW version? Better wait for the next one.
+            if (string.IsNullOrWhiteSpace(vB_Older)) return true; // Bad version? Yikes. Recommend an upgrade.
+
+            var a_arr = vA_Newer.Split(".", StringSplitOptions.RemoveEmptyEntries);
+            var b_arr = vB_Older.Split(".", StringSplitOptions.RemoveEmptyEntries);
+
+            // [1].19.2c
+            if (a_arr.Length > 0 && b_arr.Length > 0)
+            {
+                int mA = a_arr[0].ToNullable<int>() ?? 0;
+                int mB = b_arr[0].ToNullable<int>() ?? 0;
+                if (mA < mB) return false;
+                if (mA > mB) return true;
+            }
+
+            // 1.[19].2c
+            if (a_arr.Length > 1 && b_arr.Length > 1)
+            {
+                int mA = a_arr[1].ToNullable<int>() ?? 0;
+                int mB = b_arr[1].ToNullable<int>() ?? 0;
+                if (mA < mB) return false;
+                if (mA > mB) return true;
+            }
+
+            // 1.19.[2c]
+            if (a_arr.Length > 2 && b_arr.Length > 2)
+            {
+                int mC = a_arr[2].CompareTo(b_arr[2]);
+                if (mC < 0) return true;
+            }
+
+            return false;
+        }
+
         public async static Task CheckForUpdates(Options o, CancellationToken cancelToken)
         {
             try
             {
                 var settings = o.UpdateSettings;
-                if (settings.LastChecked == null || settings.LastChecked.Value < DateTime.UtcNow.AddHours(-2))
+                //if (settings.LastChecked == null || settings.LastChecked.Value < DateTime.UtcNow.AddHours(-2))
                 {
                     ProgressX.Report(75, "Checking for updates");
                     settings.LastChecked = DateTime.UtcNow;
@@ -53,11 +90,18 @@ namespace PixelStacker.IO
                         return;
                     }
 
+                    if (!IsNewerVersionAvailable(latestVersion.Version, Constants.Version))
+                    {
+                        ProgressX.Report(100, "Already using the latest version of PixelStacker");
+                        return;
+                    }
+
                     if (latestVersion.Version == settings.SkipNotifyIfVersionIs)
                     {
                         ProgressX.Report(100, "Newest version available is still: " + latestVersion.Version);
                         return;
                     }
+
 
                     ProgressX.Report(100, "A new version is available!");
                     var result = MessageBox.Show("A new update for PixelStacker is available. Would you like to download it? Say YES to go to the download page. Say NO to ignore this update.\n\n"
@@ -77,8 +121,9 @@ namespace PixelStacker.IO
                 }
                 return/* false*/;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                Debug.WriteLine(ex);
             }
         }
 

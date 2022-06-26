@@ -110,8 +110,6 @@ namespace PixelStacker.UI
                 var canvasThatIsRendered = await engine.RenderCanvasAsync(worker, imgPreprocessed, this.ColorMapper, this.Palette);
                 worker.ThrowIfCancellationRequested();
                 self.RenderedCanvas = canvasThatIsRendered;
-                //self.RenderedCanvas = await engine.PostprocessImageAsync(worker, canvasThatIsRendered, this.ColorMapper, this.Options.Preprocessor);
-                //worker.ThrowIfCancellationRequested();
 
                 //var pz = self.imageViewer.PanZoomSettings;
                 //var pz2 = pz.TranslateForNewSize(canvasThatIsRendered.Width, canvasThatIsRendered.Height, self.canvasEditor.Width, self.canvasEditor.Height);

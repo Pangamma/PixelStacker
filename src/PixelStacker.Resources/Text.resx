@@ -331,6 +331,15 @@ me as a </value>
   <data name="MainForm_Title" xml:space="preserve">
     <value>Pangamma's PixelStacker</value>
   </data>
+  <data name="MainForm_TS_ShowBothLayers" xml:space="preserve">
+    <value>Show both layers</value>
+  </data>
+  <data name="MainForm_TS_ShowBottomLayer" xml:space="preserve">
+    <value>Show bottom layer</value>
+  </data>
+  <data name="MainForm_TS_ShowTopLayer" xml:space="preserve">
+    <value>Show top layer</value>
+  </data>
   <data name="MainMenu_About" xml:space="preserve">
     <value>About</value>
   </data>

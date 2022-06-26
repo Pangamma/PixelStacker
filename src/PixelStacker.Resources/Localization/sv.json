@@ -21,7 +21,7 @@
   "ColorReducer_Algorithm": "Kvantiseringsalgoritm",
   "ColorReducer_Algorithm_Tooltip": "Färgkvantisering minskar antalet distinkta färger i en bild samtidigt som den nya bilden visuellt liknar originalet. Det finns många olika algoritmer. Välj din favoritalgoritm och använd den.",
   "ColorReducer_ColorCache": "Färgcache",
-  "ColorReducer_ColorCache_Tooltip": "Läs mer om det här:\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nEuklidiskt avstånd: Långsamt men exakt\r\nLokalitetskänslig-hashning: Snabb\r\nOctree: Snabb och exakt",
+  "ColorReducer_ColorCache_Tooltip": "Läs mer om det här:\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\n\nEuklidiskt avstånd: Långsamt men exakt\nLokalitetskänslig-hashning: Snabb\nOctree: Snabb och exakt",
   "ColorReducer_ColorCount_Tooltip": "Kvantiseraren kommer att minska antalet färger till ett nummer som är 256 eller lägre.",
   "ColorReducer_Dither": "Dither",
   "ColorReducer_Dither_Tooltip": "Många olika stilar att välja mellan. Personligen tycker jag att bayer dithering ser bäst ut.",
@@ -31,7 +31,7 @@
   "ColorReducer_Parallel_Tooltip": "Antalet processer som ska köras parallellt. Att använda högre siffror kan påskynda kvantiseringsprocessen.",
   "ColorReducer_QColorCount": "Quantizer Color Count",
   "ColorReducer_RgbBucketSize": "Max unika färger",
-  "ColorReducer_RgbBucketSize_Tooltip": "Snabba upp renderingen genom att minska antalet unika färger. Istället för 255^3 unika färger kan du minska antalet unika färger med 51^3.\r\n\r\nSnabbast: 5^3\r\nMest exakt: 255^3\r\n\r\nEkvation:\r\nF(X) => Min(255, Rund(X/5, 0) * 5)\r\n\r\nExempel:\r\nNär fragmentstorleken är 5 (51^3 färger):\r\nf(255) => 255\r\nf(254) => 255\r\nf(251) => 250",
+  "ColorReducer_RgbBucketSize_Tooltip": "Snabba upp renderingen genom att minska antalet unika färger. Istället för 255^3 unika färger kan du minska antalet unika färger med 51^3.\n\nSnabbast: 5^3\nMest exakt: 255^3\n\nEkvation:\nF(X) => Min(255, Rund(X/5, 0) * 5)\n\nExempel:\nNär fragmentstorleken är 5 (51^3 färger):\nf(255) => 255\nf(254) => 255\nf(251) => 250",
   "ColorReducer_Title": "Färgreducerare",
   "DDL_SelectProfile": "Välj profil",
   "ErrorSender_ErrorOccurred": "Ett fel har uppstått.",
@@ -158,5 +158,8 @@
   "Tools_Pencil": "Penna",
   "Tools_Picker": "Färgväljare",
   "Tools_WEOrigin": "World Edit ursprungsväljare",
-  "Top": "Topp"
+  "Top": "Topp",
+  "MainForm_TS_ShowBothLayers": "Visa båda lagren",
+  "MainForm_TS_ShowBottomLayer": "Visa bottenlagret",
+  "MainForm_TS_ShowTopLayer": "Visa översta lagret"
 }

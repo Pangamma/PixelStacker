@@ -125,7 +125,7 @@
   "Sizing": "Dimensionamiento",
   "ColorReducer_Instructions": "Instrucciones",
   "ColorReducer_RgbBucketSize": "Max colores únicos",
-  "ColorReducer_RgbBucketSize_Tooltip": "Acelere el renderizado reduciendo el número de colores únicos. En lugar de 255 ^ 3 colores únicos, puede reducir el número de colores únicos 51 ^ 3.\r\n\r\nMás rápido: 5 ^ 3\r\nMás preciso: 255 ^ 3\r\n\r\nEcuación:\r\nF (X) => Min (255, Redondo (X / 5, 0) * 5)\r\n\r\nEjemplo:\r\nCuando el tamaño del fragmento es 5 (51 ^ 3 colores):\r\nf (255) => 255\r\nf (254) => 255\r\nf (251) => 250",
+  "ColorReducer_RgbBucketSize_Tooltip": "Acelere el renderizado reduciendo la cantidad de colores únicos. En lugar de 255 ^ 3 colores únicos, puede reducir la cantidad de colores únicos 51 ^ 3.\n\nMás rápido: 5 ^ 3\nMás preciso: 255 ^ 3\n\nEcuación:\nF(X) => Mín.(255, Ronda(X/5, 0) * 5)\n\nEjemplo:\nCuando el tamaño del fragmento es 5 (51^3 colores):\nf(255) => 255\nf(254) => 255\nf(251) => 250",
   "ColorReducer_Title": "Reductor de color",
   "ColorReducer_Algorithm": "Algoritmo cuantificador",
   "ColorReducer_ColorCache": "Caché de color",
@@ -134,7 +134,7 @@
   "ColorReducer_Parallel": "Paralelo",
   "ColorReducer_QColorCount": "Recuento de colores del cuantificador",
   "ColorReducer_Algorithm_Tooltip": "La cuantificación de color reduce el número de colores distintos de una imagen mientras mantiene la nueva imagen visualmente similar a la original. Existen muchos algoritmos diferentes. Elija su algoritmo favorito y utilícelo.",
-  "ColorReducer_ColorCache_Tooltip": "Lea sobre esto con más detalle aquí:\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\nDistancia euclidiana: lenta pero precisa\r\nHash sensible a la localidad: rápido\r\nOctree: rápido y preciso",
+  "ColorReducer_ColorCache_Tooltip": "Lea sobre esto más en detalle aquí:\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\n\nDistancia euclidiana: lenta pero precisa\nHashing sensible a la localidad: Rápido\nOcttree: rápido y preciso",
   "ColorReducer_ColorCount_Tooltip": "El cuantificador reducirá el número de colores a un número de 256 o menor.",
   "ColorReducer_Dither_Tooltip": "Muchos estilos diferentes para elegir. Personalmente, creo que el dithering de bayer se ve mejor.",
   "ColorReducer_Parallel_Tooltip": "El número de procesos que se ejecutarán en paralelo. El uso de números más altos puede acelerar el proceso de cuantificación.",
@@ -158,5 +158,8 @@
   "Tools_Pencil": "Lápiz",
   "Tools_Picker": "Selector de color",
   "Tools_WEOrigin": "Selector de origen de edición mundial",
-  "Top": "Cima"
+  "Top": "Cima",
+  "MainForm_TS_ShowBothLayers": "Mostrar ambas capas",
+  "MainForm_TS_ShowBottomLayer": "Mostrar capa inferior",
+  "MainForm_TS_ShowTopLayer": "Mostrar capa superior"
 }

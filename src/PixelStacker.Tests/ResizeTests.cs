@@ -35,7 +35,7 @@ namespace PixelStacker.Tests
         }
 
 
-        public int[] GetNewSize(int Wdt, int Hgt, int Max_W, int Max_H)
+        public static int[] GetNewSize(int Wdt, int Hgt, int Max_W, int Max_H)
         {
             int W_Result = Wdt;
             int H_Result = Hgt;

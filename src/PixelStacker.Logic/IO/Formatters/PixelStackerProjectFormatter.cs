@@ -136,7 +136,7 @@ namespace PixelStacker.Logic.IO.Formatters
                 Console.WriteLine(ex);
             }
 
-            return new byte[0];
+            return Array.Empty<byte>();
         }
 
         public async Task<RenderedCanvas> ImportAsync(string filePath, CancellationToken? worker = null)

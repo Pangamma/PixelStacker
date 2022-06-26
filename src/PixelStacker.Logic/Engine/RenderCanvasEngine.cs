@@ -8,11 +8,6 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using SkiaSharp;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing.Processors.Quantization;
-using SixLabors.ImageSharp.Processing;
-using System.Collections.Generic;
 using PixelStacker.Logic.Engine.Quantizer;
 
 namespace PixelStacker.Logic.Engine
@@ -145,7 +140,6 @@ namespace PixelStacker.Logic.Engine
             {
                 ProgressX.Report(50, $"Pre-processing image. Quantizing.");
                 var quantized = QuantizerEngine.RenderImage(worker, resized, settings.QuantizerSettings);
-                //var quantized = this.QuantizeImage(worker, resized, settings);
 
                 resized.DisposeSafely();
                 ProgressX.Report(100, "Finished pre-processing the image.");
@@ -154,146 +148,6 @@ namespace PixelStacker.Logic.Engine
 
             ProgressX.Report(100, "Finished pre-processing the image.");
             return Task.FromResult(resized);
-        }
-
-
-        /// <summary>
-        /// Processes an image prior to be matched up with existing material combinations.
-        /// </summary>
-        /// <param name="worker"></param>
-        /// <param name="LIM"></param>
-        /// <param name="settings"></param>
-        /// <exception cref="OperationCanceledException"></exception>
-        /// <returns></returns>
-        public SKBitmap QuantizeImage(CancellationToken? worker, SKBitmap origImage, CanvasPreprocessorSettings settings)
-        {
-            Configuration config = Configuration.Default;
-            var gOpts = config.GetGraphicsOptions();
-            gOpts.Antialias = false;
-            config.SetGraphicsOptions(gOpts);
-
-            var frameQuantizer = KnownQuantizers.Octree.CreatePixelSpecificQuantizer<Rgba32>(config, new QuantizerOptions
-            {
-                Dither = KnownDitherings.Bayer8x8,
-                MaxColors = settings.QuantizerSettings.MaxColorCount
-            });
-
-            // Paint onto the "actual" image.
-            using var actualImage = new Image<Rgba32>(config, origImage.Width, origImage.Height, Color.Transparent);
-            Dictionary<Rgba32, MaterialCombination> map = new Dictionary<Rgba32, MaterialCombination>();
-            origImage.ToViewStream(null, (x, y, c) => {
-                var ic = new Rgba32((byte)c.Red, (byte)c.Green, (byte)c.Blue, (byte)c.Alpha);
-                actualImage[x, y] = ic;
-            });
-
-            // Quantize the image
-            ImageFrame<Rgba32> frame = actualImage.Frames.RootFrame;
-            using IndexedImageFrame<Rgba32> result = frameQuantizer.BuildPaletteAndQuantizeFrame(frame, frame.Bounds());
-
-            // Copy quantized info back to result image
-            var srcImagePixels = origImage.Pixels;
-            var outImage = new SKBitmap(origImage.Width, origImage.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
-            var outImagePixels = outImage.Pixels;
-
-            int w = origImage.Width;
-            int h = origImage.Height;
-
-            var paletteSpan = result.Palette.Span;
-            int paletteMaxI = paletteSpan.Length - 1;
-
-            // Compare quantized data to original data and make changes as appropriate
-            for (int y = 0; y < h; y++)
-            {
-                Span<Rgba32> row = actualImage.GetPixelRowSpan(y);
-                ReadOnlySpan<byte> quantizedPixelSpan = result.GetPixelRowSpan(y);
-
-                for (int x = 0; x < w; x++)
-                {
-                    int i = x + y * w;
-                    Rgba32 winningC = paletteSpan[Math.Min(paletteMaxI, quantizedPixelSpan[x])];
-                    outImagePixels[i] = new SKColor(winningC.R, winningC.G, winningC.B, winningC.A);
-                    row[x] = winningC;
-                }
-
-                worker?.SafeThrowIfCancellationRequested();
-                if (worker != null) ProgressX.Report(100 * y / h);
-            }
-
-            // Do we really need this?
-            outImage.Pixels = outImagePixels;
-            return outImage;
-        }
-
-        /// <summary>
-        /// Processes an image prior to be matched up with existing material combinations.
-        /// </summary>
-        /// <param name="worker"></param>
-        /// <param name="LIM"></param>
-        /// <param name="settings"></param>
-        /// <exception cref="OperationCanceledException"></exception>
-        /// <returns></returns>
-        public Task<RenderedCanvas> PostprocessImageAsync(CancellationToken? worker, RenderedCanvas canvas, IColorMapper cMapper, CanvasPreprocessorSettings settings)
-        {
-            Configuration config = Configuration.Default;
-            var gOpts = config.GetGraphicsOptions();
-            gOpts.Antialias = false;
-            config.SetGraphicsOptions(gOpts);
-
-            var quantizer = new WuQuantizer(new QuantizerOptions
-            {
-                Dither = null,
-                MaxColors = settings.QuantizerSettings.MaxColorCount
-            });
-
-            using IQuantizer<Rgba32> frameQuantizer = quantizer.CreatePixelSpecificQuantizer<Rgba32>(config);
-            using var actualImage = new Image<Rgba32>(config, canvas.Width, canvas.Height, Color.Transparent);
-
-            Dictionary<Rgba32, MaterialCombination> map = new Dictionary<Rgba32, MaterialCombination>();
-
-            // Paint onto the "actual" image.
-            for (int y = 0; y < actualImage.Height; y++)
-            {
-                for (int x = 0; x < actualImage.Width; x++)
-                {
-                    var mc = canvas.CanvasData[x, y];
-                    var c = mc.GetAverageColor(canvas.IsSideView);
-                    var ic = new Rgba32((byte)c.Red, (byte)c.Green, (byte)c.Blue, (byte)c.Alpha);
-                    map.TryAdd(ic, mc);
-                    if (!map.TryGetValue(ic, out MaterialCombination mc2))
-                    {
-                        Console.WriteLine("Bruh.");
-                    }
-                    actualImage[x, y] = ic;
-                }
-            }
-
-            // Quantize the image
-            ImageFrame<Rgba32> frame = actualImage.Frames.RootFrame;
-            using IndexedImageFrame<Rgba32> result = frameQuantizer.BuildPaletteAndQuantizeFrame(frame, frame.Bounds());
-            var paletteSpan = result.Palette.Span;
-            int paletteMaxI = paletteSpan.Length - 1;
-
-            // Compare quantized data to original data and make changes as appropriate
-            for (int y = 0; y < canvas.Height; y++)
-            {
-                Span<Rgba32> row = actualImage.GetPixelRowSpan(y);
-                ReadOnlySpan<byte> quantizedPixelSpan = result.GetPixelRowSpan(y);
-
-                for (int x = 0; x < actualImage.Width; x++)
-                {
-                    Rgba32 winningC = paletteSpan[Math.Min(paletteMaxI, quantizedPixelSpan[x])];
-                    row[x] = winningC;
-
-                    if (!map.TryGetValue(winningC, out MaterialCombination winningMC))
-                    {
-                        winningMC = cMapper.FindBestMatch(new SKColor(winningC.R, winningC.G, winningC.B, winningC.A));
-                    }
-
-                    canvas.CanvasData[x, y] = winningMC;
-                }
-            }
-
-            return Task.FromResult(canvas);
         }
 
         /// <summary>

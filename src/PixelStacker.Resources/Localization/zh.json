@@ -125,7 +125,7 @@
   "Sizing": "浆纱",
   "ColorReducer_Instructions": "指示",
   "ColorReducer_RgbBucketSize": "最大独特颜色",
-  "ColorReducer_RgbBucketSize_Tooltip": "通过减少独特颜色的数量来加速渲染。您可以将唯一颜色的数量减少 51^3，而不是 255^3 种独特颜色。\r\n\r\n最快：5^3\r\n最准确：255^3\r\n\r\n方程：\r\nF(X) => Min(255, Round(X/5, 0) * 5)\r\n\r\n例子：\r\n当片段大小为 5（51^3 种颜色）时：\r\nf(255) => 255\r\nf(254) => 255\r\nf(251) => 250",
+  "ColorReducer_RgbBucketSize_Tooltip": "通过减少独特颜色的数量来加速渲染。您可以将唯一颜色的数量减少 51^3，而不是 255^3 唯一颜色。\n\n最快：5^3\n最准确：255^3\n\n方程：\nF(X) => Min(255, Round(X/5, 0) * 5)\n\n例子：\n当片段大小为 5（51^3 种颜色）时：\nf(255) => 255\nf(254) => 255\nf(251) => 250",
   "ColorReducer_Title": "减色剂",
   "ColorReducer_Algorithm": "量化算法",
   "ColorReducer_ColorCache": "颜色缓存",
@@ -134,7 +134,7 @@
   "ColorReducer_Parallel": "平行线",
   "ColorReducer_QColorCount": "量化器颜色计数",
   "ColorReducer_Algorithm_Tooltip": "颜色量化减少了图像不同颜色的数量，同时保持新图像在视觉上与原始图像相似。存在许多不同的算法。选择您最喜欢的算法并使用它。",
-  "ColorReducer_ColorCache_Tooltip": "在此处详细了解它：\r\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\r\n\r\n欧几里得距离：缓慢但准确\r\n局部敏感哈希：快速\r\n八叉树：快速准确",
+  "ColorReducer_ColorCache_Tooltip": "在这里更详细地阅读它：\nhttps://www.codeproject.com/Articles/66341/A-Simple-Yet-Quite-Powerful-Palette-Quantizer-in-C\n\n欧几里得距离：缓慢但准确\n局部敏感散列：快速\n八叉树：快速准确",
   "ColorReducer_ColorCount_Tooltip": "量化器会将颜色数量减少到 256 或更低。",
   "ColorReducer_Dither_Tooltip": "许多不同的风格可供选择。我个人认为拜耳抖动看起来最好。",
   "ColorReducer_Parallel_Tooltip": "要并行运行的进程数。使用更高的数字可以加快量化过程。",
@@ -158,5 +158,8 @@
   "Tools_Pencil": "铅笔",
   "Tools_Picker": "颜色选择器",
   "Tools_WEOrigin": "世界编辑原点选择器",
-  "Top": "最佳"
+  "Top": "最佳",
+  "MainForm_TS_ShowBothLayers": "显示两个图层",
+  "MainForm_TS_ShowBottomLayer": "显示底层",
+  "MainForm_TS_ShowTopLayer": "显示顶层"
 }

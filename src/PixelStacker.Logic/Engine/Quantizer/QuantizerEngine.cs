@@ -77,15 +77,17 @@ namespace PixelStacker.Logic.Engine.Quantizer
 
 
 
+        [Obsolete("Dangerous. Can cause memory corruption if any inputs are disposed mid run.", false)]
         /// <summary>
         /// Processes an image prior to be matched up with existing material combinations.
+        /// Copies pixels from result onto the outImage.
         /// </summary>
         /// <param name="worker"></param>
         /// <param name="LIM"></param>
         /// <param name="settings"></param>
         /// <exception cref="OperationCanceledException"></exception>
         /// <returns></returns>
-        private static void TransferImage(IndexedImageFrame<Rgba32> result, SKBitmap outImage)
+        private static void TransferImage(IndexedImageFrame<Rgba32> quantizedImage, SKBitmap outImage)
         {
             // Copy quantized info back to result image
             var outImagePixels = outImage.Pixels;
@@ -93,13 +95,14 @@ namespace PixelStacker.Logic.Engine.Quantizer
             int w = outImage.Width;
             int h = outImage.Height;
 
-            var paletteSpan = result.Palette.Span;
+            var paletteSpan = quantizedImage.Palette.Span;
             int paletteMaxI = paletteSpan.Length - 1;
+
 
             // Compare quantized data to original data and make changes as appropriate
             for (int y = 0; y < h; y++)
             {
-                ReadOnlySpan<byte> quantizedPixelSpan = result.GetPixelRowSpan(y);
+                ReadOnlySpan<byte> quantizedPixelSpan = quantizedImage.DangerousGetRowSpan(y);
 
                 for (int x = 0; x < w; x++)
                 {
@@ -170,23 +173,12 @@ namespace PixelStacker.Logic.Engine.Quantizer
                 using IndexedImageFrame<Rgba32> result = frameQuantizer.BuildPaletteAndQuantizeFrame(frame, frame.Bounds());
 
                 var outImage = new SKBitmap(w, h, SKColorType.Rgba8888, SKAlphaType.Premul);
+
+#pragma warning disable CS0618 // Type or member is obsolete
                 TransferImage(result, outImage);
+#pragma warning restore CS0618 // Type or member is obsolete
+
                 return outImage;
-
-                //// For some reason the super quick algo failed. Need to fail over to this super safe one.
-                //using (Image targetImage = ImageBuffer.QuantizeImage(sourceImage, activeQuantizer, activeDitherer, colorCount, parallelTaskCount))
-                //{
-                //    //using 
-                //    Bitmap formattedBM = targetImage.To32bppBitmap();
-                //    //var returnVal = sourceImage.ToMergeStream(formattedBM, _worker, (x, y, o, n) =>
-                //    //{
-                //    //    if (o.A < 32) return Color.Transparent;
-                //    //    else return n;
-                //    //});
-
-                //    //return returnVal;
-                //    return formattedBM;
-                //}
             }
             catch (Exception)
             {
