@@ -439,9 +439,6 @@ me as a </value>
   <data name="MainMenu_ShadowRendering" xml:space="preserve">
     <value>Shadow Rendering</value>
   </data>
-  <data name="MainMenu_SwitchPanels" xml:space="preserve">
-    <value>Switch Panels</value>
-  </data>
   <data name="MainMenu_ToggleBorder" xml:space="preserve">
     <value>Toggle Border</value>
   </data>
@@ -459,6 +456,9 @@ me as a </value>
   </data>
   <data name="MainMenu_ToggleProgress" xml:space="preserve">
     <value>Toggle Progress</value>
+  </data>
+  <data name="MainMenu_ToggleTextures" xml:space="preserve">
+    <value>Toggle Textures</value>
   </data>
   <data name="MainMenu_Tools" xml:space="preserve">
     <value>Tools</value>

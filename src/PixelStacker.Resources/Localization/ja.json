@@ -146,7 +146,7 @@
   "Grid": "グリッド",
   "GridOptions": "グリッドオプション",
   "MainMenu_ShadowRendering": "シャドウレンダリング",
-  "MainMenu_SwitchPanels": "スイッチパネル",
+  "MainMenu_ToggleTextures": "テクスチャを切り替えます",
   "Action_ReOpen": "再オープン",
   "Action_SaveAs": "名前を付けて保存",
   "Bottom": "下",

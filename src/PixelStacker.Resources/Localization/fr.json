@@ -146,7 +146,7 @@
   "Grid": "Grille",
   "GridOptions": "Options de grille",
   "MainMenu_ShadowRendering": "Rendu des ombres",
-  "MainMenu_SwitchPanels": "Panneaux de commutation",
+  "MainMenu_ToggleTextures": "Basculer les textures",
   "Action_ReOpen": "Rouvrir",
   "Action_SaveAs": "Enregistrer sous",
   "Bottom": "Bas",

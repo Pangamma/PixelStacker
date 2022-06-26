@@ -146,7 +146,7 @@
   "Grid": "Rooster",
   "GridOptions": "Rasteropties",
   "MainMenu_ShadowRendering": "Schaduwweergave",
-  "MainMenu_SwitchPanels": "Schakelpanelen",
+  "MainMenu_ToggleTextures": "Toggle Texturen",
   "Action_ReOpen": "Opnieuw openen",
   "Action_SaveAs": "Opslaan als",
   "Bottom": "Onderkant",
