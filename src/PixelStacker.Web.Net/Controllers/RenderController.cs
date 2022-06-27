@@ -168,7 +168,6 @@ namespace PixelStacker.Web.Net.Controllers
             var palette = MaterialPalette.FromResx();
             var preprocessed = await engine.PreprocessImageAsync(null, bm, new Logic.IO.Config.CanvasPreprocessorSettings()
             {
-                IsSideView = false,
                 MaxHeight = 300,
                 MaxWidth = 300,
                 RgbBucketSize = 1,
@@ -199,7 +198,6 @@ namespace PixelStacker.Web.Net.Controllers
             bool isv = model.IsSideView;
             using var preprocessed = await engine.PreprocessImageAsync(null, bm, new CanvasPreprocessorSettings()
             {
-                IsSideView = isv,
                 MaxHeight = model.MaxHeight ?? 200,
                 MaxWidth = model.MaxWidth ?? 200,
                 RgbBucketSize = model.RgbBucketSize,
