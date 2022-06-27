@@ -417,11 +417,7 @@ namespace PixelStacker.Logic.Extensions
         }
 
         public static SKColor Normalize(this SKColor c, int fragmentSize)
-        => c.NormalizeActual(fragmentSize);
-
-        [Obsolete("Stop using this one.", false)]
-        public static SKColor Normalize(this SKColor c)
-        => c.NormalizeActual(null);
+            => c.NormalizeActual(fragmentSize);
 
         /// <summary>
         /// Does not normalize alpha channels

@@ -36,6 +36,8 @@ namespace PixelStacker.UI
         private OrderedDictionary<string, MaterialSelectTile> materialTiles = new OrderedDictionary<string, MaterialSelectTile>();
         private Dictionary<string, CategoryReferenceContainer> categoryRefs = new Dictionary<string, CategoryReferenceContainer>();
         public Action<CancellationToken> OnColorPaletteRecompileRequested;
+        private bool AreMaterialsCombined = false;
+        private Options Options { get; }
 
         public MaterialSelectWindow() : this(Options.Get)
         {
@@ -405,7 +407,6 @@ namespace PixelStacker.UI
             CheckBox cbx = (CheckBox)sender;
             bool isChecked = cbx.CheckState == CheckState.Checked;
             this.Options.IsSideView = isChecked;
-            this.Options.Preprocessor.IsSideView = isChecked;
 
             this.materialTiles.ToList().ForEach(x =>
             {
@@ -519,9 +520,6 @@ namespace PixelStacker.UI
             //TaskLimiter.TryAsync(10, (token) => self.InvokeEx(c => c.SetSearchFilter(needle, token)));
         }
 
-        private bool AreMaterialsCombined = false;
-
-        public Options Options { get; }
 
         private void SetMaterialsCombinedMode(bool shouldBeCombined)
         {

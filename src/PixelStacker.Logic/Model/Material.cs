@@ -99,25 +99,6 @@ namespace PixelStacker.Logic.Model
             return true;
         }
 
-        [Obsolete("IsVisible uses a static reference to Options.Get. Avoid this if you can.")]
-        public bool IsVisible
-        {
-            get
-            {
-                if (BlockID == 0)
-                {
-                    return false;
-                }
-
-                if (!Options.Get.IsAdvancedModeEnabled && IsAdvanced)
-                {
-                    return false;
-                }
-
-                return true;
-            }
-        }
-
         public bool IsEnabledF(Options opts)
         {
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -147,33 +128,6 @@ namespace PixelStacker.Logic.Model
             opts ??= Options.Get;
 #pragma warning restore CS0618 // Type or member is obsolete
             opts.EnableStates[SettingsKey] = val;
-        }
-
-        [Obsolete("IsEnabled uses a static reference to Options.Get. Avoid this if you can.", true)]
-        public bool IsEnabled
-        {
-            get
-            {
-                if (BlockID == 0)
-                {
-                    return false;
-                }
-
-                if (IsAdvanced && !Options.Get.IsAdvancedModeEnabled)
-                {
-                    return false;
-                }
-
-                if (!Options.Get.EnableStates.ContainsKey(SettingsKey))
-                {
-                    Options.Get.EnableStates[SettingsKey] = !IsAdvanced;
-                }
-
-                return Options.Get.EnableStates[SettingsKey];
-            }
-            set
-            {
-            }
         }
 
         public string GetBlockNameAndData(bool isSide)

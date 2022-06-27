@@ -191,7 +191,7 @@ namespace PixelStacker.UI
                     worker.ThrowIfCancellationRequested();
 
                     // Prepare for generation. This step might be skippable.
-                    this.ColorMapper.SetSeedData(proj.MaterialPalette.ToValidCombinationList(Options), proj.MaterialPalette, Options.Preprocessor.IsSideView);
+                    this.ColorMapper.SetSeedData(proj.MaterialPalette.ToValidCombinationList(Options), proj.MaterialPalette, Options.IsSideView);
 
                     worker.ThrowIfCancellationRequested();
 

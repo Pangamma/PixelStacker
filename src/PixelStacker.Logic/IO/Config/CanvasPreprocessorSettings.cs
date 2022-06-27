@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace PixelStacker.Logic.IO.Config
 {
@@ -10,6 +11,7 @@ namespace PixelStacker.Logic.IO.Config
         [Category("Dimensions")]
         public int? MaxWidth { get; set; }
 
+        [Obsolete("", true)]
         [Category("Colors")]
         /// <summary>
         /// TRUE is a vertical build. FALSE is a horizontal build.

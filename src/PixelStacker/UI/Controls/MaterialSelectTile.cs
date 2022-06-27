@@ -26,7 +26,7 @@ namespace PixelStacker.WF.Components
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
             g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
     
-            bool isv = Opts?.Preprocessor.IsSideView ?? false;
+            bool isv = Opts?.IsSideView ?? false;
             //Brush brHover = new SolidBrush(Color.FromArgb(100, 0, 0, 0));
 
             using Pen penShadow = new Pen(Color.FromArgb(50, 50, 50, 100))

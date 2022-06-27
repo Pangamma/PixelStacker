@@ -99,7 +99,7 @@ namespace PixelStacker.UI
                 if (!this.ColorMapper.IsSeeded())
                 {
                     this.ColorMapper.SetSeedData(this.Palette.ToValidCombinationList(Options),
-                        this.Palette, Options.Preprocessor.IsSideView);
+                        this.Palette, Options.IsSideView);
                     worker.ThrowIfCancellationRequested();
                 }
 

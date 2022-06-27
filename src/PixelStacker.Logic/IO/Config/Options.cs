@@ -51,12 +51,8 @@ namespace PixelStacker.Logic.IO.Config
         /// </summary>
         public bool IsMultiLayerRequired { get; set; } = false;
 
-        [JsonIgnore]
         [Category("Colors")]
-        public bool IsSideView { 
-            get => this.Preprocessor.IsSideView; 
-            set => this.Preprocessor.IsSideView = value; 
-        }
+        public bool IsSideView { get; set; } = false;
 
         /// <summary>
         /// Purely for aesthetic rendering. Assuming no block/material filter is set, any blocks with
@@ -87,7 +83,6 @@ namespace PixelStacker.Logic.IO.Config
 
         public CanvasPreprocessorSettings Preprocessor { get; set; } = new CanvasPreprocessorSettings()
         {
-            IsSideView = false,
             MaxHeight = null,
             MaxWidth = null,
             RgbBucketSize = 1,

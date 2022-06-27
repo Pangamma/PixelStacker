@@ -17,9 +17,10 @@ namespace PixelStacker.IO
         {
             try
             {
-                Properties.Settings.Default.Upgrade();
+                //Properties.Settings.Default.Upgrade();
                 string json = Properties.Settings.Default.JSON;
-                var rt = JsonConvert.DeserializeObject<Options>(json, SerializerSettings) ?? new Options(this);
+                var rt = JsonConvert.DeserializeObject<Options>(json, SerializerSettings);
+                rt ??= new Options(this);
                 rt.StorageProvider = this;
                 return rt;
             } 

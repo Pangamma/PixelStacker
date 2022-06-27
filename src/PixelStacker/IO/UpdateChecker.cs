@@ -169,8 +169,8 @@ namespace PixelStacker.IO
                 versionNumber = parsed.Current_Version;
             }
 
-            string title = "";
-            string msg = "";
+            string title;
+            string msg;
             {
                 var definition = new[] { new { title = "An update is here.", message="more details" } };
                 string json2 = await DoRequest($"https://api.spigotmc.org/simple/0.2/index.php?action=getResourceUpdates&id=46812&page={pageNum}");

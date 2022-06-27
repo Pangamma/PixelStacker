@@ -19,7 +19,7 @@ namespace PixelStacker.Tests
         public async Task RenderYuuuuugeImage()
         {
 #pragma warning disable CS0618 // Type or member is obsolete
-            var opts = Options.Get;
+            var opts = new Options(new MemoryOptionsProvider());
 #pragma warning restore CS0618 // Type or member is obsolete
             var engine = new RenderCanvasEngine();
             var img = await engine.PreprocessImageAsync(null,
