@@ -161,5 +161,8 @@
   "Top": "Topp",
   "MainForm_TS_ShowBothLayers": "Visa båda lagren",
   "MainForm_TS_ShowBottomLayer": "Visa bottenlagret",
-  "MainForm_TS_ShowTopLayer": "Visa översta lagret"
+  "MainForm_TS_ShowTopLayer": "Visa översta lagret",
+  "Bottom_Material": "Bottenmaterial",
+  "Combined_Materials": "Kombinerade material",
+  "Top_Material": "Toppmaterial"
 }

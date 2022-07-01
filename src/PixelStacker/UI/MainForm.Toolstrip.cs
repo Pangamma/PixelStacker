@@ -29,6 +29,7 @@ namespace PixelStacker.UI
             this.showBottomLayerToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == 0;
             this.showTopLayerToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == 1;
             this.showBothLayersToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == null;
+            this.skipShadowRenderirngToolStripMenuItem.Checked = opts.IsShadowRenderingSkipped;
         }
 
         public void TS_SetTagObjects()
@@ -74,6 +75,8 @@ namespace PixelStacker.UI
             bool isAdv = Options.IsAdvancedModeEnabled;
             bool isCanvas = this.IsCanvasEditorVisible;
             bool isLoadPathSet = !string.IsNullOrWhiteSpace(this.loadedImageFilePath);
+
+            this.swatchToolStripMenuItem.Visible = isCanvas && isAdv;
             this.menuStrip1.ModifyRecursive((ts, tag) =>
             {
                 if (tag == null) return;
@@ -119,6 +122,12 @@ namespace PixelStacker.UI
             string ext = this.loadedImageFilePath?.GetFileExtension() ?? "NOPE";
             saveToolStripMenuItem.Enabled = "pxlzip".Contains(ext);
             saveAsToolStripMenuItem.Enabled = true;
+        }
+
+        private void skipShadowRenderirngToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.Options.IsShadowRenderingSkipped = !this.Options.IsShadowRenderingSkipped;
+            skipShadowRenderirngToolStripMenuItem.Checked = this.Options.IsShadowRenderingSkipped;
         }
 
         private void undoToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -219,7 +228,6 @@ namespace PixelStacker.UI
                         await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
                     });
-
                 }));
             }
         }

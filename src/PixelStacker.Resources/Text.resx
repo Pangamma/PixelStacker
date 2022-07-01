@@ -195,6 +195,9 @@ Aka Pangamma</value>
   <data name="Bottom" xml:space="preserve">
     <value>Bottom</value>
   </data>
+  <data name="Bottom_Material" xml:space="preserve">
+    <value>Bottom material</value>
+  </data>
   <data name="ColorReducer_Algorithm" xml:space="preserve">
     <value>Quantizer Algorithm</value>
   </data>
@@ -256,6 +259,9 @@ f(251) =&gt; 250</value>
   </data>
   <data name="ColorReducer_Title" xml:space="preserve">
     <value>Color Reducer</value>
+  </data>
+  <data name="Combined_Materials" xml:space="preserve">
+    <value>Combined materials</value>
   </data>
   <data name="DDL_SelectProfile" xml:space="preserve">
     <value>Select profile</value>
@@ -647,5 +653,8 @@ Super high values = possible glitches</value>
   </data>
   <data name="Top" xml:space="preserve">
     <value>Top</value>
+  </data>
+  <data name="Top_Material" xml:space="preserve">
+    <value>Top material</value>
   </data>
 </root>

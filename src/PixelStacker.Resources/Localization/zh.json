@@ -161,5 +161,8 @@
   "Top": "最佳",
   "MainForm_TS_ShowBothLayers": "显示两个图层",
   "MainForm_TS_ShowBottomLayer": "显示底层",
-  "MainForm_TS_ShowTopLayer": "显示顶层"
+  "MainForm_TS_ShowTopLayer": "显示顶层",
+  "Bottom_Material": "底料",
+  "Combined_Materials": "组合材料",
+  "Top_Material": "顶部材料"
 }

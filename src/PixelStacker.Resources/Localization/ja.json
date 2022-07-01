@@ -161,5 +161,8 @@
   "Top": "上",
   "MainForm_TS_ShowBothLayers": "両方のレイヤーを表示",
   "MainForm_TS_ShowBottomLayer": "最下層を表示",
-  "MainForm_TS_ShowTopLayer": "トップレイヤーを表示"
+  "MainForm_TS_ShowTopLayer": "トップレイヤーを表示",
+  "Bottom_Material": "底材",
+  "Combined_Materials": "組み合わせた材料",
+  "Top_Material": "トップ素材"
 }

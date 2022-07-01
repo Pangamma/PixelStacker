@@ -24,6 +24,8 @@ namespace PixelStacker.Logic.Model
 
         public int Count => ToPaletteID.Count;
 
+        public static MaterialCombination Air => MaterialPalette.FromResx()[Constants.MaterialCombinationIDForAir];
+
         /// <summary>
         /// We WILL throw errors here to ensure the program never passes with invalid data.
         /// </summary>

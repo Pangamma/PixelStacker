@@ -13,6 +13,9 @@ namespace PixelStacker.UI.Controls
         public void ApplyLocalization(CultureInfo locale)
         {
             lblBrushWidth.Text = Resources.Text.Tools_BrushWidth;
+            {
+                btnWorldEditOrigin.ToolTipText = Resources.Text.Tools_WEOrigin;
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace PixelStacker.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Text {
@@ -270,6 +270,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bottom material.
+        /// </summary>
+        public static string Bottom_Material {
+            get {
+                return ResourceManager.GetString("Bottom_Material", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quantizer Algorithm.
         /// </summary>
         public static string ColorReducer_Algorithm {
@@ -418,6 +427,15 @@ namespace PixelStacker.Resources {
         public static string ColorReducer_Title {
             get {
                 return ResourceManager.GetString("ColorReducer_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Combined materials.
+        /// </summary>
+        public static string Combined_Materials {
+            get {
+                return ResourceManager.GetString("Combined_Materials", resourceCulture);
             }
         }
         
@@ -1565,6 +1583,15 @@ namespace PixelStacker.Resources {
         public static string Top {
             get {
                 return ResourceManager.GetString("Top", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top material.
+        /// </summary>
+        public static string Top_Material {
+            get {
+                return ResourceManager.GetString("Top_Material", resourceCulture);
             }
         }
     }

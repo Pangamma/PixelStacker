@@ -36,19 +36,6 @@ namespace PixelStacker.UI
             this.MaterialOptions.ShowDialog(this);
         }
 
-        private void canvasEditorToolsToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            if (this.canvasEditorToolbox == null || this.canvasEditorToolbox.IsDisposed)
-            {
-                this.canvasEditorToolbox = new CanvasTools();
-                this.snapManager.RegisterChild(this.canvasEditorToolbox);
-                this.canvasEditor.SetCanvasToolboxEvents(this.canvasEditorToolbox);
-            }
-
-            this.canvasEditorToolbox.Show();
-            this.canvasEditorToolbox.BringToFront();
-        }
-
         private void contributorsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             var form = new Credits();
@@ -65,7 +52,7 @@ namespace PixelStacker.UI
         {
             if (this.MaterialPickerForm == null || this.MaterialPickerForm.IsDisposed)
             {
-                this.MaterialPickerForm = new MaterialPickerForm();
+                this.MaterialPickerForm = new MaterialPickerForm(this.Options);
                 this.snapManager.RegisterChild(this.MaterialPickerForm);
             }
 

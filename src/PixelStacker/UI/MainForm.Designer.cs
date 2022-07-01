@@ -355,6 +355,7 @@ namespace PixelStacker.UI
             this.skipShadowRenderirngToolStripMenuItem.Name = "skipShadowRenderirngToolStripMenuItem";
             this.skipShadowRenderirngToolStripMenuItem.Size = new System.Drawing.Size(279, 26);
             this.skipShadowRenderirngToolStripMenuItem.Text = "Skip shadow rendering";
+            this.skipShadowRenderirngToolStripMenuItem.Click += new System.EventHandler(this.skipShadowRenderirngToolStripMenuItem_Click);
             // 
             // addExtraDepthToShadowsToolStripMenuItem
             // 

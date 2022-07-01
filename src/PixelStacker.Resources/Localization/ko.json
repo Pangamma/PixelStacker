@@ -161,5 +161,8 @@
   "Top": "맨 위",
   "MainForm_TS_ShowBothLayers": "두 레이어 모두 표시",
   "MainForm_TS_ShowBottomLayer": "하단 레이어 표시",
-  "MainForm_TS_ShowTopLayer": "최상위 레이어 표시"
+  "MainForm_TS_ShowTopLayer": "최상위 레이어 표시",
+  "Bottom_Material": "바닥재",
+  "Combined_Materials": "복합재료",
+  "Top_Material": "톱 소재"
 }

@@ -14,7 +14,6 @@ namespace PixelStacker.UI.Forms
 {
     public partial class TestForm : Form
     {
-        private SizeForm form;
         public SnapManager SnapManager { get; }
 
         public TestForm()

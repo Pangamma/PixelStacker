@@ -16,7 +16,7 @@ namespace PixelStacker.Tools.Generators
         [TestCategory("Generators")]
         public void GenerateMaterialCombinationPalette()
         {
-            string filePath = RootDir + "\\PixelStacker.Logic\\Resources\\Files\\materialPalette.json";
+            string filePath = RootDir + "\\PixelStacker.Resources\\Files\\materialPalette.json";
             MaterialPalette palette;
             {
                 string paletteFile = filePath;

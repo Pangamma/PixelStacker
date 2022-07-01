@@ -161,5 +161,8 @@
   "Top": "Bovenkant",
   "MainForm_TS_ShowBothLayers": "Beide lagen weergeven",
   "MainForm_TS_ShowBottomLayer": "Toon onderste laag",
-  "MainForm_TS_ShowTopLayer": "Toon bovenste laag"
+  "MainForm_TS_ShowTopLayer": "Toon bovenste laag",
+  "Bottom_Material": "Bodem materiaal",
+  "Combined_Materials": "Gecombineerde materialen",
+  "Top_Material": "Top materiaal"
 }

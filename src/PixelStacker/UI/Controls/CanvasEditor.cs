@@ -1,7 +1,6 @@
 ﻿using PixelStacker.EditorTools;
 using PixelStacker.Extensions;
 using PixelStacker.Logic.IO.Config;
-using PixelStacker.UI.Forms;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;

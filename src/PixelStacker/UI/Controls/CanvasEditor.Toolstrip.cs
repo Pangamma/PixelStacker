@@ -14,6 +14,7 @@ namespace PixelStacker.UI.Controls
         private void OnLoadToolstrips()
         {
             toolstrip_LayoutStyleChanged(tsCanvasTools, null);
+
         }
 
         private void toolstrip_LayoutStyleChanged(object sender, System.EventArgs e)
@@ -27,7 +28,6 @@ namespace PixelStacker.UI.Controls
                 {
                     ts.ImageScalingSize = new Size(32, 32);
                     btn.Margin = new Padding(5, 0, 5, 0);
-                    //btn.ImageScaling = ToolStripItemImageScaling.None;
                     btn.Size = new System.Drawing.Size(40, 40);
                 }
                 else if (ts.LayoutStyle.HasFlag(ToolStripLayoutStyle.HorizontalStackWithOverflow))
@@ -35,7 +35,6 @@ namespace PixelStacker.UI.Controls
                     ts.ImageScalingSize = new Size(20, 20);
                     btn.Size = new System.Drawing.Size(27, 27);
                     btn.Margin = new Padding(0, 5, 0, 5);
-                    //btn.ImageScaling = ToolStripItemImageScaling.SizeToFit;
                 }
                 btn.ImageScaling = ToolStripItemImageScaling.SizeToFit;
             }

@@ -28,7 +28,7 @@ namespace PixelStacker.UI
 
         public MainForm()
         {
-            this.Options = new LocalDataOptionsProvider().Load();
+            this.Options = new WinFormsOptionsProvider().Load();
             this.ColorMapper = new KdTreeMapper();
             this.Palette = MaterialPalette.FromResx();
             InitializeComponent();

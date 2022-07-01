@@ -6,6 +6,14 @@ using System.Runtime.CompilerServices;
 
 namespace PixelStacker.Logic.Utilities
 {
+    public class RateLimitException : Exception
+    {
+        public RateLimitException(string message) : base(message)
+        {
+        }
+    }
+
+
     public class RateLimit
     {
         public int MaxRequestsPerWindow { get; private set; } = 1;
@@ -51,6 +59,36 @@ namespace PixelStacker.Logic.Utilities
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Returns null if within the window allowable limits.
+        /// </summary>
+        /// <param name="maxPerWindow"></param>
+        /// <param name="windowDurationMilliseconds"></param>
+        /// <param name="filePath"></param>
+        /// <param name="methodName"></param>
+        /// <param name="lineNumber"></param>
+        /// <returns></returns>
+        public static RateLimitException CheckWithException(int maxPerWindow, double windowDurationMilliseconds, [CallerFilePath] string filePath = "", [CallerMemberName] string methodName = null, [CallerLineNumber] int lineNumber = 0)
+        {
+            filePath = filePath.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            string key = $"{filePath}::{methodName}::{lineNumber}";
+
+            RateLimit limit;
+            if (!Limits.TryGetValue(key, out limit))
+            {
+                limit = new RateLimit(maxPerWindow, windowDurationMilliseconds);
+                Limits[key] = limit;
+            }
+
+            if (!limit.IsWithinLimit(true))
+            {
+                Debug.WriteLine($"[{DateTime.UtcNow.ToLongTimeString()}] {key} WAS CALLED ({limit.NumHits}) MORE THAN {limit.MaxRequestsPerWindow} TIMES PER {limit.WindowDurationTime.TotalSeconds}s.");
+                return new RateLimitException($"[{DateTime.UtcNow.ToLongTimeString()}] {key} WAS CALLED ({limit.NumHits}) MORE THAN {limit.MaxRequestsPerWindow} TIMES PER {limit.WindowDurationTime.TotalSeconds}s.");
+            }
+
+            return null;
         }
 
         public bool IsWithinLimit(bool incrementEvenIfCheckWouldDenyUsage)

@@ -37,17 +37,6 @@ namespace PixelStacker.UI.Controls
             //this.RepaintRequested = true;
         }
 
-        public void SetCanvasToolboxEvents(CanvasTools toolbox)
-        {
-            toolbox.OnClickFill += Toolbox_OnClickFill;
-            toolbox.OnClickPanZoom += Toolbox_OnClickPanZoom;
-            toolbox.OnClickPencil += Toolbox_OnClickPencil;
-            toolbox.OnClickBrush += Toolbox_OnClickBrush;
-            toolbox.OnClickPicker += Toolbox_OnClickPicker;
-            toolbox.OnClickEraser += Toolbox_OnClickEraser;
-            toolbox.OnClickWorldEditOrigin += Toolbox_OnClickWorldEditOrigin;
-        }
-
         private void Toolbox_OnClickBrush(object sender, EventArgs e)
         {
             this.CurrentTool = new BrushTool(this);
@@ -87,6 +76,11 @@ namespace PixelStacker.UI.Controls
         private void Toolbox_OnClickPanZoom(object sender, EventArgs e)
         {
             this.CurrentTool = new PanZoomTool(this);
+            this.OnToolClicked(sender);
+        }
+
+        private void Toolbox_OnClickHelp(object sender, System.EventArgs e)
+        {
             this.OnToolClicked(sender);
         }
 

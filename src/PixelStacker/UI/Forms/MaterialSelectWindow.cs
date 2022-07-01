@@ -39,6 +39,7 @@ namespace PixelStacker.UI
         private bool AreMaterialsCombined = false;
         private Options Options { get; }
 
+        [Obsolete("Only use in design view", false)]
         public MaterialSelectWindow() : this(Options.Get)
         {
         }

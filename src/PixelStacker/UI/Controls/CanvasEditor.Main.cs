@@ -6,7 +6,6 @@ using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources;
 using System;
-using System.Drawing;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,6 +34,22 @@ namespace PixelStacker.UI.Controls
             this.PanZoomTool = new PanZoomTool(this);
             this.CurrentTool = new PanZoomTool(this);
             this.ApplyLocalization(CultureInfo.CurrentUICulture);
+
+            this.Disposed += CanvasEditor_Disposed;
+            AppEvents.OnPrimaryColorChange += this.AppEvents_OnPrimaryColorChange;
+        }
+
+        private void CanvasEditor_Disposed(object sender, System.EventArgs e)
+        {
+            AppEvents.OnPrimaryColorChange -= this.AppEvents_OnPrimaryColorChange;
+        }
+
+        private void AppEvents_OnPrimaryColorChange(object sender, OptionsChangeEvent<MaterialCombination> e)
+        {
+            MaterialCombination mcAfter = Options.Tools.PrimaryColor;
+            var img = mcAfter.GetImage(Options.IsSideView);
+            btnMaterialCombination.Image = img.SKBitmapToBitmap();
+            btnMaterialCombination.ToolTipText = mcAfter.Top.Label + ", " + mcAfter.Bottom.Label;
         }
 
         public async Task SetCanvas(CancellationToken? worker, RenderedCanvas canvas, PanZoomSettings pz, SpecialCanvasRenderSettings vs)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixelStacker.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +26,22 @@ namespace PixelStacker.UI.Controls
         public ImageButtonPushState PushState { get; set; } = ImageButtonPushState.Normal;
         public bool IsChecked { get; set; } = false;
 
+        public void SetTooltip(string tipMsg, string tipTitle = null)
+        {
+            this.toolTip1.ToolTipTitle = tipTitle;
+            this.toolTip1.SetToolTip(this, tipMsg);
+        }
+
+        private Bitmap _image;
+        public Bitmap Image { 
+            get => this._image; 
+            set {
+                this._image.DisposeSafely();
+                this._image = value;
+                this.Invalidate();
+            }
+        }
+
         public ImageButton()
         {
             InitializeComponent();
@@ -34,13 +51,24 @@ namespace PixelStacker.UI.Controls
         {
             Graphics g = e.Graphics;
             g.InterpolationMode = InterpolationMode.NearestNeighbor;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            base.OnPaint(e);
-            using Pen pen = new Pen(Color.Black, 1);
-            g.DrawRectangle(pen, 0, 0, this.Width - 2, this.Height - 2);
+            g.SmoothingMode = SmoothingMode.AntiAlias; 
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+            g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+
+            using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
+            g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
+            //base.OnPaint(e);
+
+            if (this.Image != null)
+            {
+                g.DrawImage(this.Image, 0, 0, this.Width, this.Height);
+            }
+
+            using Pen pen = new Pen(Color.Black, 2);
+            g.DrawRectangle(pen, 1, 1, this.Width - 2, this.Height - 2);
             if (PushState == ImageButtonPushState.Hover)
             {
-                using Brush pPen = new SolidBrush(Color.FromArgb(20, 255, 255, 255));
+                using Brush pPen = new SolidBrush(Color.FromArgb(127, 255, 255, 255));
                 g.FillRectangle(pPen, this.ClientRectangle);
             }
         }

@@ -72,9 +72,11 @@ namespace PixelStacker.Logic.Model
                 var existingCombo = this.Palette[existingComboID];
                 Material top = isTopLayer ? value : existingCombo.Top;
                 Material bot = !isTopLayer ? value : existingCombo.Bottom;
+#pragma warning disable CS0618 // Type or member can cause mem leaks if images are loaded and not properly disposed of.
                 var nCombo = new MaterialCombination(bot, top);
                 int newComboID = Palette[nCombo];
                 BlocksMap[x, y] = newComboID;
+#pragma warning restore CS0618 // Type or member can cause mem leaks if images are loaded.
             }
         }
 

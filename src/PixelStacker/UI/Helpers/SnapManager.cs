@@ -83,6 +83,7 @@ namespace PixelStacker.UI.Helpers
 
         private void Child_Move(object sender, EventArgs e)
         {
+#if false
             var child = (Control)sender;
             var TL = Parent.PointToClient(child.Location);
             var pRect = Parent.ClientRectangle;
@@ -124,6 +125,7 @@ namespace PixelStacker.UI.Helpers
             {
                 child.Location = Parent.PointToScreen(TL);
             }
+#endif
         }
 
         public Point GetRelativePosition(Control child)

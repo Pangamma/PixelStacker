@@ -161,5 +161,8 @@
   "Top": "Sommet",
   "MainForm_TS_ShowBothLayers": "Afficher les deux couches",
   "MainForm_TS_ShowBottomLayer": "Afficher la couche inférieure",
-  "MainForm_TS_ShowTopLayer": "Afficher la couche supérieure"
+  "MainForm_TS_ShowTopLayer": "Afficher la couche supérieure",
+  "Bottom_Material": "Matériau du fond",
+  "Combined_Materials": "Matériaux combinés",
+  "Top_Material": "Matériau supérieur"
 }

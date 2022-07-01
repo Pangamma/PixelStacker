@@ -12,9 +12,11 @@ namespace PixelStacker.Logic.IO.JsonConverters
             string val = reader.Value as string;
             string[] ids = val?.Split(',');
 
+#pragma warning disable CS0618 // Type or member is obsolete
             if (ids.Length == 1) return new MaterialCombination(ids[0]);
             else if (ids.Length == 2) return new MaterialCombination(ids[0], ids[1]);
             else return null;
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         public override void WriteJson(JsonWriter writer, MaterialCombination value, JsonSerializer serializer)
