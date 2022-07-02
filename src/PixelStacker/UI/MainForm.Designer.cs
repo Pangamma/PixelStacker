@@ -512,7 +512,6 @@ namespace PixelStacker.UI
             this.swatchToolStripMenuItem.Name = "swatchToolStripMenuItem";
             this.swatchToolStripMenuItem.Size = new System.Drawing.Size(34, 24);
             this.swatchToolStripMenuItem.Visible = false;
-            this.swatchToolStripMenuItem.Click += new System.EventHandler(this.swatchToolStripMenuItem_Click);
             // 
             // progressBar1
             // 

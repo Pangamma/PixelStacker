@@ -5,6 +5,7 @@ using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources;
+using PixelStacker.UI.Helpers;
 using System;
 using System.Globalization;
 using System.Threading;
@@ -31,12 +32,24 @@ namespace PixelStacker.UI.Controls
             tsCanvasTools.Renderer = new CustomToolStripButtonRenderer();
             this.BackgroundImage = Resources.UIResources.bg_imagepanel;
             this.DoubleBuffered = true;
-            this.PanZoomTool = new PanZoomTool(this);
-            this.CurrentTool = new PanZoomTool(this);
             this.ApplyLocalization(CultureInfo.CurrentUICulture);
 
             this.Disposed += CanvasEditor_Disposed;
             AppEvents.OnPrimaryColorChange += this.AppEvents_OnPrimaryColorChange;
+        }
+
+        private void CanvasEditor_Load(object sender, System.EventArgs e)
+        {
+            OnLoadToolstrips();
+            this.MainForm = this.ParentForm as MainForm;
+            this.Options = this.MainForm.Options;
+            this.PanZoomTool = new PanZoomTool(this);
+            this.CurrentTool = new PanZoomTool(this);
+
+            this.tbxBrushWidth.Text = this.Options.Tools?.BrushWidth.ToString();
+            this.btnMaterialCombination.Image =
+                this.Options?.Tools?.PrimaryColor?.GetImage(this.Options?.IsSideView ?? false).SKBitmapToBitmap()
+                ?? Resources.Textures.barrier.SKBitmapToBitmap();
         }
 
         private void CanvasEditor_Disposed(object sender, System.EventArgs e)
@@ -67,6 +80,7 @@ namespace PixelStacker.UI.Controls
             // DO not set these until ready
             this.Canvas = canvas;
             this.PanZoomSettings = pz;
+            await (this.MaterialPickerForm?.SetCanvas(canvas) ?? Task.CompletedTask);
         }
 
         private PanZoomSettings CalculateInitialPanZoomSettings(int bmWidth, int bmHeight)

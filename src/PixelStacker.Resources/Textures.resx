@@ -430,6 +430,9 @@
   <data name="dirt_path_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\dirt_path_top.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\textures\x16\hidden\disabled.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="dried_kelp_side" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\textures\x16\coral\dried_kelp_side.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

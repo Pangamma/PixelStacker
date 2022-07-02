@@ -31,9 +31,8 @@ namespace PixelStacker.UI
             this.Options = new WinFormsOptionsProvider().Load();
             this.ColorMapper = new KdTreeMapper();
             this.Palette = MaterialPalette.FromResx();
-            InitializeComponent();
-            InitializeKonamiCodeWatcher();
             this.snapManager = new SnapManager(this);
+            InitializeComponent();
 
             this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);
@@ -43,7 +42,7 @@ namespace PixelStacker.UI
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
-            // Localization
+            InitializeKonamiCodeWatcher();
             InitializeLocalization();
             ApplyLocalization(System.Globalization.CultureInfo.CurrentUICulture);
 

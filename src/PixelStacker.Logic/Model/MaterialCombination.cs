@@ -15,13 +15,17 @@ namespace PixelStacker.Logic.Model
     public class MaterialCombination : IEquatable<MaterialCombination>, IDisposable
     {
         #region Constructors
+        [Obsolete("Do not create new mat combos willy nilly. It can cause a memory leak with the loading of images.", false)]
         public MaterialCombination(string pixelStackerID) : this(Materials.FromPixelStackerID(pixelStackerID)) { }
 
+        [Obsolete("Do not create new mat combos willy nilly. It can cause a memory leak with the loading of images.", false)]
         public MaterialCombination(string pixelStackerIdBottom, string pixelStackerIdTop)
             : this(Materials.FromPixelStackerID(pixelStackerIdBottom), Materials.FromPixelStackerID(pixelStackerIdTop)) { }
 
+        [Obsolete("Do not create new mat combos willy nilly. It can cause a memory leak with the loading of images.", false)]
         public MaterialCombination(Material m) : this(m, m) { }
 
+        [Obsolete("Do not create new mat combos willy nilly. It can cause a memory leak with the loading of images.", false)]
         public MaterialCombination(Material mBottom, Material mTop)
         {
             this.Top = mTop;

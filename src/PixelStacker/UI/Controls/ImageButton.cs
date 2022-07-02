@@ -43,13 +43,13 @@ namespace PixelStacker.UI.Controls
         }
 
         private Bitmap _image;
-        public Bitmap Image
+        public SkiaSharp.SKBitmap Image
         {
-            get => this._image;
             set
             {
                 this._image.DisposeSafely();
-                this._image = value;
+                this._image = null;
+                this._image = value?.SKBitmapToBitmap();
                 this.Invalidate();
             }
         }
@@ -72,9 +72,9 @@ namespace PixelStacker.UI.Controls
             g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
             //base.OnPaint(e);
 
-            if (this.Image != null)
+            if (this._image != null)
             {
-                g.DrawImage(this.Image, 0, 0, this.Width, this.Height);
+                g.DrawImage(this._image, 0, 0, this.Width, this.Height);
             }
 
             using Pen pen = new Pen(Color.Black, 2);

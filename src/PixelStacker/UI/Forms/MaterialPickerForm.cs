@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace PixelStacker.UI.Forms
 {
-    public partial class MaterialPickerForm : Form, ILocalized
+    public partial class MaterialPickerForm : Form
     {
 
         private MaterialCombination _selectedCombo = null;
@@ -28,32 +28,28 @@ namespace PixelStacker.UI.Forms
                 this._selectedCombo = value;
                 {
                     var img = this._selectedCombo.GetImage(this.Options.IsSideView);
-                    var bm = img.SKBitmapToBitmap();
-                    imgMaterialsCombined.Image = bm;
+                    imgMaterialsCombined.Image = img;
                     imgMaterialsCombined.SetTooltip(this._selectedCombo.Top.Label + "\n"+ this._selectedCombo.Bottom.Label, global::PixelStacker.Resources.Text.Combined_Materials);
                 }
                 {
                     if (!this._selectedCombo.IsMultiLayer)
                     {
-                        var img = global::PixelStacker.Resources.Textures.barrier;
-                        var bm = img.SKBitmapToBitmap();
-                        imgTopMaterial.Image = bm;
+                        var img = global::PixelStacker.Resources.Textures.disabled;
+                        imgTopMaterial.Image = img;
                         lblTopMaterial.Text = this._selectedCombo.Top.Label;
                         imgTopMaterial.SetTooltip(this._selectedCombo.Top.Label, global::PixelStacker.Resources.Text.Top_Material);
                     } 
                     else
                     {
                         var img = this._selectedCombo.Top.GetImage(this.Options.IsSideView);
-                        var bm = img.SKBitmapToBitmap();
-                        imgTopMaterial.Image = bm;
+                        imgTopMaterial.Image = img;
                         lblTopMaterial.Text = this._selectedCombo.Top.Label;
                         imgTopMaterial.SetTooltip(this._selectedCombo.Top.Label, global::PixelStacker.Resources.Text.Top_Material);
                     }
                 }
                 {
                     var img = this._selectedCombo.Bottom.GetImage(this.Options.IsSideView);
-                    var bm = img.SKBitmapToBitmap();
-                    imgBottomMaterial.Image = bm;
+                    imgBottomMaterial.Image = img;
                     lblBottomMaterial.Text = this._selectedCombo.Bottom.Label;
                     imgBottomMaterial.SetTooltip(this._selectedCombo.Bottom.Label, global::PixelStacker.Resources.Text.Bottom_Material);
                 }
@@ -71,11 +67,6 @@ namespace PixelStacker.UI.Forms
             SelectedCombo ??= MaterialPalette.FromResx()[Constants.MaterialCombinationIDForAir];
             AppEvents.OnPrimaryColorChange += AppEvents_OnPrimaryColorChange;
             this.Disposed += MaterialPickerForm_Disposed;
-        }
-
-        public void ApplyLocalization(CultureInfo locale)
-        {
-            lblFilter.Text = Resources.Text.Action_Filter;
         }
 
         private void MaterialPickerForm_Disposed(object sender, EventArgs e)
@@ -110,5 +101,8 @@ namespace PixelStacker.UI.Forms
             imgBottomMaterial.IsChecked = true;
         }
 
+        private void MaterialPickerForm_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

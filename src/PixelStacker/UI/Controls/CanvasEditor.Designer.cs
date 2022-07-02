@@ -138,7 +138,7 @@ namespace PixelStacker.UI.Controls
             this.tsCanvasTools.Name = "tsCanvasTools";
             this.tsCanvasTools.Padding = new System.Windows.Forms.Padding(0);
             this.tsCanvasTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tsCanvasTools.Size = new System.Drawing.Size(50, 316);
+            this.tsCanvasTools.Size = new System.Drawing.Size(50, 292);
             this.tsCanvasTools.TabIndex = 0;
             this.tsCanvasTools.LayoutStyleChanged += new System.EventHandler(this.toolstrip_LayoutStyleChanged);
             // 
@@ -256,7 +256,7 @@ namespace PixelStacker.UI.Controls
             this.lblHoverInfo});
             this.toolStrip1.Location = new System.Drawing.Point(4, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(352, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(391, 27);
             this.toolStrip1.TabIndex = 0;
             // 
             // lblBrushWidth

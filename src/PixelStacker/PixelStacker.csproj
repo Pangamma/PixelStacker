@@ -34,10 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="UI\Controls\MaterialPicker\MaterialPicker2cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="OpenTK.WinForms" Version="4.0.0-pre.6" />
     <PackageReference Include="SkiaSharp" Version="2.88.0" />
@@ -91,6 +87,9 @@
     <Compile Update="UI\RenderedImagePanel.*.cs">
       <DependentUpon>RenderedImagePanel.cs</DependentUpon>
     </Compile>
+    <Compile Update="UI\Forms\MaterialPickerForm.*.cs">
+      <DependentUpon>MaterialPickerForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 <ItemGroup>
@@ -109,6 +108,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+
+<ItemGroup>
+  <Folder Include="UI\Controls\Pickers\" />
+</ItemGroup>
 	<Target Name="SignTheExe" AfterTargets="Publish">
 		<Exec WorkingDirectory="$(PublishDir)" Command="call &quot;$(VSAPPIDDIR)..\Tools\VsDevCmd.bat&quot;&#xD;&#xA;echo &quot;Signing this exe file after publishing. $(MSBuildProjectDirectory)\$(PublishDir)PixelStacker.exe&quot;&#xD;&#xA;signtool.exe sign /fd sha256 /t http://timestamp.comodoca.com/authenticode /n &quot;Open Source Developer, Taylor Love&quot; &quot;$(MSBuildProjectDirectory)\$(PublishDir)PixelStacker.exe&quot;" />
 	</Target>

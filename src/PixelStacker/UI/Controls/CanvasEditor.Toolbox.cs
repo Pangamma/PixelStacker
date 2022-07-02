@@ -11,7 +11,7 @@ namespace PixelStacker.UI.Controls
     public partial class CanvasEditor
     {
         private AbstractCanvasEditorTool CurrentTool { get; set; }
-        private PanZoomTool PanZoomTool { get; }
+        private PanZoomTool PanZoomTool { get; set; }
 
         private void bgWorkerBufferedChangeQueue_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -35,11 +35,6 @@ namespace PixelStacker.UI.Controls
             //await this.Painter.DoRenderFromHistoryBuffer();
             //IsRenderingBuffer = false;
             //this.RepaintRequested = true;
-        }
-
-        private void btnMaterialCombination_Click(object sender, System.EventArgs e)
-        {
-            this.MainForm?.swatchToolStripMenuItem_Click(sender, e);
         }
 
         private void Toolbox_OnClickBrush(object sender, EventArgs e)

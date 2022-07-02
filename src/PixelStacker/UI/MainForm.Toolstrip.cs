@@ -76,7 +76,7 @@ namespace PixelStacker.UI
             bool isCanvas = this.IsCanvasEditorVisible;
             bool isLoadPathSet = !string.IsNullOrWhiteSpace(this.loadedImageFilePath);
 
-            this.swatchToolStripMenuItem.Visible = isCanvas && isAdv;
+            //this.swatchToolStripMenuItem.Visible = isCanvas && isAdv;
             this.menuStrip1.ModifyRecursive((ts, tag) =>
             {
                 if (tag == null) return;

@@ -14,7 +14,6 @@ namespace PixelStacker.UI.Controls
         private void OnLoadToolstrips()
         {
             toolstrip_LayoutStyleChanged(tsCanvasTools, null);
-
         }
 
         private void toolstrip_LayoutStyleChanged(object sender, System.EventArgs e)

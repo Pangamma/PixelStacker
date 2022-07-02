@@ -1057,6 +1057,16 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _disabled = null;
+        public static SKBitmap disabled {
+            get {
+                if (_disabled == null)
+                    _disabled = SKBitmap.Decode((byte[])ResourceManager.GetObject("disabled"))
+                    .Copy(SKColorType.Rgba8888);
+                return _disabled;
+            }
+        }
+
         private static SKBitmap _dried_kelp_side = null;
         public static SKBitmap dried_kelp_side {
             get {
@@ -1864,26 +1874,6 @@ namespace PixelStacker.Resources {
                     _mushroom_stem = SKBitmap.Decode((byte[])ResourceManager.GetObject("mushroom_stem"))
                     .Copy(SKColorType.Rgba8888);
                 return _mushroom_stem;
-            }
-        }
-
-        private static SKBitmap _mycelium_side = null;
-        public static SKBitmap mycelium_side {
-            get {
-                if (_mycelium_side == null)
-                    _mycelium_side = SKBitmap.Decode((byte[])ResourceManager.GetObject("mycelium_side"))
-                    .Copy(SKColorType.Rgba8888);
-                return _mycelium_side;
-            }
-        }
-
-        private static SKBitmap _mycelium_top = null;
-        public static SKBitmap mycelium_top {
-            get {
-                if (_mycelium_top == null)
-                    _mycelium_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("mycelium_top"))
-                    .Copy(SKColorType.Rgba8888);
-                return _mycelium_top;
             }
         }
 

@@ -22,7 +22,7 @@ namespace PixelStacker.UI.Helpers
 
         List<ChildInfo> Children = new List<ChildInfo>();
 
-        public SnapManager(Control parent)
+        public SnapManager(Form parent)
         {
             this.Parent = parent;
             this.Parent.Move += Parent_Move;

@@ -18,7 +18,7 @@ namespace PixelStacker.EditorTools
 
         public PencilTool(CanvasEditor editor) : base(editor)
         {
-            var palette = editor.Canvas.MaterialPalette ?? MaterialPalette.FromResx();
+            var palette = editor.Canvas?.MaterialPalette ?? MaterialPalette.FromResx();
             this.Air = palette[Constants.MaterialCombinationIDForAir];
         }
 
