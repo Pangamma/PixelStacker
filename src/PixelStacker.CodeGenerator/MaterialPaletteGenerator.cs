@@ -5,12 +5,14 @@ using PixelStacker.Logic.Model;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace PixelStacker.Tools.Generators
+namespace PixelStacker.CodeGenerator
 {
     [TestClass]
     public class MaterialPaletteGenerator
     {
-        private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.Tools\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+        private readonly string RootDir = AppDomain.CurrentDomain.BaseDirectory
+            .Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries)
+            .FirstOrDefault();
 
         [TestMethod]
         [TestCategory("Generators")]

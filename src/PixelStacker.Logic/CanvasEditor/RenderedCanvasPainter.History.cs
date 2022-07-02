@@ -147,14 +147,17 @@ namespace PixelStacker.Logic.CanvasEditor
                             // TL
                             if (upperLayer[xIndexCurrentLayer * 2, yIndexCurrentLayer * 2])
                             {
-                                SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper, yUpper];
-                                var rect = new SKRect()
+                                lock (Padlocks[layerIndexToRender - 1][xUpper, yUpper])
                                 {
-                                    Location = new SKPoint(0, 0),
-                                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
-                                };
+                                    SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper, yUpper];
+                                    var rect = new SKRect()
+                                    {
+                                        Location = new SKPoint(0, 0),
+                                        Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                                    };
 
-                                g.DrawBitmap(bmToCopy, rect, paint);
+                                    g.DrawBitmap(bmToCopy, rect, paint);
+                                }
                             }
 
                             // TR
@@ -162,14 +165,17 @@ namespace PixelStacker.Logic.CanvasEditor
                                 && upperLayer.GetLength(1) > yUpper
                                 && upperLayer[xUpper + 1, yUpper])
                             {
-                                SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper + 1, yUpper];
-                                var rect = new SKRect()
+                                lock (Padlocks[layerIndexToRender - 1][xUpper + 1, yUpper])
                                 {
-                                    Location = new SKPoint(pixelsPerHalfChunk, 0),
-                                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
-                                };
+                                    SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper + 1, yUpper];
+                                    var rect = new SKRect()
+                                    {
+                                        Location = new SKPoint(pixelsPerHalfChunk, 0),
+                                        Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                                    };
 
-                                g.DrawBitmap(bmToCopy, rect, paint);
+                                    g.DrawBitmap(bmToCopy, rect, paint);
+                                }
                             }
 
                             // BL
@@ -177,14 +183,17 @@ namespace PixelStacker.Logic.CanvasEditor
                                 && upperLayer.GetLength(1) > yUpper + 1
                                 && upperLayer[xUpper, yUpper + 1])
                             {
-                                SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper, yUpper + 1];
-                                var rect = new SKRect()
+                                lock (Padlocks[layerIndexToRender - 1][xUpper, yUpper + 1])
                                 {
-                                    Location = new SKPoint(0, pixelsPerHalfChunk),
-                                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
-                                };
+                                    SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper, yUpper + 1];
+                                    var rect = new SKRect()
+                                    {
+                                        Location = new SKPoint(0, pixelsPerHalfChunk),
+                                        Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                                    };
 
-                                g.DrawBitmap(bmToCopy, rect, paint);
+                                    g.DrawBitmap(bmToCopy, rect, paint);
+                                }
                             }
 
                             // BR
@@ -192,14 +201,17 @@ namespace PixelStacker.Logic.CanvasEditor
                                 && upperLayer.GetLength(1) > yUpper + 1
                                 && upperLayer[xUpper + 1, yUpper + 1])
                             {
-                                SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper + 1, yUpper + 1];
-                                var rect = new SKRect()
+                                lock (Padlocks[layerIndexToRender - 1][xUpper + 1, yUpper + 1])
                                 {
-                                    Location = new SKPoint(pixelsPerHalfChunk, pixelsPerHalfChunk),
-                                    Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
-                                };
+                                    SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper + 1, yUpper + 1];
+                                    var rect = new SKRect()
+                                    {
+                                        Location = new SKPoint(pixelsPerHalfChunk, pixelsPerHalfChunk),
+                                        Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
+                                    };
 
-                                g.DrawBitmap(bmToCopy, rect, paint);
+                                    g.DrawBitmap(bmToCopy, rect, paint);
+                                }
                             }
                             //// Let's talk it out.
                             //// L0 is your base set of chunks. 

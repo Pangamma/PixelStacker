@@ -46,8 +46,8 @@
             this.Name = "ImageButton";
             this.Size = new System.Drawing.Size(103, 102);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImageButton_MouseDown);
+            this.MouseEnter += new System.EventHandler(this.ImageButton_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.ImageButton_MouseLeave);
-            this.MouseHover += new System.EventHandler(this.ImageButton_MouseHover);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImageButton_MouseUp);
             this.ResumeLayout(false);
 

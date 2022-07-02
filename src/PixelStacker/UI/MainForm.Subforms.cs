@@ -48,7 +48,7 @@ namespace PixelStacker.UI
             form.ShowDialog(this);
         }
 
-        private void swatchToolStripMenuItem_Click(object sender, System.EventArgs e)
+        internal void swatchToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             if (this.MaterialPickerForm == null || this.MaterialPickerForm.IsDisposed)
             {

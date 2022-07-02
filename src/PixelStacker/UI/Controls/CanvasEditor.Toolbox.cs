@@ -37,6 +37,11 @@ namespace PixelStacker.UI.Controls
             //this.RepaintRequested = true;
         }
 
+        private void btnMaterialCombination_Click(object sender, System.EventArgs e)
+        {
+            this.MainForm?.swatchToolStripMenuItem_Click(sender, e);
+        }
+
         private void Toolbox_OnClickBrush(object sender, EventArgs e)
         {
             this.CurrentTool = new BrushTool(this);
@@ -76,11 +81,6 @@ namespace PixelStacker.UI.Controls
         private void Toolbox_OnClickPanZoom(object sender, EventArgs e)
         {
             this.CurrentTool = new PanZoomTool(this);
-            this.OnToolClicked(sender);
-        }
-
-        private void Toolbox_OnClickHelp(object sender, System.EventArgs e)
-        {
             this.OnToolClicked(sender);
         }
 

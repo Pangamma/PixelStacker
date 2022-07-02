@@ -32,7 +32,7 @@ namespace PixelStacker.Logic.Utilities
             this.CancelToken = CancellationToken.None;
         }
 
-        private static Lazy<TaskManager> _Get = new Lazy<TaskManager>();
+        private static readonly Lazy<TaskManager> _Get = new Lazy<TaskManager>();
 
         public static TaskManager Get => _Get.Value;
         private CancellationToken CancelToken;

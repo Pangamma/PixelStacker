@@ -35,25 +35,32 @@ namespace PixelStacker.IO
             // [1].19.2c
             if (api_arr.Length > 0 && cur_arr.Length > 0)
             {
-                int mA = api_arr[0].ToNullable<int>() ?? 0;
-                int mB = cur_arr[0].ToNullable<int>() ?? 0;
-                if (mA < mB) return false;
-                if (mA > mB) return true;
+                int apiNum = api_arr[0].ToNullable<int>() ?? 0;
+                int curNum = cur_arr[0].ToNullable<int>() ?? 0;
+                if (apiNum < curNum) return false;
+                if (apiNum > curNum) return true;
             }
 
             // 1.[19].2c
             if (api_arr.Length > 1 && cur_arr.Length > 1)
             {
-                int mA = api_arr[1].ToNullable<int>() ?? 0;
-                int mB = cur_arr[1].ToNullable<int>() ?? 0;
-                if (mA < mB) return false;
-                if (mA > mB) return true;
+                int apiNum = api_arr[1].ToNullable<int>() ?? 0;
+                int curNum = cur_arr[1].ToNullable<int>() ?? 0;
+                if (apiNum < curNum) return false;
+                if (apiNum > curNum) return true;
             }
 
             // 1.19.[2c]
             if (api_arr.Length > 2 && cur_arr.Length > 2)
             {
-                int mC = api_arr[2].CompareTo(cur_arr[2]);
+                int apiNum = new string(api_arr[2].Where(c => char.IsDigit(c)).ToArray()).ToNullable<int>() ?? 0;
+                int curNum = new string(cur_arr[2].Where(c => char.IsDigit(c)).ToArray()).ToNullable<int>() ?? 0;
+                if (apiNum < curNum) return false;
+                if (apiNum > curNum) return true;
+
+                string apiLetter = new string(api_arr[2].Where(c => char.IsLetter(c)).ToArray());
+                string curLetter = new string(cur_arr[2].Where(c => char.IsLetter(c)).ToArray());
+                int mC = apiLetter.CompareTo(curLetter);
                 if (mC > 0) return true;
             }
 

@@ -51,7 +51,6 @@ namespace PixelStacker.UI.Controls
             this.btnBrushWidthAdd = new System.Windows.Forms.ToolStripButton();
             this.btnMaterialCombination = new System.Windows.Forms.ToolStripButton();
             this.lblHoverInfo = new System.Windows.Forms.ToolStripLabel();
-            this.btnHelp = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.LeftToolStripPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -127,7 +126,6 @@ namespace PixelStacker.UI.Controls
             this.tsCanvasTools.Dock = System.Windows.Forms.DockStyle.None;
             this.tsCanvasTools.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.tsCanvasTools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnHelp,
             this.btnPanZoom,
             this.btnWorldEditOrigin,
             this.btnPencil,
@@ -140,7 +138,7 @@ namespace PixelStacker.UI.Controls
             this.tsCanvasTools.Name = "tsCanvasTools";
             this.tsCanvasTools.Padding = new System.Windows.Forms.Padding(0);
             this.tsCanvasTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tsCanvasTools.Size = new System.Drawing.Size(50, 351);
+            this.tsCanvasTools.Size = new System.Drawing.Size(50, 316);
             this.tsCanvasTools.TabIndex = 0;
             this.tsCanvasTools.LayoutStyleChanged += new System.EventHandler(this.toolstrip_LayoutStyleChanged);
             // 
@@ -307,6 +305,7 @@ namespace PixelStacker.UI.Controls
             this.btnMaterialCombination.Name = "btnMaterialCombination";
             this.btnMaterialCombination.Size = new System.Drawing.Size(29, 24);
             this.btnMaterialCombination.Text = "toolStripButton1";
+            this.btnMaterialCombination.Click += new System.EventHandler(this.btnMaterialCombination_Click);
             // 
             // lblHoverInfo
             // 
@@ -314,19 +313,6 @@ namespace PixelStacker.UI.Controls
             this.lblHoverInfo.Name = "lblHoverInfo";
             this.lblHoverInfo.Size = new System.Drawing.Size(124, 24);
             this.lblHoverInfo.Text = "Mouse hover info";
-            // 
-            // btnHelp
-            // 
-            this.btnHelp.AutoSize = false;
-            this.btnHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnHelp.Image = global::PixelStacker.Resources.UIResources.info;
-            this.btnHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnHelp.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Size = new System.Drawing.Size(40, 40);
-            this.btnHelp.ToolTipText = "Help";
-            this.btnHelp.Click += new System.EventHandler(this.Toolbox_OnClickHelp);
             // 
             // CanvasEditor
             // 
@@ -373,6 +359,5 @@ namespace PixelStacker.UI.Controls
         private System.Windows.Forms.ToolStripLabel lblHoverInfo;
         private System.Windows.Forms.ToolStripButton btnMaterialCombination;
         public System.Windows.Forms.ToolStripContainer toolStripContainer;
-        private System.Windows.Forms.ToolStripButton btnHelp;
     }
 }

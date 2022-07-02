@@ -24,7 +24,17 @@ namespace PixelStacker.UI.Controls
     public partial class ImageButton : UserControl
     {
         public ImageButtonPushState PushState { get; set; } = ImageButtonPushState.Normal;
-        public bool IsChecked { get; set; } = false;
+
+        private bool _isChecked = false;
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                _isChecked = value;
+                this.Invalidate();
+            }
+        }
 
         public void SetTooltip(string tipMsg, string tipTitle = null)
         {
@@ -33,9 +43,11 @@ namespace PixelStacker.UI.Controls
         }
 
         private Bitmap _image;
-        public Bitmap Image { 
-            get => this._image; 
-            set {
+        public Bitmap Image
+        {
+            get => this._image;
+            set
+            {
                 this._image.DisposeSafely();
                 this._image = value;
                 this.Invalidate();
@@ -45,13 +57,14 @@ namespace PixelStacker.UI.Controls
         public ImageButton()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.InterpolationMode = InterpolationMode.NearestNeighbor;
-            g.SmoothingMode = SmoothingMode.AntiAlias; 
+            g.SmoothingMode = SmoothingMode.AntiAlias;
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
             g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
 
@@ -66,19 +79,43 @@ namespace PixelStacker.UI.Controls
 
             using Pen pen = new Pen(Color.Black, 2);
             g.DrawRectangle(pen, 1, 1, this.Width - 2, this.Height - 2);
+
+            if (this._isChecked)
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bicubic;
+                g.DrawImage(Resources.UIResources.selected_frame_128, 0, 0, this.Width, this.Height);
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            }
+
             if (PushState == ImageButtonPushState.Hover)
             {
-                using Brush pPen = new SolidBrush(Color.FromArgb(127, 255, 255, 255));
-                g.FillRectangle(pPen, this.ClientRectangle);
+                using Brush pPen = new SolidBrush(Color.FromArgb(16, 0, 0, 0));
+                g.FillRectangle(pPen, 3, 3, this.Width - 6, this.Height - 6);
             }
         }
 
-        private void ImageButton_MouseHover(object sender, EventArgs e) => this.PushState = ImageButtonPushState.Hover;
+        private void ImageButton_MouseEnter(object sender, EventArgs e)
+        {
+            this.PushState = ImageButtonPushState.Hover;
+            this.Invalidate();
+        }
 
-        private void ImageButton_MouseLeave(object sender, EventArgs e) => this.PushState = ImageButtonPushState.Normal;
+        private void ImageButton_MouseLeave(object sender, EventArgs e)
+        {
+            this.PushState = ImageButtonPushState.Normal;
+            this.Invalidate();
+        }
 
-        private void ImageButton_MouseDown(object sender, MouseEventArgs e) => this.PushState = ImageButtonPushState.Pressed;
+        private void ImageButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.PushState = ImageButtonPushState.Pressed;
+            this.Invalidate();
+        }
 
-        private void ImageButton_MouseUp(object sender, MouseEventArgs e) => this.PushState = ImageButtonPushState.Normal;
+        private void ImageButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.PushState = ImageButtonPushState.Normal;
+            this.Invalidate();
+        }
     }
 }

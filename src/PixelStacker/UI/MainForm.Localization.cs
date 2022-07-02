@@ -60,6 +60,7 @@ namespace PixelStacker.UI
             this.MaterialOptions?.ApplyLocalization(locale);
             this.ColorReducerForm?.ApplyLocalization(locale);
             this.canvasEditor?.ApplyLocalization(locale);
+            this.MaterialPickerForm?.ApplyLocalization(locale);
 
             this.Text = global::PixelStacker.Resources.Text.MainForm_Title;
             this.Text = this.Text + " v" + Constants.Version;

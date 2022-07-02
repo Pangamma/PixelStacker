@@ -87,7 +87,7 @@ namespace PixelStacker.UI
             this.TS_SetMenuItemStatesByTagObjects();
         }
 
-        private async void renderToolStripMenuItem_Click(object sender, EventArgs e)
+        internal async void renderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!RateLimit.Check(1, 250)) return;
 
