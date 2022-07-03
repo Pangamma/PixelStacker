@@ -51,6 +51,7 @@ namespace PixelStacker.UI.Controls
             this.btnBrushWidthAdd = new System.Windows.Forms.ToolStripButton();
             this.btnMaterialCombination = new System.Windows.Forms.ToolStripButton();
             this.lblHoverInfo = new System.Windows.Forms.ToolStripLabel();
+            this.btnPaintLayerFilter = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.LeftToolStripPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -253,10 +254,11 @@ namespace PixelStacker.UI.Controls
             this.tbxBrushWidth,
             this.btnBrushWidthAdd,
             this.btnMaterialCombination,
-            this.lblHoverInfo});
+            this.lblHoverInfo,
+            this.btnPaintLayerFilter});
             this.toolStrip1.Location = new System.Drawing.Point(4, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(391, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(420, 27);
             this.toolStrip1.TabIndex = 0;
             // 
             // lblBrushWidth
@@ -314,6 +316,16 @@ namespace PixelStacker.UI.Controls
             this.lblHoverInfo.Size = new System.Drawing.Size(124, 24);
             this.lblHoverInfo.Text = "Mouse hover info";
             // 
+            // btnPaintLayerFilter
+            // 
+            this.btnPaintLayerFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso2_both_layers;
+            this.btnPaintLayerFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPaintLayerFilter.Name = "btnPaintLayerFilter";
+            this.btnPaintLayerFilter.Size = new System.Drawing.Size(29, 24);
+            this.btnPaintLayerFilter.Text = "toolStripButton1";
+            this.btnPaintLayerFilter.Click += new System.EventHandler(this.btnPaintLayerFilter_Click);
+            // 
             // CanvasEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -359,5 +371,6 @@ namespace PixelStacker.UI.Controls
         private System.Windows.Forms.ToolStripLabel lblHoverInfo;
         private System.Windows.Forms.ToolStripButton btnMaterialCombination;
         public System.Windows.Forms.ToolStripContainer toolStripContainer;
+        private System.Windows.Forms.ToolStripButton btnPaintLayerFilter;
     }
 }

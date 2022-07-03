@@ -198,29 +198,29 @@ namespace PixelStacker.Logic.Model
 
         public override string ToString()
         {
-            return Label;
+            return PixelStackerID;
         }
 
         public override bool Equals(object obj)
         {
             var material = obj as Material;
             return material != null &&
-                   Label == material.Label;
+                   PixelStackerID == material.PixelStackerID;
         }
 
         public override int GetHashCode()
         {
-            return 981597221 + EqualityComparer<string>.Default.GetHashCode(Label);
+            return 981597221 + EqualityComparer<string>.Default.GetHashCode(PixelStackerID);
         }
 
         public static bool operator ==(Material left, Material right)
         {
-            return left?.ToString() == right?.ToString();
+            return left?.PixelStackerID == right?.PixelStackerID;
         }
 
         public static bool operator !=(Material left, Material right)
         {
-            return left?.ToString() != right?.ToString();
+            return left?.PixelStackerID != right?.PixelStackerID;
         }
     }
 }

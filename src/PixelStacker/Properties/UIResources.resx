@@ -199,6 +199,24 @@
   <data name="info" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\toolicons\info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="iso2_both_layers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\iso2_both_layers.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iso2_bottom_layer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\iso2_bottom_layer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iso2_top_layer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\iso2_top_layer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iso_both_layers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\iso_both_layers.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iso_bottom_layer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\iso_bottom_layer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iso_top_layer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\toolicons\iso_top_layer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="layers_bottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\ui\layers_bottom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

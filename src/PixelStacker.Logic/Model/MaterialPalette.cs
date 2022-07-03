@@ -16,7 +16,7 @@ namespace PixelStacker.Logic.Model
     public class MaterialPalette
     {
         [JsonIgnore]
-        internal Dictionary<int, MaterialCombination> FromPaletteID { get; private set; } = new Dictionary<int, MaterialCombination>();
+        protected Dictionary<int, MaterialCombination> FromPaletteID { get; private set; } = new Dictionary<int, MaterialCombination>();
 
         [JsonIgnore]
         protected Dictionary<MaterialCombination, int> ToPaletteID { get; private set; } = new Dictionary<MaterialCombination, int>();
@@ -25,6 +25,20 @@ namespace PixelStacker.Logic.Model
         public int Count => ToPaletteID.Count;
 
         public static MaterialCombination Air => MaterialPalette.FromResx()[Constants.MaterialCombinationIDForAir];
+
+
+        public int? GetPaletteIDByMaterials(Material bottom, Material top)
+        {
+#pragma warning disable CS0618 // Type or member is obsolete
+            var key = new MaterialCombination(bottom, top);
+#pragma warning restore CS0618 // Type or member is obsolete
+            if (ToPaletteID.TryGetValue(key, out int val))
+            {
+                return val;
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// We WILL throw errors here to ensure the program never passes with invalid data.

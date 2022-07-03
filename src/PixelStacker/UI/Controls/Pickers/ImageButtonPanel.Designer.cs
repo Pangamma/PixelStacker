@@ -37,7 +37,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tilePanel.AutoScroll = true;
-            this.tilePanel.BackgroundImage = global::PixelStacker.Resources.UIResources.pencil_cur;
             this.tilePanel.Location = new System.Drawing.Point(0, 0);
             this.tilePanel.Name = "tilePanel";
             this.tilePanel.OnCommandKey = null;

@@ -16,6 +16,29 @@ namespace PixelStacker.UI.Controls
             toolstrip_LayoutStyleChanged(tsCanvasTools, null);
         }
 
+        private void btnPaintLayerFilter_Click(object sender, System.EventArgs e)
+        {
+            var z = this.Options.Tools.ZLayerFilter;
+            if (z == Logic.IO.Config.ZLayer.Both)
+            {
+                z = Logic.IO.Config.ZLayer.Top;
+                btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso_top_layer;
+            }
+            else if (z == Logic.IO.Config.ZLayer.Top)
+            {
+                z = Logic.IO.Config.ZLayer.Bottom;
+                btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso_bottom_layer;
+            }
+            else
+            {
+                z = Logic.IO.Config.ZLayer.Both;
+                btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso_both_layers;
+            }
+
+            this.Options.Tools.ZLayerFilter = z;
+            this.Options.Save();
+        }
+
         private void toolstrip_LayoutStyleChanged(object sender, System.EventArgs e)
         {
             ToolStrip ts = sender as ToolStrip;
