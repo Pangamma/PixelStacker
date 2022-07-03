@@ -28,13 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.tilePanel = new PixelStacker.UI.Controls.CustomFlowLayoutPanel();
             this.SuspendLayout();
+            // 
+            // tilePanel
+            // 
+            this.tilePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tilePanel.AutoScroll = true;
+            this.tilePanel.BackgroundImage = global::PixelStacker.Resources.UIResources.pencil_cur;
+            this.tilePanel.Location = new System.Drawing.Point(0, 0);
+            this.tilePanel.Name = "tilePanel";
+            this.tilePanel.OnCommandKey = null;
+            this.tilePanel.Size = new System.Drawing.Size(461, 342);
+            this.tilePanel.TabIndex = 0;
             // 
             // ImageButtonPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.Controls.Add(this.tilePanel);
             this.Name = "ImageButtonPanel";
             this.Size = new System.Drawing.Size(464, 342);
             this.ResumeLayout(false);
@@ -42,5 +58,7 @@
         }
 
         #endregion
+
+        private CustomFlowLayoutPanel tilePanel;
     }
 }
