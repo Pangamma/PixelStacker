@@ -1,6 +1,6 @@
-﻿namespace PixelStacker.UI.Controls.MaterialPicker
+﻿namespace PixelStacker.UI.Controls.Toolstrip
 {
-    partial class PickerPanel
+    partial class ToolStripImageButtonControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,12 +30,10 @@
         {
             this.SuspendLayout();
             // 
-            // PickerPanel
+            // ToolStripImageButtonControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "PickerPanel";
-            this.Size = new System.Drawing.Size(301, 264);
+            this.Name = "ToolStripImageButtonControl";
+            this.Size = new System.Drawing.Size(40, 40);
             this.ResumeLayout(false);
 
         }

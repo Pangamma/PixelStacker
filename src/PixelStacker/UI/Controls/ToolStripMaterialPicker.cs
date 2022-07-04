@@ -25,7 +25,7 @@ namespace PixelStacker.UI.Controls
         {
             PickerPanel mtb = new PickerPanel();
             mtb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            mtb.MinimumSize = new System.Drawing.Size(100, 200);
+            mtb.MinimumSize = new System.Drawing.Size(40, 40);
             return mtb;
         }
     }

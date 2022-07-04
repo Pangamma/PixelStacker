@@ -164,5 +164,8 @@
   "MainForm_TS_ShowTopLayer": "최상위 레이어 표시",
   "Bottom_Material": "바닥재",
   "Combined_Materials": "복합재료",
-  "Top_Material": "톱 소재"
+  "Top_Material": "톱 소재",
+  "CanvasEditor_ZFilter_Both": "모든 레이어",
+  "CanvasEditor_ZFilter_Bottom": "하단 레이어만",
+  "CanvasEditor_ZFilter_Top": "최상위 레이어만"
 }

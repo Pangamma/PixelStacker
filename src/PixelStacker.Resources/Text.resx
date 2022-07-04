@@ -198,6 +198,15 @@ Aka Pangamma</value>
   <data name="Bottom_Material" xml:space="preserve">
     <value>Bottom material</value>
   </data>
+  <data name="CanvasEditor_ZFilter_Both" xml:space="preserve">
+    <value>All layers</value>
+  </data>
+  <data name="CanvasEditor_ZFilter_Bottom" xml:space="preserve">
+    <value>Bottom layer only</value>
+  </data>
+  <data name="CanvasEditor_ZFilter_Top" xml:space="preserve">
+    <value>Top layer only</value>
+  </data>
   <data name="ColorReducer_Algorithm" xml:space="preserve">
     <value>Quantizer Algorithm</value>
   </data>

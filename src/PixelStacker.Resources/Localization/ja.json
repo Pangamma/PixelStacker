@@ -164,5 +164,8 @@
   "MainForm_TS_ShowTopLayer": "トップレイヤーを表示",
   "Bottom_Material": "底材",
   "Combined_Materials": "組み合わせた材料",
-  "Top_Material": "トップ素材"
+  "Top_Material": "トップ素材",
+  "CanvasEditor_ZFilter_Both": "すべてのレイヤー",
+  "CanvasEditor_ZFilter_Bottom": "最下層のみ",
+  "CanvasEditor_ZFilter_Top": "最上層のみ"
 }

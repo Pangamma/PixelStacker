@@ -73,7 +73,7 @@ namespace PixelStacker.UI.Controls
             this.skiaControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.skiaControl.Location = new System.Drawing.Point(0, 0);
             this.skiaControl.Name = "skiaControl";
-            this.skiaControl.Size = new System.Drawing.Size(561, 355);
+            this.skiaControl.Size = new System.Drawing.Size(561, 339);
             this.skiaControl.TabIndex = 0;
             this.skiaControl.PaintSurface += new System.EventHandler<PixelStacker.UI.Controls.GenericSKPaintSurfaceEventArgs>(this.skiaControl_PaintSurface);
             this.skiaControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_Click);
@@ -104,7 +104,7 @@ namespace PixelStacker.UI.Controls
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.skiaControl);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(561, 355);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(561, 339);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer.LeftToolStripPanel
@@ -139,7 +139,7 @@ namespace PixelStacker.UI.Controls
             this.tsCanvasTools.Name = "tsCanvasTools";
             this.tsCanvasTools.Padding = new System.Windows.Forms.Padding(0);
             this.tsCanvasTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tsCanvasTools.Size = new System.Drawing.Size(50, 292);
+            this.tsCanvasTools.Size = new System.Drawing.Size(50, 316);
             this.tsCanvasTools.TabIndex = 0;
             this.tsCanvasTools.LayoutStyleChanged += new System.EventHandler(this.toolstrip_LayoutStyleChanged);
             // 
@@ -247,7 +247,7 @@ namespace PixelStacker.UI.Controls
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(38, 38);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblBrushWidth,
             this.btnBrushWidthMinus,
@@ -258,13 +258,13 @@ namespace PixelStacker.UI.Controls
             this.btnPaintLayerFilter});
             this.toolStrip1.Location = new System.Drawing.Point(4, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(420, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(433, 43);
             this.toolStrip1.TabIndex = 0;
             // 
             // lblBrushWidth
             // 
             this.lblBrushWidth.Name = "lblBrushWidth";
-            this.lblBrushWidth.Size = new System.Drawing.Size(86, 24);
+            this.lblBrushWidth.Size = new System.Drawing.Size(86, 40);
             this.lblBrushWidth.Text = "Brush width";
             // 
             // btnBrushWidthMinus
@@ -301,28 +301,33 @@ namespace PixelStacker.UI.Controls
             // 
             // btnMaterialCombination
             // 
+            this.btnMaterialCombination.AutoSize = false;
             this.btnMaterialCombination.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnMaterialCombination.Image = ((System.Drawing.Image)(resources.GetObject("btnMaterialCombination.Image")));
             this.btnMaterialCombination.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMaterialCombination.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.btnMaterialCombination.Name = "btnMaterialCombination";
-            this.btnMaterialCombination.Size = new System.Drawing.Size(29, 24);
+            this.btnMaterialCombination.Size = new System.Drawing.Size(40, 40);
             this.btnMaterialCombination.Text = "toolStripButton1";
             this.btnMaterialCombination.Click += new System.EventHandler(this.btnMaterialCombination_Click);
             // 
             // lblHoverInfo
             // 
             this.lblHoverInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblHoverInfo.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.lblHoverInfo.Name = "lblHoverInfo";
-            this.lblHoverInfo.Size = new System.Drawing.Size(124, 24);
+            this.lblHoverInfo.Size = new System.Drawing.Size(124, 40);
             this.lblHoverInfo.Text = "Mouse hover info";
             // 
             // btnPaintLayerFilter
             // 
+            this.btnPaintLayerFilter.AutoSize = false;
             this.btnPaintLayerFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso2_both_layers;
             this.btnPaintLayerFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPaintLayerFilter.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.btnPaintLayerFilter.Name = "btnPaintLayerFilter";
-            this.btnPaintLayerFilter.Size = new System.Drawing.Size(29, 24);
+            this.btnPaintLayerFilter.Size = new System.Drawing.Size(40, 40);
             this.btnPaintLayerFilter.Text = "toolStripButton1";
             this.btnPaintLayerFilter.Click += new System.EventHandler(this.btnPaintLayerFilter_Click);
             // 

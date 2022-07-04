@@ -82,5 +82,23 @@ namespace PixelStacker.Extensions
 
             return info;
         }
+
+        /// <summary>
+        /// Copies the original image into a NEW image.
+        /// If you are done with your original image, you should
+        /// dispose it yourself.
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        public static Bitmap Resize(this Bitmap bitmap, int w, int h)
+        {
+            Bitmap bm = new Bitmap(w, h);
+            using Graphics g = Graphics.FromImage(bm);
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            g.DrawImage(bitmap, 0, 0, w, h);
+            return bm;
+        }
     }
 }

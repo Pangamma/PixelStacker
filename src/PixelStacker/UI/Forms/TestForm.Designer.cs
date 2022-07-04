@@ -28,51 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.SuspendLayout();
+            this.imageButtonPanel1 = new PixelStacker.UI.Controls.Pickers.ImageButtonPanel();
             this.SuspendLayout();
             // 
-            // toolStripContainer1
+            // imageButtonPanel1
             // 
-            // 
-            // toolStripContainer1.ContentPanel
-            // 
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.richTextBox1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(776, 339);
-            this.toolStripContainer1.Location = new System.Drawing.Point(12, 12);
-            this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(776, 364);
-            this.toolStripContainer1.TabIndex = 0;
-            this.toolStripContainer1.Text = "toolStripContainer1";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(102, 3);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(578, 263);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.imageButtonPanel1.AutoScroll = true;
+            this.imageButtonPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.imageButtonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageButtonPanel1.Location = new System.Drawing.Point(0, 0);
+            this.imageButtonPanel1.Name = "imageButtonPanel1";
+            this.imageButtonPanel1.OnCommandKey = null;
+            this.imageButtonPanel1.Size = new System.Drawing.Size(651, 388);
+            this.imageButtonPanel1.TabIndex = 1;
             // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 388);
-            this.Controls.Add(this.toolStripContainer1);
+            this.ClientSize = new System.Drawing.Size(651, 388);
+            this.Controls.Add(this.imageButtonPanel1);
             this.Name = "TestForm";
             this.Text = "TestForm";
-            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer1.ResumeLayout(false);
-            this.toolStripContainer1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private Controls.Pickers.ImageButtonPanel imageButtonPanel1;
     }
 }

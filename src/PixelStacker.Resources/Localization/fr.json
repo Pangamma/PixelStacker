@@ -164,5 +164,8 @@
   "MainForm_TS_ShowTopLayer": "Afficher la couche supérieure",
   "Bottom_Material": "Matériau du fond",
   "Combined_Materials": "Matériaux combinés",
-  "Top_Material": "Matériau supérieur"
+  "Top_Material": "Matériau supérieur",
+  "CanvasEditor_ZFilter_Both": "Toutes les couches",
+  "CanvasEditor_ZFilter_Bottom": "Couche inférieure uniquement",
+  "CanvasEditor_ZFilter_Top": "Couche supérieure uniquement"
 }

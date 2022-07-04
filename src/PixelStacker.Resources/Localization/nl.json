@@ -164,5 +164,8 @@
   "MainForm_TS_ShowTopLayer": "Toon bovenste laag",
   "Bottom_Material": "Bodem materiaal",
   "Combined_Materials": "Gecombineerde materialen",
-  "Top_Material": "Top materiaal"
+  "Top_Material": "Top materiaal",
+  "CanvasEditor_ZFilter_Both": "Alle lagen",
+  "CanvasEditor_ZFilter_Bottom": "Alleen onderste laag",
+  "CanvasEditor_ZFilter_Top": "Alleen toplaag"
 }

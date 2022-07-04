@@ -164,5 +164,8 @@
   "MainForm_TS_ShowTopLayer": "Vis øverste lag",
   "Bottom_Material": "Bundmateriale",
   "Combined_Materials": "Kombinerede materialer",
-  "Top_Material": "Top materiale"
+  "Top_Material": "Top materiale",
+  "CanvasEditor_ZFilter_Both": "Alle lag",
+  "CanvasEditor_ZFilter_Bottom": "Kun nederste lag",
+  "CanvasEditor_ZFilter_Top": "Kun øverste lag"
 }

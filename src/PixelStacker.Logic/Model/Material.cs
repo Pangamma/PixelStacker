@@ -21,6 +21,16 @@ namespace PixelStacker.Logic.Model
         public string Category { get; set; }
         public string SchematicaMaterialName { get; set; }
         public bool IsAdvanced { get; set; } = false;
+        
+        /// <summary>
+        /// TRUE if category is glass, or material is AIR.
+        /// </summary>
+        public bool IsTransparent => this.Category == "Glass" || this.PixelStackerID == "AIR";
+
+        /// <summary>
+        /// TRUE if NOT transparent.
+        /// </summary>
+        public bool IsSolid => !IsTransparent;
 
         /// <summary>
         /// minecraft:stone_1

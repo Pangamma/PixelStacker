@@ -279,6 +279,33 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All layers.
+        /// </summary>
+        public static string CanvasEditor_ZFilter_Both {
+            get {
+                return ResourceManager.GetString("CanvasEditor_ZFilter_Both", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bottom layer only.
+        /// </summary>
+        public static string CanvasEditor_ZFilter_Bottom {
+            get {
+                return ResourceManager.GetString("CanvasEditor_ZFilter_Bottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top layer only.
+        /// </summary>
+        public static string CanvasEditor_ZFilter_Top {
+            get {
+                return ResourceManager.GetString("CanvasEditor_ZFilter_Top", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quantizer Algorithm.
         /// </summary>
         public static string ColorReducer_Algorithm {

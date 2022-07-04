@@ -164,5 +164,8 @@
   "MainForm_TS_ShowTopLayer": "Visa översta lagret",
   "Bottom_Material": "Bottenmaterial",
   "Combined_Materials": "Kombinerade material",
-  "Top_Material": "Toppmaterial"
+  "Top_Material": "Toppmaterial",
+  "CanvasEditor_ZFilter_Both": "Alla lager",
+  "CanvasEditor_ZFilter_Bottom": "Endast underlag",
+  "CanvasEditor_ZFilter_Top": "Endast översta lagret"
 }

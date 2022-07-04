@@ -46,10 +46,15 @@ namespace PixelStacker.UI.Controls
             this.PanZoomTool = new PanZoomTool(this);
             this.CurrentTool = new PanZoomTool(this);
 
+            if (!this.Options.IsAdvancedModeEnabled)
+            {
+                this.btnMaterialCombination.Click -= btnMaterialCombination_Click;
+            }
+
             this.tbxBrushWidth.Text = this.Options.Tools?.BrushWidth.ToString();
-            this.btnMaterialCombination.Image =
-                this.Options?.Tools?.PrimaryColor?.GetImage(this.Options?.IsSideView ?? false).SKBitmapToBitmap()
+            using var img = this.Options?.Tools?.PrimaryColor?.GetImage(this.Options?.IsSideView ?? false).SKBitmapToBitmap()
                 ?? Resources.Textures.barrier.SKBitmapToBitmap();
+            this.btnMaterialCombination.Image = img.Resize(64, 64);
         }
 
         private void CanvasEditor_Disposed(object sender, System.EventArgs e)
@@ -60,8 +65,10 @@ namespace PixelStacker.UI.Controls
         private void AppEvents_OnPrimaryColorChange(object sender, OptionsChangeEvent<MaterialCombination> e)
         {
             MaterialCombination mcAfter = Options.Tools.PrimaryColor;
-            var img = mcAfter.GetImage(Options.IsSideView);
-            btnMaterialCombination.Image = img.SKBitmapToBitmap();
+            var skimg = mcAfter.GetImage(Options.IsSideView);
+            using var img = skimg.SKBitmapToBitmap();
+            this.btnMaterialCombination.Image = img.Resize(64, 64);
+
             btnMaterialCombination.ToolTipText = mcAfter.Top.Label + ", " + mcAfter.Bottom.Label;
         }
 

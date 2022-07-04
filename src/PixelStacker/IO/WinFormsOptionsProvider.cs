@@ -43,6 +43,7 @@ namespace PixelStacker.IO
             FireChangeEvents(old, t, opts => opts.Tools.PrimaryColor, nameof(AppEvents.OnPrimaryColorChange));
             FireChangeEvents(old, t, opts => opts.Tools.BrushWidth, nameof(AppEvents.OnBrushWidthChange));
             FireChangeEvents(old, t, opts => opts.IsSideView, nameof(AppEvents.IsSideViewChange));
+            FireChangeEvents(old, t, opts => opts.IsAdvancedModeEnabled, nameof(AppEvents.IsAdvancedModeChange));
 
             string json = JsonConvert.SerializeObject(t, SerializerSettings);
             Properties.Settings.Default.JSON = json;

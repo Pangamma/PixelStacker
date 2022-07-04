@@ -100,7 +100,6 @@ namespace PixelStacker.Logic.CanvasEditor.History
                 {
                     Coordinates[loc] = new BufferedHistoryNode() { BeforeID = PaletteIDBefore, AfterID = PaletteIDAfter };
                 }
-
             }
         }
         public void AppendChange(int PaletteIDBefore, int PaletteIDAfter, List<PxPoint> locs)

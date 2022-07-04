@@ -164,5 +164,8 @@
   "MainForm_TS_ShowTopLayer": "显示顶层",
   "Bottom_Material": "底料",
   "Combined_Materials": "组合材料",
-  "Top_Material": "顶部材料"
+  "Top_Material": "顶部材料",
+  "CanvasEditor_ZFilter_Both": "所有层",
+  "CanvasEditor_ZFilter_Bottom": "仅底层",
+  "CanvasEditor_ZFilter_Top": "仅顶层"
 }

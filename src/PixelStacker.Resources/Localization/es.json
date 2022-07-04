@@ -164,5 +164,8 @@
   "MainForm_TS_ShowTopLayer": "Mostrar capa superior",
   "Bottom_Material": "Material inferior",
   "Combined_Materials": "Materiales combinados",
-  "Top_Material": "Material superior"
+  "Top_Material": "Material superior",
+  "CanvasEditor_ZFilter_Both": "todas las capas",
+  "CanvasEditor_ZFilter_Bottom": "Solo capa inferior",
+  "CanvasEditor_ZFilter_Top": "Solo capa superior"
 }

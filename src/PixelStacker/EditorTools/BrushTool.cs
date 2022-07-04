@@ -27,13 +27,13 @@ namespace PixelStacker.EditorTools
             Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
             var painter = this.CanvasEditor.Painter;
             var buffer = painter.HistoryBuffer;
-            var colorToUse = Options.Tools.PrimaryColor;
             var pnts = this.SquareExpansion(new PxPoint(loc.X, loc.Y), this.BrushWidth);
             foreach (var pnt in pnts)
             {
                 if (pnt.X < 0 || pnt.X > this.CanvasEditor.Canvas.Width - 1) continue;
                 if (pnt.Y < 0 || pnt.Y > this.CanvasEditor.Canvas.Height - 1) continue;
                 var cd = this.CanvasEditor.Canvas.CanvasData[pnt.X, pnt.Y];
+                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, base.Palette, Options.Tools.PrimaryColor, cd);
                 buffer.AppendChange(Palette[cd], Palette[colorToUse], pnt);
             }
         }
@@ -51,13 +51,14 @@ namespace PixelStacker.EditorTools
             var buffer = painter.HistoryBuffer;
 
             // Expand to square shape then add relevant points.
-            var colorToUse = Options.Tools.PrimaryColor ?? this.Air;
+            var colorToUseTmp = Options.Tools.PrimaryColor ?? this.Air;
             var pnts = this.SquareExpansion(new PxPoint(loc.X, loc.Y), this.BrushWidth);
             foreach (var pnt in pnts)
             {
                 if (pnt.X < 0 || pnt.X > this.CanvasEditor.Canvas.Width - 1) continue;
                 if (pnt.Y < 0 || pnt.Y > this.CanvasEditor.Canvas.Height - 1) continue;
                 var cd = this.CanvasEditor.Canvas.CanvasData[pnt.X, pnt.Y];
+                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, base.Palette, colorToUseTmp, cd);
                 buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(pnt.X, pnt.Y));
             }
         }
@@ -87,12 +88,13 @@ namespace PixelStacker.EditorTools
 
             pointsToAdd.Add(new PxPoint(loc.X, loc.Y));
             pointsToAdd = this.SquareExpansion(pointsToAdd, this.BrushWidth);
-            var colorToUse = Options.Tools.PrimaryColor ?? this.Air;
+            var colorToUseTmp = Options.Tools.PrimaryColor ?? this.Air;
 
             foreach (var p in pointsToAdd)
             {
                 if (!this.CanvasEditor.Canvas.IsInRange(p.X, p.Y)) continue;
                 var cd = this.CanvasEditor.Canvas.CanvasData[p.X, p.Y];
+                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, base.Palette, colorToUseTmp, cd);
                 buffer.AppendChange(Palette[cd], Palette[colorToUse], p);
             }
         }

@@ -4,6 +4,7 @@ using PixelStacker.Logic.Utilities;
 using PixelStacker.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,12 @@ namespace PixelStacker.EditorTools
             });
         }
 
+
+        public override void OnClick(MouseEventArgs e)
+        {
+            base.OnClick(e);
+        }
+
         public override void OnLeftClick(MouseEventArgs e)
         {
             Task.Run(() => TaskManager.Get.StartAsync((worker) =>
@@ -50,8 +57,11 @@ namespace PixelStacker.EditorTools
 
                 MaterialCombination mc = Options.Tools.PrimaryColor;
                 mc ??= Palette[Constants.MaterialCombinationIDForAir];
+                MaterialCombination mcClickedTmp = cd[loc.X, loc.Y];
+                MaterialCombination mcClicked = this.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, mc, mcClickedTmp);
 
-                int colorToSet = Palette[mc];
+                int colorToSet = Palette[mcClicked];
+
                 int colorToRemove = Palette[cd[loc.X, loc.Y]];
                 if (colorToSet == colorToRemove) return;
 
@@ -91,8 +101,8 @@ namespace PixelStacker.EditorTools
                     }
                 }
 
-                var ri = painter.HistoryBuffer.ToRenderInstructions(true);
-                this.CanvasEditor.Painter.DoProcessRenderRecords(ri);
+                //var ri = painter.HistoryBuffer.ToRenderInstructions(true);
+                //this.CanvasEditor.Painter.DoProcessRenderRecords(ri);
 
                 var hr = painter.HistoryBuffer.ToHistoryRecord(true);
                 this.CanvasEditor.Painter.History.AddChange(hr);

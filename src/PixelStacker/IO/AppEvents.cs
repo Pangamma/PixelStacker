@@ -38,5 +38,6 @@ namespace PixelStacker.Logic.IO.Config
         public static event EventHandler<OptionsChangeEvent<MaterialCombination>> OnPrimaryColorChange;
         public static event EventHandler<OptionsChangeEvent<int>> OnBrushWidthChange;
         public static event EventHandler<OptionsChangeEvent<bool>> IsSideViewChange;
+        public static event EventHandler<OptionsChangeEvent<bool>> IsAdvancedModeChange;
     }
 }
