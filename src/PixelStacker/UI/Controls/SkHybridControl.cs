@@ -10,7 +10,7 @@ namespace PixelStacker.UI.Controls
 {
     public partial class SkHybridControl : UserControl
     {
-#if DEBUG
+#if USE_GPU
         public static bool IsGpuAvailable => true;
 #else
         public static bool IsGpuAvailable => false;

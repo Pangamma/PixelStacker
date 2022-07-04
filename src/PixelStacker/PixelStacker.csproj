@@ -20,18 +20,19 @@
 	<FileVersion>1.0.0.2</FileVersion>
 	<TargetFramework>net6.0-windows</TargetFramework>
 	<DebugType>portable</DebugType>
+	<Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DefineConstants>TRACE;IMAGE_SHARP;SKIA_SHARP</DefineConstants>
+    <DefineConstants>$(DefineConstants);USE_GPU</DefineConstants>
     <OutputPath>bin\Debug\</OutputPath>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="UI\Controls\MaterialPicker2cs" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
