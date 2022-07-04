@@ -22,8 +22,8 @@ namespace PixelStacker.UI
         public readonly Options Options;
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
-        public SKBitmap LoadedImage { get; private set; } = DevResources.colorwheel;
-        public SKBitmap PreprocessedImage { get; private set; } = DevResources.colorwheel; // UIResources.weird_intro.BitmapToSKBitmap();
+        public SKBitmap LoadedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap();
+        public SKBitmap PreprocessedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
         private SnapManager snapManager { get; }
 

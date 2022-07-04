@@ -10,7 +10,11 @@ namespace PixelStacker.UI.Controls
 {
     public partial class SkHybridControl : UserControl
     {
+#if DEBUG
+        public static bool IsGpuAvailable => true;
+#else
         public static bool IsGpuAvailable => false;
+#endif
         private SKGLControl glCanvas;
         private SKControl Canvas;
 
