@@ -161,5 +161,11 @@
   "Top": "Oberteil",
   "MainForm_TS_ShowBothLayers": "Beide Ebenen anzeigen",
   "MainForm_TS_ShowBottomLayer": "Untere Ebene anzeigen",
-  "MainForm_TS_ShowTopLayer": "Obere Ebene anzeigen"
+  "MainForm_TS_ShowTopLayer": "Obere Ebene anzeigen",
+  "Bottom_Material": "Bodenmaterial",
+  "Combined_Materials": "Kombinierte Materialien",
+  "Top_Material": "Top-Material",
+  "CanvasEditor_ZFilter_Both": "Alle Schichten",
+  "CanvasEditor_ZFilter_Bottom": "Nur unterste Schicht",
+  "CanvasEditor_ZFilter_Top": "Nur oberste Schicht"
 }

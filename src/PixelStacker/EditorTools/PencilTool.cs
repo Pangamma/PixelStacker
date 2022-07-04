@@ -18,7 +18,7 @@ namespace PixelStacker.EditorTools
 
         public PencilTool(CanvasEditor editor) : base(editor)
         {
-            var palette = editor.Canvas.MaterialPalette ?? MaterialPalette.FromResx();
+            var palette = editor.Canvas?.MaterialPalette ?? MaterialPalette.FromResx();
             this.Air = palette[Constants.MaterialCombinationIDForAir];
         }
 
@@ -30,8 +30,8 @@ namespace PixelStacker.EditorTools
             var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
             var painter = this.CanvasEditor.Painter;
             var buffer = painter.HistoryBuffer;
-            var colorToUse = Options.Tools.PrimaryColor;
-            colorToUse ??= this.Air;
+            var colorToUseTmp = Options.Tools.PrimaryColor ?? this.Air;
+            var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
             buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));
         }
 
@@ -48,8 +48,8 @@ namespace PixelStacker.EditorTools
             var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
             var painter = this.CanvasEditor.Painter;
             var buffer = painter.HistoryBuffer;
-            var colorToUse = Options.Tools.PrimaryColor;
-            colorToUse ??= this.Air;
+            var colorToUseTmp = Options.Tools.PrimaryColor ?? this.Air;
+            var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
             buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));;
         }
         public override void OnMouseUp(MouseEventArgs e)
@@ -75,10 +75,11 @@ namespace PixelStacker.EditorTools
             if (!this.CanvasEditor.Canvas.CanvasData.IsInRange(loc.X, loc.Y)) return;
             var painter = this.CanvasEditor.Painter;
             var buffer = painter.HistoryBuffer;
-            var colorToUse = Options.Tools.PrimaryColor ?? this.Air;
+            var colorToUseTmp = Options.Tools.PrimaryColor ?? this.Air;
 
             {
                 var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
+                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
                 buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));
             }
 
@@ -86,6 +87,7 @@ namespace PixelStacker.EditorTools
             {
                 if (!this.CanvasEditor.Canvas.CanvasData.IsInRange(p.X, p.Y)) continue;
                 var cd = this.CanvasEditor.Canvas.CanvasData[p.X, p.Y];
+                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
                 buffer.AppendChange(Palette[cd], Palette[colorToUse], p);
             }
         }

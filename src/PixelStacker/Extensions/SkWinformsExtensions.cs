@@ -10,6 +10,46 @@ namespace PixelStacker.Extensions
 {
     public static class SkWinformsExtensions
     {
+        /// <summary>
+        /// Tries to parse #FF00AA hex format to a SKColor
+        /// </summary>
+        /// <param name="needle"></param>
+        /// <returns></returns>
+        public static SKColor? ToSKColor(this string needle)
+        {
+            if (needle.StartsWith("#"))
+            {
+                try
+                {
+                    int R, G, B;
+                    string needleTrim = needle.Trim();
+
+                    if (needleTrim.Length == 7)
+                    {
+                        R = Convert.ToByte(needleTrim.Substring(1, 2), 16);
+                        G = Convert.ToByte(needleTrim.Substring(3, 2), 16);
+                        B = Convert.ToByte(needleTrim.Substring(5, 2), 16);
+                    }
+                    else if (needleTrim.Length == 4)
+                    {
+                        R = Convert.ToByte(needleTrim.Substring(1, 1) + needleTrim.Substring(1, 1), 16);
+                        G = Convert.ToByte(needleTrim.Substring(2, 1) + needleTrim.Substring(2, 1), 16);
+                        B = Convert.ToByte(needleTrim.Substring(3, 1) + needleTrim.Substring(3, 1), 16);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                    SKColor cNeedle = new SKColor((byte)R, (byte)G, (byte)B, (byte)255);
+                    return cNeedle;
+                }
+                catch (Exception) { }
+            }
+
+            return null;
+        }
+
         public static SKBitmap BitmapToSKBitmap(this Bitmap bitmap)
         {
             var info = new SKImageInfo(bitmap.Width, bitmap.Height);
@@ -41,6 +81,24 @@ namespace PixelStacker.Extensions
             }
 
             return info;
+        }
+
+        /// <summary>
+        /// Copies the original image into a NEW image.
+        /// If you are done with your original image, you should
+        /// dispose it yourself.
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        public static Bitmap Resize(this Bitmap bitmap, int w, int h)
+        {
+            Bitmap bm = new Bitmap(w, h);
+            using Graphics g = Graphics.FromImage(bm);
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            g.DrawImage(bitmap, 0, 0, w, h);
+            return bm;
         }
     }
 }

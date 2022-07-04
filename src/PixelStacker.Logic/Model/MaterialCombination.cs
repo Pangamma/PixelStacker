@@ -12,16 +12,20 @@ namespace PixelStacker.Logic.Model
 {
     [Serializable]
     [JsonConverter(typeof(MaterialCombinationJsonConverter))]
-    public class MaterialCombination : IEquatable<MaterialCombination>
+    public class MaterialCombination : IEquatable<MaterialCombination>, IDisposable
     {
         #region Constructors
+        [Obsolete("Do not create new mat combos willy nilly. It can cause a memory leak with the loading of images.", false)]
         public MaterialCombination(string pixelStackerID) : this(Materials.FromPixelStackerID(pixelStackerID)) { }
 
+        [Obsolete("Do not create new mat combos willy nilly. It can cause a memory leak with the loading of images.", false)]
         public MaterialCombination(string pixelStackerIdBottom, string pixelStackerIdTop)
             : this(Materials.FromPixelStackerID(pixelStackerIdBottom), Materials.FromPixelStackerID(pixelStackerIdTop)) { }
 
+        [Obsolete("Do not create new mat combos willy nilly. It can cause a memory leak with the loading of images.", false)]
         public MaterialCombination(Material m) : this(m, m) { }
 
+        [Obsolete("Do not create new mat combos willy nilly. It can cause a memory leak with the loading of images.", false)]
         public MaterialCombination(Material mBottom, Material mTop)
         {
             this.Top = mTop;
@@ -125,6 +129,8 @@ namespace PixelStacker.Logic.Model
         }
 
         private SKBitmap _SideImage;
+        private bool disposedValue;
+
         public SKBitmap SideImage
         {
             get
@@ -185,6 +191,44 @@ namespace PixelStacker.Logic.Model
         public override int GetHashCode()
         {
             return GetHashCode(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // dispose managed state (managed objects)
+                    this._TopImage.DisposeSafely();
+                    this._TopImage = null;
+
+                    this._SideImage.DisposeSafely();
+                    this._SideImage = null;
+                }
+
+                // free unmanaged resources (unmanaged objects) and override finalizer
+                // set large fields to null
+                this._ColorsInImageSide = null;
+                this._ColorsInImageTop = null;
+                this._GetAverageColorSide = null;
+                this._GetAverageColorTop = null;
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        // ~MaterialCombination()
+        // {
+        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        //     Dispose(disposing: false);
+        // }
+
+        void IDisposable.Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion

@@ -11,7 +11,7 @@ namespace PixelStacker.UI.Controls
     public partial class CanvasEditor
     {
         private AbstractCanvasEditorTool CurrentTool { get; set; }
-        private PanZoomTool PanZoomTool { get; }
+        private PanZoomTool PanZoomTool { get; set; }
 
         private void bgWorkerBufferedChangeQueue_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -35,17 +35,6 @@ namespace PixelStacker.UI.Controls
             //await this.Painter.DoRenderFromHistoryBuffer();
             //IsRenderingBuffer = false;
             //this.RepaintRequested = true;
-        }
-
-        public void SetCanvasToolboxEvents(CanvasTools toolbox)
-        {
-            toolbox.OnClickFill += Toolbox_OnClickFill;
-            toolbox.OnClickPanZoom += Toolbox_OnClickPanZoom;
-            toolbox.OnClickPencil += Toolbox_OnClickPencil;
-            toolbox.OnClickBrush += Toolbox_OnClickBrush;
-            toolbox.OnClickPicker += Toolbox_OnClickPicker;
-            toolbox.OnClickEraser += Toolbox_OnClickEraser;
-            toolbox.OnClickWorldEditOrigin += Toolbox_OnClickWorldEditOrigin;
         }
 
         private void Toolbox_OnClickBrush(object sender, EventArgs e)

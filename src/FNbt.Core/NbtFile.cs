@@ -198,7 +198,9 @@ namespace FNBT
                 FileShare.Read,
                 FileStreamBufferSize,
                 FileOptions.SequentialScan);
+#pragma warning disable CS8604 // Possible null reference argument.
             LoadFromStream(readFileStream, compression, selector);
+#pragma warning restore CS8604 // Possible null reference argument.
             FileName = fileName;
             return readFileStream.Position;
         }
@@ -253,7 +255,10 @@ namespace FNBT
             if (buffer == null) throw new ArgumentNullException(nameof(buffer));
 
             using var ms = new MemoryStream(buffer, index, length);
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            // If it ain't broken, don't break it.
             LoadFromStream(ms, compression, null);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
             FileName = null;
             return ms.Position;
         }
@@ -357,35 +362,27 @@ namespace FNBT
         /// <exception cref="NbtFormatException"> If an error occurred while parsing data in NBT format. </exception>
         public long LoadFromStream(Stream stream, NbtCompression compression)
         {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             return LoadFromStream(stream, compression, null);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
 
         private static NbtCompression DetectCompression(Stream stream)
         {
-            NbtCompression compression;
             if (!stream.CanSeek)
             {
                 throw new NotSupportedException("Cannot auto-detect compression on a stream that's not seekable.");
             }
             int firstByte = stream.ReadByte();
-            switch (firstByte)
+            var compression = firstByte switch
             {
-                case -1:
-                    throw new EndOfStreamException();
-                case (byte)NbtTagType.Compound: // 0x0A
-                    compression = NbtCompression.None;
-                    break;
-                case 0x1F:
-                    // GZip magic number
-                    compression = NbtCompression.GZip;
-                    break;
-                case 0x78:
-                    // ZLib header
-                    compression = NbtCompression.ZLib;
-                    break;
-                default:
-                    throw new InvalidDataException("Could not auto-detect compression format.");
-            }
+                -1 => throw new EndOfStreamException(),
+                // 0x0A
+                (byte)NbtTagType.Compound => NbtCompression.None,
+                0x1F => NbtCompression.GZip,// GZip magic number
+                0x78 => NbtCompression.ZLib,// ZLib header
+                _ => throw new InvalidDataException("Could not auto-detect compression format."),
+            };
             stream.Seek(-1, SeekOrigin.Current);
             return compression;
         }

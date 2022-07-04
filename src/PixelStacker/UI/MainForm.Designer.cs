@@ -355,6 +355,7 @@ namespace PixelStacker.UI
             this.skipShadowRenderirngToolStripMenuItem.Name = "skipShadowRenderirngToolStripMenuItem";
             this.skipShadowRenderirngToolStripMenuItem.Size = new System.Drawing.Size(279, 26);
             this.skipShadowRenderirngToolStripMenuItem.Text = "Skip shadow rendering";
+            this.skipShadowRenderirngToolStripMenuItem.Click += new System.EventHandler(this.skipShadowRenderirngToolStripMenuItem_Click);
             // 
             // addExtraDepthToShadowsToolStripMenuItem
             // 
@@ -511,7 +512,6 @@ namespace PixelStacker.UI
             this.swatchToolStripMenuItem.Name = "swatchToolStripMenuItem";
             this.swatchToolStripMenuItem.Size = new System.Drawing.Size(34, 24);
             this.swatchToolStripMenuItem.Visible = false;
-            this.swatchToolStripMenuItem.Click += new System.EventHandler(this.swatchToolStripMenuItem_Click);
             // 
             // progressBar1
             // 

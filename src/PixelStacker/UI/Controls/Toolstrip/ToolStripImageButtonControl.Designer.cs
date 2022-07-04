@@ -1,6 +1,6 @@
-﻿namespace PixelStacker.UI.Controls.MaterialPicker
+﻿namespace PixelStacker.UI.Controls.Toolstrip
 {
-    partial class MaterialPickerTile
+    partial class ToolStripImageButtonControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,17 +30,10 @@
         {
             this.SuspendLayout();
             // 
-            // MaterialPickerTile
+            // ToolStripImageButtonControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "MaterialPickerTile";
-            this.Size = new System.Drawing.Size(64, 64);
-            this.Click += new System.EventHandler(this.MaterialPickerTile_Click);
-            this.Enter += new System.EventHandler(this.MaterialPickerTile_Enter);
-            this.Leave += new System.EventHandler(this.MaterialPickerTile_Leave);
-            this.MouseEnter += new System.EventHandler(this.MaterialPickerTile_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.MaterialPickerTile_MouseLeave);
+            this.Name = "ToolStripImageButtonControl";
+            this.Size = new System.Drawing.Size(40, 40);
             this.ResumeLayout(false);
 
         }

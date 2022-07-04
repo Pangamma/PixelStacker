@@ -21,6 +21,16 @@ namespace PixelStacker.Logic.Model
         public string Category { get; set; }
         public string SchematicaMaterialName { get; set; }
         public bool IsAdvanced { get; set; } = false;
+        
+        /// <summary>
+        /// TRUE if category is glass, or material is AIR.
+        /// </summary>
+        public bool IsTransparent => this.Category == "Glass" || this.PixelStackerID == "AIR";
+
+        /// <summary>
+        /// TRUE if NOT transparent.
+        /// </summary>
+        public bool IsSolid => !IsTransparent;
 
         /// <summary>
         /// minecraft:stone_1
@@ -198,29 +208,29 @@ namespace PixelStacker.Logic.Model
 
         public override string ToString()
         {
-            return Label;
+            return PixelStackerID;
         }
 
         public override bool Equals(object obj)
         {
             var material = obj as Material;
             return material != null &&
-                   Label == material.Label;
+                   PixelStackerID == material.PixelStackerID;
         }
 
         public override int GetHashCode()
         {
-            return 981597221 + EqualityComparer<string>.Default.GetHashCode(Label);
+            return 981597221 + EqualityComparer<string>.Default.GetHashCode(PixelStackerID);
         }
 
         public static bool operator ==(Material left, Material right)
         {
-            return left?.ToString() == right?.ToString();
+            return left?.PixelStackerID == right?.PixelStackerID;
         }
 
         public static bool operator !=(Material left, Material right)
         {
-            return left?.ToString() != right?.ToString();
+            return left?.PixelStackerID != right?.PixelStackerID;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace PixelStacker.Tools.Generators
         [TestCategory("Generators")]
         public void GenerateMaterialCombinationPalette()
         {
-            string filePath = RootDir + "\\PixelStacker.Logic\\Resources\\Files\\materialPalette.json";
+            string filePath = RootDir + "\\PixelStacker.Resources\\Files\\materialPalette.json";
             MaterialPalette palette;
             {
                 string paletteFile = filePath;
@@ -28,6 +28,7 @@ namespace PixelStacker.Tools.Generators
             var solids = Materials.List.Where(m2 => m2.Category != "Glass" && m2.Category != "Air");
 
             bool isModified = false;
+#pragma warning disable CS0618 // Type or member is obsolete
             isModified |= palette.AddCombination(new MaterialCombination(Materials.Air));
             foreach (var solid in solids)
             {
@@ -37,6 +38,7 @@ namespace PixelStacker.Tools.Generators
                     isModified |= palette.AddCombination(new MaterialCombination(solid, glass));
                 }
             }
+#pragma warning restore CS0618 // Type or member is obsolete
 
             Console.WriteLine("Material Palette has been populated. Size = " + palette.Count);
             Console.WriteLine($"IsModified={isModified}");

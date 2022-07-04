@@ -58,15 +58,7 @@ namespace PixelStacker.UI.Controls
                 return;
             }
 
-            MaterialCombination mcBefore = Options.Tools.PrimaryColor;
             CurrentTool?.OnClick(e);
-            MaterialCombination mcAfter = Options.Tools.PrimaryColor;
-            if (mcBefore != mcAfter)
-            {
-                var img = mcAfter.GetImage(Options.IsSideView);
-                btnMaterialCombination.Image = img.SKBitmapToBitmap();
-                btnMaterialCombination.ToolTipText = mcAfter.Top.Label + ", " + mcAfter.Bottom.Label;
-            }
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)

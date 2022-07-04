@@ -39,6 +39,7 @@ namespace PixelStacker.UI
         private bool AreMaterialsCombined = false;
         private Options Options { get; }
 
+        [Obsolete("Only use in design view", false)]
         public MaterialSelectWindow() : this(Options.Get)
         {
         }
@@ -588,38 +589,15 @@ namespace PixelStacker.UI
 
             if (needle.StartsWith("#"))
             {
-                try
-                {
-                    int R, G, B;
-                    string needleTrim = needle.Trim();
+                SKColor? cNeedle = needle.ToSKColor();
+                if (cNeedle == null) return;
 
-                    if (needleTrim.Length == 7)
-                    {
-                        R = Convert.ToByte(needleTrim.Substring(1, 2), 16);
-                        G = Convert.ToByte(needleTrim.Substring(3, 2), 16);
-                        B = Convert.ToByte(needleTrim.Substring(5, 2), 16);
-                    }
-                    else if (needleTrim.Length == 4)
-                    {
-                        R = Convert.ToByte(needleTrim.Substring(1, 1) + needleTrim.Substring(1, 1), 16);
-                        G = Convert.ToByte(needleTrim.Substring(2, 1) + needleTrim.Substring(2, 1), 16);
-                        B = Convert.ToByte(needleTrim.Substring(3, 1) + needleTrim.Substring(3, 1), 16);
-                    }
-                    else
-                    {
-                        return;
-                    }
+                var found = Materials.List
+                    .Where(x => x.IsVisibleF(this.Options))
+                    .OrderBy(m => m.GetAverageColor(isv).GetColorDistance(cNeedle.Value))
+                    .Take(20).ToList();
 
-                    SKColor cNeedle = new SKColor((byte)R, (byte)G, (byte)B, (byte) 255);
-                    var found = Materials.List
-                        .Where(x => x.IsVisibleF(this.Options))
-                        .OrderBy(m => m.GetAverageColor(isv).GetColorDistance(cNeedle))
-                        .Take(20).ToList();
-                    await SetVisibleMaterials(found, _worker);
-                }
-                catch (Exception) { }
-
-                return;
+                await SetVisibleMaterials(found, _worker);
             }
 
             var foo = Materials.List.SelectMany(x => x.Tags).Distinct().ToArray();

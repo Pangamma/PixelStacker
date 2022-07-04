@@ -954,6 +954,15 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _disabled = null;
+        public static Image<Rgba32> disabled {
+            get {
+                if (_disabled == null)
+                    _disabled = Image.Load((byte[])ResourceManager.GetObject("disabled"));
+                return _disabled;
+            }
+        }
+
         private static Image<Rgba32> _dried_kelp_side = null;
         public static Image<Rgba32> dried_kelp_side {
             get {
@@ -1680,24 +1689,6 @@ namespace PixelStacker.Resources {
                 if (_mushroom_stem == null)
                     _mushroom_stem = Image.Load((byte[])ResourceManager.GetObject("mushroom_stem"));
                 return _mushroom_stem;
-            }
-        }
-
-        private static Image<Rgba32> _mycelium_side = null;
-        public static Image<Rgba32> mycelium_side {
-            get {
-                if (_mycelium_side == null)
-                    _mycelium_side = Image.Load((byte[])ResourceManager.GetObject("mycelium_side"));
-                return _mycelium_side;
-            }
-        }
-
-        private static Image<Rgba32> _mycelium_top = null;
-        public static Image<Rgba32> mycelium_top {
-            get {
-                if (_mycelium_top == null)
-                    _mycelium_top = Image.Load((byte[])ResourceManager.GetObject("mycelium_top"));
-                return _mycelium_top;
             }
         }
 

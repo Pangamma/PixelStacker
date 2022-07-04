@@ -21,7 +21,9 @@ namespace FNBT
         private readonly byte[] _stringConversionBuffer = new byte[64];
 
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public NbtBinaryReader(Stream input, bool bigEndian)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
             : base(input)
         {
             _swapNeeded = BitConverter.IsLittleEndian == bigEndian;
@@ -126,7 +128,11 @@ namespace FNBT
                 while (bytesSkipped < bytesToSkip)
                 {
                     int bytesToRead = Math.Min(SeekBufferSize, bytesToSkip - bytesSkipped);
-                    int bytesReadThisTime = BaseStream.Read(_seekBuffer, 0, bytesToRead);
+#pragma warning disable CS8604 // Possible null reference argument. 
+                    // It was like this when I got it. Don't touch it. Looks horribly broken, but
+                    // if it works, don't break it.
+                    int bytesReadThisTime = BaseStream.Read(buffer: _seekBuffer, 0, bytesToRead);
+#pragma warning restore CS8604 // Possible null reference argument.
                     if (bytesReadThisTime == 0)
                     {
                         throw new EndOfStreamException();

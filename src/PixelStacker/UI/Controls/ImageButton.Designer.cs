@@ -28,7 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutomaticDelay = 200;
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.InitialDelay = 200;
+            this.toolTip1.ReshowDelay = 40;
             // 
             // ImageButton
             // 
@@ -37,13 +46,15 @@
             this.Name = "ImageButton";
             this.Size = new System.Drawing.Size(103, 102);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImageButton_MouseDown);
+            this.MouseEnter += new System.EventHandler(this.ImageButton_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.ImageButton_MouseLeave);
-            this.MouseHover += new System.EventHandler(this.ImageButton_MouseHover);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImageButton_MouseUp);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

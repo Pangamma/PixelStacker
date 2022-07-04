@@ -12,7 +12,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MtCoffee.Publish
+namespace PixelStacker.CodeGenerator
 {
     public static class StopwatchExtension
     {

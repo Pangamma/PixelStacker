@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using SkiaSharp;
 using PixelStacker.UI.Helpers;
+using PixelStacker.UI.Forms;
 
 namespace PixelStacker.UI
 {
@@ -22,18 +23,17 @@ namespace PixelStacker.UI
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
         public SKBitmap LoadedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap();
-        public SKBitmap PreprocessedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap(); // UIResources.weird_intro.BitmapToSKBitmap();
+        public SKBitmap PreprocessedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
         private SnapManager snapManager { get; }
 
         public MainForm()
         {
-            this.Options = new LocalDataOptionsProvider().Load();
+            this.Options = new WinFormsOptionsProvider().Load();
             this.ColorMapper = new KdTreeMapper();
             this.Palette = MaterialPalette.FromResx();
-            InitializeComponent();
-            InitializeKonamiCodeWatcher();
             this.snapManager = new SnapManager(this);
+            InitializeComponent();
 
             this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);
@@ -43,7 +43,7 @@ namespace PixelStacker.UI
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
-            // Localization
+            InitializeKonamiCodeWatcher();
             InitializeLocalization();
             ApplyLocalization(System.Globalization.CultureInfo.CurrentUICulture);
 
@@ -56,6 +56,9 @@ namespace PixelStacker.UI
             TaskManager.Get.StartAsync(cancelToken => UpdateChecker.CheckForUpdates(this.Options, cancelToken));
             //TaskManager.Get.StartAsync(cancelToken => PdbLoader.Load(cancelToken));
 #pragma warning restore CS4014
+
+            //var f = new TestForm();
+            //f.ShowDialog();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -74,6 +77,7 @@ namespace PixelStacker.UI
                     MessageBox.Show("Advanced mode " + (c.Options.IsAdvancedModeEnabled ? "enabled" : "disabled") + "!");
                     c.MaterialOptions?.SetVisibleMaterials(Materials.List ?? new List<Material>());
                     c.TS_SetMenuItemStatesByTagObjects();
+                    c.Options.Save();
                 });
             };
         }

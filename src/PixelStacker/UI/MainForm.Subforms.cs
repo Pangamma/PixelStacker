@@ -6,7 +6,6 @@ namespace PixelStacker.UI
 {
     public partial class MainForm
     {
-        private CanvasTools canvasEditorToolbox { get; set; } = null;
         private MaterialSelectWindow MaterialOptions { get; set; } = null;
         private ColorReducerForm ColorReducerForm { get; set; } = null;
         public MaterialPickerForm MaterialPickerForm { get; private set; }
@@ -36,19 +35,6 @@ namespace PixelStacker.UI
             this.MaterialOptions.ShowDialog(this);
         }
 
-        private void canvasEditorToolsToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            if (this.canvasEditorToolbox == null || this.canvasEditorToolbox.IsDisposed)
-            {
-                this.canvasEditorToolbox = new CanvasTools();
-                this.snapManager.RegisterChild(this.canvasEditorToolbox);
-                this.canvasEditor.SetCanvasToolboxEvents(this.canvasEditorToolbox);
-            }
-
-            this.canvasEditorToolbox.Show();
-            this.canvasEditorToolbox.BringToFront();
-        }
-
         private void contributorsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             var form = new Credits();
@@ -60,25 +46,6 @@ namespace PixelStacker.UI
             var form = new SizeForm(this.Options);
             form.ShowDialog(this);
         }
-
-        private void swatchToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            if (this.MaterialPickerForm == null || this.MaterialPickerForm.IsDisposed)
-            {
-                this.MaterialPickerForm = new MaterialPickerForm();
-                this.snapManager.RegisterChild(this.MaterialPickerForm);
-            }
-
-            if (!this.MaterialPickerForm.Visible)
-            {
-                this.MaterialPickerForm.Show(this);
-            }
-            else
-            {
-                this.MaterialPickerForm.Hide();
-            }
-        }
-
 
         private void preprocessingToolStripMenuItem_Click(object sender, System.EventArgs e)
         {

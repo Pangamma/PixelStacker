@@ -13,7 +13,7 @@ namespace PixelStacker.CodeGenerator
     [TestCategory("Tools")]
     public class FontIconsRenamer
     {
-        private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+        private readonly string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
 
         [TestMethod]
         public void Find_Text()

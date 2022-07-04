@@ -19,22 +19,20 @@
 	<AssemblyVersion>1.0.0.2</AssemblyVersion>
 	<FileVersion>1.0.0.2</FileVersion>
 	<TargetFramework>net6.0-windows</TargetFramework>
+	<DebugType>portable</DebugType>
+	<Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;FULL_VERSION;IMAGE_SHARP;SKIA_SHARP</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>$(DefineConstants);USE_GPU</DefineConstants>
     <OutputPath>bin\Debug\</OutputPath>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="UI\Controls\MaterialPicker2cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="UI\Controls\MaterialPicker\MaterialPicker2cs" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -89,6 +87,9 @@
     </Compile>
     <Compile Update="UI\RenderedImagePanel.*.cs">
       <DependentUpon>RenderedImagePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Forms\MaterialPickerForm.*.cs">
+      <DependentUpon>MaterialPickerForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 

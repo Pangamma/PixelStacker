@@ -81,6 +81,104 @@ namespace PixelStacker.EditorTools
             return new PxPoint((int)Math.Round(pointOnImage.X * pz.zoomLevel + pz.imageX), (int)Math.Round(pointOnImage.Y * pz.zoomLevel + pz.imageY));
         }
 
+
+        /// <summary>
+        /// Can very easily return null. Be ready for it.
+        /// </summary>
+        /// <param name="layerFilter"></param>
+        /// <param name="palette"></param>
+        /// <param name="primaryColor"></param>
+        /// <param name="toReplace"></param>
+        /// <returns></returns>
+        protected MaterialCombination GetMcToPaintWith(ZLayer layerFilter, MaterialPalette palette, MaterialCombination primaryColor, MaterialCombination toReplace)
+        {
+            if (layerFilter == ZLayer.Both)
+            {
+                return primaryColor;
+            }
+
+            Material pTop = toReplace.Top;
+            Material pBottom = toReplace.Bottom;
+
+            if (layerFilter == ZLayer.Top)
+            {
+                pTop = primaryColor.Top;
+            }
+            else if (layerFilter == ZLayer.Bottom)
+            {
+                pBottom = primaryColor.Bottom;
+            }
+
+            // When mode is on bottom and AIR:
+            // GLASS on top? DELETED?? Weird!
+            // Solid on bottom? Nothing! (WEIRD!)
+            // Expected: Do nothing.
+            if (layerFilter == ZLayer.Bottom && primaryColor.Bottom.PixelStackerID == "AIR")
+            {
+                return toReplace;
+            }
+
+            // If solid covers transparent, fix it so it is full solid.
+            // Come to think of it, this should pretty much NEVER happen unless
+            // working with AIR or pure glass. AIR is more likely.
+            if (pBottom.IsTransparent && !pTop.IsTransparent)
+            {
+                pBottom = pTop;
+            }
+
+            // If it is "air" on top, then really... it should be whatever is below.
+            if (pTop.PixelStackerID == "AIR" && pBottom.PixelStackerID != "AIR")
+            {
+                pTop = pBottom;
+            }
+
+            // If it is "air" on bottom, then really... it should be whatever is up top.
+            if (pTop.PixelStackerID != "AIR" && pBottom.PixelStackerID == "AIR")
+            {
+                pBottom = pTop;
+            }
+
+            // What if both is AIR? Leave it alone. That's fine.
+
+            // If both glass: our color palette doesn't currently support pure glass.
+            // Should it?
+            bool areBothGlass = pBottom.Category == "Glass" && pTop.Category == "Glass";
+            if (areBothGlass)
+            {
+                pTop = Materials.Air;
+                pBottom = Materials.Air;
+            }
+
+            // two different shades of glass ontop of each other? Yikes. 
+            // Allow the preferred mode to override the other one.
+            bool areBothSolid = pBottom.IsSolid && pTop.IsSolid;
+            if (areBothSolid && pTop.PixelStackerID != pBottom.PixelStackerID)
+            {
+                if (layerFilter == ZLayer.Top)
+                {
+                    pBottom = pTop;
+                }
+                else
+                {
+                    pTop = pBottom;
+                }
+            }
+
+            var result = palette.GetMaterialCombinationByMaterials(pBottom, pTop);
+
+            if (result == null)
+            {
+#if DEBUG
+                throw new Exception("Oh no! An invalid color was attempted.");
+#else
+                return primaryColor;
+#endif
+            }
+
+            return result;
+        }
+
+
         protected List<PxPoint> SquareExpansion(PxPoint seed, int brushWidth)
         {
             List<PxPoint> points = new List<PxPoint>();

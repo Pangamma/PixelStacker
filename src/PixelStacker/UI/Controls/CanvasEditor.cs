@@ -1,8 +1,4 @@
-﻿using PixelStacker.EditorTools;
-using PixelStacker.Extensions;
-using PixelStacker.Logic.IO.Config;
-using PixelStacker.UI.Forms;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,17 +7,6 @@ namespace PixelStacker.UI.Controls
     [ToolboxItemFilter("PixelStacker.UI.Controls.CanvasEditor", ToolboxItemFilterType.Require)]
     public partial class CanvasEditor : UserControl
     {
-        private void CanvasEditor_Load(object sender, System.EventArgs e)
-        {
-            OnLoadToolstrips();
-            this.MainForm = this.ParentForm as MainForm;
-            this.Options = this.MainForm.Options;
-            
-            this.tbxBrushWidth.Text = this.Options.Tools?.BrushWidth.ToString();
-            this.btnMaterialCombination.Image =
-                this.Options?.Tools?.PrimaryColor?.GetImage(this.Options?.IsSideView ?? false).SKBitmapToBitmap()
-                ?? Resources.Textures.barrier.SKBitmapToBitmap();
-        }
     }
 
     public class CustomToolStripButtonRenderer : ToolStripProfessionalRenderer

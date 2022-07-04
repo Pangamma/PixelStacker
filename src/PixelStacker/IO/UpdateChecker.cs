@@ -24,37 +24,44 @@ namespace PixelStacker.IO
 
     public class UpdateChecker
     {
-        private static bool IsNewerVersionAvailable(string vA_Newer, string vB_Older)
+        private static bool IsNewerVersionAvailable(string vApi, string vCurrent)
         {
-            if (string.IsNullOrWhiteSpace(vA_Newer)) return false; // Bad NEW version? Better wait for the next one.
-            if (string.IsNullOrWhiteSpace(vB_Older)) return true; // Bad version? Yikes. Recommend an upgrade.
+            if (string.IsNullOrWhiteSpace(vApi)) return false; // Bad NEW version? Better wait for the next one.
+            if (string.IsNullOrWhiteSpace(vCurrent)) return true; // Bad version? Yikes. Recommend an upgrade.
 
-            var a_arr = vA_Newer.Split(".", StringSplitOptions.RemoveEmptyEntries);
-            var b_arr = vB_Older.Split(".", StringSplitOptions.RemoveEmptyEntries);
+            var api_arr = vApi.Split(".", StringSplitOptions.RemoveEmptyEntries);
+            var cur_arr = vCurrent.Split(".", StringSplitOptions.RemoveEmptyEntries);
 
             // [1].19.2c
-            if (a_arr.Length > 0 && b_arr.Length > 0)
+            if (api_arr.Length > 0 && cur_arr.Length > 0)
             {
-                int mA = a_arr[0].ToNullable<int>() ?? 0;
-                int mB = b_arr[0].ToNullable<int>() ?? 0;
-                if (mA < mB) return false;
-                if (mA > mB) return true;
+                int apiNum = api_arr[0].ToNullable<int>() ?? 0;
+                int curNum = cur_arr[0].ToNullable<int>() ?? 0;
+                if (apiNum < curNum) return false;
+                if (apiNum > curNum) return true;
             }
 
             // 1.[19].2c
-            if (a_arr.Length > 1 && b_arr.Length > 1)
+            if (api_arr.Length > 1 && cur_arr.Length > 1)
             {
-                int mA = a_arr[1].ToNullable<int>() ?? 0;
-                int mB = b_arr[1].ToNullable<int>() ?? 0;
-                if (mA < mB) return false;
-                if (mA > mB) return true;
+                int apiNum = api_arr[1].ToNullable<int>() ?? 0;
+                int curNum = cur_arr[1].ToNullable<int>() ?? 0;
+                if (apiNum < curNum) return false;
+                if (apiNum > curNum) return true;
             }
 
             // 1.19.[2c]
-            if (a_arr.Length > 2 && b_arr.Length > 2)
+            if (api_arr.Length > 2 && cur_arr.Length > 2)
             {
-                int mC = a_arr[2].CompareTo(b_arr[2]);
-                if (mC < 0) return true;
+                int apiNum = new string(api_arr[2].Where(c => char.IsDigit(c)).ToArray()).ToNullable<int>() ?? 0;
+                int curNum = new string(cur_arr[2].Where(c => char.IsDigit(c)).ToArray()).ToNullable<int>() ?? 0;
+                if (apiNum < curNum) return false;
+                if (apiNum > curNum) return true;
+
+                string apiLetter = new string(api_arr[2].Where(c => char.IsLetter(c)).ToArray());
+                string curLetter = new string(cur_arr[2].Where(c => char.IsLetter(c)).ToArray());
+                int mC = apiLetter.CompareTo(curLetter);
+                if (mC > 0) return true;
             }
 
             return false;
@@ -65,7 +72,7 @@ namespace PixelStacker.IO
             try
             {
                 var settings = o.UpdateSettings;
-                //if (settings.LastChecked == null || settings.LastChecked.Value < DateTime.UtcNow.AddHours(-2))
+                if (settings.LastChecked == null || settings.LastChecked.Value < DateTime.UtcNow.AddHours(-2))
                 {
                     ProgressX.Report(75, "Checking for updates");
                     settings.LastChecked = DateTime.UtcNow;

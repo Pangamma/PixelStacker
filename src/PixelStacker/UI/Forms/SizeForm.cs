@@ -50,6 +50,13 @@ namespace PixelStacker.UI
         {
             Options.Preprocessor.MaxHeight = tbxMaxHeight.Text.ToNullable<int>();
             Options.Preprocessor.MaxWidth = tbxMaxWidth.Text.ToNullable<int>();
+
+            if (Options.Preprocessor.MaxHeight.HasValue && Options.Preprocessor.MaxHeight < 1)
+                Options.Preprocessor.MaxHeight = null;
+
+            if (Options.Preprocessor.MaxWidth.HasValue && Options.Preprocessor.MaxWidth < 1)
+                Options.Preprocessor.MaxWidth = null;
+
             Options.Save();
             this.Close();
         }
