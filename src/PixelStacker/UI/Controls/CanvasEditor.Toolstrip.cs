@@ -19,21 +19,24 @@ namespace PixelStacker.UI.Controls
 
         private void Tools_SetLayerFilterImage()
         {
-            var z = this.Options.Tools.ZLayerFilter;
-            if (z == Logic.IO.Config.ZLayer.Both)
+            if (this.Options != null)
             {
-                btnPaintLayerFilter.ToolTipText = global::PixelStacker.Resources.Text.CanvasEditor_ZFilter_Both;
-                btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso2_both_layers;
-            }
-            else if (z == Logic.IO.Config.ZLayer.Top)
-            {
-                btnPaintLayerFilter.ToolTipText = global::PixelStacker.Resources.Text.CanvasEditor_ZFilter_Top;
-                btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso2_top_layer;
-            }
-            else
-            {
-                btnPaintLayerFilter.ToolTipText = global::PixelStacker.Resources.Text.CanvasEditor_ZFilter_Bottom;
-                btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso2_bottom_layer;
+                var z = this.Options.Tools.ZLayerFilter;
+                if (z == Logic.IO.Config.ZLayer.Both)
+                {
+                    btnPaintLayerFilter.ToolTipText = global::PixelStacker.Resources.Text.CanvasEditor_ZFilter_Both;
+                    btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso2_both_layers;
+                }
+                else if (z == Logic.IO.Config.ZLayer.Top)
+                {
+                    btnPaintLayerFilter.ToolTipText = global::PixelStacker.Resources.Text.CanvasEditor_ZFilter_Top;
+                    btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso2_top_layer;
+                }
+                else
+                {
+                    btnPaintLayerFilter.ToolTipText = global::PixelStacker.Resources.Text.CanvasEditor_ZFilter_Bottom;
+                    btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso2_bottom_layer;
+                }
             }
         }
 

@@ -24,6 +24,9 @@ namespace PixelStacker.UI.Controls
                 btnWorldEditOrigin.ToolTipText = Resources.Text.Tools_WEOrigin;
 
                 lblBrushWidth.Text = Resources.Text.Tools_BrushWidth;
+
+                // Set the text for it.
+                this.Tools_SetLayerFilterImage();
             }
         }
     }

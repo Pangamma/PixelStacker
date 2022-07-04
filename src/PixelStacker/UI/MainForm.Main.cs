@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using SkiaSharp;
 using PixelStacker.UI.Helpers;
+using PixelStacker.UI.Forms;
 
 namespace PixelStacker.UI
 {
@@ -21,8 +22,8 @@ namespace PixelStacker.UI
         public readonly Options Options;
         private IColorMapper ColorMapper;
         private MaterialPalette Palette;
-        public SKBitmap LoadedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap();
-        public SKBitmap PreprocessedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap(); // UIResources.weird_intro.BitmapToSKBitmap();
+        public SKBitmap LoadedImage { get; private set; } = DevResources.colorwheel;
+        public SKBitmap PreprocessedImage { get; private set; } = DevResources.colorwheel; // UIResources.weird_intro.BitmapToSKBitmap();
         private RenderedCanvas RenderedCanvas;
         private SnapManager snapManager { get; }
 
@@ -55,6 +56,9 @@ namespace PixelStacker.UI
             TaskManager.Get.StartAsync(cancelToken => UpdateChecker.CheckForUpdates(this.Options, cancelToken));
             //TaskManager.Get.StartAsync(cancelToken => PdbLoader.Load(cancelToken));
 #pragma warning restore CS4014
+
+            //var f = new TestForm();
+            //f.ShowDialog();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
