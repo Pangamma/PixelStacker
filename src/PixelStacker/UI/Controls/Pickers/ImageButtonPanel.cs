@@ -55,39 +55,6 @@ namespace PixelStacker.UI.Controls.Pickers
             return items;
         }
 
-        public static IEnumerable<ImageButton> WhereB(IEnumerable<ImageButton> btns, Func<ImageButton, bool> filter)
-        {
-            foreach (var btn in btns)
-            {
-                if (filter(btn) == false)
-                    btn.Visible = false;
-            }
-
-            return btns.Where(filter);
-        }
-
-        //public static IEnumerable<ImageButton> OrderByB(IEnumerable<ImageButton> btns, Func<ImageButton, int> clause)
-        //{
-        //    //this.SuspendLayout();
-        //    //var existing = GetButtons();
-        //    //this.ClearControlsQuick();
-        //    //var toAddLater = existing.Where(e => !buttons.Contains(e));
-
-
-        //    //this.ResumeLayout();
-        //}
-
-        public void SetButtons(List<ImageButton> buttons)
-        {
-            this.SuspendLayout();
-            var existing = GetButtons();
-            this.ClearControlsQuick();
-            var toAddLater = existing.Where(e => !buttons.Contains(e));
-
-            this.ResumeLayout();
-        }
-
-
         public void DoFilterTakeOrderByOperation<TKey>(
             Func<ImageButtonData, bool> filter = null,
             Func<ImageButtonData, TKey> orderBy = null,
