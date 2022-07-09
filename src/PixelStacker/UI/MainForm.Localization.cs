@@ -55,12 +55,18 @@ namespace PixelStacker.UI
         {
             this.Options.Locale = ResxHelper.GetSupportedLocale(locale.Name);
             this.Options.Save();
+            locale = CultureInfo.GetCultureInfo(this.Options.Locale);
             Thread.CurrentThread.CurrentUICulture = locale;
             CultureInfo.CurrentUICulture = locale;
-            this.MaterialOptions?.ApplyLocalization(locale);
-            this.ColorReducerForm?.ApplyLocalization(locale);
-            this.canvasEditor?.ApplyLocalization(locale);
-            this.MaterialPickerForm?.ApplyLocalization(locale);
+            this.ApplyLocalization();
+        }
+
+        public void ApplyLocalization()
+        {
+            this.MaterialOptions?.ApplyLocalization();
+            this.ColorReducerForm?.ApplyLocalization();
+            this.canvasEditor?.ApplyLocalization();
+            this.MaterialPickerForm?.ApplyLocalization();
 
             this.Text = global::PixelStacker.Resources.Text.MainForm_Title;
             this.Text = this.Text + " v" + Constants.Version;
@@ -90,8 +96,8 @@ namespace PixelStacker.UI
             this.chineseSimplifiedToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Chinese;
             this.englishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_English;
             this.swedishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Swedish;
-            this.languageToolStripMenuItem.Image = MainForm.GetLanguageImage(locale);
-            this.languageToolStripMenuItem.Text = MainForm.GetLanguageName(locale);
+            this.languageToolStripMenuItem.Image = MainForm.GetLanguageImage(CultureInfo.CurrentUICulture);
+            this.languageToolStripMenuItem.Text = MainForm.GetLanguageName(CultureInfo.CurrentUICulture);
 
             this.dlgSave.Title = global::PixelStacker.Resources.Text.Action_Save;
             this.dlgOpen.Title = global::PixelStacker.Resources.Text.MainForm_Open_Title;

@@ -48,7 +48,7 @@ namespace PixelStacker.UI
         {
             this.Options = opts;
             InitializeComponent();
-            ApplyLocalization(System.Globalization.CultureInfo.CurrentUICulture);
+            ApplyLocalization();
             this.InitializeAutoComplete();
             this.InitializeMaterialTiles();
         }
@@ -218,13 +218,10 @@ namespace PixelStacker.UI
                 this.lblInfo.Text = "";
             }
         }
+
         private void OnMouseEnter_Tile(object sender, EventArgs e)
         {
-#if DEBUG
-            this.lblInfo.Text = ((PixelStacker.WF.Components.MaterialSelectTile)sender).Material.PixelStackerID;
-#else
             this.lblInfo.Text = ((MaterialSelectTile)sender).Material.Label;
-#endif
         }
 
         private PixelStacker.WF.Components.MaterialSelectTile previouslyClickedTile = null;
@@ -724,7 +721,7 @@ namespace PixelStacker.UI
         // *-----------------+--------------------------------------------------------------------*
         // *                   O T H E R                                                          *
         // *-----------------+--------------------------------------------------------------------*
-        public void ApplyLocalization(CultureInfo locale)
+        public void ApplyLocalization()
         {
             this.Text = Resources.Text.MaterialSelect_Title;
             lblColorProfile.Text = Resources.Text.MaterialSelect_ColorProfile;

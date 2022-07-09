@@ -40,6 +40,5 @@ namespace PixelStacker.Logic.IO.Config
         public static event EventHandler<OptionsChangeEvent<int>> OnBrushWidthChange;
         public static event EventHandler<OptionsChangeEvent<bool>> IsSideViewChange;
         public static event EventHandler<OptionsChangeEvent<bool>> OnAdvancedModeChange;
-        public static event EventHandler<OptionsChangeEvent<string>> OnLocaleChange;
     }
 }

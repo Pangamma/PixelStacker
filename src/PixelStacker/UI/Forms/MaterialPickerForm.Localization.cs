@@ -6,7 +6,7 @@ namespace PixelStacker.UI.Forms
 {
     partial class MaterialPickerForm: ILocalized
     {
-        public void ApplyLocalization(CultureInfo locale)
+        public void ApplyLocalization()
         {
             lblFilter.Text = Resources.Text.Action_Filter;
             tabTop.Text = global::PixelStacker.Resources.Text.Top;

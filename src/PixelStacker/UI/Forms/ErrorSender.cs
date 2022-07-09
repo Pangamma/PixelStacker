@@ -61,8 +61,9 @@ namespace PixelStacker
             Process.Start(sInfo);
         }
 
-        public void ApplyLocalization(System.Globalization.CultureInfo locale)
+        public void ApplyLocalization()
         {
+            System.Globalization.CultureInfo locale = System.Globalization.CultureInfo.CurrentUICulture;
             ComponentResourceManager resources = new ComponentResourceManager(this.GetType());
             foreach (Control c in this.Controls)
             {

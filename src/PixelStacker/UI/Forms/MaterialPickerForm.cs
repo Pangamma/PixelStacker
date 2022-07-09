@@ -85,7 +85,7 @@ namespace PixelStacker.UI.Forms
 #pragma warning restore CS0618 // Type or member is obsolete
             InitializeComponent();
             this.InitializeAutoComplete();
-            this.ApplyLocalization(CultureInfo.CurrentUICulture);
+            this.ApplyLocalization();
             SelectedCombo = this.Options.Tools.PrimaryColor;
             SelectedCombo ??= MaterialPalette.FromResx()[Constants.MaterialCombinationIDForAir];
 

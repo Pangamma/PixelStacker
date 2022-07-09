@@ -10,7 +10,7 @@ namespace PixelStacker.UI.Controls
 {
     public partial class CanvasEditor : ILocalized
     {
-        public void ApplyLocalization(CultureInfo locale)
+        public void ApplyLocalization()
         {
             lblBrushWidth.Text = Resources.Text.Tools_BrushWidth;
             {
@@ -27,7 +27,7 @@ namespace PixelStacker.UI.Controls
 
                 // Set the text for it.
                 this.Tools_SetLayerFilterImage();
-                this.MaterialPickerForm?.ApplyLocalization(locale);
+                this.MaterialPickerForm?.ApplyLocalization();
             }
         }
     }

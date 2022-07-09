@@ -11,7 +11,7 @@ namespace PixelStacker.UI.Forms
 {
     public partial class ColorReducerForm: ILocalized
     {
-        public void ApplyLocalization(CultureInfo locale)
+        public void ApplyLocalization()
         {
             lblInstructions.Text = Resources.Text.ColorReducer_Instructions_Tooltip;
             lblRgbBucketSize.Text = Resources.Text.ColorReducer_RgbBucketSize;

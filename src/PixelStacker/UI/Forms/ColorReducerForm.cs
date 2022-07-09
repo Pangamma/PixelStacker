@@ -46,7 +46,7 @@ namespace PixelStacker.UI.Forms
             InitializeComponent();
             InitializeCustom();
             RevalidateOptions(options);
-            ApplyLocalization(CultureInfo.CurrentUICulture);
+            ApplyLocalization();
         }
 
         private void InitializeCustom()

@@ -23,7 +23,7 @@ namespace PixelStacker.UI
             this.Options = opts;
             this.tbxMaxHeight.Text = this.Options.Preprocessor.MaxHeight?.ToString() ?? "";
             this.tbxMaxWidth.Text = this.Options.Preprocessor.MaxWidth?.ToString() ?? "";
-            ApplyLocalization(CultureInfo.CurrentUICulture);
+            ApplyLocalization();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -38,7 +38,7 @@ namespace PixelStacker.UI
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        public void ApplyLocalization(CultureInfo locale)
+        public void ApplyLocalization()
         {
             lblHeight.Text = Resources.Text.OtherOptions_MaxHeight;
             lblWidth.Text = Resources.Text.OtherOptions_MaxWidth;

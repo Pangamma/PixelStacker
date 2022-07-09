@@ -32,7 +32,7 @@ namespace PixelStacker.UI.Controls
             tsCanvasTools.Renderer = new CustomToolStripButtonRenderer();
             this.BackgroundImage = Resources.UIResources.bg_imagepanel;
             this.DoubleBuffered = true;
-            this.ApplyLocalization(CultureInfo.CurrentUICulture);
+            this.ApplyLocalization();
 
             this.Disposed += CanvasEditor_Disposed;
             AppEvents.OnPrimaryColorChange += this.AppEvents_OnPrimaryColorChange;
