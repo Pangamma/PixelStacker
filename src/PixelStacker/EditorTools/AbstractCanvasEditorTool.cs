@@ -121,7 +121,7 @@ namespace PixelStacker.EditorTools
             // If solid covers transparent, fix it so it is full solid.
             // Come to think of it, this should pretty much NEVER happen unless
             // working with AIR or pure glass. AIR is more likely.
-            if (pBottom.IsTransparent && !pTop.IsTransparent)
+            if (pBottom.CanCoverOtherBlocks && !pTop.CanCoverOtherBlocks)
             {
                 pBottom = pTop;
             }
@@ -151,7 +151,7 @@ namespace PixelStacker.EditorTools
 
             // two different shades of glass ontop of each other? Yikes. 
             // Allow the preferred mode to override the other one.
-            bool areBothSolid = pBottom.IsSolid && pTop.IsSolid;
+            bool areBothSolid = pBottom.CanBeOnBottom && pTop.CanBeOnBottom;
             if (areBothSolid && pTop.PixelStackerID != pBottom.PixelStackerID)
             {
                 if (layerFilter == ZLayer.Top)

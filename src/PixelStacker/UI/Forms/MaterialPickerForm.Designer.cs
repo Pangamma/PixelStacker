@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblPoolPicker = new System.Windows.Forms.Label();
-            this.ddlColorPool = new System.Windows.Forms.ComboBox();
+            this.lblHtmlCode = new System.Windows.Forms.Label();
+            this.tbxHtmlColorCode = new System.Windows.Forms.TextBox();
             this.lblFilter = new System.Windows.Forms.Label();
             this.tbxMaterialFilter = new System.Windows.Forms.ComboBox();
             this.lblBottomMaterial = new System.Windows.Forms.Label();
@@ -40,23 +41,28 @@
             this.imgBottomMaterial = new PixelStacker.UI.Controls.ImageButton();
             this.imgTopMaterial = new PixelStacker.UI.Controls.ImageButton();
             this.imgMaterialsCombined = new PixelStacker.UI.Controls.ImageButton();
-            this.customPanel1 = new PixelStacker.UI.Controls.CustomPanel();
-            this.tcSearchOptions = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tcMaterials = new System.Windows.Forms.TabControl();
+            this.tabTop = new System.Windows.Forms.TabPage();
+            this.pnlTopMats = new PixelStacker.UI.Controls.Pickers.ImageButtonPanel();
+            this.tabBottom = new System.Windows.Forms.TabPage();
+            this.pnlBottomMats = new PixelStacker.UI.Controls.Pickers.ImageButtonPanel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.ttTop = new System.Windows.Forms.ToolTip(this.components);
+            this.ttBottom = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tcSearchOptions.SuspendLayout();
+            this.tcMaterials.SuspendLayout();
+            this.tabTop.SuspendLayout();
+            this.tabBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel1.Controls.Add(this.tcSearchOptions);
-            this.panel1.Controls.Add(this.lblPoolPicker);
-            this.panel1.Controls.Add(this.ddlColorPool);
+            this.panel1.Controls.Add(this.lblHtmlCode);
+            this.panel1.Controls.Add(this.tbxHtmlColorCode);
             this.panel1.Controls.Add(this.lblFilter);
             this.panel1.Controls.Add(this.tbxMaterialFilter);
             this.panel1.Controls.Add(this.lblBottomMaterial);
@@ -68,33 +74,30 @@
             this.panel1.Controls.Add(this.imgMaterialsCombined);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(202, 435);
+            this.panel1.Size = new System.Drawing.Size(202, 497);
             this.panel1.TabIndex = 0;
             // 
-            // lblPoolPicker
+            // lblHtmlCode
             // 
-            this.lblPoolPicker.AutoSize = true;
-            this.lblPoolPicker.Location = new System.Drawing.Point(3, 282);
-            this.lblPoolPicker.Name = "lblPoolPicker";
-            this.lblPoolPicker.Size = new System.Drawing.Size(103, 20);
-            this.lblPoolPicker.TabIndex = 10;
-            this.lblPoolPicker.Text = "Materials Pool";
+            this.lblHtmlCode.AutoSize = true;
+            this.lblHtmlCode.Location = new System.Drawing.Point(4, 263);
+            this.lblHtmlCode.Name = "lblHtmlCode";
+            this.lblHtmlCode.Size = new System.Drawing.Size(127, 20);
+            this.lblHtmlCode.TabIndex = 10;
+            this.lblHtmlCode.Text = "HTML Color Code";
             // 
-            // ddlColorPool
+            // tbxHtmlColorCode
             // 
-            this.ddlColorPool.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ddlColorPool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlColorPool.FormattingEnabled = true;
-            this.ddlColorPool.Location = new System.Drawing.Point(3, 305);
-            this.ddlColorPool.Name = "ddlColorPool";
-            this.ddlColorPool.Size = new System.Drawing.Size(196, 28);
-            this.ddlColorPool.TabIndex = 9;
+            this.tbxHtmlColorCode.Location = new System.Drawing.Point(3, 286);
+            this.tbxHtmlColorCode.Name = "tbxHtmlColorCode";
+            this.tbxHtmlColorCode.ReadOnly = true;
+            this.tbxHtmlColorCode.Size = new System.Drawing.Size(194, 27);
+            this.tbxHtmlColorCode.TabIndex = 9;
             // 
             // lblFilter
             // 
             this.lblFilter.AutoSize = true;
-            this.lblFilter.Location = new System.Drawing.Point(3, 207);
+            this.lblFilter.Location = new System.Drawing.Point(3, 198);
             this.lblFilter.Name = "lblFilter";
             this.lblFilter.Size = new System.Drawing.Size(42, 20);
             this.lblFilter.TabIndex = 8;
@@ -103,8 +106,9 @@
             // tbxMaterialFilter
             // 
             this.tbxMaterialFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.tbxMaterialFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.tbxMaterialFilter.FormattingEnabled = true;
-            this.tbxMaterialFilter.Location = new System.Drawing.Point(3, 230);
+            this.tbxMaterialFilter.Location = new System.Drawing.Point(3, 221);
             this.tbxMaterialFilter.Name = "tbxMaterialFilter";
             this.tbxMaterialFilter.Size = new System.Drawing.Size(194, 28);
             this.tbxMaterialFilter.TabIndex = 7;
@@ -160,7 +164,7 @@
             // imgTopMaterial
             // 
             this.imgTopMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.imgTopMaterial.IsChecked = false;
+            this.imgTopMaterial.IsChecked = true;
             this.imgTopMaterial.Location = new System.Drawing.Point(137, 3);
             this.imgTopMaterial.Name = "imgTopMaterial";
             this.imgTopMaterial.PushState = PixelStacker.UI.Controls.ImageButtonPushState.Normal;
@@ -171,74 +175,115 @@
             // imgMaterialsCombined
             // 
             this.imgMaterialsCombined.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.imgMaterialsCombined.IsChecked = true;
+            this.imgMaterialsCombined.IsChecked = false;
             this.imgMaterialsCombined.Location = new System.Drawing.Point(3, 3);
             this.imgMaterialsCombined.Name = "imgMaterialsCombined";
             this.imgMaterialsCombined.PushState = PixelStacker.UI.Controls.ImageButtonPushState.Normal;
             this.imgMaterialsCombined.Size = new System.Drawing.Size(128, 128);
             this.imgMaterialsCombined.TabIndex = 0;
-            this.imgMaterialsCombined.Click += new System.EventHandler(this.imgMaterialsCombined_Click);
             // 
-            // customPanel1
+            // tcMaterials
             // 
-            this.customPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tcMaterials.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.customPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.customPanel1.Location = new System.Drawing.Point(220, 12);
-            this.customPanel1.Name = "customPanel1";
-            this.customPanel1.OnCommandKey = null;
-            this.customPanel1.Size = new System.Drawing.Size(580, 435);
-            this.customPanel1.TabIndex = 1;
+            this.tcMaterials.Controls.Add(this.tabTop);
+            this.tcMaterials.Controls.Add(this.tabBottom);
+            this.tcMaterials.Location = new System.Drawing.Point(217, 12);
+            this.tcMaterials.Name = "tcMaterials";
+            this.tcMaterials.SelectedIndex = 0;
+            this.tcMaterials.Size = new System.Drawing.Size(386, 497);
+            this.tcMaterials.TabIndex = 2;
+            this.tcMaterials.SelectedIndexChanged += new System.EventHandler(this.TabControlMaterials_SelectedIndexChanged);
             // 
-            // tcSearchOptions
+            // tabTop
             // 
-            this.tcSearchOptions.Controls.Add(this.tabPage1);
-            this.tcSearchOptions.Controls.Add(this.tabPage2);
-            this.tcSearchOptions.Location = new System.Drawing.Point(3, 339);
-            this.tcSearchOptions.Name = "tcSearchOptions";
-            this.tcSearchOptions.SelectedIndex = 0;
-            this.tcSearchOptions.Size = new System.Drawing.Size(199, 125);
-            this.tcSearchOptions.TabIndex = 11;
+            this.tabTop.Controls.Add(this.pnlTopMats);
+            this.tabTop.Location = new System.Drawing.Point(4, 29);
+            this.tabTop.Name = "tabTop";
+            this.tabTop.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTop.Size = new System.Drawing.Size(378, 464);
+            this.tabTop.TabIndex = 0;
+            this.tabTop.Text = "Top";
+            this.tabTop.UseVisualStyleBackColor = true;
             // 
-            // tabPage1
+            // pnlTopMats
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(191, 92);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.pnlTopMats.AutoScroll = true;
+            this.pnlTopMats.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlTopMats.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTopMats.Location = new System.Drawing.Point(3, 3);
+            this.pnlTopMats.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlTopMats.Name = "pnlTopMats";
+            this.pnlTopMats.OnCommandKey = null;
+            this.pnlTopMats.Size = new System.Drawing.Size(372, 458);
+            this.pnlTopMats.TabIndex = 0;
+            this.pnlTopMats.TileClicked += new System.EventHandler<PixelStacker.UI.Controls.Pickers.ImageButtonClickEventArgs>(this.pnlTopMats_TileClicked);
             // 
-            // tabPage2
+            // tabBottom
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(191, 92);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabBottom.Controls.Add(this.pnlBottomMats);
+            this.tabBottom.Location = new System.Drawing.Point(4, 29);
+            this.tabBottom.Name = "tabBottom";
+            this.tabBottom.Padding = new System.Windows.Forms.Padding(3);
+            this.tabBottom.Size = new System.Drawing.Size(378, 464);
+            this.tabBottom.TabIndex = 1;
+            this.tabBottom.Text = "Bottom";
+            this.tabBottom.UseVisualStyleBackColor = true;
+            // 
+            // pnlBottomMats
+            // 
+            this.pnlBottomMats.AutoScroll = true;
+            this.pnlBottomMats.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlBottomMats.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBottomMats.Location = new System.Drawing.Point(3, 3);
+            this.pnlBottomMats.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlBottomMats.Name = "pnlBottomMats";
+            this.pnlBottomMats.OnCommandKey = null;
+            this.pnlBottomMats.Size = new System.Drawing.Size(372, 458);
+            this.pnlBottomMats.TabIndex = 0;
+            this.pnlBottomMats.TileClicked += new System.EventHandler<PixelStacker.UI.Controls.Pickers.ImageButtonClickEventArgs>(this.pnlBottomMats_TileClicked);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.InitialDelay = 200;
+            this.toolTip1.ReshowDelay = 100;
+            // 
+            // ttTop
+            // 
+            this.ttTop.AutoPopDelay = 5000;
+            this.ttTop.InitialDelay = 200;
+            this.ttTop.ReshowDelay = 100;
+            // 
+            // ttBottom
+            // 
+            this.ttBottom.AutoPopDelay = 5000;
+            this.ttBottom.InitialDelay = 200;
+            this.ttBottom.ReshowDelay = 100;
             // 
             // MaterialPickerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 459);
-            this.Controls.Add(this.customPanel1);
+            this.ClientSize = new System.Drawing.Size(606, 521);
+            this.Controls.Add(this.tcMaterials);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "MaterialPickerForm";
             this.ShowInTaskbar = false;
-            this.Text = "MaterialPickerForm";
-            this.Load += new System.EventHandler(this.MaterialPickerForm_Load);
+            this.Text = "Material Picker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialPickerForm_FormClosing);
+            this.ResizeBegin += new System.EventHandler(this.MaterialPickerForm_ResizeBegin);
+            this.ResizeEnd += new System.EventHandler(this.MaterialPickerForm_ResizeEnd);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tcSearchOptions.ResumeLayout(false);
+            this.tcMaterials.ResumeLayout(false);
+            this.tabTop.ResumeLayout(false);
+            this.tabBottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -254,12 +299,16 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblTopMaterial;
         private System.Windows.Forms.ComboBox tbxMaterialFilter;
-        private Controls.CustomPanel customPanel1;
         private System.Windows.Forms.Label lblFilter;
-        private System.Windows.Forms.ComboBox ddlColorPool;
-        private System.Windows.Forms.Label lblPoolPicker;
-        private System.Windows.Forms.TabControl tcSearchOptions;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabControl tcMaterials;
+        private System.Windows.Forms.TabPage tabTop;
+        private System.Windows.Forms.TabPage tabBottom;
+        private Controls.Pickers.ImageButtonPanel pnlTopMats;
+        private Controls.Pickers.ImageButtonPanel pnlBottomMats;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip ttTop;
+        private System.Windows.Forms.ToolTip ttBottom;
+        private System.Windows.Forms.Label lblHtmlCode;
+        private System.Windows.Forms.TextBox tbxHtmlColorCode;
     }
 }

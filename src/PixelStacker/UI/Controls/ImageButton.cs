@@ -31,15 +31,12 @@ namespace PixelStacker.UI.Controls
             get => _isChecked;
             set
             {
-                _isChecked = value;
-                this.Invalidate();
+                if (value != _isChecked)
+                {
+                    _isChecked = value;
+                    this.Invalidate();
+                }
             }
-        }
-
-        public void SetTooltip(string tipMsg, string tipTitle = null)
-        {
-            this.toolTip1.ToolTipTitle = tipTitle;
-            this.toolTip1.SetToolTip(this, tipMsg);
         }
 
         private Bitmap _image;

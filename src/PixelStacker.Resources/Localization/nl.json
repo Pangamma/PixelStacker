@@ -167,5 +167,6 @@
   "Top_Material": "Top materiaal",
   "CanvasEditor_ZFilter_Both": "Alle lagen",
   "CanvasEditor_ZFilter_Bottom": "Alleen onderste laag",
-  "CanvasEditor_ZFilter_Top": "Alleen toplaag"
+  "CanvasEditor_ZFilter_Top": "Alleen toplaag",
+  "Nothing": "Niks"
 }

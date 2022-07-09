@@ -1,11 +1,13 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.IO;
+using PixelStacker.Logic.Utilities;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Controls.Pickers
@@ -27,23 +29,132 @@ namespace PixelStacker.UI.Controls.Pickers
             this.DoubleBuffered = true;
         }
 
-        public void SetImageButtonData(IEnumerable<ImageButtonData> data)
+        public void ModifyButtons(Action<ImageButtonData, ImageButton> func)
         {
-            // First we REMOVE the combined element.
-            //this.materialPanel.Controls.Remove(targetRef.Checkbox);
-            //this.materialPanel.Controls.Remove(targetRef.TilePanel);
+            this.SuspendLayout();
+
+            foreach (Control control in this.tilePanel.Controls)
+            {
+                func(control.Tag as ImageButtonData, control as ImageButton);
+            }
+
+            this.ResumeLayout();
+        }
+
+        /// <summary>
+        /// The data item will be stored in the tag field here.
+        /// </summary>
+        /// <returns></returns>
+        public List<ImageButton> GetButtons()
+        {
+            List<ImageButton> items = new List<ImageButton>();
+            foreach (ImageButton control in this.tilePanel.Controls)
+            {
+                items.Add(control);
+            }
+            return items;
+        }
+
+        public static IEnumerable<ImageButton> WhereB(IEnumerable<ImageButton> btns, Func<ImageButton, bool> filter)
+        {
+            foreach (var btn in btns)
+            {
+                if (filter(btn) == false)
+                    btn.Visible = false;
+            }
+
+            return btns.Where(filter);
+        }
+
+        //public static IEnumerable<ImageButton> OrderByB(IEnumerable<ImageButton> btns, Func<ImageButton, int> clause)
+        //{
+        //    //this.SuspendLayout();
+        //    //var existing = GetButtons();
+        //    //this.ClearControlsQuick();
+        //    //var toAddLater = existing.Where(e => !buttons.Contains(e));
+
+
+        //    //this.ResumeLayout();
+        //}
+
+        public void SetButtons(List<ImageButton> buttons)
+        {
+            this.SuspendLayout();
+            var existing = GetButtons();
+            this.ClearControlsQuick();
+            var toAddLater = existing.Where(e => !buttons.Contains(e));
+
+            this.ResumeLayout();
+        }
+
+
+        public void DoFilterTakeOrderByOperation<TKey>(
+            Func<ImageButtonData, bool> filter = null,
+            Func<ImageButtonData, TKey> orderBy = null,
+            int? take = null
+            )
+       {
+            try
+            {
+                this.tilePanel.SuspendLayout();
+
+                var allItems = this.GetButtons();
+                allItems.ForEach(x => x.Visible = true);
+#if DEBUG
+                foreach (var item in allItems)
+                {
+                    if (item.Tag == null)
+                        throw new NullReferenceException("The TAG property on the ImageButton is not set. Yikes! Fix it.");
+                    if (item.Tag is not ImageButtonData)
+                        throw new NullReferenceException("The TAG property on the ImageButton should be of ImageButtonData type.");
+                }
+#endif
+
+                IEnumerable<ImageButton> remaining = allItems;
+
+                if (orderBy != null)
+                {
+                    // Re-order everything here, if requested.
+                    remaining = allItems.OrderBy(x => orderBy(x.Tag as ImageButtonData));
+                    this.tilePanel.ClearControlsQuick();
+                    this.tilePanel.AddControlsQuick(remaining.ToArray());
+                }
+
+                if (filter != null)
+                {
+                    foreach (var k in remaining)
+                    {
+                        if (k.Tag != null && k.Tag is ImageButtonData dat)
+                        {
+                            bool isVisible = filter(dat);
+                            k.Visible = isVisible;
+                            //if (isVisible != k.Visible)
+                            //{
+                            //}
+                        }
+                    }
+
+                    remaining = remaining.Where(x => x.Tag != null && x.Tag is ImageButtonData dat && filter(dat));
+                }
+
+                if (take != null)
+                {
+                    remaining.Skip(take.Value).ToList().ForEach(x => {
+                        x.Visible = false;
+                    });
+
+                    remaining = remaining.Take(take.Value);
+                }
+            } 
+            finally
+            {
+                this.tilePanel.ResumeLayout();
+            }
+        }
+
+        public void InitializeButtons(IEnumerable<ImageButtonData> data)
+        {
             this.tilePanel.ClearControlsQuick();
-
-            //// Then we populate the sub groups
-            //foreach (var tileGroup in targetRef.Tiles.GroupBy(tr => tr.Material.Category))
-            //{
-            //    var cRef = this.categoryRefs[tileGroup.Key];
-            //    cRef.Tiles.AddRange(tileGroup);
-            //    cRef.TilePanel.AddControlsQuick(tileGroup.ToArray());
-            //    this.materialPanel.Controls.Add(cRef.Checkbox);
-            //    this.materialPanel.Controls.Add(cRef.TilePanel);
-            //}
-
             this.SuspendLayout();
             var btnElems = new List<ImageButton>();
             foreach(var tileData in data)
@@ -53,8 +164,7 @@ namespace PixelStacker.UI.Controls.Pickers
                 btn.Margin = new Padding(2);
 
                 btn.Image = tileData.Image;
-                btn.IsChecked = tileData.IsChecked;
-                btn.SetTooltip(tileData.Text);
+                toolTip1.SetToolTip(btn, tileData.Text);
                 btn.Tag = tileData;
 
                 btn.Click += Btn_Click;
@@ -92,7 +202,6 @@ namespace PixelStacker.UI.Controls.Pickers
         // This will not be directly used, and it will never be disposed.
         // Go ahead and use this directly from RESX.
         public SKBitmap Image { get; set; }
-        public bool IsChecked { get; set; }
         public string Text { get; set; }
         public object Data { get; set; }
         public T GetData<T>() => (T)Data;

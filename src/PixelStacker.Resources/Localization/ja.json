@@ -167,5 +167,6 @@
   "Top_Material": "トップ素材",
   "CanvasEditor_ZFilter_Both": "すべてのレイヤー",
   "CanvasEditor_ZFilter_Bottom": "最下層のみ",
-  "CanvasEditor_ZFilter_Top": "最上層のみ"
+  "CanvasEditor_ZFilter_Top": "最上層のみ",
+  "Nothing": "何もない"
 }

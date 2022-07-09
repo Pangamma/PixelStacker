@@ -27,8 +27,9 @@ namespace PixelStacker.Logic.IO.Config
 
             if (eventDelegate != null)
             {
-                Debug.WriteLine($"CHANGE_EVENT=({methodName})");
-                foreach (var handler in eventDelegate.GetInvocationList())
+                var handlers = eventDelegate.GetInvocationList();
+                Debug.WriteLine($"CHANGE_EVENT=({methodName}), Listeners = {handlers.Length}");
+                foreach (var handler in handlers)
                 {
                     handler.Method.Invoke(handler.Target, new object[] { srcInstance, evt });
                 }
@@ -38,6 +39,6 @@ namespace PixelStacker.Logic.IO.Config
         public static event EventHandler<OptionsChangeEvent<MaterialCombination>> OnPrimaryColorChange;
         public static event EventHandler<OptionsChangeEvent<int>> OnBrushWidthChange;
         public static event EventHandler<OptionsChangeEvent<bool>> IsSideViewChange;
-        public static event EventHandler<OptionsChangeEvent<bool>> IsAdvancedModeChange;
+        public static event EventHandler<OptionsChangeEvent<bool>> OnAdvancedModeChange;
     }
 }

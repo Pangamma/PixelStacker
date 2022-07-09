@@ -73,11 +73,12 @@ namespace PixelStacker.UI
             {
                 this.InvokeEx(c =>
                 {
-                    c.Options.IsAdvancedModeEnabled = !c.Options.IsAdvancedModeEnabled;
                     MessageBox.Show("Advanced mode " + (c.Options.IsAdvancedModeEnabled ? "enabled" : "disabled") + "!");
+                    c.Options.IsAdvancedModeEnabled = !c.Options.IsAdvancedModeEnabled;
+                    c.Options.Save();
+
                     c.MaterialOptions?.SetVisibleMaterials(Materials.List ?? new List<Material>());
                     c.TS_SetMenuItemStatesByTagObjects();
-                    c.Options.Save();
                 });
             };
         }

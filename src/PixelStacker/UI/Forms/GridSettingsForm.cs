@@ -18,7 +18,6 @@ namespace PixelStacker.UI.Forms
         public GridSettingsForm()
         {
             InitializeComponent();
-            this.Load += GridSettingsForm_Load;
         }
 
         private void GridSettingsForm_Load(object sender, EventArgs e)

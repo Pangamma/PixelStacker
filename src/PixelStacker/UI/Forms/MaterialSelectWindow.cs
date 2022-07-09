@@ -511,13 +511,17 @@ namespace PixelStacker.UI
         // *-----------------+--------------------------------------------------------------------*
         // *                   S E A R C H                                                        *
         // *-----------------+--------------------------------------------------------------------*
-        private void ddlMaterialSearch_TextChanged(object sender, EventArgs e)
+        private DelayThrottle searchLimiter = new DelayThrottle(TimeSpan.FromMilliseconds(200));
+        private async void ddlMaterialSearch_TextChanged(object sender, EventArgs e)
         {
+            if (!(await searchLimiter.CanWaitEntireDelayWithoutInteruptions()))
+            {
+                return;
+            }
+
             var needle = tbxMaterialFilter.Text.ToLowerInvariant();
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            this.SetSearchFilter(needle);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            var self = this;
+            await this.SetSearchFilter(needle);
+            //var self = this;
             //TaskLimiter.TryAsync(10, (token) => self.InvokeEx(c => c.SetSearchFilter(needle, token)));
         }
 

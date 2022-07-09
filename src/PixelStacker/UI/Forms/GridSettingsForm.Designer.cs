@@ -90,6 +90,7 @@
             this.Name = "GridSettingsForm";
             this.ShowInTaskbar = false;
             this.Text = "Grid Settings";
+            this.Load += new System.EventHandler(this.GridSettingsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tbxGridSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

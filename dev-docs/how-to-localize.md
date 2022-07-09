@@ -2,10 +2,10 @@
 This guide covers how to add, manage, and modify localization entries for PixelStacker so that the program can more comfortably reach a greater audience. All strings showing in the PixelStacker UI should be localized. 
 
 **Here are some quick links:**
-* [Environment Setup](#setup)
-* [Adding entries](#adding)
-* [Modifying entries](#modifying)
-* [Using entries](#using)
+* [Environment Setup](#setting-up-your-developer-environment-for-localization)
+* [Adding entries](#adding-a-new-localized-text-entry)
+* [Modifying entries](#what-if-i-want-to-modify-an-existing-key)
+* [Using entries](#actually-using-the-localized-text-entries)
 
 
 ## Setting up your developer environment for localization
@@ -17,7 +17,7 @@ Before you can begin localizing, you will want to install the Google API key for
 
 
 ## Adding a new localized text entry
-If you want to **modify** an existing key, check out the [modifying](#modifying) instructions.
+If you want to **modify** an existing key, check out the [modifying](#what-if-i-want-to-modify-an-existing-key) instructions.
 1. Open up PixelStacker.Resources.Text.resx in Visual Studio.
 2. Add your new entry into the file and give it a value. Be sure to use good namespacing so the overall file is maintainable.
 ![RESX editor](https://user-images.githubusercontent.com/1046026/175829324-c1f2510a-4bbe-410c-acab-60e4483d338e.png)
@@ -40,15 +40,9 @@ Entries that are already localized will not be automatically re-localized when t
 3. Build the PixelStacker.Resources project. (Right click in solution explorer and find the build button)
 4. In your test explorer (open it up) run the ```Generators >> Text_Translate``` test.
 5. Your localization entry will now be removed from all the different localization json files, and you are ready to re-add the localization key under the original name.
-6. Follow the guide for [adding new entries](#adding).
+6. Follow the guide for [adding new entries](#adding-a-new-localized-text-entry).
 
 
 ## Actually USING the localized text entries
 Any UI components that will be using localized text should implement the ```ILocalized``` interface. ```ILocalized``` interface contains a ```void ApplyLocalization(CultureInfo locale);``` method which is called when localization should be applied. Unfortunately, this is up to the developer to update the text of individudal UI components when this method is called. 
 ![example usage of localized texts](https://user-images.githubusercontent.com/1046026/175830472-397a4fc8-b28e-4475-a416-671b66585409.png)
-
-
-[setup]: #setting-up-your-developer-environment-for-localization
-[adding]: #adding-a-new-localized-text-entry
-[modifying]: #what-if-i-want-to-modify-an-existing-key
-[using]: #actually-using-the-localized-text-entries
