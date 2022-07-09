@@ -36,7 +36,8 @@ namespace PixelStacker.EditorTools
                 if (pnt.X < 0 || pnt.X > this.CanvasEditor.Canvas.Width - 1) continue;
                 if (pnt.Y < 0 || pnt.Y > this.CanvasEditor.Canvas.Height - 1) continue;
                 var cd = this.CanvasEditor.Canvas.CanvasData[pnt.X, pnt.Y];
-                buffer.AppendChange(Palette[cd], Palette[this.Air], pnt);
+                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, base.Palette, this.Air, cd);
+                buffer.AppendChange(Palette[cd], Palette[colorToUse], pnt);
             }
         }
 
@@ -59,7 +60,8 @@ namespace PixelStacker.EditorTools
                 if (pnt.X < 0 || pnt.X > this.CanvasEditor.Canvas.Width - 1) continue;
                 if (pnt.Y < 0 || pnt.Y > this.CanvasEditor.Canvas.Height - 1) continue;
                 var cd = this.CanvasEditor.Canvas.CanvasData[pnt.X, pnt.Y];
-                buffer.AppendChange(Palette[cd], Palette[this.Air], new PxPoint(pnt.X, pnt.Y));
+                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, base.Palette, this.Air, cd);
+                buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(pnt.X, pnt.Y));
             }
         }
         public override void OnMouseUp(MouseEventArgs e)
@@ -93,7 +95,8 @@ namespace PixelStacker.EditorTools
             {
                 if (!this.CanvasEditor.Canvas.IsInRange(p.X, p.Y)) continue;
                 var cd = this.CanvasEditor.Canvas.CanvasData[p.X, p.Y];
-                buffer.AppendChange(Palette[cd], Palette[this.Air], p);
+                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, base.Palette, this.Air, cd);
+                buffer.AppendChange(Palette[cd], Palette[colorToUse], p);
             }
         }
     }
