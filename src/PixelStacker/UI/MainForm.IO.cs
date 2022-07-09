@@ -4,9 +4,7 @@ using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -154,11 +152,11 @@ namespace PixelStacker.UI
 
 
         private string loadedImageFilePath;
-        private void reOpenToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void reOpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.loadedImageFilePath != null)
             {
-                this.LoadFileFromPath(this.loadedImageFilePath);
+                await this.LoadFileFromPathAsync(this.loadedImageFilePath);
             }
         }
 
@@ -168,16 +166,16 @@ namespace PixelStacker.UI
             dlgOpen.ShowDialog(this);
         }
 
-        private void dlgOpen_FileOk(object sender, CancelEventArgs e)
+        private async void dlgOpen_FileOk(object sender, CancelEventArgs e)
         {
             OpenFileDialog dialog = (OpenFileDialog)sender;
             this.loadedImageFilePath = dialog.FileName;
             this.reOpenToolStripMenuItem.Enabled = true;
-            this.LoadFileFromPath(this.loadedImageFilePath);
+            await this.LoadFileFromPathAsync(this.loadedImageFilePath);
         }
 
         private PixelStackerProjectFormatter pxlzipFormatter = new PixelStackerProjectFormatter();
-        private async void LoadFileFromPath(string _path)
+        private async Task LoadFileFromPathAsync(string _path)
         {
             string ext = _path.Split('.', StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
             if (ext == "pxlzip")
@@ -202,30 +200,6 @@ namespace PixelStacker.UI
                         c.LoadedImage = proj.PreprocessedImage;
                         c.imageViewer.SetImage(c.PreprocessedImage, null);
 
-
-
-
-
-
-
-
-                        ////----------
-
-                        //// Super dubious and sketchy logic here. Might crash due to cross-context thread access issues
-                        //self.RenderedCanvas = await engine.RenderCanvasAsync(worker, ref imgPreprocessed, this.ColorMapper, this.Palette);
-                        //worker.ThrowIfCancellationRequested();
-                        //await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, this.imageViewer.PanZoomSettings);
-
-                        //ProgressX.Report(0, "Showing block plan in the viewing window.");
-                        //self.InvokeEx(cc =>
-                        //{
-                        //    cc.ShowCanvasEditor();
-                        //    cc.TS_OnRenderCanvas();
-                        //});
-                        ////-----------
-
-
-
                         var pz = c.imageViewer.PanZoomSettings;
                         await c.canvasEditor.SetCanvas(worker, proj, pz, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
@@ -244,10 +218,6 @@ namespace PixelStacker.UI
                 this.imageViewer.SetImage(this.LoadedImage, null);
                 ShowImageViewer();
             }
-
-            //this.PreRenderedImage.DisposeSafely();
-            //this.PreRenderedImage = null;
-            //this.History.Clear();
         }
     }
 }

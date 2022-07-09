@@ -167,5 +167,6 @@
   "Top_Material": "Material superior",
   "CanvasEditor_ZFilter_Both": "todas las capas",
   "CanvasEditor_ZFilter_Bottom": "Solo capa inferior",
-  "CanvasEditor_ZFilter_Top": "Solo capa superior"
+  "CanvasEditor_ZFilter_Top": "Solo capa superior",
+  "Nothing": "Nada"
 }

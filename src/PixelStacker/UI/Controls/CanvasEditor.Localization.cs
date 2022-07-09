@@ -27,6 +27,7 @@ namespace PixelStacker.UI.Controls
 
                 // Set the text for it.
                 this.Tools_SetLayerFilterImage();
+                this.MaterialPickerForm?.ApplyLocalization(locale);
             }
         }
     }

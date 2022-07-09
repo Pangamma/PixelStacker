@@ -25,12 +25,12 @@ namespace PixelStacker.Logic.Model
         /// <summary>
         /// TRUE if category is glass, or material is AIR.
         /// </summary>
-        public bool IsTransparent => this.Category == "Glass" || this.PixelStackerID == "AIR";
+        public bool CanCoverOtherBlocks => this.Category == "Glass";
 
         /// <summary>
         /// TRUE if NOT transparent.
         /// </summary>
-        public bool IsSolid => !IsTransparent;
+        public bool CanBeOnBottom => !CanCoverOtherBlocks;
 
         /// <summary>
         /// minecraft:stone_1

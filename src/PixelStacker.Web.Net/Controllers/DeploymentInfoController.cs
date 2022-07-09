@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using PixelStacker.Logic.IO.Config;
 
 namespace PixelStacker.Web.Net.Controllers
 {
@@ -29,6 +30,9 @@ namespace PixelStacker.Web.Net.Controllers
 
             TimeSpan deployTime = (DateTimeOffset.UtcNow - DeploymentInfoController.DeploymentTime.Value);
             output["Deployed_Duration"] = string.Format("{0}d {1}h {2}m {3}s", deployTime.Days, deployTime.Hours.ToString().PadLeft(2, '0'), deployTime.Minutes.ToString().PadLeft(2, '0'), deployTime.Seconds.ToString().PadLeft(2, '0'));
+
+
+            output["PixelStacker_Version"] = Constants.Version;
 
             return new JsonResult(output, new System.Text.Json.JsonSerializerOptions()
             {

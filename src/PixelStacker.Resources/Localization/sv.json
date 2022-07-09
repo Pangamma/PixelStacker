@@ -167,5 +167,6 @@
   "Top_Material": "Toppmaterial",
   "CanvasEditor_ZFilter_Both": "Alla lager",
   "CanvasEditor_ZFilter_Bottom": "Endast underlag",
-  "CanvasEditor_ZFilter_Top": "Endast översta lagret"
+  "CanvasEditor_ZFilter_Top": "Endast översta lagret",
+  "Nothing": "Ingenting"
 }

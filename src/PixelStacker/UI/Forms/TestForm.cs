@@ -25,7 +25,6 @@ namespace PixelStacker.UI.Forms
             var items = Materials.List.Where(x => x.Category != "Glass")
                 .Select(x => new ImageButtonData() { 
                 Image = x.GetImage(false),
-                IsChecked = false,
                 Text = x.Label,
                 Data = x
             }).ToList();
@@ -34,11 +33,10 @@ namespace PixelStacker.UI.Forms
                 Text = "Nothing",
                 Data = null,
                 Image = Resources.Textures.disabled,
-                IsChecked = false
             });
 
             this.imageButtonPanel1.TileClicked += ImageButtonPanel1_TileClicked;
-            this.imageButtonPanel1.SetImageButtonData(items);
+            this.imageButtonPanel1.InitializeButtons(items);
         }
 
         private void ImageButtonPanel1_TileClicked(object sender, ImageButtonClickEventArgs e)

@@ -46,11 +46,6 @@ namespace PixelStacker.UI.Controls
             this.PanZoomTool = new PanZoomTool(this);
             this.CurrentTool = new PanZoomTool(this);
 
-            if (!this.Options.IsAdvancedModeEnabled)
-            {
-                this.btnMaterialCombination.Click -= btnMaterialCombination_Click;
-            }
-
             this.tbxBrushWidth.Text = this.Options.Tools?.BrushWidth.ToString();
             using var img = this.Options?.Tools?.PrimaryColor?.GetImage(this.Options?.IsSideView ?? false).SKBitmapToBitmap()
                 ?? Resources.Textures.barrier.SKBitmapToBitmap();

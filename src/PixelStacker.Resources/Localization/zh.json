@@ -167,5 +167,6 @@
   "Top_Material": "顶部材料",
   "CanvasEditor_ZFilter_Both": "所有层",
   "CanvasEditor_ZFilter_Bottom": "仅底层",
-  "CanvasEditor_ZFilter_Top": "仅顶层"
+  "CanvasEditor_ZFilter_Top": "仅顶层",
+  "Nothing": "没有什么"
 }
