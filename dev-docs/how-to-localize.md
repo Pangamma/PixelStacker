@@ -6,6 +6,7 @@ This guide covers how to add, manage, and modify localization entries for PixelS
 * [Adding entries](#adding-a-new-localized-text-entry)
 * [Modifying entries](#what-if-i-want-to-modify-an-existing-key)
 * [Using entries](#actually-using-the-localized-text-entries)
+* [Example commit](https://github.com/Pangamma/PixelStacker/commit/c47d8a0d42ce65f90f7ea1cc0c585931eb7c11c4)
 
 
 ## Setting up your developer environment for localization
@@ -46,3 +47,12 @@ Entries that are already localized will not be automatically re-localized when t
 ## Actually USING the localized text entries
 Any UI components that will be using localized text should implement the ```ILocalized``` interface. ```ILocalized``` interface contains a ```void ApplyLocalization(CultureInfo locale);``` method which is called when localization should be applied. Unfortunately, this is up to the developer to update the text of individudal UI components when this method is called. 
 ![example usage of localized texts](https://user-images.githubusercontent.com/1046026/175830472-397a4fc8-b28e-4475-a416-671b66585409.png)
+
+## Example of adding an entirely new locale set
+You can see an example commit [here](https://github.com/Pangamma/PixelStacker/commit/c47d8a0d42ce65f90f7ea1cc0c585931eb7c11c4). 
+1. Add the menu bar item to the MainForm.
+2. Add localization for that new toolstrip item's name
+3. Add the icon for the flag. (You should be able to find it from the flag icons zip folder.)
+4. Update the automatic resx generator to include the new locale.
+5. Update supported locales to include the new locale.
+6. Add the newly generated json file to the resxcontainer.resx file.
