@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)global-build-profile-constants.xml" Condition="exists('$(SolutionDir)global-build-profile-constants.xml')" />
 	<PropertyGroup>
 		<LangVersion>9.0</LangVersion>
 		<IsPackable>false</IsPackable>
@@ -16,9 +17,6 @@
     <Win32Resource />
 
     <UserSecretsId>2c69e54f-e6cb-4dc2-90bf-b9526fe10edc</UserSecretsId>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;INT_CACHE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>    

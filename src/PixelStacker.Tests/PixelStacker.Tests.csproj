@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <Import Project="$(SolutionDir)global-build-profile-constants.xml" Condition="exists('$(SolutionDir)global-build-profile-constants.xml')" />
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
 

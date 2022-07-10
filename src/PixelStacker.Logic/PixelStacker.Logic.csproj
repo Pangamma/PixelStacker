@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <Import Project="$(SolutionDir)global-build-profile-constants.xml" Condition="exists('$(SolutionDir)global-build-profile-constants.xml')" />
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <Optimize>false</Optimize>
   </PropertyGroup>
 

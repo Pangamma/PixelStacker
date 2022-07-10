@@ -67,7 +67,7 @@ namespace PixelStacker.UI.Controls.Pickers
 
                 var allItems = this.GetButtons();
                 allItems.ForEach(x => x.Visible = true);
-#if DEBUG
+#if FAIL_FAST
                 foreach (var item in allItems)
                 {
                     if (item.Tag == null)

@@ -141,7 +141,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
             if (val != null)
                 return Palette[val.Value];
 
-#if DEBUG
+#if FAIL_FAST
             throw new Exception("Impossible! Did you forget to set the seed data?");
 #else
             var foundMc = Combos.MinBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView)));

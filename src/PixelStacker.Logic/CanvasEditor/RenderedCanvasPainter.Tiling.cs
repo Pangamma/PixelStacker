@@ -36,7 +36,7 @@ namespace PixelStacker.Logic.CanvasEditor
         {
             worker ??= CancellationToken.None;
 
-            var sizes = CalculateChunkSizes(data,srs, maxLayers);
+            var sizes = CalculateChunkSizes(new SKSize(data.Width, data.Height),srs, maxLayers);
             worker.SafeThrowIfCancellationRequested();
             var bitmaps = new List<SKBitmap[,]>();
 
@@ -71,6 +71,7 @@ namespace PixelStacker.Logic.CanvasEditor
                             Size = new SKSize((float)Math.Floor(tileSize.Width * scaleDivide / Constants.TextureSize)
                             , (float)Math.Floor(tileSize.Height * scaleDivide / Constants.TextureSize))
                         };
+
                         SKRect dstRect = new SKRect()
                         {
                             Location = new SKPoint(cWf * dstPixelsPerChunk, cHf * dstPixelsPerChunk),
@@ -337,6 +338,15 @@ namespace PixelStacker.Logic.CanvasEditor
             return bitmaps;
         }
 
+        /// <summary>
+        /// When given sizes and a scale, returns an array of the chunk sizes, where the each "chunk size"
+        /// represents the size of the bitmap tile to be actually rendered.
+        /// </summary>
+        /// <param name="srcImageSize">The TOTAL size of the data to render. (width tiles x height tiles)</param>
+        /// <param name="scaleDivide">1x = 40 blocks per chunk. 2x = 80 blocks per chunk. And so on. 
+        /// But each block will be rendered at half scale. Make sense? Basically this value is used
+        /// for down-sizing.</param>
+        /// <returns></returns>
         private static SKSize[,] CalculateChunkSizesForLayer(SKSize srcImageSize, int scaleDivide)
         {
             int srcW = (int)srcImageSize.Width;
@@ -367,7 +377,15 @@ namespace PixelStacker.Logic.CanvasEditor
             return sizeSet;
         }
 
-        private static List<SKSize[,]> CalculateChunkSizes(RenderedCanvas data, SpecialCanvasRenderSettings srs, int maxLayers)
+        /// <summary>
+        /// Calculates a list of arrays that each contain chunk size definitions. Layer 0 would be a 1:1 render.
+        /// Layer 1 would be a half scale rendering. 
+        /// </summary>
+        /// <param name="data">totalSourcePixelsSize</param>
+        /// <param name="srs"></param>
+        /// <param name="maxLayers"></param>
+        /// <returns></returns>
+        private static List<SKSize[,]> CalculateChunkSizes(SKSize data, SpecialCanvasRenderSettings srs, int maxLayers)
         {
             int scaleDivide = 1;
             List<SKSize[,]> sizesList = new List<SKSize[,]>();
