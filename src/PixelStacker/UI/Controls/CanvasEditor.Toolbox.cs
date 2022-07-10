@@ -37,6 +37,12 @@ namespace PixelStacker.UI.Controls
             //this.RepaintRequested = true;
         }
 
+        private void btnSuggester_Click(object sender, System.EventArgs e)
+        {
+            this.CurrentTool = new BrushTool(this);
+            this.OnToolClicked(sender);
+        }
+
         private void Toolbox_OnClickBrush(object sender, EventArgs e)
         {
             this.CurrentTool = new BrushTool(this);

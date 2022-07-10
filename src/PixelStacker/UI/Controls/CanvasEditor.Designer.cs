@@ -44,6 +44,7 @@ namespace PixelStacker.UI.Controls
             this.btnFill = new System.Windows.Forms.ToolStripButton();
             this.btnPicker = new System.Windows.Forms.ToolStripButton();
             this.btnEraser = new System.Windows.Forms.ToolStripButton();
+            this.btnSuggester = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblBrushWidth = new System.Windows.Forms.ToolStripLabel();
             this.btnBrushWidthMinus = new System.Windows.Forms.ToolStripButton();
@@ -73,7 +74,7 @@ namespace PixelStacker.UI.Controls
             this.skiaControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.skiaControl.Location = new System.Drawing.Point(0, 0);
             this.skiaControl.Name = "skiaControl";
-            this.skiaControl.Size = new System.Drawing.Size(561, 339);
+            this.skiaControl.Size = new System.Drawing.Size(561, 398);
             this.skiaControl.TabIndex = 0;
             this.skiaControl.PaintSurface += new System.EventHandler<PixelStacker.UI.Controls.GenericSKPaintSurfaceEventArgs>(this.skiaControl_PaintSurface);
             this.skiaControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_Click);
@@ -104,7 +105,7 @@ namespace PixelStacker.UI.Controls
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.skiaControl);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(561, 339);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(561, 398);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer.LeftToolStripPanel
@@ -114,7 +115,7 @@ namespace PixelStacker.UI.Controls
             this.toolStripContainer.LeftToolStripPanel.MinimumSize = new System.Drawing.Size(48, 0);
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(611, 382);
+            this.toolStripContainer.Size = new System.Drawing.Size(611, 441);
             this.toolStripContainer.TabIndex = 2;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -133,13 +134,14 @@ namespace PixelStacker.UI.Controls
             this.btnBrush,
             this.btnFill,
             this.btnPicker,
-            this.btnEraser});
+            this.btnEraser,
+            this.btnSuggester});
             this.tsCanvasTools.Location = new System.Drawing.Point(0, 4);
             this.tsCanvasTools.MinimumSize = new System.Drawing.Size(48, 0);
             this.tsCanvasTools.Name = "tsCanvasTools";
             this.tsCanvasTools.Padding = new System.Windows.Forms.Padding(0);
             this.tsCanvasTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tsCanvasTools.Size = new System.Drawing.Size(50, 316);
+            this.tsCanvasTools.Size = new System.Drawing.Size(50, 355);
             this.tsCanvasTools.TabIndex = 0;
             this.tsCanvasTools.LayoutStyleChanged += new System.EventHandler(this.toolstrip_LayoutStyleChanged);
             // 
@@ -244,6 +246,18 @@ namespace PixelStacker.UI.Controls
             this.btnEraser.ToolTipText = "Eraser";
             this.btnEraser.Click += new System.EventHandler(this.Toolbox_OnClickEraser);
             // 
+            // btnSuggester
+            // 
+            this.btnSuggester.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSuggester.Image = global::PixelStacker.Resources.UIResources.color;
+            this.btnSuggester.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSuggester.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSuggester.Name = "btnSuggester";
+            this.btnSuggester.Size = new System.Drawing.Size(49, 36);
+            this.btnSuggester.Text = "Color Suggestions";
+            this.btnSuggester.Visible = false;
+            this.btnSuggester.Click += new System.EventHandler(this.btnSuggester_Click);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -338,7 +352,7 @@ namespace PixelStacker.UI.Controls
             this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
             this.Controls.Add(this.toolStripContainer);
             this.Name = "CanvasEditor";
-            this.Size = new System.Drawing.Size(611, 382);
+            this.Size = new System.Drawing.Size(611, 441);
             this.Load += new System.EventHandler(this.CanvasEditor_Load);
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.LeftToolStripPanel.ResumeLayout(false);
@@ -377,5 +391,6 @@ namespace PixelStacker.UI.Controls
         private System.Windows.Forms.ToolStripButton btnMaterialCombination;
         public System.Windows.Forms.ToolStripContainer toolStripContainer;
         private System.Windows.Forms.ToolStripButton btnPaintLayerFilter;
+        private System.Windows.Forms.ToolStripButton btnSuggester;
     }
 }
