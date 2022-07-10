@@ -34,7 +34,7 @@ namespace PixelStacker.UI.Controls
         {
             if (pz == null)
             {
-#if DEBUG
+#if FAIL_FAST
                 throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
 #else
                         return new Point(0, 0);

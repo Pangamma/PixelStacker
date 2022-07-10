@@ -52,7 +52,7 @@ namespace PixelStacker.IO
 
         private void FireChangeEvents<T>(Options old, Options nw, Func<Options, T> func, string nameOfEvent)
         {
-#if DEBUG
+#if FAIL_FAST
             var ex = RateLimit.CheckWithException(20, 1000, methodName: nameOfEvent);
             if (ex != null)
                 throw ex;

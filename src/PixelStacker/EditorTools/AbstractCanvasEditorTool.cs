@@ -71,7 +71,7 @@ namespace PixelStacker.EditorTools
         {
             if (pz == null)
             {
-#if DEBUG
+#if FAIL_FAST
                 throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
 #else
                 return new PxPoint(0, 0);
@@ -168,7 +168,7 @@ namespace PixelStacker.EditorTools
 
             if (result == null)
             {
-#if DEBUG
+#if FAIL_FAST
                 throw new Exception("Oh no! An invalid color was attempted.");
 #else
                 return primaryColor;

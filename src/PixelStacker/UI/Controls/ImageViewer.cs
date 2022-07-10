@@ -231,7 +231,7 @@ namespace PixelStacker.WF.Components
             var pz = this.PanZoomSettings;
             if (pz == null)
             {
-#if DEBUG
+#if FAIL_FAST
                 throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
 #else
                 return new SKPoint(0, 0);

@@ -60,5 +60,12 @@ namespace PixelStacker.EditorTools
             var c = new Cursor(ptr);
             return c;
         });
+
+        public static readonly Lazy<Cursor> ColorSuggester = new Lazy<Cursor>(() => {
+            Bitmap pic = UIResources.color;
+            IntPtr ptr = pic.GetHicon();
+            var c = new Cursor(ptr);
+            return c;
+        });
     }
 }

@@ -5,7 +5,7 @@ namespace PixelStacker.Logic.IO.Config
 {
     public class ToolSettings
     {
-        public int BrushWidth { get; set; } = 1;
+        public int BrushWidth { get; set; } = 5;
 #if !DEBUG
         public MaterialCombination PrimaryColor { get; set; } = MaterialPalette.Air;
 #else

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Utilities;
 using SkiaSharp;
 
@@ -13,8 +15,6 @@ namespace PixelStacker.Logic.Model
 {
     public class CanvasData : IEnumerable<CanvasIteratorData>
     {
-        [Obsolete("You cannot actually save this data to a bitmap.")]
-        public bool IsSideView { get; set; } = false;
         private int[,] BlocksMap { get; set; } // X, Y
         public int Width { get; }
         public int Height { get; }
@@ -47,11 +47,16 @@ namespace PixelStacker.Logic.Model
         {
             get
             {
-#if DEBUG
+#if FAIL_FAST
                 if (this.Width <= x || x < 0)
                     throw new IndexOutOfRangeException($"X must be between 0 and {this.Width - 1}. Given: {x}");
                 if (this.Height <= y || y < 0)
                     throw new IndexOutOfRangeException($"Y must be between 0 and {this.Height - 1}. Given: {y}");
+#else
+                if (this.Width <= x || x < 0)
+                    return Materials.Air;
+                if (this.Height <= y || y < 0)
+                    return Materials.Air;
 #endif
                 var comboID = this.BlocksMap[x, y];
                 var combo = this.Palette[comboID];
@@ -62,7 +67,7 @@ namespace PixelStacker.Logic.Model
             {
                 if (value == null)
                     throw new ArgumentNullException(nameof(value));
-#if DEBUG
+#if FAIL_FAST
                 if (this.Width <= x || x < 0)
                     throw new IndexOutOfRangeException($"X must be between 0 and {this.Width - 1}. Given: {x}");
                 if (this.Height <= y || y < 0)
@@ -84,12 +89,18 @@ namespace PixelStacker.Logic.Model
         {
             get
             {
-#if DEBUG
+#if FAIL_FAST
                 if (this.Width <= x || x < 0)
                     throw new IndexOutOfRangeException($"X must be between 0 and {this.Width - 1}. Given: {x}");
                 if (this.Height <= y || y < 0)
                     throw new IndexOutOfRangeException($"Y must be between 0 and {this.Height - 1}. Given: {y}");
+#else
+                if (this.Width <= x || x < 0)
+                    return this.Palette[IO.Config.Constants.MaterialCombinationIDForAir];
+                if (this.Height <= y || y < 0)
+                    return this.Palette[IO.Config.Constants.MaterialCombinationIDForAir];
 #endif
+
                 var comboID = this.BlocksMap[x, y];
                 var combo = this.Palette[comboID];
                 return combo;
@@ -98,7 +109,7 @@ namespace PixelStacker.Logic.Model
             {
                 if (value == null)
                     throw new ArgumentNullException(nameof(value));
-#if DEBUG
+#if FAIL_FAST
                 if (this.Width <= x || x < 0)
                     throw new IndexOutOfRangeException($"X must be between 0 and {this.Width - 1}. Given: {x}");
                 if (this.Height <= y || y < 0)
