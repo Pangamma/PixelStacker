@@ -685,6 +685,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Render Shadows.
+        /// </summary>
+        public static string MainForm_TS_RenderShadows {
+            get {
+                return ResourceManager.GetString("MainForm_TS_RenderShadows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show both layers.
         /// </summary>
         public static string MainForm_TS_ShowBothLayers {
@@ -708,6 +717,15 @@ namespace PixelStacker.Resources {
         public static string MainForm_TS_ShowTopLayer {
             get {
                 return ResourceManager.GetString("MainForm_TS_ShowTopLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visual Enhancements.
+        /// </summary>
+        public static string MainForm_TS_VisualEnhancements {
+            get {
+                return ResourceManager.GetString("MainForm_TS_VisualEnhancements", resourceCulture);
             }
         }
         

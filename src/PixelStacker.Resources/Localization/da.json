@@ -169,5 +169,7 @@
   "CanvasEditor_ZFilter_Bottom": "Kun nederste lag",
   "CanvasEditor_ZFilter_Top": "Kun øverste lag",
   "Nothing": "Ikke noget",
-  "MainMenu_Lang_Italian": "italiensk"
+  "MainMenu_Lang_Italian": "italiensk",
+  "MainForm_TS_RenderShadows": "Render skygger",
+  "MainForm_TS_VisualEnhancements": "Visuelle forbedringer"
 }

@@ -169,5 +169,7 @@
   "CanvasEditor_ZFilter_Bottom": "Endast underlag",
   "CanvasEditor_ZFilter_Top": "Endast översta lagret",
   "Nothing": "Ingenting",
-  "MainMenu_Lang_Italian": "italienska"
+  "MainMenu_Lang_Italian": "italienska",
+  "MainForm_TS_RenderShadows": "Rendera skuggor",
+  "MainForm_TS_VisualEnhancements": "Visuella förbättringar"
 }

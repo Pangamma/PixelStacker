@@ -37,15 +37,9 @@ namespace PixelStacker.EditorTools
             });
         }
 
-
-        public override void OnClick(MouseEventArgs e)
-        {
-            base.OnClick(e);
-        }
-
         public override void OnLeftClick(MouseEventArgs e)
         {
-            Task.Run(() => TaskManager.Get.StartAsync((worker) =>
+            //Task.Run(() => TaskManager.Get.StartAsync((worker) =>
             {
                 Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, Logic.Model.EstimateProp.Floor);
                 if (!this.CanvasEditor.Canvas.IsInRange(loc.X, loc.Y)) return;
@@ -58,7 +52,7 @@ namespace PixelStacker.EditorTools
                 MaterialCombination mc = Options.Tools.PrimaryColor;
                 mc ??= Palette[Constants.MaterialCombinationIDForAir];
                 MaterialCombination mcClickedTmp = cd[loc.X, loc.Y];
-                MaterialCombination mcClicked = this.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, mc, mcClickedTmp);
+                MaterialCombination mcClicked = MaterialCombination.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, mc, mcClickedTmp);
 
                 int colorToSet = Palette[mcClicked];
 
@@ -82,7 +76,7 @@ namespace PixelStacker.EditorTools
                     {
                         if (data.PaletteID != colorToRemove) continue;
 
-                        painter.HistoryBuffer.AppendChange(colorToRemove, colorToSet, new PxPoint(data.X, data.Y));
+                        painter.History.AppendToVisualBuffer(colorToRemove, colorToSet, new PxPoint(data.X, data.Y));
 
                         TryEnqueue(queue, data.X + 1, data.Y, cd, Palette, colorToRemove, visited);
                         TryEnqueue(queue, data.X - 1, data.Y, cd, Palette, colorToRemove, visited);
@@ -96,17 +90,21 @@ namespace PixelStacker.EditorTools
                     {
                         if (cdi.PaletteID == colorToRemove)
                         {
-                            painter.HistoryBuffer.AppendChange(colorToRemove, colorToSet, new PxPoint(cdi.X, cdi.Y));
+                            painter.History.AppendToVisualBuffer(colorToRemove, colorToSet, new PxPoint(cdi.X, cdi.Y));
                         }
                     }
                 }
 
-                //var ri = painter.HistoryBuffer.ToRenderInstructions(true);
-                //this.CanvasEditor.Painter.DoProcessRenderRecords(ri);
 
-                var hr = painter.HistoryBuffer.ToHistoryRecord(true);
-                this.CanvasEditor.Painter.History.AddChange(hr);
-            }));
+                painter.History.FlushHistoryBufferAndFlushVisualBufferThenRenderIt();
+                this.CanvasEditor.RepaintRequested = true;
+            }
+            //));
+        }
+
+        public override Cursor GetCursor()
+        {
+            return CursorHelper.Fill.Value;
         }
 
         public override void OnMouseDown(MouseEventArgs e)
@@ -119,11 +117,6 @@ namespace PixelStacker.EditorTools
 
         public override void OnMouseMove(MouseEventArgs e)
         {
-        }
-
-        public override Cursor GetCursor()
-        {
-            return CursorHelper.Fill.Value;
         }
     }
 }

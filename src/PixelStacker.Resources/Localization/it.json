@@ -169,5 +169,7 @@
   "CanvasEditor_ZFilter_Top": "Solo strato superiore",
   "Combined_Materials": "Materiali combinati",
   "Nothing": "Niente",
-  "Top_Material": "Materiale superiore"
+  "Top_Material": "Materiale superiore",
+  "MainForm_TS_RenderShadows": "Rendi le ombre",
+  "MainForm_TS_VisualEnhancements": "Miglioramenti visivi"
 }

@@ -37,7 +37,7 @@ namespace PixelStacker.WF.Components
             // repaintTimer
             // 
             this.repaintTimer.Enabled = true;
-            this.repaintTimer.Interval = 15;
+            this.repaintTimer.Interval = 3;
             this.repaintTimer.Tick += new System.EventHandler(this.repaintTimer_Tick);
             // 
             // skCanvas

@@ -1,6 +1,7 @@
 ﻿using PixelStacker.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,6 +11,16 @@ namespace PixelStacker.Extensions
 {
     public static class ExtendUI
     {
+        public static void PaintDesignerView(this Control c, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+            using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
+            g.FillRectangle(bgBrush, 0, 0, c.Width, c.Height);
+        }
+
         public static async Task<TResult> InvokeEx<TControl, TResult>(this TControl control, Func<TControl, Task<TResult>> func) where TControl : Control
         {
             TResult rt = default(TResult);

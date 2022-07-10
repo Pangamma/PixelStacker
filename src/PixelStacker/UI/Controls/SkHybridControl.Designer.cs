@@ -38,6 +38,7 @@
             this.DoubleBuffered = true;
             this.Name = "SkHybridControl";
             this.Size = new System.Drawing.Size(445, 315);
+            this.Resize += new System.EventHandler(this.SkHybridControl_Resize);
             this.ResumeLayout(false);
 
         }

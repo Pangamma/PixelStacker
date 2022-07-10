@@ -169,5 +169,7 @@
   "CanvasEditor_ZFilter_Bottom": "最下層のみ",
   "CanvasEditor_ZFilter_Top": "最上層のみ",
   "Nothing": "何もない",
-  "MainMenu_Lang_Italian": "イタリアの"
+  "MainMenu_Lang_Italian": "イタリアの",
+  "MainForm_TS_RenderShadows": "シャドウをレンダリングする",
+  "MainForm_TS_VisualEnhancements": "視覚的強化"
 }

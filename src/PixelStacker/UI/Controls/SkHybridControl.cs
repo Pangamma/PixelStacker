@@ -1,4 +1,5 @@
-﻿using PixelStacker.IO;
+﻿using PixelStacker.Extensions;
+using PixelStacker.IO;
 using PixelStacker.UI.External;
 using SkiaSharp;
 using System;
@@ -24,9 +25,8 @@ namespace PixelStacker.UI.Controls
         public SkHybridControl()
         {
             InitializeComponent();
-            if (this.DesignMode) return;
             Control control = null;
-            if (IsGpuAvailable)
+            if (IsGpuAvailable && !this.DesignMode)
             {
                 this.glCanvas = new SKGLControl();
                 this.glCanvas.PaintSurface += this.OnPaintSurfaceInner;
@@ -55,12 +55,7 @@ namespace PixelStacker.UI.Controls
         {
             if (this.DesignMode)
             {
-                Graphics g = e.Graphics;
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-                using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
-                g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
+                this.PaintDesignerView(e);
                 return;
             }
         }
@@ -71,24 +66,34 @@ namespace PixelStacker.UI.Controls
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void OnPaintSurfaceInner(object sender, SKPaintGLSurfaceEventArgs e)
+        private void OnPaintSurfaceGeneric(object sender, GenericSKPaintSurfaceEventArgs e)
         {
             if (this.PaintSurface != null)
-                this.PaintSurface(this, new GenericSKPaintSurfaceEventArgs()
-                {
-                    Surface = e.Surface,
-                    Rect = e.BackendRenderTarget.Rect
-                });
+            {
+                this.PaintSurface(sender, e);
+#if DEBUG_GPU
+                double fps = Math.Floor(Logic.Utilities.RateLimit.GetHitsPerSecond(90, 3000));
+                e.Surface.Canvas.DrawText($"{fps} FPS", new SKPoint(8, 20), new SKPaint() { Color = new SKColor(255, 0, 0), TextSize = 16 });
+#endif
+            }
+        }
+
+        private void OnPaintSurfaceInner(object sender, SKPaintGLSurfaceEventArgs e)
+        {
+            this.OnPaintSurfaceGeneric(this, new GenericSKPaintSurfaceEventArgs()
+            {
+                Surface = e.Surface,
+                Rect = e.BackendRenderTarget.Rect
+            });
         }
 
         private void OnPaintSurfaceInner(object sender, SKPaintSurfaceEventArgs e)
         {
-            if (this.PaintSurface != null)
-                this.PaintSurface(this, new GenericSKPaintSurfaceEventArgs()
-                {
-                    Surface = e.Surface,
-                    Rect = e.Info.Rect,
-                });
+            this.OnPaintSurfaceGeneric(this, new GenericSKPaintSurfaceEventArgs()
+            {
+                Surface = e.Surface,
+                Rect = e.Info.Rect,
+            });
         }
 
         private void SkHybridControl_MouseDoubleClick(object sender, MouseEventArgs e) => this.OnMouseDoubleClick(e);
@@ -96,6 +101,17 @@ namespace PixelStacker.UI.Controls
         private void SkHybridControl_MouseMove(object sender, MouseEventArgs e) => this.OnMouseMove(e);
         private void SkHybridControl_MouseUp(object sender, MouseEventArgs e) => this.OnMouseUp(e);
         private void SkHybridControl_MouseClick(object sender, MouseEventArgs e) => this.OnMouseClick(e);
+        private void SkHybridControl_Resize(object sender, EventArgs e)
+        {
+            if (IsGpuAvailable && !this.DesignMode)
+            {
+                this.glCanvas?.Invalidate();
+            } 
+            else
+            {
+                this.Canvas?.Invalidate();
+            }
+        }
     }
 
     public class GenericSKPaintSurfaceEventArgs : EventArgs

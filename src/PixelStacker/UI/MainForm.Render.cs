@@ -109,11 +109,16 @@ namespace PixelStacker.UI
                 // Super dubious and sketchy logic here. Might crash due to cross-context thread access issues
                 var canvasThatIsRendered = await engine.RenderCanvasAsync(worker, imgPreprocessed, this.ColorMapper, this.Palette);
                 worker.ThrowIfCancellationRequested();
-                self.RenderedCanvas = canvasThatIsRendered;
+
+                await self.InvokeEx(async c => {
+                    c.RenderedCanvas = canvasThatIsRendered;
+
+                    await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, null, new Logic.IO.Config.SpecialCanvasRenderSettings(c.Options));
+                });
+                //self.RenderedCanvas = canvasThatIsRendered;
 
                 //var pz = self.imageViewer.PanZoomSettings;
                 //var pz2 = pz.TranslateForNewSize(canvasThatIsRendered.Width, canvasThatIsRendered.Height, self.canvasEditor.Width, self.canvasEditor.Height);
-                await self.canvasEditor.SetCanvas(worker, self.RenderedCanvas, null, new Logic.IO.Config.SpecialCanvasRenderSettings(self.Options));
 
                 ProgressX.Report(0, "Showing block plan in the viewing window.");
                 self.InvokeEx(cc =>

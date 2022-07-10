@@ -24,15 +24,6 @@ namespace PixelStacker.EditorTools
 
         public override void OnLeftClick(MouseEventArgs e)
         {
-            Point loc = CanvasEditor.GetPointOnImage(e.Location, this.CanvasEditor.PanZoomSettings, EstimateProp.Floor);
-            if (loc.X < 0 || loc.X > this.CanvasEditor.Canvas.Width - 1) return;
-            if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
-            var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
-            var painter = this.CanvasEditor.Painter;
-            var buffer = painter.HistoryBuffer;
-            var colorToUseTmp = Options.Tools.PrimaryColor ?? this.Air;
-            var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
-            buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));
         }
 
         private bool IsDragging = false;
@@ -47,20 +38,17 @@ namespace PixelStacker.EditorTools
             if (loc.Y < 0 || loc.Y > this.CanvasEditor.Canvas.Height - 1) return;
             var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
             var painter = this.CanvasEditor.Painter;
-            var buffer = painter.HistoryBuffer;
             var colorToUseTmp = Options.Tools.PrimaryColor ?? this.Air;
-            var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
-            buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));;
+            var colorToUse = MaterialCombination.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
+            painter.History.AppendToVisualBuffer(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));
         }
+
         public override void OnMouseUp(MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
             IsDragging = false;
-            var record = this.CanvasEditor.Painter.HistoryBuffer.ToHistoryRecord(true);
-            this.CanvasEditor.Painter.History.AddChange(record);
+            this.CanvasEditor.Painter.History.FlushHistoryBufferAndFlushVisualBufferThenRenderIt();
             this.CanvasEditor.RepaintRequested = true;
-            // TODO: Send it to the history buffer
-
         }
 
         public override void OnMouseMove(MouseEventArgs e)
@@ -74,21 +62,20 @@ namespace PixelStacker.EditorTools
 
             if (!this.CanvasEditor.Canvas.CanvasData.IsInRange(loc.X, loc.Y)) return;
             var painter = this.CanvasEditor.Painter;
-            var buffer = painter.HistoryBuffer;
             var colorToUseTmp = Options.Tools.PrimaryColor ?? this.Air;
 
             {
                 var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
-                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
-                buffer.AppendChange(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));
+                var colorToUse = MaterialCombination.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
+                painter.History.AppendToVisualBuffer(Palette[cd], Palette[colorToUse], new PxPoint(loc.X, loc.Y));
             }
 
             foreach (var p in pointsToAdd)
             {
                 if (!this.CanvasEditor.Canvas.CanvasData.IsInRange(p.X, p.Y)) continue;
                 var cd = this.CanvasEditor.Canvas.CanvasData[p.X, p.Y];
-                var colorToUse = base.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
-                buffer.AppendChange(Palette[cd], Palette[colorToUse], p);
+                var colorToUse = MaterialCombination.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
+                painter.History.AppendToVisualBuffer(Palette[cd], Palette[colorToUse], p);
             }
         }
     }

@@ -169,5 +169,7 @@
   "CanvasEditor_ZFilter_Bottom": "Alleen onderste laag",
   "CanvasEditor_ZFilter_Top": "Alleen toplaag",
   "Nothing": "Niks",
-  "MainMenu_Lang_Italian": "Italiaans"
+  "MainMenu_Lang_Italian": "Italiaans",
+  "MainForm_TS_RenderShadows": "Schaduwen renderen",
+  "MainForm_TS_VisualEnhancements": "Visuele verbeteringen"
 }

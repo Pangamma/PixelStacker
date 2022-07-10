@@ -55,18 +55,6 @@ namespace PixelStacker.Logic.IO.Config
         public bool IsSideView { get; set; } = false;
 
         /// <summary>
-        /// Purely for aesthetic rendering. Assuming no block/material filter is set, any blocks with
-        /// only 1 type of material will show up as layer 1 instead of on both layers. So... some 
-        /// shadows will appear to give the image more depth.
-        /// </summary>
-        public bool IsExtraShadowDepthEnabled
-        {
-            get => _IsExtraShadowDepthEnabled && IsAdvancedModeEnabled;
-            set => _IsExtraShadowDepthEnabled = value && IsAdvancedModeEnabled;
-        }
-        private bool _IsExtraShadowDepthEnabled = false;
-
-        /// <summary>
         /// When material filters are enabled, shadows will be rendered to help the viewer 
         /// percieve depth. This helps to visibly separate the different layers from each other.
         /// </summary>

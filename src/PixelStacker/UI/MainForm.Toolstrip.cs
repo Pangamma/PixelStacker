@@ -29,7 +29,7 @@ namespace PixelStacker.UI
             this.showBottomLayerToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == 0;
             this.showTopLayerToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == 1;
             this.showBothLayersToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == null;
-            this.skipShadowRenderirngToolStripMenuItem.Checked = opts.IsShadowRenderingSkipped;
+            this.toggleShadowsToolStripMenuItem.Checked = opts.ViewerSettings.IsShadowRenderingEnabled;
         }
 
         public void TS_SetTagObjects()
@@ -47,7 +47,6 @@ namespace PixelStacker.UI
                 tag.IsCanvasEditorRequired = true;
             });
 
-            this.shadowRenderingToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
             this.layerFilteringToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
 
             {
@@ -124,10 +123,23 @@ namespace PixelStacker.UI
             saveAsToolStripMenuItem.Enabled = true;
         }
 
-        private void skipShadowRenderirngToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private async void toggleShadowsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            this.Options.IsShadowRenderingSkipped = !this.Options.IsShadowRenderingSkipped;
-            skipShadowRenderirngToolStripMenuItem.Checked = this.Options.IsShadowRenderingSkipped;
+            this.Options.ViewerSettings.IsShadowRenderingEnabled = !this.Options.ViewerSettings.IsShadowRenderingEnabled;
+            this.toggleShadowsToolStripMenuItem.Checked = this.Options.ViewerSettings.IsShadowRenderingEnabled;
+            this.Options.Save();
+
+            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
+            {
+                var self = this;
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
+                    await self.InvokeEx(async c => {
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
+                        c.ShowCanvasEditor();
+                    });
+                }));
+            }
         }
 
         private void undoToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -135,8 +147,8 @@ namespace PixelStacker.UI
             if (this.IsCanvasEditorVisible == false) return;
             if (this.canvasEditor.Painter.History.IsUndoEnabled)
             {
-                var toRender = this.canvasEditor.Painter.History.UndoChange();
-                this.canvasEditor.Painter.DoProcessRenderRecords(toRender);
+                this.canvasEditor.Painter.History.UndoChange();
+                this.canvasEditor.RepaintRequested = true;
             }
         }
 
@@ -145,8 +157,8 @@ namespace PixelStacker.UI
             if (this.IsCanvasEditorVisible == false) return;
             if (this.canvasEditor.Painter.History.IsRedoEnabled)
             {
-                var toRender = this.canvasEditor.Painter.History.RedoChange();
-                this.canvasEditor.Painter.DoProcessRenderRecords(toRender);
+                this.canvasEditor.Painter.History.RedoChange();
+                this.canvasEditor.RepaintRequested = true;
             }
         }
 

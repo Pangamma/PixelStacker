@@ -21,3 +21,9 @@ dotnet publish .\PixelStacker\PixelStacker.csproj /p:PublishProfile=fd-x64-windo
  && cd .\PixelStacker\bin\publish\fd-gpu^
  && jar -cfM ..\release-with-gpu-feature.zip .\^
  && cd ..\..\..\..\
+ && dotnet publish .\PixelStacker\PixelStacker.csproj /p:PublishProfile=sc-gpu-x64-windows^
+ && dotnet publish .\PixelStacker\PixelStacker.csproj /p:PublishProfile=sc-gpu-x86-windows^
+ && del .\PixelStacker\bin\publish\release-with-gpu-feature-and-dotnet-runtime.zip^
+ && cd .\PixelStacker\bin\publish\sc-gpu^
+ && jar -cfM ..\release-with-gpu-feature-and-dotnet-runtime.zip .\^
+ && cd ..\..\..\..\

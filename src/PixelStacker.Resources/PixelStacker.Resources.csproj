@@ -1,26 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)global-build-profile-constants.xml" Condition="exists('$(SolutionDir)global-build-profile-constants.xml')" />
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
-<ItemGroup Condition="'$(Configuration)'!='DEBUG'">
-	<EmbeddedResource Remove="Images\Pixelart\**" />
-	<None Remove="Images\Pixelart\**" />
-	<Compile Remove="Images\Pixelart\**" />
-</ItemGroup>
-<ItemGroup>
-  <EmbeddedResource Remove="Localization\ResxContainer-out.resx" />
-</ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'!='DEBUG'">
+    <EmbeddedResource Remove="Images\Pixelart\**" />
+    <None Remove="Images\Pixelart\**" />
+    <Compile Remove="Images\Pixelart\**" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Update="Localization\ResxContainer.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ResxContainer.resx</DependentUpon>
-    </Compile>
-    <Compile Update="ShadowHelper.cs">
-      <DependentUpon>Shadows.resx</DependentUpon>
     </Compile>
     <Compile Update="Text.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -28,43 +21,45 @@
       <DependentUpon>Text.resx</DependentUpon>
     </Compile>
     <None Update="Localization\en.json">
-	</None>
+    </None>
     <None Update="Localization\*.json">
       <DependentUpon>en.json</DependentUpon>
     </None>
+    <EmbeddedResource Update="Shadows.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <Compile Update="Shadows.*.cs">
+      <DependentUpon>Shadows.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="DevResources.resx">
       <Generator></Generator>
     </EmbeddedResource>
-	<Compile Update="DevResources.*.cs">
-		<DependentUpon>DevResources.resx</DependentUpon>
-	</Compile>
+    <Compile Update="DevResources.*.cs">
+      <DependentUpon>DevResources.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Update="Localization\ResxContainer.resx">
       <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResxContainer.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Shadows.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-	<Compile Update="Shadows.*.cs">
-		<DependentUpon>Shadows.resx</DependentUpon>
-	</Compile>
-	
+    <Compile Update="ShadowHelper.cs">
+      <DependentUpon>Shadows.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Update="Textures.resx">
       <Generator></Generator>
     </EmbeddedResource>
-	<Compile Update="Textures.*.cs">
-		<DependentUpon>Textures.resx</DependentUpon>
-	</Compile>
+    <Compile Update="Textures.*.cs">
+      <DependentUpon>Textures.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Update="Data.resx">
       <Generator></Generator>
     </EmbeddedResource>
-	<Compile Update="Data.*.cs">
-		<DependentUpon>Data.resx</DependentUpon>
-	</Compile>
+    <Compile Update="Data.*.cs">
+      <DependentUpon>Data.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Update="Text.resx">
       <CustomToolNamespace>PixelStacker.Resources</CustomToolNamespace>
       <Generator>PublicResXFileCodeGenerator</Generator>

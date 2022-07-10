@@ -190,7 +190,7 @@ namespace PixelStacker.UI.Forms
             }
 
             // If it is air, or not glass.
-            if (pc.Top.PixelStackerID == "AIR" || !pc.Top.CanCoverOtherBlocks)
+            if (pc.Top.PixelStackerID == "AIR" || !pc.Top.IsGlassOrLayer2Block)
             {
                 this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(m, m);
                 this.Options.Save();

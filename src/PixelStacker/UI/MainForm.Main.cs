@@ -24,6 +24,8 @@ namespace PixelStacker.UI
         private MaterialPalette Palette;
         public SKBitmap LoadedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap();
         public SKBitmap PreprocessedImage { get; private set; } = UIResources.weird_intro.BitmapToSKBitmap();
+        //public SKBitmap LoadedImage { get; private set; } = DevResources.hyper_dimension;
+        //public SKBitmap PreprocessedImage { get; private set; } = DevResources.hyper_dimension;
         private RenderedCanvas RenderedCanvas;
         private SnapManager snapManager { get; }
 
@@ -34,6 +36,7 @@ namespace PixelStacker.UI
             this.Palette = MaterialPalette.FromResx();
             this.snapManager = new SnapManager(this);
             InitializeComponent();
+            this.BackgroundImage = global::PixelStacker.Resources.UIResources.txt_paused;
 
             this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);

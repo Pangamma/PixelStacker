@@ -37,6 +37,16 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static SKBitmap _hyper_dimension = null;
+        public static SKBitmap hyper_dimension {
+            get {
+                if (_hyper_dimension == null)
+                    _hyper_dimension = SKBitmap.Decode((byte[])ResourceManager.GetObject("hyper-dimension"))
+                    .Copy(SKColorType.Rgba8888);
+                return _hyper_dimension;
+            }
+        }
+
         private static SKBitmap _pink_girl = null;
         public static SKBitmap pink_girl {
             get {
@@ -54,6 +64,16 @@ namespace PixelStacker.Resources {
                     _psg = SKBitmap.Decode((byte[])ResourceManager.GetObject("psg"))
                     .Copy(SKColorType.Rgba8888);
                 return _psg;
+            }
+        }
+
+        private static SKBitmap _test_borders = null;
+        public static SKBitmap test_borders {
+            get {
+                if (_test_borders == null)
+                    _test_borders = SKBitmap.Decode((byte[])ResourceManager.GetObject("test-borders"))
+                    .Copy(SKColorType.Rgba8888);
+                return _test_borders;
             }
         }
 	}

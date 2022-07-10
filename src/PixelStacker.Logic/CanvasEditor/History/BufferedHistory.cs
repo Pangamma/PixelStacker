@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace PixelStacker.Logic.CanvasEditor.History
 {
+    /// <summary>
+    /// This class helps to minimize rendered changes.
+    /// </summary>
     public class BufferedHistory
     {
         class BufferedHistoryNode : ISuperEquatable<BufferedHistoryNode>
@@ -31,12 +34,28 @@ namespace PixelStacker.Logic.CanvasEditor.History
         }
 
         public object padlock = new { };
+
+        /// <summary>
+        /// Purely maps a point to the most recent history change FROM (oldest) TO (latest).
+        /// </summary>
         private Dictionary<PxPoint, BufferedHistoryNode> Coordinates = new Dictionary<PxPoint, BufferedHistoryNode>();
+
+        /// <summary>
+        /// Purely contains the most recent and up-to-date palette ID for the pixels in the map.
+        /// Useful for quickly rendering the most recent changes onto the canvas.
+        /// </summary>
         private Dictionary<PxPoint, int> RenderBuffer = new Dictionary<PxPoint, int>();
-        public int RenderCount => RenderBuffer.Count;
-        public int CoordinatesCount => RenderBuffer.Count;
+
+        public int RenderCount { get { lock (padlock) { return RenderBuffer.Count; } } }
+        public int CoordinatesCount { get { lock (padlock) { return RenderBuffer.Count; } } }
 
 
+        /// <summary>
+        /// Pops the full stack of changes off the stack. This is the entire change.
+        /// Use it for redo/undo operations.
+        /// </summary>
+        /// <param name="purge"></param>
+        /// <returns></returns>
         public HistoryRecord ToHistoryRecord(bool purge = true)
         {
             lock (padlock)
@@ -85,9 +104,10 @@ namespace PixelStacker.Logic.CanvasEditor.History
             }
         }
 
-        public void AppendChange(HistoryChangeInstruction record) => this.AppendChange(record.PaletteIDBefore, record.PaletteIDAfter, record.ChangedPixels);
-
-        public void AppendChange(int PaletteIDBefore, int PaletteIDAfter, PxPoint loc)
+        public void AppendVisualChange(HistoryChangeInstruction record) 
+            => this.AppendVisualChange(record.PaletteIDBefore, record.PaletteIDAfter, record.ChangedPixels);
+        
+        public void AppendVisualChange(int PaletteIDBefore, int PaletteIDAfter, PxPoint loc)
         {
             lock (padlock)
             {
@@ -102,7 +122,8 @@ namespace PixelStacker.Logic.CanvasEditor.History
                 }
             }
         }
-        public void AppendChange(int PaletteIDBefore, int PaletteIDAfter, List<PxPoint> locs)
+        
+        public void AppendVisualChange(int PaletteIDBefore, int PaletteIDAfter, List<PxPoint> locs)
         {
             lock (padlock)
             {

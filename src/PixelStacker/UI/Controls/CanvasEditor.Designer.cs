@@ -64,7 +64,7 @@ namespace PixelStacker.UI.Controls
             // timerPaint
             // 
             this.timerPaint.Enabled = true;
-            this.timerPaint.Interval = 2;
+            this.timerPaint.Interval = 10;
             this.timerPaint.Tick += new System.EventHandler(this.timerPaint_Tick);
             // 
             // skiaControl
@@ -86,7 +86,7 @@ namespace PixelStacker.UI.Controls
             // timerBufferedChangeQueue
             // 
             this.timerBufferedChangeQueue.Enabled = true;
-            this.timerBufferedChangeQueue.Interval = 3;
+            this.timerBufferedChangeQueue.Interval = 10;
             this.timerBufferedChangeQueue.Tick += new System.EventHandler(this.timerBufferedChangeQueue_Tick);
             // 
             // bgWorkerBufferedChangeQueue
@@ -141,7 +141,7 @@ namespace PixelStacker.UI.Controls
             this.tsCanvasTools.Name = "tsCanvasTools";
             this.tsCanvasTools.Padding = new System.Windows.Forms.Padding(0);
             this.tsCanvasTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tsCanvasTools.Size = new System.Drawing.Size(50, 355);
+            this.tsCanvasTools.Size = new System.Drawing.Size(50, 292);
             this.tsCanvasTools.TabIndex = 0;
             this.tsCanvasTools.LayoutStyleChanged += new System.EventHandler(this.toolstrip_LayoutStyleChanged);
             // 

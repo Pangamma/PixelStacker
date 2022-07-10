@@ -5,6 +5,7 @@ using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using SkiaSharp;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,13 +25,14 @@ namespace PixelStacker.Logic.CanvasEditor
             Data = data;
             Bitmaps = new List<SKBitmap[,]>();
             Padlocks = new List<object[,]>();
-            History = new EditHistory(Data);
+            History = new SuperHistory(Data);
         }
 
         public static async Task<RenderedCanvasPainter> Create(CancellationToken? worker, RenderedCanvas data, SpecialCanvasRenderSettings srs, int maxLayers = 10)
         {
             worker ??= CancellationToken.None;
             var canvas = new RenderedCanvasPainter(data);
+
             canvas.SpecialRenderSettings = srs;
             worker.SafeThrowIfCancellationRequested();
             var bms = await RenderIntoTilesAsync(worker, data, srs, maxLayers);
