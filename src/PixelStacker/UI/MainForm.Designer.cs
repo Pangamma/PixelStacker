@@ -75,6 +75,7 @@ namespace PixelStacker.UI
             this.dutchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.germanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.italianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.japaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.koreanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spanishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -413,6 +414,7 @@ namespace PixelStacker.UI
             this.dutchToolStripMenuItem,
             this.frenchToolStripMenuItem,
             this.germanToolStripMenuItem,
+            this.italianToolStripMenuItem,
             this.japaneseToolStripMenuItem,
             this.koreanToolStripMenuItem,
             this.spanishToolStripMenuItem,
@@ -473,6 +475,14 @@ namespace PixelStacker.UI
             this.germanToolStripMenuItem.Text = "German";
             this.germanToolStripMenuItem.Click += new System.EventHandler(this.germanToolStripMenuItem_Click);
             // 
+            // italianToolStripMenuItem
+            // 
+            this.italianToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.italianToolStripMenuItem.Name = "italianToolStripMenuItem";
+            this.italianToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.italianToolStripMenuItem.Text = "Italian";
+            this.italianToolStripMenuItem.Click += new System.EventHandler(this.italianToolStripMenuItem_Click);
+            // 
             // japaneseToolStripMenuItem
             // 
             this.japaneseToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -499,6 +509,7 @@ namespace PixelStacker.UI
             // 
             // swedishToolStripMenuItem
             // 
+            this.swedishToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.swedishToolStripMenuItem.Name = "swedishToolStripMenuItem";
             this.swedishToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
             this.swedishToolStripMenuItem.Text = "Swedish";
@@ -661,5 +672,6 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem contributorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem italianToolStripMenuItem;
     }
 }

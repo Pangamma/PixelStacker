@@ -133,6 +133,9 @@
   <data name="fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>fr.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="it" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>it.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="ja" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>ja.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

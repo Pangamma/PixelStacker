@@ -168,5 +168,6 @@
   "CanvasEditor_ZFilter_Both": "Toutes les couches",
   "CanvasEditor_ZFilter_Bottom": "Couche inférieure uniquement",
   "CanvasEditor_ZFilter_Top": "Couche supérieure uniquement",
-  "Nothing": "Rien"
+  "Nothing": "Rien",
+  "MainMenu_Lang_Italian": "italien"
 }

@@ -892,6 +892,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Italian.
+        /// </summary>
+        public static string MainMenu_Lang_Italian {
+            get {
+                return ResourceManager.GetString("MainMenu_Lang_Italian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Japanese.
         /// </summary>
         public static string MainMenu_Lang_Japanese {

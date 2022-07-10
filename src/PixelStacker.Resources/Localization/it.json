@@ -162,5 +162,12 @@
   "Tools_Pencil": "Matita",
   "Tools_Picker": "Color picker",
   "Tools_WEOrigin": "World Edit origin selector",
-  "Top": "Superiore"
+  "Top": "Superiore",
+  "Bottom_Material": "Materiale inferiore",
+  "CanvasEditor_ZFilter_Both": "Tutti i livelli",
+  "CanvasEditor_ZFilter_Bottom": "Solo strato inferiore",
+  "CanvasEditor_ZFilter_Top": "Solo strato superiore",
+  "Combined_Materials": "Materiali combinati",
+  "Nothing": "Niente",
+  "Top_Material": "Materiale superiore"
 }

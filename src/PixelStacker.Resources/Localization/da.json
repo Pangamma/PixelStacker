@@ -168,5 +168,6 @@
   "CanvasEditor_ZFilter_Both": "Alle lag",
   "CanvasEditor_ZFilter_Bottom": "Kun nederste lag",
   "CanvasEditor_ZFilter_Top": "Kun øverste lag",
-  "Nothing": "Ikke noget"
+  "Nothing": "Ikke noget",
+  "MainMenu_Lang_Italian": "italiensk"
 }

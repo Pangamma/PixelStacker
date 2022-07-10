@@ -25,6 +25,7 @@ namespace PixelStacker.UI
                 case "ja": return UIResources.country_jp;
                 case "ko": return UIResources.country_kr;
                 case "sv": return UIResources.country_se;
+                case "it": return UIResources.country_it;
                 default:
                     System.Diagnostics.Debug.WriteLine("Unknown locale detected. " + locale.TwoLetterISOLanguageName);
                     return UIResources.country_us;
@@ -45,6 +46,7 @@ namespace PixelStacker.UI
                 case "ja": return global::PixelStacker.Resources.Text.MainMenu_Lang_Japanese;
                 case "ko": return global::PixelStacker.Resources.Text.MainMenu_Lang_Korean;
                 case "sv": return global::PixelStacker.Resources.Text.MainMenu_Lang_Swedish;
+                case "it": return global::PixelStacker.Resources.Text.MainMenu_Lang_Italian;
                 default:
                     System.Diagnostics.Debug.WriteLine("Unknown locale detected. " + locale.TwoLetterISOLanguageName);
                     return global::PixelStacker.Resources.Text.MainMenu_Lang_English;
@@ -80,6 +82,7 @@ namespace PixelStacker.UI
             this.japaneseToolStripMenuItem.Image = UIResources.country_jp;
             this.spanishToolStripMenuItem.Image = UIResources.country_mx;
             this.germanToolStripMenuItem.Image = UIResources.country_de;
+            this.italianToolStripMenuItem.Image = UIResources.country_it;
             this.danishToolStripMenuItem.Image = UIResources.country_dk;
             this.dutchToolStripMenuItem.Image = UIResources.country_nl;
             this.frenchToolStripMenuItem.Image = UIResources.country_fr;
@@ -180,6 +183,9 @@ namespace PixelStacker.UI
             languageToolStripMenuItem.DropDownItems.Add(testLocaleToolStripMenuItem);
 #endif
         }
+
+        private void italianToolStripMenuItem_Click(object sender, System.EventArgs e)
+        => this.ApplyLocalization(CultureInfo.GetCultureInfo("it-it"));
 
         private void swedishToolStripMenuItem_Click(object sender, System.EventArgs e)
         => this.ApplyLocalization(CultureInfo.GetCultureInfo("sv-se"));
