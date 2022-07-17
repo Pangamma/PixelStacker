@@ -1,6 +1,4 @@
 ﻿using PixelStacker.Resources.Localization;
-using PixelStacker.Utilities;
-using System.Globalization;
 
 namespace PixelStacker.UI.Forms
 {

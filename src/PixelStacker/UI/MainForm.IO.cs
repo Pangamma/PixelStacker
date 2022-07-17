@@ -1,15 +1,15 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
+using SkiaSharp;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SkiaSharp;
-using PixelStacker.Logic.IO.Config;
 
 namespace PixelStacker.UI
 {

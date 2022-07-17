@@ -1,8 +1,5 @@
 ﻿using PixelStacker.IO;
-using PixelStacker.Resources.Localization;
-using PixelStacker.Utilities;
 using System;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Forms

@@ -1,16 +1,9 @@
-﻿using PixelStacker.IO;
-using PixelStacker.Logic.Model;
+﻿using PixelStacker.Logic.Model;
 using PixelStacker.UI.Controls.Pickers;
 using PixelStacker.UI.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Forms

@@ -75,7 +75,7 @@
 //                            for (int x = 0; x < xMax; x++)
 //                            {
 //                                Material m = blueprint.Mapper.GetMaterialAt(isv, x, y, z);
-                                
+
 //                                string key = m.GetBlockNameAndData(isv);
 //                                if (!palette.ContainsKey(key))
 //                                {

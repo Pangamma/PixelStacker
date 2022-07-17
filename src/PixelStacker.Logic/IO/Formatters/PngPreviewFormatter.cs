@@ -1,10 +1,9 @@
-﻿using PixelStacker.Logic.Model;
-using System;
+﻿using PixelStacker.Extensions;
+using PixelStacker.Logic.Model;
+using SkiaSharp;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using SkiaSharp;
-using PixelStacker.Extensions;
 
 namespace PixelStacker.Logic.IO.Formatters
 {

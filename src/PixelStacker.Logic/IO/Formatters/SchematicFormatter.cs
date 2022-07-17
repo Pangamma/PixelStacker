@@ -217,7 +217,7 @@ namespace PixelStacker.Logic.IO.Formatters
                 {
                     for (int x = 0; x < details.WidthX; x++)
                     {
-                        int index = (size-1) - ((y * details.LengthZ + z) * details.WidthX + x);
+                        int index = (size - 1) - ((y * details.LengthZ + z) * details.WidthX + x);
                         Material block = details.RegionXYZ[x][y][z];
 
                         int blockId = block.BlockID;

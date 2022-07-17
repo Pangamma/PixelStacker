@@ -1,13 +1,13 @@
-﻿using PixelStacker.Logic.IO.Config;
+﻿using PixelStacker.Logic.CanvasEditor;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources;
+using SkiaSharp;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using SkiaSharp;
-using PixelStacker.Logic.CanvasEditor;
 
 namespace PixelStacker.Logic.IO.Formatters
 {
@@ -117,11 +117,12 @@ namespace PixelStacker.Logic.IO.Formatters
             int tileSize = CalcMaxTileSize(canvas.Width, canvas.Height);
             int vWidth = tileSize * canvas.Width;
             int vHeight = tileSize * canvas.Height;
-            
+
             var pz = PanZoomSettings.CalculateDefaultPanZoomSettings(canvas.Width, canvas.Height, vWidth, vHeight);
             using var bm = new SKBitmap(new SKImageInfo(vWidth, vHeight, SKColorType.Rgba8888, SKAlphaType.Premul));
             var skCanvas = new SKCanvas(bm);
-            painter.PaintSurface(skCanvas, new SKSize(vWidth, vHeight), pz, new CanvasViewerSettings() {
+            painter.PaintSurface(skCanvas, new SKSize(vWidth, vHeight), pz, new CanvasViewerSettings()
+            {
                 IsShowBorder = false,
             });
 

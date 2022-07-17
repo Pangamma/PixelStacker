@@ -10,9 +10,11 @@ namespace PixelStacker.Logic.IO.Config
         public MaterialCombination PrimaryColor { get; set; } = MaterialPalette.Air;
 #else
         private MaterialCombination _mat = MaterialPalette.Air;
-        public MaterialCombination PrimaryColor { 
-            get => _mat; 
-            set {
+        public MaterialCombination PrimaryColor
+        {
+            get => _mat;
+            set
+            {
                 if (value == null) throw new ArgumentNullException("FAIL");
                 _mat = value;
             }

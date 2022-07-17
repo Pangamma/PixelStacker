@@ -1,7 +1,5 @@
 ﻿using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using PixelStacker.Extensions;
 using System.Threading.Tasks;
 using PixelStacker.Logic.Utilities;

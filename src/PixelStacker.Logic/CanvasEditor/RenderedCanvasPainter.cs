@@ -5,7 +5,6 @@ using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using SkiaSharp;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,14 +44,14 @@ namespace PixelStacker.Logic.CanvasEditor
                 padlocks.Add(layer);
                 for (int x = 0; x < layer.GetLength(0); x++)
                     for (int y = 0; y < layer.GetLength(1); y++)
-                        layer[x, y] = new object {};
+                        layer[x, y] = new object { };
             }
 
             canvas.Padlocks.Clear();
             canvas.Padlocks.AddRange(padlocks);
             canvas.Bitmaps.Clear();
             canvas.Bitmaps.AddRange(bms);
-            
+
             return canvas;
         }
 

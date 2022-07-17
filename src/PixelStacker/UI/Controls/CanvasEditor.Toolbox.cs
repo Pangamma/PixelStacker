@@ -1,11 +1,8 @@
 ﻿using PixelStacker.EditorTools;
 using PixelStacker.Logic.CanvasEditor.History;
-using PixelStacker.Logic.Extensions;
-using PixelStacker.UI.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;

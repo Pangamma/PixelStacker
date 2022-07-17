@@ -53,7 +53,7 @@ namespace PixelStacker.Logic.Utilities
             }
 
             limit.IsWithinLimit(true);
-            return limit.NumHits/ limit.WindowDurationTime.TotalSeconds;
+            return limit.NumHits / limit.WindowDurationTime.TotalSeconds;
         }
 
         /// <summary>

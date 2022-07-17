@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
 using PixelStacker.Extensions;
 using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.IO.JsonConverters;
+using PixelStacker.Resources;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SkiaSharp;
-using PixelStacker.Logic.IO.Config;
-using PixelStacker.Resources;
 
 namespace PixelStacker.Logic.Model
 {
@@ -70,9 +70,9 @@ namespace PixelStacker.Logic.Model
                 return this.GetAverageColor(isSide);
             else if (Z == 0)
                 return this.Bottom.GetAverageColor(isSide);
-           else if (Z == 1)
+            else if (Z == 1)
                 return this.Top.GetAverageColor(isSide);
-            else 
+            else
                 return this.GetAverageColor(isSide);
         }
 
@@ -118,7 +118,8 @@ namespace PixelStacker.Logic.Model
         public SKBitmap GetImage(bool isSide) => isSide ? this.SideImage : this.TopImage;
 
 
-        public SKBitmap GetImage(bool isSide, SpecialCanvasRenderSettings srs) {
+        public SKBitmap GetImage(bool isSide, SpecialCanvasRenderSettings srs)
+        {
             if (srs.ZLayerFilter == null) return isSide ? this.SideImage : this.TopImage;
             else if (srs.ZLayerFilter == 1) return isSide ? this.Top.SideImage : this.Top.TopImage;
             else if (srs.ZLayerFilter == 0) return isSide ? this.Bottom.SideImage : this.Bottom.TopImage;
@@ -158,7 +159,7 @@ namespace PixelStacker.Logic.Model
                     if (IsMultiLayer)
                     {
                         _SideImage = Bottom.SideImage.ToMergeStream(Top.SideImage, null, (x, y, cLower, cUpper) => cLower.OverlayColor(cUpper));
-                    } 
+                    }
                     else
                     {
                         _SideImage = Bottom.SideImage.Copy(); //  To32bppBitmap();

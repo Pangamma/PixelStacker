@@ -1,7 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using PixelStacker.Logic.Collections.ColorMapper;
 using SkiaSharp;
-using System.Drawing;
 
 namespace PixelStacker.Benchmarks.ColorMap
 {

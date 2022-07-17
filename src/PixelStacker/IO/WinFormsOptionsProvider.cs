@@ -2,10 +2,8 @@
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq.Expressions;
 
 namespace PixelStacker.IO
 {

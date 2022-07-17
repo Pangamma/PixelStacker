@@ -6,13 +6,10 @@ using PixelStacker.Logic.Model;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.Factory
 {
-
     public class PixelStackerFactory
     {
         internal IColorMapper Mapper;
@@ -232,11 +229,11 @@ namespace PixelStacker.Logic.Factory
 
         public PxBuilderColorMapper WithColorMapper<T>() where T : IColorMapper, new() => WithColorMapper(new T());
         public PxBuilderColorMapper WithColorMapper(IColorMapper mapper) => new PxBuilderColorMapper()
-            {
-                Mapper = mapper,
-                Palette = MaterialPalette.FromResx(),
-                IsSideView = false
-            };
+        {
+            Mapper = mapper,
+            Palette = MaterialPalette.FromResx(),
+            IsSideView = false
+        };
 
     }
 }

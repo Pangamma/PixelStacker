@@ -2,16 +2,14 @@
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
+using SkiaSharp;
 using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using SkiaSharp;
 
 namespace PixelStacker.Logic.IO.Formatters
 {
@@ -28,7 +26,7 @@ namespace PixelStacker.Logic.IO.Formatters
                 if (line.Length + word.Length + 1 <= lineLen)
                 {
                     line += " " + word;
-                } 
+                }
                 else
                 {
                     buffer.AppendLine(line.Trim());

@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PixelStacker.Extensions;
 using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Engine.Quantizer.Enums;

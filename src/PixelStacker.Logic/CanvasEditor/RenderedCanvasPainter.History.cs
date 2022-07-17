@@ -1,15 +1,11 @@
-﻿using Newtonsoft.Json;
-using PixelStacker.Extensions;
+﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.CanvasEditor.History;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
-using PixelStacker.Resources;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.CanvasEditor
@@ -107,7 +103,7 @@ namespace PixelStacker.Logic.CanvasEditor
                     }
                     else
                     {
-                        skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), new SKRect(ix, iy, ix+Constants.TextureSize, iy+Constants.TextureSize), paint);
+                        skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), new SKRect(ix, iy, ix + Constants.TextureSize, iy + Constants.TextureSize), paint);
                     }
                 }
 

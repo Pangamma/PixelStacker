@@ -2,7 +2,6 @@
 using PixelStacker.Logic.IO.JsonConverters;
 using SkiaSharp;
 using System;
-using System.Drawing;
 
 namespace PixelStacker.Logic.IO.Config
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-
-namespace PixelStacker.Resources.Localization
+﻿namespace PixelStacker.Resources.Localization
 {
     public interface ILocalized
     {

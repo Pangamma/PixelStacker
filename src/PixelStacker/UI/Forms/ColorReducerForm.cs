@@ -1,18 +1,9 @@
 ﻿using PixelStacker.Logic.Engine.Quantizer;
-using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
-using PixelStacker.Resources.Localization;
-using PixelStacker.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Dynamic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Forms

@@ -1,12 +1,12 @@
 ﻿using PixelStacker.Extensions;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Resources;
 using SkiaSharp;
 using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Drawing;
-using PixelStacker.Logic.Extensions;
+using System.Windows.Forms;
 
 namespace PixelStacker.WF.Components
 {
@@ -176,7 +176,7 @@ namespace PixelStacker.WF.Components
             {
                 x = (int)Math.Floor((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel);
                 y = (int)Math.Floor((pointOnPanel.Y - this.PanZoomSettings.imageY) / this.PanZoomSettings.zoomLevel);
-            } 
+            }
             else
             {
                 x = (int)Math.Round((pointOnPanel.X - this.PanZoomSettings.imageX) / this.PanZoomSettings.zoomLevel);
@@ -260,7 +260,7 @@ namespace PixelStacker.WF.Components
         private void repaintTimer_Tick(object sender, EventArgs e)
         {
             if (IsRepaintRequested)
-            { 
+            {
                 // repaint self, and child controls. Including the skcontrol
                 this.Refresh();
                 IsRepaintRequested = false;

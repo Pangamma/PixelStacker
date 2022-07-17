@@ -2,7 +2,6 @@
 using PixelStacker.Logic.Model;
 using PixelStacker.UI.Controls;
 using System.Drawing;
-using System.Numerics;
 using System.Windows.Forms;
 
 namespace PixelStacker.EditorTools

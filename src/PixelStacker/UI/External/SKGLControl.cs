@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.ES20;
 using OpenTK.WinForms;
 using PixelStacker.Extensions;

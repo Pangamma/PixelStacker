@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Engine;
-using PixelStacker.Extensions;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Resources;

@@ -7,8 +7,6 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.CanvasEditor
 {
@@ -52,7 +50,7 @@ namespace PixelStacker.Logic.CanvasEditor
             var shadeImg = ShadowHelper.GetSpriteIndividual(Constants.TextureSize, sFrom);
             lock (shadeImg)
             {
-                skCanvas.DrawBitmap(shadeImg, new SKRect(ix, iy, ix+Constants.TextureSize, iy+Constants.TextureSize));
+                skCanvas.DrawBitmap(shadeImg, new SKRect(ix, iy, ix + Constants.TextureSize, iy + Constants.TextureSize));
             }
 
             return false;
@@ -74,9 +72,9 @@ namespace PixelStacker.Logic.CanvasEditor
                 return;
 
             Dictionary<PxPoint, bool> toShadeMap = new Dictionary<PxPoint, bool>();
-            foreach(var r in records)
+            foreach (var r in records)
             {
-                foreach(var rr in r.ChangedPixels)
+                foreach (var rr in r.ChangedPixels)
                 {
                     // TRUE means it was in the original list. False means it is just something to try updating.
                     toShadeMap[rr] = true;

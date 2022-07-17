@@ -1,9 +1,4 @@
 ﻿using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.Utilities
 {
@@ -28,7 +23,7 @@ namespace PixelStacker.Logic.Utilities
             byte red = c.Red;
             byte green = c.Green;
             byte blue = c.Blue;
-            
+
             uint rt = (unchecked((uint)(red << ARGBRedShift |
                          green << ARGBGreenShift |
                          blue << ARGBBlueShift |
