@@ -1,8 +1,8 @@
-﻿using PixelStacker.Logic.Extensions;
+﻿using PixelStacker.Extensions;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
-using PixelStacker.Extensions;
-using System.Threading.Tasks;
 using PixelStacker.Logic.Utilities;
+using System.Threading.Tasks;
 
 namespace PixelStacker.UI
 {
@@ -61,8 +61,9 @@ namespace PixelStacker.UI
                 mf.IsFileLoadPathRequired = true;
             }
 
+
             ((MainFormTags)this.viewToolStripMenuItem.Tag).IsCanvasEditorRequired = false;
-            ((MainFormTags)this.switchPanelsToolStripMenuItem.Tag).IsCanvasEditorRequired = false;
+            ((MainFormTags)this.switchPanelsToolStripMenuItem.Tag).IsCanvasEditorRequired = true;
             ((MainFormTags)this.reOpenToolStripMenuItem.Tag).IsFileLoadPathRequired = true;
         }
 
@@ -132,7 +133,8 @@ namespace PixelStacker.UI
                 var self = this;
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
-                    await self.InvokeEx(async c => {
+                    await self.InvokeEx(async c =>
+                    {
                         await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
                     });
@@ -197,7 +199,8 @@ namespace PixelStacker.UI
                 var self = this;
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
-                    await self.InvokeEx(async c => {
+                    await self.InvokeEx(async c =>
+                    {
                         await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
                     });
@@ -215,7 +218,8 @@ namespace PixelStacker.UI
                 var self = this;
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
-                    await self.InvokeEx(async c => {
+                    await self.InvokeEx(async c =>
+                    {
                         await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
                     });
@@ -234,7 +238,8 @@ namespace PixelStacker.UI
                 var self = this;
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
-                    await self.InvokeEx(async c => {
+                    await self.InvokeEx(async c =>
+                    {
                         await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
                         c.ShowCanvasEditor();
                     });
