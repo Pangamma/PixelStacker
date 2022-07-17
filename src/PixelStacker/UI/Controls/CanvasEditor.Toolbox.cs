@@ -23,7 +23,7 @@ namespace PixelStacker.UI.Controls
                 return;
             }
 
-            if (this.Painter.History.TryGetRenderChunks(out List<RenderRecord> records))
+            while (this.Painter.History.TryGetRenderChunks(out List<RenderRecord> records))
             {
                 var rg = records.GroupBy(x => x.RenderMode);
                 {
@@ -44,10 +44,6 @@ namespace PixelStacker.UI.Controls
                         this.Painter.DoApplyShadowsForRenderRecords(tiles);
                     }
                 }
-            } 
-            else
-            {
-                e.Cancel = true;
             }
 
             e.Result = Task.CompletedTask;

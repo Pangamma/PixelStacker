@@ -350,13 +350,5 @@ namespace PixelStacker.Logic.CanvasEditor.History
                 }
             }
         }
-
-
-        public class HistoryChunk
-        {
-            public DateTime Time { get; set; }
-            public List<RenderRecord> Records { get; set; }
-            public bool IsForShadows { get; set; } = false;
-        }
     }
 }

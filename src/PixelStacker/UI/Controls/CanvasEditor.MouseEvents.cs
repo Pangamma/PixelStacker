@@ -143,6 +143,8 @@ namespace PixelStacker.UI.Controls
             }
 
             this.CurrentTool?.OnMouseMove(e);
+            if (Control.MouseButtons.HasFlag(MouseButtons.Left))
+                this.RepaintRequested = true;
         }
         #endregion
 
