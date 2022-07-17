@@ -2,16 +2,19 @@
 {
     public static class Constants
     {
-        public const string Version = "1.19.0i";
+        public const int DisplayRefreshIntervalMs = 10;
+        public const string Version = "1.19.0k";
         public const string Website = "https://taylorlove.info/pixelstacker";
-        public const int TextureSize = 16;
+        public static int TextureSize = 16;
+        public const int MaxPageSizeForRenders = int.MaxValue;
+
         //public const string ERR_DownsizeYourImage = "Your image is too large and cannot be processed. Please downsize your image using the sizing options or else choose a different image.";
         public const int MAX_HISTORY_SIZE = 20;
         public const float MAX_ZOOM = 200F;
         public const float MIN_ZOOM = 200F;
         public const int SMALL_IMAGE_DIVIDE_SIZE = 2;
         public const int WORLD_HEIGHT = 1024;
-        public const int BIG_IMG_MAX_AREA_B4_SPLIT = 100000; // split image into smaller sizes if bigger than this
+        public const int BIG_IMG_MAX_AREA_B4_SPLIT = 51200; // split image into smaller sizes if bigger than this
 
         public const string Obs_TryToRemove = "Try to remove this. Seems useless.";
         public const string Obs_AsyncPreferred = "Switch to async";

@@ -37,17 +37,14 @@ namespace PixelStacker.Resources
         BR = 0x080,     // 1000 0000
     }
 
-    /* "ShadowSourceDirection" If block casting shadow is above, use T */
-    public enum ShadeDir
+    /// <summary>
+    /// Height of a material. Used when figuring out how to shade things properly.
+    /// </summary>
+    public enum MaterialHeight
     {
-        T,
-        R,
-        B,
-        L,
-        TR, // for when shadow comes from diagonally top right
-        TL, // for when shadow comes from diagonally top left
-        BR, // for when shadow comes from diagonally bottom right
-        BL, // for when shadow comes from diagonally bottom left
+        L0_EMPTY = 0,
+        L1_SOLID = 1, // single layer
+        L2_MULTI = 2
     }
 
     public static class ShadowHelper
@@ -55,7 +52,8 @@ namespace PixelStacker.Resources
         private static SKBitmap GetSpriteSheet(int textureSize)
         {
             string resourceKey = $"sprite_x{textureSize}";
-            return Shadows.ResourceManager.GetObject(resourceKey) as SKBitmap;
+            return SKBitmap.Decode((byte[])Shadows.ResourceManager.GetObject(resourceKey))
+                .Copy(SKColorType.Rgba8888);
         }
 
 
@@ -70,52 +68,41 @@ namespace PixelStacker.Resources
         }
 
         private static SKBitmap[] shadowSprites = new SKBitmap[256];
+        private static object padlock = new object();
         public static SKBitmap GetSpriteIndividual(int textureSize, ShadeFrom dir)
         {
             int numDir = (int)dir;
-            if (shadowSprites[numDir] == null)
+
+            // Run a non locking quick check here.
+            if (null == shadowSprites[numDir])
             {
-                var bmShadeSprites = GetSpriteSheet(textureSize);
-                var rectDST = new SKRect(0, 0, textureSize, textureSize);
-
-                for (int i = 0; i < 256; i++)
+                lock (padlock)
                 {
-                    var rectSRC = GetSpriteRect(textureSize, (ShadeFrom)i);
-                    var bm = new SKBitmap(textureSize, textureSize);
-                    
-                    using (var g = new SKCanvas(bm))
+                    // Double check once we have the lock. Has it been set yet?
+                    if (null == shadowSprites[numDir])
                     {
-                        g.DrawBitmap(bitmap: bmShadeSprites,
-                            source: rectSRC,
-                            dest: rectDST);
-                    }
+                        var bmShadeSprites = GetSpriteSheet(textureSize);
+                        var rectDST = new SKRect(0, 0, textureSize, textureSize);
 
-                    shadowSprites[i] = bm;
+                        for (int i = 0; i < 256; i++)
+                        {
+                            var rectSRC = GetSpriteRect(textureSize, (ShadeFrom)i);
+                            var bm = new SKBitmap(textureSize, textureSize);
+
+                            using (var g = new SKCanvas(bm))
+                            {
+                                g.DrawBitmap(bitmap: bmShadeSprites,
+                                    source: rectSRC,
+                                    dest: rectDST);
+                            }
+
+                            shadowSprites[i] = bm;
+                        }
+                    }
                 }
             }
 
             return shadowSprites[numDir];
-        }
-
-        private static SKBitmap Get(int textureSize, ShadeDir direction)
-        {
-            if (!Enum.IsDefined(typeof(ShadeRez), textureSize / 4))
-            {
-                throw new ArgumentException($"Invalid texture size. Given: {textureSize}. Expected: 16, 32, 64, 128");
-            }
-
-            string resourceKey = $"d{textureSize / 4}_{direction}";
-
-            try
-            {
-                return SKBitmap.Decode((byte[]) Shadows.ResourceManager.GetObject(resourceKey));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex); // Allow debugging but still log to console
-                throw new Exception("FIx it.");
-                //return Textures.air;
-            }
         }
     }
 }

@@ -60,9 +60,8 @@ namespace PixelStacker.UI
             this.showTopLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showBottomLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showBothLayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shadowRenderingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.skipShadowRenderirngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addExtraDepthToShadowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visualEnhancementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toggleShadowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchPanelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contributorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -266,7 +265,7 @@ namespace PixelStacker.UI
             this.gridToolStripMenuItem,
             this.toggleBorderToolStripMenuItem,
             this.layerFilteringToolStripMenuItem,
-            this.shadowRenderingToolStripMenuItem,
+            this.visualEnhancementsToolStripMenuItem,
             this.switchPanelsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
@@ -285,14 +284,14 @@ namespace PixelStacker.UI
             // 
             this.toggleGridToolStripMenuItem.Name = "toggleGridToolStripMenuItem";
             this.toggleGridToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.toggleGridToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.toggleGridToolStripMenuItem.Text = "Toggle Grid";
             this.toggleGridToolStripMenuItem.Click += new System.EventHandler(this.toggleGridToolStripMenuItem_Click);
             // 
             // gridOptionsToolStripMenuItem
             // 
             this.gridOptionsToolStripMenuItem.Name = "gridOptionsToolStripMenuItem";
-            this.gridOptionsToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.gridOptionsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.gridOptionsToolStripMenuItem.Text = "Grid Options";
             this.gridOptionsToolStripMenuItem.Click += new System.EventHandler(this.gridOptionsToolStripMenuItem_Click);
             // 
@@ -340,31 +339,20 @@ namespace PixelStacker.UI
             this.showBothLayersToolStripMenuItem.Text = "Show Both Layers";
             this.showBothLayersToolStripMenuItem.Click += new System.EventHandler(this.showBothLayersToolStripMenuItem_Click);
             // 
-            // shadowRenderingToolStripMenuItem
+            // visualEnhancementsToolStripMenuItem
             // 
-            this.shadowRenderingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.skipShadowRenderirngToolStripMenuItem,
-            this.addExtraDepthToShadowsToolStripMenuItem});
-            this.shadowRenderingToolStripMenuItem.Name = "shadowRenderingToolStripMenuItem";
-            this.shadowRenderingToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
-            this.shadowRenderingToolStripMenuItem.Text = "Shadow Rendering";
+            this.visualEnhancementsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toggleShadowsToolStripMenuItem});
+            this.visualEnhancementsToolStripMenuItem.Name = "visualEnhancementsToolStripMenuItem";
+            this.visualEnhancementsToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.visualEnhancementsToolStripMenuItem.Text = "Visual Enhancements";
             // 
-            // skipShadowRenderirngToolStripMenuItem
+            // toggleShadowsToolStripMenuItem
             // 
-            this.skipShadowRenderirngToolStripMenuItem.Checked = true;
-            this.skipShadowRenderirngToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.skipShadowRenderirngToolStripMenuItem.Name = "skipShadowRenderirngToolStripMenuItem";
-            this.skipShadowRenderirngToolStripMenuItem.Size = new System.Drawing.Size(279, 26);
-            this.skipShadowRenderirngToolStripMenuItem.Text = "Skip shadow rendering";
-            this.skipShadowRenderirngToolStripMenuItem.Click += new System.EventHandler(this.skipShadowRenderirngToolStripMenuItem_Click);
-            // 
-            // addExtraDepthToShadowsToolStripMenuItem
-            // 
-            this.addExtraDepthToShadowsToolStripMenuItem.Checked = true;
-            this.addExtraDepthToShadowsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.addExtraDepthToShadowsToolStripMenuItem.Name = "addExtraDepthToShadowsToolStripMenuItem";
-            this.addExtraDepthToShadowsToolStripMenuItem.Size = new System.Drawing.Size(279, 26);
-            this.addExtraDepthToShadowsToolStripMenuItem.Text = "Add extra depth to shadows";
+            this.toggleShadowsToolStripMenuItem.Name = "toggleShadowsToolStripMenuItem";
+            this.toggleShadowsToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.toggleShadowsToolStripMenuItem.Text = "Render Shadows";
+            this.toggleShadowsToolStripMenuItem.Click += new System.EventHandler(this.toggleShadowsToolStripMenuItem_Click);
             // 
             // switchPanelsToolStripMenuItem
             // 
@@ -598,6 +586,7 @@ namespace PixelStacker.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblProgress);
             this.Controls.Add(this.progressBar1);
@@ -609,6 +598,8 @@ namespace PixelStacker.UI
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
+            this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -648,9 +639,7 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem showTopLayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showBottomLayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showBothLayersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem shadowRenderingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem skipShadowRenderirngToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addExtraDepthToShadowsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem visualEnhancementsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem orientationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem horizontalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verticalToolStripMenuItem;
@@ -673,5 +662,6 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem contributorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem italianToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toggleShadowsToolStripMenuItem;
     }
 }

@@ -5,7 +5,6 @@ using PixelStacker.Resources;
 using SkiaSharp;
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Controls
@@ -22,29 +21,28 @@ namespace PixelStacker.UI.Controls
                 if (!IsPainting)
                 {
                     IsPainting = true;
-                    // Force repaint
+                    // Force repaint on skcontrol
                     skiaControl.Refresh();
                     this.RepaintRequested = false;
                 }
             }
         }
 
+        private SKShader bgShader = SKShader.CreateBitmap(UIResources.bg_imagepanel.BitmapToSKBitmap(), SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
         private void skiaControl_PaintSurface(object sender, Controls.GenericSKPaintSurfaceEventArgs e)
         {
             IsPainting = true;
             SKSurface surface = e.Surface;
             var g = surface.Canvas;
-            var bgImg = UIResources.bg_imagepanel.BitmapToSKBitmap();
 
-            // Background shaders
-            SKShader bgShader = SKShader.CreateBitmap(bgImg, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
+            //// Background shaders
+            //using SKShader bgShader = SKShader.CreateBitmap(bgImg, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
             using (SKPaint paint = new SKPaint())
             {
                 paint.Shader = bgShader;
                 paint.FilterQuality = SKFilterQuality.High;
                 paint.IsDither = true;
                 g.DrawRect(e.Rect, paint);
-                g.DrawBitmap(bgImg, 0, 0);
             }
 
             // Render the image they are looking at.
@@ -64,7 +62,6 @@ namespace PixelStacker.UI.Controls
 
             Point cursorLoc = CanvasEditor.GetPointOnPanel(CanvasEditor.GetPointOnImage(previousCursorPosition, pz, EstimateProp.Floor), pz);
 
-            
             {
                 bool usesBrWidth = this.CurrentTool?.UsesBrushWidth ?? false;
                 int brushWidth = usesBrWidth ? Options.Tools.BrushWidth : 1;
@@ -78,7 +75,7 @@ namespace PixelStacker.UI.Controls
                     (float)(brushWidth * pz.zoomLevel),
                     (float)(brushWidth * pz.zoomLevel),
                     pTest);
-                
+
                 pTest.StrokeWidth = 1;
                 pTest.Color = new SKColor(0, 0, 0, 255);
 
@@ -96,14 +93,8 @@ namespace PixelStacker.UI.Controls
         {
             if (this.DesignMode)
             {
-                Graphics g = e.Graphics;
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-                using Brush bgBrush = new TextureBrush(Resources.UIResources.bg_imagepanel);
-                g.FillRectangle(bgBrush, 0, 0, this.Width, this.Height);
+                this.PaintDesignerView(e);
                 base.OnPaint(e);
-                return;
             }
         }
     }

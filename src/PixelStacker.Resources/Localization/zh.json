@@ -169,5 +169,7 @@
   "CanvasEditor_ZFilter_Bottom": "仅底层",
   "CanvasEditor_ZFilter_Top": "仅顶层",
   "Nothing": "没有什么",
-  "MainMenu_Lang_Italian": "意大利语"
+  "MainMenu_Lang_Italian": "意大利语",
+  "MainForm_TS_RenderShadows": "渲染阴影",
+  "MainForm_TS_VisualEnhancements": "视觉增强"
 }

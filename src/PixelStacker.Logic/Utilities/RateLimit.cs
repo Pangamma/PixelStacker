@@ -33,6 +33,30 @@ namespace PixelStacker.Logic.Utilities
         }
 
         /// <summary>
+        /// Increments and returns current rate.
+        /// </summary>
+        /// <param name="maxPerWindow"></param>
+        /// <param name="windowDurationMilliseconds"></param>
+        /// <param name="filePath"></param>
+        /// <param name="methodName"></param>
+        /// <param name="lineNumber"></param>
+        /// <returns></returns>
+        public static double GetHitsPerSecond(int maxPerWindow, double windowDurationMilliseconds, [CallerFilePath] string filePath = "", [CallerMemberName] string methodName = null, [CallerLineNumber] int lineNumber = 0)
+        {
+            filePath = filePath.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            string key = $"{filePath}::{methodName}::{lineNumber}";
+
+            if (!Limits.TryGetValue(key, out RateLimit limit))
+            {
+                limit = new RateLimit(maxPerWindow, windowDurationMilliseconds);
+                Limits[key] = limit;
+            }
+
+            limit.IsWithinLimit(true);
+            return limit.NumHits/ limit.WindowDurationTime.TotalSeconds;
+        }
+
+        /// <summary>
         /// Returns TRUE if within the window allowable limits.
         /// </summary>
         /// <param name="maxPerWindow"></param>
@@ -54,7 +78,7 @@ namespace PixelStacker.Logic.Utilities
 
             if (!limit.IsWithinLimit(true))
             {
-                Debug.WriteLine($"[{DateTime.UtcNow.ToLongTimeString()}] {key} WAS CALLED ({limit.NumHits}) MORE THAN {limit.MaxRequestsPerWindow} TIMES PER {limit.WindowDurationTime.TotalSeconds}s.");
+                Debug.WriteLine($"[{DateTime.UtcNow.ToLongTimeString()}] {key} WAS CALLED {Math.Floor(limit.NumHits)} TIMES PER {limit.WindowDurationTime.TotalSeconds}s. MAX = {limit.MaxRequestsPerWindow}.");
                 return false;
             }
 
@@ -106,14 +130,18 @@ namespace PixelStacker.Logic.Utilities
 
             // Subtract any hits that have fallen outside the tracking window.
             TimeSpan tsSinceLastHit = (DateTime.UtcNow - this.LastHit);
-            double hitsToSubtract = tsSinceLastHit.TotalSeconds * this.MaxRequestsPerWindow / this.WindowDurationTime.TotalSeconds;
+
+            // The total recorded number of hits at this moment in time, for this current time window.
+            double hitsToSubtract = this.NumHits
+                // The fraction of time to remove from current results.
+                * (tsSinceLastHit.TotalSeconds / this.WindowDurationTime.TotalSeconds);
+            double hitsToSubtract2 = tsSinceLastHit.TotalSeconds * this.MaxRequestsPerWindow / this.WindowDurationTime.TotalSeconds;
             if ((this.NumHits - hitsToSubtract) > MaxRequestsPerWindow)
             {
                 if (incrementEvenIfCheckWouldDenyUsage)
                 {
-                    this.NumHits = Math.Max(this.NumHits - hitsToSubtract, 0);
+                    this.NumHits = 1 + Math.Max(this.NumHits - hitsToSubtract, 0);
                     this.LastHit = DateTime.UtcNow; // Increment here just because it affects the hitsToSubtract thing on next call.
-                    this.NumHits++;
                 }
 
                 // Don't increment on this path bc they weren't actually allowed to go to their endpoint.
@@ -121,9 +149,8 @@ namespace PixelStacker.Logic.Utilities
             }
             else
             {
-                this.NumHits = Math.Max(this.NumHits - hitsToSubtract, 0);
+                this.NumHits = 1 + Math.Max(this.NumHits - hitsToSubtract, 0);
                 this.LastHit = DateTime.UtcNow; // Increment here just because it affects the hitsToSubtract thing on next call.
-                this.NumHits++;
             }
 
             return true;

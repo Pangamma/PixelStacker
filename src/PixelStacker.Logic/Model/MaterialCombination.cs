@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
 using PixelStacker.Logic.IO.Config;
+using PixelStacker.Resources;
 
 namespace PixelStacker.Logic.Model
 {
@@ -44,6 +45,23 @@ namespace PixelStacker.Logic.Model
         public bool IsMultiLayer { get; }
         public Material Top { get; }
         public Material Bottom { get; }
+
+
+        private MaterialHeight? _ShadowHeight;
+        public MaterialHeight GetShadowHeight()
+        {
+            if (this._ShadowHeight != null)
+                return _ShadowHeight.Value;
+
+            if (this.Bottom.BlockID == 0)
+                return (_ShadowHeight = MaterialHeight.L0_EMPTY).Value;
+
+            if (this.IsMultiLayer)
+                return (_ShadowHeight = MaterialHeight.L2_MULTI).Value;
+
+            return (_ShadowHeight = MaterialHeight.L1_SOLID).Value;
+        }
+
 
         public SKColor GetAverageColor(bool isSide, SpecialCanvasRenderSettings specialRenderSettings)
         {
@@ -232,5 +250,62 @@ namespace PixelStacker.Logic.Model
         }
 
         #endregion
+
+
+
+
+        /// <summary>
+        /// Can very easily return null. Be ready for it.
+        /// Revise this method if we modify the palette
+        /// to include glass only.
+        /// </summary>
+        /// <param name="layerFilter"></param>
+        /// <param name="palette"></param>
+        /// <param name="primaryColor"></param>
+        /// <param name="toReplace"></param>
+        /// <returns></returns>
+        public static MaterialCombination GetMcToPaintWith(ZLayer layerFilter, MaterialPalette palette, MaterialCombination primaryColor, MaterialCombination toReplace)
+        {
+            if (layerFilter == ZLayer.Both)
+            {
+                return primaryColor;
+            }
+
+            Material curTop = toReplace.IsMultiLayer ? toReplace.Top : Materials.Air;
+            Material curBottom = toReplace.Bottom;
+
+            Material pcTop = primaryColor.IsMultiLayer ? primaryColor.Top : Materials.Air;
+            Material pcBottom = primaryColor.Bottom;
+
+            Material pTop = layerFilter == ZLayer.Top ? pcTop : curTop;
+            Material pBottom = layerFilter == ZLayer.Bottom ? pcBottom : curBottom;
+
+            if (layerFilter == ZLayer.Bottom && pTop.IsAir && pBottom.IsSolid)
+            {
+                pTop = pBottom;
+            }
+            else if (layerFilter == ZLayer.Top && pTop.IsAir && pBottom.IsSolid)
+            {
+                pTop = pBottom;
+            }
+            else if (pTop.IsGlassOrLayer2Block && pBottom.IsAir)
+            {
+                pTop = pBottom;
+            }
+
+            var mc = palette.GetMaterialCombinationByMaterials(pBottom, pTop);
+            if (mc == null)
+            {
+#if FAIL_FAST
+                throw new Exception("Oh no! An invalid color was attempted.");
+#else
+                return primaryColor;
+#endif
+            }
+
+            return mc;
+
+        }
+
     }
 }

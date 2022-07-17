@@ -5,6 +5,7 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.ES20;
 using OpenTK.WinForms;
+using PixelStacker.Extensions;
 using SkiaSharp;
 
 namespace PixelStacker.UI.External
@@ -61,9 +62,9 @@ namespace PixelStacker.UI.External
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (designMode)
+            if (designMode || this.DesignMode)
             {
-                e.Graphics.Clear(BackColor);
+                this.PaintDesignerView(e);
                 return;
             }
 

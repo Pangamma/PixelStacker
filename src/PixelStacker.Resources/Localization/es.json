@@ -169,5 +169,7 @@
   "CanvasEditor_ZFilter_Bottom": "Solo capa inferior",
   "CanvasEditor_ZFilter_Top": "Solo capa superior",
   "Nothing": "Nada",
-  "MainMenu_Lang_Italian": "italiano"
+  "MainMenu_Lang_Italian": "italiano",
+  "MainForm_TS_RenderShadows": "Renderizar sombras",
+  "MainForm_TS_VisualEnhancements": "Mejoras visuales"
 }

@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using PixelStacker.Extensions;
+using SkiaSharp;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -31,8 +32,11 @@ namespace PixelStacker.UI.External
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (designMode)
+            if (designMode || this.DesignMode)
+            {
+                this.PaintDesignerView(e);
                 return;
+            }
 
             base.OnPaint(e);
 

@@ -15,8 +15,8 @@ namespace PixelStacker.Logic.CanvasEditor
         public void PaintSurface(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, CanvasViewerSettings vs)
         {
             PaintTilesToView(g, parentControlSize, pz, this.Bitmaps, this.Padlocks);
-            if (vs.IsShowBorder) DrawBorder(g, pz, new SKSize(Data.Width, Data.Height));
             if (vs.IsShowGrid) DrawGridLines(g, Data, vs, pz);
+            if (vs.IsShowBorder) DrawBorder(g, pz, new SKSize(Data.Width, Data.Height));
             if (Data.WorldEditOrigin != null) DrawWorldEditOrigin(g, pz, Data.WorldEditOrigin);
         }
 
@@ -151,7 +151,7 @@ namespace PixelStacker.Logic.CanvasEditor
             #region GET BITMAP SET
             if (bitmaps == null || bitmaps.Count == 0 || padlocks == null || padlocks.Count == 0)
             {
-#if !RELEASE
+#if FAIL_FAST
                 throw new Exception("BAD STATE. RenderToView is called before view is ready.");
 #else
                 return;
@@ -189,7 +189,9 @@ namespace PixelStacker.Logic.CanvasEditor
             minYIndex = Math.Clamp(minYIndex, 0, maxY);
             maxXIndex = Math.Clamp(maxXIndex, 0, maxX);
             maxYIndex = Math.Clamp(maxYIndex, 0, maxY);
-
+#if DEBUG_GPU
+            using SKPaint chunkLines = new SKPaint() { Color = new SKColor(255, 255, 0), IsStroke = true, StrokeWidth = 2, BlendMode = SKBlendMode.Src, PathEffect = SKPathEffect.CreateDash(new float[] { 4, 4 }, 0) };
+#endif
             for (int xChunk = minXIndex; xChunk <= maxXIndex; xChunk++)
             {
                 for (int yChunk = minYIndex; yChunk <= maxYIndex; yChunk++)
@@ -204,10 +206,14 @@ namespace PixelStacker.Logic.CanvasEditor
                             pz);
                         SKRect rectDST = pnlStart.ToRectangle(pnlEnd);
                         SKRect rectSRC = PointExtensions.ToRectangle(0, 0, bmToPaint.Width, bmToPaint.Height); // left, top, right, bottom
+                                                                                                               //g.DrawImage(image: bmToPaint, source: rectSRC, dest: rectDST);
 
                         g.DrawBitmap(bitmap: bmToPaint,
                         source: rectSRC,
                         dest: rectDST);
+#if DEBUG_GPU
+                        g.DrawRect(rectDST, chunkLines);
+#endif
                     }
                 }
             }
@@ -243,7 +249,7 @@ namespace PixelStacker.Logic.CanvasEditor
         {
             if (pz == null)
             {
-#if !RELEASE
+#if FAIL_FAST
                 throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
 #else
                 return new SKPoint(0, 0);

@@ -1,9 +1,14 @@
 ﻿using PixelStacker.EditorTools;
+using PixelStacker.Logic.CanvasEditor.History;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.UI.Forms;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Controls
@@ -13,21 +18,57 @@ namespace PixelStacker.UI.Controls
         private AbstractCanvasEditorTool CurrentTool { get; set; }
         private PanZoomTool PanZoomTool { get; set; }
 
-        private void bgWorkerBufferedChangeQueue_DoWork(object sender, DoWorkEventArgs e)
+        private async void bgWorkerBufferedChangeQueue_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (this.Painter.HistoryBuffer.RenderCount > 0)
-                e.Result = this.Painter.DoRenderFromHistoryBuffer();
+            if (!this.Painter.History.HasChunksToRender())
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            if (this.Painter.History.TryGetRenderChunks(out List<RenderRecord> records))
+            {
+                var rg = records.GroupBy(x => x.RenderMode);
+                {
+                    var tiles = rg.FirstOrDefault(x => x.Key == RenderRecord.RenderRecordType.BLOCKS_ONLY)?.ToList();
+                    if (tiles != null)
+                        await this.Painter.DoProcessRenderRecords(tiles);
+                }
+                {
+                    var tiles = rg.FirstOrDefault(x => x.Key == RenderRecord.RenderRecordType.SHADOWS_ONLY)?.ToList();
+                    if (tiles != null)
+                        this.Painter.DoApplyShadowsForRenderRecords(tiles);
+                }
+                {
+                    var tiles = rg.FirstOrDefault(x => x.Key == RenderRecord.RenderRecordType.ALL)?.ToList();
+                    if (tiles != null)
+                    {
+                        await this.Painter.DoProcessRenderRecords(tiles);
+                        this.Painter.DoApplyShadowsForRenderRecords(tiles);
+                    }
+                }
+            } 
+            else
+            {
+                e.Cancel = true;
+            }
+
+            e.Result = Task.CompletedTask;
         }
 
         private void BgWorkerBufferedChangeQueue_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.RepaintRequested = true;
+            if (!e.Cancelled)
+            {
+                this.RepaintRequested = true;
+            }
         }
 
         private void timerBufferedChangeQueue_Tick(object sender, System.EventArgs e)
         {
             if (this.Painter == null) return;
             if (bgWorkerBufferedChangeQueue.IsBusy) return;
+            if (this.RepaintRequested == false) return;
             bgWorkerBufferedChangeQueue.RunWorkerAsync();
             //if (this.Painter == null) return;
 

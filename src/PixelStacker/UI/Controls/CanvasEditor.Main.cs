@@ -1,12 +1,15 @@
 ﻿using PixelStacker.EditorTools;
 using PixelStacker.Extensions;
 using PixelStacker.Logic.CanvasEditor;
+using PixelStacker.Logic.CanvasEditor.History;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources;
 using PixelStacker.UI.Helpers;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,6 +32,8 @@ namespace PixelStacker.UI.Controls
         public CanvasEditor()
         {
             InitializeComponent();
+            this.timerBufferedChangeQueue.Interval = 20;
+            this.timerPaint.Interval = Constants.DisplayRefreshIntervalMs;
             tsCanvasTools.Renderer = new CustomToolStripButtonRenderer();
             this.BackgroundImage = Resources.UIResources.bg_imagepanel;
             this.DoubleBuffered = true;
@@ -67,6 +72,9 @@ namespace PixelStacker.UI.Controls
             btnMaterialCombination.ToolTipText = mcAfter.Top.Label + ", " + mcAfter.Bottom.Label;
         }
 
+
+        private ConcurrentQueue<List<RenderRecord>> OnHistoryChangeQueue = new ConcurrentQueue<List<RenderRecord>>();
+
         public async Task SetCanvas(CancellationToken? worker, RenderedCanvas canvas, PanZoomSettings pz, SpecialCanvasRenderSettings vs)
         {
             this.BackgroundImage = UIResources.bg_imagepanel;
@@ -98,25 +106,25 @@ namespace PixelStacker.UI.Controls
                 minZoomLevel = Constants.MIN_ZOOM
             };
 
-                double wRatio = (double)Width / bmWidth;
-                double hRatio = (double)Height / bmHeight;
-                if (hRatio < wRatio)
-                {
-                    settings.zoomLevel = hRatio;
-                    settings.imageX = (Width - (int)(bmWidth * hRatio)) / 2;
-                }
-                else
-                {
-                    settings.zoomLevel = wRatio;
-                    settings.imageY = (Height - (int)(bmHeight * wRatio)) / 2;
-                }
+            double wRatio = (double)Width / bmWidth;
+            double hRatio = (double)Height / bmHeight;
+            if (hRatio < wRatio)
+            {
+                settings.zoomLevel = hRatio;
+                settings.imageX = (Width - (int)(bmWidth * hRatio)) / 2;
+            }
+            else
+            {
+                settings.zoomLevel = wRatio;
+                settings.imageY = (Height - (int)(bmHeight * wRatio)) / 2;
+            }
 
-                int numICareAbout = Math.Max(bmWidth, bmHeight);
-                settings.minZoomLevel = (100.0D / numICareAbout);
-                if (settings.minZoomLevel > 1.0D)
-                {
-                    settings.minZoomLevel = 1.0D;
-                }
+            int numICareAbout = Math.Max(bmWidth, bmHeight);
+            settings.minZoomLevel = (100.0D / numICareAbout);
+            if (settings.minZoomLevel > 1.0D)
+            {
+                settings.minZoomLevel = 1.0D;
+            }
 
             return settings;
         }

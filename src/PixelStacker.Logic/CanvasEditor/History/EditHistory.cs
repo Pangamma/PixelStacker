@@ -16,6 +16,7 @@ namespace PixelStacker.Logic.CanvasEditor.History
         public bool IsRedoEnabled => HistoryFuture.Count > 0;
 
         private RenderedCanvas Canvas = null;
+        public Action<HistoryRecord, bool> OnHistoryChange = null;
 
         public EditHistory(RenderedCanvas canvas)
         {
@@ -29,11 +30,12 @@ namespace PixelStacker.Logic.CanvasEditor.History
         }
 
         /// <summary>
-        /// Applies the change to the underlying canvas data and then queues the change record to the buffer queue.
+        /// Applies the change to the underlying canvas data and then returns a queue of items that can be used
+        /// to render changes in the buffer queue.
         /// </summary>
         /// <param name="record"></param>
         /// <param name="isForward">If true, it means you are DOING it. False = UNDO</param>
-        private List<RenderRecord> ApplyChange(HistoryRecord records, bool isForward)
+        private List<RenderRecord> ApplyChangeToData(HistoryRecord records, bool isForward)
         {
             this.Canvas.IsCustomized = true;
             List<RenderRecord> output = new List<RenderRecord>();
@@ -58,17 +60,25 @@ namespace PixelStacker.Logic.CanvasEditor.History
             return output;
         }
 
-
-        public void AddChange(HistoryRecord record)
+        /// <summary>
+        /// A change is a record of a completed action. This function adds history to undo/redo.
+        /// of undo/redo
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        public List<RenderRecord> AddHistory(HistoryRecord record)
         {
             this.HistoryFuture.Clear();
-            ApplyChange(record, true);
+            var renderRecords = ApplyChangeToData(record, true);
             this.HistoryPast.Add(record);
 
             while (this.HistoryPast.Count > 0 && this.HistoryPast.Count > Constants.MAX_HISTORY_SIZE)
             {
                 this.HistoryPast.RemoveAt(0);
             }
+
+            this.OnHistoryChange?.Invoke(record, true);
+            return renderRecords;
         }
 
         /// <summary>
@@ -82,8 +92,9 @@ namespace PixelStacker.Logic.CanvasEditor.History
             var record = this.HistoryFuture.Last();
             this.HistoryFuture.RemoveAt(this.HistoryFuture.Count - 1);
 
-            var renderRecords = ApplyChange(record, true);
+            var renderRecords = ApplyChangeToData(record, true);
             this.HistoryPast.Add(record);
+            this.OnHistoryChange?.Invoke(record, true);
             return renderRecords;
         }
 
@@ -95,8 +106,9 @@ namespace PixelStacker.Logic.CanvasEditor.History
             var record = this.HistoryPast.Last();
             this.HistoryPast.RemoveAt(this.HistoryPast.Count - 1);
 
-            var renderRecords = ApplyChange(record, false);
+            var renderRecords = ApplyChangeToData(record, false);
             this.HistoryFuture.Add(record);
+            this.OnHistoryChange?.Invoke(record, false);
             return renderRecords;
         }
     }

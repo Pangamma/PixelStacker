@@ -346,6 +346,9 @@ me as a </value>
   <data name="MainForm_Title" xml:space="preserve">
     <value>Pangamma's PixelStacker</value>
   </data>
+  <data name="MainForm_TS_RenderShadows" xml:space="preserve">
+    <value>Render Shadows</value>
+  </data>
   <data name="MainForm_TS_ShowBothLayers" xml:space="preserve">
     <value>Show both layers</value>
   </data>
@@ -354,6 +357,9 @@ me as a </value>
   </data>
   <data name="MainForm_TS_ShowTopLayer" xml:space="preserve">
     <value>Show top layer</value>
+  </data>
+  <data name="MainForm_TS_VisualEnhancements" xml:space="preserve">
+    <value>Visual Enhancements</value>
   </data>
   <data name="MainMenu_About" xml:space="preserve">
     <value>About</value>

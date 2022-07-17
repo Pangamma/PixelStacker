@@ -36,6 +36,15 @@ namespace PixelStacker.Resources {
             }
         }
 
+        private static Image<Rgba32> _hyper_dimension = null;
+        public static Image<Rgba32> hyper_dimension {
+            get {
+                if (_hyper_dimension == null)
+                    _hyper_dimension = Image.Load((byte[])ResourceManager.GetObject("hyper-dimension"));
+                return _hyper_dimension;
+            }
+        }
+
         private static Image<Rgba32> _pink_girl = null;
         public static Image<Rgba32> pink_girl {
             get {
@@ -51,6 +60,15 @@ namespace PixelStacker.Resources {
                 if (_psg == null)
                     _psg = Image.Load((byte[])ResourceManager.GetObject("psg"));
                 return _psg;
+            }
+        }
+
+        private static Image<Rgba32> _test_borders = null;
+        public static Image<Rgba32> test_borders {
+            get {
+                if (_test_borders == null)
+                    _test_borders = Image.Load((byte[])ResourceManager.GetObject("test-borders"));
+                return _test_borders;
             }
         }
 	}

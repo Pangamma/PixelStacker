@@ -21,16 +21,18 @@ namespace PixelStacker.Logic.Model
         public string Category { get; set; }
         public string SchematicaMaterialName { get; set; }
         public bool IsAdvanced { get; set; } = false;
-        
+        public bool IsAir;
+        public bool IsSolid => !IsAir && !IsGlassOrLayer2Block;
+
         /// <summary>
-        /// TRUE if category is glass, or material is AIR.
+        /// TRUE if category is glass
         /// </summary>
-        public bool CanCoverOtherBlocks => this.Category == "Glass";
+        public readonly bool IsGlassOrLayer2Block;
 
         /// <summary>
         /// TRUE if NOT transparent.
         /// </summary>
-        public bool CanBeOnBottom => !CanCoverOtherBlocks;
+        public bool CanBeOnBottom => !IsGlassOrLayer2Block;
 
         /// <summary>
         /// minecraft:stone_1
@@ -90,6 +92,8 @@ namespace PixelStacker.Logic.Model
             TopBlockName = topBlockName;
             SideBlockName = sideBlockName;
             SchematicaMaterialName = schematicaMaterialName;
+            IsGlassOrLayer2Block = category == "Glass";
+            IsAir = blockID == 0;
         }
 
         private string SettingsKey { get { return string.Format("BLOCK_{0}", PixelStackerID); } }

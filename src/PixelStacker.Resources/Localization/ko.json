@@ -169,5 +169,7 @@
   "CanvasEditor_ZFilter_Bottom": "하단 레이어만",
   "CanvasEditor_ZFilter_Top": "최상위 레이어만",
   "Nothing": "아무것도 아님",
-  "MainMenu_Lang_Italian": "이탈리아 사람"
+  "MainMenu_Lang_Italian": "이탈리아 사람",
+  "MainForm_TS_RenderShadows": "그림자 렌더링",
+  "MainForm_TS_VisualEnhancements": "시각적 개선 사항"
 }

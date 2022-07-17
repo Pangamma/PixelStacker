@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using PixelStacker.Extensions;
+﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.CanvasEditor.History;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
@@ -7,7 +6,6 @@ using PixelStacker.Resources;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,57 +14,101 @@ namespace PixelStacker.Logic.CanvasEditor
 {
     public partial class RenderedCanvasPainter
     {
-        public SuperHistory History { get; }
-
-        private List<bool[,]> GetChunksThatNeedReRendering(IEnumerable<PxPoint> chunks)
+        #region SHADOWS
+        private static bool IsShadedBy(MaterialCombination mcTarget, int x2, int y2, CanvasData data, MaterialPalette palette)
         {
-            var output = new List<bool[,]>();
-            for (int i = 0; i < Padlocks.Count; i++)
+            var mcCaster = data.IsInRange(x2, y2) ? data[x2, y2] : palette[Constants.MaterialCombinationIDForAir];
+            bool isShaded = (int)mcTarget.GetShadowHeight() < (int)mcCaster.GetShadowHeight();
+            return isShaded;
+        }
+
+        private static bool TryPaintShadowTile(int x, int y, CanvasData data, MaterialPalette palette, SKCanvas skCanvas, SKPaint paintShade, int ix, int iy)
+        {
+            ShadeFrom sFrom = ShadeFrom.EMPTY;
+            var mc = data.IsInRange(x, y) ? data[x, y] : palette[Constants.MaterialCombinationIDForAir];
+            bool isBlockTop = IsShadedBy(mc, x, y - 1, data, palette);
+            bool isBlockLeft = IsShadedBy(mc, x - 1, y, data, palette);
+            bool isBlockRight = IsShadedBy(mc, x + 1, y, data, palette);
+            bool isBlockBottom = IsShadedBy(mc, x, y + 1, data, palette);
+            bool isBlockTopLeft = IsShadedBy(mc, x - 1, y - 1, data, palette);
+            bool isBlockTopRight = IsShadedBy(mc, x + 1, y - 1, data, palette);
+            bool isBlockBottomLeft = IsShadedBy(mc, x - 1, y + 1, data, palette);
+            bool isBlockBottomRight = IsShadedBy(mc, x + 1, y + 1, data, palette);
+
+            if (isBlockTop) sFrom |= ShadeFrom.T;
+            if (isBlockLeft) sFrom |= ShadeFrom.L;
+            if (isBlockRight) sFrom |= ShadeFrom.R;
+            if (isBlockBottom) sFrom |= ShadeFrom.B;
+            if (isBlockTopLeft) sFrom |= ShadeFrom.TL;
+            if (isBlockTopRight) sFrom |= ShadeFrom.TR;
+            if (isBlockBottomLeft) sFrom |= ShadeFrom.BL;
+            if (isBlockBottomRight) sFrom |= ShadeFrom.BR;
+
+            if (mc.GetShadowHeight() == MaterialHeight.L1_SOLID)
             {
-                output.Add(new bool[Padlocks[i].GetLength(0), Padlocks[i].GetLength(1)]);
+                skCanvas.DrawRect(ix, iy, Constants.TextureSize, Constants.TextureSize, paintShade);
             }
 
-            foreach (var chunk in chunks)
+            var shadeImg = ShadowHelper.GetSpriteIndividual(Constants.TextureSize, sFrom);
+            lock (shadeImg)
             {
-                output[0][chunk.X, chunk.Y] = true;
+                skCanvas.DrawBitmap(shadeImg, new SKRect(ix, iy, ix+Constants.TextureSize, iy+Constants.TextureSize));
             }
 
-            for (int i = 1; i < output.Count; i++)
-            {
-                var curLayer = output[i];
-                var upperLayer = output[i - 1];
+            return false;
+        }
 
-                for (int x = 0; x < upperLayer.GetLength(0); x++)
+        #endregion SHADOWS
+
+        /// <summary>
+        /// HistoryRecord.ToRenderRecords() should be called for this.
+        /// Basically pass in a list of points that were modified, and
+        /// then this method will expand those out to include points
+        /// AROUND the modified points. It will then paint on the shadow
+        /// effects.
+        /// </summary>
+        /// <param name="records"></param>
+        public void DoApplyShadowsForRenderRecords(List<RenderRecord> records)
+        {
+            if (!this.SpecialRenderSettings.EnableShadows)
+                return;
+
+            Dictionary<PxPoint, bool> toShadeMap = new Dictionary<PxPoint, bool>();
+            foreach(var r in records)
+            {
+                foreach(var rr in r.ChangedPixels)
                 {
-                    for (int y = 0; y < upperLayer.GetLength(1); y++)
-                    {
-                        curLayer[x / 2, y / 2] |= upperLayer[x, y];
-                    }
+                    // TRUE means it was in the original list. False means it is just something to try updating.
+                    toShadeMap[rr] = true;
+                    toShadeMap.TryAdd(new PxPoint(rr.X + 1, rr.Y - 1), false);
+                    toShadeMap.TryAdd(new PxPoint(rr.X + 1, rr.Y), false);
+                    toShadeMap.TryAdd(new PxPoint(rr.X + 1, rr.Y + 1), false);
+
+                    toShadeMap.TryAdd(new PxPoint(rr.X - 1, rr.Y - 1), false);
+                    toShadeMap.TryAdd(new PxPoint(rr.X - 1, rr.Y), false);
+                    toShadeMap.TryAdd(new PxPoint(rr.X - 1, rr.Y + 1), false);
+
+                    toShadeMap.TryAdd(new PxPoint(rr.X, rr.Y + 1), false);
+                    toShadeMap.TryAdd(new PxPoint(rr.X, rr.Y - 1), false);
                 }
             }
 
-            return output;
-        }
-
-
-        /// <summary>
-        /// You will have to apply shadows as well here.
-        /// </summary>
-        /// <param name="records"></param>
-        /// <returns></returns>
-        public Task DoProcessRenderRecords(List<RenderRecord> records)
-        {
-            if (records.Count == 0) return Task.CompletedTask;
             //var uniqueChunkIndexes = records.SelectMany(x => x.ChangedPixels).Distinct();
-            var chunkIndexes = records.SelectMany(x => x.ChangedPixels.Select(cp => new
-            {
-                PaletteID = x.PaletteID,
-                X = cp.X,
-                Y = cp.Y
-            })).GroupBy(cp => new PxPoint(GetChunkIndexX(cp.X), GetChunkIndexY(cp.Y)));
+            var chunkIndexes = toShadeMap
+                .Where(cp => cp.Key.X > -1 && cp.Key.X < Data.Width - 1 && cp.Key.Y > -1 && cp.Key.Y < Data.Height - 1)
+                .GroupBy(cp => new PxPoint(GetChunkIndexX(cp.Key.X), GetChunkIndexY(cp.Key.Y)));
 
             var chunksThatNeedReRendering = GetChunksThatNeedReRendering(chunkIndexes.Select(x => x.Key));
             using SKPaint paint = new SKPaint() { BlendMode = SKBlendMode.Src, FilterQuality = SKFilterQuality.None };
+
+            using var paintShade = new SKPaint()
+            {
+                Color = new SKColor(127, 127, 127, 40),
+                BlendMode = SKBlendMode.SrcOver,
+                IsAntialias = true,
+                IsStroke = false,
+                FilterQuality = SKFilterQuality.High
+            };
 
             // Layer 0
             // Iterate over chunks
@@ -94,20 +136,40 @@ namespace PixelStacker.Logic.CanvasEditor
                     IsStroke = false, // FILL
                 };
 
-                foreach (var pxToModify in changeGroup)
+                foreach (var pxToMaybeRerenderTexture in changeGroup)
                 {
-                    MaterialCombination mc = Data.MaterialPalette[pxToModify.PaletteID];
+                    var pxToModify = pxToMaybeRerenderTexture.Key;
+                    bool isRerenderNeeded = !pxToMaybeRerenderTexture.Value;
+                    //MaterialCombination mc = Data.MaterialPalette[pxToModify.PaletteID];
                     int ix = Constants.TextureSize * (pxToModify.X - offsetX);
                     int iy = Constants.TextureSize * (pxToModify.Y - offsetY);
 
-                    if (isSolid)
+                    if (isRerenderNeeded)
                     {
-                        paintSolid.Color = mc.GetAverageColor(isv, this.SpecialRenderSettings);
-                        skCanvas.DrawRect(new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(Constants.TextureSize, Constants.TextureSize) }, paintSolid);
+                        var mc = Data.CanvasData[pxToModify.X, pxToModify.Y];
+
+                        if (isSolid)
+                        {
+                            paintSolid.Color = mc.GetAverageColor(isv, this.SpecialRenderSettings);
+                            skCanvas.DrawRect(new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(Constants.TextureSize, Constants.TextureSize) }, paintSolid);
+                        }
+                        else
+                        {
+                            skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings),
+                                new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(Constants.TextureSize, Constants.TextureSize) },
+                                paint);
+                        }
                     }
-                    else
+
+                    if (this.SpecialRenderSettings.EnableShadows)
                     {
-                        skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), new SKRect(ix, iy, ix+Constants.TextureSize, iy+Constants.TextureSize), paint);
+                        TryPaintShadowTile(pxToModify.X, pxToModify.Y,
+                        Data.CanvasData,
+                        Data.MaterialPalette,
+                        skCanvas,
+                        paintShade,
+                        ix,
+                        iy);
                     }
                 }
 
@@ -233,10 +295,7 @@ namespace PixelStacker.Logic.CanvasEditor
                         }
                     }
                 }
-
-                return Task.CompletedTask;
             }
         }
-
     }
 }

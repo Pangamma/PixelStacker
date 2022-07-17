@@ -72,10 +72,12 @@ namespace PixelStacker.UI
 
             this.Text = global::PixelStacker.Resources.Text.MainForm_Title;
             this.Text = this.Text + " v" + Constants.Version;
-#if !RELEASE
+#if DEBUG
             this.Text += " (Debug)";
 #endif
-
+#if USE_GPU
+            this.Text += " [GPU]";
+#endif
             this.englishToolStripMenuItem.Image = UIResources.country_us;
             this.chineseSimplifiedToolStripMenuItem.Image = UIResources.country_cn;
             this.koreanToolStripMenuItem.Image = UIResources.country_kr;
@@ -128,7 +130,7 @@ namespace PixelStacker.UI
             //this.saveColorPaletteToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SaveColorPalette;
             //this.exportSchematicToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_Save;
             this.switchPanelsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleTextures;
-            this.shadowRenderingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ShadowRendering;
+            this.visualEnhancementsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ShadowRendering;
             this.gridOptionsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.GridOptions;
             this.gridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Grid;
 
@@ -154,6 +156,8 @@ namespace PixelStacker.UI
             this.fileToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_File;
             this.sizingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Sizing;
 
+            this.visualEnhancementsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainForm_TS_VisualEnhancements;
+            this.toggleShadowsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainForm_TS_RenderShadows;
             // Orientation
             this.orientationToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation;
             this.verticalToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Orientation_Vertical;

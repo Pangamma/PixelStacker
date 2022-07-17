@@ -1,7 +1,5 @@
-﻿using PixelStacker.Extensions;
-using PixelStacker.Logic.IO.Config;
+﻿using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
-using PixelStacker.UI.Forms;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -107,28 +105,35 @@ namespace PixelStacker.UI.Controls
         }
 
         private Point previousCursorPosition = new Point(0, 0);
+        private Point previousPointOnImage = new Point(0, 0);
 
         private void ImagePanel_MouseMove(object sender, MouseEventArgs e)
         {
             var pt = GetPointOnImage(e.Location, this.PanZoomSettings, EstimateProp.Floor);
             var cd = this.Canvas?.CanvasData;
-            MaterialCombination mc = null;
-            if (cd != null)
+
+            if (previousPointOnImage != pt)
             {
-                if (cd.IsInRange(pt.X, pt.Y))
+                MaterialCombination mc = null;
+                if (cd != null)
                 {
-                    mc = cd[pt.X, pt.Y];
+                    if (cd.IsInRange(pt.X, pt.Y))
+                    {
+                        mc = cd[pt.X, pt.Y];
+                    }
                 }
+
+                mc ??= MaterialPalette.FromResx()[Constants.MaterialCombinationIDForAir];
+
+                string hoverText = $"X: {pt.X},".PadRight(8)
+                    + $"Y: {pt.Y},".PadRight(8)
+                    + $"Top: {mc.Top.Label}, Bottom: {mc.Bottom.Label}";
+
+                if (lblHoverInfo.Text != hoverText)
+                    lblHoverInfo.Text = hoverText;
+                previousPointOnImage = pt;
+                this.RepaintRequested = true;
             }
-
-            mc ??= MaterialPalette.FromResx()[Constants.MaterialCombinationIDForAir];
-
-            string hoverText = $"X: {pt.X},".PadRight(8)
-                + $"Y: {pt.Y},".PadRight(8)
-                + $"Top: {mc.Top.Label}, Bottom: {mc.Bottom.Label}";
-            
-            if (lblHoverInfo.Text != hoverText)
-                lblHoverInfo.Text = hoverText;
 
             previousCursorPosition = e.Location;
             if (e.Button == MouseButtons.Middle)
