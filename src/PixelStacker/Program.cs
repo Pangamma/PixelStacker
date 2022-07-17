@@ -1,10 +1,10 @@
-using System;
-using System.Windows.Forms;
-using PixelStacker.UI;
-using PixelStacker.Resources;
 using PixelStacker.IO;
 using PixelStacker.Logic.Model;
+using PixelStacker.Resources;
+using PixelStacker.UI;
+using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace PixelStacker
 {
@@ -32,7 +32,7 @@ namespace PixelStacker
                 //var form = new TestForm();
                 Application.Run(form);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 byte[] errData = ErrorReporter.SendExceptionInfoToZipBytes(System.Threading.CancellationToken.None, ex, new ErrorReportInfo() { Exception = ex }, false, "Error from main try catch").Result;
                 File.WriteAllBytes("pixelstacker-error.zip", errData);

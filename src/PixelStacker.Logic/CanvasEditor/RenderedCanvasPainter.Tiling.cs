@@ -13,9 +13,9 @@ namespace PixelStacker.Logic.CanvasEditor
 {
     public partial class RenderedCanvasPainter
     {
-        public static int BlocksPerChunk 
+        public static int BlocksPerChunk
             => Constants.TextureSize == 16 ? 38
-            : Constants.TextureSize == 32 ? 19 
+            : Constants.TextureSize == 32 ? 19
             : 10;
 
         /// Should contain: 
@@ -37,7 +37,7 @@ namespace PixelStacker.Logic.CanvasEditor
         {
             worker ??= CancellationToken.None;
 
-            var sizes = CalculateChunkSizes(new SKSize(data.Width, data.Height),srs, maxLayers);
+            var sizes = CalculateChunkSizes(new SKSize(data.Width, data.Height), srs, maxLayers);
             worker.SafeThrowIfCancellationRequested();
             var bitmaps = new List<SKBitmap[,]>();
 
@@ -96,9 +96,9 @@ namespace PixelStacker.Logic.CanvasEditor
 
 
             // OTHER LAYERS 2.0
-                
-                #region OTHER LAYERS
-                {
+
+            #region OTHER LAYERS
+            {
 
                 var paint = new SKPaint()
                 {
@@ -108,7 +108,7 @@ namespace PixelStacker.Logic.CanvasEditor
                 };
 
                 float pixelsPerHalfChunk = Constants.TextureSize * BlocksPerChunk / 2;
-                
+
                 for (int l = 1; l < sizes.Count; l++)
                 {
                     SKSize[,] sizeSet = sizes[l];
@@ -296,7 +296,7 @@ namespace PixelStacker.Logic.CanvasEditor
             var canvas = new SKCanvas(bm);
 
             using SKPaint paint = new SKPaint() { BlendMode = SKBlendMode.Src, FilterQuality = SKFilterQuality.None };
-            
+
             using var paintShade = new SKPaint()
             {
                 Color = new SKColor(127, 127, 127, 40),
@@ -326,10 +326,11 @@ namespace PixelStacker.Logic.CanvasEditor
                         SKColor toPaint = mc.GetAverageColor(data.IsSideView, srs);
 
                         paintSolid.Color = toPaint;
-                        canvas.DrawRect(new SKRect() { 
+                        canvas.DrawRect(new SKRect()
+                        {
                             Location = new SKPoint(x * Constants.TextureSize, y * Constants.TextureSize),
-                            Size = new SKSize(Constants.TextureSize, Constants.TextureSize) 
-                       }, paintSolid);
+                            Size = new SKSize(Constants.TextureSize, Constants.TextureSize)
+                        }, paintSolid);
 
                         if (srs.EnableShadows)
                         {
@@ -361,15 +362,15 @@ namespace PixelStacker.Logic.CanvasEditor
                         else if (srs.ZLayerFilter == 1) toPaint = mc.Top.GetImage(data.IsSideView);
                         else toPaint = mc.GetImage(data.IsSideView);
 
-                        canvas.DrawBitmap(toPaint, new SKRect(x * Constants.TextureSize, y * Constants.TextureSize, x * Constants.TextureSize+ Constants.TextureSize, y * Constants.TextureSize + Constants.TextureSize), paint);
+                        canvas.DrawBitmap(toPaint, new SKRect(x * Constants.TextureSize, y * Constants.TextureSize, x * Constants.TextureSize + Constants.TextureSize, y * Constants.TextureSize + Constants.TextureSize), paint);
                         if (srs.EnableShadows)
                         {
                             TryPaintShadowTile((int)loc.X + x, (int)loc.Y + y,
-                                data.CanvasData, 
+                                data.CanvasData,
                                 data.MaterialPalette,
                                 canvas,
-                                paintShade, 
-                                x * Constants.TextureSize, 
+                                paintShade,
+                                x * Constants.TextureSize,
                                 y * Constants.TextureSize);
                         }
                     }

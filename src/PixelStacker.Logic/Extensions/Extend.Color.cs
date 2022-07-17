@@ -141,7 +141,7 @@ namespace PixelStacker.Logic.Extensions
         {
             byte R = c.Red;
             byte G = c.Green;
-            byte B = c.Blue;if (R == G && G == B)
+            byte B = c.Blue; if (R == G && G == B)
                 return 0; // 0 makes as good an UNDEFINED value as any
 
             float r = R / 255.0f;
@@ -181,7 +181,7 @@ namespace PixelStacker.Logic.Extensions
                 hue += 360.0f;
             }
             return hue;
-            
+
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace PixelStacker.Logic.Extensions
         /// <returns></returns>
         public static int GetColorDistanceSRGB(this SKColor c, SKColor toMatch)
         {
-            int dR = c.Red * c.Red - toMatch.Red*toMatch.Red;
+            int dR = c.Red * c.Red - toMatch.Red * toMatch.Red;
             int dG = c.Green * c.Green - toMatch.Green * toMatch.Green;
             int dB = c.Blue * c.Blue - toMatch.Blue * toMatch.Blue;
             int dHue = (int)GetDegreeDistance(c.GetHue(), toMatch.GetHue());

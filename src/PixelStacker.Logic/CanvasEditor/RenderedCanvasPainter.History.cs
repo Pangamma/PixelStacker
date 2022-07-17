@@ -103,7 +103,7 @@ namespace PixelStacker.Logic.CanvasEditor
                     }
                     else
                     {
-                        skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), new SKRect(ix, iy, ix+Constants.TextureSize, iy+Constants.TextureSize), paint);
+                        skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), new SKRect(ix, iy, ix + Constants.TextureSize, iy + Constants.TextureSize), paint);
                     }
                 }
 

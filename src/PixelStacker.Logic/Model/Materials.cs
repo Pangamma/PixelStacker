@@ -1,10 +1,10 @@
-﻿using System;
+﻿using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.IO.Config;
+using PixelStacker.Resources;
+using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using PixelStacker.Resources;
-using PixelStacker.Logic.Extensions;
-using SkiaSharp;
-using PixelStacker.Logic.IO.Config;
 
 namespace PixelStacker.Logic.Model
 {
@@ -238,7 +238,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.9", false, "Bricks", "ENDSTONE_BRICK", "end_stone_bricks", 206, 0, Textures.end_stone_bricks, Textures.end_stone_bricks, $"minecraft:{nameof(Textures.end_stone_bricks)}", $"minecraft:{nameof(Textures.end_stone_bricks)}", "minecraft:end_bricks"),
                         new Material("1.16", false, "Bricks", "QUARTZ_BRICK", "Quartz Bricks", NA, 0, Textures.quartz_bricks, Textures.quartz_bricks, $"minecraft:{nameof(Textures.quartz_bricks)}", $"minecraft:{nameof(Textures.quartz_bricks)}", ""),
                         new Material("1.7", false, "Bricks", "BRICKS_RED", "Bricks", 45, 0, Textures.bricks, Textures.bricks, $"minecraft:{nameof(Textures.bricks)}", $"minecraft:{nameof(Textures.bricks)}", "minecraft:brick_block"),
-                       
+
                         new Material("1.16", true, "Nether", "LODESTONE", "Lodestone", NA, 0, Textures.lodestone_top, Textures.lodestone_side, $"minecraft:lodestone", $"minecraft:lodestone", ""),
                         new Material("1.16", false, "Nether", "SOUL_SOIL", "Soul Soil", NA, 0, Textures.soul_soil, Textures.soul_soil, $"minecraft:{nameof(Textures.soul_soil)}", $"minecraft:{nameof(Textures.soul_soil)}", ""),
                         new Material("1.16", false, "Nether", "SOUL_SAND", "Soul Sand", 88, 0, Textures.soul_sand, Textures.soul_sand, $"minecraft:{nameof(Textures.soul_sand)}", $"minecraft:{nameof(Textures.soul_sand)}", "minecraft:soul_sand"),
@@ -371,7 +371,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", true, "Carpet", "CARPET_14", "Red Carpet", 171, 14, Textures.red_wool, Textures.red_wool, $"minecraft:red_carpet", $"minecraft:red_carpet", "minecraft:carpet"),
                         new Material("1.7", true, "Carpet", "CARPET_15", "Black Carpet", 171, 15, Textures.black_wool, Textures.black_wool, $"minecraft:black_carpet", $"minecraft:black_carpet", "minecraft:carpet"),
                         new Material("1.17", true, "Carpet", "CARPET_MOSS", "Moss Carpet", 171, 13, Textures.moss_block, Textures.moss_block, $"minecraft:moss_carpet", $"minecraft:moss_carpet", ""),
-                     
+
                         new Material("1.19", false, "Dirt", "MUD_PKD", "Packed Mud", NA, 0, Textures.packed_mud, Textures.packed_mud, $"minecraft:{nameof(Textures.packed_mud)}",  $"minecraft:{nameof(Textures.packed_mud)}", ""),
                         new Material("1.17", false, "Dirt", "DIRT_ROOTED", "Rooted Dirt", 3, 1, Textures.rooted_dirt, Textures.rooted_dirt, $"minecraft:{nameof(Textures.rooted_dirt)}", $"minecraft:{nameof(Textures.rooted_dirt)}", ""),
                         new Material("1.7", false, "Dirt", "DIRT", "Dirt", 3, 0, Textures.dirt, Textures.dirt, $"minecraft:{nameof(Textures.dirt)}", $"minecraft:{nameof(Textures.dirt)}", "minecraft:dirt"),

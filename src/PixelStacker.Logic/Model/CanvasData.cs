@@ -1,11 +1,11 @@
-﻿using System;
+﻿using PixelStacker.Logic.Extensions;
+using PixelStacker.Logic.Utilities;
+using SkiaSharp;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PixelStacker.Logic.Extensions;
-using PixelStacker.Logic.Utilities;
-using SkiaSharp;
 
 namespace PixelStacker.Logic.Model
 {

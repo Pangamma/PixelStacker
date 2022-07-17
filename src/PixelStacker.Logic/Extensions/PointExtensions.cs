@@ -1,5 +1,5 @@
-﻿using System;
-using SkiaSharp;
+﻿using SkiaSharp;
+using System;
 
 namespace PixelStacker.Logic.Extensions
 {
@@ -24,8 +24,8 @@ namespace PixelStacker.Logic.Extensions
         {
             return new SkiaSharp.SKRect()
             {
-                Location = new SKPoint(Math.Min(x1, x2), Math.Min(y1,y2)),
-                Size = new SKSize(Math.Abs(x2-x1), Math.Abs(y2-y1))
+                Location = new SKPoint(Math.Min(x1, x2), Math.Min(y1, y2)),
+                Size = new SKSize(Math.Abs(x2 - x1), Math.Abs(y2 - y1))
             };
         }
 

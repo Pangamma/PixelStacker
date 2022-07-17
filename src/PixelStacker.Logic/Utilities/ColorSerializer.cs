@@ -23,7 +23,7 @@ namespace PixelStacker.Logic.Utilities
             byte red = c.Red;
             byte green = c.Green;
             byte blue = c.Blue;
-            
+
             uint rt = (unchecked((uint)(red << ARGBRedShift |
                          green << ARGBGreenShift |
                          blue << ARGBBlueShift |

@@ -48,7 +48,8 @@ namespace PixelStacker.Logic.Utilities
 
             var asyncContinuationsTask = tcs.Task.ContinueWith(bt => bt.Result, TaskScheduler.Default);
             // We let it continue bc we need to do a return to the caller before this delay completes itself.
-            await Task.Delay(this.Delay, cts.Token).ContinueWith((Task t) => {
+            await Task.Delay(this.Delay, cts.Token).ContinueWith((Task t) =>
+            {
                 if (t.Status != TaskStatus.Canceled)
                 {
                     lock (padlock)

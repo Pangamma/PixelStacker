@@ -175,9 +175,9 @@ namespace PixelStacker.Logic.CanvasEditor
 
             // Figure out min and max chunk indexes for faster iteration.
             int minXIndex = (int)Math.Floor(srcLocationOfPanelTL.X / srcPixelsPerChunk);
-            int minYIndex = (int)Math.Floor(srcLocationOfPanelTL.Y / srcPixelsPerChunk); 
-            int maxXIndex = (int)Math.Ceiling(srcLocationOfPanelBR.X / srcPixelsPerChunk); 
-            int maxYIndex = (int)Math.Ceiling(srcLocationOfPanelBR.Y / srcPixelsPerChunk); 
+            int minYIndex = (int)Math.Floor(srcLocationOfPanelTL.Y / srcPixelsPerChunk);
+            int maxXIndex = (int)Math.Ceiling(srcLocationOfPanelBR.X / srcPixelsPerChunk);
+            int maxYIndex = (int)Math.Ceiling(srcLocationOfPanelBR.Y / srcPixelsPerChunk);
 
             // Prevent out of bounds exceptions and clip it to only what is actually visible and renderable.
             int maxX = toUse.GetLength(0) - 1;

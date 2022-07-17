@@ -114,7 +114,8 @@ namespace PixelStacker.Logic.Model
 
         public List<MaterialCombination> ToCombinationList() => FromPaletteID.Values.ToList();
 
-        public List<MaterialCombination> ToValidCombinationList(Options opts) {
+        public List<MaterialCombination> ToValidCombinationList(Options opts)
+        {
             var list = this.FromPaletteID.Values
             .Where(mc => mc.Bottom.BlockID != 0 && mc.Top.BlockID != 0)
             .Where(mc => opts.IsMultiLayerRequired ? mc.IsMultiLayer : true)
@@ -125,7 +126,8 @@ namespace PixelStacker.Logic.Model
             return list;
         }
 
-        private static Lazy<MaterialPalette> Instance = new Lazy<MaterialPalette>(() => {
+        private static Lazy<MaterialPalette> Instance = new Lazy<MaterialPalette>(() =>
+        {
             var rt = ResxHelper.LoadJson<MaterialPalette>(Resources.Data.materialPalette);
             rt.PrimePalette();
             return rt;
@@ -135,7 +137,7 @@ namespace PixelStacker.Logic.Model
 
         public void PrimePalette()
         {
-            foreach(var kvp in ToPaletteID)
+            foreach (var kvp in ToPaletteID)
             {
                 _ = kvp.Key.Top.TopImage;
                 _ = kvp.Key.Bottom.TopImage;

@@ -1,14 +1,14 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.Engine.Quantizer;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
+using SkiaSharp;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using SkiaSharp;
-using PixelStacker.Logic.Engine.Quantizer;
 
 namespace PixelStacker.Logic.Engine
 {

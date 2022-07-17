@@ -171,7 +171,7 @@ namespace PixelStacker.Extensions
             int oW = origImage.Width;
             int oL = bitmapData.Length;
 
-            for (int i = 0; i < oL; i ++)
+            for (int i = 0; i < oL; i++)
             {
                 //Get the color of a pixel
                 // On a little-endian machine, the byte order is bb gg rr aa

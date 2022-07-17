@@ -19,7 +19,7 @@ namespace PixelStacker.Logic.Model
 
         [JsonIgnore]
         public CanvasData CanvasData { get; set; }
-        
+
         public PixelStackerProjectData() { }
 
         public PixelStackerProjectData(RenderedCanvas canvas, Options opts)

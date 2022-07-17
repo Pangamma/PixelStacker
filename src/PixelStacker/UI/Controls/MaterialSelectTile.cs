@@ -25,7 +25,7 @@ namespace PixelStacker.WF.Components
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
             g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
-    
+
             bool isv = Opts?.IsSideView ?? false;
             //Brush brHover = new SolidBrush(Color.FromArgb(100, 0, 0, 0));
 

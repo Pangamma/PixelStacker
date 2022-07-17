@@ -48,7 +48,7 @@ namespace PixelStacker.Logic.Utilities
             if (this.CancelTokenSource == null) { return Task.FromResult(true); }
             if (this.CancelToken == CancellationToken.None) { return Task.FromResult(true); }
             if (this.CurrentTask == null) return Task.FromResult(true);
-            if (CurrentTask != null && CurrentTask.IsCompleted) return Task.FromResult(true); 
+            if (CurrentTask != null && CurrentTask.IsCompleted) return Task.FromResult(true);
             bool askCancel = this.CancelToken.CanBeCanceled && !this.CancelToken.IsCancellationRequested;
 
             try

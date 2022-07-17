@@ -128,7 +128,7 @@ namespace PixelStacker.IO
                 }
                 return/* false*/;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
@@ -170,7 +170,7 @@ namespace PixelStacker.IO
             int pageNum = 0;
             {
                 string json2 = await DoRequest("https://api.spigotmc.org/simple/0.2/index.php?action=getResource&id=46812");
-                var definition = new { Stats = new { Updates = 0}, Current_Version = "" };
+                var definition = new { Stats = new { Updates = 0 }, Current_Version = "" };
                 var parsed = JsonConvert.DeserializeAnonymousType(json2, definition);
                 pageNum = 1 + (parsed?.Stats?.Updates ?? 0) / 10;
                 versionNumber = parsed.Current_Version;
@@ -179,7 +179,7 @@ namespace PixelStacker.IO
             string title;
             string msg;
             {
-                var definition = new[] { new { title = "An update is here.", message="more details" } };
+                var definition = new[] { new { title = "An update is here.", message = "more details" } };
                 string json2 = await DoRequest($"https://api.spigotmc.org/simple/0.2/index.php?action=getResourceUpdates&id=46812&page={pageNum}");
                 var parsed = JsonConvert.DeserializeAnonymousType(json2, definition);
                 msg = parsed?.LastOrDefault()?.message;
