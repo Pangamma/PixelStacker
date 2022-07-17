@@ -1,11 +1,5 @@
-﻿using PixelStacker.Logic.IO.Config;
-using PixelStacker.UI.Controls;
-using System;
-using System.Collections.Generic;
+﻿using PixelStacker.UI.Controls;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker.EditorTools

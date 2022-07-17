@@ -3,9 +3,7 @@ using PixelStacker.Logic.Utilities;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Extensions
 {

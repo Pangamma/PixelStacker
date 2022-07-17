@@ -8,12 +8,9 @@ using PixelStacker.Resources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
 using SkiaSharp;
 using PixelStacker.UI.Helpers;
-using PixelStacker.UI.Forms;
 
 namespace PixelStacker.UI
 {

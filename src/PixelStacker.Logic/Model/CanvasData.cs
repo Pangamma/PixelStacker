@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
 using PixelStacker.Logic.Extensions;
-using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Utilities;
 using SkiaSharp;
 

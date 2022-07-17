@@ -1,10 +1,10 @@
 #if SKIA_SHARP
 #pragma warning disable IDE1006 // Naming Styles
-namespace PixelStacker.Resources {
-	using System;
-	using SkiaSharp;
+namespace PixelStacker.Resources
+{
+    using SkiaSharp;
 
-	public class Textures {
+    public class Textures {
 
         private static global::System.Resources.ResourceManager resourceMan;
         public static global::System.Resources.ResourceManager ResourceManager {

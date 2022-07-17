@@ -1,11 +1,4 @@
-﻿using PixelStacker.EditorTools;
-using PixelStacker.Logic.Extensions;
-using PixelStacker.UI.Forms;
-using PixelStacker.UI.Helpers;
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using PixelStacker.UI.Forms;
 
 namespace PixelStacker.UI.Controls
 {

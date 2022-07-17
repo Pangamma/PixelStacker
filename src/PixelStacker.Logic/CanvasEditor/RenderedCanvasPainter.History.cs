@@ -1,15 +1,11 @@
-﻿using Newtonsoft.Json;
-using PixelStacker.Extensions;
+﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.CanvasEditor.History;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
-using PixelStacker.Resources;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.CanvasEditor

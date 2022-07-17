@@ -5,7 +5,6 @@ using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using SkiaSharp;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

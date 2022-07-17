@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using PixelStacker.Logic.IO.Config;
-using System;
-
-namespace PixelStacker.Logic.IO.Config
+﻿namespace PixelStacker.Logic.IO.Config
 {
     public class StaticJsonOptionsProvider : IOptionsProvider
     {

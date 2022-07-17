@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using FNBT.Exceptions;
-using FNBT;
 
 namespace FNBT.Tags
 {

@@ -4,7 +4,6 @@ using PixelStacker.UI.External;
 using SkiaSharp;
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Controls

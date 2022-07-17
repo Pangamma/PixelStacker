@@ -1,5 +1,4 @@
-﻿using PixelStacker.Extensions;
-using PixelStacker.Logic.Collections.ColorMapper;
+﻿using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.IO.Config;

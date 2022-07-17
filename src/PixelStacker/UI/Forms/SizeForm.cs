@@ -3,7 +3,6 @@ using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Resources.Localization;
 using System;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI

@@ -1,12 +1,5 @@
-﻿using KdTree;
-using PixelStacker.Logic.Collections;
-using PixelStacker.Logic.Model;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using PixelStacker.Logic.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PixelStacker.Logic.Extensions;
-using System;
 using PixelStacker.Logic.IO.Config;
 
 namespace PixelStacker.Tests

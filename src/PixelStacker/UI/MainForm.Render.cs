@@ -3,8 +3,6 @@ using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Utilities;
 using System;
-using System.Drawing;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace PixelStacker.UI

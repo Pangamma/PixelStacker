@@ -1,8 +1,4 @@
-﻿using PixelStacker.Logic.Model;
-using System.Threading;
-using System.Threading.Tasks;
-using PixelStacker.Logic.IO.Formatters;
-using System;
+﻿using System;
 
 namespace PixelStacker.Logic.IO.Formatters
 {

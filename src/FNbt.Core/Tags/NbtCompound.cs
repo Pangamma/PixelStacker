@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using FNBT.Exceptions;
-using FNBT.Tags;
 
 namespace FNBT.Tags
 {

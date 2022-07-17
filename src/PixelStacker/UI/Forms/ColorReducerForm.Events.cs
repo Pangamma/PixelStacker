@@ -1,11 +1,6 @@
 ﻿using PixelStacker.IO;
 using PixelStacker.Logic.Extensions;
-using PixelStacker.Logic.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelStacker.UI.Forms
