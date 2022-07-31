@@ -3,7 +3,7 @@
     public static class Constants
     {
         public const int DisplayRefreshIntervalMs = 10;
-        public const string Version = "1.19.0k";
+        public const string Version = "1.19.1a";
         public const string Website = "https://taylorlove.info/pixelstacker";
         public static int TextureSize = 16;
         public const int MaxPageSizeForRenders = int.MaxValue;

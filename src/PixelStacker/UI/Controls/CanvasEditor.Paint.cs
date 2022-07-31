@@ -28,22 +28,21 @@ namespace PixelStacker.UI.Controls
             }
         }
 
-        private SKShader bgShader = SKShader.CreateBitmap(UIResources.bg_imagepanel.BitmapToSKBitmap(), SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
+        private SKPaint bgPaint = new SKPaint()
+        {
+            Shader = SKShader.CreateBitmap(UIResources.bg_imagepanel.BitmapToSKBitmap(), SKShaderTileMode.Repeat, SKShaderTileMode.Repeat),
+            FilterQuality = SKFilterQuality.High,
+            IsDither = true
+        };
+
         private void skiaControl_PaintSurface(object sender, Controls.GenericSKPaintSurfaceEventArgs e)
         {
             IsPainting = true;
             SKSurface surface = e.Surface;
             var g = surface.Canvas;
 
-            //// Background shaders
-            //using SKShader bgShader = SKShader.CreateBitmap(bgImg, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
-            using (SKPaint paint = new SKPaint())
-            {
-                paint.Shader = bgShader;
-                paint.FilterQuality = SKFilterQuality.High;
-                paint.IsDither = true;
-                g.DrawRect(e.Rect, paint);
-            }
+            // Background shaders
+            g.DrawRect(e.Rect, bgPaint);
 
             // Render the image they are looking at.
             var painter = this.Painter;

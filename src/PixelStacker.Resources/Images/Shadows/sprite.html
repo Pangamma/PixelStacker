@@ -13,17 +13,21 @@
 
       .fill::before {
 
+		/*  size 64 and size 16 look weird. Stick with size 32, and then simply change the window zoom
+			to get the different sprite sheets for different resolutions. */
         /* size 64 */
-        box-shadow: 
+        /* box-shadow: 
           0 25.6px 57.6px 0 rgba(0,0,0,0.132),
           0 4.8px 14.4px 0 rgba(0,0,0,0.216),
-          0 1.2px 3.6px 0 rgba(0,0,0,0.216);
+          0 1.2px 3.6px 0 rgba(0,0,0,0.216); */
 
         /*  size 16 */
-        box-shadow: 
+        /* box-shadow: 
           0 6.4px 14.4px 0 rgba(0,0,0,0.132),
           0 1.2px 3.6px 0 rgba(0,0,0,0.216),
-          0 0.3px 0.9px 0 rgba(0,0,0,0.316);
+          0 0.3px 0.9px 0 rgba(0,0,0,0.316); */
+		  
+		  
         /*  size 32  */
         box-shadow: 
           0 3.2px 7.2px 0 rgba(0,0,0,.232),
@@ -48,69 +52,6 @@
         content: '';
         z-index: -2;
       }
-
-/*      .empty > [class^=g-] {
-        display: none !important;
-        width: 4px; height: 4px;
-        background: red;
-        position: absolute;
-      }
-
-      .tile-window:nth-child(2n+1) .g-TL{
-        top: 0; left: 0; display: block;
-      }
-
-      .tile-window:nth-child(4n-1) .g-T,
-      .tile-window:nth-child(4n-2) .g-T {
-        top: 0; left: 50%; display: block;
-      }
-
-      .tile-window:nth-child(8n-1) .g-TR,
-      .tile-window:nth-child(8n-2) .g-TR,
-      .tile-window:nth-child(8n-3) .g-TR,
-      .tile-window:nth-child(8n-4) .g-TR
-      {
-        top: 0; right: 0; display: block;
-      }
-      .tile-window:nth-child(16n-1) .g-L,
-      .tile-window:nth-child(16n-2) .g-L,
-      .tile-window:nth-child(16n-3) .g-L,
-      .tile-window:nth-child(16n-4) .g-L,
-      .tile-window:nth-child(16n-5) .g-L,
-      .tile-window:nth-child(16n-6) .g-L,
-      .tile-window:nth-child(16n-7) .g-L,
-      .tile-window:nth-child(16n-8) .g-L{
-        top: 50%; left: 0; display: block;
-      }
-      .tile-window:nth-child(32n-1) .g-R,
-      .tile-window:nth-child(32n-2) .g-R,
-      .tile-window:nth-child(32n-3) .g-R,
-      .tile-window:nth-child(32n-4) .g-R,
-      .tile-window:nth-child(32n-5) .g-R,
-      .tile-window:nth-child(32n-6) .g-R,
-      .tile-window:nth-child(32n-7) .g-R,
-      .tile-window:nth-child(32n-8) .g-R,
-      .tile-window:nth-child(32n-9) .g-R,
-      .tile-window:nth-child(32n-10) .g-R,
-      .tile-window:nth-child(32n-11) .g-R,
-      .tile-window:nth-child(32n-12) .g-R,
-      .tile-window:nth-child(32n-13) .g-R,
-      .tile-window:nth-child(32n-14) .g-R,
-      .tile-window:nth-child(32n-15) .g-R,
-      .tile-window:nth-child(32n-16) .g-R{
-        top: 50%; right: 0; display: block;
-      }
-      
-      .tile-window:nth-child(64n) .g-BL{
-        bottom:0; left: 0; display: block;
-      }
-      .tile-window:nth-child(128n) .g-B{
-        bottom:0; right: 50%; display: block;
-      }
-      .tile-window:nth-child(256n) .g-BR{
-        bottom:0; right: 0; display: block;
-      }*/
-
     </style>
     <script>
       var blockSize = 32;
@@ -122,8 +63,20 @@
     <script type="text/template" id="css-template">
       <style>      
         html {
-          padding-bottom: {{blockSize}}px;
-          zoom: 0.8;
+          padding-bottom: 32px;
+		  
+		  /* 
+			The base zoom for full size sprite sheet WOULD be 1.0, but because
+			windows OS applies a 125% zoom ratio to web views, we reverse the default
+			size increase by setting the zoom to 0.8. That way, if you take a screenshot
+			of the sprite sheet, the size of a single square will ACTUALLY be the size
+			you expect the square to be. base is 0.8 for a size 32. 
+			
+			All of the shadows are built to look great on x32. To get x16, and x64, we
+			just change the zoom to match with the new size value. This explains the
+			below equation. zoom = (blockSize) / (32 / 0.8)
+			*/
+          zoom: calc({{blockSize}} / 40);
         }
         
         body, html {
@@ -131,7 +84,7 @@
           /* zoom: 0.8; offset device pixel width (window.devicePixelRatio) */
           max-width: {{pageWidth}}px;
           width: {{pageWidth}}px;
-          background-size: {{blockSize}}px;
+          background-size: 32px;
         }
 
         .tile-window {
@@ -139,32 +92,32 @@
           float: left;
           display: inline;
           overflow: hidden;
-          width: {{blockSize}}px;
-          height: {{blockSize}}px;
-          min-width: {{blockSize}}px;
-          min-height: {{blockSize}}px;
-          max-width: {{blockSize}}px;
-          max-height: {{blockSize}}px;
+          width: 32px;
+          height: 32px;
+          min-width: 32px;
+          min-height: 32px;
+          max-width: 32px;
+          max-height: 32px;
         }
 
         .tile-content {
           position: absolute;
-          left: -{{blockSize}}px;
-          right: -{{blockSize}}px;
-          top: -{{blockSize}}px;
-          bottom: -{{blockSize}}px;
+          left: -32px;
+          right: -32px;
+          top: -32px;
+          bottom: -32px;
         }
         
         .fill, .empty {
-          width: {{blockSize}}px;
-          height: {{blockSize}}px;
-          min-width: {{blockSize}}px;
-          min-height: {{blockSize}}px;
-          max-width: {{blockSize}}px;
-          max-height: {{blockSize}}px;
+          width: 32px;
+          height: 32px;
+          min-width: 32px;
+          min-height: 32px;
+          max-width: 32px;
+          max-height: 32px;
           display: table-cell;
           position: relative;
-          background-size: {{blockSize}}px;
+          background-size: 32px;
         }
       </style>
     </script>
@@ -200,7 +153,7 @@
     </script>
     <script>
       let cssHtml = $('#css-template').html()
-              .replace(/\{\{pageWidth\}\}/mg, blockSize * 8)
+              .replace(/\{\{pageWidth\}\}/mg, 8 * 32)
               .replace(/\{\{blockSize\}\}/mg, blockSize)
               ;
 
