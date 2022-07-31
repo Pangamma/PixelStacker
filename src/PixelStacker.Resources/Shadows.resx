@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="sprite_x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="sprite-x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\shadows\sprites\sprite-x16.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="sprite_x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="sprite-x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\shadows\sprites\sprite-x32.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="sprite_x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="sprite-x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\shadows\sprites\sprite-x64.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

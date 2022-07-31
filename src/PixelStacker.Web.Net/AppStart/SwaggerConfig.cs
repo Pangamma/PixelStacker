@@ -9,6 +9,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
@@ -27,6 +28,7 @@ namespace PixelStacker.Web.Net.AppStart
             c.IgnoreObsoleteActions();
             c.IgnoreObsoleteProperties();
             c.ParameterFilter<AcceptableValuesFilter>();
+            c.ParameterFilter<DefaultValueFilter>();
         }
 
         public static void UseSwaggerUI(SwaggerUIOptions c)
@@ -60,6 +62,55 @@ namespace PixelStacker.Web.Net.AppStart
                     swagger.Servers = new List<OpenApiServer> { new OpenApiServer { Url = serverUrl } };
                 }
             });
+        }
+    }
+
+
+    public class DefaultValueFilter : IParameterFilter
+    {
+        public void Apply(OpenApiParameter parameter, ParameterFilterContext context)
+        {
+            var meta = context.ApiParameterDescription.ModelMetadata as DefaultModelMetadata;
+            if (meta is null) return;
+            var propAttrs = meta.Attributes.PropertyAttributes;
+            if (propAttrs is null) return;
+
+            foreach (var attr in propAttrs.OfType<DefaultValueAttribute>())
+            {
+                if (attr.Value != null)
+                {
+                    parameter.Schema.Example = OpenApiAnyFactory.CreateFromJson(Newtonsoft.Json.JsonConvert.SerializeObject(attr.Value));
+                    return;
+                }
+            }
+
+            var parentModelType = context.ParameterInfo?.ParameterType;
+            if (parentModelType != null)
+            {
+                object parentModel;
+                try
+                {
+                    parentModel = Activator.CreateInstance(parentModelType);
+                }
+                catch
+                {
+                    parentModel = null;
+                }
+
+                if (parentModel != null)
+                {
+                    PropertyDescriptor prop = TypeDescriptor.GetProperties(parentModel)[parameter.Name];
+                    if (prop.CanResetValue(parentModel)) prop.ResetValue(parentModel);
+                    var defVal = prop.GetValue(parentModel);
+                    if (defVal != null)
+                    {
+                        string json = !defVal.GetType().IsEnum
+                        ? Newtonsoft.Json.JsonConvert.SerializeObject(defVal)
+                        : Newtonsoft.Json.JsonConvert.SerializeObject(defVal.ToString());
+                        parameter.Schema.Example = OpenApiAnyFactory.CreateFromJson(json);
+                    }
+                }
+            }
         }
     }
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.IO.Formatters
 {
-    public class JpegFormatter : IExportFormatter
+    public class JpegFormatter : IExportImageFormatter
     {
         public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker)
         {
@@ -47,6 +47,9 @@ namespace PixelStacker.Logic.IO.Formatters
         }
 
         public async Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
+            => await this.ExportAsync(canvas, new SpecialCanvasRenderSettings(), worker);
+
+        public async Task<byte[]> ExportAsync(PixelStackerProjectData canvas, SpecialCanvasRenderSettings srs, CancellationToken? worker = null)
         {
             var painter = await RenderedCanvasPainter.Create(worker, new RenderedCanvas()
             {
@@ -56,7 +59,7 @@ namespace PixelStacker.Logic.IO.Formatters
                 PreprocessedImage = canvas.PreprocessedImage,
                 WorldEditOrigin = canvas.WorldEditOrigin,
                 IsCustomized = false
-            }, new SpecialCanvasRenderSettings(), 1);
+            }, srs, 1);
 
             int tileSize = CalcMaxTileSize(canvas.Width, canvas.Height);
             int vWidth = tileSize * canvas.Width;

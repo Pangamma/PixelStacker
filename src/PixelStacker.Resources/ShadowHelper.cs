@@ -51,9 +51,10 @@ namespace PixelStacker.Resources
     {
         private static SKBitmap GetSpriteSheet(int textureSize)
         {
-            string resourceKey = $"sprite_x{textureSize}";
-            return SKBitmap.Decode((byte[])Shadows.ResourceManager.GetObject(resourceKey))
-                .Copy(SKColorType.Rgba8888);
+            string resourceKey = $"sprite-x{textureSize}";
+            byte[] data = (byte[])Shadows.ResourceManager.GetObject(resourceKey);
+            SKBitmap bm = SKBitmap.Decode(data);
+            return bm?.Copy(SKColorType.Rgba8888);
         }
 
 

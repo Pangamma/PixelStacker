@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
-using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Web.Net.Models.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PixelStacker.Web.Net.Models
 {
@@ -18,12 +15,16 @@ namespace PixelStacker.Web.Net.Models
         public string GetCacheKey()
         {
             List<string> keys = new List<string>();
-            keys.Add((this.MaxWidth ?? 0).ToString());
-            keys.Add((this.MaxHeight ?? 0).ToString());
-            keys.Add(this.EnableDithering ? "1" : "0");
+            int bitFlags = 0;
+            bitFlags |= this.EnableShadows ? 1 : 0;
+            bitFlags |= this.EnableDithering ? 2 : 0;
+            bitFlags |= this.IsMultiLayer ? 4 : 0;
+            bitFlags |= this.IsSideView ? 8 : 0;
+            keys.Add(bitFlags.ToString());
+
+            keys.Add($"{(this.MaxWidth ?? 0)}x{this.MaxHeight}");
+
             keys.Add(this.Format.ToString());
-            keys.Add(this.IsMultiLayer ? "1" : "0");
-            keys.Add(this.IsSideView ? "1" : "0");
             keys.Add((this.QuantizedColorCount ?? 0).ToString());
             keys.Add(this.RgbBucketSize.ToString());
             keys.Add(this.Url);
@@ -42,10 +43,14 @@ namespace PixelStacker.Web.Net.Models
         public ExportFormat Format { get; set; } = ExportFormat.Jpeg;
 
         public bool IsSideView { get; set; } = false;
+
         public bool IsMultiLayer { get; set; } = true;
 
-        public int? MaxHeight { get; set; }
-        public int? MaxWidth { get; set; }
+        public bool EnableShadows { get; set; } = true;
+
+        public int? MaxHeight { get; set; } = 200;
+
+        public int? MaxWidth { get; set; } = 200;
 
 
         [AcceptableIntValues(1, 5, 15, 17, 51)]

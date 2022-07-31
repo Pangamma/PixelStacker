@@ -22,7 +22,7 @@ namespace PixelStacker.Resources {
         public static Image<Rgba32> sprite_x16 {
             get {
                 if (_sprite_x16 == null)
-                    _sprite_x16 = Image.Load((byte[])ResourceManager.GetObject("sprite_x16"));
+                    _sprite_x16 = Image.Load((byte[])ResourceManager.GetObject("sprite-x16"));
                 return _sprite_x16;
             }
         }
@@ -31,7 +31,7 @@ namespace PixelStacker.Resources {
         public static Image<Rgba32> sprite_x32 {
             get {
                 if (_sprite_x32 == null)
-                    _sprite_x32 = Image.Load((byte[])ResourceManager.GetObject("sprite_x32"));
+                    _sprite_x32 = Image.Load((byte[])ResourceManager.GetObject("sprite-x32"));
                 return _sprite_x32;
             }
         }
@@ -40,7 +40,7 @@ namespace PixelStacker.Resources {
         public static Image<Rgba32> sprite_x64 {
             get {
                 if (_sprite_x64 == null)
-                    _sprite_x64 = Image.Load((byte[])ResourceManager.GetObject("sprite_x64"));
+                    _sprite_x64 = Image.Load((byte[])ResourceManager.GetObject("sprite-x64"));
                 return _sprite_x64;
             }
         }
