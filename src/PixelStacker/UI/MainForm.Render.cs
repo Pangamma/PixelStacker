@@ -21,8 +21,9 @@ namespace PixelStacker.UI
                 var self = this;
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
-                    await self.InvokeEx(async c => {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
+                    await self.InvokeEx(async c =>
+                    {
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
                         c.ShowCanvasEditor();
                     });
 
@@ -108,10 +109,11 @@ namespace PixelStacker.UI
                 var canvasThatIsRendered = await engine.RenderCanvasAsync(worker, imgPreprocessed, this.ColorMapper, this.Palette);
                 worker.ThrowIfCancellationRequested();
 
-                await self.InvokeEx(async c => {
+                await self.InvokeEx(async c =>
+                {
                     c.RenderedCanvas = canvasThatIsRendered;
 
-                    await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, null, new Logic.IO.Config.SpecialCanvasRenderSettings(c.Options));
+                    await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, null, new Logic.IO.Config.SpecialCanvasRenderSettings(c.Options.ViewerSettings));
                 });
                 //self.RenderedCanvas = canvasThatIsRendered;
 

@@ -23,62 +23,6 @@ namespace PixelStacker.Logic.Engine
     /// </summary>
     public class RenderCanvasEngine
     {
-        /// <summary>
-        /// If NULL, it means image is too large.
-        /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="safetyMultiplier"></param>
-        /// <returns></returns>
-        public static int? CalculateTextureSize(int width, int height, int safetyMultiplier = 2)
-        {
-            int calculatedTextureSize = Constants.TextureSize;
-            int bytesInSrcImage = (width * height * 32 / 8); // Still need to multiply by texture size (4 bytes per pixel / 8 bits per byte = 4 bytes)
-
-            bool isSuccess = false;
-
-            do
-            {
-                if (width * calculatedTextureSize >= 30000 || height * calculatedTextureSize >= 30000)
-                {
-                    calculatedTextureSize = Math.Max(1, calculatedTextureSize - 1);
-                    continue;
-                }
-
-                int totalPixels = (width + 1) * height * calculatedTextureSize * calculatedTextureSize * 4;
-                if (totalPixels >= int.MaxValue || totalPixels < 0)
-                {
-                    calculatedTextureSize = Math.Max(1, calculatedTextureSize - 1);
-                    continue;
-                }
-
-                try
-                {
-                    int numMegaBytes = bytesInSrcImage // pixels in base image * bytes per pixel
-                        * calculatedTextureSize * calculatedTextureSize // size of texture tile squared 
-                        / 1024 / 1024       // convert to MB
-                        * safetyMultiplier  // Multiply by safety buffer to plan for a bunch of these layers.
-                        ;
-
-                    if (numMegaBytes > 0)
-                    {
-                        using (var memoryCheck = new System.Runtime.MemoryFailPoint(numMegaBytes))
-                        {
-                        }
-                    }
-
-                    isSuccess = true;
-                }
-                catch (InsufficientMemoryException)
-                {
-                    calculatedTextureSize = Math.Max(1, calculatedTextureSize - 2);
-                }
-            } while (isSuccess == false && calculatedTextureSize > 1);
-
-            if (!isSuccess) return null;
-            else return calculatedTextureSize;
-        }
-
         private int[] GetNewSize(int Wdt, int Hgt, int Max_W, int Max_H)
         {
             int W_Result = Wdt;

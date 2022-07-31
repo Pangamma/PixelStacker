@@ -20,7 +20,7 @@ namespace PixelStacker.Logic.CanvasEditor
             return isShaded;
         }
 
-        private static bool TryPaintShadowTile(int x, int y, CanvasData data, MaterialPalette palette, SKCanvas skCanvas, SKPaint paintShade, int ix, int iy)
+        private static bool TryPaintShadowTile(int x, int y, CanvasData data, MaterialPalette palette, SKCanvas skCanvas, SKPaint paintShade, int ix, int iy, int textureSize)
         {
             ShadeFrom sFrom = ShadeFrom.EMPTY;
             var mc = data.IsInRange(x, y) ? data[x, y] : palette[Constants.MaterialCombinationIDForAir];
@@ -44,13 +44,13 @@ namespace PixelStacker.Logic.CanvasEditor
 
             if (mc.GetShadowHeight() == MaterialHeight.L1_SOLID)
             {
-                skCanvas.DrawRect(ix, iy, Constants.TextureSize, Constants.TextureSize, paintShade);
+                skCanvas.DrawRect(ix, iy, textureSize, textureSize, paintShade);
             }
 
-            var shadeImg = ShadowHelper.GetSpriteIndividual(Constants.TextureSize, sFrom);
+            var shadeImg = ShadowHelper.GetSpriteIndividual(textureSize, sFrom);
             lock (shadeImg)
             {
-                skCanvas.DrawBitmap(shadeImg, new SKRect(ix, iy, ix + Constants.TextureSize, iy + Constants.TextureSize));
+                skCanvas.DrawBitmap(shadeImg, new SKRect(ix, iy, ix + textureSize, iy + textureSize));
             }
 
             return false;
@@ -70,7 +70,8 @@ namespace PixelStacker.Logic.CanvasEditor
         {
             if (!this.SpecialRenderSettings.EnableShadows)
                 return;
-
+            int bpc = this.SpecialRenderSettings.BlocksPerChunk;
+            int textureSize = this.SpecialRenderSettings.TextureSize;
             Dictionary<PxPoint, bool> toShadeMap = new Dictionary<PxPoint, bool>();
             foreach (var r in records)
             {
@@ -94,7 +95,7 @@ namespace PixelStacker.Logic.CanvasEditor
             //var uniqueChunkIndexes = records.SelectMany(x => x.ChangedPixels).Distinct();
             var chunkIndexes = toShadeMap
                 .Where(cp => cp.Key.X > -1 && cp.Key.X < Data.Width - 1 && cp.Key.Y > -1 && cp.Key.Y < Data.Height - 1)
-                .GroupBy(cp => new PxPoint(GetChunkIndexX(cp.Key.X), GetChunkIndexY(cp.Key.Y)));
+                .GroupBy(cp => new PxPoint(GetChunkIndexX(cp.Key.X, bpc), GetChunkIndexY(cp.Key.Y, bpc)));
 
             var chunksThatNeedReRendering = GetChunksThatNeedReRendering(chunkIndexes.Select(x => x.Key));
             using SKPaint paint = new SKPaint() { BlendMode = SKBlendMode.Src, FilterQuality = SKFilterQuality.None };
@@ -121,8 +122,8 @@ namespace PixelStacker.Logic.CanvasEditor
                     bmCopied = Bitmaps[0][chunkIndex.X, chunkIndex.Y].Copy();
                 }
 
-                int offsetX = chunkIndex.X * BlocksPerChunk;
-                int offsetY = chunkIndex.Y * BlocksPerChunk;
+                int offsetX = chunkIndex.X * bpc;
+                int offsetY = chunkIndex.Y * bpc;
                 // Modify the copied chunk
                 using SKCanvas skCanvas = new SKCanvas(bmCopied);
                 bool isSolid = this.SpecialRenderSettings.IsSolidColors;
@@ -139,8 +140,8 @@ namespace PixelStacker.Logic.CanvasEditor
                     var pxToModify = pxToMaybeRerenderTexture.Key;
                     bool isRerenderNeeded = !pxToMaybeRerenderTexture.Value;
                     //MaterialCombination mc = Data.MaterialPalette[pxToModify.PaletteID];
-                    int ix = Constants.TextureSize * (pxToModify.X - offsetX);
-                    int iy = Constants.TextureSize * (pxToModify.Y - offsetY);
+                    int ix = textureSize * (pxToModify.X - offsetX);
+                    int iy = textureSize * (pxToModify.Y - offsetY);
 
                     if (isRerenderNeeded)
                     {
@@ -149,12 +150,12 @@ namespace PixelStacker.Logic.CanvasEditor
                         if (isSolid)
                         {
                             paintSolid.Color = mc.GetAverageColor(isv, this.SpecialRenderSettings);
-                            skCanvas.DrawRect(new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(Constants.TextureSize, Constants.TextureSize) }, paintSolid);
+                            skCanvas.DrawRect(new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(textureSize, textureSize) }, paintSolid);
                         }
                         else
                         {
                             skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings),
-                                new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(Constants.TextureSize, Constants.TextureSize) },
+                                new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(textureSize, textureSize) },
                                 paint);
                         }
                     }
@@ -167,7 +168,8 @@ namespace PixelStacker.Logic.CanvasEditor
                         skCanvas,
                         paintShade,
                         ix,
-                        iy);
+                        iy,
+                        textureSize);
                     }
                 }
 
@@ -181,7 +183,7 @@ namespace PixelStacker.Logic.CanvasEditor
 
             // OTHER LAYERS 2.0
             {
-                float pixelsPerHalfChunk = Constants.TextureSize * BlocksPerChunk / 2;
+                float pixelsPerHalfChunk = textureSize * bpc / 2;
                 for (int layerIndexToRender = 1; layerIndexToRender < chunksThatNeedReRendering.Count; layerIndexToRender++)
                 {
                     int scaleDivide = (int)Math.Pow(2, layerIndexToRender);

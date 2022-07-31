@@ -68,11 +68,29 @@ namespace PixelStacker.Resources
             return new SKRect(left: xOffset, top: yOffset, right: xOffset + textureSize, bottom: yOffset + textureSize);
         }
 
-        private static SKBitmap[] shadowSprites = new SKBitmap[256];
+        private static SKBitmap[] shadowSprites16 = new SKBitmap[256];
+        private static SKBitmap[] shadowSprites32 = new SKBitmap[256];
+        private static SKBitmap[] shadowSprites64 = new SKBitmap[256];
         private static object padlock = new object();
         public static SKBitmap GetSpriteIndividual(int textureSize, ShadeFrom dir)
         {
             int numDir = (int)dir;
+            SKBitmap[] shadowSprites;
+
+            switch (textureSize)
+            {
+                case 64:
+                    shadowSprites = shadowSprites64;
+                    break;
+                case 32:
+                    shadowSprites = shadowSprites32;
+                    break;
+                case 16:
+                default:
+                    shadowSprites = shadowSprites16;
+                    break;
+
+            }
 
             // Run a non locking quick check here.
             if (null == shadowSprites[numDir])

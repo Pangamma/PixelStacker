@@ -22,7 +22,7 @@ namespace PixelStacker.Logic.IO.Formatters
 
         private int CalcMaxTileSize(int w, int h)
         {
-            int calculatedTextureSize = Constants.TextureSize;
+            int calculatedTextureSize = Constants.DefaultTextureSize;
 
             do
             {

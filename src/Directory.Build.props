@@ -7,7 +7,7 @@
 		<DefineConstants>$(DefineConstants);TRACE;SKIA_SHARP;</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants>$(DefineConstants);DEBUG;FULL_VERSION;FAIL_FAST</DefineConstants>
+		<DefineConstants>$(DefineConstants);DEBUG;FULL_VERSION;FAIL_FAST;DEBUG_GPU</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Release)'=='Release'">
 		<DefineConstants>$(DefineConstants);FULL_VERSION;RELEASE;</DefineConstants>

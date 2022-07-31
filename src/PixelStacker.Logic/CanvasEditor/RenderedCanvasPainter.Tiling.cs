@@ -13,11 +13,6 @@ namespace PixelStacker.Logic.CanvasEditor
 {
     public partial class RenderedCanvasPainter
     {
-        public static int BlocksPerChunk
-            => Constants.TextureSize == 16 ? 38
-            : Constants.TextureSize == 32 ? 19
-            : 10;
-
         /// Should contain: 
         /// 0 = 1/1 size, when viewing at zoom(tex)+ to zoom(tex * 0.75) 
         /// 1 = 1/2 size
@@ -26,8 +21,8 @@ namespace PixelStacker.Logic.CanvasEditor
         private List<SKBitmap[,]> Bitmaps { get; }
         private List<object[,]> Padlocks { get; }
 
-        private static int GetChunkIndexX(int srcX) => srcX / BlocksPerChunk;
-        private static int GetChunkIndexY(int srcY) => srcY / BlocksPerChunk;
+        private static int GetChunkIndexX(int srcX, int BlocksPerChunk) => srcX / BlocksPerChunk;
+        private static int GetChunkIndexY(int srcY, int BlocksPerChunk) => srcY / BlocksPerChunk;
 
         /// <summary>
         /// Initialize the bitmaps by rendering a canvas into image tiles.
@@ -55,8 +50,8 @@ namespace PixelStacker.Logic.CanvasEditor
                 int scaleDivide = 1;
                 int numChunksWide = sizeSet.GetLength(0);
                 int numChunksHigh = sizeSet.GetLength(1);
-                int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
-                int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide;
+                int srcPixelsPerChunk = srs.BlocksPerChunk * scaleDivide;
+                int dstPixelsPerChunk = srs.TextureSize * srcPixelsPerChunk / scaleDivide;
                 int iTask = 0;
                 Task[] L0Tasks = new Task[sizes[0].Length];
                 for (int cW = 0; cW < numChunksWide; cW++)
@@ -69,8 +64,8 @@ namespace PixelStacker.Logic.CanvasEditor
                         SKRect srcRect = new SKRect()
                         {
                             Location = new SKPoint(cWf * srcPixelsPerChunk, cHf * srcPixelsPerChunk),
-                            Size = new SKSize((float)Math.Floor(tileSize.Width * scaleDivide / Constants.TextureSize)
-                            , (float)Math.Floor(tileSize.Height * scaleDivide / Constants.TextureSize))
+                            Size = new SKSize((float)Math.Floor(tileSize.Width * scaleDivide / srs.TextureSize)
+                            , (float)Math.Floor(tileSize.Height * scaleDivide / srs.TextureSize))
                         };
 
                         SKRect dstRect = new SKRect()
@@ -107,7 +102,7 @@ namespace PixelStacker.Logic.CanvasEditor
                     IsAntialias = false
                 };
 
-                float pixelsPerHalfChunk = Constants.TextureSize * BlocksPerChunk / 2;
+                float pixelsPerHalfChunk = srs.TextureSize * srs.BlocksPerChunk / 2;
 
                 for (int l = 1; l < sizes.Count; l++)
                 {
@@ -115,8 +110,8 @@ namespace PixelStacker.Logic.CanvasEditor
                     int scaleDivide = (int)Math.Pow(2, l);
                     int numChunksWide = sizeSet.GetLength(0);
                     int numChunksHigh = sizeSet.GetLength(1);
-                    int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
-                    int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide;
+                    int srcPixelsPerChunk = srs.BlocksPerChunk * scaleDivide;
+                    int dstPixelsPerChunk = srs.TextureSize * srcPixelsPerChunk / scaleDivide;
                     int ssWidth = sizeSet.GetLength(0);
                     int ssHeight = sizeSet.GetLength(1);
                     var upperLayer = bitmaps[l - 1];
@@ -213,19 +208,19 @@ namespace PixelStacker.Logic.CanvasEditor
         /// But each block will be rendered at half scale. Make sense? Basically this value is used
         /// for down-sizing.</param>
         /// <returns></returns>
-        private static SKSize[,] CalculateChunkSizesForLayer(SKSize srcImageSize, int scaleDivide)
+        private static SKSize[,] CalculateChunkSizesForLayer(SKSize srcImageSize, int scaleDivide, SpecialCanvasRenderSettings srs)
         {
             int srcW = (int)srcImageSize.Width;
             int srcH = (int)srcImageSize.Height;
-            int srcPixelsPerChunk = BlocksPerChunk * scaleDivide;
-            int dstPixelsPerChunk = Constants.TextureSize * srcPixelsPerChunk / scaleDivide; // 16 * (RenderedCanvasPainter.BlocksPerChunk * N) / N = 6RenderedCanvasPainter.BlocksPerChunk
+            int srcPixelsPerChunk = srs.BlocksPerChunk * scaleDivide;
+            int dstPixelsPerChunk = srs.TextureSize * srcPixelsPerChunk / scaleDivide; // 16 * (RenderedCanvasPainter.BlocksPerChunk * N) / N = 6RenderedCanvasPainter.BlocksPerChunk
             int numChunksWide = (int)srcW / srcPixelsPerChunk + (srcW % srcPixelsPerChunk == 0 ? 0 : 1);
             int numChunksHigh = (int)srcH / srcPixelsPerChunk + (srcH % srcPixelsPerChunk == 0 ? 0 : 1);
             var sizeSet = new SKSize[numChunksWide, numChunksHigh];
 
             // MAX PERFECT WIDTH - ACTUAL WIDTH = difference
-            int deltaX = numChunksWide * dstPixelsPerChunk - Constants.TextureSize * srcW / scaleDivide;
-            int deltaY = numChunksHigh * dstPixelsPerChunk - Constants.TextureSize * srcH / scaleDivide;
+            int deltaX = numChunksWide * dstPixelsPerChunk - srs.TextureSize * srcW / scaleDivide;
+            int deltaY = numChunksHigh * dstPixelsPerChunk - srs.TextureSize * srcH / scaleDivide;
             for (int x = 0; x < numChunksWide; x++)
             {
                 int dstWidthOfChunk = x < numChunksWide - 1
@@ -261,14 +256,14 @@ namespace PixelStacker.Logic.CanvasEditor
             bool b = false;
             bool c = false;
             // JUST the pixels in a dest chunk no matter what scale it is at.
-            int pixelsPerChunkTile = BlocksPerChunk * Constants.TextureSize;
+            int pixelsPerChunkTile = srs.BlocksPerChunk * srs.TextureSize;
 
             // We run into integer overflows when doing pixelsPerChunk^2. So we use algebra to say
             // W*H*PPC*PPC > MAX_AREA is the same as W*W*PPC > MAX_AREA / PPC
             int MAX_AREA_B4_SPLIT_ADJUSTED = Constants.BIG_IMG_MAX_AREA_B4_SPLIT / pixelsPerChunkTile;
             do
             {
-                curSizeSet = CalculateChunkSizesForLayer(new SKSize(data.Width, data.Height), scaleDivide);
+                curSizeSet = CalculateChunkSizesForLayer(new SKSize(data.Width, data.Height), scaleDivide, srs);
                 sizesList.Add(curSizeSet);
                 scaleDivide *= 2;
                 maxLayers--;
@@ -328,8 +323,8 @@ namespace PixelStacker.Logic.CanvasEditor
                         paintSolid.Color = toPaint;
                         canvas.DrawRect(new SKRect()
                         {
-                            Location = new SKPoint(x * Constants.TextureSize, y * Constants.TextureSize),
-                            Size = new SKSize(Constants.TextureSize, Constants.TextureSize)
+                            Location = new SKPoint(x * srs.TextureSize, y * srs.TextureSize),
+                            Size = new SKSize(srs.TextureSize, srs.TextureSize)
                         }, paintSolid);
 
                         if (srs.EnableShadows)
@@ -339,8 +334,9 @@ namespace PixelStacker.Logic.CanvasEditor
                                 data.MaterialPalette,
                                 canvas,
                                 paintShade,
-                                x * Constants.TextureSize,
-                                y * Constants.TextureSize);
+                                x * srs.TextureSize,
+                                y * srs.TextureSize,
+                                srs.TextureSize);
                         }
                     }
                 });
@@ -362,7 +358,7 @@ namespace PixelStacker.Logic.CanvasEditor
                         else if (srs.ZLayerFilter == 1) toPaint = mc.Top.GetImage(data.IsSideView);
                         else toPaint = mc.GetImage(data.IsSideView);
 
-                        canvas.DrawBitmap(toPaint, new SKRect(x * Constants.TextureSize, y * Constants.TextureSize, x * Constants.TextureSize + Constants.TextureSize, y * Constants.TextureSize + Constants.TextureSize), paint);
+                        canvas.DrawBitmap(toPaint, new SKRect(x * srs.TextureSize, y * srs.TextureSize, x * srs.TextureSize + srs.TextureSize, y * srs.TextureSize + srs.TextureSize), paint);
                         if (srs.EnableShadows)
                         {
                             TryPaintShadowTile((int)loc.X + x, (int)loc.Y + y,
@@ -370,8 +366,9 @@ namespace PixelStacker.Logic.CanvasEditor
                                 data.MaterialPalette,
                                 canvas,
                                 paintShade,
-                                x * Constants.TextureSize,
-                                y * Constants.TextureSize);
+                                x * srs.TextureSize,
+                                y * srs.TextureSize,
+                                srs.TextureSize);
                         }
                     }
                 });

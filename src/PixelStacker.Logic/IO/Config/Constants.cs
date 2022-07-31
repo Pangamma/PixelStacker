@@ -5,7 +5,9 @@
         public const int DisplayRefreshIntervalMs = 10;
         public const string Version = "1.19.1a";
         public const string Website = "https://taylorlove.info/pixelstacker";
-        public static int TextureSize = 16;
+        [System.Obsolete("Switch to using DefaultTextureSize, bc that is what this should represent.", true)]
+        public const int TextureSize = 16;
+        public const int DefaultTextureSize = 16;
         public const int MaxPageSizeForRenders = int.MaxValue;
 
         //public const string ERR_DownsizeYourImage = "Your image is too large and cannot be processed. Please downsize your image using the sizing options or else choose a different image.";

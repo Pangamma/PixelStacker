@@ -11,20 +11,14 @@ namespace PixelStacker.UI.Controls
 {
     public partial class CanvasEditor
     {
-        private bool IsPainting = false;
 
         [System.Diagnostics.DebuggerStepThrough]
         private void timerPaint_Tick(object sender, EventArgs e)
         {
-            if (this.RepaintRequested)
+            if (this.RepaintRequested && !this.IsPainting)
             {
-                if (!IsPainting)
-                {
-                    IsPainting = true;
-                    // Force repaint on skcontrol
-                    skiaControl.Refresh();
-                    this.RepaintRequested = false;
-                }
+                // Force repaint on skcontrol
+                skiaControl.Refresh();
             }
         }
 

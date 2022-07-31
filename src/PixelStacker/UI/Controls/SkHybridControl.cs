@@ -105,7 +105,7 @@ namespace PixelStacker.UI.Controls
             if (IsGpuAvailable && !this.DesignMode)
             {
                 this.glCanvas?.Invalidate();
-            } 
+            }
             else
             {
                 this.Canvas?.Invalidate();

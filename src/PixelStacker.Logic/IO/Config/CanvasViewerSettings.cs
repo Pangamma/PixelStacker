@@ -35,5 +35,6 @@ namespace PixelStacker.Logic.IO.Config
         /// 1 = show top layer
         /// </summary>
         public int? ZLayerFilter { get; set; } = null;
+        public int TextureSize { get; set; }
     }
 }

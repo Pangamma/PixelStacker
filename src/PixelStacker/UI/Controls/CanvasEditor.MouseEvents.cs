@@ -8,7 +8,12 @@ namespace PixelStacker.UI.Controls
 {
     public partial class CanvasEditor
     {
-        public bool RepaintRequested = false;
+        private bool IsPainting { get; set; } = false;
+
+        public bool RepaintRequested { get; set; } = false;
+        private DateTime PaintStartTime = DateTime.MinValue;
+        private DateTime PaintFinishTime = DateTime.MinValue;
+        private DateTime LastRepaintRequestTime = DateTime.MinValue;
 
         private void restrictZoom()
         {
@@ -132,8 +137,9 @@ namespace PixelStacker.UI.Controls
                 if (lblHoverInfo.Text != hoverText)
                     lblHoverInfo.Text = hoverText;
                 previousPointOnImage = pt;
-                this.RepaintRequested = true;
             }
+
+            this.RepaintRequested = true;
 
             previousCursorPosition = e.Location;
             if (e.Button == MouseButtons.Middle)
