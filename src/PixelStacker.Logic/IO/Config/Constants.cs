@@ -25,7 +25,7 @@
         // Data version of MC build. Can be found on wiki.
         // TODO: Auto calc this based on selected materials
         // https://minecraft.fandom.com/wiki/Java_Edition_1.18.1
-        public const int DataVersion = 3105;
+        public const int DataVersion = 3117;
         public const int MaterialCombinationIDForAir = 0;
         public const int BlockID_Unavailable = 166; // barrier
 
