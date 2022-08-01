@@ -194,8 +194,8 @@ namespace PixelStacker.Web.Net.Controllers
             bool isv = model.IsSideView;
             using var preprocessed = await engine.PreprocessImageAsync(null, bm, new CanvasPreprocessorSettings()
             {
-                MaxHeight = model.MaxHeight ?? 200,
-                MaxWidth = model.MaxWidth ?? 200,
+                MaxHeight = Math.Clamp(model.MaxHeight ?? 200, 4, 4000),
+                MaxWidth = Math.Clamp(model.MaxWidth ?? 200, 4, 4000),
                 RgbBucketSize = model.RgbBucketSize,
                 QuantizerSettings = new QuantizerSettings()
                 {
