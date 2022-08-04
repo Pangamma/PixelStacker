@@ -5,7 +5,9 @@
         public const int DisplayRefreshIntervalMs = 10;
         public const string Version = "1.19.1a";
         public const string Website = "https://taylorlove.info/pixelstacker";
-        public static int TextureSize = 16;
+        [System.Obsolete("Switch to using DefaultTextureSize, bc that is what this should represent.", true)]
+        public const int TextureSize = 16;
+        public const int DefaultTextureSize = 16;
         public const int MaxPageSizeForRenders = int.MaxValue;
 
         //public const string ERR_DownsizeYourImage = "Your image is too large and cannot be processed. Please downsize your image using the sizing options or else choose a different image.";
@@ -23,7 +25,7 @@
         // Data version of MC build. Can be found on wiki.
         // TODO: Auto calc this based on selected materials
         // https://minecraft.fandom.com/wiki/Java_Edition_1.18.1
-        public const int DataVersion = 3105;
+        public const int DataVersion = 3117;
         public const int MaterialCombinationIDForAir = 0;
         public const int BlockID_Unavailable = 166; // barrier
 

@@ -3,6 +3,7 @@ using PixelStacker.Logic.CanvasEditor.History;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ namespace PixelStacker.UI.Controls
                         this.Painter.DoApplyShadowsForRenderRecords(tiles);
                     }
                 }
+                await Task.Yield();
             }
 
             e.Result = Task.CompletedTask;
@@ -51,12 +53,14 @@ namespace PixelStacker.UI.Controls
 
         private void BgWorkerBufferedChangeQueue_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (!e.Cancelled)
+            if (e.Cancelled)
             {
-                this.RepaintRequested = true;
+                this.RepaintRequested = false;
             }
         }
 
+
+        [DebuggerStepThrough]
         private void timerBufferedChangeQueue_Tick(object sender, System.EventArgs e)
         {
             if (this.Painter == null) return;

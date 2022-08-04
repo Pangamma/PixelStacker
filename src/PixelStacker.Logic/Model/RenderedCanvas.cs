@@ -18,10 +18,6 @@ namespace PixelStacker.Logic.Model
         [JsonIgnore]
         public SKBitmap PreprocessedImage { get; set; }
 
-        //[JsonIgnore]
-        //[JsonConverter(typeof(BitmapJsonTypeConverter))]
-        //public Bitmap OriginalImage { get; set; }
-
         [JsonIgnore]
         public MaterialPalette MaterialPalette { get; set; }
 

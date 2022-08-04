@@ -11,7 +11,7 @@ namespace PixelStacker.Logic.CanvasEditor
     {
         public void PaintSurface(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, CanvasViewerSettings vs)
         {
-            PaintTilesToView(g, parentControlSize, pz, this.Bitmaps, this.Padlocks);
+            PaintTilesToView(g, parentControlSize, pz, this.Bitmaps, this.Padlocks, this.SpecialRenderSettings);
             if (vs.IsShowGrid) DrawGridLines(g, Data, vs, pz);
             if (vs.IsShowBorder) DrawBorder(g, pz, new SKSize(Data.Width, Data.Height));
             if (Data.WorldEditOrigin != null) DrawWorldEditOrigin(g, pz, Data.WorldEditOrigin);
@@ -126,7 +126,7 @@ namespace PixelStacker.Logic.CanvasEditor
         /// <param name="g"></param>
         /// <param name="parentControlSize"></param>
         /// <param name="pz"></param>
-        private static void PaintTilesToView(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, List<SKBitmap[,]> bitmaps, List<object[,]> padlocks)
+        private static void PaintTilesToView(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, List<SKBitmap[,]> bitmaps, List<object[,]> padlocks, SpecialCanvasRenderSettings srs)
         {
             #region SET GRAPHICS SETTINGS
             //if (pz.zoomLevel < 1.0D)
@@ -168,6 +168,8 @@ namespace PixelStacker.Logic.CanvasEditor
             }
             #endregion GET BITMAP SET
 
+            int texSize = srs.TextureSize;
+            int BlocksPerChunk = srs.BlocksPerChunk;
             // The count of ORIGINAL SOURCE pixels in a FULL chunk.
             int srcPixelsPerChunk = BlocksPerChunk * divideAmount;
             SKPoint srcLocationOfPanelTL = GetPointOnImage(new SKPoint(0, 0), pz, EstimateProp.Floor);
@@ -198,8 +200,8 @@ namespace PixelStacker.Logic.CanvasEditor
                         var bmToPaint = toUse[xChunk, yChunk];
                         SKPoint pnlStart = GetPointOnPanel(new SKPoint(x: xChunk * srcPixelsPerChunk, y: yChunk * srcPixelsPerChunk), pz);
                         SKPoint pnlEnd = GetPointOnPanel(new SKPoint(
-                            x: (xChunk * srcPixelsPerChunk) + (bmToPaint.Width * divideAmount / Constants.TextureSize),
-                            y: (yChunk * srcPixelsPerChunk) + (bmToPaint.Height * divideAmount / Constants.TextureSize)),
+                            x: (xChunk * srcPixelsPerChunk) + (bmToPaint.Width * divideAmount / texSize),
+                            y: (yChunk * srcPixelsPerChunk) + (bmToPaint.Height * divideAmount / texSize)),
                             pz);
                         SKRect rectDST = pnlStart.ToRectangle(pnlEnd);
                         SKRect rectSRC = PointExtensions.ToRectangle(0, 0, bmToPaint.Width, bmToPaint.Height); // left, top, right, bottom

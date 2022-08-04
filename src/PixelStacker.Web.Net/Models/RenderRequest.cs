@@ -46,10 +46,12 @@ namespace PixelStacker.Web.Net.Models
 
         public bool IsMultiLayer { get; set; } = true;
 
-        public bool EnableShadows { get; set; } = true;
+        public bool EnableShadows { get; set; } = false;
 
+        [Range(4, 4000)]
         public int? MaxHeight { get; set; } = 200;
 
+        [Range(4, 4000)]
         public int? MaxWidth { get; set; } = 200;
 
 

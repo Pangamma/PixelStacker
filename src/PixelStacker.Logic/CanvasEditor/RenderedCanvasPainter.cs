@@ -19,20 +19,29 @@ namespace PixelStacker.Logic.CanvasEditor
         public RenderedCanvas Data { get; }
         public SpecialCanvasRenderSettings SpecialRenderSettings { get; private set; }
 
-        public RenderedCanvasPainter(RenderedCanvas data)
+        [Obsolete("Try to pass in special render settings as well.", false)]
+        private RenderedCanvasPainter(RenderedCanvas data) : this(data, new SpecialCanvasRenderSettings()
+        {
+            EnableShadows = false,
+            TextureSize = Constants.DefaultTextureSize,
+            IsSolidColors = false,
+        })
+        {
+        }
+
+        private RenderedCanvasPainter(RenderedCanvas data, SpecialCanvasRenderSettings srs)
         {
             Data = data;
             Bitmaps = new List<SKBitmap[,]>();
             Padlocks = new List<object[,]>();
             History = new SuperHistory(Data);
+            SpecialRenderSettings = srs;
         }
 
         public static async Task<RenderedCanvasPainter> Create(CancellationToken? worker, RenderedCanvas data, SpecialCanvasRenderSettings srs, int maxLayers = 10)
         {
             worker ??= CancellationToken.None;
-            var canvas = new RenderedCanvasPainter(data);
-
-            canvas.SpecialRenderSettings = srs;
+            var canvas = new RenderedCanvasPainter(data, srs);
             worker.SafeThrowIfCancellationRequested();
             var bms = await RenderIntoTilesAsync(worker, data, srs, maxLayers);
 

@@ -201,7 +201,7 @@ namespace PixelStacker.UI
                         c.imageViewer.SetImage(c.PreprocessedImage, null);
 
                         var pz = c.imageViewer.PanZoomSettings;
-                        await c.canvasEditor.SetCanvas(worker, proj, pz, new SpecialCanvasRenderSettings(c.Options));
+                        await c.canvasEditor.SetCanvas(worker, proj, pz, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
                         c.ShowCanvasEditor();
                     });
                 }));

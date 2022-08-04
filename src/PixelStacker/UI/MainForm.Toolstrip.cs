@@ -28,6 +28,9 @@ namespace PixelStacker.UI
             this.showTopLayerToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == 1;
             this.showBothLayersToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == null;
             this.toggleShadowsToolStripMenuItem.Checked = opts.ViewerSettings.IsShadowRenderingEnabled;
+            this.tsTextureSize16.Checked = opts.ViewerSettings.TextureSize == 16;
+            this.tsTextureSize32.Checked = opts.ViewerSettings.TextureSize == 32;
+            this.tsTextureSize64.Checked = opts.ViewerSettings.TextureSize == 64;
         }
 
         public void TS_SetTagObjects()
@@ -40,6 +43,8 @@ namespace PixelStacker.UI
             this.fileToolStripMenuItem.Tag = new MainFormTags() { };
             this.editToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
             this.viewToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
+            this.textureSizeToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
+
             this.swatchToolStripMenuItem.ModifyRecursive((x, tag) =>
             {
                 tag.IsCanvasEditorRequired = true;
@@ -135,7 +140,7 @@ namespace PixelStacker.UI
                 {
                     await self.InvokeEx(async c =>
                     {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
                         c.ShowCanvasEditor();
                     });
                 }));
@@ -201,7 +206,7 @@ namespace PixelStacker.UI
                 {
                     await self.InvokeEx(async c =>
                     {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
                         c.ShowCanvasEditor();
                     });
                 }));
@@ -220,7 +225,7 @@ namespace PixelStacker.UI
                 {
                     await self.InvokeEx(async c =>
                     {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
                         c.ShowCanvasEditor();
                     });
 
@@ -240,7 +245,37 @@ namespace PixelStacker.UI
                 {
                     await self.InvokeEx(async c =>
                     {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options));
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
+                        c.ShowCanvasEditor();
+                    });
+                }));
+            }
+        }
+
+        private async void tsTextureSize16_Click(object sender, System.EventArgs e)
+        => await tsTextureSizeChangeClick(sender, e, 16);
+        private async void tsTextureSize32_Click(object sender, System.EventArgs e)
+        => await tsTextureSizeChangeClick(sender, e, 32);
+        private async void tsTextureSize64_Click(object sender, System.EventArgs e)
+        => await tsTextureSizeChangeClick(sender, e, 64);
+
+        private async Task tsTextureSizeChangeClick(object sender, System.EventArgs e, int size)
+        {
+            this.Options.ViewerSettings.TextureSize = size;
+            this.tsTextureSize16.Checked = this.Options.ViewerSettings.TextureSize == 16;
+            this.tsTextureSize32.Checked = this.Options.ViewerSettings.TextureSize == 32;
+            this.tsTextureSize64.Checked = this.Options.ViewerSettings.TextureSize == 64;
+            this.Options.Save();
+            this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
+
+            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
+            {
+                var self = this;
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
+                    await self.InvokeEx(async c =>
+                    {
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
                         c.ShowCanvasEditor();
                     });
                 }));

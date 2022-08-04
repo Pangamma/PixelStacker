@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Engine;
@@ -17,6 +9,10 @@ using PixelStacker.Logic.Model;
 using PixelStacker.Web.Net.Models;
 using PixelStacker.Web.Net.Utility;
 using SkiaSharp;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PixelStacker.Web.Net.Controllers
 {
@@ -95,14 +91,14 @@ namespace PixelStacker.Web.Net.Controllers
 
         [HttpGet]
         [Obsolete("Do not show this function.", false)]
-        public async Task<JsonResult> Stats()
+        public Task<JsonResult> Stats()
         {
             var data = new Dictionary<string, object>();
             data["LRU_SIZE"] = Cache.Count;
             data["LRU_KEYS"] = Cache.Keys;
-            return Json(data);
+            return Task.FromResult(Json(data));
         }
-        
+
         [HttpGet]
         public async Task<ActionResult> ByURL(string url)
         {
@@ -198,8 +194,8 @@ namespace PixelStacker.Web.Net.Controllers
             bool isv = model.IsSideView;
             using var preprocessed = await engine.PreprocessImageAsync(null, bm, new CanvasPreprocessorSettings()
             {
-                MaxHeight = model.MaxHeight ?? 200,
-                MaxWidth = model.MaxWidth ?? 200,
+                MaxHeight = Math.Clamp(model.MaxHeight ?? 200, 4, 4000),
+                MaxWidth = Math.Clamp(model.MaxWidth ?? 200, 4, 4000),
                 RgbBucketSize = model.RgbBucketSize,
                 QuantizerSettings = new QuantizerSettings()
                 {
@@ -213,15 +209,20 @@ namespace PixelStacker.Web.Net.Controllers
             var mapper = GetMapper(isv, model.IsMultiLayer);
             var canvas = await engine.RenderCanvasAsync(null, preprocessed, mapper, palette);
             IExportFormatter exporter = model.Format.GetFormatter();
-            byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
+
+
+            var pxdat = new PixelStackerProjectData()
             {
                 CanvasData = canvas.CanvasData,
                 IsSideView = isv,
                 MaterialPalette = palette,
                 PreprocessedImage = canvas.PreprocessedImage,
-                //WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
                 WorldEditOrigin = null
-            }, null);
+            };
+
+            byte[] data = (exporter is IExportImageFormatter imgExporter)
+                ? await imgExporter.ExportAsync(pxdat, new SpecialCanvasRenderSettings() { EnableShadows = model.EnableShadows }, null)
+                : await exporter.ExportAsync(pxdat, null);
 
             var (contentType, fileExt) = model.Format.GetContentTypeData();
             if (contentType == "application/octet-stream")

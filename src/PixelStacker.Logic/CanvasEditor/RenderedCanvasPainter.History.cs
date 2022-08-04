@@ -1,6 +1,5 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.CanvasEditor.History;
-using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using SkiaSharp;
 using System;
@@ -53,13 +52,15 @@ namespace PixelStacker.Logic.CanvasEditor
         public Task DoProcessRenderRecords(List<RenderRecord> records)
         {
             if (records.Count == 0) return Task.CompletedTask;
+            int bpc = this.SpecialRenderSettings.BlocksPerChunk;
+            int texSize = this.SpecialRenderSettings.TextureSize;
             //var uniqueChunkIndexes = records.SelectMany(x => x.ChangedPixels).Distinct();
             var chunkIndexes = records.SelectMany(x => x.ChangedPixels.Select(cp => new
             {
                 PaletteID = x.PaletteID,
                 X = cp.X,
                 Y = cp.Y
-            })).GroupBy(cp => new PxPoint(GetChunkIndexX(cp.X), GetChunkIndexY(cp.Y)));
+            })).GroupBy(cp => new PxPoint(GetChunkIndexX(cp.X, bpc), GetChunkIndexY(cp.Y, bpc)));
 
             var chunksThatNeedReRendering = GetChunksThatNeedReRendering(chunkIndexes.Select(x => x.Key));
             using SKPaint paint = new SKPaint() { BlendMode = SKBlendMode.Src, FilterQuality = SKFilterQuality.None };
@@ -77,8 +78,8 @@ namespace PixelStacker.Logic.CanvasEditor
                     bmCopied = Bitmaps[0][chunkIndex.X, chunkIndex.Y].Copy();
                 }
 
-                int offsetX = chunkIndex.X * BlocksPerChunk;
-                int offsetY = chunkIndex.Y * BlocksPerChunk;
+                int offsetX = chunkIndex.X * bpc;
+                int offsetY = chunkIndex.Y * bpc;
                 // Modify the copied chunk
                 using SKCanvas skCanvas = new SKCanvas(bmCopied);
                 bool isSolid = this.SpecialRenderSettings.IsSolidColors;
@@ -93,17 +94,17 @@ namespace PixelStacker.Logic.CanvasEditor
                 foreach (var pxToModify in changeGroup)
                 {
                     MaterialCombination mc = Data.MaterialPalette[pxToModify.PaletteID];
-                    int ix = Constants.TextureSize * (pxToModify.X - offsetX);
-                    int iy = Constants.TextureSize * (pxToModify.Y - offsetY);
+                    int ix = texSize * (pxToModify.X - offsetX);
+                    int iy = texSize * (pxToModify.Y - offsetY);
 
                     if (isSolid)
                     {
                         paintSolid.Color = mc.GetAverageColor(isv, this.SpecialRenderSettings);
-                        skCanvas.DrawRect(new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(Constants.TextureSize, Constants.TextureSize) }, paintSolid);
+                        skCanvas.DrawRect(new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(texSize, texSize) }, paintSolid);
                     }
                     else
                     {
-                        skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), new SKRect(ix, iy, ix + Constants.TextureSize, iy + Constants.TextureSize), paint);
+                        skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), new SKRect(ix, iy, ix + texSize, iy + texSize), paint);
                     }
                 }
 
@@ -117,7 +118,7 @@ namespace PixelStacker.Logic.CanvasEditor
 
             // OTHER LAYERS 2.0
             {
-                float pixelsPerHalfChunk = Constants.TextureSize * BlocksPerChunk / 2;
+                float pixelsPerHalfChunk = texSize * bpc / 2;
                 for (int layerIndexToRender = 1; layerIndexToRender < chunksThatNeedReRendering.Count; layerIndexToRender++)
                 {
                     int scaleDivide = (int)Math.Pow(2, layerIndexToRender);

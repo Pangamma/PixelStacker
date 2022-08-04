@@ -19,7 +19,18 @@ namespace PixelStacker.Web.Net.AppStart
     {
         public static void AddSwaggerGen(SwaggerGenOptions c)
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "PixelStacker WEB", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "PixelStacker WEB",
+                Version = "v1",
+                Contact = new OpenApiContact()
+                {
+                    Url = new Uri("https://github.com/Pangamma/PixelStacker"),
+                    Name = "View Source"
+                }
+
+
+            });
             c.ResolveConflictingActions(apiDesc =>
             {
                 return apiDesc.First();
@@ -39,9 +50,9 @@ namespace PixelStacker.Web.Net.AppStart
             c.DocumentTitle = "PixelStacker WEB";
             c.InjectStylesheet("../swagger-ui/custom-swagger.css");
 
-//#if !DEBUG
-//            c.RoutePrefix = "";
-//#endif
+            //#if !DEBUG
+            //            c.RoutePrefix = "";
+            //#endif
 
         }
 
