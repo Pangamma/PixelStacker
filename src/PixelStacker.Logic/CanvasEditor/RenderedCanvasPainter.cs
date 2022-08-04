@@ -20,7 +20,7 @@ namespace PixelStacker.Logic.CanvasEditor
         public SpecialCanvasRenderSettings SpecialRenderSettings { get; private set; }
 
         [Obsolete("Try to pass in special render settings as well.", false)]
-        public RenderedCanvasPainter(RenderedCanvas data) : this(data, new SpecialCanvasRenderSettings()
+        private RenderedCanvasPainter(RenderedCanvas data) : this(data, new SpecialCanvasRenderSettings()
         {
             EnableShadows = false,
             TextureSize = Constants.DefaultTextureSize,
@@ -29,7 +29,7 @@ namespace PixelStacker.Logic.CanvasEditor
         {
         }
 
-        public RenderedCanvasPainter(RenderedCanvas data, SpecialCanvasRenderSettings srs)
+        private RenderedCanvasPainter(RenderedCanvas data, SpecialCanvasRenderSettings srs)
         {
             Data = data;
             Bitmaps = new List<SKBitmap[,]>();
