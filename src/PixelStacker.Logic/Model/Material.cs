@@ -116,7 +116,7 @@ namespace PixelStacker.Logic.Model
         public bool IsEnabledF(Options opts)
         {
 #pragma warning disable CS0618 // Type or member is obsolete
-            opts ??= Options.Get;
+            opts ??= Options.GetInMemoryFallback;
 #pragma warning restore CS0618 // Type or member is obsolete
             if (BlockID == 0)
             {
@@ -139,7 +139,7 @@ namespace PixelStacker.Logic.Model
         public void IsEnabledF(Options opts, bool val)
         {
 #pragma warning disable CS0618 // Type or member is obsolete
-            opts ??= Options.Get;
+            opts ??= Options.GetInMemoryFallback;
 #pragma warning restore CS0618 // Type or member is obsolete
             opts.EnableStates[SettingsKey] = val;
         }

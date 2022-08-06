@@ -3,7 +3,7 @@
     public static class Constants
     {
         public const int DisplayRefreshIntervalMs = 10;
-        public const string Version = "1.19.1a";
+        public const string Version = "1.19.1b";
         public const string Website = "https://taylorlove.info/pixelstacker";
         [System.Obsolete("Switch to using DefaultTextureSize, bc that is what this should represent.", true)]
         public const int TextureSize = 16;
@@ -30,6 +30,13 @@
         public const int BlockID_Unavailable = 166; // barrier
 
         public const string CatGlass = "Glass";
+
+#if USE_GPU
+        public const bool C_USE_GPU = true;
+#else
+        public const bool C_USE_GPU = false;
+#endif
+        public static readonly bool C_IS_64BIT = (System.IntPtr.Size == 8);
 #if DEBUG
         public const bool IsDevMode = true;
 #else

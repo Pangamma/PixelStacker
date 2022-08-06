@@ -39,7 +39,7 @@ namespace PixelStacker.UI
         private Options Options { get; }
 
         [Obsolete("Only use in design view", false)]
-        public MaterialSelectWindow() : this(Options.Get)
+        public MaterialSelectWindow() : this(Options.GetInMemoryFallback)
         {
         }
 
@@ -260,9 +260,9 @@ namespace PixelStacker.UI
                 }
             }
         }
-#endregion Mouse Listeners
+        #endregion Mouse Listeners
 
-#region Checkboxes
+        #region Checkboxes
         // *-----------------+--------------------------------------------------------------------*
         // *                   C H E C K B O X E S                                                *
         // *-----------------+--------------------------------------------------------------------*
@@ -295,9 +295,9 @@ namespace PixelStacker.UI
                 cRef.Checkbox.Location = new Point(10, 10 + cRef.TilePanel.Location.Y);
             }
         }
-#endregion Checkboxes
+        #endregion Checkboxes
 
-#region Form visibility
+        #region Form visibility
         // *-----------------+--------------------------------------------------------------------*
         // *                   F O R M _ V I S I B I L I T Y                                      *
         // *-----------------+--------------------------------------------------------------------*
@@ -343,7 +343,7 @@ namespace PixelStacker.UI
             }
 
             Options.Save();
-            
+
             if (OnColorPaletteRecompileRequested != null)
             {
                 await Task.Run(() => TaskManager.Get.StartAsync(OnColorPaletteRecompileRequested));
@@ -360,9 +360,9 @@ namespace PixelStacker.UI
                 await this.TryHideAsync();
             }
         }
-#endregion Form visibility
+        #endregion Form visibility
 
-#region Controls on top.
+        #region Controls on top.
         // *-----------------+--------------------------------------------------------------------*
         // *                   C O N T R O L S _ O N _ T O P                                      *
         // *-----------------+--------------------------------------------------------------------*
@@ -432,7 +432,7 @@ namespace PixelStacker.UI
                 }
             }
 
-            tbxMaterialFilter.Text = "enabled"; 
+            tbxMaterialFilter.Text = "enabled";
             await SetSearchFilter("enabled", CancellationToken.None);
         }
 
@@ -486,7 +486,7 @@ namespace PixelStacker.UI
             }
         }
 
-#endregion Controls on top.
+        #endregion Controls on top.
 
         private KeyValuePair<string, CategoryReferenceContainer> GetCategoryRefForMaterialTile(MaterialSelectTile currentTile)
         {
@@ -716,7 +716,7 @@ namespace PixelStacker.UI
             this.RepositionCheckboxes();
         }
 
-#region OTHER
+        #region OTHER
         // *-----------------+--------------------------------------------------------------------*
         // *                   O T H E R                                                          *
         // *-----------------+--------------------------------------------------------------------*
@@ -742,7 +742,7 @@ namespace PixelStacker.UI
                 task.Wait();
                 return true;
             }
-            
+
             KonamiWatcher.ProcessKey(keyData);
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -829,6 +829,6 @@ namespace PixelStacker.UI
                 this.IsCheckEventEnabled = true;
             }
         }
-#endregion OTHER
+        #endregion OTHER
     }
 }

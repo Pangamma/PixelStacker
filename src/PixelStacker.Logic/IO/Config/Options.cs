@@ -86,7 +86,7 @@ namespace PixelStacker.Logic.IO.Config
 
         private static Options _self;
         [Obsolete(Constants.Obs_Static)]
-        public static Options Get
+        public static Options GetInMemoryFallback
         {
             get
             {

@@ -78,6 +78,8 @@ namespace PixelStacker.UI
 #if USE_GPU
             this.Text += " [GPU]";
 #endif
+            this.Text += " x" + (Constants.C_IS_64BIT ? 64 : 32);
+
             this.englishToolStripMenuItem.Image = UIResources.country_us;
             this.chineseSimplifiedToolStripMenuItem.Image = UIResources.country_cn;
             this.koreanToolStripMenuItem.Image = UIResources.country_kr;

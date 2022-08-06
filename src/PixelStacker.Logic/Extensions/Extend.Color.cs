@@ -1,5 +1,4 @@
 ﻿using PixelStacker.Extensions;
-using PixelStacker.Logic.IO.Config;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -427,7 +426,7 @@ namespace PixelStacker.Logic.Extensions
         public static SKColor NormalizeActual(this SKColor c, int? fragmentSize = null)
         {
 #pragma warning disable CS0618 // Type or member is obsolete
-            int F = fragmentSize ?? Options.Get.Preprocessor.RgbBucketSize;
+            int F = fragmentSize ?? 1; // Options.GetInMemoryFallback.Preprocessor.RgbBucketSize;
 #pragma warning restore CS0618 // Type or member is obsolete
             if (F < 2)
             {

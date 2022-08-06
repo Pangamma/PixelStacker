@@ -15,15 +15,17 @@ namespace PixelStacker.UI.Forms
         private MaterialCombination _selectedCombo = null;
         private Options Options;
 
-        public MaterialCombination SelectedCombo { 
+        public MaterialCombination SelectedCombo
+        {
             get => this._selectedCombo;
-            set {
+            set
+            {
                 this._selectedCombo = value;
                 {
                     var img = this._selectedCombo.GetImage(this.Options.IsSideView);
                     imgMaterialsCombined.Image = img;
                     toolTip1.SetToolTip(imgMaterialsCombined, this._selectedCombo.Top.Label + "\n" + this._selectedCombo.Bottom.Label);
-                    tbxHtmlColorCode.Text = "#"+ value.GetAverageColor(this.Options.IsSideView).ToString().Substring(3);
+                    tbxHtmlColorCode.Text = "#" + value.GetAverageColor(this.Options.IsSideView).ToString().Substring(3);
                     //imgMaterialsCombined.SetTooltip(, global::PixelStacker.Resources.Text.Combined_Materials);
                 }
                 {
@@ -33,7 +35,7 @@ namespace PixelStacker.UI.Forms
                         imgTopMaterial.Image = img;
                         lblTopMaterial.Text = this._selectedCombo.Top.Label;
                         this.ttTop.SetToolTip(imgTopMaterial, global::PixelStacker.Resources.Text.Nothing);
-                    } 
+                    }
                     else
                     {
                         var img = this._selectedCombo.Top.GetImage(this.Options.IsSideView);
@@ -51,12 +53,14 @@ namespace PixelStacker.UI.Forms
 
                 {
                     string toFind = value.IsMultiLayer ? value.Top.PixelStackerID : Materials.Air.PixelStackerID;
-                    pnlTopMats.ModifyButtons((d, b) => {
+                    pnlTopMats.ModifyButtons((d, b) =>
+                    {
                         b.IsChecked = d.GetData<Material>().PixelStackerID == toFind;
                     });
                 }
                 {
-                    pnlBottomMats.ModifyButtons((d, b) => {
+                    pnlBottomMats.ModifyButtons((d, b) =>
+                    {
                         b.IsChecked = d.GetData<Material>().PixelStackerID == value.Bottom.PixelStackerID;
                     });
                 }
@@ -65,7 +69,8 @@ namespace PixelStacker.UI.Forms
 
 
         [Obsolete("Designer view only", false)]
-        public MaterialPickerForm() {
+        public MaterialPickerForm()
+        {
             InitializeComponent();
         }
 
@@ -73,7 +78,7 @@ namespace PixelStacker.UI.Forms
         public MaterialPickerForm(Options opts)
         {
 #pragma warning disable CS0618 // Type or member is obsolete
-            this.Options = opts ?? Options.Get;
+            this.Options = opts ?? Options.GetInMemoryFallback;
 #pragma warning restore CS0618 // Type or member is obsolete
             InitializeComponent();
             this.InitializeAutoComplete();
@@ -138,7 +143,8 @@ namespace PixelStacker.UI.Forms
                     imgTopMaterial.IsChecked = false;
                     imgBottomMaterial.IsChecked = true;
                     break;
-                default: throw new IndexOutOfRangeException("Unexpected tab index was requested. " +
+                default:
+                    throw new IndexOutOfRangeException("Unexpected tab index was requested. " +
                     "Weird! Add logic for the new tab index. Thanks.");
             }
 

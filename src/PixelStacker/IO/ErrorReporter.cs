@@ -90,6 +90,9 @@ namespace PixelStacker.IO
                             { "physical-memory-mb", Environment.WorkingSet / 1024 / 1024 },
                             { "page-memory-mb", Environment.SystemPageSize / 1024 / 1024 },
                             { "version", Constants.Version },
+                            { "v-is-64bit", Constants.C_IS_64BIT },
+                            { "v-is-debug-mode", Constants.IsDevMode },
+                            { "v-is-gpu-mode", Constants.C_USE_GPU },
                             { "current-ui-lang", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName },
                             { "current-thread-lang", System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }
                             }, Formatting.Indented);
