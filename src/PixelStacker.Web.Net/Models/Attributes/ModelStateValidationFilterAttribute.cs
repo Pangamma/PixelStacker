@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Linq;
+using System.Net;
 
 namespace PixelStacker.Web.Net.Models.Attributes
 {
@@ -47,7 +48,10 @@ namespace PixelStacker.Web.Net.Models.Attributes
             {
                 var result = new JsonPayload<object>().AddAnyErrorsFromModelState(actionContext.ModelState);
                 result.StatusCode = ResponseStatusCode.INVALID_MODEL_STATE;
-                actionContext.Result = result.ToJsonResult();
+                var reply = result.ToJsonResult();
+                reply.StatusCode = (int)HttpStatusCode.BadRequest;
+                reply.ContentType = "application/json";
+                actionContext.Result = reply;
             }
             else
             {

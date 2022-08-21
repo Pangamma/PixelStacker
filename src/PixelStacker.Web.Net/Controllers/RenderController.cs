@@ -155,7 +155,9 @@ namespace PixelStacker.Web.Net.Controllers
         {
             SKBitmap bm = model.File.ToSKBitmap();
             FileNode node = await DoAdvanced(model, bm);
-            return node.SuggestedFileName == null ? File(node.Data, node.ContentType) : File(node.Data, node.ContentType, node.SuggestedFileName);
+            return node.SuggestedFileName == null
+                ? File(node.Data, node.ContentType)
+                : File(node.Data, node.ContentType, node.SuggestedFileName);
         }
 
         private async Task<FileNode> DoSimple(SKBitmap bm)

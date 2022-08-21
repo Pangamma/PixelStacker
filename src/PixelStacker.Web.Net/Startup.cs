@@ -6,9 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PixelStacker.Web.Net.AppStart;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -20,8 +17,6 @@ namespace PixelStacker.Web.Net
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //Config.Instance = new Config(configuration);
-            //Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         }
 
         public IConfiguration Configuration { get; }
@@ -29,16 +24,14 @@ namespace PixelStacker.Web.Net
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
-
-//#if !DEBUG 
-//            // In production, the React files will be served from this directory  
-//            // Add static files  BEFORE adding routing calls.
-//            services.AddSpaStaticFiles(configuration =>
-//            {
-//                configuration.RootPath = "ClientApp/build";
-//            });
-//#endif
+            //#if !DEBUG 
+            //            // In production, the React files will be served from this directory  
+            //            // Add static files  BEFORE adding routing calls.
+            //            services.AddSpaStaticFiles(configuration =>
+            //            {
+            //                configuration.RootPath = "ClientApp/build";
+            //            });
+            //#endif
 
             // Must be added before MVC
             //AuthConfig.AddAuthentication(services);
@@ -70,17 +63,18 @@ namespace PixelStacker.Web.Net
             app
                 .UseForwardedHeaders()
                 .UseHttpsRedirection()
-                .UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod())
+                .UseMiddleware<CorsHandler>()
                 .UseMiddleware<ErrorHandler>()
-                //.UseAuthentication() // Must be added before MVC
                 .UseStaticFiles()   // Add static files  BEFORE adding routing calls.
-                //.UsePathBase("/projects/pixelstacker")
-//#if !DEBUG
-//                .UseSpaStaticFiles()
-//#endif
+            //app.UseAuthentication() // Must be added before MVC
+            //.UsePathBase("/projects/pixelstacker")
+            //#if !DEBUG
+            //                .UseSpaStaticFiles()
+            //#endif
             ;
             // index should be swagger
-            app.UseWhen((context) => context.Request.Path.Value == "/", configWhen => {
+            app.UseWhen((context) => context.Request.Path.Value == "/", configWhen =>
+            {
                 configWhen.Run((HttpContext x) =>
                 {
                     string redirectUrl = (x.Request.Host.Host == "taylorlove.info") ? "/projects/pixelstacker/swagger/index.html" : "/swagger/index.html";
@@ -107,21 +101,21 @@ namespace PixelStacker.Web.Net
             ));
 
 
-//#if !DEBUG
-//            app.UseWhen((context) =>
-//            !context.Request.Path.Value.ToLower().StartsWith("/api")
-//            && !context.Request.Path.Value.ToLower().StartsWith("/swagger"),
-//                configWhen => configWhen.UseSpa(spa =>
-//                {
-//                    spa.Options.SourcePath = "PixelStacker.React";
+            //#if !DEBUG
+            //            app.UseWhen((context) =>
+            //            !context.Request.Path.Value.ToLower().StartsWith("/api")
+            //            && !context.Request.Path.Value.ToLower().StartsWith("/swagger"),
+            //                configWhen => configWhen.UseSpa(spa =>
+            //                {
+            //                    spa.Options.SourcePath = "PixelStacker.React";
 
-//                    //if (env.IsDevelopment())
-//                    //{
-//                    //    spa.UseReactDevelopmentServer(npmScript: "start");
-//                    //}
-//                }
-//            ));
-//#endif
+            //                    //if (env.IsDevelopment())
+            //                    //{
+            //                    //    spa.UseReactDevelopmentServer(npmScript: "start");
+            //                    //}
+            //                }
+            //            ));
+            //#endif
 
             if (true || env.IsDevelopment())
             {
