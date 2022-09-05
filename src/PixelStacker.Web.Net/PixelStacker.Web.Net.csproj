@@ -18,9 +18,4 @@
     <ProjectReference Include="..\PixelStacker.Logic\PixelStacker.Logic.csproj" />
     <ProjectReference Include="..\PixelStacker.Resources\PixelStacker.Resources.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="PixelStacker.React\" />
-  </ItemGroup>
-
 </Project>
