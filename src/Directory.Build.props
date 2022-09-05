@@ -4,7 +4,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<!-- ;USE_GPU;DEBUG_GPU -->
-		<DefineConstants>$(DefineConstants);TRACE;SKIA_SHARP;</DefineConstants>
+		<DefineConstants>$(DefineConstants);TRACE;SKIA_SHARP;API_INCLUDES_DEMO</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DefineConstants>$(DefineConstants);DEBUG;FAIL_FAST</DefineConstants>

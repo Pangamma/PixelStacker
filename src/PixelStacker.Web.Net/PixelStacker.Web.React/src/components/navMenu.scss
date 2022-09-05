@@ -1,0 +1,676 @@
+// S E T T I N G S:
+$c-navbar-m-header-height: 50;
+$c-navbar-m-title-height: $c-navbar-m-header-height;
+$c-navbar-m-li-height: $c-navbar-m-header-height;
+
+$c-navbar-m-header-font-size: 16;
+$c-navbar-m-title-font-size: $c-navbar-m-header-font-size;
+$zIndex-navmenu: 10;
+
+
+$icon-codes-map: (
+  heart-empty: '\E800',
+  heart: '\E801',
+  left-open: '‹',
+  left: '‹',
+  right-open: '›',
+  right: '›',
+  down-open: '↓',
+  up-open: '↑',
+  down: '↓',
+  up: '↑',
+  menu: '=',
+  plus: '\E806',
+  minus: '\E807',
+  trash-empty: '\E808',
+  cancel-alt: '\E80B',
+  cancel-alt-filled: '\E80C',
+  credit-card: '\E80D',
+  cc-visa: '\F1F0',
+  money: '\F0D6',
+  dot-3: '\E80E',
+  check: '\E80F',
+  check-mfg: '\E810',
+  circle: '\F111',
+  circle-empty: '\F10C',
+  circle-thin: '\F1DB',
+  dot-circled: '\F192',
+  ok-circled: '\F06D',
+  info-circled-alt: '\F086',
+  pencil: '\E811',
+  cancel: '\E812',
+  list-bullet: '\F0CA',
+  clipboard: '\E813',
+  flow-split: '\E814',
+  cog-alt: '\E815',
+  plus-squared-alt: '\F196',
+  minus-squared-alt: '\F147',
+  plus-squared: '\F0FE',
+  minus-squared: '\F146',
+  link: '\E809',
+  unlink: '\F127',
+  deny: '\E80A',
+);
+
+@function get-icon-code($name, $literal: true) {
+  @if $literal == true {
+    @return map-get($icon-codes-map, $name);
+  }
+  @else {
+    @return var(--mt-icon-code-#{$name});
+  }
+}
+
+@function contrasting-color($color) {
+	$color-lightness: abs(lightness($color));
+	@if ($color-lightness > 50){
+		@return black;
+	} @else {
+		@return white;
+	}
+}
+
+//<editor-fold defaultstate="collapsed" desc="THEME">
+@mixin c-navbar-theme-helper($nav-theme-L0-bg, $nav-theme-L1-bg){
+
+    li > *:not(ul) { /* > button, > a */
+        background-color: $nav-theme-L0-bg;
+        color: contrasting-color($nav-theme-L0-bg);
+        &:hover, &:focus, &[aria-expanded="true"]{
+            background-color: $nav-theme-L1-bg;
+            color: contrasting-color($nav-theme-L1-bg);
+        }
+        // Should this be removed?
+        &:hover:not([aria-expanded="true"]){
+            border-color: $nav-theme-L1-bg;
+        }
+
+        &[aria-expanded="false"] + ul {
+            display: none;
+        }
+
+        &[aria-expanded="true"] + ul {
+            background: $nav-theme-L1-bg;
+            color: contrasting-color($nav-theme-L1-bg);
+            @content
+        }
+    }
+}
+
+@mixin c-navbar-theme($nav-theme-name: null,
+$nav-theme-L0-bg: #FFF,
+$nav-theme-L1-bg: #FFF,
+$nav-theme-L2-bg: #FFF,
+$nav-theme-L3-bg: #FFF,
+$nav-theme-L4-bg: #FFF,
+$nav-theme-Lx-bc: null){
+    /* -----------------------------------------------------------
+    
+       Navbar theme: "#{$nav-theme-name}" 
+    */
+    @if ($nav-theme-name == null){
+        $nav-theme-name: "";
+    } @else {
+        $nav-theme-name: "."+$nav-theme-name;
+    }
+
+    .c-navbar:not(.f-mobile)>.f-nav-row#{$nav-theme-name} {
+        &,ul{
+            background-color: $nav-theme-L0-bg;
+            color: contrasting-color($nav-theme-L0-bg);
+        }
+        @include c-navbar-theme-helper($nav-theme-L0-bg, $nav-theme-L1-bg){
+            @include c-navbar-theme-helper($nav-theme-L1-bg,$nav-theme-L2-bg){
+                @include c-navbar-theme-helper($nav-theme-L2-bg,$nav-theme-L3-bg){
+                    @include c-navbar-theme-helper($nav-theme-L3-bg,$nav-theme-L4-bg){
+                    }
+                }
+            }
+        }
+
+        > button.f-row-shift-left, > button.f-row-shift-right {
+            border-color: rgba(contrasting-color($nav-theme-L0-bg),0.75);
+            &:hover, &:focus, &:active{
+                background-color: $nav-theme-L1-bg;
+            }
+        }
+
+        @if ($nav-theme-Lx-bc != null){
+            // Top level nav
+            > ul > li > button[aria-expanded="true"] {
+                border: 1px solid rgba($nav-theme-Lx-bc, 0.3);
+                border-bottom: 1px solid transparent;
+            }
+
+            // We need to spoof this so that it shows up without overlaps.
+            > ul > li > button[aria-expanded="true"] + ul > li:first-child > *:focus:not(.x-hidden-focus){
+                outline: 0px;
+                &:before{
+                    outline-color: contrasting-color($nav-theme-L1-bg);
+                }
+            }
+
+            > ul > li > ul {
+                border: 1px solid rgba($nav-theme-Lx-bc, 0.3);
+                border-bottom: 2px solid $nav-theme-Lx-bc;
+
+                > li > ul { 
+                    border-top: 1px solid rgba($nav-theme-Lx-bc, 0.3);
+                    border-bottom: 2px solid $nav-theme-Lx-bc;
+                    &:not(.f-flip){
+                        border-right: 1px solid rgba($nav-theme-Lx-bc, 0.3);
+                    }
+                    &.f-flip{
+                        border-left: 1px solid rgba($nav-theme-Lx-bc, 0.3);	
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@include c-navbar-theme(null,	#FFFFFF, #F2F2F2, #E6E6E6, #D9D9D9, #CCCCCC, #000);
+@include c-navbar-theme(f-white,#FFFFFF, #F2F2F2, #E6E6E6, #D9D9D9, #CCCCCC, #000);
+@include c-navbar-theme(f-blue, #0073D1, #006CC2, #0060AC, #005497, #004881, #000);
+@include c-navbar-theme(f-black,#1A1A1A, #262626, #333333, #424242, #4C4C4C, #FFF);
+@include c-navbar-theme(f-green,#107C10, #0E700E, #0D630D, #0B540B, #094409, #FFF);
+@include c-navbar-theme(f-neutral,#2F2F2F,#464646, #505050, #595959, #707070, #FFF);
+@include c-navbar-theme(f-purple,#5C2E91,#532983, #4A2574, #412066, #381C59, #FFF);
+@include c-navbar-theme(f-orange,#D83B01,#C23501, #AD2F01, #992901, #8C2401, #FFF);
+@include c-navbar-theme(f-dark-blue,#002050, #001D48, #001A40, #001738, #00132D, #FFF);
+
+
+.c-navbar.f-mobile{
+    >.f-nav-row{
+        &,ul{ 
+            background-color: #F2F2F2; 
+            color: contrasting-color(#F2F2F2); 
+            display: inline-block;
+        }
+        @include c-navbar-theme-helper(#F2F2F2, #F2F2F2){
+            @include c-navbar-theme-helper(#F2F2F2,#F2F2F2){
+                @include c-navbar-theme-helper(#F2F2F2,#F2F2F2){
+                    @include c-navbar-theme-helper(#F2F2F2,#F2F2F2){
+                    }
+                }
+            }
+        }
+    }
+}
+//</editor-fold>
+
+.c-navbar {
+    box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+    z-index: $zIndex-navmenu;
+    
+    .x-hidden, .f-hide {
+        display: none;
+    }
+    .x-focus-hidden :focus {
+        outline: none !important;
+    }
+}
+
+//<editor-fold defaultstate="collapsed" desc="Mobile">
+.c-navbar.f-mobile{
+    &:not(.f-opened){
+        .f-mobile-title, .f-nav-row {
+            display: none !important;
+        }
+        .f-header{
+            border-bottom-color: rgba(0,0,0,0.15);
+        }
+    }
+    &.f-opened{
+        position: fixed;
+        right: 0;
+        left: 0;
+    }
+    .f-header{
+        display: block;
+        margin:0; padding:0;
+        position: relative;
+        top:0; right:0; left:0;
+        height: ($c-navbar-m-header-height) *1px;
+        background: #FFF;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        text-align: center;
+        z-index: 900;
+
+        span{
+            padding: 12px 48px 10px 0px;
+            font-size: 18px;
+            font-weight: 425;
+            display: inline-block;
+        }
+    }
+    .f-header-toggle {
+        width: ($c-navbar-m-header-height - 3) * 1px;
+        height: ($c-navbar-m-header-height - 3) * 1px;
+        font-size: 20px;
+        margin: 1px;
+
+        background: transparent;
+
+        border: 0px;
+        display: block;
+        -webkit-appearance: none;
+        float: left;
+
+        &:hover{
+            background-color:#F2F2F2;
+        }
+
+        &:before{
+            font-family: "mtcoffee";
+            content: get-icon-code(menu);
+            display: inline-block; 
+            text-decoration: none;
+        }
+    }
+    .f-mobile-title{
+        z-index: 900;
+        display: block;
+        margin:0; padding:0;
+        position: relative;
+        top:0; right:0; left:0;
+        height: ($c-navbar-m-header-height) * 1px;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        background: #FFF;
+
+        text-align: center;
+        color: contrasting-color(#FFF);
+        font-size: 21px;
+
+        span{
+            padding: 12px 0px 10px;
+            display: inline-block;
+        }
+
+        .f-left,.f-right {
+            margin: 1px;
+            width: ($c-navbar-m-header-height - 2) *1px;
+            height: ($c-navbar-m-header-height - 3) *1px;
+            display: inline-block;
+            font-family: 'mtcoffee';
+            font-size: 20px;
+            background: transparent;
+            border: 0px;
+            -webkit-appearance: none;
+
+            &:hover, &:hover {
+                background-color:#F2F2F2;
+            }
+            
+            &:before{
+                font-family: "mtcoffee";
+                display: inline-block;
+                text-decoration: none; 
+            }
+        }
+
+        .f-left { float: left; }
+        .f-left:before { content: get-icon-code(left-open); }
+        .f-right:before { content: get-icon-code(right-open); }
+        .f-right { float: right; }
+    }
+
+    /* Make it so LI tags do NOT display if not the active wrapper. */
+    .f-nav-wrapper:not(.f-current-nav){
+        z-index: -1;
+        position: fixed;
+        width: 0px;
+        height: 0px;
+        right: 200%;
+    }
+
+    /* But then what if they are INSIDE the active wrapper? */
+    .f-nav-wrapper.f-current-nav>ul>li.f-nav-wrapper:not(.f-current-nav){
+        z-index: auto;
+        position: relative;
+        width: 100%;
+        height: 48px;
+        right: 0;
+    }
+
+    button{ display: none; }
+    .f-current-nav>ul>li>button{ display: block; }
+
+    /* Could be a standalone */
+    .f-nav-wrapper.f-current-nav{
+        overflow-y: auto;
+        z-index: 600;
+        background: #F2F2F2;
+        position: fixed;
+        top: ($c-navbar-m-header-height + $c-navbar-m-title-height) * 1px;
+        right: 0; left: 0;
+        height: 100%;
+        height: calc(100VH - 100px);
+        display: block;
+
+        > ul{
+            display: block;
+            position:relative;
+            height: 100%;
+            z-index: 700;
+            li{
+                display:block;
+                height: 50px;
+                padding-left: 1px; // For outlines
+                padding-right: 2px;
+                &:not(:first-child){
+                    border-top:1px solid rgba(0,0,0,0.1);
+                }
+                &:last-child{
+                    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+                    padding-bottom: 1px;
+                }
+            }
+        }
+    }
+    li.f-nav-menu > button:after {
+        content: '›'; //get-icon-code(right-open) !important; // RIGHT arrow
+    }
+}
+//</editor-fold>
+
+
+
+
+
+
+
+
+
+
+
+//<editor-fold defaultstate="collapsed" desc="ALL VIEWS">
+.c-navbar:not(.f-fixed) + .c-navbar-fixed-spacer{
+    display: none;
+}
+.c-navbar-fixed-spacer{
+    height: ($c-navbar-m-header-height - 1) * 1px;
+    position: relative;
+    display: block;
+    z-index: -1;
+}
+.c-navbar{
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+    box-sizing: border-box;
+    font-size: 16px;
+    min-width: 320px;
+    display: block;
+
+    /* TODO: Make this work on mobile. */
+    &.f-fixed {
+        position:fixed;
+        left: 0;
+        right: 0;
+    }
+
+    li {
+        padding: 0px;
+        position: relative;
+        margin: 0px;
+
+        > :not(ul) /* > button, > a */  {
+            width: 100%;
+            max-height: 100%;
+            display: inline-block;
+            line-height: 48px;
+            vertical-align: top;
+            white-space: normal;
+            border: 1px solid transparent;
+            height: 48px;
+            position: relative;
+            margin: 1px 1px 1px 0px;
+            text-align: left;
+
+            &:hover, &:focus, &[aria-expanded="true"]{
+                outline: 0px none;
+                outline-offset: -2px;
+                // hover effects.
+            }
+
+            // show outlines, This is handled by the theme instead.
+            &:focus:not(.x-hidden-focus){
+                z-index: 900 !important;
+            }
+        }
+
+        // Works at every level.
+        &.f-nav-link > a, &.f-nav-link > button {
+            padding: 0px 26px;
+            &:hover,&:focus, &:active {
+                text-decoration: underline;
+            }
+        }
+
+        // This works at every level, but the content can be overridden.
+        &.f-nav-menu > button {
+            padding: 0px 38px 0px 26px;
+            cursor: pointer;
+            
+            &:after{
+                // The arrow thing.
+                top:0;
+                font-family: "mtcoffee";
+                content: get-icon-code(down-open, false);
+                content: get-icon-code(down-open);
+                position: absolute;
+                display: inline-block;
+                color: currentColor;
+                right: 15px;
+                padding-top: 1px;
+            }
+
+            + ul {
+                display: none;
+            }
+
+            &[aria-expanded="true"] + ul {
+                display: block;
+            }
+        }
+    }
+}
+//</editor-fold>
+
+
+
+
+//<editor-fold defaultstate="collapsed" desc="DESKTOP VIEW">
+.c-navbar:not(.f-mobile){
+    .f-header,.f-mobile-title{ display: none; }
+
+    ul{
+        list-style: none; 
+        ul {
+            &.f-flip{
+                left: initial !important;
+                right: 0 !important;
+            }
+            ul.f-flip{
+                left: initial !important;
+                right: 100% !important;
+            }
+        }
+    }
+
+    ul.f-flip{
+        margin-left:2px !important;
+        left: -100% !important;
+    }
+
+    .f-nav-menu ul {
+        min-width: 64px;
+        width: 296px;
+        max-width: 368px;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        position: absolute;
+    }
+
+
+    @for $i from 3 through 12 {
+        .f-nav-row:nth-of-type(#{$i}){ z-index: (700 - $i); }
+    }
+
+    .f-nav-row {
+        height: 50px;    
+        z-index: 700;
+        display: block;
+        position: relative;
+
+        &:last-child:not([class*="f-transparent-"]){
+            border-bottom: 1px solid rgba(0,0,0,0.15);
+        }
+
+        > button { display: none; } /* Only show this button on mobile. */
+
+        > button {
+            &.f-row-shift-left, &.f-row-shift-right{
+                border-style: solid;
+                border-width: 0px;
+                display: block;
+                margin-top: 1px;
+                background-color: transparent;
+                height: 48px;
+                padding: 1px 10px;
+            }
+
+            &.f-row-shift-left{
+                float: left;
+                border-right-width: 1px;
+            }
+
+            &.f-row-shift-right{
+                float: right;
+                border-left-width: 1px;
+            }
+        }
+
+        @mixin c-navbar-transparent-theme($suffix, $color){
+            &.f-transparent-#{$suffix} {
+                background-color: transparent;
+                color: $color;
+                > ul { 
+                    background-color: transparent;
+                    color: $color;
+                    > li {
+                        background-color: transparent;
+                        color: $color;
+                        > :not(ul) /* > button, > a */ {
+                            &:not([aria-expanded="true"]){
+                                &, &:hover, &:focus{
+                                    color: $color;
+                                    background-color: transparent;
+                                    border-color: transparent;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        @include c-navbar-transparent-theme("black",#000);
+        @include c-navbar-transparent-theme("white",#FFF);
+
+
+        // Initial Navigation
+        > ul{ 
+            z-index: 700;
+            overflow: hidden;
+            height: 100%;
+            padding-left: 1px;
+            padding-right: 1px;
+            margin: 0;
+            
+            transition: margin 0.7s cubic-bezier(0.16, 1, 0.29, 0.99);
+            > li {
+                position: static;
+                overflow: visible;
+                // float: left; 
+                display: inline-block;
+                &.f-hidden { display: none; }
+                > :not(ul) /* > button, > a */ {
+                    z-index: 710;
+                }
+
+                // Make it so that the button (when expanded) is above the UL so that borders show up nicely.
+                > button[aria-expanded="true"]{
+                    z-index: 721;
+                }
+
+                // First Dropdown
+                > ul{
+
+                    margin-top: -3px;
+                    top: 50px;
+                    z-index: 720;
+                    > li {
+
+                        display: block;
+                        position: static;
+
+                        > :not(ul) /* > button, > a */  {
+                            border: 0px;
+                            border-top: 1px;
+                            margin: 0px;
+                        }
+                        &.f-nav-menu > button:after {
+                            content: get-icon-code(right-open) !important; // RIGHT arrow
+                        }
+
+                        //Spoof the outline so it shows up in a good spot.
+                        &:first-child > *:focus:not(.x-hidden-focus):before{
+                            content: "";
+                            position:absolute;
+                            top:2px;left:0px;right:0px;bottom:0px;
+                            z-index:9999;
+                            // TODO: consider revising the outline to not rely on x-hidden-focus
+                            // and instead rely on x-focus-visible or x-focus-hidden.
+                            outline: 2px dashed currentColor;
+                            outline-offset: -2px;
+                        }
+ 
+                        // Second Dropdown layer (Right/Left)
+                        > ul {
+                            z-index: 730;
+                            position:absolute;
+                            left: 100%;
+                            top: 0px !important;
+                            margin-top: -1px;
+                            margin-left: -1px;
+                            > li {
+                                > :not(ul) /* > button, > a */  {
+                                    border: 0px;
+                                    border-top: 1px;
+                                    margin: 0px;
+                                }
+                                &:first-child > a, &:first-child > button{
+                                    margin-top:1px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+//</editor-fold>
+
+.x-focus-visible .c-navbar button:focus, .x-focus-visible .c-navbar a:focus {
+    outline: 2px dashed currentColor;
+    outline-offset: -2px;
+}
+
+.x-focus-hidden .c-navbar {
+    li.f-nav-link > a:focus, li.f-nav-link > button:focus {
+        outline: none;
+        text-decoration: none;
+    }
+}

@@ -1,0 +1,53 @@
+.progressBarGs {
+    max-width: 300px;
+
+    .cc-message {
+        font-weight: 500;
+        font-size: small;
+        color: white;
+        text-shadow: 0 0 8px black;
+    }
+
+    .cc-container {
+        margin-top: 10px;
+        border: 4px solid black;
+        height: 20px;
+        width: 280px;
+        min-height: 20px;
+        max-height: 20px;
+        position: relative;
+        background: gray;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            box-shadow: inset 0px 4px 2px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .cc-fillBar {
+            height: 100%;
+            background-color: #28a745; 
+            box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.232), 0 0.6px 1.8px 0 rgba(0,0,0,.316);
+          
+            &.f-animated {
+                animation: progress-bar-stripes 1s linear infinite;
+                background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+                background-image: linear-gradient(45deg,rgba(0,0,0,.15) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.15) 50%,rgba(0,0,0,.15) 75%,transparent 75%,transparent);
+                background-size: 1rem 1rem;
+            }
+        }
+    }
+}
+
+@keyframes progress-bar-stripes {
+    0% {
+        background-position: 1rem 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
