@@ -18,7 +18,7 @@ namespace PixelStacker.CodeGenerator
     public class ImageTextureUpdater
     {
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-        private string McVersion = "1.19";
+        private string McVersion = "1.20";
         private string PxImageDir => Path.Combine(RootDir, "PixelStacker.Resources", "Images", "Textures", "x16");
         private string McImageJar => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             ".minecraft", "versions", McVersion, McVersion + ".jar");
