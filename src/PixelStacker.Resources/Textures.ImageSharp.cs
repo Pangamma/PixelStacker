@@ -2978,7 +2978,70 @@ namespace PixelStacker.Resources {
                 return _yellow_wool;
             }
         }
-	}
+        // add bamboo_planks, bamboo_mosaic, cherry_planks, stripped_bamboo_block, stripped_cherry_log, stripped_bamboo_block_top, stripped_cherry_log_top
+        private static Image<Rgba32> _bamboo_planks = null;
+        public static Image<Rgba32> bamboo_planks {
+            get {
+                if (_bamboo_planks == null)
+                    _bamboo_planks = Image.Load((byte[])ResourceManager.GetObject("bamboo_planks"));
+                return _bamboo_planks;
+            }
+        }
+
+        private static Image<Rgba32> _bamboo_mosaic = null;
+        public static Image<Rgba32> bamboo_mosaic {
+            get {
+                if (_bamboo_mosaic == null)
+                    _bamboo_mosaic = Image.Load((byte[])ResourceManager.GetObject("bamboo_mosaic"));
+                return _bamboo_mosaic;
+            }
+        }
+
+        private static Image<Rgba32> _cherry_planks = null;
+        public static Image<Rgba32> cherry_planks {
+            get {
+                if (_cherry_planks == null)
+                    _cherry_planks = Image.Load((byte[])ResourceManager.GetObject("cherry_planks"));
+                return _cherry_planks;
+            }
+        }
+
+        private static Image<Rgba32> _stripped_bamboo_block = null;
+        public static Image<Rgba32> stripped_bamboo_block {
+            get {
+                if (_stripped_bamboo_block == null)
+                    _stripped_bamboo_block = Image.Load((byte[])ResourceManager.GetObject("stripped_bamboo_block"));
+                return _stripped_bamboo_block;
+            }
+	    }
+
+        private static Image<Rgba32> _stripped_cherry_log = null;
+        public static Image<Rgba32> stripped_cherry_log {
+            get {
+                if (_stripped_cherry_log == null)
+                    _stripped_cherry_log = Image.Load((byte[])ResourceManager.GetObject("stripped_cherry_log"));
+                return _stripped_cherry_log;
+            }
+        }
+
+        private static Image<Rgba32> _stripped_bamboo_block_top = null;
+        public static Image<Rgba32> stripped_bamboo_block_top {
+            get {
+                if (_stripped_bamboo_block_top == null)
+                    _stripped_bamboo_block_top = Image.Load((byte[])ResourceManager.GetObject("stripped_bamboo_block_top"));
+                return _stripped_bamboo_block_top;
+            }
+        }
+
+        private static Image<Rgba32> _stripped_cherry_log_top = null;
+        public static Image<Rgba32> stripped_cherry_log_top {
+            get {
+                if (_stripped_cherry_log_top == null)
+                    _stripped_cherry_log_top = Image.Load((byte[])ResourceManager.GetObject("stripped_cherry_log_top"));
+                return _stripped_cherry_log_top;
+            }
+        }
+    }
 }
 #pragma warning restore IDE1006 // Naming Styles
 #endif

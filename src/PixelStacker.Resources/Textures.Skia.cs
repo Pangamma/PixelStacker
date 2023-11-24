@@ -3306,7 +3306,100 @@ namespace PixelStacker.Resources
                 return _yellow_wool;
             }
         }
-	}
+
+        // add bamboo_planks, bamboo_mosaic, cherry_planks, stripped_bamboo_block, stripped_cherry_log, stripped_bamboo_block_top, stripped_cherry_log_top
+
+        private static SKBitmap _bamboo_planks = null;
+
+        public static SKBitmap bamboo_planks
+        {
+            get
+            {
+                if (_bamboo_planks == null)
+                    _bamboo_planks = SKBitmap.Decode((byte[])ResourceManager.GetObject("bamboo_planks"))
+                    .Copy(SKColorType.Rgba8888);
+                return _bamboo_planks;
+            }
+        }
+
+        private static SKBitmap _bamboo_mosaic = null;
+
+        public static SKBitmap bamboo_mosaic
+        {
+            get
+            {
+                if (_bamboo_mosaic == null)
+                    _bamboo_mosaic = SKBitmap.Decode((byte[])ResourceManager.GetObject("bamboo_mosaic"))
+                    .Copy(SKColorType.Rgba8888);
+                return _bamboo_mosaic;
+            }
+        }
+
+        private static SKBitmap _cherry_planks = null;
+
+        public static SKBitmap cherry_planks
+        {
+            get
+            {
+                if (_cherry_planks == null)
+                    _cherry_planks = SKBitmap.Decode((byte[])ResourceManager.GetObject("cherry_planks"))
+                    .Copy(SKColorType.Rgba8888);
+                return _cherry_planks;
+            }
+        }
+
+        private static SKBitmap _stripped_bamboo_block = null;
+
+        public static SKBitmap stripped_bamboo_block
+        {
+            get
+            {
+                if (_stripped_bamboo_block == null)
+                    _stripped_bamboo_block = SKBitmap.Decode((byte[])ResourceManager.GetObject("stripped_bamboo_block"))
+                    .Copy(SKColorType.Rgba8888);
+                return _stripped_bamboo_block;
+            }
+        }
+
+        private static SKBitmap _stripped_cherry_log = null;
+
+        public static SKBitmap stripped_cherry_log
+        {
+            get
+            {
+                if (_stripped_cherry_log == null)
+                    _stripped_cherry_log = SKBitmap.Decode((byte[])ResourceManager.GetObject("stripped_cherry_log"))
+                    .Copy(SKColorType.Rgba8888);
+                return _stripped_cherry_log;
+            }
+        }
+
+        private static SKBitmap _stripped_bamboo_block_top = null;
+
+        public static SKBitmap stripped_bamboo_block_top
+        {
+            get
+            {
+                if (_stripped_bamboo_block_top == null)
+                    _stripped_bamboo_block_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("stripped_bamboo_block_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _stripped_bamboo_block_top;
+            }
+        }
+
+        private static SKBitmap _stripped_cherry_log_top = null;
+
+        public static SKBitmap stripped_cherry_log_top
+        {
+            get
+            {
+                if (_stripped_cherry_log_top == null)
+                    _stripped_cherry_log_top = SKBitmap.Decode((byte[])ResourceManager.GetObject("stripped_cherry_log_top"))
+                    .Copy(SKColorType.Rgba8888);
+                return _stripped_cherry_log_top;
+            }
+        }
+    }
 }
 #pragma warning restore IDE1006 // Naming Styles
 #endif
