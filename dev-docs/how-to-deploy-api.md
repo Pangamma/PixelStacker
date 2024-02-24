@@ -2,7 +2,7 @@
 This guide covers the deployment process for deploying the API project onto a linux server. 
 [Try out the API](https://taylorlove.info/projects/pixelstacker/swagger/index.html)
 
-## Preresiquits:
+## Prerequisites:
 1. Ubuntu OS installed
 2. .NET 6.0 or higher installed on the Ubuntu OS
 4. Visual Studio 22 or higher on your local machine.

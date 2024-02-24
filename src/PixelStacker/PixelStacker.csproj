@@ -101,7 +101,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-	<Target Name="SignTheExe" AfterTargets="Publish">
+	<!--<Target Name="SignTheExe" AfterTargets="Publish">
 		<Exec WorkingDirectory="$(PublishDir)" Command="call &quot;$(VSAPPIDDIR)..\Tools\VsDevCmd.bat&quot;&#xD;&#xA;echo &quot;Signing this exe file after publishing. $(MSBuildProjectDirectory)\$(PublishDir)PixelStacker.exe&quot;&#xD;&#xA;signtool.exe sign /fd sha256 /t http://timestamp.comodoca.com/authenticode /n &quot;Open Source Developer, Taylor Love&quot; &quot;$(MSBuildProjectDirectory)\$(PublishDir)PixelStacker.exe&quot;" />
-	</Target>
+	</Target>-->
 </Project>
