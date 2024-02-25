@@ -15,7 +15,7 @@ namespace FNBT
     {
         private readonly byte[] _buffer = new byte[sizeof(double)];
 
-        private byte[]? _seekBuffer;
+        private readonly byte[]? _seekBuffer;
         private const int SeekBufferSize = 8 * 1024;
         private readonly bool _swapNeeded;
         private readonly byte[] _stringConversionBuffer = new byte[64];

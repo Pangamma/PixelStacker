@@ -6,7 +6,7 @@ namespace PixelStacker.Benchmarks.ColorMap
 
     [HtmlExporter, CsvMeasurementsExporter, RPlotExporter()]
     //[ShortRunJob]
-    [SimpleJob(launchCount: 1, warmupCount: 1, targetCount: 1)]
+    [SimpleJob(launchCount: 1, warmupCount: 1)]
     [BaselineColumn, MinColumn, MaxColumn,
         //MeanColumn,
         MedianColumn, IterationsColumn]
@@ -27,7 +27,7 @@ namespace PixelStacker.Benchmarks.ColorMap
 
     [HtmlExporter, CsvMeasurementsExporter, RPlotExporter()]
     //[ShortRunJob]
-    [SimpleJob(launchCount: 1, warmupCount: 1, targetCount: 1)]
+    [SimpleJob(launchCount: 1, warmupCount: 1)]
     [BaselineColumn, MinColumn, MaxColumn, 
         //MeanColumn,
         MedianColumn, IterationsColumn]

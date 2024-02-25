@@ -40,7 +40,9 @@ namespace FNBT
         /// <param name="bigEndian"> Whether NBT data is in Big-Endian encoding. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="stream"/> is <c>null</c>. </exception>
         /// <exception cref="ArgumentException"> <paramref name="stream"/> is not readable. </exception>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public NbtReader(Stream stream, bool bigEndian)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
             SkipEndTags = true;
@@ -691,7 +693,9 @@ namespace FNBT
                 case NbtTagType.Int:
                     return new NbtInt(TagName, _reader.ReadInt32());
                 case NbtTagType.Long:
+#pragma warning disable CS8604 // Possible null reference argument.
                     return new NbtLong(TagName, _reader.ReadInt64());
+#pragma warning restore CS8604 // Possible null reference argument.
                 case NbtTagType.Float:
                     return new NbtFloat(TagName, _reader.ReadSingle());
                 case NbtTagType.Double:

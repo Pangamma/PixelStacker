@@ -45,7 +45,9 @@ namespace FNBT
         /// <param name="bigEndian"> Whether NBT data should be in Big-Endian encoding. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="stream"/> or <paramref name="rootTagName"/> is <c>null</c>. </exception>
         /// <exception cref="ArgumentException"> <paramref name="stream"/> is not writable. </exception>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public NbtWriter(Stream stream, string rootTagName, bool bigEndian)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             if (rootTagName == null) throw new ArgumentNullException(nameof(rootTagName));
             _writer = new NbtBinaryWriter(stream, bigEndian);
