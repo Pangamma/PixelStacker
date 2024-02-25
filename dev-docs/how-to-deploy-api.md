@@ -34,7 +34,6 @@ location /projects/pixelstacker/ {
 6. Ensure these secrets have values that work for your use case:
 ```
 {
-  "GOOGLE_API_KEY": "sdfsdf323rsfsdf",
   "FTP_HOST": "ftp.yourhost.info",
   "FTP_USERNAME": "ftp-username",
   "FTP_PASSWORD": "ftp-password",
@@ -42,5 +41,5 @@ location /projects/pixelstacker/ {
   "SSH_PASSWORD": "ssh-passwordd"
 }
 ```
-7. Run the DeployToWebServer test method.
+7. Run the DeployApiToWebServer test method.
 8. You are done! Try it out in your own website now.

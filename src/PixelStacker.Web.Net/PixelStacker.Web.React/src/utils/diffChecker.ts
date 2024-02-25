@@ -48,7 +48,7 @@ export function isDiffPrimitiveProps<T>(prevObj: T, nextObj: T): boolean {
   }
 
   for (const key in prevObj) {
-    if (!(key in prevObj) || prevObj[key] !== nextObj[key]) {
+    if (!(key in (prevObj as any)) || prevObj[key] !== nextObj[key]) {
       const typ = typeof (prevObj[key]);
       switch (typ) {
         case 'number':
@@ -67,7 +67,7 @@ export function isDiffPrimitiveProps<T>(prevObj: T, nextObj: T): boolean {
   }
 
   for (const key in nextObj) {
-    if (!(key in nextObj) || nextObj[key] !== prevObj[key]) {
+    if (!(key in (nextObj as any)) || nextObj[key] !== prevObj[key]) {
       const typ = typeof (nextObj[key]);
       switch (typ) {
         case 'number':

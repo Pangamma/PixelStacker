@@ -14,3 +14,18 @@ location /projects/pixelstacker/ {
 	proxy_set_header X-Forwarded-Proto $scheme;
 	proxy_redirect off;
 }
+
+location ^~ /projects/pixelstacker/demo {
+	# Set the document root to a public folder.
+	# This should point to where the actual UI code is hosted.
+	root /var/www/vhosts/taylorlove.info/httpdocs/projects/pixelstacker.web.react;
+
+	# Redirect requests without the trailing slash (at /demo) to HAVE the trailing slash.
+	rewrite ^/projects/pixelstacker/demo$  /projects/pixelstacker/demo/ redirect;
+
+	# /demo should give the index.html file for the react app.
+	try_files $uri $uri/index.html index.html;
+
+	# Redirect all files after /demo/ to the correct folder directory.
+	rewrite "(?i)/projects/pixelstacker/demo/(.*)" /$1  break;
+}

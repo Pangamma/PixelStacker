@@ -49,10 +49,10 @@ export const MaterialList: Material[] = [
         for (let i = 0; i < pages.length; i++) {
             const [side, top] = [await downloadFileAsync(
                 `https://taylorlove.info/projects/pixelstacker/api/Definitions/GetMaterialSpriteSheet?isSide=false&page=${pages[i]}`,
-                `./public/img/top-sprite-${pages[i]}.png`),
+                `./public/assets/img/top-sprite-${pages[i]}.png`),
             await downloadFileAsync(
                 `https://taylorlove.info/projects/pixelstacker/api/Definitions/GetMaterialSpriteSheet?isSide=true&page=${pages[i]}`,
-                `./public/img/side-sprite-${pages[i]}.png`)];
+                `./public/assets/img/side-sprite-${pages[i]}.png`)];
         }
     }
 }

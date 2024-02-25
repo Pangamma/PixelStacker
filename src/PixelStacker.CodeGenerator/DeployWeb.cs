@@ -4,8 +4,6 @@ using Renci.SshNet;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Threading;
 using System.IO.Compression;
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -31,22 +29,31 @@ namespace PixelStacker.CodeGenerator
     [TestCategory("Tools")]
     public class DeployWeb
     {
-        //cp -a ./mvc.lumengaming.com/. ./mvc.lumengaming.com-deploy/
-        private const string DEPLOY_DIR = "./services/pixelstacker.web.net-deploy";
-        private const string ORIG_DIR = "./services/pixelstacker.web.net";
-        private const string SSH_WORKINGDIR_ROOT = "/var/www/vhosts/taylorlove.info";
-        private const string SERVICE_NAME = "pixelstacker.web.net.service";
-        private const string FTP_MAIN_TO_CHMOD = "PixelStacker.Web.Net";
+        private static readonly Stopwatch sw = new Stopwatch();
+        
+
+        // Config
         private const string CHOWN = "taylorlove:psacln";
+        private const string SERVICE_NAME = "pixelstacker.web.net.service";
         private static string FTP_HOST;
         private static string FTP_USERNAME;
         private static string FTP_PASSWORD;
         private static string SSH_USERNAME;
         private static string SSH_PASSWORD;
-        private const bool IS_ZIPPING_ENABLED = true;
-        private static readonly Stopwatch sw = new Stopwatch(); 
-        private static string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-        private static string UPLOAD_FROM_DIR = Path.Combine(RootDir, "PixelStacker.Web.Net", "bin", "Release", "net6.0", "publish");
+        
+        // Local file paths
+        private static string SolutionRootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+        private static string UPLOAD_API_FROM_DIR = Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "bin", "Release", "net6.0", "publish");
+        private static string UPLOAD_UI_FROM_DIR = Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "PixelStacker.Web.React", "dist");
+
+        // Remote file paths
+        private const string SSH_WORKINGDIR_ROOT = "/var/www/vhosts/taylorlove.info";
+        private const string DEPLOY_API_TO_REMOTE_DIR = "./services/pixelstacker.web.net-deploy";
+        private const string MOVE_DEPLOYED_API_TO_REMOTE_DIR = "./services/pixelstacker.web.net";
+        private const string MAIN_API_ARTIFACT_TO_CHMOD = "PixelStacker.Web.Net";
+
+        private const string DEPLOY_UI_TO_REMOTE_DIR = "./httpdocs/projects/pixelstacker.web.react-deploy";
+        private const string MOVE_DEPLOYED_UI_TO_REMOTE_DIR = "./httpdocs/projects/pixelstacker.web.react";
 
         public DeployWeb()
         {
@@ -62,12 +69,12 @@ namespace PixelStacker.CodeGenerator
 
 
         [TestMethod]
-        public void DeployToWebServer()
+        public void DeployUIToWebServer()
         {
             sw.Start();
             DeployWeb.sw.WriteLine("Connecting FTP ....");
-            if (!ORIG_DIR.StartsWith("./") || ORIG_DIR.EndsWith("/")) throw new ArgumentException("INVALID ORIG_DIR");
-            if (!DEPLOY_DIR.StartsWith("./") || DEPLOY_DIR.EndsWith("/")) throw new ArgumentException("INVALID DEPLOY_DIR");
+            if (!MOVE_DEPLOYED_UI_TO_REMOTE_DIR.StartsWith("./") || MOVE_DEPLOYED_UI_TO_REMOTE_DIR.EndsWith("/")) throw new ArgumentException("INVALID ORIG_DIR");
+            if (!DEPLOY_UI_TO_REMOTE_DIR.StartsWith("./") || DEPLOY_UI_TO_REMOTE_DIR.EndsWith("/")) throw new ArgumentException("INVALID DEPLOY_DIR");
 
             using (SshClient ssh = new SshClient(FTP_HOST, SSH_USERNAME, SSH_PASSWORD))
             {
@@ -78,48 +85,88 @@ namespace PixelStacker.CodeGenerator
                 ssh.Connect();
 
                 string result = "";
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; [ -d {DEPLOY_DIR} ] && echo exists || echo does not exist;").Result.Trim();
+                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; [ -d {DEPLOY_UI_TO_REMOTE_DIR} ] && echo exists || echo does not exist;").Result.Trim();
 
                 // Remove old dir if it still  exists.
                 bool deployDirStillExists = result == "exists";
                 if (deployDirStillExists)
                 {
-                    result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {DEPLOY_DIR};").Result;
+                    result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {DEPLOY_UI_TO_REMOTE_DIR};").Result;
                 }
 
                 var ftp = GetFtpClientFromPool();
-                ftp.CreateDirectory(DEPLOY_DIR);
+                ftp.CreateDirectory(DEPLOY_API_TO_REMOTE_DIR);
                 ReturnFtpClientToPool(ftp);
 
-                var dir = new DirectoryInfo(UPLOAD_FROM_DIR);
-                if (IS_ZIPPING_ENABLED)
+                RecursiveZipUpload(UPLOAD_UI_FROM_DIR, DEPLOY_UI_TO_REMOTE_DIR, ssh);
+
+                DeployWeb.sw.WriteLine("Deprecating ancient deployment");
+                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {MOVE_DEPLOYED_UI_TO_REMOTE_DIR} {MOVE_DEPLOYED_UI_TO_REMOTE_DIR}-old;").Result;
+
+                DeployWeb.sw.WriteLine("Swapping to new deployment");
+                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {DEPLOY_UI_TO_REMOTE_DIR} {MOVE_DEPLOYED_UI_TO_REMOTE_DIR};").Result;
+
+                //DeployWeb.sw.WriteLine("Setting permissions on the main executable.");
+                //result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{MOVE_DEPLOYED_UI_TO_REMOTE_DIR}; chmod 754 ./{MAIN_UI_ARTIFACT_TO_CHMOD};").Result;
+
+                DeployWeb.sw.WriteLine("Cleaning up old files");
+                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {MOVE_DEPLOYED_UI_TO_REMOTE_DIR}-old;").Result;
+            }
+
+            clients.ForEach(x => x.Dispose());
+            DeployWeb.sw.WriteLine("Finished!");
+            sw.Stop();
+        }
+
+        [TestMethod]
+        public void DeployApiToWebServer()
+        {
+            sw.Start();
+            DeployWeb.sw.WriteLine("Connecting FTP ....");
+            if (!MOVE_DEPLOYED_API_TO_REMOTE_DIR.StartsWith("./") || MOVE_DEPLOYED_API_TO_REMOTE_DIR.EndsWith("/")) throw new ArgumentException("INVALID ORIG_DIR");
+            if (!DEPLOY_API_TO_REMOTE_DIR.StartsWith("./") || DEPLOY_API_TO_REMOTE_DIR.EndsWith("/")) throw new ArgumentException("INVALID DEPLOY_DIR");
+
+            using (SshClient ssh = new SshClient(FTP_HOST, SSH_USERNAME, SSH_PASSWORD))
+            {
+                // Improve security by removing weak hash algorithms
+                // https://github.com/Pangamma/PixelStacker/security/dependabot/1
+                ssh.ConnectionInfo.KeyExchangeAlgorithms.Remove("curve25519-sha256");
+                ssh.ConnectionInfo.KeyExchangeAlgorithms.Remove("curve25519-sha256@libssh.org");
+                ssh.Connect();
+
+                string result = "";
+                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; [ -d {DEPLOY_API_TO_REMOTE_DIR} ] && echo exists || echo does not exist;").Result.Trim();
+
+                // Remove old dir if it still  exists.
+                bool deployDirStillExists = result == "exists";
+                if (deployDirStillExists)
                 {
-                    RecursiveZipUpload(dir, ssh);
-                } 
-                else
-                {
-#pragma warning disable CS0162 // Unreachable code detected
-                    RecursiveUpload(dir, DEPLOY_DIR);
-#pragma warning restore CS0162 // Unreachable code detected
+                    result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {DEPLOY_API_TO_REMOTE_DIR};").Result;
                 }
+
+                var ftp = GetFtpClientFromPool();
+                ftp.CreateDirectory(DEPLOY_API_TO_REMOTE_DIR);
+                ReturnFtpClientToPool(ftp);
+
+                RecursiveZipUpload(UPLOAD_API_FROM_DIR, DEPLOY_API_TO_REMOTE_DIR, ssh);
 
                 DeployWeb.sw.WriteLine("Stopping old service");
                 string svcStopResult = ssh.CreateCommand($"systemctl stop {SERVICE_NAME}").Execute();
 
                 DeployWeb.sw.WriteLine("Deprecating ancient deployment");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {ORIG_DIR} {ORIG_DIR}-old;").Result;
+                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {MOVE_DEPLOYED_API_TO_REMOTE_DIR} {MOVE_DEPLOYED_API_TO_REMOTE_DIR}-old;").Result;
 
                 DeployWeb.sw.WriteLine("Swapping to new deployment");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {DEPLOY_DIR} {ORIG_DIR};").Result;
-
-                DeployWeb.sw.WriteLine("Cleaning up old files");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {ORIG_DIR}-old;").Result;
+                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {DEPLOY_API_TO_REMOTE_DIR} {MOVE_DEPLOYED_API_TO_REMOTE_DIR};").Result;
 
                 DeployWeb.sw.WriteLine("Setting permissions on the main executable.");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{ORIG_DIR}; chmod 754 ./{FTP_MAIN_TO_CHMOD};").Result;
+                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{MOVE_DEPLOYED_API_TO_REMOTE_DIR}; chmod 754 ./{MAIN_API_ARTIFACT_TO_CHMOD};").Result;
 
                 DeployWeb.sw.WriteLine("Starting new service");
                 string svcStartResult = ssh.CreateCommand($"systemctl start {SERVICE_NAME}").Execute();
+
+                DeployWeb.sw.WriteLine("Cleaning up old files");
+                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {MOVE_DEPLOYED_API_TO_REMOTE_DIR}-old;").Result;
             }
 
             clients.ForEach(x => x.Dispose());
@@ -186,43 +233,25 @@ namespace PixelStacker.CodeGenerator
             }
         }
 
-        private static readonly object padlock = new {};
-        private static void SetConsoleLine(int row, string text, ConsoleColor? color = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="localDirToUpload">Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "bin", "Release", "net6.0", "publish");</param>
+        /// <param name="remoteDirToUploadTo">./services/pixelstacker.web.net-deploy</param>
+        /// <param name="ssh"></param>
+        private static void RecursiveZipUpload(string localDirToUploadPath, string remoteDirToUploadTo, SshClient ssh)
         {
-            lock (padlock)
-            {
-                if (row == -1)
-                {
-                    DeployWeb.sw.WriteLine(text);
-                    return;
-                }
-
-                int orig = Console.CursorTop;
-                ConsoleColor cOrig = Console.ForegroundColor;
-                Console.SetCursorPosition(0, row);
-                Console.Write(new string(' ', Console.WindowWidth));
-
-                if (color != null) Console.ForegroundColor = color.Value;
-                Console.SetCursorPosition(0, row);
-                DeployWeb.sw.WriteLine(text);
-                Console.SetCursorPosition(0, orig);
-
-                if (color != null) Console.ForegroundColor = cOrig;
-            }
-        }
-
-        private static void RecursiveZipUpload(DirectoryInfo dir, SshClient ssh)
-        {
+            DirectoryInfo localDirToUpload = new DirectoryInfo(localDirToUploadPath);
             DeployWeb.sw.WriteLine("\n-----------------  Zipping files  -----------------------");
-            var localZipFilePath = Path.Combine(dir.Parent.FullName, "deployment.zip");
-            var remoteZipFilePath = DEPLOY_DIR + "/deployment.zip";
+            var localZipFilePath = Path.Combine(localDirToUpload.Parent.FullName, "deployment.zip");
+            var remoteZipFilePath = remoteDirToUploadTo + "/deployment.zip";
 
             if (File.Exists(localZipFilePath))
             {
                 File.Delete(localZipFilePath);
             }
 
-            ZipFile.CreateFromDirectory(dir.FullName, localZipFilePath, CompressionLevel.Optimal, false);
+            ZipFile.CreateFromDirectory(localDirToUpload.FullName, localZipFilePath, CompressionLevel.Optimal, false);
             var ftp = GetFtpClientFromPool();
             while (ftp == null)
             {
@@ -238,13 +267,13 @@ namespace PixelStacker.CodeGenerator
                 ftp.UploadFile(localZipFilePath, remoteZipFilePath, FluentFTP.FtpRemoteExists.Overwrite, true, FtpVerify.None);
 
                 DeployWeb.sw.WriteLine("Unzipping...");
-                var cmdResult = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{DEPLOY_DIR};  unzip deployment.zip;").Result;
+                var cmdResult = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{remoteDirToUploadTo};  unzip deployment.zip;").Result;
 
                 DeployWeb.sw.WriteLine("Removing zip file on remote server.");
-                var cmdResult2 = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{DEPLOY_DIR}; rm ./deployment.zip;").Result;
+                var cmdResult2 = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{remoteDirToUploadTo}; rm ./deployment.zip;").Result;
 
                 DeployWeb.sw.WriteLine($"Chowning the unzipped files to {CHOWN}");
-                var cmdResult3 = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; chown -R {CHOWN} {DEPLOY_DIR};").Result;
+                var cmdResult3 = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; chown -R {CHOWN} {remoteDirToUploadTo};").Result;
             }
             catch (Exception ex)
             {
@@ -257,83 +286,6 @@ namespace PixelStacker.CodeGenerator
             {
                 DeployWeb.sw.WriteLine("Cleaning up temporary file");
                 File.Delete(localZipFilePath);
-            }
-        }
-
-
-        private static void RecursiveUpload(DirectoryInfo dir, string deployFolder)
-        {
-            var toUpload = new Dictionary<string, string>();
-            RecursiveUploadInit(dir, deployFolder, ref toUpload);
-            Console.Write("\n-----------------  Uploading Files  -----------------------");
-
-            int cursorPos;
-
-            try
-            {
-                cursorPos = Console.CursorTop;
-            }
-            catch (IOException)
-            {
-                cursorPos = -1; // no console supported.
-            }
-
-            toUpload.ToList().AsParallel<KeyValuePair<string, string>>()
-                .WithDegreeOfParallelism(Math.Min(MAX_CONCURRENT_UPLOADS - 1, toUpload.Count))
-                .ForAll(kvp =>
-                {
-                    int curConsoleLine = cursorPos != -1 ? Interlocked.Increment(ref cursorPos) : -1;
-                    long kb = (new FileInfo(kvp.Key)).Length / 1024;
-                    if (cursorPos != -1) SetConsoleLine(curConsoleLine, $"Starting {kb}kb... {kvp.Value}");
-
-                    var ftp = GetFtpClientFromPool();
-                    while (ftp == null)
-                    {
-                        Console.SetCursorPosition(0, curConsoleLine);
-                        SetConsoleLine(curConsoleLine, $"Waiting for FTPClient. {kvp.Value}", ConsoleColor.Red);
-                        Task.Delay(150);
-                        ftp = GetFtpClientFromPool();
-                    }
-
-                    try
-                    {
-                        SetConsoleLine(curConsoleLine, $"Uploading {kb}kb... {kvp.Value}", ConsoleColor.Yellow);
-                        ftp.UploadFile(kvp.Key, kvp.Value, FluentFTP.FtpRemoteExists.Overwrite, true, FtpVerify.None);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.Error.WriteLine(ex);
-                    }
-                    ReturnFtpClientToPool(ftp);
-                    if (cursorPos != -1) SetConsoleLine(curConsoleLine, $"Finished {kb}kb... {kvp.Value}", ConsoleColor.Green);
-                });
-
-            if (cursorPos != -1) Console.SetCursorPosition(0, cursorPos + 1);
-            DeployWeb.sw.WriteLine("\n--------  Switching deployment slots  ---------------------");
-        }
-
-        private static void RecursiveUploadInit(DirectoryInfo dir, string deployFolder, ref Dictionary<string, string> toUpload)
-        {
-            Console.WriteLine("Scanning files in... {0}", deployFolder.Replace(DEPLOY_DIR, ""));
-            var filesInDir = dir.EnumerateFiles().Select(x => x.FullName);
-            var dirsInDir = dir.EnumerateDirectories();
-
-            var ftpO = GetFtpClientFromPool();
-            if (!ftpO.DirectoryExists(deployFolder))
-            {
-                ftpO.CreateDirectory(deployFolder);
-            }
-            ReturnFtpClientToPool(ftpO);
-
-            foreach (var fi in filesInDir)
-            {
-                string fiFi = deployFolder + "/" + fi.Split('\\').Last();
-                toUpload.Add(fi, fiFi);
-            }
-
-            foreach (var dirr in dirsInDir)
-            {
-                RecursiveUploadInit(dirr, deployFolder + "/" + dirr.Name, ref toUpload);
             }
         }
     }
