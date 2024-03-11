@@ -1,3 +1,4 @@
+@use 'sass:math';
 // S E T T I N G S:
 $c-navbar-m-header-height: 50;
 $c-navbar-m-title-height: $c-navbar-m-header-height;
@@ -62,8 +63,9 @@ $icon-codes-map: (
 }
 
 @function contrasting-color($color) {
-	$color-lightness: abs(lightness($color));
-	@if ($color-lightness > 50){
+  $color-light: math.div(lightness($color), 100%);
+	$color-lightness: abs($color-light);
+	@if ($color-lightness > .50){
 		@return black;
 	} @else {
 		@return white;

@@ -90,7 +90,9 @@ namespace PixelStacker.Web.Net.Controllers
         #endregion
 
         [HttpGet]
+#if !DEBUG
         [Obsolete("Do not show this function.", false)]
+#endif
         public Task<JsonResult> Stats()
         {
             var data = new Dictionary<string, object>();

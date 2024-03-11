@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
+using PixelStacker.Resources;
 using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -42,6 +45,14 @@ namespace PixelStacker.Web.Net.Controllers
             }
 
             return Task.FromResult(Json(data));
+        }
+
+        [HttpGet]
+        public Task<JsonResult>  MaterialPaletteMap()
+        {
+            MaterialPalette palette = MaterialPalette.FromResx();
+            var jsonObj = palette.ToResxDictionary();
+            return Task.FromResult(Json(jsonObj));
         }
 
         private Dictionary<string, MaterialSpriteItem> GetMaterialSpriteIndex()

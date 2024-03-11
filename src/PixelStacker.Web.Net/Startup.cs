@@ -3,12 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using PixelStacker.Web.Net.AppStart;
 using PixelStacker.Web.Net.Controllers;
 using PixelStacker.Web.Net.Utility;
-using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -40,6 +38,8 @@ namespace PixelStacker.Web.Net
             });
 
             services.AddSwaggerGen(SwaggerConfig.AddSwaggerGen);
+            services.AddScoped<ErrorHandler>();
+            services.AddScoped<CorsHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,14 +9,13 @@ namespace PixelStacker.Web.Net.AppStart
 {
     public class ErrorHandler : BaseHandlerMiddleware
     {
-        public ErrorHandler(RequestDelegate next) : base(next) { }
         public override Task BeforeInvoke(HttpContext context) => Task.CompletedTask;
 
-        public override async Task Invoke(HttpContext context)
+        public override async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
-                await base.Invoke(context);
+                await base.InvokeAsync(context, next);
             }
             catch (Exception error)
             {

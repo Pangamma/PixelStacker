@@ -12,8 +12,6 @@ namespace PixelStacker.Web.Net.Controllers
     [Route("api/[controller]/[action]")]
     public class BaseApiController : Controller
     {
-        //protected MySqlConnection GetConnection() => new MySqlConnection(Config.Instance.SqlConnectionString.Value);
-
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             // Do a bunch of stuff here if needed. Stuff like validation.
@@ -28,11 +26,5 @@ namespace PixelStacker.Web.Net.Controllers
             // Do a bunch of stuff here if needed. Stuff like validation.
             base.OnActionExecuted(context);
         }
-
-        //protected async Task LogAction(string action)
-        //{
-        //    using var conn = this.GetConnection();
-        //    await conn.ExecuteAsync("INSERT INTO `edit_history` (`action`) VALUES (@action)", new { action });
-        //}
     }
 }

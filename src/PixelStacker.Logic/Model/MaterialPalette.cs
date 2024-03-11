@@ -134,6 +134,18 @@ namespace PixelStacker.Logic.Model
         });
 
         public static MaterialPalette FromResx() => Instance.Value;
+        public Dictionary<int, string> ToResxDictionary() {
+            var output = Instance.Value.FromPaletteID.ToDictionary(
+                keySelector: e => e.Key,
+                elementSelector: e =>
+                {
+                    var value = e.Value;
+                    if (value == null) return null;
+                    if (value.IsMultiLayer) return ($"{value.Bottom.PixelStackerID},{value.Top.PixelStackerID}");
+                    else return $"{value.Bottom.PixelStackerID}";
+                });
+            return output;
+        }
 
         public void PrimePalette()
         {

@@ -10,8 +10,8 @@
     "buildSprites": "node ./scripts/buildSprites.js"
   },
   "dependencies": {
-    "@analytics/google-analytics": "^1.0.3",
-    "analytics": "^0.8.1",
+    "@analytics/google-analytics": "^1.0.7",
+    "analytics": "^0.8.11",
     "jszip": "^3.10.0",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",

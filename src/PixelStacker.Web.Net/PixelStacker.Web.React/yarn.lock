@@ -33,7 +33,7 @@
   dependencies:
     "@analytics/type-utils" "^0.6.2"
 
-"@analytics/google-analytics@^1.0.3":
+"@analytics/google-analytics@^1.0.7":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@analytics/google-analytics/-/google-analytics-1.0.7.tgz#256658c841af707aabdcfb35858971676115d1ce"
   integrity sha512-KZ69NaMIi5kOcouzqI8cu7tZgQl7ziGiRahfU6zniUf32G8bv7wQDh73JFz1NwO6gBPloUc+5BzEoWzScM5Rgw==
@@ -394,7 +394,7 @@ analytics-utils@^1.0.12:
     "@analytics/type-utils" "^0.6.2"
     dlv "^1.1.3"
 
-analytics@^0.8.1:
+analytics@^0.8.11:
   version "0.8.11"
   resolved "https://registry.yarnpkg.com/analytics/-/analytics-0.8.11.tgz#9216463acdc124718d96f18cd39990e50f986f0e"
   integrity sha512-gNLaprOiuZSviP8rC99E5uk+AWQZJk1OHS350v3XdpPDnsGyxHlNo7s9ZQJeOhvMbG5XOBY3fgZY/tpOl7hiGw==

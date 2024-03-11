@@ -74,11 +74,11 @@ namespace PixelStacker.Logic.Model
             }
         }
 
-        public Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, byte[] topImage, byte[] sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
+        internal Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, byte[] topImage, byte[] sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
            : this(minMcVersion, isAdvancedMaterial, category, pixelStackerID, label, blockID, data, SKBitmap.Decode(topImage), SKBitmap.Decode(sideImage), topBlockName, sideBlockName, schematicaMaterialName)
         { }
 
-        public Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, SKBitmap topImage, SKBitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
+        internal Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, SKBitmap topImage, SKBitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
         {
             MinimumSupportedMinecraftVersion = minMcVersion;
             IsAdvanced = isAdvancedMaterial;

@@ -6,6 +6,7 @@ using PixelStacker.Web.Net.Controllers;
 using System;
 
 Console.WriteLine($"Starting app at {DeploymentInfoController.DeploymentTime.Value}");
+
 Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((hostingContext, config) =>
     {
@@ -27,7 +28,11 @@ Host.CreateDefaultBuilder(args)
     {
         webBuilder.UseStartup<Startup>()
         .PreferHostingUrls(true)
-        .UseUrls(new string[] { "http://127.0.0.1:5005" });
+        .UseUrls(new string[] { "http://127.0.0.1:5005"
+#if DEBUG
+            , "https://127.0.0.1:53739"
+#endif
+        });
     })
     .Build()
     .Run();

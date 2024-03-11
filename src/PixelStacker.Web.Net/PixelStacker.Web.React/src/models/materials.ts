@@ -17,7 +17,7 @@ function _(category: string, pixelStackerID: string, label: string, spriteX: num
         spritePage
     } as Material;
 }
-        
+
 export const MaterialList: Material[] = [
     _("Air", "AIR", "Air", 0, 0, 0),
     _("Glass", "GLASS_00", "White Glass", 1, 0, 0),

@@ -2,10 +2,8 @@ import { RenderedCanvas } from "@/models/renderedCanvas";
 import { PanZoomSettings } from "@/models/panZoomSettings";
 import { CanvasViewerSettings } from "@/models/canvasViewerSettings";
 import { PxPoint, SKRect, SKSize } from "@/models/pxPoint";
-import { MaterialPalette } from "@/models/materialPalette";
 import { SpriteHelper } from "@/models/spriteHelper";
 import { ProgressX } from "@/utils/progressX";
-import { delayMsAsync } from "@/utils/delay";
 import { Logger } from "@/utils/logger";
 
 type EstimateProp = 'floor' | 'round' | 'ceil';
@@ -336,7 +334,7 @@ export class RenderedCanvasPainter {
                 const mcId = data.canvasData[srcTile.x + x][srcTile.y + y];
                 const mc = data.palette.getMC(mcId);
                 if (!mc) {
-                    Logger.warn(`Unknown ID ${mcId}. Skipped.`, mc);
+                    Logger.warn(`Unknown ID ${mcId}. Skipped.`, mcId);
                     continue;
                 }
                 // Logger.log(`$x:${x}, y:${y}, mcid=${mcId}`, mc);

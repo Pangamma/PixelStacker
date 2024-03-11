@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Threading.Tasks;
 
 namespace PixelStacker.Web.Net.AppStart
 {
     public class CorsHandler : BaseHandlerMiddleware
     {
-        public CorsHandler(RequestDelegate next) : base(next) { }
-        public override async Task Invoke(HttpContext context)
-        {
-            await base.Invoke(context);
-        }
-
-        public override async Task BeforeInvoke(HttpContext context)
+        public override Task BeforeInvoke(HttpContext context)
         {
             if (!context.Response.HasStarted)
             {
@@ -21,7 +16,7 @@ namespace PixelStacker.Web.Net.AppStart
                 h["Access-Control-Allow-Headers"] = "*";
             }
 
-            await base.BeforeInvoke(context);
+            return base.BeforeInvoke(context);
         }
     }
 }

@@ -3,22 +3,15 @@ using System.Threading.Tasks;
 
 namespace PixelStacker.Web.Net.AppStart
 {
-    public class BaseHandlerMiddleware
+    public class BaseHandlerMiddleware: IMiddleware
     {
-        protected RequestDelegate _next { get; set; }
-
-        public BaseHandlerMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
         public virtual Task BeforeInvoke(HttpContext context) => Task.CompletedTask;
         public virtual Task AfterInvoke(HttpContext context) => Task.CompletedTask;
 
-        public virtual async Task Invoke(HttpContext context)
+        public virtual async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             await this.BeforeInvoke(context);
-            await _next(context);
+            await next(context);
             await this.AfterInvoke(context);
         }
     }
