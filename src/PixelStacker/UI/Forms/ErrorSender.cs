@@ -57,8 +57,15 @@ namespace PixelStacker
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/Pangamma/PixelStacker/issues");  // Adf.ly
-            Process.Start(sInfo);
+            try
+            {
+                ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/Pangamma/PixelStacker/issues");  // Adf.ly
+                Process.Start(sInfo);
+            }
+            catch (Exception) {
+                linkLabel1.Text = "https://github.com/Pangamma/PixelStacker/issues";
+            }
+
         }
 
         public void ApplyLocalization()
