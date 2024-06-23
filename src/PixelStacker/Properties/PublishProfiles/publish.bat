@@ -1,6 +1,8 @@
 ﻿:: Open up developer command prompt in VS via: Tools > Command Line > Developer Command prompt
 :: Execute these commands.
 :: /PixelStacker/Properties/PublishProfiles/publish.bat
+:: or
+:: PixelStacker\Properties\PublishProfiles\publish.bat
 :: 
 :: 
 

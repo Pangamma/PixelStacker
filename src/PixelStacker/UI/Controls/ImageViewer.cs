@@ -138,7 +138,7 @@ namespace PixelStacker.WF.Components
                 SKRect rectSRC = pStart.ToRectangle(pEnd);
                 SKRect rectDST = fStart.ToRectangle(fEnd);
 
-                //lock (img)
+                lock (img)
                 {
                     canvas.DrawBitmap(bitmap: img,
                         source: rectSRC,

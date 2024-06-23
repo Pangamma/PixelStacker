@@ -37,7 +37,7 @@ namespace PixelStacker
 
         private async void btnYes_Click(object sender, EventArgs e)
         {
-            string filePath = "pixelstacker-error-report.zip";
+            string filePath = $"pixelstacker-error-report_{Guid.NewGuid}.zip";
             File.Delete(filePath);
 
             string userComment = "Not implemented yet.";
