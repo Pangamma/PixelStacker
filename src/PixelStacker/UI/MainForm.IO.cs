@@ -24,20 +24,31 @@ namespace PixelStacker.UI
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (loadedImageFilePath != null)
+            {
                 if (!loadedImageFilePath.EndsWith(".pxlzip"))
                 {
                     saveAsToolStripMenuItem_Click(sender, e);
+                } 
+                else
+                {
+                    this.saveToFileName(loadedImageFilePath);
                 }
+            }
+               
         }
 
-        private async void dlgSave_FileOk(object sender, CancelEventArgs e)
+        private void dlgSave_FileOk(object sender, CancelEventArgs e)
+        {
+            SaveFileDialog dlg = (SaveFileDialog)sender;
+            string fName = dlg.FileName;
+            this.saveToFileName(fName);
+        }
+
+        private async void saveToFileName (string fName)
         {
             if (this.RenderedCanvas != null)
             {
-                SaveFileDialog dlg = (SaveFileDialog)sender;
-                string fName = dlg.FileName;
                 string ext = fName.GetFileExtension().ToLower();
-                int chosenFilterIndex = dlg.FilterIndex;
                 IExportFormatter formatter;
                 switch (ext)
                 {
@@ -63,86 +74,11 @@ namespace PixelStacker.UI
 
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
-                    await formatter.ExportAsync(fName, new PixelStackerProjectData(this.RenderedCanvas, this.Options), worker);
+                    ProgressX.Report(0, "Saving changes.");
+                    PixelStackerProjectData proj = new PixelStackerProjectData(this.RenderedCanvas, this.Options);
+                    await formatter.ExportAsync(fName, proj, worker);
+                    ProgressX.Report(100, "File saved.");
                 }));
-
-                //                if (fName.ToLower().EndsWith(".schem"))
-                //                {
-                //                    Schem2Formatter.writeBlueprint(fName, this.LoadedBlueprint);
-                //                }
-                //                else if (fName.ToLower().EndsWith(".schematic"))
-                //                {
-                //                    if (Materials.List.Any(x => x.IsEnabled && string.IsNullOrWhiteSpace(x.SchematicaMaterialName)))
-                //                    {
-                //                        DialogResult result = MessageBox.Show(this,
-                //                            "Cannot create a 1.12 schematic when 1.13+ blocks are selected. Do you want to automatically " +
-                //                            "disable invalid materials and restart from the beginning of the rendering process. This " +
-                //                            "will remove any material choice overrides or post rendering changes.\n\nYou will need to " +
-                //                            "re-render the image.",
-                //                            ".schematic does not support 1.13+ blocks!"
-                //                            , MessageBoxButtons.YesNo, MessageBoxIcon.Warning
-                //                            );
-
-                //                        if (result == DialogResult.Yes)
-                //                        {
-                //                            Materials.List.Where(x => x.IsEnabled && string.IsNullOrWhiteSpace(x.SchematicaMaterialName))
-                //                                .ToList().ForEach(x => x.IsEnabled = false);
-                //                            Options.Save();
-                //                            this.InvokeEx(c => c.MaterialOptions.Refresh());
-
-                //#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                //                            TaskManager.Get.StartAsync((token) =>
-                //                            {
-                //                                ColorMatcher.Get.CompileColorPalette(token, true, Materials.List)
-                //                                .ConfigureAwait(true).GetAwaiter().GetResult();
-                //                            });
-                //#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                //                            return;
-                //                        }
-                //                    }
-                //                    else
-                //                    {
-                //                        SchematicFormatter.writeBlueprint(fName, this.LoadedBlueprint);
-                //                    }
-                //                }
-                //                else if (fName.ToLower().EndsWith(".csv"))
-                //                {
-                //                    Dictionary<Material, int> materialCounts = new Dictionary<Material, int>();
-                //                    bool isv = Options.Get.IsSideView;
-                //                    int xM = this.LoadedBlueprint.Mapper.GetXLength(isv);
-                //                    int yM = this.LoadedBlueprint.Mapper.GetYLength(isv);
-                //                    int zM = this.LoadedBlueprint.Mapper.GetZLength(isv);
-                //                    for (int x = 0; x < xM; x++)
-                //                    {
-                //                        for (int y = 0; y < yM; y++)
-                //                        {
-                //                            for (int z = 0; z < zM; z++)
-                //                            {
-                //                                Material m = this.LoadedBlueprint.Mapper.GetMaterialAt(isv, x, y, z);
-                //                                if (m != Materials.Air)
-                //                                {
-                //                                    if (!materialCounts.ContainsKey(m))
-                //                                    {
-                //                                        materialCounts.Add(m, 0);
-                //                                    }
-
-                //                                    materialCounts[m] = materialCounts[m] + 1;
-                //                                }
-                //                            }
-                //                        }
-                //                    }
-
-                //                    StringBuilder sb = new StringBuilder();
-                //                    sb.AppendLine("\"Material\",\"Block Count\",\"Full Stacks needed\"");
-                //                    sb.AppendLine("\"Total\"," + materialCounts.Values.Sum());
-
-                //                    foreach (var kvp in materialCounts.OrderByDescending(x => x.Value))
-                //                    {
-                //                        sb.AppendLine($"\"{kvp.Key.GetBlockNameAndData(isv).Replace("\"", "\"\"")}\",{kvp.Value},{kvp.Value / 64} stacks and {kvp.Value % 64} remaining blocks");
-                //                    }
-
-                //                    File.WriteAllText(fName, sb.ToString());
-                //}
             }
             else
             {
@@ -199,6 +135,7 @@ namespace PixelStacker.UI
                         c.PreprocessedImage = proj.PreprocessedImage;
                         c.LoadedImage = proj.PreprocessedImage;
                         c.imageViewer.SetImage(c.PreprocessedImage, null);
+                        c.RenderedCanvas = proj;
 
                         var pz = c.imageViewer.PanZoomSettings;
                         await c.canvasEditor.SetCanvas(worker, proj, pz, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));

@@ -56,11 +56,11 @@ namespace PixelStacker.UI
         public void ApplyLocalization(CultureInfo locale)
         {
             this.Options.Locale = ResxHelper.GetSupportedLocale(locale.Name);
-            this.Options.Save();
             locale = CultureInfo.GetCultureInfo(this.Options.Locale);
             Thread.CurrentThread.CurrentUICulture = locale;
             CultureInfo.CurrentUICulture = locale;
             this.ApplyLocalization();
+            this.Options.Save();
         }
 
         public void ApplyLocalization()

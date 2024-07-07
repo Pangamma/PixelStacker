@@ -167,6 +167,16 @@ namespace PixelStacker.Logic.IO.Formatters
 
 
                         {
+                            ZipArchiveEntry entry = archive.GetEntry("world-edit-origin.json");
+                            using (StreamReader reader = new StreamReader(entry.Open()))
+                            {
+                                string json = await reader.ReadToEndAsync();
+                                var xy = JsonConvert.DeserializeObject<PxPoint>(json) ?? new PxPoint(0, 0);
+                                canvas.WorldEditOrigin = xy;
+                            }
+                        }
+
+                        {
                             ZipArchiveEntry entry = archive.GetEntry("canvas-data.png");
                             using (var zipStream = entry.Open())
                             {
@@ -194,17 +204,6 @@ namespace PixelStacker.Logic.IO.Formatters
                                 }
                             }
                         }
-
-                        {
-                            ZipArchiveEntry entry = archive.GetEntry("world-edit-origin.json");
-                            using (StreamReader reader = new StreamReader(entry.Open()))
-                            {
-                                string json = await reader.ReadToEndAsync();
-                                var xy = JsonConvert.DeserializeObject<PxPoint>(json) ?? new PxPoint(0, 0);
-                                canvas.WorldEditOrigin = xy;
-                            }
-                        }
-
 
                         return canvas;
                     }
