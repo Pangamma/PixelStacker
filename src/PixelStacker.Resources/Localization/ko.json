@@ -171,5 +171,9 @@
   "Nothing": "아무것도 아님",
   "MainMenu_Lang_Italian": "이탈리아 사람",
   "MainForm_TS_RenderShadows": "그림자 렌더링",
-  "MainForm_TS_VisualEnhancements": "시각적 개선 사항"
+  "MainForm_TS_VisualEnhancements": "시각적 개선 사항",
+  "Dark Theme": "어두운 테마",
+  "Light Theme": "라이트 테마",
+  "Smooth Theme": "부드러운 테마",
+  "Theme": "주제"
 }

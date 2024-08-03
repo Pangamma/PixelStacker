@@ -6,6 +6,7 @@ using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources;
+using PixelStacker.Resources.Themes;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -36,10 +37,12 @@ namespace PixelStacker.UI.Controls
             this.BackgroundImage = Resources.UIResources.bg_imagepanel;
             this.DoubleBuffered = true;
             this.ApplyLocalization();
-
             this.Disposed += CanvasEditor_Disposed;
             AppEvents.OnPrimaryColorChange += this.AppEvents_OnPrimaryColorChange;
+            ThemeManager.OnThemeChange += this.OnThemeChange;
+            this.OnThemeChange(null, ThemeManager.Theme);
         }
+
 
         private void CanvasEditor_Load(object sender, System.EventArgs e)
         {

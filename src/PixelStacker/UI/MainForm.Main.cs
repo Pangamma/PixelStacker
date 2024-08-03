@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using SkiaSharp;
 using PixelStacker.UI.Helpers;
+using PixelStacker.Resources.Themes;
 
 namespace PixelStacker.UI
 {
@@ -33,6 +34,8 @@ namespace PixelStacker.UI
             this.Palette = MaterialPalette.FromResx();
             this.snapManager = new SnapManager(this);
             InitializeComponent();
+            this.SetTheme(this.Options.Theme);
+
             this.BackgroundImage = global::PixelStacker.Resources.UIResources.txt_paused;
 
             this.canvasEditor.Options = this.Options;

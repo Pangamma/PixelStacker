@@ -76,10 +76,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Localization\ResxContainer-out.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Files\" />
   </ItemGroup>
 

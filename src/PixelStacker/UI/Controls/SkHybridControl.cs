@@ -1,6 +1,8 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.IO;
+using PixelStacker.Resources.Themes;
 using PixelStacker.UI.External;
+using PixelStacker.UI.Helpers;
 using SkiaSharp;
 using System;
 using System.ComponentModel;
@@ -48,6 +50,14 @@ namespace PixelStacker.UI.Controls
 
                 this.Controls.Add(control);
             }
+
+            ThemeManager.OnThemeChange += this.OnThemeChange;
+            this.OnThemeChange(this, ThemeManager.Theme);
+        }
+
+        private void OnThemeChange(object sender, ThemeChangeEventArgs e)
+        {
+            this.BackgroundImage = ThemeHelper.bg_imagepanel;
         }
 
         protected override void OnPaint(PaintEventArgs e)

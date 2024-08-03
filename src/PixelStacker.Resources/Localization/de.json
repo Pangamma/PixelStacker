@@ -171,5 +171,9 @@
   "Nothing": "Nichts",
   "MainMenu_Lang_Italian": "Italienisch",
   "MainForm_TS_RenderShadows": "Schatten rendern",
-  "MainForm_TS_VisualEnhancements": "Visuelle Verbesserungen"
+  "MainForm_TS_VisualEnhancements": "Visuelle Verbesserungen",
+  "Dark Theme": "Dunkles Thema",
+  "Light Theme": "Lichtthema",
+  "Smooth Theme": "Glattes Thema",
+  "Theme": "Thema"
 }

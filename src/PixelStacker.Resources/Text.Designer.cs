@@ -467,6 +467,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dark Theme.
+        /// </summary>
+        public static string Dark_Theme {
+            get {
+                return ResourceManager.GetString("Dark Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select profile.
         /// </summary>
         public static string DDL_SelectProfile {
@@ -645,6 +654,15 @@ namespace PixelStacker.Resources {
         public static string GridOptions {
             get {
                 return ResourceManager.GetString("GridOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light Theme.
+        /// </summary>
+        public static string Light_Theme {
+            get {
+                return ResourceManager.GetString("Light Theme", resourceCulture);
             }
         }
         
@@ -1565,6 +1583,24 @@ namespace PixelStacker.Resources {
         public static string Sizing {
             get {
                 return ResourceManager.GetString("Sizing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Smooth Theme.
+        /// </summary>
+        public static string Smooth_Theme {
+            get {
+                return ResourceManager.GetString("Smooth Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string Theme {
+            get {
+                return ResourceManager.GetString("Theme", resourceCulture);
             }
         }
         

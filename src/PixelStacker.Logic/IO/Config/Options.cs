@@ -2,6 +2,7 @@
 using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Resources;
+using PixelStacker.Resources.Themes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,7 @@ namespace PixelStacker.Logic.IO.Config
         public CanvasViewerSettings ViewerSettings { get; set; } = new CanvasViewerSettings();
 
         public string Locale { get; set; } = ResxHelper.GetSupportedLocale();
+        public AppTheme Theme { get; set; } = AppTheme.Light;
 
 
         /// <summary>

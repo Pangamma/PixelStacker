@@ -24,9 +24,9 @@
     "@vitejs/plugin-react": "^2.0.0",
     "fs": "^0.0.1-security",
     "node-fetch": "^3.2.10",
-    "sass": "^1.54.0",
+    "sass": "^1.77.6",
     "tsc": "^2.0.4",
     "typescript": "^4.6.4",
-    "vite": "^3.2.8"
+    "vite": "^5.3.3"
   }
 }

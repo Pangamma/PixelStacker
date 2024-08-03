@@ -2,6 +2,7 @@
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Utilities;
+using PixelStacker.Resources.Themes;
 using System.Threading.Tasks;
 
 namespace PixelStacker.UI
@@ -44,11 +45,7 @@ namespace PixelStacker.UI
             this.editToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
             this.viewToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
             this.textureSizeToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
-
-            this.swatchToolStripMenuItem.ModifyRecursive((x, tag) =>
-            {
-                tag.IsCanvasEditorRequired = true;
-            });
+            this.themesToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = false);
 
             this.layerFilteringToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
 

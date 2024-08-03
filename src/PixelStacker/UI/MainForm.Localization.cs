@@ -80,6 +80,11 @@ namespace PixelStacker.UI
 #endif
             this.Text += " x" + (Constants.C_IS_64BIT ? 64 : 32);
 
+            this.themesToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Theme;
+            this.darkUIToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Dark_Theme;
+            this.lightUIToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Light_Theme;
+            this.smoothThemeToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Smooth_Theme;
+
             this.englishToolStripMenuItem.Image = UIResources.country_us;
             this.chineseSimplifiedToolStripMenuItem.Image = UIResources.country_cn;
             this.koreanToolStripMenuItem.Image = UIResources.country_kr;

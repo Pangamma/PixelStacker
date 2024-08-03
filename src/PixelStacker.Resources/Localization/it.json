@@ -171,5 +171,9 @@
   "Nothing": "Niente",
   "Top_Material": "Materiale superiore",
   "MainForm_TS_RenderShadows": "Rendi le ombre",
-  "MainForm_TS_VisualEnhancements": "Miglioramenti visivi"
+  "MainForm_TS_VisualEnhancements": "Miglioramenti visivi",
+  "Dark Theme": "Tema scuro",
+  "Light Theme": "Tema leggero",
+  "Smooth Theme": "Tema liscio",
+  "Theme": "Tema"
 }

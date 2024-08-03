@@ -17,7 +17,9 @@ namespace PixelStacker.CodeGenerator
         private string GOOGLE_API_KEY = "";
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
         private string[] OutputLocales = new string[] {
-            "ko-kr", "ja-jp", "fr-fr", "de-de", "es-es", "zh-cn", "da-dk", "nl-nl", "sv-se", "it-it"
+            "da-dk", "de-de", "es-es", "fr-fr",
+            "it-it", "ja-jp", "ko-kr", "nl-nl",
+            "sv-se", "zh-cn", "zu-zu"
         };
 
         public JsonResxMaker()

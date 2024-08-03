@@ -171,5 +171,9 @@
   "Nothing": "Nada",
   "MainMenu_Lang_Italian": "italiano",
   "MainForm_TS_RenderShadows": "Renderizar sombras",
-  "MainForm_TS_VisualEnhancements": "Mejoras visuales"
+  "MainForm_TS_VisualEnhancements": "Mejoras visuales",
+  "Dark Theme": "Tema oscuro",
+  "Light Theme": "Tema ligero",
+  "Smooth Theme": "Tema suave",
+  "Theme": "Tema"
 }

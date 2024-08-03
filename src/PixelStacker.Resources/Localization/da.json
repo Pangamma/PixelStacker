@@ -171,5 +171,9 @@
   "Nothing": "Ikke noget",
   "MainMenu_Lang_Italian": "italiensk",
   "MainForm_TS_RenderShadows": "Render skygger",
-  "MainForm_TS_VisualEnhancements": "Visuelle forbedringer"
+  "MainForm_TS_VisualEnhancements": "Visuelle forbedringer",
+  "Dark Theme": "Mørkt tema",
+  "Light Theme": "Lys tema",
+  "Smooth Theme": "Glat tema",
+  "Theme": "Tema"
 }

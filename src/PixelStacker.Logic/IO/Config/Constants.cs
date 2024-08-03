@@ -3,7 +3,7 @@
     public static class Constants
     {
         public const int DisplayRefreshIntervalMs = 10;
-        public const string Version = "1.20.4c";
+        public const string Version = "1.20.4d";
         public const string Website = "https://taylorlove.info/pixelstacker";
         [System.Obsolete("Switch to using DefaultTextureSize, bc that is what this should represent.", true)]
         public const int TextureSize = 16;

@@ -171,5 +171,9 @@
   "Nothing": "Rien",
   "MainMenu_Lang_Italian": "italien",
   "MainForm_TS_RenderShadows": "Rendu des ombres",
-  "MainForm_TS_VisualEnhancements": "Améliorations visuelles"
+  "MainForm_TS_VisualEnhancements": "Améliorations visuelles",
+  "Dark Theme": "Thème sombre",
+  "Light Theme": "Thème Lumière",
+  "Smooth Theme": "Thème fluide",
+  "Theme": "Thème"
 }

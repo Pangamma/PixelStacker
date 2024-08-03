@@ -2,6 +2,8 @@
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Resources;
+using PixelStacker.Resources.Themes;
+using PixelStacker.UI.Helpers;
 using SkiaSharp;
 using System;
 using System.ComponentModel;
@@ -42,8 +44,18 @@ namespace PixelStacker.WF.Components
             this.DoubleBuffered = true;
             InitializeComponent();
             repaintTimer.Interval = Constants.DisplayRefreshIntervalMs;
-            this.BackgroundImage = Resources.UIResources.bg_imagepanel;
             this.PanZoomSettings = CalculateInitialPanZoomSettings(null);
+
+            ThemeManager.OnThemeChange += this.OnThemeChange;
+            this.OnThemeChange(null, ThemeManager.Theme);
+        }
+
+        private void OnThemeChange(object sender, ThemeChangeEventArgs e)
+        {
+            this.BackgroundImage = ThemeHelper.bg_imagepanel;
+            var skbg = this.SKBackgroundImage;
+            this.SKBackgroundImage = ThemeHelper.bg_imagepanel.BitmapToSKBitmap();
+            skbg.DisposeSafely();
         }
 
         public void SetImage(SKBitmap src, PanZoomSettings pz = null)
@@ -53,7 +65,6 @@ namespace PixelStacker.WF.Components
             Image = src.Copy();
             bool preserveZoom = pz != null;
             if (!preserveZoom) this.PanZoomSettings = CalculateInitialPanZoomSettings(Image);
-            this.BackgroundImage = Resources.UIResources.bg_imagepanel;
             this.IsRepaintRequested = true;
         }
 
@@ -102,12 +113,13 @@ namespace PixelStacker.WF.Components
         [Category("ImageViewer")]
         [Browsable(true)]
         private SKBitmap Image { get; set; }
+        private SKBitmap SKBackgroundImage { get; set; }
 
         private void skCanvas_PaintSurface(object sender, UI.Controls.GenericSKPaintSurfaceEventArgs e)
         {
             SKSurface surface = e.Surface;
             var canvas = surface.Canvas;
-            var bgImg = UIResources.bg_imagepanel.BitmapToSKBitmap();
+            var bgImg = this.SKBackgroundImage;
             SKShader bgShader = SKShader.CreateBitmap(bgImg, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
             using (SKPaint paint = new SKPaint())
             {

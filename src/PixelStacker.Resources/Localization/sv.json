@@ -171,5 +171,9 @@
   "Nothing": "Ingenting",
   "MainMenu_Lang_Italian": "italienska",
   "MainForm_TS_RenderShadows": "Rendera skuggor",
-  "MainForm_TS_VisualEnhancements": "Visuella förbättringar"
+  "MainForm_TS_VisualEnhancements": "Visuella förbättringar",
+  "Dark Theme": "Mörkt tema",
+  "Light Theme": "Lätt tema",
+  "Smooth Theme": "Smidigt tema",
+  "Theme": "Tema"
 }

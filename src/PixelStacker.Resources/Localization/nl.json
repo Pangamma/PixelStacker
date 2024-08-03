@@ -171,5 +171,9 @@
   "Nothing": "Niks",
   "MainMenu_Lang_Italian": "Italiaans",
   "MainForm_TS_RenderShadows": "Schaduwen renderen",
-  "MainForm_TS_VisualEnhancements": "Visuele verbeteringen"
+  "MainForm_TS_VisualEnhancements": "Visuele verbeteringen",
+  "Dark Theme": "Donker thema",
+  "Light Theme": "Licht thema",
+  "Smooth Theme": "Vlot thema",
+  "Theme": "Thema"
 }
