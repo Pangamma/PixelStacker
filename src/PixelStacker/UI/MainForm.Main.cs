@@ -41,7 +41,6 @@ namespace PixelStacker.UI
             this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);
             ShowImageViewer();
-            //dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Block Counts CSV|*.csv|PixelStacker Project|*.pxlzip";
         }
 
         private void MainForm_Load(object sender, System.EventArgs e)

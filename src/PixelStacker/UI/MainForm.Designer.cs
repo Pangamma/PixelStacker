@@ -503,14 +503,14 @@ namespace PixelStacker.UI
             // lightUIToolStripMenuItem
             // 
             lightUIToolStripMenuItem.Name = "lightUIToolStripMenuItem";
-            lightUIToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            lightUIToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
             lightUIToolStripMenuItem.Text = "Light Theme";
             lightUIToolStripMenuItem.Click += lightThemeToolStripMenuItem_Click;
             // 
             // darkUIToolStripMenuItem
             // 
             darkUIToolStripMenuItem.Name = "darkUIToolStripMenuItem";
-            darkUIToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            darkUIToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
             darkUIToolStripMenuItem.Text = "Dark Theme";
             darkUIToolStripMenuItem.Visible = false;
             darkUIToolStripMenuItem.Click += darkThemeToolStripMenuItem_Click;
@@ -518,7 +518,7 @@ namespace PixelStacker.UI
             // smoothThemeToolStripMenuItem
             // 
             smoothThemeToolStripMenuItem.Name = "smoothThemeToolStripMenuItem";
-            smoothThemeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            smoothThemeToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
             smoothThemeToolStripMenuItem.Text = "Smooth Theme";
             smoothThemeToolStripMenuItem.Click += smoothThemeToolStripMenuItem_Click;
             // 
@@ -576,7 +576,7 @@ namespace PixelStacker.UI
             // dlgOpen
             // 
             dlgOpen.FileName = "openFileDialog1";
-            dlgOpen.Filter = "Supported Format|*.png;*.jpeg;*.jpg;*pxlzip|png|*.png|Jpeg|*.jpg;*.jpeg|PixelStacker Project|*.pxlzip|All Files|*.*";
+            dlgOpen.Filter = "Supported Format|*.png;*.jpeg;*.jpg;*pxlzip;*.webp|png|*.png|Jpeg|*.jpg;*.jpeg|webp|*.webp|PixelStacker Project|*.pxlzip|All Files|*.*";
             dlgOpen.Title = "Open File";
             dlgOpen.FileOk += dlgOpen_FileOk;
             // 
