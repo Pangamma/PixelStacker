@@ -115,7 +115,7 @@ namespace PixelStacker.UI.External
             {
                 // start drawing
 #pragma warning disable CS0618 // Type or member is obsolete
-                OnPaintSurface(new SKPaintGLSurfaceEventArgs(surface, renderTarget, surfaceOrigin, colorType, glInfo));
+                OnPaintSurface(new SKPaintGLSurfaceEventArgs(surface, renderTarget, surfaceOrigin, colorType));
 #pragma warning restore CS0618 // Type or member is obsolete
             }
 

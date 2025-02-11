@@ -2,29 +2,12 @@
 using System;
 using System.ComponentModel;
 
+
+// https://github.com/mono/SkiaSharp/blob/02816641132903a8e99b4d43e423dc94b24d1e8f/source/SkiaSharp.Views/SkiaSharp.Views.Shared/SKPaintGLSurfaceEventArgs.cs
 namespace PixelStacker.UI.External
 {
     public class SKPaintGLSurfaceEventArgs : EventArgs
     {
-#if !__BLAZOR__
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete]
-        private GRBackendRenderTargetDesc? rtDesc;
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Use SKPaintGLSurfaceEventArgs(SKSurface, GRBackendRenderTarget, SKColorType, GRSurfaceOrigin) instead.")]
-        public SKPaintGLSurfaceEventArgs(SKSurface surface, GRBackendRenderTargetDesc renderTarget)
-        {
-            Surface = surface;
-            rtDesc = renderTarget;
-            BackendRenderTarget = new GRBackendRenderTarget(GRBackend.OpenGL, renderTarget);
-            ColorType = renderTarget.Config.ToColorType();
-            Origin = renderTarget.Origin;
-            Info = new SKImageInfo(renderTarget.Width, renderTarget.Height, ColorType);
-            RawInfo = Info;
-        }
-#endif
-
         public SKPaintGLSurfaceEventArgs(SKSurface surface, GRBackendRenderTarget renderTarget)
             : this(surface, renderTarget, GRSurfaceOrigin.BottomLeft, SKColorType.Rgba8888)
         {
@@ -55,41 +38,7 @@ namespace PixelStacker.UI.External
             RawInfo = rawInfo;
         }
 
-#if !__BLAZOR__
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Use SKPaintGLSurfaceEventArgs(SKSurface, GRBackendRenderTarget, GRSurfaceOrigin, SKColorType) instead.")]
-        public SKPaintGLSurfaceEventArgs(SKSurface surface, GRBackendRenderTarget renderTarget, GRSurfaceOrigin origin, SKColorType colorType, GRGlFramebufferInfo glInfo)
-        {
-            Surface = surface;
-            BackendRenderTarget = renderTarget;
-            ColorType = colorType;
-            Origin = origin;
-            rtDesc = CreateDesc(glInfo);
-            Info = new SKImageInfo(renderTarget.Width, renderTarget.Height, colorType);
-            RawInfo = Info;
-        }
-#endif
-
         public SKSurface Surface { get; private set; }
-
-#if !__BLAZOR__
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Use BackendRenderTarget instead.")]
-        public GRBackendRenderTargetDesc RenderTarget => rtDesc ??= CreateDesc(BackendRenderTarget.GetGlFramebufferInfo());
-
-        [Obsolete]
-        private GRBackendRenderTargetDesc CreateDesc(GRGlFramebufferInfo glInfo) =>
-            new GRBackendRenderTargetDesc
-            {
-                Width = BackendRenderTarget.Width,
-                Height = BackendRenderTarget.Height,
-                RenderTargetHandle = (IntPtr)glInfo.FramebufferObjectId,
-                SampleCount = BackendRenderTarget.SampleCount,
-                StencilBits = BackendRenderTarget.StencilBits,
-                Config = ColorType.ToPixelConfig(),
-                Origin = Origin,
-            };
-#endif
 
         public GRBackendRenderTarget BackendRenderTarget { get; private set; }
 
