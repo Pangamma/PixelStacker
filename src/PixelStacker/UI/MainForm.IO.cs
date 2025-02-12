@@ -62,9 +62,6 @@ namespace PixelStacker.UI
                     case "schem":
                         formatter = new Schem2Formatter();
                         break;
-                    case "schematic":
-                        formatter = new SchematicFormatter();
-                        break;
                     case "csv":
                         formatter = new BlockCountCsvFormatter();
                         break;

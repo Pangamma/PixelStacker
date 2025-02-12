@@ -53,7 +53,7 @@ namespace PixelStacker.Logic.Model
             if (this._ShadowHeight != null)
                 return _ShadowHeight.Value;
 
-            if (this.Bottom.BlockID == 0)
+            if (this.Bottom.IsAir)
                 return (_ShadowHeight = MaterialHeight.L0_EMPTY).Value;
 
             if (this.IsMultiLayer)

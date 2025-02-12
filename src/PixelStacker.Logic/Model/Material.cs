@@ -14,8 +14,6 @@ namespace PixelStacker.Logic.Model
     {
         public string PixelStackerID { get; set; }
         public string Label { get; set; }
-        public int BlockID { get; set; }
-        public int Data { get; set; }
         public SKBitmap SideImage { get; private set; }
         public SKBitmap TopImage { get; private set; }
         public string Category { get; set; }
@@ -74,18 +72,16 @@ namespace PixelStacker.Logic.Model
             }
         }
 
-        internal Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, byte[] topImage, byte[] sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
-           : this(minMcVersion, isAdvancedMaterial, category, pixelStackerID, label, blockID, data, SKBitmap.Decode(topImage), SKBitmap.Decode(sideImage), topBlockName, sideBlockName, schematicaMaterialName)
+        internal Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, byte[] topImage, byte[] sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
+           : this(minMcVersion, isAdvancedMaterial, category, pixelStackerID, label, SKBitmap.Decode(topImage), SKBitmap.Decode(sideImage), topBlockName, sideBlockName, schematicaMaterialName)
         { }
 
-        internal Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, int blockID, int data, SKBitmap topImage, SKBitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
+        internal Material(string minMcVersion, bool isAdvancedMaterial, string category, string pixelStackerID, string label, SKBitmap topImage, SKBitmap sideImage, string topBlockName, string sideBlockName, string schematicaMaterialName)
         {
             MinimumSupportedMinecraftVersion = minMcVersion;
             IsAdvanced = isAdvancedMaterial;
             PixelStackerID = pixelStackerID;
             Label = label;
-            BlockID = blockID;
-            Data = data;
             TopImage = topImage;
             SideImage = sideImage ?? topImage;
             Category = category;
@@ -93,14 +89,14 @@ namespace PixelStacker.Logic.Model
             SideBlockName = sideBlockName;
             SchematicaMaterialName = schematicaMaterialName;
             IsGlassOrLayer2Block = category == "Glass";
-            IsAir = blockID == 0;
+            IsAir = pixelStackerID == "AIR";
         }
 
         private string SettingsKey { get { return string.Format("BLOCK_{0}", PixelStackerID); } }
 
         public bool IsVisibleF(Options opts)
         {
-            if (BlockID == 0)
+            if (PixelStackerID == "AIR")
             {
                 return false;
             }
@@ -118,7 +114,7 @@ namespace PixelStacker.Logic.Model
 #pragma warning disable CS0618 // Type or member is obsolete
             opts ??= Options.GetInMemoryFallback;
 #pragma warning restore CS0618 // Type or member is obsolete
-            if (BlockID == 0)
+            if (PixelStackerID == "AIR")
             {
                 return false;
             }

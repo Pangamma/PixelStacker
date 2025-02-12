@@ -10,9 +10,7 @@ namespace PixelStacker.Logic.IO.Formatters
         PngPreview,
         PixelStackerProject,
         BlockCountCsv,
-        //Schem,
         Schem2,
-        Schematic
     }
 
     public static class ExportFormatExtensions
@@ -33,9 +31,6 @@ namespace PixelStacker.Logic.IO.Formatters
                     return new BlockCountCsvFormatter();
                 case ExportFormat.PixelStackerProject:
                     return new PixelStackerProjectFormatter();
-                case ExportFormat.Schematic:
-                    //case ExportFormat.Schem:
-                    return new SchematicFormatter();
                 case ExportFormat.Schem2:
                     return new Schem2Formatter();
                 default:
@@ -57,10 +52,6 @@ namespace PixelStacker.Logic.IO.Formatters
                     return ("application/octet-stream", ".csv");
                 case ExportFormat.PixelStackerProject:
                     return ("application/octet-stream", ".pxlzip");
-                case ExportFormat.Schematic:
-                    return ("application/octet-stream", ".schematic");
-                //case ExportFormat.Schem:
-                //    return ("application/octet-stream", ".schem");
                 case ExportFormat.Schem2:
                     return ("application/octet-stream", ".schem");
                 default:

@@ -583,7 +583,7 @@ namespace PixelStacker.UI
             // dlgSave
             // 
             dlgSave.DefaultExt = "pxlzip";
-            dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Small PNG|*.sm.png|Schematic|*.schematic|Block Counts CSV|*.csv|PixelStacker Project|*.pxlzip";
+            dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Small PNG|*.sm.png|Block Counts CSV|*.csv|PixelStacker Project|*.pxlzip";
             dlgSave.FileOk += dlgSave_FileOk;
             // 
             // MainForm

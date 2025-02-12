@@ -1,4 +1,4 @@
-﻿using PixelStacker.Extensions;
+using PixelStacker.Extensions;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
@@ -167,7 +167,6 @@ namespace PixelStacker.UI.Forms
                     if (x.MinimumSupportedMinecraftVersion.StartsWithOrContains(needle, 3)) return true;
                     if (x.Category.StartsWithOrContains(needle, 2)) return true;
                     if (needle.Length > 1 && x.Tags.Any(t => t.ToLowerInvariant().StartsWith(needle))) return true;
-                    if (idNeedle != null && idNeedle == x.BlockID) return true;
 
                     string blockIdAndNBT = x.GetBlockNameAndData(false).ToLowerInvariant();
                     var match = regexMatName.Match(blockIdAndNBT);
