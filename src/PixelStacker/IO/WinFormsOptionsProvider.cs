@@ -63,7 +63,7 @@ namespace PixelStacker.IO
 
             if (!object.Equals(oVal, nVal))
             {
-                AppEvents.RouteOptionChangeEvent(nameOfEvent, new OptionsChangeEvent<T>()
+                AppEvents.PublishEvent(nameOfEvent, new OptionsChangeEvent<T>()
                 {
                     NewValue = nVal,
                     PreviousValue = oVal,

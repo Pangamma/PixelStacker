@@ -70,9 +70,7 @@ namespace PixelStacker.Resources {
         ///panels with newer Minecraft blocks to create an even larger color palette.
         ///
         ///Below this are a few links you may find useful.  Check them out if you get a
-        ///chance. 
-        ///
-        /// [rest of string was truncated]&quot;;.
+        ///c [rest of string was truncated]&quot;;.
         /// </summary>
         public static string AboutForm_Description {
             get {
@@ -1574,6 +1572,15 @@ namespace PixelStacker.Resources {
         public static string RenderEngine_ConvertingToBlocks {
             get {
                 return ResourceManager.GetString("RenderEngine_ConvertingToBlocks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Similar combinations.
+        /// </summary>
+        public static string Similar_Combinations {
+            get {
+                return ResourceManager.GetString("Similar_Combinations", resourceCulture);
             }
         }
         

@@ -651,6 +651,9 @@ Super high values = possible glitches</value>
   <data name="RenderEngine_ConvertingToBlocks" xml:space="preserve">
     <value>Converting pixels into Minecraft blocks.</value>
   </data>
+  <data name="Similar_Combinations" xml:space="preserve">
+    <value>Similar combinations</value>
+  </data>
   <data name="Sizing" xml:space="preserve">
     <value>Sizing</value>
   </data>

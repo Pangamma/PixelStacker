@@ -1,11 +1,15 @@
-﻿using PixelStacker.Logic.IO.Config;
+﻿using PixelStacker.Extensions;
+using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.UI.Controls.Pickers;
+using SixLabors.ImageSharp.ColorSpaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using PixelStacker.Logic.Extensions;
 
 namespace PixelStacker.UI.Forms
 {
@@ -20,6 +24,11 @@ namespace PixelStacker.UI.Forms
             get => this._selectedCombo;
             set
             {
+                if (this._selectedCombo == value)
+                {
+                    return;
+                }
+
                 this._selectedCombo = value;
                 {
                     var img = this._selectedCombo.GetImage(this.Options.IsSideView);
@@ -92,9 +101,15 @@ namespace PixelStacker.UI.Forms
 
             this.InitializeTabs();
 
-            AppEvents.OnPrimaryColorChange += AppEvents_OnPrimaryColorChange;
+            AppEvents.OnUserSampledMaterialEvent += AppEvents_UserSampledMaterial;
             AppEvents.OnAdvancedModeChange += AppEvents_OnAdvancedModeChange;
             this.Disposed += MaterialPickerForm_Disposed;
+        }
+
+        private void AppEvents_UserSampledMaterial(object sender, UserSampledMaterialEvent e)
+        {
+            this.SelectedCombo = e.MaterialCombination;
+            UpdateMaterialComboTab();
         }
 
         private async void AppEvents_OnAdvancedModeChange(object sender, OptionsChangeEvent<bool> e)
@@ -107,14 +122,42 @@ namespace PixelStacker.UI.Forms
 
         private void MaterialPickerForm_Disposed(object sender, EventArgs e)
         {
-            AppEvents.OnPrimaryColorChange -= AppEvents_OnPrimaryColorChange;
+            AppEvents.OnUserSampledMaterialEvent -= AppEvents_UserSampledMaterial;
             AppEvents.OnAdvancedModeChange -= AppEvents_OnAdvancedModeChange;
         }
 
-        private void AppEvents_OnPrimaryColorChange(object sender, OptionsChangeEvent<MaterialCombination> e)
+        
+        private void UpdateMaterialComboTab()
         {
-            this.SelectedCombo = this.Options.Tools.PrimaryColor;
+            if (this.SelectedCombo == null)
+            {
+                return;
+            }
 
+            int MAX_PULL = 50;
+            bool isv = this.Options.IsSideView;
+            var c = this.SelectedCombo.GetAverageColor(isv);
+
+            List<MaterialCombination> mats = MaterialPalette.FromResx()
+                .ToCombinationList().Where(x => !x.Bottom.IsAdvanced).ToList();
+
+            var singleLayers = mats.Where(x => !x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistance(c)).Take(MAX_PULL/2+10);
+            var doubleLayers = mats.Where(x => x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistance(c)).Take(MAX_PULL/2+10);
+
+            mats = singleLayers.Union(doubleLayers)
+                .OrderBy(x => c.GetAverageColorDistance(x.GetColorsInImage(isv)))
+                .Take(MAX_PULL)
+                .ToList();
+
+            List<ImageButtonData> items = new List<ImageButtonData>();
+            items.AddRange(mats.Select(x => new ImageButtonData()
+            {
+                Data = x,
+                Image = x.GetImage(isv),
+                Text = x.ToString(),
+            }));
+
+            pnlSimilarCombinations.InitializeButtons(items);
         }
 
         private void imgTopMaterial_Click(object sender, EventArgs e)
@@ -138,10 +181,18 @@ namespace PixelStacker.UI.Forms
                 case 0: // Top
                     imgTopMaterial.IsChecked = true;
                     imgBottomMaterial.IsChecked = false;
+                    tbxMaterialFilter.Enabled = true;
                     break;
                 case 1: // Bottom
                     imgTopMaterial.IsChecked = false;
                     imgBottomMaterial.IsChecked = true;
+                    tbxMaterialFilter.Enabled = true;
+                    break;
+                case 2: // Both
+                    imgTopMaterial.IsChecked = true;
+                    imgBottomMaterial.IsChecked = true;
+                    tbxMaterialFilter.Enabled = false;
+                    UpdateMaterialComboTab();
                     break;
                 default:
                     throw new IndexOutOfRangeException("Unexpected tab index was requested. " +
@@ -159,6 +210,7 @@ namespace PixelStacker.UI.Forms
             if (m.PixelStackerID == "AIR")
             {
                 this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(pc.Bottom, pc.Bottom);
+                this.SelectedCombo = this.Options.Tools.PrimaryColor;
                 this.Options.Save();
                 return;
             }
@@ -172,6 +224,15 @@ namespace PixelStacker.UI.Forms
             }
 
             this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(pc.Bottom, m);
+            this.SelectedCombo = this.Options.Tools.PrimaryColor;
+            this.Options.Save();
+        }
+
+        private void pnlSimilarCombinations_TileClicked(object sender, ImageButtonClickEventArgs e)
+        {
+            var m = e.ImageButtonData.GetData<MaterialCombination>();
+            this.Options.Tools.PrimaryColor = m;
+            this.SelectedCombo = this.Options.Tools.PrimaryColor;
             this.Options.Save();
         }
 
@@ -183,6 +244,7 @@ namespace PixelStacker.UI.Forms
             if (m.PixelStackerID == "AIR")
             {
                 this.Options.Tools.PrimaryColor = mats[Constants.MaterialCombinationIDForAir];
+                this.SelectedCombo = this.Options.Tools.PrimaryColor;
                 this.Options.Save();
                 return;
             }
@@ -191,11 +253,13 @@ namespace PixelStacker.UI.Forms
             if (pc.Top.PixelStackerID == "AIR" || !pc.Top.IsGlassOrLayer2Block)
             {
                 this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(m, m);
+                this.SelectedCombo = this.Options.Tools.PrimaryColor;
                 this.Options.Save();
                 return;
             }
 
             this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(m, pc.Top);
+            this.SelectedCombo = this.Options.Tools.PrimaryColor;
             this.Options.Save();
         }
 

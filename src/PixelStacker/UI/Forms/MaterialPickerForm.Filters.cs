@@ -1,4 +1,4 @@
-using PixelStacker.Extensions;
+﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
@@ -110,12 +110,20 @@ namespace PixelStacker.UI.Forms
 
                 pnlBottomMats.InitializeButtons(items);
             }
+
+            this.UpdateMaterialComboTab();
         }
 
         private Regex regexMatName = new Regex(@"minecraft:([a-zA-Z_09]+)(.*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private async Task SetSearchFilterAsync(string needle, ImageButtonPanel panel, CancellationToken? _worker = null)
         {
             bool isv = Options.IsSideView;
+            bool isClosestMatchPanel = panel.Name == "pnlSimilarCombinations";
+            if (isClosestMatchPanel)
+            {
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(needle))
             {
                 panel.DoFilterTakeOrderByOperation(
@@ -126,6 +134,7 @@ namespace PixelStacker.UI.Forms
 
             needle = needle.ToLowerInvariant();
             var pc = Options.Tools.PrimaryColor;
+
             if (needle.StartsWith("#"))
             {
                 SKColor? cNeedle = needle.ToSKColor();
@@ -184,10 +193,6 @@ namespace PixelStacker.UI.Forms
 
             _worker?.SafeThrowIfCancellationRequested();
             await Task.Yield();
-
-
-            //int cnt = newList.Count;
-            //await SetVisibleMaterials(newList, _worker);
         }
 
         internal async Task SetCanvas(RenderedCanvas canvas)
@@ -196,35 +201,5 @@ namespace PixelStacker.UI.Forms
             await SetSearchFilterAsync("", this.pnlBottomMats);
             await SetSearchFilterAsync("", this.pnlTopMats);
         }
-
-        //private List<MaterialCombination> GetAllMaterials()
-        //{
-        //    if (this.Canvas == null)
-        //    {
-        //        return new List<MaterialCombination>();
-        //    }
-
-        //    var mp = this.Canvas.MaterialPalette;
-        //    var mats = mp.ToCombinationList();
-
-        //    return mats;
-        //}
-
-        //private List<MaterialCombination> GetMaterialsInCurrentCanvas()
-        //{
-        //    if (this.Canvas == null)
-        //    {
-        //        return new List<MaterialCombination>();
-        //    }
-
-        //    var cd = this.Canvas.CanvasData;
-        //    var mp = this.Canvas.MaterialPalette;
-        //    var mats = cd.Distinct(x => x.PaletteID)
-        //        .ToList()
-        //        .Select(cdData => mp[cdData.PaletteID])
-        //        .ToList();
-
-        //    return mats;
-        //}
     }
 }

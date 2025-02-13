@@ -11,9 +11,6 @@ namespace PixelStacker.UI.Controls
         private bool IsPainting { get; set; } = false;
 
         public bool RepaintRequested { get; set; } = false;
-        private DateTime PaintStartTime = DateTime.MinValue;
-        private DateTime PaintFinishTime = DateTime.MinValue;
-        private DateTime LastRepaintRequestTime = DateTime.MinValue;
 
         private void restrictZoom()
         {

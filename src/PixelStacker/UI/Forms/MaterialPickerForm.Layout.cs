@@ -10,12 +10,14 @@ namespace PixelStacker.UI.Forms
         {
             this.pnlBottomMats.SuspendLayout();
             this.pnlTopMats.SuspendLayout();
+            this.pnlSimilarCombinations.SuspendLayout();
         }
 
         private void MaterialPickerForm_ResizeEnd(object sender, EventArgs e)
         {
             this.pnlBottomMats.ResumeLayout();
             this.pnlTopMats.ResumeLayout();
+            this.pnlSimilarCombinations.ResumeLayout();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

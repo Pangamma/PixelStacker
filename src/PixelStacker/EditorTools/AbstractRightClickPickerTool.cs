@@ -1,4 +1,5 @@
-﻿using PixelStacker.Logic.Model;
+﻿using PixelStacker.Logic.IO.Config;
+using PixelStacker.Logic.Model;
 using PixelStacker.UI.Controls;
 using System.Drawing;
 using System.Windows.Forms;
@@ -23,6 +24,11 @@ namespace PixelStacker.EditorTools
                 var cd = this.CanvasEditor.Canvas.CanvasData[loc.X, loc.Y];
                 this.Options.Tools.PrimaryColor = cd;
                 this.Options.Save();
+                AppEvents.PublishEvent(nameof(AppEvents.OnUserSampledMaterialEvent), new UserSampledMaterialEvent()
+                {
+                    IsLeftClick = false,
+                    MaterialCombination = cd
+                });
             } 
             else if (e.Button == MouseButtons.Left)
             {

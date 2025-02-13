@@ -1,4 +1,5 @@
-﻿using PixelStacker.Logic.Model;
+﻿using PixelStacker.EditorTools;
+using PixelStacker.Logic.Model;
 using System;
 using System.Reflection;
 
@@ -10,9 +11,24 @@ namespace PixelStacker.Logic.IO.Config
         public T NewValue { get; set; }
     }
 
+    /// <summary>
+    /// Occurs when user manually samples a color using one of the tools.
+    /// </summary>
+    public class UserSampledMaterialEvent : EventArgs
+    {
+        public MaterialCombination MaterialCombination { get; set; }
+        public bool IsLeftClick { get; set; } = false;
+    }
+
+
     internal static class AppEvents
     {
-        public static void RouteOptionChangeEvent<T>(string methodName, OptionsChangeEvent<T> evt)
+        /// <summary>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="methodName">Example: OnPrimaryColorChange</param>
+        /// <param name="evt"></param>
+        public static void PublishEvent<E>(string methodName, E evt) where E : EventArgs
         {
             object srcInstance = null;
 
@@ -35,5 +51,6 @@ namespace PixelStacker.Logic.IO.Config
         public static event EventHandler<OptionsChangeEvent<int>> OnBrushWidthChange;
         public static event EventHandler<OptionsChangeEvent<bool>> IsSideViewChange;
         public static event EventHandler<OptionsChangeEvent<bool>> OnAdvancedModeChange;
+        public static event EventHandler<UserSampledMaterialEvent> OnUserSampledMaterialEvent;
     }
 }
