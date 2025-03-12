@@ -39,8 +39,7 @@ export class MaterialPalette {
     private static _instance: MaterialPalette;
     public static fromResx(): MaterialPalette {
         if (MaterialPalette._instance == undefined) {
-            MaterialPalette._instance = MaterialPalette.fromJson
-                (`{
+            MaterialPalette._instance = MaterialPalette.fromJson(`{
                     "0": "AIR",
                     "1": "WOOL_00",
                     "2": "WOOL_00,GLASS_00",
@@ -5798,8 +5797,26 @@ export class MaterialPalette {
                     "5754": "STUMP_LOG_CHERRY,GLASS_14",
                     "5755": "STUMP_LOG_CHERRY,GLASS_15",
                     "5756": "STUMP_LOG_CHERRY,GLASS_CLR",
-                    "5757": "STUMP_LOG_CHERRY,GLASS_TINTED"
-                  }`);
+                    "5757": "STUMP_LOG_CHERRY,GLASS_TINTED",
+                    "5758": "GLASS_00",
+                    "5759": "GLASS_01",
+                    "5760": "GLASS_02",
+                    "5761": "GLASS_03",
+                    "5762": "GLASS_04",
+                    "5763": "GLASS_05",
+                    "5764": "GLASS_06",
+                    "5765": "GLASS_07",
+                    "5766": "GLASS_08",
+                    "5767": "GLASS_09",
+                    "5768": "GLASS_10",
+                    "5769": "GLASS_11",
+                    "5770": "GLASS_12",
+                    "5771": "GLASS_13",
+                    "5772": "GLASS_14",
+                    "5773": "GLASS_15",
+                    "5774": "GLASS_CLR",
+                    "5775": "GLASS_TINTED"
+            }`);
         }
         return MaterialPalette._instance;
     }

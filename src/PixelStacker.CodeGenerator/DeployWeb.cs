@@ -30,7 +30,7 @@ namespace PixelStacker.CodeGenerator
     public class DeployWeb
     {
         private static readonly Stopwatch sw = new Stopwatch();
-        
+
 
         // Config
         private const string CHOWN = "taylorlove:psacln";
@@ -40,10 +40,10 @@ namespace PixelStacker.CodeGenerator
         private static string FTP_PASSWORD;
         private static string SSH_USERNAME;
         private static string SSH_PASSWORD;
-        
+
         // Local file paths
         private static string SolutionRootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-        private static string UPLOAD_API_FROM_DIR = Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "bin", "Release", "net6.0", "publish");
+        private static string UPLOAD_API_FROM_DIR = Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "bin", "Release", "net8.0", "publish");
         private static string UPLOAD_UI_FROM_DIR = Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "PixelStacker.Web.React", "dist");
 
         // Remote file paths
@@ -196,18 +196,21 @@ namespace PixelStacker.CodeGenerator
                         else
                         {
                             CUR_CONCURRENT_UPLOADS++;
-                            var ftp = new FtpClient(FTP_HOST, 21, FTP_USERNAME, FTP_PASSWORD)
+                            var ftp = new FtpClient(FTP_HOST, FTP_USERNAME, FTP_PASSWORD, 21)
                             {
-                                UploadRateLimit = 0,
-                                SocketKeepAlive = true,
-                                EncryptionMode = FtpEncryptionMode.Explicit,
-                                //SslProtocols = System.Security.Authentication.SslProtocols.Tls
-                                DataConnectionEncryption = true,
+                                Config = new FtpConfig()
+                                {
+                                    UploadRateLimit = 0,
+                                    SocketKeepAlive = true,
+                                    EncryptionMode = FtpEncryptionMode.Explicit,
+                                    DataConnectionEncryption = true,
 
-                                // Might potentially get MITM'd from an intruder on the network,
-                                // but at least it's better than an unencrypted connection over
-                                // the wider internet.
-                                ValidateAnyCertificate = true,
+                                    // Might potentially get MITM'd from an intruder on the network,
+                                    // but at least it's better than an unencrypted connection over
+                                    // the wider internet.
+                                    ValidateAnyCertificate = true,
+                                }
+                                //SslProtocols = System.Security.Authentication.SslProtocols.Tls
                             };
 
                             ftp.Connect();
@@ -216,7 +219,7 @@ namespace PixelStacker.CodeGenerator
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
@@ -236,7 +239,7 @@ namespace PixelStacker.CodeGenerator
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="localDirToUpload">Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "bin", "Release", "net6.0", "publish");</param>
+        /// <param name="localDirToUpload">Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "bin", "Release", "net8.0", "publish");</param>
         /// <param name="remoteDirToUploadTo">./services/pixelstacker.web.net-deploy</param>
         /// <param name="ssh"></param>
         private static void RecursiveZipUpload(string localDirToUploadPath, string remoteDirToUploadTo, SshClient ssh)

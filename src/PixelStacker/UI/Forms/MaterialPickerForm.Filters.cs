@@ -90,7 +90,7 @@ namespace PixelStacker.UI.Forms
             }
 
             {
-                List<Material> matLower = Materials.List.Where(x => x.CanBeOnBottom)
+                List<Material> matLower = Materials.List.Where(x => x.CanBeUsedAsBottomLayer)
                     .Where(x => x.IsVisibleF(this.Options))
                     .ToList();
 

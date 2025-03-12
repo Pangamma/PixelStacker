@@ -28,7 +28,7 @@ namespace PixelStacker.Tests
             MaterialPalette palette = MaterialPalette.FromResx();
             this.Options = opts;
             var mapper = new KdTreeMapper();
-            var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabledF(opts) && x.Bottom.IsEnabledF(opts) && x.IsMultiLayer).ToList();
+            var combos = palette.ToValidCombinationList(opts);
             mapper.SetSeedData(combos, palette, false);
 
             var engine = new RenderCanvasEngine();

@@ -201,34 +201,22 @@ namespace PixelStacker.UI.Forms
 
         }
 
-        private void pnlTopMats_TileClicked(object sender, ImageButtonClickEventArgs e)
+        public void pnlTopMats_TileClicked(object sender, ImageButtonClickEventArgs e)
         {
             var m = e.ImageButtonData.GetData<Material>();
             var pc = this.Options.Tools.PrimaryColor;
+            var bottom = pc.Bottom;
+            var top = m;
 
             var mats = MaterialPalette.FromResx();
-            if (m.PixelStackerID == "AIR")
-            {
-                this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(pc.Bottom, pc.Bottom);
-                this.SelectedCombo = this.Options.Tools.PrimaryColor;
-                this.Options.Save();
-                return;
-            }
-
-            if (pc.Bottom.PixelStackerID == "AIR")
-            {
-                // Sorry. No changes allowed. We require something on the bottom layer if the top layer is to contain something.
-                //this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(pc.Bottom, pc.Bottom);
-                //this.Options.Save();
-                return;
-            }
-
-            this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(pc.Bottom, m);
-            this.SelectedCombo = this.Options.Tools.PrimaryColor;
+            var baze = mats.GetMaterialCombinationByMaterials(m, m);
+            var newColor = MaterialCombination.GetMcToPaintWith(ZLayer.Top, mats, baze, pc);
+            this.SelectedCombo = newColor;
+            this.Options.Tools.PrimaryColor = newColor;
             this.Options.Save();
         }
 
-        private void pnlSimilarCombinations_TileClicked(object sender, ImageButtonClickEventArgs e)
+        public void pnlSimilarCombinations_TileClicked(object sender, ImageButtonClickEventArgs e)
         {
             var m = e.ImageButtonData.GetData<MaterialCombination>();
             this.Options.Tools.PrimaryColor = m;
@@ -236,30 +224,16 @@ namespace PixelStacker.UI.Forms
             this.Options.Save();
         }
 
-        private void pnlBottomMats_TileClicked(object sender, ImageButtonClickEventArgs e)
+        public void pnlBottomMats_TileClicked(object sender, ImageButtonClickEventArgs e)
         {
             var m = e.ImageButtonData.GetData<Material>();
             var pc = this.Options.Tools.PrimaryColor;
             var mats = MaterialPalette.FromResx();
-            if (m.PixelStackerID == "AIR")
-            {
-                this.Options.Tools.PrimaryColor = mats[Constants.MaterialCombinationIDForAir];
-                this.SelectedCombo = this.Options.Tools.PrimaryColor;
-                this.Options.Save();
-                return;
-            }
 
-            // If it is air, or not glass.
-            if (pc.Top.PixelStackerID == "AIR" || !pc.Top.IsGlassOrLayer2Block)
-            {
-                this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(m, m);
-                this.SelectedCombo = this.Options.Tools.PrimaryColor;
-                this.Options.Save();
-                return;
-            }
-
-            this.Options.Tools.PrimaryColor = mats.GetMaterialCombinationByMaterials(m, pc.Top);
-            this.SelectedCombo = this.Options.Tools.PrimaryColor;
+            var baze = mats.GetMaterialCombinationByMaterials(m, m);
+            var newColor = MaterialCombination.GetMcToPaintWith(ZLayer.Bottom, mats, baze, pc);
+            this.SelectedCombo = newColor;
+            this.Options.Tools.PrimaryColor = newColor;
             this.Options.Save();
         }
 

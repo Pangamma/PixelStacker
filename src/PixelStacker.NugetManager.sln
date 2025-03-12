@@ -34,6 +34,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.Tests", "Pixel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelStacker.Tools", "PixelStacker.Tools\PixelStacker.Tools.csproj", "{14FC6376-B41E-4369-978B-ED493129CB8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStacker.Tests.UI", "PixelStacker.Tests.UI\PixelStacker.Tests.UI.csproj", "{4E8007BA-0858-4134-8FB6-9D7DD0B6718D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -122,6 +124,14 @@ Global
 		{14FC6376-B41E-4369-978B-ED493129CB8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14FC6376-B41E-4369-978B-ED493129CB8D}.Release|x64.ActiveCfg = Release|Any CPU
 		{14FC6376-B41E-4369-978B-ED493129CB8D}.Release|x64.Build.0 = Release|Any CPU
+		{4E8007BA-0858-4134-8FB6-9D7DD0B6718D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E8007BA-0858-4134-8FB6-9D7DD0B6718D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E8007BA-0858-4134-8FB6-9D7DD0B6718D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4E8007BA-0858-4134-8FB6-9D7DD0B6718D}.Debug|x64.Build.0 = Debug|Any CPU
+		{4E8007BA-0858-4134-8FB6-9D7DD0B6718D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E8007BA-0858-4134-8FB6-9D7DD0B6718D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E8007BA-0858-4134-8FB6-9D7DD0B6718D}.Release|x64.ActiveCfg = Release|Any CPU
+		{4E8007BA-0858-4134-8FB6-9D7DD0B6718D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,6 +147,7 @@ Global
 		{D0957F05-CB89-4E55-AB8D-D0776D3D1C1A} = {87FDD1FF-DC40-462F-9E9A-739E5437387D}
 		{C9AEBE8A-CDD2-4C18-92A9-782CC250BBBA} = {87FDD1FF-DC40-462F-9E9A-739E5437387D}
 		{14FC6376-B41E-4369-978B-ED493129CB8D} = {87FDD1FF-DC40-462F-9E9A-739E5437387D}
+		{4E8007BA-0858-4134-8FB6-9D7DD0B6718D} = {87FDD1FF-DC40-462F-9E9A-739E5437387D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A29988A5-796D-4617-BA27-1E343C883D5E}

@@ -115,7 +115,8 @@ namespace PixelStacker.Logic.Model
         public List<MaterialCombination> ToCombinationList() => FromPaletteID.Values.ToList();
 
         /// <summary>
-        /// Produces the full list of combinations that are valid for the given options.
+        /// Produces the full list of combinations that are valid for the given options. 
+        /// Useful for initializing color palettes or color mappers.
         /// </summary>
         /// <param name="opts"></param>
         /// <returns></returns>
@@ -123,6 +124,7 @@ namespace PixelStacker.Logic.Model
         {
             var list = this.FromPaletteID.Values
             .Where(mc => !mc.Bottom.IsAir && !mc.Top.IsAir)
+            .Where(mc => mc.Bottom.CanBeUsedAsBottomLayer)
             .Where(mc => opts.IsMultiLayerRequired ? mc.IsMultiLayer : true)
             .Where(mc => mc.Bottom.IsEnabledF(opts) && mc.Top.IsEnabledF(opts))
             .Where(mc => opts.IsMultiLayer ? true : !mc.IsMultiLayer)

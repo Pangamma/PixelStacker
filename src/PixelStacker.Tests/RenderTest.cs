@@ -36,7 +36,7 @@ namespace PixelStacker.Tests
                 });
             var palette = MaterialPalette.FromResx();
             var mapper = new KdTreeMapper();
-            var combos = palette.ToCombinationList().Where(x => x.Top.IsEnabledF(opts) && x.Bottom.IsEnabledF(opts) && x.IsMultiLayer).ToList();
+            var combos = palette.ToValidCombinationList(opts);
             mapper.SetSeedData(combos, palette, false);
 
             var canvas = await engine.RenderCanvasAsync(null, img, mapper, palette);

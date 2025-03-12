@@ -146,16 +146,16 @@ export class RenderedCanvasPainter {
     /// <returns></returns>
     private static async RenderIntoTilesAsync(data: RenderedCanvas, maxLayers: number) {
         var sizes = RenderedCanvasPainter.CalculateChunkSizes(new SKSize(data.width, data.height), maxLayers);
-        var bitmaps = new GridList<CanvasImageSource>();
+        var bitmaps = new GridList<HTMLCanvasElement>();
 
         let chunksFinishedSoFar = 0;
         let totalChunksToRender = 0;
         for (let si = 0; si < sizes.list.length; si++) {
             const sizeLayer = sizes.getLayer(si);
             totalChunksToRender += sizeLayer.height * sizeLayer.width;
-            bitmaps.addLayer(new Grid2D<CanvasImageSource>(sizeLayer.getLength(0), sizeLayer.getLength(1)));
+            bitmaps.addLayer(new Grid2D<HTMLCanvasElement>(sizeLayer.getLength(0), sizeLayer.getLength(1)));
         }
-        // TODO: Paint the stuff onto the CanvasImageSOurce.
+        // TODO: Paint the stuff onto the HTMLCanvasElement.
         // Which type of canvas image source should we use here. Hmmmm. 
         // #region LAYER 0
         const sizeSet = sizes.getLayer(0);
@@ -395,11 +395,11 @@ export class RenderedCanvasPainter {
     };
 
     Data: RenderedCanvas;
-    Bitmaps: GridList<CanvasImageSource>;
+    Bitmaps: GridList<HTMLCanvasElement>;
 
     constructor(data: RenderedCanvas) {
         this.Data = data;
-        this.Bitmaps = new GridList<CanvasImageSource>();
+        this.Bitmaps = new GridList<HTMLCanvasElement>();
         // History = new SuperHistory(Data);
     }
 
@@ -423,7 +423,7 @@ export class RenderedCanvasPainter {
     /// <param name="g"></param>
     /// <param name="parentControlSize"></param>
     /// <param name="pz"></param>
-    private static PaintTilesToView(g: CanvasRenderingContext2D, parentControlSize: SKSize, pz: PanZoomSettings, bitmaps: GridList<CanvasImageSource>) {
+    private static PaintTilesToView(g: CanvasRenderingContext2D, parentControlSize: SKSize, pz: PanZoomSettings, bitmaps: GridList<HTMLCanvasElement>) {
         //  #region GET BITMAP SET
         //             if (bitmaps == null || bitmaps.Count == 0 || padlocks == null || padlocks.Count == 0)
         //             {

@@ -32,16 +32,45 @@ namespace PixelStacker.Logic.Model
             this.Top = mTop;
             this.Bottom = mBottom;
             this.IsMultiLayer = !ReferenceEquals(Top, Bottom); //Top?.PixelStackerID != Bottom?.PixelStackerID;
-            if (mBottom == null) throw new ArgumentNullException(nameof(mBottom));
-            if (mTop == null) throw new ArgumentNullException(nameof(mTop));
+            CheckValidity(mBottom, mTop);
         }
         #endregion Constructors
 
+        private void CheckValidity(Material mBottom, Material mTop)
+        {
+            if (mBottom == null) throw new ArgumentNullException(nameof(mBottom));
+            if (mTop == null) throw new ArgumentNullException(nameof(mTop));
+            if (mTop.IsAir != mBottom.IsAir) throw new ArgumentException("If top or bottom are AIR, both must be AIR.");
+            if (!mTop.CanBeUsedAsTopLayer && mBottom.PixelStackerID != mTop.PixelStackerID)
+            {
+                throw new ArgumentException("If top layer (glass) cannot be used as a top layer block, it means that both top and bottom " +
+                    "should be the same type of material because the material combination represents both top and bottom layers " +
+                    "being a bottom block material type.", nameof(mTop));
+            }
+
+            if (!mBottom.CanBeUsedAsBottomLayer && mBottom.PixelStackerID != mTop.PixelStackerID)
+            {
+                throw new ArgumentException("If bottom layer (dirt) cannot be used as a bottom layer block, it means that both top and bottom " +
+                    "should be the same type of material because the material combination represents both top and bottom layers " +
+                    "being a top block material type.", nameof(mBottom));
+            }
+
+            if (mBottom.CanBeUsedAsTopLayer == mTop.CanBeUsedAsTopLayer && mBottom.PixelStackerID != mTop.PixelStackerID)
+            {
+                throw new ArgumentException("Both top and bottom material types should match if they are both to go on the same layer.", nameof(mBottom));
+            }
+
+            if (mBottom.CanBeUsedAsBottomLayer == mTop.CanBeUsedAsBottomLayer && mBottom.PixelStackerID != mTop.PixelStackerID)
+            {
+                throw new ArgumentException("Both top and bottom material types should match if they are both to go on the same layer.", nameof(mBottom));
+            }
+        }
         public bool IsEnabled(Options opts)
         {
             return Top.IsEnabledF(opts) && Bottom.IsEnabledF(opts);
         }
 
+        [Obsolete("This is a bad way to describe things.", false)]
         public bool IsMultiLayer { get; }
         public Material Top { get; }
         public Material Bottom { get; }
@@ -56,7 +85,7 @@ namespace PixelStacker.Logic.Model
             if (this.Bottom.IsAir)
                 return (_ShadowHeight = MaterialHeight.L0_EMPTY).Value;
 
-            if (this.IsMultiLayer)
+            if (this.Top.CanBeUsedAsTopLayer)
                 return (_ShadowHeight = MaterialHeight.L2_MULTI).Value;
 
             return (_ShadowHeight = MaterialHeight.L1_SOLID).Value;
@@ -212,7 +241,7 @@ namespace PixelStacker.Logic.Model
             return GetHashCode(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        public virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
@@ -259,6 +288,11 @@ namespace PixelStacker.Logic.Model
         /// Can very easily return null. Be ready for it.
         /// Revise this method if we modify the palette
         /// to include glass only.
+        /// 
+        /// Replaces the current color on a canvas with the paint brush's color. However, it also takes into account z layer filters that affect
+        /// which layer the paint will be applied to.
+        /// 
+        /// If z layer is at top layer, 
         /// </summary>
         /// <param name="layerFilter"></param>
         /// <param name="palette"></param>
@@ -267,46 +301,78 @@ namespace PixelStacker.Logic.Model
         /// <returns></returns>
         public static MaterialCombination GetMcToPaintWith(ZLayer layerFilter, MaterialPalette palette, MaterialCombination primaryColor, MaterialCombination toReplace)
         {
+            // Change both
             if (layerFilter == ZLayer.Both)
             {
                 return primaryColor;
             }
 
-            Material curTop = toReplace.IsMultiLayer ? toReplace.Top : Materials.Air;
-            Material curBottom = toReplace.Bottom;
-
-            Material pcTop = primaryColor.IsMultiLayer ? primaryColor.Top : Materials.Air;
-            Material pcBottom = primaryColor.Bottom;
-
-            Material pTop = layerFilter == ZLayer.Top ? pcTop : curTop;
-            Material pBottom = layerFilter == ZLayer.Bottom ? pcBottom : curBottom;
-
-            if (layerFilter == ZLayer.Bottom && pTop.IsAir && pBottom.IsSolid)
+            // No change
+            if (toReplace.Top == primaryColor.Top && toReplace.Bottom == primaryColor.Bottom)
             {
-                pTop = pBottom;
-            }
-            else if (layerFilter == ZLayer.Top && pTop.IsAir && pBottom.IsSolid)
-            {
-                pTop = pBottom;
-            }
-            else if (pTop.IsGlassOrLayer2Block && pBottom.IsAir)
-            {
-                pTop = pBottom;
+                return toReplace;
             }
 
-            var mc = palette.GetMaterialCombinationByMaterials(pBottom, pTop);
-            if (mc == null)
+            Material nTop = toReplace.Top;
+            Material nBottom = toReplace.Bottom;
+
+
+            if (ZLayer.Top == layerFilter)
             {
-#if FAIL_FAST
-                throw new Exception("Oh no! An invalid color was attempted.");
-#else
-                return primaryColor;
-#endif
+                if (primaryColor.Top.CanBeUsedAsTopLayer)
+                {
+                    nTop = primaryColor.Top;
+                }
+                else if (primaryColor.Top.IsAir || !primaryColor.Top.CanBeUsedAsTopLayer)
+                {
+                    nTop = Materials.Air;
+                }
+                else
+                {
+                    throw new Exception("Unhandled.");
+                }
+
+                if (!toReplace.Bottom.CanBeUsedAsBottomLayer && !toReplace.Bottom.IsAir)
+                {
+                    nBottom = nTop;
+                }
             }
 
-            return mc;
+            if (ZLayer.Bottom == layerFilter)
+            {
+                if (primaryColor.Bottom.CanBeUsedAsBottomLayer)
+                {
+                    nBottom = primaryColor.Bottom;
+                }
+                else if (primaryColor.Bottom.IsAir || !primaryColor.Bottom.CanBeUsedAsBottomLayer)
+                {
+                    nBottom = Materials.Air;
+                }
+                else
+                {
+                    throw new Exception("Unhandled bottom layer if/else condition.");
+                }
 
+                if (!toReplace.Top.CanBeUsedAsTopLayer && !toReplace.Bottom.IsAir)
+                {
+                    nTop = nBottom;
+                }
+            }
+
+            // Copy non-air block to other slot.
+            if (nTop.IsAir != nBottom.IsAir)
+            {
+                if (nTop.IsAir)
+                {
+                    nTop = nBottom;
+                }
+                else
+                {
+                    nBottom = nTop;
+                }
+            }
+
+            return palette.GetMaterialCombinationByMaterials(nBottom, nTop);
         }
-
     }
 }

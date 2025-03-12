@@ -97,7 +97,8 @@ namespace PixelStacker.UI
                 var engine = new RenderCanvasEngine();
                 if (!this.ColorMapper.IsSeeded())
                 {
-                    this.ColorMapper.SetSeedData(this.Palette.ToValidCombinationList(Options),
+                    var validCombos = this.Palette.ToValidCombinationList(Options);
+                    this.ColorMapper.SetSeedData(validCombos,
                         this.Palette, Options.IsSideView);
                     worker.ThrowIfCancellationRequested();
                 }

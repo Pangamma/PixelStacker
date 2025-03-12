@@ -40,6 +40,11 @@ namespace PixelStacker.CodeGenerator
                     isModified |= palette.AddCombination(new MaterialCombination(solid, glass));
                 }
             }
+
+            foreach (var glass in glasses)
+            {
+                isModified |= palette.AddCombination(new MaterialCombination(glass));
+            }
 #pragma warning restore CS0618 // Type or member is obsolete
 
             Console.WriteLine("Material Palette has been populated. Size = " + palette.Count);
