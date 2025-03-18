@@ -1,6 +1,7 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.IO.Config;
+using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using System;
 using System.Threading.Tasks;
@@ -10,9 +11,76 @@ namespace PixelStacker.UI
     public partial class MainForm
     {
         bool IsCanvasEditorVisible = false;
+        private VisiblePanel CurrentlyVisiblePanel { get; set; } = VisiblePanel.Original;
+        private enum VisiblePanel
+        {
+            Original,
+            Preprocessed,
+            Editor
+        }
+
+        /// <summary>
+        /// Transforms PanZoomSettings from before to after and modifies panning and zooming along the way.
+        /// </summary>
+        /// <param name="before"></param>
+        /// <param name="after"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private PanZoomSettings TransformPanZoomSettings(VisiblePanel before, VisiblePanel after)
+        {
+            // No change detected.
+            if (before == after)
+            {
+                return (before == VisiblePanel.Editor)
+                    ? this.canvasEditor.PanZoomSettings
+                    : this.imageViewer.PanZoomSettings;
+            }
+
+            // Offsets for UI controls present in canvas editor.
+            int offsetX = 0, offsetY = 0;
+            if ((before == VisiblePanel.Original || before == VisiblePanel.Preprocessed) && after == VisiblePanel.Editor)
+            {
+                offsetY = -43;
+                offsetX = -50;
+            }
+            else if ((after == VisiblePanel.Original || after == VisiblePanel.Preprocessed) && before == VisiblePanel.Editor)
+            {
+                offsetY = 43;
+                offsetX = 50;
+            }
+
+            PanZoomSettings pz = before switch
+            {
+                VisiblePanel.Original => this.imageViewer.PanZoomSettings,
+                VisiblePanel.Preprocessed => this.imageViewer.PanZoomSettings,
+                VisiblePanel.Editor => this.canvasEditor.PanZoomSettings,
+                _ => throw new Exception("INVALID"),
+            };
+
+            var prevSrcWidth = before switch
+            {
+                VisiblePanel.Original => this.LoadedImage.Width,
+                VisiblePanel.Preprocessed => this.PreprocessedImage.Width,
+                VisiblePanel.Editor => this.RenderedCanvas.Width,
+                _ => throw new Exception("INVALID"),
+            };
+
+            var nextSrcWidth = after switch
+            {
+                VisiblePanel.Original => this.LoadedImage.Width,
+                VisiblePanel.Preprocessed => this.PreprocessedImage.Width,
+                VisiblePanel.Editor => this.RenderedCanvas.Width,
+                _ => throw new Exception("INVALID"),
+            };
+
+            var pzWithOffsets = pz.TranslateForNewSize(prevSrcWidth, nextSrcWidth);
+            pzWithOffsets.imageX += offsetX;
+            pzWithOffsets.imageY += offsetY;
+            return pzWithOffsets;
+        }
+
         private async void switchPanelsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-
             this.Options.ViewerSettings.IsSolidColors = !this.Options.ViewerSettings.IsSolidColors;
             this.Options.Save();
             this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
@@ -23,7 +91,8 @@ namespace PixelStacker.UI
                 {
                     await self.InvokeEx(async c =>
                     {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
+                        PanZoomSettings pz = c.TransformPanZoomSettings(CurrentlyVisiblePanel, VisiblePanel.Editor);
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, pz, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
                         c.ShowCanvasEditor();
                     });
 
@@ -44,49 +113,42 @@ namespace PixelStacker.UI
                     var tmp = c.PreprocessedImage;
                     c.PreprocessedImage = preproc;
                     tmp.DisposeSafely();
-                    c.ShowPreviewViewer();
+                    c.ShowImageViewer_PreRenderedImage();
                 });
             }));
         }
 
-        public void ShowPreviewViewer()
+
+        public void ShowImageViewer_PreRenderedImage()
         {
-            var pz = this.imageViewer.PanZoomSettings;
+            var pz = this.TransformPanZoomSettings(CurrentlyVisiblePanel, VisiblePanel.Preprocessed);
             this.imageViewer.SetImage(this.PreprocessedImage, pz);
             this.canvasEditor.SendToBack();
             this.IsCanvasEditorVisible = false;
+            this.CurrentlyVisiblePanel = VisiblePanel.Preprocessed;
             this.TS_SetMenuItemStatesByTagObjects();
-            //progressBar1.Visible = true;
-            //lblProgress.Visible = true;
         }
 
 
-        private void ShowImageViewer()
+        public void ShowImageViewer_OriginalImage()
         {
-            var pz = this.canvasEditor.PanZoomSettings;
+            var pz = this.TransformPanZoomSettings(CurrentlyVisiblePanel, VisiblePanel.Original);
             this.imageViewer.SetImage(this.LoadedImage, pz);
             this.canvasEditor.SendToBack();
             this.IsCanvasEditorVisible = false;
+            this.CurrentlyVisiblePanel = VisiblePanel.Original;
             this.TS_SetMenuItemStatesByTagObjects();
-            //progressBar1.Visible = true;
-            //lblProgress.Visible = true;
         }
 
-        private void ShowCanvasEditor()
+        public void ShowCanvasEditor()
         {
-            var pz = this.imageViewer.PanZoomSettings;
-            this.canvasEditor.PanZoomSettings = pz;
-            //var canvas = this.RenderedCanvas ?? throw new ArgumentNullException(nameof(RenderedCanvas));
-            //var pz = this.imageViewer.PanZoomSettings;
-            //this.canvasEditor.SetCanvas(canvas, pz);
             this.imageViewer.SendToBack();
             this.IsCanvasEditorVisible = true;
-            //progressBar1.Visible = false;
-            //lblProgress.Visible = false;
+            this.CurrentlyVisiblePanel = VisiblePanel.Editor;
             this.TS_SetMenuItemStatesByTagObjects();
         }
 
-        internal async void renderToolStripMenuItem_Click(object sender, EventArgs e)
+        public async void renderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!RateLimit.Check(1, 250)) return;
 
@@ -113,13 +175,10 @@ namespace PixelStacker.UI
                 await self.InvokeEx(async c =>
                 {
                     c.RenderedCanvas = canvasThatIsRendered;
-
-                    await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, null, new Logic.IO.Config.SpecialCanvasRenderSettings(c.Options.ViewerSettings));
+                    c.PreprocessedImage = imgPreprocessed;
+                    PanZoomSettings pz = c.TransformPanZoomSettings(c.CurrentlyVisiblePanel, VisiblePanel.Editor);
+                    await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, pz, new Logic.IO.Config.SpecialCanvasRenderSettings(c.Options.ViewerSettings));
                 });
-                //self.RenderedCanvas = canvasThatIsRendered;
-
-                //var pz = self.imageViewer.PanZoomSettings;
-                //var pz2 = pz.TranslateForNewSize(canvasThatIsRendered.Width, canvasThatIsRendered.Height, self.canvasEditor.Width, self.canvasEditor.Height);
 
                 ProgressX.Report(0, "Showing block plan in the viewing window.");
                 self.InvokeEx(cc =>

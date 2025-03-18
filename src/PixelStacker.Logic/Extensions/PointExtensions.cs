@@ -5,6 +5,16 @@ namespace PixelStacker.Logic.Extensions
 {
     public static class PointExtensions
     {
+        public static SKPoint ToSKPoint(this System.Drawing.Point a)
+        {
+            return new SKPoint(a.X, a.Y);
+        }
+
+        public static System.Drawing.Point ToPoint(this SKPoint a)
+        {
+            return new System.Drawing.Point((int)a.X, (int)a.Y);
+        }
+
         public static SkiaSharp.SKRect ToRectangle(this System.Drawing.Point a, System.Drawing.Point b)
         {
             return ToRectangle(a.X, a.Y, b.X, b.Y);

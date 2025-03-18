@@ -2,14 +2,18 @@
 using PixelStacker.Extensions;
 using PixelStacker.Logic.CanvasEditor;
 using PixelStacker.Logic.CanvasEditor.History;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources;
 using PixelStacker.Resources.Themes;
+using SkiaSharp;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -84,13 +88,14 @@ namespace PixelStacker.UI.Controls
             // possible to use faster math?
 
             ProgressX.Report(0, "Rendering block plan to viewing window.");
+            this.Canvas = canvas;
+            this.PanZoomSettings = pz;
             var painter = await RenderedCanvasPainter.Create(worker, canvas, vs);
             this.Painter = painter;
 
             this.RepaintRequested = true;
             // DO not set these until ready
-            this.Canvas = canvas;
-            this.PanZoomSettings = pz;
+
             await (this.MaterialPickerForm?.SetCanvas(canvas) ?? Task.CompletedTask);
         }
     }

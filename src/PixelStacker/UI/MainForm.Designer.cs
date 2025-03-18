@@ -51,6 +51,7 @@ namespace PixelStacker.UI
             horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             renderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            preRenderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toggleGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,7 +91,7 @@ namespace PixelStacker.UI
             progressBar1 = new System.Windows.Forms.ProgressBar();
             timer1 = new System.Windows.Forms.Timer(components);
             lblProgress = new System.Windows.Forms.Label();
-            imageViewer = new WF.Components.ImageViewer();
+            imageViewer = new PixelStacker.WF.Components.ImageViewer();
             canvasEditor = new CanvasEditor();
             dlgOpen = new System.Windows.Forms.OpenFileDialog();
             dlgSave = new System.Windows.Forms.SaveFileDialog();
@@ -124,7 +125,6 @@ namespace PixelStacker.UI
             // 
             // reOpenToolStripMenuItem
             // 
-            reOpenToolStripMenuItem.Enabled = false;
             reOpenToolStripMenuItem.Name = "reOpenToolStripMenuItem";
             reOpenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             reOpenToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
@@ -177,7 +177,7 @@ namespace PixelStacker.UI
             // 
             // generationToolStripMenuItem
             // 
-            generationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { selectMaterialsToolStripMenuItem, preprocessingToolStripMenuItem, ditheringToolStripMenuItem, sizingToolStripMenuItem, orientationToolStripMenuItem, renderToolStripMenuItem });
+            generationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { selectMaterialsToolStripMenuItem, preprocessingToolStripMenuItem, ditheringToolStripMenuItem, sizingToolStripMenuItem, orientationToolStripMenuItem, renderToolStripMenuItem, preRenderToolStripMenuItem });
             generationToolStripMenuItem.Name = "generationToolStripMenuItem";
             generationToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             generationToolStripMenuItem.Text = "Generate";
@@ -242,6 +242,14 @@ namespace PixelStacker.UI
             renderToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             renderToolStripMenuItem.Text = "Render";
             renderToolStripMenuItem.Click += renderToolStripMenuItem_Click;
+            // 
+            // preRenderToolStripMenuItem
+            // 
+            preRenderToolStripMenuItem.Name = "preRenderToolStripMenuItem";
+            preRenderToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.R;
+            preRenderToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
+            preRenderToolStripMenuItem.Text = "Pre-Render";
+            preRenderToolStripMenuItem.Click += preRenderToolStripMenuItem_Click;
             // 
             // viewToolStripMenuItem
             // 
@@ -650,8 +658,8 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblProgress;
-        private WF.Components.ImageViewer imageViewer;
-        private CanvasEditor canvasEditor;
+        public WF.Components.ImageViewer imageViewer;
+        public CanvasEditor canvasEditor;
         private System.Windows.Forms.OpenFileDialog dlgOpen;
         private System.Windows.Forms.ToolStripMenuItem reOpenToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog dlgSave;
@@ -673,5 +681,6 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem lightUIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem darkUIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem smoothThemeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem preRenderToolStripMenuItem;
     }
 }

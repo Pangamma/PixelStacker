@@ -9,7 +9,7 @@ namespace PixelStacker.Tests.UI
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]
-    public class Tests
+    public class MaterialPickerFormTests
     {
         private Dictionary<string, AsyncLazy<RenderedCanvas>> Canvases = new Dictionary<string, AsyncLazy<RenderedCanvas>>();
         private Options Options;
