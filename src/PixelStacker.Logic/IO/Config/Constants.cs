@@ -13,7 +13,7 @@
         //public const string ERR_DownsizeYourImage = "Your image is too large and cannot be processed. Please downsize your image using the sizing options or else choose a different image.";
         public const int MAX_HISTORY_SIZE = 20;
         public const float MAX_ZOOM = 200F;
-        public const float MIN_ZOOM = 200F;
+        public const float MIN_ZOOM = 0.001F;
         public const int SMALL_IMAGE_DIVIDE_SIZE = 2;
         public const int WORLD_HEIGHT = 1024;
         public const int BIG_IMG_MAX_AREA_B4_SPLIT = 51200; // split image into smaller sizes if bigger than this

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 
 namespace PixelStacker.Logic.IO.Config
 {
@@ -52,17 +53,46 @@ namespace PixelStacker.Logic.IO.Config
 
         public PanZoomSettings() { }
 
-        public PanZoomSettings TranslateForNewSize(int srcWidth, int srcHeight, int viewerWidth, int viewerHeight)
+        public override string ToString()
         {
-            var settings = this.Clone();
-            // TODO the imageX and imageY and zoomLevel
-            settings.minZoomLevel = Math.Min(1.0D, (100.0D / Math.Max(srcWidth, srcHeight)));
-
-            return settings;
+            return $"zoom={this.zoomLevel}, imageY={imageY}, imageX={imageX}";
         }
 
         /// <summary>
-        /// TAKEN FROM... VIEWER PANEL
+        /// This method is supposed to correctly update a pan and zoom config to a new set of viewing windows and image sizes.
+        /// I am not sure if it actually works though. Only considers the size of the srcImage, does not consider the size of
+        /// the panel. More work is required if panel size needs to be considered.
+        /// </summary>
+        /// <param name="prevSrcWidth"></param>
+        /// <param name="nextSrcWidth"></param>
+        /// <returns></returns>
+        public PanZoomSettings TranslateForNewSize(double prevSrcWidth, double nextSrcWidth)
+        {
+            /** 
+            double prevViewerWidth, double prevViewerHeight,
+            double nextViewerWidth, double nextViewerHeight,
+            double prevSrcWidth, double prevSrcHeight,
+            double nextSrcWidth, double nextSrcHeight
+            */
+
+            var pz = this.Clone();
+            var factor = (float)prevSrcWidth / nextSrcWidth;
+            pz.zoomLevel = this.zoomLevel * factor;
+
+            // I think this logic is correct as well.
+            var imagePoint = new SKPoint(0, 0);
+            var panelPoint = new SKPoint(
+                (int)Math.Round(imagePoint.X * this.zoomLevel + this.imageX),
+                (int)Math.Round(imagePoint.Y * this.zoomLevel + this.imageY));
+            pz.imageX = (int)(panelPoint.X - imagePoint.X * pz.zoomLevel);
+            pz.imageY = (int)(panelPoint.Y - imagePoint.Y * pz.zoomLevel);
+
+            return pz;
+        }
+
+
+        /// <summary>
+        /// Centers the image so that its corners are as expanded as possible while still being within the bounds of the viewing window.
         /// </summary>
         /// <param name="srcWidth"></param>
         /// <param name="srcHeight"></param>
@@ -86,13 +116,17 @@ namespace PixelStacker.Logic.IO.Config
             double hRatio = (double)viewerHeight / srcHeight;
             if (hRatio < wRatio)
             {
+                // Expand up and down. It is tall image.
                 settings.zoomLevel = hRatio;
-                settings.imageX = (viewerWidth - (int)(srcWidth * hRatio)) / 2;
+                settings.imageX = (viewerWidth - (int)(srcWidth * settings.zoomLevel)) / 2;
+                settings.imageY = (viewerHeight - (int)(srcHeight * settings.zoomLevel));
             }
             else
             {
+                // Expand side to side. It is wide image.
                 settings.zoomLevel = wRatio;
-                settings.imageY = (viewerHeight - (int)(srcHeight * wRatio)) / 2;
+                settings.imageY = (viewerHeight - (int)(srcHeight * settings.zoomLevel)) / 2;
+                settings.imageX = (viewerWidth - (int)(srcWidth * settings.zoomLevel));
             }
 
             int numICareAbout = Math.Max(srcWidth, srcHeight);

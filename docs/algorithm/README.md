@@ -12,7 +12,7 @@ Moving on. The best possible match for each input color will be cached for reuse
 ### Flattening the colors
 The image below shows the effects of flattening the color space in an image. On the left, the R (red) value is 255. On the right, it is 0. As you move from top to bottom, the level of flattening increases. Most people do not notice much of a difference between the first and second row. It is a difference between 255 unique values and 51 unique values though. This is just the red channel! If you perform this same operation on red, green, and blue channels, you can reduce the possibilities by 125x.  
 
-<img src="red-to-black.jpg" width="600px">
+<img src="red-to-black.png" width="600px">
 
 ### Quantizers can also help. 
 Color quantization reduces the number of distinct colors of an image while keeping the new image visually similar to the original. Many different algorithms exist. Dithering can be used in this process as well.  

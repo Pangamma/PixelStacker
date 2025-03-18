@@ -7,6 +7,7 @@ using PixelStacker.Logic.Utilities;
 using SkiaSharp;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -90,6 +91,13 @@ namespace PixelStacker.UI
             if (this.loadedImageFilePath != null)
             {
                 await this.LoadFileFromPathAsync(this.loadedImageFilePath);
+            } 
+            else
+            {
+                var toKill = this.LoadedImage;
+                this.LoadedImage = this.LoadedImage.Copy();
+                toKill.DisposeSafely();
+                ShowImageViewer_OriginalImage();
             }
         }
 
@@ -150,7 +158,7 @@ namespace PixelStacker.UI
 
                 // creates a clone of the img, but in the 32bpp format.
                 this.imageViewer.SetImage(this.LoadedImage, null);
-                ShowImageViewer();
+                ShowImageViewer_OriginalImage();
             }
         }
     }

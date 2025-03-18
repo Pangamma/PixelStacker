@@ -60,13 +60,12 @@ namespace PixelStacker.UI
             }
             {
                 MainFormTags mf = (MainFormTags)this.reOpenToolStripMenuItem.Tag;
-                mf.IsFileLoadPathRequired = true;
+                mf.IsFileLoadPathRequired = false;
             }
 
 
             ((MainFormTags)this.viewToolStripMenuItem.Tag).IsCanvasEditorRequired = false;
             ((MainFormTags)this.switchPanelsToolStripMenuItem.Tag).IsCanvasEditorRequired = true;
-            ((MainFormTags)this.reOpenToolStripMenuItem.Tag).IsFileLoadPathRequired = true;
         }
 
 

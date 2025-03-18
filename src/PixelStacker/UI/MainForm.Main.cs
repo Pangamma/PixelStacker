@@ -40,7 +40,7 @@ namespace PixelStacker.UI
 
             this.canvasEditor.Options = this.Options;
             this.imageViewer.SetImage(this.LoadedImage);
-            ShowImageViewer();
+            ShowImageViewer_OriginalImage();
         }
 
         private void MainForm_Load(object sender, System.EventArgs e)

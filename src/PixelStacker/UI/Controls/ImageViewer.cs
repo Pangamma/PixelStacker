@@ -1,7 +1,6 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
-using PixelStacker.Resources;
 using PixelStacker.Resources.Themes;
 using PixelStacker.UI.Helpers;
 using SkiaSharp;
@@ -63,8 +62,7 @@ namespace PixelStacker.WF.Components
             Image.DisposeSafely();
             Image = null;
             Image = src.Copy();
-            bool preserveZoom = pz != null;
-            if (!preserveZoom) this.PanZoomSettings = CalculateInitialPanZoomSettings(Image);
+            this.PanZoomSettings = pz != null ? pz : CalculateInitialPanZoomSettings(Image);
             this.IsRepaintRequested = true;
         }
 
@@ -85,25 +83,7 @@ namespace PixelStacker.WF.Components
             {
                 lock (src)
                 {
-                    double wRatio = (double)Width / src.Width;
-                    double hRatio = (double)Height / src.Height;
-                    if (hRatio < wRatio)
-                    {
-                        settings.zoomLevel = hRatio;
-                        settings.imageX = (Width - (int)(src.Width * hRatio)) / 2;
-                    }
-                    else
-                    {
-                        settings.zoomLevel = wRatio;
-                        settings.imageY = (Height - (int)(src.Height * wRatio)) / 2;
-                    }
-
-                    int numICareAbout = Math.Max(src.Width, src.Height);
-                    settings.minZoomLevel = (100.0D / numICareAbout);
-                    if (settings.minZoomLevel > 1.0D)
-                    {
-                        settings.minZoomLevel = 1.0D;
-                    }
+                    settings = PanZoomSettings.CalculateDefaultPanZoomSettings(src.Width, src.Height, Width, Height);
                 }
             }
 
@@ -137,15 +117,9 @@ namespace PixelStacker.WF.Components
             {
                 SKPoint pStart = GetPointOnImage(new SKPoint(0, 0), EstimateProp.Floor);
                 SKPoint fStart = GetPointOnPanel(pStart);
-                int divideAmount = 1;
-                int ts = 1;
-                pStart.X *= ts; pStart.X /= divideAmount;
-                pStart.Y *= ts; pStart.Y /= divideAmount;
 
                 SKPoint pEnd = GetPointOnImage(new SKPoint(this.Width, this.Height), EstimateProp.Ceil);
                 SKPoint fEnd = GetPointOnPanel(pEnd);
-                pEnd.X *= ts; pEnd.X /= divideAmount;
-                pEnd.Y *= ts; pEnd.Y /= divideAmount;
 
                 SKRect rectSRC = pStart.ToRectangle(pEnd);
                 SKRect rectDST = fStart.ToRectangle(fEnd);
@@ -210,7 +184,9 @@ namespace PixelStacker.WF.Components
 #endif
             }
 
-            return new SKPoint((int)Math.Round(pointOnImage.X * pz.zoomLevel + pz.imageX), (int)Math.Round(pointOnImage.Y * pz.zoomLevel + pz.imageY));
+            var pointOnPanel = new SKPoint((int)Math.Round(pointOnImage.X * pz.zoomLevel + pz.imageX), (int)Math.Round(pointOnImage.Y * pz.zoomLevel + pz.imageY));
+
+            return pointOnPanel;
         }
 
 
@@ -235,6 +211,7 @@ namespace PixelStacker.WF.Components
                 {
                     this.PanZoomSettings.zoomLevel *= 1.25;
                 }
+
                 this.restrictZoom();
                 this.PanZoomSettings.imageX = ((int)Math.Round(panelPoint.X - imagePoint.X * this.PanZoomSettings.zoomLevel));
                 this.PanZoomSettings.imageY = ((int)Math.Round(panelPoint.Y - imagePoint.Y * this.PanZoomSettings.zoomLevel));

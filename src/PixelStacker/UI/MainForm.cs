@@ -19,5 +19,10 @@ namespace PixelStacker.UI
             this.canvasEditor.ResumeLayout(true);
             this.imageViewer.ResumeLayout(true);
         }
+
+        private void preRenderToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            DoPreprocessLoadedImage();
+        }
     }
 }
