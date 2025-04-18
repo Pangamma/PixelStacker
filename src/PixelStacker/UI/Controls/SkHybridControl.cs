@@ -25,7 +25,7 @@ namespace PixelStacker.UI.Controls
 
 
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
-        public bool BoxShadowOnEdges { get; set; } = true;
+        public bool BoxShadowOnEdges { get; set; } = false;
 
         public SkHybridControl()
         {
@@ -88,18 +88,21 @@ namespace PixelStacker.UI.Controls
                 double fps = Math.Floor(Logic.Utilities.RateLimit.GetHitsPerSecond(90, 3000));
                 e.Surface.Canvas.DrawText($"{fps} FPS", new SKPoint(8, 20), new SKPaint() { Color = new SKColor(255, 0, 0), TextSize = 16 });
 #endif
-            }
 
-            if (this.BoxShadowOnEdges)
-            {
-                if (BoxShadow == null)
+                if (this.BoxShadowOnEdges)
                 {
-                    BoxShadow = SkHybridControl.CalculateBoxShadow(e.Rect);
+                    if (BoxShadow == null)
+                    {
+                        BoxShadow = SkHybridControl.CalculateBoxShadow(e.Rect);
+                    }
+
+                    SKRect srcRect = new SKRect(0, 0, BoxShadow.Width, BoxShadow.Height);
+                    SKRect dstRect = new SKRect(0, 0, Width, Height);
+                    e.Surface.Canvas.DrawImage(BoxShadow, srcRect, dstRect, new SKPaint()
+                    {
+                        BlendMode = SKBlendMode.SrcOver
+                    });
                 }
-                e.Surface.Canvas.DrawBitmap(BoxShadow, 0, 0, new SKPaint()
-                {
-                    BlendMode = SKBlendMode.SrcOver
-                });
             }
         }
 
@@ -142,14 +145,14 @@ namespace PixelStacker.UI.Controls
             }
         }
 
-        private static SKBitmap BoxShadow { get; set; }
-        public static SKBitmap CalculateBoxShadow(SKRect rect)
+        private SKImage BoxShadow { get; set; }
+        public static SKImage CalculateBoxShadow(SKRect rect)
         {
-            SKBitmap bm = new SKBitmap((int)rect.Width, (int)rect.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
-            var canvas = new SKCanvas(bm);
+            using SKBitmap bm = new SKBitmap((int)rect.Width, (int)rect.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
+            using var canvas = new SKCanvas(bm);
             DrawBoxWithInnerShadows(canvas, rect);
             canvas.Save();
-            return bm;
+            return SKImage.FromBitmap(bm);
         }
 
         public static void DrawBoxWithInnerShadows(SKCanvas canvas, SKRect rect)

@@ -154,7 +154,7 @@
   "Tools_BrushWidth": "画笔宽度",
   "Tools_Eraser": "擦除",
   "Tools_Fill": "填充",
-  "Tools_PanZoom": "平移和缩放",
+  "CanvasEditor_DisableGhostImages": "禁用幽灵图像",
   "Tools_Pencil": "铅笔",
   "Tools_Picker": "颜色选择器",
   "Tools_WEOrigin": "世界编辑原点选择器",
@@ -176,5 +176,14 @@
   "Light Theme": "浅色主题",
   "Smooth Theme": "流畅主题",
   "Theme": "主题",
-  "Similar_Combinations": "类似组合"
+  "Similar_Combinations": "类似组合",
+  "CanvasEditor_EnableGhostImages": "启用幽灵图像",
+  "CanvasEditor_FilterMaterials": "过滤材料",
+  "CanvasEditor_Hide_0": "隐藏{0}",
+  "CanvasEditor_SetWorldEditOrigin": "设置“WorldEdit”起源",
+  "CanvasEditor_ShowOnly_0": "仅显示{0}",
+  "CanvasEditor_Show_0": "显示{0}",
+  "HideAll": "全部隐藏",
+  "ShowAll": "全部显示",
+  "Tools_Pointer": "指针"
 }

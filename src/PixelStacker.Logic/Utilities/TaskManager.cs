@@ -16,16 +16,6 @@ namespace PixelStacker.Logic.Utilities
     /// </summary>
     public class TaskManager
     {
-        #region SafeReport
-        [Obsolete("Use the Progress.Report call instead.")]
-        public static void SafeReport(int percent, string status) => ProgressX.Report(percent, status);
-
-        [Obsolete("Use the Progress.Report call instead.")]
-        public static void SafeReport(int percent) => ProgressX.Report(percent);
-
-        #endregion
-
-
         public TaskManager()
         {
             this.CancelTokenSource = new CancellationTokenSource();
@@ -80,7 +70,8 @@ namespace PixelStacker.Logic.Utilities
             return Task.FromResult(true);
         }
 
-        //private async Task<T> TryTaskCatchCancelAsync<T>(Task<T> task)
+
+        //private async Task<T> TryTaskCatchCancelExceptionAsync<T>(Task<T> task)
         //{
         //    try { return await task; }
         //    catch (TaskCanceledException) { }
@@ -99,6 +90,13 @@ namespace PixelStacker.Logic.Utilities
 
         #endregion CANCEL
         #region START
+        /// <summary>
+        /// Use this method to start tasks that can be cancelled from the helper methods. 
+        /// Do non UI thread work with this. Can only be called ONCE at a time. All other
+        /// running tasks will be cancelled if you try to use it, so no nesting is allowed.
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
         public async Task StartAsync(Func<CancellationToken, Task> task)
         {
             try

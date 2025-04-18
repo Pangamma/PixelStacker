@@ -1,5 +1,6 @@
 ﻿using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
+using PixelStacker.Logic.Utilities;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -37,7 +38,7 @@ namespace PixelStacker.UI.Controls
 #if FAIL_FAST
                 throw new ArgumentNullException("PanZoomSettings are not set. So weird!");
 #else
-                        return new Point(0, 0);
+                return new Point(0, 0);
 #endif
             }
 
@@ -109,8 +110,11 @@ namespace PixelStacker.UI.Controls
         private Point previousCursorPosition = new Point(0, 0);
         private Point previousPointOnImage = new Point(0, 0);
 
+        private RateLimit MouseMove_RateLimiter = new RateLimit(10, 100);
         private void ImagePanel_MouseMove(object sender, MouseEventArgs e)
         {
+            this.RepaintRequested = true;
+
             var pt = GetPointOnImage(e.Location, this.PanZoomSettings, EstimateProp.Floor);
             var cd = this.Canvas?.CanvasData;
 
@@ -127,16 +131,15 @@ namespace PixelStacker.UI.Controls
 
                 mc ??= MaterialPalette.FromResx()[Constants.MaterialCombinationIDForAir];
 
-                string hoverText = $"X: {pt.X},".PadRight(8)
-                    + $"Y: {pt.Y},".PadRight(8)
-                    + $"Top: {mc.Top.Label}, Bottom: {mc.Bottom.Label}";
+                this.HoverText = string.Format("X: {0,-5} Y: {1,-5} Top: {2}, Bottom: {3}", pt.X, pt.Y, mc.Top.Label, mc.Bottom.Label);
+                //this.HoverText = $"X: {pt.X},".PadRight(8)
+                //    + $"Y: {pt.Y},".PadRight(8)
+                //    + $"Top: {mc.Top.Label}, Bottom: {mc.Bottom.Label}";
 
-                if (lblHoverInfo.Text != hoverText)
-                    lblHoverInfo.Text = hoverText;
                 previousPointOnImage = pt;
+                this.RepaintRequested = true;
             }
 
-            this.RepaintRequested = true;
 
             previousCursorPosition = e.Location;
             if (e.Button == MouseButtons.Middle)
@@ -146,8 +149,6 @@ namespace PixelStacker.UI.Controls
             }
 
             this.CurrentTool?.OnMouseMove(e);
-            if (Control.MouseButtons.HasFlag(MouseButtons.Left))
-                this.RepaintRequested = true;
         }
         #endregion
 

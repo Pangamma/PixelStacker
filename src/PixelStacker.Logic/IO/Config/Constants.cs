@@ -1,9 +1,10 @@
-﻿namespace PixelStacker.Logic.IO.Config
+﻿using SkiaSharp;
+
+namespace PixelStacker.Logic.IO.Config
 {
     public static class Constants
     {
-        public const int DisplayRefreshIntervalMs = 10;
-        public const string Version = "1.20.4d";
+        public const string Version = "1.20.4e";
         public const string Website = "https://taylorlove.info/pixelstacker";
         [System.Obsolete("Switch to using DefaultTextureSize, bc that is what this should represent.", true)]
         public const int TextureSize = 16;
@@ -18,6 +19,15 @@
         public const int WORLD_HEIGHT = 1024;
         public const int BIG_IMG_MAX_AREA_B4_SPLIT = 51200; // split image into smaller sizes if bigger than this
 
+        /// <summary>
+        /// -1 means no limit.
+        /// </summary>
+#if DEBUG
+        public const int MAX_THREADS_FOR_UI = -1;
+#else
+        public const int MAX_THREADS_FOR_UI = -1;
+#endif
+
         public const string Obs_TryToRemove = "Try to remove this. Seems useless.";
         public const string Obs_AsyncPreferred = "Switch to async";
         public const string Obs_Static = "Avoid static properties. We want to have one instance per web user.";
@@ -27,10 +37,12 @@
         // https://minecraft.fandom.com/wiki/Java_Edition_1.18.1
         public const int DataVersion = 3117;
         public const int MaterialCombinationIDForAir = 0;
+        public const string MaterialPixelStackerIDForAir = "AIR";
         public const int BlockID_Unavailable = 166; // barrier
 
         public const string CatGlass = "Glass";
 
+        // UI options
 #if USE_GPU
         public const bool C_USE_GPU = true;
 #else
@@ -42,5 +54,10 @@
 #else
         public const bool IsDevMode = false;
 #endif
+        public static readonly SKSamplingOptions SAMPLE_OPTS_NONE = new SKSamplingOptions(SKFilterMode.Nearest, SKMipmapMode.None);
+        public static readonly SKSamplingOptions SAMPLE_OPTS_HIGH = new SKSamplingOptions(SKCubicResampler.Mitchell);
+        public const bool SHOW_BOX_SHADOW_IN_UI = true;
+        public const int DisplayRefreshIntervalMs = 20;
+
     }
 }

@@ -154,7 +154,7 @@
   "Tools_BrushWidth": "브러시 폭",
   "Tools_Eraser": "삭제",
   "Tools_Fill": "채우다",
-  "Tools_PanZoom": "팬 및 확대/축소",
+  "CanvasEditor_DisableGhostImages": "고스트 이미지 비활성화",
   "Tools_Pencil": "연필",
   "Tools_Picker": "색상 선택기",
   "Tools_WEOrigin": "세계 편집 원점 선택기",
@@ -176,5 +176,14 @@
   "Light Theme": "라이트 테마",
   "Smooth Theme": "부드러운 테마",
   "Theme": "주제",
-  "Similar_Combinations": "유사한 조합"
+  "Similar_Combinations": "유사한 조합",
+  "CanvasEditor_EnableGhostImages": "고스트 이미지 활성화",
+  "CanvasEditor_FilterMaterials": "필터 재료",
+  "CanvasEditor_Hide_0": "{0} 숨기기",
+  "CanvasEditor_SetWorldEditOrigin": "\"WorldEdit\" 원점 설정",
+  "CanvasEditor_ShowOnly_0": "{0}만 표시",
+  "CanvasEditor_Show_0": "{0} 표시",
+  "HideAll": "모두 숨기기",
+  "ShowAll": "모두 표시",
+  "Tools_Pointer": "바늘"
 }

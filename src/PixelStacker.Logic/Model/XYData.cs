@@ -1,9 +1,20 @@
 ﻿namespace PixelStacker.Logic.Model
 {
-    public class XYData<x, y, t>
+    public class XYData<DataType>
     {
-        public x X { get; set; }
-        public y Y { get; set; }
-        public t Data { get; set; }
+        public XYData()
+        {
+        }
+
+        public XYData(int x, int y, DataType data)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Data = data;
+        }
+
+        public int X { get; set; }
+        public int Y { get; set; }
+        public DataType Data { get; set; }
     }
 }

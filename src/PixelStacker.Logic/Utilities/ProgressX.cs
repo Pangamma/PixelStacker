@@ -41,7 +41,6 @@ namespace PixelStacker.Logic.Utilities
                 StatusPercent = percent;
                 if (percent > 100) StatusPercent = 100;
                 if (percent < 0) StatusPercent = 0;
-                //System.Diagnostics.Debug.WriteLine($"{percent}% STAT: {methodName}::{lineNumber}");
             }
 
         }
@@ -53,7 +52,6 @@ namespace PixelStacker.Logic.Utilities
                 StatusPercent = percent;
                 if (percent > 100) StatusPercent = 100;
                 if (percent < 0) StatusPercent = 0;
-                //System.Diagnostics.Debug.WriteLine($"{percent}%: {methodName}::{lineNumber}");
             }
         }
 

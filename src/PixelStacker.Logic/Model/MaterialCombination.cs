@@ -8,6 +8,7 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace PixelStacker.Logic.Model
 {
@@ -34,6 +35,7 @@ namespace PixelStacker.Logic.Model
             this.IsMultiLayer = !ReferenceEquals(Top, Bottom); //Top?.PixelStackerID != Bottom?.PixelStackerID;
             CheckValidity(mBottom, mTop);
         }
+
         #endregion Constructors
 
         private void CheckValidity(Material mBottom, Material mTop)
@@ -70,29 +72,33 @@ namespace PixelStacker.Logic.Model
             return Top.IsEnabledF(opts) && Bottom.IsEnabledF(opts);
         }
 
-        [Obsolete("This is a bad way to describe things.", false)]
+        /// <summary>
+        /// True if the top and bottom layers are different materials.
+        /// </summary>
         public bool IsMultiLayer { get; }
         public Material Top { get; }
         public Material Bottom { get; }
 
-
-        private MaterialHeight? _ShadowHeight;
-        public MaterialHeight GetShadowHeight()
+        public MaterialHeight GetShadowHeight(IReadonlyCanvasViewerSettings srs)
         {
-            if (this._ShadowHeight != null)
-                return _ShadowHeight.Value;
-
             if (this.Bottom.IsAir)
-                return (_ShadowHeight = MaterialHeight.L0_EMPTY).Value;
+                return MaterialHeight.L0_EMPTY;
 
-            if (this.Top.CanBeUsedAsTopLayer)
-                return (_ShadowHeight = MaterialHeight.L2_MULTI).Value;
+            bool showGhosts = srs.ShowFilteredMaterials;
+            bool useMaterialFilter = srs.VisibleMaterialsFilter.Any(x => x != Constants.MaterialPixelStackerIDForAir);
+            bool showTop    = srs.ZLayerFilter != 0 && (showGhosts || !useMaterialFilter || srs.VisibleMaterialsFilter.Contains(this.Top.PixelStackerID));
+            bool showBottom = srs.ZLayerFilter != 1 && (showGhosts || !useMaterialFilter || srs.VisibleMaterialsFilter.Contains(this.Bottom.PixelStackerID));
 
-            return (_ShadowHeight = MaterialHeight.L1_SOLID).Value;
+            if (showTop && this.Top.CanBeUsedAsTopLayer)
+                return MaterialHeight.L2_MULTI;
+
+            if (showBottom && this.Bottom.CanBeUsedAsBottomLayer)
+                return MaterialHeight.L1_SOLID;
+
+            return MaterialHeight.L0_EMPTY;
         }
 
-
-        public SKColor GetAverageColor(bool isSide, SpecialCanvasRenderSettings specialRenderSettings)
+        public SKColor GetAverageColor(bool isSide, IReadonlyCanvasViewerSettings specialRenderSettings)
         {
             int? Z = specialRenderSettings.ZLayerFilter;
             if (Z == null)
@@ -146,14 +152,6 @@ namespace PixelStacker.Logic.Model
 
         public SKBitmap GetImage(bool isSide) => isSide ? this.SideImage : this.TopImage;
 
-
-        public SKBitmap GetImage(bool isSide, SpecialCanvasRenderSettings srs)
-        {
-            if (srs.ZLayerFilter == null) return isSide ? this.SideImage : this.TopImage;
-            else if (srs.ZLayerFilter == 1) return isSide ? this.Top.SideImage : this.Top.TopImage;
-            else if (srs.ZLayerFilter == 0) return isSide ? this.Bottom.SideImage : this.Bottom.TopImage;
-            else return isSide ? this.SideImage : this.TopImage;
-        }
 
         private SKBitmap _TopImage;
         public SKBitmap TopImage
@@ -280,8 +278,6 @@ namespace PixelStacker.Logic.Model
         }
 
         #endregion
-
-
 
 
         /// <summary>

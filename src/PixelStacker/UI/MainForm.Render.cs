@@ -19,6 +19,23 @@ namespace PixelStacker.UI
             Editor
         }
 
+        public async Task TriggerCanvasEditorRerender()
+        {
+            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
+            {
+                var self = this;
+                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
+                {
+                    await self.InvokeEx(async c =>
+                    {
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, () => c.canvasEditor.PanZoomSettings, c.Options.ViewerSettings.ToReadonlyClone());
+                        c.ShowCanvasEditor();
+                    });
+                }));
+            }
+        }
+
+
         /// <summary>
         /// Transforms PanZoomSettings from before to after and modifies panning and zooming along the way.
         /// </summary>
@@ -91,8 +108,8 @@ namespace PixelStacker.UI
                 {
                     await self.InvokeEx(async c =>
                     {
-                        PanZoomSettings pz = c.TransformPanZoomSettings(CurrentlyVisiblePanel, VisiblePanel.Editor);
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, pz, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
+                        //PanZoomSettings pz = c.TransformPanZoomSettings(CurrentlyVisiblePanel, VisiblePanel.Editor);
+                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, () => c.TransformPanZoomSettings(CurrentlyVisiblePanel, VisiblePanel.Editor), c.Options.ViewerSettings.ToReadonlyClone());
                         c.ShowCanvasEditor();
                     });
 
@@ -176,8 +193,8 @@ namespace PixelStacker.UI
                 {
                     c.RenderedCanvas = canvasThatIsRendered;
                     c.PreprocessedImage = imgPreprocessed;
-                    PanZoomSettings pz = c.TransformPanZoomSettings(c.CurrentlyVisiblePanel, VisiblePanel.Editor);
-                    await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, pz, new Logic.IO.Config.SpecialCanvasRenderSettings(c.Options.ViewerSettings));
+                    //PanZoomSettings pz = c.TransformPanZoomSettings(c.CurrentlyVisiblePanel, VisiblePanel.Editor);
+                    await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, () => c.TransformPanZoomSettings(c.CurrentlyVisiblePanel, VisiblePanel.Editor), c.Options.ViewerSettings.ToReadonlyClone());
                 });
 
                 ProgressX.Report(0, "Showing block plan in the viewing window.");

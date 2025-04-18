@@ -1,9 +1,11 @@
 ﻿using PixelStacker.UI.Controls;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace PixelStacker.EditorTools
 {
+    [Obsolete]
     public class PanZoomTool : AbstractCanvasEditorTool
     {
         private Point initialDragPoint = new Point(0,0);

@@ -1,6 +1,8 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.CanvasEditor.History;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
+using PixelStacker.Resources;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -63,7 +65,7 @@ namespace PixelStacker.Logic.CanvasEditor
             })).GroupBy(cp => new PxPoint(GetChunkIndexX(cp.X, bpc), GetChunkIndexY(cp.Y, bpc)));
 
             var chunksThatNeedReRendering = GetChunksThatNeedReRendering(chunkIndexes.Select(x => x.Key));
-            using SKPaint paint = new SKPaint() { BlendMode = SKBlendMode.Src, FilterQuality = SKFilterQuality.None };
+            using SKPaint paint = new SKPaint() { BlendMode = SKBlendMode.Src };
 
             // Layer 0
             // Iterate over chunks
@@ -75,43 +77,41 @@ namespace PixelStacker.Logic.CanvasEditor
                 SKBitmap bmCopied = null;
                 lock (this.Padlocks[0][chunkIndex.X, chunkIndex.Y])
                 {
-                    bmCopied = Bitmaps[0][chunkIndex.X, chunkIndex.Y].Copy();
+                    bmCopied = SKBitmap.FromImage(Tiles[0][chunkIndex.X, chunkIndex.Y]);
                 }
 
                 int offsetX = chunkIndex.X * bpc;
                 int offsetY = chunkIndex.Y * bpc;
                 // Modify the copied chunk
                 using SKCanvas skCanvas = new SKCanvas(bmCopied);
-                bool isSolid = this.SpecialRenderSettings.IsSolidColors;
-                var paintSolid = new SKPaint()
-                {
-                    BlendMode = SKBlendMode.Src,
-                    FilterQuality = SKFilterQuality.High,
-                    IsAntialias = false,
-                    IsStroke = false, // FILL
-                };
 
-                foreach (var pxToModify in changeGroup)
+                var matGroups = changeGroup.GroupBy(chunk => chunk.PaletteID);
+                using var primer = new SKPaint() { BlendMode = SKBlendMode.Src, Color = new SKColor(0, 0, 0, 0) };
+                foreach (var matGroup in matGroups)
                 {
-                    MaterialCombination mc = Data.MaterialPalette[pxToModify.PaletteID];
-                    int ix = texSize * (pxToModify.X - offsetX);
-                    int iy = texSize * (pxToModify.Y - offsetY);
+                    var tileRects = matGroup.Select(pxToModify =>
+                    {
+                        int ix = texSize * (pxToModify.X - offsetX);
+                        int iy = texSize * (pxToModify.Y - offsetY);
+                        var rect = new SKRect(ix, iy, ix + texSize, iy + texSize);
+                        return rect;
+                    });
 
-                    if (isSolid)
+                    // Initialize by throwing out old paint.
+                    foreach (var tileRect in tileRects)
                     {
-                        paintSolid.Color = mc.GetAverageColor(isv, this.SpecialRenderSettings);
-                        skCanvas.DrawRect(new SKRect() { Location = new SKPoint(ix, iy), Size = new SKSize(texSize, texSize) }, paintSolid);
+                        skCanvas.DrawRect(tileRect, primer);
                     }
-                    else
-                    {
-                        skCanvas.DrawBitmap(mc.GetImage(isv, this.SpecialRenderSettings), new SKRect(ix, iy, ix + texSize, iy + texSize), paint);
-                    }
+
+                    MaterialCombination mc = Data.MaterialPalette[matGroup.Key];
+                    MaterialCombinationHelper.PaintOntoCanvas(skCanvas, tileRects, mc, isv, this.SpecialRenderSettings, false);
+                    //MaterialCombination.PaintOntoCanvas(skCanvas, tileRects, mc, isv, this.SpecialRenderSettings, true);
                 }
 
                 lock (this.Padlocks[0][chunkIndex.X, chunkIndex.Y])
                 {
-                    var tmp = Bitmaps[0][chunkIndex.X, chunkIndex.Y];
-                    Bitmaps[0][chunkIndex.X, chunkIndex.Y] = bmCopied;
+                    var tmp = Tiles[0][chunkIndex.X, chunkIndex.Y];
+                    Tiles[0][chunkIndex.X, chunkIndex.Y] = SKImage.FromBitmap(bmCopied);
                     tmp.DisposeSafely();
                 }
             }
@@ -134,7 +134,7 @@ namespace PixelStacker.Logic.CanvasEditor
                             SKBitmap bmToEdit = null;
                             lock (Padlocks[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer])
                             {
-                                bmToEdit = Bitmaps[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer].Copy();
+                                bmToEdit = SKBitmap.FromImage(Tiles[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer]);
                             }
 
                             using SKCanvas g = new SKCanvas(bmToEdit);
@@ -148,14 +148,14 @@ namespace PixelStacker.Logic.CanvasEditor
                             {
                                 lock (Padlocks[layerIndexToRender - 1][xUpper, yUpper])
                                 {
-                                    SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper, yUpper];
+                                    SKImage bmToCopy = Tiles[layerIndexToRender - 1][xUpper, yUpper];
                                     var rect = new SKRect()
                                     {
                                         Location = new SKPoint(0, 0),
                                         Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
                                     };
 
-                                    g.DrawBitmap(bmToCopy, rect, paint);
+                                    g.DrawImage(bmToCopy, rect, Constants.SAMPLE_OPTS_NONE, paint);
                                 }
                             }
 
@@ -166,14 +166,14 @@ namespace PixelStacker.Logic.CanvasEditor
                             {
                                 lock (Padlocks[layerIndexToRender - 1][xUpper + 1, yUpper])
                                 {
-                                    SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper + 1, yUpper];
+                                    SKImage bmToCopy = Tiles[layerIndexToRender - 1][xUpper + 1, yUpper];
                                     var rect = new SKRect()
                                     {
                                         Location = new SKPoint(pixelsPerHalfChunk, 0),
                                         Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
                                     };
 
-                                    g.DrawBitmap(bmToCopy, rect, paint);
+                                    g.DrawImage(bmToCopy, rect, Constants.SAMPLE_OPTS_NONE, paint);
                                 }
                             }
 
@@ -184,14 +184,14 @@ namespace PixelStacker.Logic.CanvasEditor
                             {
                                 lock (Padlocks[layerIndexToRender - 1][xUpper, yUpper + 1])
                                 {
-                                    SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper, yUpper + 1];
+                                    SKImage bmToCopy = Tiles[layerIndexToRender - 1][xUpper, yUpper + 1];
                                     var rect = new SKRect()
                                     {
                                         Location = new SKPoint(0, pixelsPerHalfChunk),
                                         Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
                                     };
 
-                                    g.DrawBitmap(bmToCopy, rect, paint);
+                                    g.DrawImage(bmToCopy, rect, Constants.SAMPLE_OPTS_NONE, paint);
                                 }
                             }
 
@@ -202,14 +202,14 @@ namespace PixelStacker.Logic.CanvasEditor
                             {
                                 lock (Padlocks[layerIndexToRender - 1][xUpper + 1, yUpper + 1])
                                 {
-                                    SKBitmap bmToCopy = Bitmaps[layerIndexToRender - 1][xUpper + 1, yUpper + 1];
+                                    SKImage bmToCopy = Tiles[layerIndexToRender - 1][xUpper + 1, yUpper + 1];
                                     var rect = new SKRect()
                                     {
                                         Location = new SKPoint(pixelsPerHalfChunk, pixelsPerHalfChunk),
                                         Size = new SKSize(bmToCopy.Width / 2, bmToCopy.Height / 2)
                                     };
 
-                                    g.DrawBitmap(bmToCopy, rect, paint);
+                                    g.DrawImage(bmToCopy, rect, Constants.SAMPLE_OPTS_NONE, paint);
                                 }
                             }
                             //// Let's talk it out.
@@ -223,8 +223,8 @@ namespace PixelStacker.Logic.CanvasEditor
 
                             lock (Padlocks[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer])
                             {
-                                var tmp = Bitmaps[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer];
-                                Bitmaps[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer] = bmToEdit;
+                                var tmp = Tiles[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer];
+                                Tiles[layerIndexToRender][xIndexCurrentLayer, yIndexCurrentLayer] = SKImage.FromBitmap(bmToEdit);
                                 tmp.DisposeSafely();
                             }
                         }

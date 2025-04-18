@@ -154,7 +154,7 @@
   "Tools_BrushWidth": "Borstens bredd",
   "Tools_Eraser": "Radera",
   "Tools_Fill": "Fylla",
-  "Tools_PanZoom": "Panorera och zooma",
+  "CanvasEditor_DisableGhostImages": "Inaktivera spökbilder",
   "Tools_Pencil": "Penna",
   "Tools_Picker": "Färgväljare",
   "Tools_WEOrigin": "World Edit ursprungsväljare",
@@ -176,5 +176,14 @@
   "Light Theme": "Lätt tema",
   "Smooth Theme": "Smidigt tema",
   "Theme": "Tema",
-  "Similar_Combinations": "Liknande kombinationer"
+  "Similar_Combinations": "Liknande kombinationer",
+  "CanvasEditor_EnableGhostImages": "Aktivera spökbilder",
+  "CanvasEditor_FilterMaterials": "Filtermaterial",
+  "CanvasEditor_Hide_0": "Dölj {0}",
+  "CanvasEditor_SetWorldEditOrigin": "Ställ in \"WorldEdit\" ursprung",
+  "CanvasEditor_ShowOnly_0": "Visa endast {0}",
+  "CanvasEditor_Show_0": "Visa {0}",
+  "HideAll": "Göm alla",
+  "ShowAll": "Visa alla",
+  "Tools_Pointer": "Pekare"
 }

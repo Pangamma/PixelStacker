@@ -1,9 +1,13 @@
 ﻿using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
+using PixelStacker.Resources;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PixelStacker.Logic.CanvasEditor
 {
@@ -11,10 +15,24 @@ namespace PixelStacker.Logic.CanvasEditor
     {
         public void PaintSurface(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, CanvasViewerSettings vs)
         {
-            PaintTilesToView(g, parentControlSize, pz, this.Bitmaps, this.Padlocks, this.SpecialRenderSettings);
+            this.EnsureInitializationIsFinishedOrThrow();
+            PaintTilesToView(g, parentControlSize, pz, this.Tiles, this.Padlocks, this.SpecialRenderSettings);
+            //if (vs.IsShadowRenderingEnabled) PaintDeluxeShadowsToView(g, parentControlSize, pz, this.Tiles, this.Padlocks, this.SpecialRenderSettings, this.Data.CanvasData, this.Data.MaterialPalette);
             if (vs.IsShowGrid) DrawGridLines(g, Data, vs, pz);
             if (vs.IsShowBorder) DrawBorder(g, pz, new SKSize(Data.Width, Data.Height));
             if (Data.WorldEditOrigin != null) DrawWorldEditOrigin(g, pz, Data.WorldEditOrigin);
+        }
+
+        private void EnsureInitializationIsFinishedOrThrow()
+        {
+            if (this.Tiles == null || this.Tiles.Count == 0 || this.Padlocks == null || this.Padlocks.Count == 0)
+            {
+#if FAIL_FAST
+                throw new Exception("BAD STATE. RenderToView is called before view is ready.");
+#else
+                return;
+#endif
+            }
         }
 
         protected static void DrawGridLines(SKCanvas g, RenderedCanvas canvas, CanvasViewerSettings vs, PanZoomSettings pz)
@@ -23,7 +41,7 @@ namespace PixelStacker.Logic.CanvasEditor
             {
                 DrawGridMask(g, pz, vs.GridSize, vs.GridColor);
                 DrawGrid(g, canvas, pz, vs.GridSize, vs.GridColor.WithAlpha(255));
-                if (pz.zoomLevel > 5) DrawGrid(g, canvas, pz, 1, vs.GridColor.WithAlpha(40));
+                if (pz.zoomLevel > 15) DrawGrid(g, canvas, pz, 1, vs.GridColor.WithAlpha(40));
             }
         }
 
@@ -121,41 +139,73 @@ namespace PixelStacker.Logic.CanvasEditor
         #endregion Border
 
         /// <summary>
+        /// Paint the rendered deluxe shadows onto the canvas.
+        /// Works great, but is very laggy so maybe it is not so great.
+        /// Needs some kind of caching, but even then what're you going to do, right? Maybe hold a shadow map in memory.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="parentControlSize"></param>
+        /// <param name="pz"></param>
+        private static void PaintDeluxeShadowsToView(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, List<SKImage[,]> bitmaps, List<object[,]> padlocks, IReadonlyCanvasViewerSettings srs, CanvasData canvasData, MaterialPalette materialPalette)
+        {
+            if (pz.zoomLevel <= 50.0D)
+            {
+                return;
+            }
+
+            int TILE_SIZE = pz.zoomLevel >= 70 ? 64 : 32;
+
+            
+
+            SKPoint srcLocationOfPanelTL = GetPointOnImage(new SKPoint(0, 0), pz, EstimateProp.Floor);
+            SKPoint srcLocationOfPanelBR = GetPointOnImage(new SKPoint(parentControlSize.Width, parentControlSize.Height), pz, EstimateProp.Ceil);
+            srcLocationOfPanelBR.Offset(1, 1); // Add some extra to cover any gaps.
+            srcLocationOfPanelTL.X = Math.Clamp(srcLocationOfPanelTL.X, 0, canvasData.Width);
+            srcLocationOfPanelBR.X = Math.Clamp(srcLocationOfPanelBR.X, 0, canvasData.Width);
+            srcLocationOfPanelTL.Y = Math.Clamp(srcLocationOfPanelTL.Y, 0, canvasData.Height);
+            srcLocationOfPanelBR.Y = Math.Clamp(srcLocationOfPanelBR.Y, 0, canvasData.Height);
+            SKRect srcTile = srcLocationOfPanelTL.ToRectangle(srcLocationOfPanelBR);
+
+            //var tilesToPaint = canvasData.GetEnumerator();
+            var shadesInFrame = CalculateShadowMapForSubSectionOfCanvas(canvasData, materialPalette, srcTile, srs);
+
+            int LEFT = (int)srcTile.Left;
+            int TOP = (int)srcTile.Top;
+            var groupsOfShadows = shadesInFrame.GroupBy(tile => tile.Data).ToList();
+
+            foreach (var shadowGroup in groupsOfShadows)
+            {
+                if (shadowGroup.Key == ShadeFrom.EMPTY)
+                    continue;
+
+                using var paint = new SKPaint() { BlendMode = SKBlendMode.SrcOver };
+                var sFrom = shadowGroup.Key;
+                var shadeImg = ShadowHelper.GetSpriteIndividual(TILE_SIZE, sFrom);
+                float fZoom = (float)pz.zoomLevel;
+                var loc = srcTile.Location;
+                foreach (var cd in shadowGroup)
+                {
+                    float xSrc = cd.X + srcTile.Left;
+                    float ySrc = cd.Y + srcTile.Top;
+
+                    var panelPoint = GetPointOnPanel(new SKPoint(xSrc, ySrc), pz);
+                    var panelPointBR = GetPointOnPanel(new SKPoint(xSrc + 1, ySrc + 1), pz);
+                    SKRect tileRect = panelPoint.ToRectangle(panelPointBR);
+                    g.DrawImage(shadeImg, tileRect, Constants.SAMPLE_OPTS_HIGH, paint);
+                }
+            }
+        }
+
+        /// <summary>
         /// Paint the rendered canvas onto the SKCanvas view.
         /// </summary>
         /// <param name="g"></param>
         /// <param name="parentControlSize"></param>
         /// <param name="pz"></param>
-        private static void PaintTilesToView(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, List<SKBitmap[,]> bitmaps, List<object[,]> padlocks, SpecialCanvasRenderSettings srs)
+        private static void PaintTilesToView(SKCanvas g, SKSize parentControlSize, PanZoomSettings pz, List<SKImage[,]> bitmaps, List<object[,]> padlocks, IReadonlyCanvasViewerSettings srs)
         {
-            #region SET GRAPHICS SETTINGS
-            //if (pz.zoomLevel < 1.0D)
-            //{
-            //    g.InterpolationMode = InterpolationMode.Low;
-            //    g.CompositingQuality = CompositingQuality.HighSpeed;
-            //    g.SmoothingMode = SmoothingMode.HighSpeed;
-            //    g.PixelOffsetMode = PixelOffsetMode.Half;
-            //}
-            //else
-            //{
-            //    g.InterpolationMode = InterpolationMode.NearestNeighbor;
-            //    g.CompositingQuality = CompositingQuality.HighSpeed;
-            //    g.SmoothingMode = SmoothingMode.AntiAlias;
-            //    g.PixelOffsetMode = PixelOffsetMode.Half;
-            //}
-            #endregion SET GRAPHICS SETTINGS
-
             #region GET BITMAP SET
-            if (bitmaps == null || bitmaps.Count == 0 || padlocks == null || padlocks.Count == 0)
-            {
-#if FAIL_FAST
-                throw new Exception("BAD STATE. RenderToView is called before view is ready.");
-#else
-                return;
-#endif
-            }
-
-            SKBitmap[,] toUse = bitmaps[0];
+            SKImage[,] toUse = bitmaps[0];
             object[,] lockSetToUse = padlocks[0];
             int divideAmount = 1;
             int i = 1;
@@ -207,9 +257,9 @@ namespace PixelStacker.Logic.CanvasEditor
                         SKRect rectSRC = PointExtensions.ToRectangle(0, 0, bmToPaint.Width, bmToPaint.Height); // left, top, right, bottom
                                                                                                                //g.DrawImage(image: bmToPaint, source: rectSRC, dest: rectDST);
 
-                        g.DrawBitmap(bitmap: bmToPaint,
+                        g.DrawImage(image: bmToPaint,
                         source: rectSRC,
-                        dest: rectDST);
+                        dest: rectDST, sampling: Constants.SAMPLE_OPTS_NONE);
 #if DEBUG_GPU
                         g.DrawRect(rectDST, chunkLines);
 #endif

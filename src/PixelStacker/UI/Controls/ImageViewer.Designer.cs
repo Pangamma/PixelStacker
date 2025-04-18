@@ -47,6 +47,7 @@ namespace PixelStacker.WF.Components
             this.skCanvas.Location = new System.Drawing.Point(0, 0);
             this.skCanvas.Name = "skCanvas";
             this.skCanvas.Size = new System.Drawing.Size(585, 375);
+            this.skCanvas.BoxShadowOnEdges = Logic.IO.Config.Constants.SHOW_BOX_SHADOW_IN_UI;
             this.skCanvas.TabIndex = 0;
             this.skCanvas.PaintSurface += new System.EventHandler<PixelStacker.UI.Controls.GenericSKPaintSurfaceEventArgs>(this.skCanvas_PaintSurface);
             this.skCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImageViewer_MouseDown);

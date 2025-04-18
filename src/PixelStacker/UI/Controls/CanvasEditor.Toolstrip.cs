@@ -9,6 +9,7 @@ namespace PixelStacker.UI.Controls
     {
         private void OnLoadToolstrips()
         {
+            Toolbox_OnClickPointer(btnPointer, null);
             toolstrip_LayoutStyleChanged(tsCanvasTools, null);
             Tools_SetLayerFilterImage();
         }

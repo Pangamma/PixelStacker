@@ -39,7 +39,6 @@ namespace PixelStacker.Logic.IO.Config
             if (eventDelegate != null)
             {
                 var handlers = eventDelegate.GetInvocationList();
-                //Debug.WriteLine($"CHANGE_EVENT=({methodName}), Listeners = {handlers.Length}");
                 foreach (var handler in handlers)
                 {
                     handler.Method.Invoke(handler.Target, new object[] { srcInstance, evt });

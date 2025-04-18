@@ -29,343 +29,351 @@ namespace PixelStacker.UI.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CanvasEditor));
-            this.timerPaint = new System.Windows.Forms.Timer(this.components);
-            this.skiaControl = new PixelStacker.UI.Controls.SkHybridControl();
-            this.timerBufferedChangeQueue = new System.Windows.Forms.Timer(this.components);
-            this.bgWorkerBufferedChangeQueue = new System.ComponentModel.BackgroundWorker();
-            this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
-            this.tsCanvasTools = new System.Windows.Forms.ToolStrip();
-            this.btnPanZoom = new System.Windows.Forms.ToolStripButton();
-            this.btnWorldEditOrigin = new System.Windows.Forms.ToolStripButton();
-            this.btnPencil = new System.Windows.Forms.ToolStripButton();
-            this.btnBrush = new System.Windows.Forms.ToolStripButton();
-            this.btnFill = new System.Windows.Forms.ToolStripButton();
-            this.btnPicker = new System.Windows.Forms.ToolStripButton();
-            this.btnEraser = new System.Windows.Forms.ToolStripButton();
-            this.btnSuggester = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.lblBrushWidth = new System.Windows.Forms.ToolStripLabel();
-            this.btnBrushWidthMinus = new System.Windows.Forms.ToolStripButton();
-            this.tbxBrushWidth = new System.Windows.Forms.ToolStripTextBox();
-            this.btnBrushWidthAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnMaterialCombination = new System.Windows.Forms.ToolStripButton();
-            this.lblHoverInfo = new System.Windows.Forms.ToolStripLabel();
-            this.btnPaintLayerFilter = new System.Windows.Forms.ToolStripButton();
-            this.toolStripContainer.ContentPanel.SuspendLayout();
-            this.toolStripContainer.LeftToolStripPanel.SuspendLayout();
-            this.toolStripContainer.TopToolStripPanel.SuspendLayout();
-            this.toolStripContainer.SuspendLayout();
-            this.tsCanvasTools.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            this.SuspendLayout();
+            timerPaint = new System.Windows.Forms.Timer(components);
+            skiaControl = new SkHybridControl();
+            timerBufferedChangeQueue = new System.Windows.Forms.Timer(components);
+            bgWorkerBufferedChangeQueue = new System.ComponentModel.BackgroundWorker();
+            toolStripContainer = new System.Windows.Forms.ToolStripContainer();
+            tsCanvasTools = new System.Windows.Forms.ToolStrip();
+            btnPointer = new System.Windows.Forms.ToolStripButton();
+            btnWorldEditOrigin = new System.Windows.Forms.ToolStripButton();
+            btnPencil = new System.Windows.Forms.ToolStripButton();
+            btnBrush = new System.Windows.Forms.ToolStripButton();
+            btnFill = new System.Windows.Forms.ToolStripButton();
+            btnPicker = new System.Windows.Forms.ToolStripButton();
+            btnEraser = new System.Windows.Forms.ToolStripButton();
+            btnSuggester = new System.Windows.Forms.ToolStripButton();
+            toolStrip1 = new System.Windows.Forms.ToolStrip();
+            lblBrushWidth = new System.Windows.Forms.ToolStripLabel();
+            btnBrushWidthMinus = new System.Windows.Forms.ToolStripButton();
+            tbxBrushWidth = new System.Windows.Forms.ToolStripTextBox();
+            btnBrushWidthAdd = new System.Windows.Forms.ToolStripButton();
+            btnMaterialCombination = new System.Windows.Forms.ToolStripButton();
+            lblHoverInfo = new System.Windows.Forms.ToolStripLabel();
+            btnPaintLayerFilter = new System.Windows.Forms.ToolStripButton();
+            PointerContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(components);
+            filterMaterialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            setWorldEditOriginHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripContainer.ContentPanel.SuspendLayout();
+            toolStripContainer.LeftToolStripPanel.SuspendLayout();
+            toolStripContainer.TopToolStripPanel.SuspendLayout();
+            toolStripContainer.SuspendLayout();
+            tsCanvasTools.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            PointerContextMenuStrip.SuspendLayout();
+            SuspendLayout();
             // 
             // timerPaint
             // 
-            this.timerPaint.Enabled = true;
-            this.timerPaint.Interval = 10;
-            this.timerPaint.Tick += new System.EventHandler(this.timerPaint_Tick);
+            timerPaint.Enabled = true;
+            timerPaint.Interval = Logic.IO.Config.Constants.DisplayRefreshIntervalMs;
+            timerPaint.Tick += timerPaint_Tick;
             // 
             // skiaControl
             // 
-            this.skiaControl.BackColor = System.Drawing.Color.IndianRed;
-            this.skiaControl.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("skiaControl.BackgroundImage")));
-            this.skiaControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.skiaControl.Location = new System.Drawing.Point(0, 0);
-            this.skiaControl.Name = "skiaControl";
-            this.skiaControl.Size = new System.Drawing.Size(561, 398);
-            this.skiaControl.TabIndex = 0;
-            this.skiaControl.PaintSurface += new System.EventHandler<PixelStacker.UI.Controls.GenericSKPaintSurfaceEventArgs>(this.skiaControl_PaintSurface);
-            this.skiaControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_Click);
-            this.skiaControl.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_DoubleClick);
-            this.skiaControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
-            this.skiaControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
-            this.skiaControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseUp);
+            skiaControl.BackColor = System.Drawing.Color.IndianRed;
+            skiaControl.BackgroundImage = (System.Drawing.Image)resources.GetObject("skiaControl.BackgroundImage");
+            skiaControl.BoxShadowOnEdges = Logic.IO.Config.Constants.SHOW_BOX_SHADOW_IN_UI;
+            skiaControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            skiaControl.Location = new System.Drawing.Point(0, 0);
+            skiaControl.Name = "skiaControl";
+            skiaControl.Size = new System.Drawing.Size(561, 398);
+            skiaControl.TabIndex = 0;
+            skiaControl.PaintSurface += skiaControl_PaintSurface;
+            skiaControl.MouseClick += ImagePanel_Click;
+            skiaControl.MouseDoubleClick += ImagePanel_DoubleClick;
+            skiaControl.MouseDown += ImagePanel_MouseDown;
+            skiaControl.MouseMove += ImagePanel_MouseMove;
+            skiaControl.MouseUp += ImagePanel_MouseUp;
             // 
             // timerBufferedChangeQueue
             // 
-            this.timerBufferedChangeQueue.Enabled = true;
-            this.timerBufferedChangeQueue.Interval = 10;
-            this.timerBufferedChangeQueue.Tick += new System.EventHandler(this.timerBufferedChangeQueue_Tick);
+            timerBufferedChangeQueue.Enabled = true;
+            timerBufferedChangeQueue.Interval = Logic.IO.Config.Constants.DisplayRefreshIntervalMs;
+            timerBufferedChangeQueue.Tick += timerBufferedChangeQueue_Tick;
             // 
             // bgWorkerBufferedChangeQueue
             // 
-            this.bgWorkerBufferedChangeQueue.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorkerBufferedChangeQueue_DoWork);
-            this.bgWorkerBufferedChangeQueue.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgWorkerBufferedChangeQueue_RunWorkerCompleted);
+            bgWorkerBufferedChangeQueue.DoWork += bgWorkerBufferedChangeQueue_DoWork;
+            bgWorkerBufferedChangeQueue.RunWorkerCompleted += BgWorkerBufferedChangeQueue_RunWorkerCompleted;
             // 
             // toolStripContainer
             // 
             // 
             // toolStripContainer.BottomToolStripPanel
             // 
-            this.toolStripContainer.BottomToolStripPanel.Enabled = false;
-            this.toolStripContainer.BottomToolStripPanelVisible = false;
+            toolStripContainer.BottomToolStripPanel.Enabled = false;
+            toolStripContainer.BottomToolStripPanelVisible = false;
             // 
             // toolStripContainer.ContentPanel
             // 
-            this.toolStripContainer.ContentPanel.Controls.Add(this.skiaControl);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(561, 398);
-            this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            toolStripContainer.ContentPanel.Controls.Add(skiaControl);
+            toolStripContainer.ContentPanel.Size = new System.Drawing.Size(561, 398);
+            toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer.LeftToolStripPanel
             // 
-            this.toolStripContainer.LeftToolStripPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.toolStripContainer.LeftToolStripPanel.Controls.Add(this.tsCanvasTools);
-            this.toolStripContainer.LeftToolStripPanel.MinimumSize = new System.Drawing.Size(48, 0);
-            this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(611, 441);
-            this.toolStripContainer.TabIndex = 2;
-            this.toolStripContainer.Text = "toolStripContainer1";
+            toolStripContainer.LeftToolStripPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            toolStripContainer.LeftToolStripPanel.Controls.Add(tsCanvasTools);
+            toolStripContainer.LeftToolStripPanel.MinimumSize = new System.Drawing.Size(48, 0);
+            toolStripContainer.Location = new System.Drawing.Point(0, 0);
+            toolStripContainer.Name = "toolStripContainer";
+            toolStripContainer.Size = new System.Drawing.Size(611, 441);
+            toolStripContainer.TabIndex = 2;
+            toolStripContainer.Text = "toolStripContainer1";
             // 
             // toolStripContainer.TopToolStripPanel
             // 
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            toolStripContainer.TopToolStripPanel.Controls.Add(toolStrip1);
             // 
             // tsCanvasTools
             // 
-            this.tsCanvasTools.Dock = System.Windows.Forms.DockStyle.None;
-            this.tsCanvasTools.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.tsCanvasTools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnPanZoom,
-            this.btnWorldEditOrigin,
-            this.btnPencil,
-            this.btnBrush,
-            this.btnFill,
-            this.btnPicker,
-            this.btnEraser,
-            this.btnSuggester});
-            this.tsCanvasTools.Location = new System.Drawing.Point(0, 4);
-            this.tsCanvasTools.MinimumSize = new System.Drawing.Size(48, 0);
-            this.tsCanvasTools.Name = "tsCanvasTools";
-            this.tsCanvasTools.Padding = new System.Windows.Forms.Padding(0);
-            this.tsCanvasTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tsCanvasTools.Size = new System.Drawing.Size(50, 292);
-            this.tsCanvasTools.TabIndex = 0;
-            this.tsCanvasTools.LayoutStyleChanged += new System.EventHandler(this.toolstrip_LayoutStyleChanged);
+            tsCanvasTools.Dock = System.Windows.Forms.DockStyle.None;
+            tsCanvasTools.ImageScalingSize = new System.Drawing.Size(32, 32);
+            tsCanvasTools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnPointer, btnWorldEditOrigin, btnPencil, btnBrush, btnFill, btnPicker, btnEraser, btnSuggester });
+            tsCanvasTools.Location = new System.Drawing.Point(0, 4);
+            tsCanvasTools.MinimumSize = new System.Drawing.Size(48, 0);
+            tsCanvasTools.Name = "tsCanvasTools";
+            tsCanvasTools.Padding = new System.Windows.Forms.Padding(0);
+            tsCanvasTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            tsCanvasTools.Size = new System.Drawing.Size(50, 292);
+            tsCanvasTools.TabIndex = 0;
+            tsCanvasTools.LayoutStyleChanged += toolstrip_LayoutStyleChanged;
             // 
-            // btnPanZoom
+            // btnPointer
             // 
-            this.btnPanZoom.AutoSize = false;
-            this.btnPanZoom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(221)))), ((int)(((byte)(245)))));
-            this.btnPanZoom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnPanZoom.Checked = true;
-            this.btnPanZoom.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.btnPanZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPanZoom.Image = global::PixelStacker.Resources.UIResources.all_directions;
-            this.btnPanZoom.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPanZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPanZoom.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnPanZoom.Name = "btnPanZoom";
-            this.btnPanZoom.Size = new System.Drawing.Size(40, 40);
-            this.btnPanZoom.ToolTipText = "Pan and Zoom";
-            this.btnPanZoom.Click += new System.EventHandler(this.Toolbox_OnClickPanZoom);
+            btnPointer.AutoSize = false;
+            btnPointer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btnPointer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnPointer.Image = Resources.UIResources.pointer;
+            btnPointer.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            btnPointer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnPointer.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            btnPointer.Name = "btnPointer";
+            btnPointer.Size = new System.Drawing.Size(40, 40);
+            btnPointer.ToolTipText = "Pencil";
+            btnPointer.Click += Toolbox_OnClickPointer;
             // 
             // btnWorldEditOrigin
             // 
-            this.btnWorldEditOrigin.AutoSize = false;
-            this.btnWorldEditOrigin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnWorldEditOrigin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnWorldEditOrigin.Image = global::PixelStacker.Resources.UIResources.compass;
-            this.btnWorldEditOrigin.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnWorldEditOrigin.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnWorldEditOrigin.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnWorldEditOrigin.Name = "btnWorldEditOrigin";
-            this.btnWorldEditOrigin.Size = new System.Drawing.Size(40, 40);
-            this.btnWorldEditOrigin.ToolTipText = "World Edit Origin";
-            this.btnWorldEditOrigin.Click += new System.EventHandler(this.Toolbox_OnClickWorldEditOrigin);
+            btnWorldEditOrigin.AutoSize = false;
+            btnWorldEditOrigin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btnWorldEditOrigin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnWorldEditOrigin.Image = Resources.UIResources.compass;
+            btnWorldEditOrigin.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            btnWorldEditOrigin.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnWorldEditOrigin.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            btnWorldEditOrigin.Name = "btnWorldEditOrigin";
+            btnWorldEditOrigin.Size = new System.Drawing.Size(40, 40);
+            btnWorldEditOrigin.ToolTipText = "World Edit Origin";
+            btnWorldEditOrigin.Click += Toolbox_OnClickWorldEditOrigin;
             // 
             // btnPencil
             // 
-            this.btnPencil.AutoSize = false;
-            this.btnPencil.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnPencil.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPencil.Image = global::PixelStacker.Resources.UIResources.pencil_1;
-            this.btnPencil.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPencil.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPencil.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnPencil.Name = "btnPencil";
-            this.btnPencil.Size = new System.Drawing.Size(40, 40);
-            this.btnPencil.ToolTipText = "Pencil";
-            this.btnPencil.Click += new System.EventHandler(this.Toolbox_OnClickPencil);
+            btnPencil.AutoSize = false;
+            btnPencil.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btnPencil.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnPencil.Image = Resources.UIResources.pencil_1;
+            btnPencil.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            btnPencil.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnPencil.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            btnPencil.Name = "btnPencil";
+            btnPencil.Size = new System.Drawing.Size(40, 40);
+            btnPencil.ToolTipText = "Pencil";
+            btnPencil.Click += Toolbox_OnClickPencil;
             // 
             // btnBrush
             // 
-            this.btnBrush.AutoSize = false;
-            this.btnBrush.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnBrush.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnBrush.Image = global::PixelStacker.Resources.UIResources.paintbrush;
-            this.btnBrush.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnBrush.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBrush.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnBrush.Name = "btnBrush";
-            this.btnBrush.Size = new System.Drawing.Size(40, 40);
-            this.btnBrush.ToolTipText = "Paint brush";
-            this.btnBrush.Click += new System.EventHandler(this.Toolbox_OnClickBrush);
+            btnBrush.AutoSize = false;
+            btnBrush.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btnBrush.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnBrush.Image = Resources.UIResources.paintbrush;
+            btnBrush.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            btnBrush.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnBrush.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            btnBrush.Name = "btnBrush";
+            btnBrush.Size = new System.Drawing.Size(40, 40);
+            btnBrush.ToolTipText = "Paint brush";
+            btnBrush.Click += Toolbox_OnClickBrush;
             // 
             // btnFill
             // 
-            this.btnFill.AutoSize = false;
-            this.btnFill.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnFill.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFill.Image = global::PixelStacker.Resources.UIResources.paint_bucket;
-            this.btnFill.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnFill.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFill.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnFill.Name = "btnFill";
-            this.btnFill.Size = new System.Drawing.Size(40, 40);
-            this.btnFill.ToolTipText = "Fill";
-            this.btnFill.Click += new System.EventHandler(this.Toolbox_OnClickFill);
+            btnFill.AutoSize = false;
+            btnFill.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btnFill.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnFill.Image = Resources.UIResources.paint_bucket;
+            btnFill.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            btnFill.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnFill.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            btnFill.Name = "btnFill";
+            btnFill.Size = new System.Drawing.Size(40, 40);
+            btnFill.ToolTipText = "Fill";
+            btnFill.Click += Toolbox_OnClickFill;
             // 
             // btnPicker
             // 
-            this.btnPicker.AutoSize = false;
-            this.btnPicker.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnPicker.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPicker.Image = global::PixelStacker.Resources.UIResources.dropper;
-            this.btnPicker.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPicker.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPicker.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnPicker.Name = "btnPicker";
-            this.btnPicker.Size = new System.Drawing.Size(40, 40);
-            this.btnPicker.ToolTipText = "Color Picker";
-            this.btnPicker.Click += new System.EventHandler(this.Toolbox_OnClickPicker);
+            btnPicker.AutoSize = false;
+            btnPicker.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btnPicker.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnPicker.Image = Resources.UIResources.dropper;
+            btnPicker.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            btnPicker.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnPicker.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            btnPicker.Name = "btnPicker";
+            btnPicker.Size = new System.Drawing.Size(40, 40);
+            btnPicker.ToolTipText = "Color Picker";
+            btnPicker.Click += Toolbox_OnClickPicker;
             // 
             // btnEraser
             // 
-            this.btnEraser.AutoSize = false;
-            this.btnEraser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnEraser.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnEraser.Image = global::PixelStacker.Resources.UIResources.eraser;
-            this.btnEraser.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnEraser.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEraser.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnEraser.Name = "btnEraser";
-            this.btnEraser.Size = new System.Drawing.Size(40, 40);
-            this.btnEraser.ToolTipText = "Eraser";
-            this.btnEraser.Click += new System.EventHandler(this.Toolbox_OnClickEraser);
+            btnEraser.AutoSize = false;
+            btnEraser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btnEraser.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnEraser.Image = Resources.UIResources.eraser;
+            btnEraser.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            btnEraser.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnEraser.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            btnEraser.Name = "btnEraser";
+            btnEraser.Size = new System.Drawing.Size(40, 40);
+            btnEraser.ToolTipText = "Eraser";
+            btnEraser.Click += Toolbox_OnClickEraser;
             // 
             // btnSuggester
             // 
-            this.btnSuggester.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSuggester.Image = global::PixelStacker.Resources.UIResources.color;
-            this.btnSuggester.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSuggester.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSuggester.Name = "btnSuggester";
-            this.btnSuggester.Size = new System.Drawing.Size(49, 36);
-            this.btnSuggester.Text = "Color Suggestions";
-            this.btnSuggester.Visible = false;
-            this.btnSuggester.Click += new System.EventHandler(this.btnSuggester_Click);
+            btnSuggester.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnSuggester.Image = Resources.UIResources.color;
+            btnSuggester.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            btnSuggester.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnSuggester.Name = "btnSuggester";
+            btnSuggester.Size = new System.Drawing.Size(49, 36);
+            btnSuggester.Text = "Color Suggestions";
+            btnSuggester.Visible = false;
+            btnSuggester.Click += btnSuggester_Click;
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(38, 38);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblBrushWidth,
-            this.btnBrushWidthMinus,
-            this.tbxBrushWidth,
-            this.btnBrushWidthAdd,
-            this.btnMaterialCombination,
-            this.lblHoverInfo,
-            this.btnPaintLayerFilter});
-            this.toolStrip1.Location = new System.Drawing.Point(4, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(433, 43);
-            this.toolStrip1.TabIndex = 0;
+            toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            toolStrip1.ImageScalingSize = new System.Drawing.Size(38, 38);
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { lblBrushWidth, btnBrushWidthMinus, tbxBrushWidth, btnBrushWidthAdd, btnMaterialCombination, lblHoverInfo, btnPaintLayerFilter });
+            toolStrip1.Location = new System.Drawing.Point(4, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new System.Drawing.Size(433, 43);
+            toolStrip1.TabIndex = 0;
             // 
             // lblBrushWidth
             // 
-            this.lblBrushWidth.Name = "lblBrushWidth";
-            this.lblBrushWidth.Size = new System.Drawing.Size(86, 40);
-            this.lblBrushWidth.Text = "Brush width";
+            lblBrushWidth.Name = "lblBrushWidth";
+            lblBrushWidth.Size = new System.Drawing.Size(86, 40);
+            lblBrushWidth.Text = "Brush width";
             // 
             // btnBrushWidthMinus
             // 
-            this.btnBrushWidthMinus.AutoSize = false;
-            this.btnBrushWidthMinus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnBrushWidthMinus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnBrushWidthMinus.Image = ((System.Drawing.Image)(resources.GetObject("btnBrushWidthMinus.Image")));
-            this.btnBrushWidthMinus.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBrushWidthMinus.Name = "btnBrushWidthMinus";
-            this.btnBrushWidthMinus.Size = new System.Drawing.Size(24, 24);
-            this.btnBrushWidthMinus.Text = "-";
-            this.btnBrushWidthMinus.Click += new System.EventHandler(this.btnBrushWidthMinus_Click);
+            btnBrushWidthMinus.AutoSize = false;
+            btnBrushWidthMinus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            btnBrushWidthMinus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            btnBrushWidthMinus.Image = (System.Drawing.Image)resources.GetObject("btnBrushWidthMinus.Image");
+            btnBrushWidthMinus.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnBrushWidthMinus.Name = "btnBrushWidthMinus";
+            btnBrushWidthMinus.Size = new System.Drawing.Size(24, 24);
+            btnBrushWidthMinus.Text = "-";
+            btnBrushWidthMinus.Click += btnBrushWidthMinus_Click;
             // 
             // tbxBrushWidth
             // 
-            this.tbxBrushWidth.AutoSize = false;
-            this.tbxBrushWidth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbxBrushWidth.Name = "tbxBrushWidth";
-            this.tbxBrushWidth.Size = new System.Drawing.Size(50, 27);
-            this.tbxBrushWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxBrushWidth_KeyPress);
-            this.tbxBrushWidth.TextChanged += new System.EventHandler(this.tbxBrushWidth_TextChanged);
+            tbxBrushWidth.AutoSize = false;
+            tbxBrushWidth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            tbxBrushWidth.Name = "tbxBrushWidth";
+            tbxBrushWidth.Size = new System.Drawing.Size(50, 27);
+            tbxBrushWidth.KeyPress += tbxBrushWidth_KeyPress;
+            tbxBrushWidth.TextChanged += tbxBrushWidth_TextChanged;
             // 
             // btnBrushWidthAdd
             // 
-            this.btnBrushWidthAdd.AutoSize = false;
-            this.btnBrushWidthAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnBrushWidthAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnBrushWidthAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBrushWidthAdd.Name = "btnBrushWidthAdd";
-            this.btnBrushWidthAdd.Size = new System.Drawing.Size(24, 24);
-            this.btnBrushWidthAdd.Text = "+";
-            this.btnBrushWidthAdd.Click += new System.EventHandler(this.btnBrushWidthAdd_Click);
+            btnBrushWidthAdd.AutoSize = false;
+            btnBrushWidthAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            btnBrushWidthAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            btnBrushWidthAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnBrushWidthAdd.Name = "btnBrushWidthAdd";
+            btnBrushWidthAdd.Size = new System.Drawing.Size(24, 24);
+            btnBrushWidthAdd.Text = "+";
+            btnBrushWidthAdd.Click += btnBrushWidthAdd_Click;
             // 
             // btnMaterialCombination
             // 
-            this.btnMaterialCombination.AutoSize = false;
-            this.btnMaterialCombination.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnMaterialCombination.Image = ((System.Drawing.Image)(resources.GetObject("btnMaterialCombination.Image")));
-            this.btnMaterialCombination.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnMaterialCombination.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.btnMaterialCombination.Name = "btnMaterialCombination";
-            this.btnMaterialCombination.Size = new System.Drawing.Size(40, 40);
-            this.btnMaterialCombination.Text = "toolStripButton1";
-            this.btnMaterialCombination.Click += new System.EventHandler(this.btnMaterialCombination_Click);
+            btnMaterialCombination.AutoSize = false;
+            btnMaterialCombination.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnMaterialCombination.Image = (System.Drawing.Image)resources.GetObject("btnMaterialCombination.Image");
+            btnMaterialCombination.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnMaterialCombination.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            btnMaterialCombination.Name = "btnMaterialCombination";
+            btnMaterialCombination.Size = new System.Drawing.Size(40, 40);
+            btnMaterialCombination.Text = "toolStripButton1";
+            btnMaterialCombination.Click += btnMaterialCombination_Click;
             // 
             // lblHoverInfo
             // 
-            this.lblHoverInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.lblHoverInfo.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.lblHoverInfo.Name = "lblHoverInfo";
-            this.lblHoverInfo.Size = new System.Drawing.Size(124, 40);
-            this.lblHoverInfo.Text = "Mouse hover info";
+            lblHoverInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            lblHoverInfo.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            lblHoverInfo.Name = "lblHoverInfo";
+            lblHoverInfo.Size = new System.Drawing.Size(124, 40);
+            lblHoverInfo.Text = "Mouse hover info";
             // 
             // btnPaintLayerFilter
             // 
-            this.btnPaintLayerFilter.AutoSize = false;
-            this.btnPaintLayerFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPaintLayerFilter.Image = global::PixelStacker.Resources.UIResources.iso2_both_layers;
-            this.btnPaintLayerFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPaintLayerFilter.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.btnPaintLayerFilter.Name = "btnPaintLayerFilter";
-            this.btnPaintLayerFilter.Size = new System.Drawing.Size(40, 40);
-            this.btnPaintLayerFilter.Text = "toolStripButton1";
-            this.btnPaintLayerFilter.Click += new System.EventHandler(this.btnPaintLayerFilter_Click);
+            btnPaintLayerFilter.AutoSize = false;
+            btnPaintLayerFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnPaintLayerFilter.Image = Resources.UIResources.iso2_both_layers;
+            btnPaintLayerFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnPaintLayerFilter.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            btnPaintLayerFilter.Name = "btnPaintLayerFilter";
+            btnPaintLayerFilter.Size = new System.Drawing.Size(40, 40);
+            btnPaintLayerFilter.Text = "toolStripButton1";
+            btnPaintLayerFilter.Click += btnPaintLayerFilter_Click;
+            // 
+            // PointerContextMenuStrip
+            // 
+            PointerContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            PointerContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { filterMaterialsToolStripMenuItem, setWorldEditOriginHereToolStripMenuItem });
+            PointerContextMenuStrip.Name = "PointerContextMenuStrip";
+            PointerContextMenuStrip.Size = new System.Drawing.Size(213, 80);
+            // 
+            // filterMaterialsToolStripMenuItem
+            // 
+            filterMaterialsToolStripMenuItem.Name = "filterMaterialsToolStripMenuItem";
+            filterMaterialsToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            filterMaterialsToolStripMenuItem.Text = "Filter Materials";
+            // 
+            // setWorldEditOriginHereToolStripMenuItem
+            // 
+            setWorldEditOriginHereToolStripMenuItem.Name = "setWorldEditOriginHereToolStripMenuItem";
+            setWorldEditOriginHereToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            setWorldEditOriginHereToolStripMenuItem.Text = "Set WorldEdit origin";
+            setWorldEditOriginHereToolStripMenuItem.Click += setWorldEditOriginHereToolStripMenuItem_Click;
             // 
             // CanvasEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
-            this.Controls.Add(this.toolStripContainer);
-            this.Name = "CanvasEditor";
-            this.Size = new System.Drawing.Size(611, 441);
-            this.Load += new System.EventHandler(this.CanvasEditor_Load);
-            this.toolStripContainer.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer.LeftToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer.LeftToolStripPanel.PerformLayout();
-            this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer.TopToolStripPanel.PerformLayout();
-            this.toolStripContainer.ResumeLayout(false);
-            this.toolStripContainer.PerformLayout();
-            this.tsCanvasTools.ResumeLayout(false);
-            this.tsCanvasTools.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackgroundImage = Resources.UIResources.bg_imagepanel;
+            Controls.Add(toolStripContainer);
+            Name = "CanvasEditor";
+            Size = new System.Drawing.Size(611, 441);
+            Load += CanvasEditor_Load;
+            toolStripContainer.ContentPanel.ResumeLayout(false);
+            toolStripContainer.LeftToolStripPanel.ResumeLayout(false);
+            toolStripContainer.LeftToolStripPanel.PerformLayout();
+            toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+            toolStripContainer.TopToolStripPanel.PerformLayout();
+            toolStripContainer.ResumeLayout(false);
+            toolStripContainer.PerformLayout();
+            tsCanvasTools.ResumeLayout(false);
+            tsCanvasTools.PerformLayout();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            PointerContextMenuStrip.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 
@@ -381,7 +389,6 @@ namespace PixelStacker.UI.Controls
         private System.Windows.Forms.ToolStripButton btnBrushWidthAdd;
         private System.Windows.Forms.ToolStripTextBox tbxBrushWidth;
         private System.Windows.Forms.ToolStripButton btnBrushWidthMinus;
-        private System.Windows.Forms.ToolStripButton btnPanZoom;
         private System.Windows.Forms.ToolStripButton btnEraser;
         private System.Windows.Forms.ToolStripButton btnPencil;
         private System.Windows.Forms.ToolStripButton btnBrush;
@@ -392,5 +399,9 @@ namespace PixelStacker.UI.Controls
         public System.Windows.Forms.ToolStripContainer toolStripContainer;
         private System.Windows.Forms.ToolStripButton btnPaintLayerFilter;
         private System.Windows.Forms.ToolStripButton btnSuggester;
+        private System.Windows.Forms.ToolStripButton btnPointer;
+        public System.Windows.Forms.ContextMenuStrip PointerContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem filterMaterialsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setWorldEditOriginHereToolStripMenuItem;
     }
 }

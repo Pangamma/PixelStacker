@@ -154,7 +154,7 @@
   "Tools_BrushWidth": "Borstelbreedte",
   "Tools_Eraser": "Wissen",
   "Tools_Fill": "Vullen",
-  "Tools_PanZoom": "Pannen en zoomen",
+  "CanvasEditor_DisableGhostImages": "Spookbeelden uitschakelen",
   "Tools_Pencil": "Potlood",
   "Tools_Picker": "Kleur kiezer",
   "Tools_WEOrigin": "Wereld Bewerk oorsprong selector",
@@ -176,5 +176,14 @@
   "Light Theme": "Licht thema",
   "Smooth Theme": "Vlot thema",
   "Theme": "Thema",
-  "Similar_Combinations": "Vergelijkbare combinaties"
+  "Similar_Combinations": "Vergelijkbare combinaties",
+  "CanvasEditor_EnableGhostImages": "Spookbeelden inschakelen",
+  "CanvasEditor_FilterMaterials": "Filtermaterialen",
+  "CanvasEditor_Hide_0": "Verberg {0}",
+  "CanvasEditor_SetWorldEditOrigin": "Oorspronkelijke \"WorldEdit\" instellen",
+  "CanvasEditor_ShowOnly_0": "Alleen {0} weergeven",
+  "CanvasEditor_Show_0": "Toon {0}",
+  "HideAll": "Verberg alles",
+  "ShowAll": "Alles weergeven",
+  "Tools_Pointer": "Wijzer"
 }

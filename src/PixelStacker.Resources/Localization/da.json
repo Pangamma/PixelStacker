@@ -154,7 +154,7 @@
   "Tools_BrushWidth": "Børstebredde",
   "Tools_Eraser": "Slette",
   "Tools_Fill": "Fylde",
-  "Tools_PanZoom": "Panorer og zoom",
+  "CanvasEditor_DisableGhostImages": "Deaktiver spøgelsesbilleder",
   "Tools_Pencil": "Blyant",
   "Tools_Picker": "Farvevælger",
   "Tools_WEOrigin": "World Edit oprindelsesvælger",
@@ -176,5 +176,14 @@
   "Light Theme": "Lys tema",
   "Smooth Theme": "Glat tema",
   "Theme": "Tema",
-  "Similar_Combinations": "Lignende kombinationer"
+  "Similar_Combinations": "Lignende kombinationer",
+  "CanvasEditor_EnableGhostImages": "Aktiver spøgelsesbilleder",
+  "CanvasEditor_FilterMaterials": "Filtermaterialer",
+  "CanvasEditor_Hide_0": "Skjul {0}",
+  "CanvasEditor_SetWorldEditOrigin": "Indstil \"WorldEdit\" oprindelse",
+  "CanvasEditor_ShowOnly_0": "Vis kun {0}",
+  "CanvasEditor_Show_0": "Vis {0}",
+  "HideAll": "Skjul alle",
+  "ShowAll": "Vis alle",
+  "Tools_Pointer": "Pointer"
 }

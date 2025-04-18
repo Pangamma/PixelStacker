@@ -25,9 +25,11 @@ namespace PixelStacker.UI
             this.toggleBorderToolStripMenuItem.Checked = opts.ViewerSettings.IsShowBorder;
             this.horizontalToolStripMenuItem.Checked = !opts.IsSideView;
             this.verticalToolStripMenuItem.Checked = opts.IsSideView;
+
             this.showBottomLayerToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == 0;
             this.showTopLayerToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == 1;
             this.showBothLayersToolStripMenuItem.Checked = opts.ViewerSettings.ZLayerFilter == null;
+
             this.toggleShadowsToolStripMenuItem.Checked = opts.ViewerSettings.IsShadowRenderingEnabled;
             this.tsTextureSize16.Checked = opts.ViewerSettings.TextureSize == 16;
             this.tsTextureSize32.Checked = opts.ViewerSettings.TextureSize == 32;
@@ -128,19 +130,7 @@ namespace PixelStacker.UI
             this.Options.ViewerSettings.IsShadowRenderingEnabled = !this.Options.ViewerSettings.IsShadowRenderingEnabled;
             this.toggleShadowsToolStripMenuItem.Checked = this.Options.ViewerSettings.IsShadowRenderingEnabled;
             this.Options.Save();
-
-            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
-            {
-                var self = this;
-                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
-                {
-                    await self.InvokeEx(async c =>
-                    {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
-                        c.ShowCanvasEditor();
-                    });
-                }));
-            }
+            await TriggerCanvasEditorRerender();
         }
 
         private void undoToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -192,60 +182,39 @@ namespace PixelStacker.UI
 
         private async void showBothLayersToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            if (this.Options.ViewerSettings.ZLayerFilter == null)
+            {
+                return;
+            }
+
             this.Options.ViewerSettings.ZLayerFilter = null;
             this.Options.Save();
             this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
-            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
-            {
-                var self = this;
-                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
-                {
-                    await self.InvokeEx(async c =>
-                    {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
-                        c.ShowCanvasEditor();
-                    });
-                }));
-            }
+            await TriggerCanvasEditorRerender();
         }
 
         private async void showBottomLayerToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            if (this.Options.ViewerSettings.ZLayerFilter == 0)
+            {
+                return;
+            }
             this.Options.ViewerSettings.ZLayerFilter = 0;
             this.Options.Save();
             this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
-            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
-            {
-                var self = this;
-                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
-                {
-                    await self.InvokeEx(async c =>
-                    {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
-                        c.ShowCanvasEditor();
-                    });
-
-                }));
-            }
+            await TriggerCanvasEditorRerender();
         }
 
         private async void showTopLayerToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            if (this.Options.ViewerSettings.ZLayerFilter == 1)
+            {
+                return;
+            }
             this.Options.ViewerSettings.ZLayerFilter = 1;
             this.Options.Save();
             this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
-            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
-            {
-                var self = this;
-                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
-                {
-                    await self.InvokeEx(async c =>
-                    {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
-                        c.ShowCanvasEditor();
-                    });
-                }));
-            }
+            await TriggerCanvasEditorRerender();
         }
 
         private async void tsTextureSize16_Click(object sender, System.EventArgs e)
@@ -263,19 +232,7 @@ namespace PixelStacker.UI
             this.tsTextureSize64.Checked = this.Options.ViewerSettings.TextureSize == 64;
             this.Options.Save();
             this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
-
-            if (this.IsCanvasEditorVisible && this.RenderedCanvas != null)
-            {
-                var self = this;
-                await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
-                {
-                    await self.InvokeEx(async c =>
-                    {
-                        await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, c.canvasEditor.PanZoomSettings, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
-                        c.ShowCanvasEditor();
-                    });
-                }));
-            }
+            await TriggerCanvasEditorRerender();
         }
     }
 }

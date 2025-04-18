@@ -8,12 +8,14 @@ using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources;
 using PixelStacker.Resources.Themes;
+using PixelStacker.UI.Helpers;
 using SkiaSharp;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,7 +37,7 @@ namespace PixelStacker.UI.Controls
         public CanvasEditor()
         {
             InitializeComponent();
-            this.timerBufferedChangeQueue.Interval = 20;
+            this.timerBufferedChangeQueue.Interval = 2 * Constants.DisplayRefreshIntervalMs;
             this.timerPaint.Interval = Constants.DisplayRefreshIntervalMs;
             tsCanvasTools.Renderer = new CustomToolStripButtonRenderer();
             this.BackgroundImage = Resources.UIResources.bg_imagepanel;
@@ -53,8 +55,8 @@ namespace PixelStacker.UI.Controls
             OnLoadToolstrips();
             this.MainForm = this.ParentForm as MainForm;
             this.Options = this.MainForm.Options;
-            this.PanZoomTool = new PanZoomTool(this);
-            this.CurrentTool = new PanZoomTool(this);
+            this.PanZoomTool = new PointerTool(this);
+            this.CurrentTool = new PointerTool(this);
 
             this.tbxBrushWidth.Text = this.Options.Tools?.BrushWidth.ToString();
             using var img = this.Options?.Tools?.PrimaryColor?.GetImage(this.Options?.IsSideView ?? false).SKBitmapToBitmap()
@@ -77,26 +79,30 @@ namespace PixelStacker.UI.Controls
             btnMaterialCombination.ToolTipText = mcAfter.Top.Label + ", " + mcAfter.Bottom.Label;
         }
 
-
-        private ConcurrentQueue<List<RenderRecord>> OnHistoryChangeQueue = new ConcurrentQueue<List<RenderRecord>>();
-
-        public async Task SetCanvas(CancellationToken? worker, RenderedCanvas canvas, PanZoomSettings pz, SpecialCanvasRenderSettings vs)
+        public async Task SetCanvas(CancellationToken? worker, RenderedCanvas canvas, Func<PanZoomSettings> pzFunc, IReadonlyCanvasViewerSettings vs)
         {
-            this.BackgroundImage = UIResources.bg_imagepanel;
-
-            pz ??= PanZoomSettings.CalculateDefaultPanZoomSettings(canvas.Width, canvas.Height, this.Width, this.Height);
-            // possible to use faster math?
-
+            this.BackgroundImage = ThemeHelper.bg_imagepanel;
             ProgressX.Report(0, "Rendering block plan to viewing window.");
             this.Canvas = canvas;
-            this.PanZoomSettings = pz;
-            var painter = await RenderedCanvasPainter.Create(worker, canvas, vs);
-            this.Painter = painter;
 
-            this.RepaintRequested = true;
-            // DO not set these until ready
+            //this.PanZoomSettings = pz;
+            var self = this;
+            // Don't do heavy things on UI thread.
+            await Task.Run(async () =>
+            {
+                worker?.ThrowIfCancellationRequested();
+                var painter = await RenderedCanvasPainter.Create(worker, canvas, vs);
+                await self.InvokeEx(async c =>
+                {
+                    var pz = pzFunc() ?? PanZoomSettings.CalculateDefaultPanZoomSettings(canvas.Width, canvas.Height, this.Width, this.Height);
+                    c.PanZoomSettings = pz;
+                    c.Painter = painter;
+                    c.RepaintRequested = true;
+                    // Do not set these until ready
 
-            await (this.MaterialPickerForm?.SetCanvas(canvas) ?? Task.CompletedTask);
+                    await (c.MaterialPickerForm?.SetCanvas(canvas) ?? Task.CompletedTask);
+                });
+            });
         }
     }
 }

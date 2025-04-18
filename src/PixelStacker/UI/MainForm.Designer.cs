@@ -32,7 +32,7 @@ namespace PixelStacker.UI
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            Logic.IO.Config.PanZoomSettings panZoomSettings1 = new Logic.IO.Config.PanZoomSettings();
+            Logic.IO.Config.PanZoomSettings panZoomSettings3 = new Logic.IO.Config.PanZoomSettings();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -186,7 +186,7 @@ namespace PixelStacker.UI
             // 
             selectMaterialsToolStripMenuItem.Name = "selectMaterialsToolStripMenuItem";
             selectMaterialsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E;
-            selectMaterialsToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            selectMaterialsToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             selectMaterialsToolStripMenuItem.Text = "Select Materials";
             selectMaterialsToolStripMenuItem.Click += selectMaterialsToolStripMenuItem_Click;
             // 
@@ -194,21 +194,21 @@ namespace PixelStacker.UI
             // 
             preprocessingToolStripMenuItem.Name = "preprocessingToolStripMenuItem";
             preprocessingToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q;
-            preprocessingToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            preprocessingToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             preprocessingToolStripMenuItem.Text = "Color Reduction";
             preprocessingToolStripMenuItem.Click += preprocessingToolStripMenuItem_Click;
             // 
             // ditheringToolStripMenuItem
             // 
             ditheringToolStripMenuItem.Name = "ditheringToolStripMenuItem";
-            ditheringToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            ditheringToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             ditheringToolStripMenuItem.Text = "Dithering";
             ditheringToolStripMenuItem.Click += preprocessingToolStripMenuItem_Click;
             // 
             // sizingToolStripMenuItem
             // 
             sizingToolStripMenuItem.Name = "sizingToolStripMenuItem";
-            sizingToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            sizingToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             sizingToolStripMenuItem.Text = "Sizing";
             sizingToolStripMenuItem.Click += sizingToolStripMenuItem_Click;
             // 
@@ -216,7 +216,7 @@ namespace PixelStacker.UI
             // 
             orientationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { horizontalToolStripMenuItem, verticalToolStripMenuItem });
             orientationToolStripMenuItem.Name = "orientationToolStripMenuItem";
-            orientationToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            orientationToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             orientationToolStripMenuItem.Text = "Orientation";
             // 
             // horizontalToolStripMenuItem
@@ -239,7 +239,7 @@ namespace PixelStacker.UI
             // 
             renderToolStripMenuItem.Name = "renderToolStripMenuItem";
             renderToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R;
-            renderToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            renderToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             renderToolStripMenuItem.Text = "Render";
             renderToolStripMenuItem.Click += renderToolStripMenuItem_Click;
             // 
@@ -248,7 +248,7 @@ namespace PixelStacker.UI
             preRenderToolStripMenuItem.Name = "preRenderToolStripMenuItem";
             preRenderToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.R;
             preRenderToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
-            preRenderToolStripMenuItem.Text = "Pre-Render";
+            preRenderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_PreRender;
             preRenderToolStripMenuItem.Click += preRenderToolStripMenuItem_Click;
             // 
             // viewToolStripMenuItem
@@ -290,7 +290,7 @@ namespace PixelStacker.UI
             // 
             // layerFilteringToolStripMenuItem
             // 
-            layerFilteringToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { showTopLayerToolStripMenuItem, showBottomLayerToolStripMenuItem, showBothLayersToolStripMenuItem });
+            layerFilteringToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { showTopLayerToolStripMenuItem, showBothLayersToolStripMenuItem, showBottomLayerToolStripMenuItem });
             layerFilteringToolStripMenuItem.Name = "layerFilteringToolStripMenuItem";
             layerFilteringToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             layerFilteringToolStripMenuItem.Text = "Layer Filtering";
@@ -316,7 +316,7 @@ namespace PixelStacker.UI
             showBothLayersToolStripMenuItem.Checked = true;
             showBothLayersToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             showBothLayersToolStripMenuItem.Name = "showBothLayersToolStripMenuItem";
-            showBothLayersToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L;
+            showBothLayersToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Left;
             showBothLayersToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             showBothLayersToolStripMenuItem.Text = "Show Both Layers";
             showBothLayersToolStripMenuItem.Click += showBothLayersToolStripMenuItem_Click;
@@ -331,7 +331,7 @@ namespace PixelStacker.UI
             // toggleShadowsToolStripMenuItem
             // 
             toggleShadowsToolStripMenuItem.Name = "toggleShadowsToolStripMenuItem";
-            toggleShadowsToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            toggleShadowsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             toggleShadowsToolStripMenuItem.Text = "Render Shadows";
             toggleShadowsToolStripMenuItem.Click += toggleShadowsToolStripMenuItem_Click;
             // 
@@ -339,7 +339,7 @@ namespace PixelStacker.UI
             // 
             textureSizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tsTextureSize16, tsTextureSize32, tsTextureSize64 });
             textureSizeToolStripMenuItem.Name = "textureSizeToolStripMenuItem";
-            textureSizeToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            textureSizeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             textureSizeToolStripMenuItem.Text = "Texture Size";
             // 
             // tsTextureSize16
@@ -564,7 +564,7 @@ namespace PixelStacker.UI
             imageViewer.BackgroundImage = (System.Drawing.Image)resources.GetObject("imageViewer.BackgroundImage");
             imageViewer.Location = new System.Drawing.Point(0, 28);
             imageViewer.Name = "imageViewer";
-            imageViewer.PanZoomSettings = panZoomSettings1;
+            imageViewer.PanZoomSettings = panZoomSettings3;
             imageViewer.Size = new System.Drawing.Size(800, 393);
             imageViewer.TabIndex = 5;
             // 

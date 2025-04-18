@@ -47,9 +47,9 @@ namespace PixelStacker.Logic.IO.Formatters
         }
 
         public async Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
-            => await this.ExportAsync(canvas, new SpecialCanvasRenderSettings(), worker);
+            => await this.ExportAsync(canvas, new CanvasViewerSettings().ToReadonlyClone(), worker);
 
-        public async Task<byte[]> ExportAsync(PixelStackerProjectData canvas, SpecialCanvasRenderSettings srs, CancellationToken? worker = null)
+        public async Task<byte[]> ExportAsync(PixelStackerProjectData canvas, IReadonlyCanvasViewerSettings srs, CancellationToken? worker = null)
         {
             var painter = await RenderedCanvasPainter.Create(worker, new RenderedCanvas()
             {

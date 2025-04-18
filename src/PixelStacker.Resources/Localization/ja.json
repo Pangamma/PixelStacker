@@ -154,7 +154,7 @@
   "Tools_BrushWidth": "ブラシ幅",
   "Tools_Eraser": "消去",
   "Tools_Fill": "塗りつぶし",
-  "Tools_PanZoom": "パンとズーム",
+  "CanvasEditor_DisableGhostImages": "ゴーストイメージを無効にする",
   "Tools_Pencil": "鉛筆",
   "Tools_Picker": "カラーピッカー",
   "Tools_WEOrigin": "ワールドエディットオリジンセレクター",
@@ -176,5 +176,14 @@
   "Light Theme": "ライトテーマ",
   "Smooth Theme": "スムーズテーマ",
   "Theme": "テーマ",
-  "Similar_Combinations": "類似の組み合わせ"
+  "Similar_Combinations": "類似の組み合わせ",
+  "CanvasEditor_EnableGhostImages": "ゴーストイメージを有効にする",
+  "CanvasEditor_FilterMaterials": "フィルター材料",
+  "CanvasEditor_Hide_0": "{0}を非表示",
+  "CanvasEditor_SetWorldEditOrigin": "「WorldEdit」の原点を設定する",
+  "CanvasEditor_ShowOnly_0": "{0}のみ表示",
+  "CanvasEditor_Show_0": "{0}を表示",
+  "HideAll": "すべて非表示",
+  "ShowAll": "すべて表示",
+  "Tools_Pointer": "ポインター"
 }

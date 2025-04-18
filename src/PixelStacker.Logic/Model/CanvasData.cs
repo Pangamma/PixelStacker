@@ -32,8 +32,23 @@ namespace PixelStacker.Logic.Model
             BlocksMap[x, y] = PaletteID;
         }
 
+        /// <summary>
+        /// Returns the PaletteID of the block at the x,y coordinates. 
+        /// Performs no safety checks, so use it at your own educated risk.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public int GetDirectly(int x, int y)
+        {
+            return BlocksMap[x, y];
+        }
+
+
         public bool IsInRange(int x, int y)
         {
+            //(x >= left) && (x < right) && (y >= top) && (y < bottom);
             if (this.Width <= x || x < 0) return false;
             if (this.Height <= y || y < 0) return false;
             return true;
@@ -162,6 +177,30 @@ namespace PixelStacker.Logic.Model
             }
 
             return Task.FromResult(canvas);
+        }
+
+        public IEnumerable<CanvasIteratorData> GetEnumerator(SKRect rect)
+        {
+            if ((int)rect.Right > Width) throw new ArgumentOutOfRangeException(nameof(rect), "rect.Right > Width-1");
+            if ((int)rect.Left < 0) throw new ArgumentOutOfRangeException(nameof(rect), "rect.Left < 0");
+            if ((int)rect.Top < 0) throw new ArgumentOutOfRangeException(nameof(rect), "rect.Top < 0");
+            if ((int)rect.Bottom > Height) throw new ArgumentOutOfRangeException(nameof(rect), "rect.Bottom > Height-1");
+
+            int xMax = (int) (rect.Left + rect.Width);
+            int yMax = (int) (rect.Top + rect.Height);
+
+            for (int x = (int)rect.Left; x < xMax; x++)
+            {
+                for (int y = (int)rect.Top; y < yMax; y++)
+                {
+                    yield return new CanvasIteratorData
+                    {
+                        X = x,
+                        Y = y,
+                        PaletteID = BlocksMap[x, y]
+                    };
+                }
+            }
         }
 
         public IEnumerator<CanvasIteratorData> GetEnumerator()
