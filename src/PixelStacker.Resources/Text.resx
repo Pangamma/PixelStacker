@@ -211,7 +211,7 @@ Aka Pangamma</value>
     <value>Hide {0}</value>
   </data>
   <data name="CanvasEditor_SetWorldEditOrigin" xml:space="preserve">
-    <value>Set "WorldEdit" originn</value>
+    <value>Set "WorldEdit" origin</value>
   </data>
   <data name="CanvasEditor_ShowOnly_0" xml:space="preserve">
     <value>Show only {0}</value>
