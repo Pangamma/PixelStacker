@@ -154,7 +154,7 @@
   "Tools_BrushWidth": "Bürstenbreite",
   "Tools_Eraser": "Löschen",
   "Tools_Fill": "Füllen",
-  "Tools_PanZoom": "Schwenken und Zoomen",
+  "CanvasEditor_DisableGhostImages": "Geisterbilder deaktivieren",
   "Tools_Pencil": "Bleistift",
   "Tools_Picker": "Farbwähler",
   "Tools_WEOrigin": "Welt-Edit-Ursprungsauswahl",
@@ -176,5 +176,14 @@
   "Light Theme": "Lichtthema",
   "Smooth Theme": "Glattes Thema",
   "Theme": "Thema",
-  "Similar_Combinations": "Ähnliche Kombinationen"
+  "Similar_Combinations": "Ähnliche Kombinationen",
+  "CanvasEditor_EnableGhostImages": "Geisterbilder aktivieren",
+  "CanvasEditor_FilterMaterials": "Filtermaterialien",
+  "CanvasEditor_Hide_0": "{0} ausblenden",
+  "CanvasEditor_SetWorldEditOrigin": "Setze \"WorldEdit\" Ursprung",
+  "CanvasEditor_ShowOnly_0": "Nur {0} anzeigen",
+  "CanvasEditor_Show_0": "{0} anzeigen",
+  "HideAll": "Alle ausblenden",
+  "ShowAll": "Alle anzeigen",
+  "Tools_Pointer": "Zeiger"
 }

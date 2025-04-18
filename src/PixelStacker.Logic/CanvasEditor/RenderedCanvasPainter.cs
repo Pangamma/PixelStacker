@@ -17,28 +17,28 @@ namespace PixelStacker.Logic.CanvasEditor
     public partial class RenderedCanvasPainter : IDisposable
     {
         public RenderedCanvas Data { get; }
-        public SpecialCanvasRenderSettings SpecialRenderSettings { get; private set; }
+        public IReadonlyCanvasViewerSettings SpecialRenderSettings { get; private set; }
 
         [Obsolete("Try to pass in special render settings as well.", false)]
-        private RenderedCanvasPainter(RenderedCanvas data) : this(data, new SpecialCanvasRenderSettings()
+        private RenderedCanvasPainter(RenderedCanvas data) : this(data, new CanvasViewerSettings()
         {
-            EnableShadows = false,
+            IsShadowRenderingEnabled = false,
             TextureSize = Constants.DefaultTextureSize,
             IsSolidColors = false,
-        })
+        }.ToReadonlyClone())
         {
         }
 
-        private RenderedCanvasPainter(RenderedCanvas data, SpecialCanvasRenderSettings srs)
+        private RenderedCanvasPainter(RenderedCanvas data, IReadonlyCanvasViewerSettings srs)
         {
             Data = data;
-            Bitmaps = new List<SKBitmap[,]>();
+            Tiles = new List<SKImage[,]>();
             Padlocks = new List<object[,]>();
             History = new SuperHistory(Data);
             SpecialRenderSettings = srs;
         }
 
-        public static async Task<RenderedCanvasPainter> Create(CancellationToken? worker, RenderedCanvas data, SpecialCanvasRenderSettings srs, int maxLayers = 10)
+        public static async Task<RenderedCanvasPainter> Create(CancellationToken? worker, RenderedCanvas data, IReadonlyCanvasViewerSettings srs, int maxLayers = 10)
         {
             worker ??= CancellationToken.None;
             var canvas = new RenderedCanvasPainter(data, srs);
@@ -58,9 +58,8 @@ namespace PixelStacker.Logic.CanvasEditor
 
             canvas.Padlocks.Clear();
             canvas.Padlocks.AddRange(padlocks);
-            canvas.Bitmaps.Clear();
-            canvas.Bitmaps.AddRange(bms);
-
+            canvas.Tiles.Clear();
+            canvas.Tiles.AddRange(bms);
             return canvas;
         }
 
@@ -72,7 +71,7 @@ namespace PixelStacker.Logic.CanvasEditor
             {
                 if (disposing)
                 {
-                    foreach (var bms in Bitmaps)
+                    foreach (var bms in Tiles)
                     {
                         foreach (var bm in bms)
                         {
@@ -80,7 +79,7 @@ namespace PixelStacker.Logic.CanvasEditor
                         }
                     }
 
-                    Bitmaps.Clear();
+                    Tiles.Clear();
                 }
 
                 disposedValue = true;

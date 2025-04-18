@@ -29,13 +29,13 @@ namespace PixelStacker.UI
                 if (!loadedImageFilePath.EndsWith(".pxlzip"))
                 {
                     saveAsToolStripMenuItem_Click(sender, e);
-                } 
+                }
                 else
                 {
                     this.saveToFileName(loadedImageFilePath);
                 }
             }
-               
+
         }
 
         private void dlgSave_FileOk(object sender, CancelEventArgs e)
@@ -45,7 +45,7 @@ namespace PixelStacker.UI
             this.saveToFileName(fName);
         }
 
-        private async void saveToFileName (string fName)
+        private async void saveToFileName(string fName)
         {
             if (this.RenderedCanvas != null)
             {
@@ -91,7 +91,7 @@ namespace PixelStacker.UI
             if (this.loadedImageFilePath != null)
             {
                 await this.LoadFileFromPathAsync(this.loadedImageFilePath);
-            } 
+            }
             else
             {
                 var toKill = this.LoadedImage;
@@ -143,7 +143,7 @@ namespace PixelStacker.UI
                         c.RenderedCanvas = proj;
 
                         var pz = c.imageViewer.PanZoomSettings;
-                        await c.canvasEditor.SetCanvas(worker, proj, pz, new SpecialCanvasRenderSettings(c.Options.ViewerSettings));
+                        await c.canvasEditor.SetCanvas(worker, proj, () => c.imageViewer.PanZoomSettings, c.Options.ViewerSettings.ToReadonlyClone());
                         c.ShowCanvasEditor();
                     });
                 }));

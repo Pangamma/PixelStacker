@@ -7,6 +7,10 @@ namespace PixelStacker.EditorTools
 {
     public class CursorHelper
     {
+        public static readonly Lazy<Cursor> Pointer = new Lazy<Cursor>(() => {
+            return Cursors.Default;
+        });
+
         public static readonly Lazy<Cursor> Fill = new Lazy<Cursor>(() => {
             Bitmap pic = UIResources.paint_bucket_cur;
             IntPtr ptr = pic.GetHicon();

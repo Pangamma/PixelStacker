@@ -16,12 +16,14 @@ namespace PixelStacker
         [STAThread]
         static void Main()
         {
+
+#if !DEBUG
             try
             {
                 Application.ThreadException += ErrorReporter.OnThreadException;
                 AppDomain.CurrentDomain.UnhandledException += ErrorReporter.OnUnhandledException;
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-
+#endif
                 ResxHelper.InjectIntoTextResx();
                 Application.SetHighDpiMode(HighDpiMode.SystemAware);
                 Application.EnableVisualStyles();
@@ -31,13 +33,15 @@ namespace PixelStacker
                 ErrorReporter.MF = form;
                 //var form = new TestForm();
                 Application.Run(form);
+
+#if !DEBUG
             }
             catch (Exception ex)
             {
                 byte[] errData = ErrorReporter.SendExceptionInfoToZipBytes(System.Threading.CancellationToken.None, ex, new ErrorReportInfo() { Exception = ex }, false, "Error from main try catch").Result;
                 File.WriteAllBytes("pixelstacker-error.zip", errData);
             }
+#endif
         }
-
     }
 }

@@ -67,15 +67,16 @@ namespace PixelStacker.Resources
 
             return new SKRect(left: xOffset, top: yOffset, right: xOffset + textureSize, bottom: yOffset + textureSize);
         }
-
-        private static SKBitmap[] shadowSprites16 = new SKBitmap[256];
-        private static SKBitmap[] shadowSprites32 = new SKBitmap[256];
-        private static SKBitmap[] shadowSprites64 = new SKBitmap[256];
+            
+        private static SKImage[] shadowSprites16 = new SKImage[256];
+        private static SKImage[] shadowSprites32 = new SKImage[256];
+        private static SKImage[] shadowSprites64 = new SKImage[256];
         private static object padlock = new object();
-        public static SKBitmap GetSpriteIndividual(int textureSize, ShadeFrom dir)
+
+        public static SKImage GetSpriteIndividual(int textureSize, ShadeFrom dir)
         {
             int numDir = (int)dir;
-            SKBitmap[] shadowSprites;
+            SKImage[] shadowSprites;
 
             switch (textureSize)
             {
@@ -115,7 +116,7 @@ namespace PixelStacker.Resources
                                     dest: rectDST);
                             }
 
-                            shadowSprites[i] = bm;
+                            shadowSprites[i] = SKImage.FromBitmap(bm);
                         }
                     }
                 }

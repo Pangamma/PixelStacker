@@ -170,11 +170,20 @@
   "Tools_BrushWidth": "Ububanzi bebhulashi",
   "Tools_Eraser": "Sula",
   "Tools_Fill": "Gcwalisa",
-  "Tools_PanZoom": "Phena futhi usondeze",
+  "CanvasEditor_DisableGhostImages": "Khubaza izithombe zesipoki",
   "Tools_Pencil": "Ipensela",
   "Tools_Picker": "Isikhethi sombala",
   "Tools_WEOrigin": "Isikhethi soqobo sokuhlela umhlaba",
   "Top": "Phezulu",
   "Top_Material": "Izinto eziphezulu",
-  "Similar_Combinations": "Izinhlanganisela ezifanayo"
+  "Similar_Combinations": "Izinhlanganisela ezifanayo",
+  "CanvasEditor_EnableGhostImages": "Nika amandla izithombe eziyizipoki",
+  "CanvasEditor_FilterMaterials": "Hlunga izinto",
+  "CanvasEditor_Hide_0": "Fihla {0}",
+  "CanvasEditor_SetWorldEditOrigin": "Setha umsuka othi \"WorldEdit\".",
+  "CanvasEditor_ShowOnly_0": "Bonisa kuphela {0}",
+  "CanvasEditor_Show_0": "Bonisa {0}",
+  "HideAll": "Fihla konke",
+  "ShowAll": "Bonisa konke",
+  "Tools_Pointer": "Isikhombi"
 }

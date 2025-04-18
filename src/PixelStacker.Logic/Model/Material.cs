@@ -27,11 +27,13 @@ namespace PixelStacker.Logic.Model
 
         /// <summary>
         /// True if glass or other block that goes on the top layer.
+        /// These blocks are always transparent or see through.
         /// </summary>
         public bool CanBeUsedAsTopLayer { get; }
 
         /// <summary>
         /// True if dirt or other block that goes on the bottom layer.
+        /// These blocks are always solid and not transparent.
         /// </summary>
         public bool CanBeUsedAsBottomLayer { get; }
 

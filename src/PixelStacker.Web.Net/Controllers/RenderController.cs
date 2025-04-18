@@ -225,7 +225,7 @@ namespace PixelStacker.Web.Net.Controllers
             };
 
             byte[] data = (exporter is IExportImageFormatter imgExporter)
-                ? await imgExporter.ExportAsync(pxdat, new SpecialCanvasRenderSettings() { EnableShadows = model.EnableShadows }, null)
+                ? await imgExporter.ExportAsync(pxdat, new CanvasViewerSettings() { IsShadowRenderingEnabled = model.EnableShadows }, null)
                 : await exporter.ExportAsync(pxdat, null);
 
             var (contentType, fileExt) = model.Format.GetContentTypeData();

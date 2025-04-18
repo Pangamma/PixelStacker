@@ -14,7 +14,7 @@ namespace PixelStacker.UI.Controls
     public partial class CanvasEditor
     {
         private AbstractCanvasEditorTool CurrentTool { get; set; }
-        private PanZoomTool PanZoomTool { get; set; }
+        private PointerTool PanZoomTool { get; set; }
 
         private async void bgWorkerBufferedChangeQueue_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -75,9 +75,24 @@ namespace PixelStacker.UI.Controls
             //this.RepaintRequested = true;
         }
 
+        private void setWorldEditOriginHereToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (PointerTool.LastRightClickedPointOnPanel != null)
+            {
+                var tool = new WorldEditOriginTool(this);
+                tool.OnClick(new MouseEventArgs(MouseButtons.Left, 1, PointerTool.LastRightClickedPointOnPanel.Value.X, PointerTool.LastRightClickedPointOnPanel.Value.Y, 0));
+            }
+        }
+
         private void btnSuggester_Click(object sender, System.EventArgs e)
         {
             this.CurrentTool = new BrushTool(this);
+            this.OnToolClicked(sender);
+        }
+
+        private void Toolbox_OnClickPointer(object sender, System.EventArgs e)
+        {
+            this.CurrentTool = new PointerTool(this);
             this.OnToolClicked(sender);
         }
 
@@ -117,12 +132,6 @@ namespace PixelStacker.UI.Controls
             this.OnToolClicked(sender);
         }
 
-        private void Toolbox_OnClickPanZoom(object sender, EventArgs e)
-        {
-            this.CurrentTool = new PanZoomTool(this);
-            this.OnToolClicked(sender);
-        }
-
         private void OnToolClicked(object sender)
         {
             this.Cursor = this.CurrentTool.GetCursor();
@@ -136,15 +145,11 @@ namespace PixelStacker.UI.Controls
                         {
                             otherBtn.Checked = true;
                             otherBtn.BackColor = Color.FromArgb(255, 191, 221, 245);
-                            //otherBtn.FlatAppearance.BorderColor = Color.FromArgb(255, 1, 121, 215);
-                            //otherBtn.FlatAppearance.BorderSize = 1;
                         }
                         else
                         {
                             otherBtn.Checked = false;
                             otherBtn.BackColor = System.Drawing.SystemColors.Control;
-                            //otherBtn.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-                            //otherBtn.FlatAppearance.BorderSize = 0;
                         }
                     }
                 }

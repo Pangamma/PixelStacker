@@ -151,6 +151,7 @@ namespace PixelStacker.UI
             this.generationToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Generate;
             this.selectMaterialsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SelectMaterials;
             this.renderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Render;
+            this.preRenderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_PreRender;
 
             this.preprocessingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ColorReduction;
             this.ditheringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Dithering;

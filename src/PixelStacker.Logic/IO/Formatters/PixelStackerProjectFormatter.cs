@@ -211,7 +211,6 @@ namespace PixelStacker.Logic.IO.Formatters
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
                 ProgressX.Report(100, ex.Message);
             }
 

@@ -198,6 +198,27 @@ Aka Pangamma</value>
   <data name="Bottom_Material" xml:space="preserve">
     <value>Bottom material</value>
   </data>
+  <data name="CanvasEditor_DisableGhostImages" xml:space="preserve">
+    <value>Disable ghost images</value>
+  </data>
+  <data name="CanvasEditor_EnableGhostImages" xml:space="preserve">
+    <value>Enable ghost images</value>
+  </data>
+  <data name="CanvasEditor_FilterMaterials" xml:space="preserve">
+    <value>Filter materials</value>
+  </data>
+  <data name="CanvasEditor_Hide_0" xml:space="preserve">
+    <value>Hide {0}</value>
+  </data>
+  <data name="CanvasEditor_SetWorldEditOrigin" xml:space="preserve">
+    <value>Set "WorldEdit" originn</value>
+  </data>
+  <data name="CanvasEditor_ShowOnly_0" xml:space="preserve">
+    <value>Show only {0}</value>
+  </data>
+  <data name="CanvasEditor_Show_0" xml:space="preserve">
+    <value>Show {0}</value>
+  </data>
   <data name="CanvasEditor_ZFilter_Both" xml:space="preserve">
     <value>All layers</value>
   </data>
@@ -336,6 +357,9 @@ me as a </value>
   </data>
   <data name="GridOptions" xml:space="preserve">
     <value>Grid Options</value>
+  </data>
+  <data name="HideAll" xml:space="preserve">
+    <value>Hide all</value>
   </data>
   <data name="Light Theme" xml:space="preserve">
     <value>Light Theme</value>
@@ -651,6 +675,9 @@ Super high values = possible glitches</value>
   <data name="RenderEngine_ConvertingToBlocks" xml:space="preserve">
     <value>Converting pixels into Minecraft blocks.</value>
   </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Show all</value>
+  </data>
   <data name="Similar_Combinations" xml:space="preserve">
     <value>Similar combinations</value>
   </data>
@@ -675,14 +702,14 @@ Super high values = possible glitches</value>
   <data name="Tools_Fill" xml:space="preserve">
     <value>Fill</value>
   </data>
-  <data name="Tools_PanZoom" xml:space="preserve">
-    <value>Pan and zoom</value>
-  </data>
   <data name="Tools_Pencil" xml:space="preserve">
     <value>Pencil</value>
   </data>
   <data name="Tools_Picker" xml:space="preserve">
     <value>Color picker</value>
+  </data>
+  <data name="Tools_Pointer" xml:space="preserve">
+    <value>Pointer</value>
   </data>
   <data name="Tools_WEOrigin" xml:space="preserve">
     <value>World Edit origin selector</value>

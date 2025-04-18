@@ -94,11 +94,6 @@ namespace PixelStacker.Web.Net.Controllers
         {
             var index = this.GetMaterialSpriteIndex().ToList().Where(x => x.Value.page == page);
 
-            using SKPaint paint = new SKPaint()
-            {
-                FilterQuality = SKFilterQuality.None
-            };
-
             using SKBitmap bm = new SKBitmap(MAX_WIDTH * Constants.DefaultTextureSize, MAX_HEIGHT * Constants.DefaultTextureSize, SKColorType.Rgba8888, SKAlphaType.Premul);
             using SKCanvas canvas = new SKCanvas(bm);
 
@@ -111,7 +106,8 @@ namespace PixelStacker.Web.Net.Controllers
                         break;
 
                     Material m = Materials.List[idx];
-                    canvas.DrawBitmap(m.GetImage(isSide), new SKPoint(x * Constants.DefaultTextureSize, y * Constants.DefaultTextureSize), paint);
+                    using SKImage img = SKImage.FromBitmap(m.GetImage(isSide));
+                    canvas.DrawImage(img, new SKPoint(x * Constants.DefaultTextureSize, y * Constants.DefaultTextureSize), Constants.SAMPLE_OPTS_NONE);
                 }
             }
 

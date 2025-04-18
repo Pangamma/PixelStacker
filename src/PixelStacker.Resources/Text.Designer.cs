@@ -277,6 +277,69 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable ghost images.
+        /// </summary>
+        public static string CanvasEditor_DisableGhostImages {
+            get {
+                return ResourceManager.GetString("CanvasEditor_DisableGhostImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable ghost images.
+        /// </summary>
+        public static string CanvasEditor_EnableGhostImages {
+            get {
+                return ResourceManager.GetString("CanvasEditor_EnableGhostImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter materials.
+        /// </summary>
+        public static string CanvasEditor_FilterMaterials {
+            get {
+                return ResourceManager.GetString("CanvasEditor_FilterMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide {0}.
+        /// </summary>
+        public static string CanvasEditor_Hide_0 {
+            get {
+                return ResourceManager.GetString("CanvasEditor_Hide_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set &quot;WorldEdit&quot; originn.
+        /// </summary>
+        public static string CanvasEditor_SetWorldEditOrigin {
+            get {
+                return ResourceManager.GetString("CanvasEditor_SetWorldEditOrigin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show {0}.
+        /// </summary>
+        public static string CanvasEditor_Show_0 {
+            get {
+                return ResourceManager.GetString("CanvasEditor_Show_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show only {0}.
+        /// </summary>
+        public static string CanvasEditor_ShowOnly_0 {
+            get {
+                return ResourceManager.GetString("CanvasEditor_ShowOnly_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All layers.
         /// </summary>
         public static string CanvasEditor_ZFilter_Both {
@@ -652,6 +715,15 @@ namespace PixelStacker.Resources {
         public static string GridOptions {
             get {
                 return ResourceManager.GetString("GridOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide all.
+        /// </summary>
+        public static string HideAll {
+            get {
+                return ResourceManager.GetString("HideAll", resourceCulture);
             }
         }
         
@@ -1576,6 +1648,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show all.
+        /// </summary>
+        public static string ShowAll {
+            get {
+                return ResourceManager.GetString("ShowAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Similar combinations.
         /// </summary>
         public static string Similar_Combinations {
@@ -1648,15 +1729,6 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pan and zoom.
-        /// </summary>
-        public static string Tools_PanZoom {
-            get {
-                return ResourceManager.GetString("Tools_PanZoom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Pencil.
         /// </summary>
         public static string Tools_Pencil {
@@ -1671,6 +1743,15 @@ namespace PixelStacker.Resources {
         public static string Tools_Picker {
             get {
                 return ResourceManager.GetString("Tools_Picker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pointer.
+        /// </summary>
+        public static string Tools_Pointer {
+            get {
+                return ResourceManager.GetString("Tools_Pointer", resourceCulture);
             }
         }
         

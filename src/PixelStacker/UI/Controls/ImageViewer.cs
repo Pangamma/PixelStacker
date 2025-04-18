@@ -104,7 +104,6 @@ namespace PixelStacker.WF.Components
             using (SKPaint paint = new SKPaint())
             {
                 paint.Shader = bgShader;
-                paint.FilterQuality = SKFilterQuality.High;
                 paint.IsDither = true;
                 canvas.DrawRect(e.Rect, paint);
                 canvas.DrawBitmap(bgImg, 0, 0);

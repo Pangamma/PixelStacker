@@ -100,10 +100,6 @@ namespace PixelStacker.Logic.IO.Config
             }
         }
 
-        /// <summary>
-        /// Contains stuff like "AIR_00"
-        /// </summary>
-        public List<string> SelectedMaterialFilter { get; set; } = new List<string>();
         public bool IsAdvancedModeEnabled { get; set; } = false;
 
         private string MakeKey(string input)

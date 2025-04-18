@@ -7,7 +7,7 @@ namespace PixelStacker.Logic.IO.Formatters
 {
     public interface IExportImageFormatter : IExportFormatter
     {
-        Task<byte[]> ExportAsync(PixelStackerProjectData canvas, SpecialCanvasRenderSettings srs, CancellationToken? worker = null);
+        Task<byte[]> ExportAsync(PixelStackerProjectData canvas, IReadonlyCanvasViewerSettings srs, CancellationToken? worker = null);
     }
 
     public interface IExportFormatter

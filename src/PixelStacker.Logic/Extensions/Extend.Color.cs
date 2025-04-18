@@ -184,6 +184,20 @@ namespace PixelStacker.Logic.Extensions
         }
 
         /// <summary>
+        /// Value = (v + 200f) / 3f, Saturation = 3.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static SKColor ToGhostColor(this SKColor c)
+        {
+            c.ToHsv(out float h, out float s, out float v);
+            s = 3f;
+            v = (v + 200f) / 3f;
+            var nextColor = SKColor.FromHsv(h, s, v, c.Alpha);
+            return nextColor;
+        }
+
+        /// <summary>
         ///   The Hue-Saturation-Lightness (HSL) saturation for this
         ///    <see cref='PixelStacker.Core.Model.Drawing.PxColor'/>
         /// </summary>

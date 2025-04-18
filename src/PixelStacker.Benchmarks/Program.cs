@@ -10,7 +10,7 @@ namespace PixelStacker.Benchmarks
             // var b =           new BestMatch();
             //b.AverageColorBruteForceMapper_BestMatch();
             //var sumary = BenchmarkRunner.Run<KdTreeBenchmarks>();
-            BenchmarkRunner.Run<BestMatch>();
+            BenchmarkRunner.Run<BaseRenderedCanvasPainterBenchmarks>();
             //BenchmarkRunner.Run<BestMatches>();
             //BenchmarkRunner.Run<Dummy>();
             //BenchmarkRunner.Run<Dummy2>();

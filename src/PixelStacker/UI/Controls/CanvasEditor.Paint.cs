@@ -11,7 +11,7 @@ namespace PixelStacker.UI.Controls
 {
     public partial class CanvasEditor
     {
-
+        private string HoverText = "";
         [System.Diagnostics.DebuggerStepThrough]
         private void timerPaint_Tick(object sender, EventArgs e)
         {
@@ -19,13 +19,15 @@ namespace PixelStacker.UI.Controls
             {
                 // Force repaint on skcontrol
                 skiaControl.Refresh();
+                this.RepaintRequested = false;
+                if (lblHoverInfo.Text != this.HoverText)
+                    lblHoverInfo.Text = this.HoverText;
             }
         }
 
         private SKPaint bgPaint = new SKPaint()
         {
             Shader = SKShader.CreateBitmap(UIResources.bg_imagepanel.BitmapToSKBitmap(), SKShaderTileMode.Repeat, SKShaderTileMode.Repeat),
-            FilterQuality = SKFilterQuality.High,
             IsDither = true
         };
 

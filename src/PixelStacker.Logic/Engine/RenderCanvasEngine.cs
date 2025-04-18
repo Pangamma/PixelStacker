@@ -67,7 +67,7 @@ namespace PixelStacker.Logic.Engine
             int W = WH[0];
             int H = WH[1];
             // TODO: How to get "nearest neighboor" sampling selected?
-            var resized = LIM.Resize(new SkiaSharp.SKImageInfo(W, H, SkiaSharp.SKColorType.Rgba8888), SkiaSharp.SKFilterQuality.Low);
+            var resized = LIM.Resize(new SkiaSharp.SKImageInfo(W, H, SkiaSharp.SKColorType.Rgba8888), Constants.SAMPLE_OPTS_NONE);
 
             // Color bucket normalization
             int F = settings.RgbBucketSize;

@@ -44,7 +44,7 @@ namespace PixelStacker.Web.Net.AppStart
             // Calculate the time elapsed   
             var timeElapsed = stopwatch.ElapsedMilliseconds;
             stopwatch.Stop();
-            context.HttpContext.Response.Headers.Add(ResponseTimeKey, timeElapsed.ToString());
+            context.HttpContext.Response.Headers.Append(ResponseTimeKey, timeElapsed.ToString());
             base.OnActionExecuted(context);
         }
     }
