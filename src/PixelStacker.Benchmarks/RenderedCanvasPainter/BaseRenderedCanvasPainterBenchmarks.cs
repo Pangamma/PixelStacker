@@ -60,7 +60,7 @@ namespace PixelStacker.Benchmarks.ColorMap
                     });
 
 
-                return await engine.RenderCanvasAsync(null, img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette, opts.IsSideView);
             });
 
             this.Canvases["Quantizer"] = new AsyncLazy<RenderedCanvas>(async () => {
@@ -78,7 +78,7 @@ namespace PixelStacker.Benchmarks.ColorMap
                         }
                     });
 
-                return await engine.RenderCanvasAsync(null, img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette, opts.IsSideView);
             });
 
             this.Canvases["Heavy"] = new AsyncLazy<RenderedCanvas>(async () => {
@@ -96,7 +96,7 @@ namespace PixelStacker.Benchmarks.ColorMap
                         }
                     });
 
-                return await engine.RenderCanvasAsync(null, img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette, opts.IsSideView);
             });
         }
 

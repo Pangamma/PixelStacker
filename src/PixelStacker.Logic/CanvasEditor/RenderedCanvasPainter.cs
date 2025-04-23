@@ -19,16 +19,6 @@ namespace PixelStacker.Logic.CanvasEditor
         public RenderedCanvas Data { get; }
         public IReadonlyCanvasViewerSettings SpecialRenderSettings { get; private set; }
 
-        [Obsolete("Try to pass in special render settings as well.", false)]
-        private RenderedCanvasPainter(RenderedCanvas data) : this(data, new CanvasViewerSettings()
-        {
-            IsShadowRenderingEnabled = false,
-            TextureSize = Constants.DefaultTextureSize,
-            IsSolidColors = false,
-        }.ToReadonlyClone())
-        {
-        }
-
         private RenderedCanvasPainter(RenderedCanvas data, IReadonlyCanvasViewerSettings srs)
         {
             Data = data;

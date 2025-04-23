@@ -187,8 +187,10 @@ namespace PixelStacker.UI
                 return;
             }
 
+            this.Options.Tools.ZLayerFilter = ZLayer.Both;
             this.Options.ViewerSettings.ZLayerFilter = null;
             this.Options.Save();
+            this.canvasEditor.Tools_SetLayerFilterImage();
             this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
             await TriggerCanvasEditorRerender();
         }
@@ -199,8 +201,11 @@ namespace PixelStacker.UI
             {
                 return;
             }
+
+            this.Options.Tools.ZLayerFilter = ZLayer.Bottom;
             this.Options.ViewerSettings.ZLayerFilter = 0;
             this.Options.Save();
+            this.canvasEditor.Tools_SetLayerFilterImage();
             this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
             await TriggerCanvasEditorRerender();
         }
@@ -211,8 +216,11 @@ namespace PixelStacker.UI
             {
                 return;
             }
+
+            this.Options.Tools.ZLayerFilter = ZLayer.Top;
             this.Options.ViewerSettings.ZLayerFilter = 1;
             this.Options.Save();
+            this.canvasEditor.Tools_SetLayerFilterImage();
             this.TS_SetAllMenubarStatesBasedOnOptions(this.Options);
             await TriggerCanvasEditorRerender();
         }

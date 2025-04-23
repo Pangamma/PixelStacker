@@ -51,6 +51,41 @@ namespace PixelStacker.Logic.Model
         private SKColor? _averageColor = null;
         private SKColor? _averageColorSide = null;
 
+        private double? _roughness = null;
+        private double? _roughnessSide = null;
+        public double GetRoughness(bool isSide)
+        {
+            if (isSide)
+            {
+                if (_roughnessSide == null)
+                {
+                    var avg = this.GetAverageColor(isSide);
+                    var colorFreqs = this.GetImage(isSide).GetColorsInImage()
+                        .GroupBy(x => x)
+                        .Select(x => new Tuple<SKColor, int>(x.Key, x.Count()))
+                        .ToList();
+
+                    _roughnessSide = avg.GetAverageColorDistance(colorFreqs);
+                }
+
+                return _roughnessSide.Value;
+            }
+            else
+            {
+                if (_roughness == null)
+                {
+                    var avg = this.GetAverageColor(isSide);
+                    var colorFreqs = this.GetImage(isSide).GetColorsInImage()
+                        .GroupBy(x => x)
+                        .Select(x => new Tuple<SKColor, int>(x.Key, x.Count()))
+                        .ToList();
+
+                    _roughness = avg.GetAverageColorDistance(colorFreqs);
+                }
+                return _roughness.Value;
+            }
+        }
+
         /// <summary>
         /// List of words or phrases ppl can search for to get these materials
         /// </summary>
@@ -60,7 +95,7 @@ namespace PixelStacker.Logic.Model
             "NEW", "1.7", // 1.7 and 1.12 will contain inaccuracies where I was originally "rounding" up or down.
             "1.8", "1.9", "1.10",
             "1.12", "1.13", "1.14", "1.15", "1.16",
-            "1.17", "1.19", "1.20"
+            "1.17", "1.19", "1.20", "1.21.5"
         };
 
         private string _minimumSupportedMinecraftVersion = "NEW";
@@ -95,7 +130,7 @@ namespace PixelStacker.Logic.Model
             SideBlockName = sideBlockName;
             SchematicaMaterialName = schematicaMaterialName;
             IsAir = pixelStackerID == "AIR";
-            CanBeUsedAsTopLayer = category == "Glass";
+            CanBeUsedAsTopLayer = category == "Glass" || category == "Transparent";
             CanBeUsedAsBottomLayer = !IsAir && !CanBeUsedAsTopLayer;
         }
 

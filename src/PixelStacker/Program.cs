@@ -2,6 +2,7 @@ using PixelStacker.IO;
 using PixelStacker.Logic.Model;
 using PixelStacker.Resources;
 using PixelStacker.UI;
+using PixelStacker.UI.Forms;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -32,7 +33,7 @@ namespace PixelStacker
                 var form = new MainForm();
                 ErrorReporter.MF = form;
                 //var form = new TestForm();
-                Application.Run(form);
+            Application.Run(form);
 
 #if !DEBUG
             }

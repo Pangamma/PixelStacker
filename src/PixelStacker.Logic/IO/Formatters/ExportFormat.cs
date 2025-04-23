@@ -11,6 +11,8 @@ namespace PixelStacker.Logic.IO.Formatters
         PixelStackerProject,
         BlockCountCsv,
         Schem2,
+        Schem3,
+        StructureBlock,
     }
 
     public static class ExportFormatExtensions
@@ -31,8 +33,12 @@ namespace PixelStacker.Logic.IO.Formatters
                     return new BlockCountCsvFormatter();
                 case ExportFormat.PixelStackerProject:
                     return new PixelStackerProjectFormatter();
+                case ExportFormat.StructureBlock:
+                    return new StructureBlockFormatter();
                 case ExportFormat.Schem2:
                     return new Schem2Formatter();
+                case ExportFormat.Schem3:
+                    return new Schem3Formatter();
                 default:
                     throw new ArgumentException(nameof(format));
             }
@@ -53,7 +59,10 @@ namespace PixelStacker.Logic.IO.Formatters
                 case ExportFormat.PixelStackerProject:
                     return ("application/octet-stream", ".pxlzip");
                 case ExportFormat.Schem2:
+                case ExportFormat.Schem3:
                     return ("application/octet-stream", ".schem");
+                case ExportFormat.StructureBlock:
+                    return ("application/octet-stream", ".nbt");
                 default:
                     throw new ArgumentException(nameof(format));
             }

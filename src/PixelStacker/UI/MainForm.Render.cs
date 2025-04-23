@@ -186,7 +186,7 @@ namespace PixelStacker.UI
                 worker.ThrowIfCancellationRequested();
 
                 // Super dubious and sketchy logic here. Might crash due to cross-context thread access issues
-                var canvasThatIsRendered = await engine.RenderCanvasAsync(worker, imgPreprocessed, this.ColorMapper, this.Palette);
+                var canvasThatIsRendered = await engine.RenderCanvasAsync(worker, imgPreprocessed, this.ColorMapper, this.Palette, this.Options.IsSideView);
                 worker.ThrowIfCancellationRequested();
 
                 await self.InvokeEx(async c =>

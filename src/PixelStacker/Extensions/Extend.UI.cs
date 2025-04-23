@@ -4,12 +4,28 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using static System.Windows.Forms.Control;
 
 namespace PixelStacker.Extensions
 {
     public static class ExtendUI
     {
+        private const int WM_SETREDRAW = 0x000B;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+        public static void SuspendDrawing(this Control c)
+        {
+            SendMessage(c.Handle, WM_SETREDRAW, 0, 0);
+        }
+
+        public static void ResumeDrawing(this Control control)
+        {
+            SendMessage(control.Handle, WM_SETREDRAW, 1, 0);
+            control.Refresh();
+        }
+
         public static void PaintDesignerView(this Control c, PaintEventArgs e)
         {
             Graphics g = e.Graphics;

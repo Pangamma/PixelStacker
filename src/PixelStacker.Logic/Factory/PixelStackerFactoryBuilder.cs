@@ -25,7 +25,7 @@ namespace PixelStacker.Logic.Factory
             IExportFormatter exporter = format.GetFormatter();
             var engine = new RenderCanvasEngine();
             var imgPreprocessed = await engine.PreprocessImageAsync(worker, img, Preprocess);
-            var canvas = await engine.RenderCanvasAsync(worker, imgPreprocessed, this.Mapper, this.Palette);
+            var canvas = await engine.RenderCanvasAsync(worker, imgPreprocessed, this.Mapper, this.Palette, this.IsSideView);
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
             {
                 CanvasData = canvas.CanvasData,

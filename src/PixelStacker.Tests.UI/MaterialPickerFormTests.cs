@@ -1,9 +1,8 @@
 using PixelStacker.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
-using PixelStacker.UI.Controls.Pickers;
+using PixelStacker.UI.Controls;
 using PixelStacker.UI.Forms;
-using System.Reflection;
 
 namespace PixelStacker.Tests.UI
 {

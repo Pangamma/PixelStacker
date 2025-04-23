@@ -24,8 +24,8 @@ namespace PixelStacker.Tools.Generators
                 palette = JsonConvert.DeserializeObject<MaterialPalette>(json) ?? new MaterialPalette();
             }
 
-            var glasses = Materials.List.Where(m2 => m2.Category == "Glass");
-            var solids = Materials.List.Where(m2 => m2.Category != "Glass" && m2.Category != "Air");
+            var glasses = Materials.List.Where(m2 => m2.CanBeUsedAsTopLayer);
+            var solids = Materials.List.Where(m2 => m2.CanBeUsedAsBottomLayer && m2.Category != "Air");
 
             bool isModified = false;
 #pragma warning disable CS0618 // Type or member is obsolete

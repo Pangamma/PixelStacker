@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PixelStacker.Logic.Model;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PixelStacker.CodeGenerator
 {
@@ -18,7 +20,7 @@ namespace PixelStacker.CodeGenerator
     public class ImageTextureUpdater
     {
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-        private string McVersion = "1.21";
+        private string McVersion = "1.21.5";
         private string PxImageDir => Path.Combine(RootDir, "PixelStacker.Resources", "Images", "Textures", "x16");
         private string McImageJar => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             ".minecraft", "versions", McVersion, McVersion + ".jar");
@@ -30,7 +32,8 @@ namespace PixelStacker.CodeGenerator
             var dstDir = new DirectoryInfo(PxImageDir);
             Dictionary<string, string> nameToPaths = new Dictionary<string, string>();
             dstDir.GetFilesRecursively(f => nameToPaths[f.Name] = f.FullName);
-            GetJarFiles(McImageJar, (f) => { 
+            GetJarFiles(McImageJar, (f) =>
+            {
                 if (nameToPaths.ContainsKey(f.Name))
                 {
                     using (var zipStream = f.Open())
@@ -67,7 +70,7 @@ namespace PixelStacker.CodeGenerator
                     using (ZipArchive archive = new ZipArchive(zipToOpen, ZipArchiveMode.Read))
                     {
                         var entries = archive.Entries;
-                        foreach(var entry in entries)
+                        foreach (var entry in entries)
                         {
                             if (!entry.Name.EndsWith(".png")) continue;
                             if (!entry.FullName.Contains("textures")) continue;

@@ -332,7 +332,7 @@ namespace PixelStacker.Logic.Extensions
 
             foreach (var c in src)
             {
-                int dist = target.GetColorDistance(c.Item1);
+                int dist = target.GetColorDistanceSquared(c.Item1);
                 r += dist * c.Item2;
                 t += c.Item2;
             }
@@ -377,7 +377,7 @@ namespace PixelStacker.Logic.Extensions
 
             src.ToViewStream(null, (x, y, c) =>
             {
-                int dist = target.GetColorDistance(c);
+                int dist = target.GetColorDistanceSquared(c);
                 Interlocked.Add(ref r, dist);
             });
 
@@ -390,7 +390,7 @@ namespace PixelStacker.Logic.Extensions
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static int GetColorDistance(this SKColor c, SKColor toMatch)
+        public static int GetColorDistanceSquared(this SKColor c, SKColor toMatch)
         {
             int dR = c.Red - toMatch.Red;
             int dG = c.Green - toMatch.Green;

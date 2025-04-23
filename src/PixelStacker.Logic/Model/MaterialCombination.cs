@@ -33,7 +33,20 @@ namespace PixelStacker.Logic.Model
             this.Top = mTop;
             this.Bottom = mBottom;
             this.IsMultiLayer = !ReferenceEquals(Top, Bottom); //Top?.PixelStackerID != Bottom?.PixelStackerID;
+#if DEBUG
+            try
+            {
+                CheckValidity(mBottom, mTop);
+            }
+            catch (Exception ex)
+            {
+                this.Top = Materials.Air;
+                this.Bottom = Materials.Air;
+                Console.WriteLine($"Failed to load.");
+            }
+#else
             CheckValidity(mBottom, mTop);
+#endif
         }
 
         #endregion Constructors
@@ -86,7 +99,7 @@ namespace PixelStacker.Logic.Model
 
             bool showGhosts = srs.ShowFilteredMaterials;
             bool useMaterialFilter = srs.VisibleMaterialsFilter.Any(x => x != Constants.MaterialPixelStackerIDForAir);
-            bool showTop    = srs.ZLayerFilter != 0 && (showGhosts || !useMaterialFilter || srs.VisibleMaterialsFilter.Contains(this.Top.PixelStackerID));
+            bool showTop = srs.ZLayerFilter != 0 && (showGhosts || !useMaterialFilter || srs.VisibleMaterialsFilter.Contains(this.Top.PixelStackerID));
             bool showBottom = srs.ZLayerFilter != 1 && (showGhosts || !useMaterialFilter || srs.VisibleMaterialsFilter.Contains(this.Bottom.PixelStackerID));
 
             if (showTop && this.Top.CanBeUsedAsTopLayer)

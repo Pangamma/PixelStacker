@@ -9,6 +9,15 @@
     <None Remove="Images\Pixelart\**" />
     <Compile Remove="Images\Pixelart\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Textures\x16\*.png" />
+  </ItemGroup>
+  <ItemGroup>
+	  <Content Include="Images\Textures\x16\*.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+  </ItemGroup>
   <ItemGroup>
     <Compile Update="Localization\ResxContainer.Designer.cs">
       <DesignTime>True</DesignTime>

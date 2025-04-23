@@ -4,7 +4,6 @@ using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using SkiaSharp;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -204,6 +203,9 @@ namespace PixelStacker.Logic.IO.Formatters
                                 }
                             }
                         }
+
+                        // Make sure to override this.
+                        canvas.IsSideView = false;
 
                         return canvas;
                     }

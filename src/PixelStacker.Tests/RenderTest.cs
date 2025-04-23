@@ -39,7 +39,7 @@ namespace PixelStacker.Tests
             var combos = palette.ToValidCombinationList(opts);
             mapper.SetSeedData(combos, palette, false);
 
-            var canvas = await engine.RenderCanvasAsync(null, img, mapper, palette);
+            var canvas = await engine.RenderCanvasAsync(null, img, mapper, palette, opts.IsSideView);
             await new PixelStackerProjectFormatter().ExportAsync("Test.pxlzip", new PixelStackerProjectData(canvas, opts), null);
         }
     }

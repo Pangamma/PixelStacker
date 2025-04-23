@@ -176,7 +176,7 @@ namespace PixelStacker.Web.Net.Controllers
                     IsEnabled = false
                 }
             });
-            var canvas = await engine.RenderCanvasAsync(null, preprocessed, ColorMapperTopView.Value, palette);
+            var canvas = await engine.RenderCanvasAsync(null, preprocessed, ColorMapperTopView.Value, palette, false);
             IExportFormatter exporter = new JpegFormatter();
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
             {
@@ -211,7 +211,7 @@ namespace PixelStacker.Web.Net.Controllers
                 }
             });
             var mapper = GetMapper(isv, model.IsMultiLayer);
-            var canvas = await engine.RenderCanvasAsync(null, preprocessed, mapper, palette);
+            var canvas = await engine.RenderCanvasAsync(null, preprocessed, mapper, palette, isv);
             IExportFormatter exporter = model.Format.GetFormatter();
 
 

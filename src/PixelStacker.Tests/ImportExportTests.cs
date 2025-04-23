@@ -50,7 +50,7 @@ namespace PixelStacker.Tests
                     });
 
 
-                return await engine.RenderCanvasAsync(null, img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette, opts.IsSideView);
             });
 
 
@@ -69,7 +69,7 @@ namespace PixelStacker.Tests
                         }
                     });
 
-                return await engine.RenderCanvasAsync(null, img, mapper, palette);
+                return await engine.RenderCanvasAsync(null, img, mapper, palette, opts.IsSideView);
             });
 
             //this.Canvases["Heavy"] = new AsyncLazy<RenderedCanvas>(async () => {

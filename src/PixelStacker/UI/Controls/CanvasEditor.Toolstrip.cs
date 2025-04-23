@@ -14,7 +14,7 @@ namespace PixelStacker.UI.Controls
             Tools_SetLayerFilterImage();
         }
 
-        private void Tools_SetLayerFilterImage()
+        internal void Tools_SetLayerFilterImage()
         {
             if (this.Options != null)
             {

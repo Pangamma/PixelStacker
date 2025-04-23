@@ -4,7 +4,7 @@ namespace PixelStacker.Logic.IO.Config
 {
     public static class Constants
     {
-        public const string Version = "1.20.4e";
+        public const string Version = "1.21.5";
         public const string Website = "https://taylorlove.info/pixelstacker";
         [System.Obsolete("Switch to using DefaultTextureSize, bc that is what this should represent.", true)]
         public const int TextureSize = 16;
@@ -35,7 +35,7 @@ namespace PixelStacker.Logic.IO.Config
         // Data version of MC build. Can be found on wiki.
         // TODO: Auto calc this based on selected materials
         // https://minecraft.fandom.com/wiki/Java_Edition_1.18.1
-        public const int DataVersion = 3117;
+        public const int DataVersion = 4325;
         public const int MaterialCombinationIDForAir = 0;
         public const string MaterialPixelStackerIDForAir = "AIR";
         public const int BlockID_Unavailable = 166; // barrier

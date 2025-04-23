@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialPickerForm));
             panel1 = new System.Windows.Forms.Panel();
             lblHtmlCode = new System.Windows.Forms.Label();
             tbxHtmlColorCode = new System.Windows.Forms.TextBox();
@@ -38,19 +39,20 @@
             pictureBox2 = new System.Windows.Forms.PictureBox();
             lblTopMaterial = new System.Windows.Forms.Label();
             pictureBox1 = new System.Windows.Forms.PictureBox();
-            imgBottomMaterial = new Controls.ImageButton();
-            imgTopMaterial = new Controls.ImageButton();
-            imgMaterialsCombined = new Controls.ImageButton();
+            imgBottomMaterial = new PixelStacker.UI.Controls.ImageButton();
+            imgTopMaterial = new PixelStacker.UI.Controls.ImageButton();
+            imgMaterialsCombined = new PixelStacker.UI.Controls.ImageButton();
             tcMaterials = new System.Windows.Forms.TabControl();
             tabTop = new System.Windows.Forms.TabPage();
-            pnlTopMats = new Controls.Pickers.ImageButtonPanel();
+            pnlTopMats = new PixelStacker.UI.Controls.ImageButtonContainer();
             tabBottom = new System.Windows.Forms.TabPage();
-            pnlBottomMats = new Controls.Pickers.ImageButtonPanel();
+            pnlBottomMats = new PixelStacker.UI.Controls.ImageButtonContainer();
             tabSimilarCombinations = new System.Windows.Forms.TabPage();
+            pnlSimilarCombinations = new PixelStacker.UI.Controls.ImageButtonContainer();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
             ttTop = new System.Windows.Forms.ToolTip(components);
             ttBottom = new System.Windows.Forms.ToolTip(components);
-            pnlSimilarCombinations = new Controls.Pickers.ImageButtonPanel();
+            timerFilterRefresher = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -213,13 +215,15 @@
             pnlTopMats.AutoScroll = true;
             pnlTopMats.BackColor = System.Drawing.SystemColors.ControlDark;
             pnlTopMats.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnlTopMats.ImageButtonMargin = 3;
+            pnlTopMats.ImageButtonSize = new System.Drawing.Size(80, 80);
             pnlTopMats.Location = new System.Drawing.Point(3, 3);
             pnlTopMats.Margin = new System.Windows.Forms.Padding(0);
             pnlTopMats.Name = "pnlTopMats";
-            pnlTopMats.OnCommandKey = null;
             pnlTopMats.Size = new System.Drawing.Size(372, 458);
             pnlTopMats.TabIndex = 0;
             pnlTopMats.TileClicked += pnlTopMats_TileClicked;
+            pnlTopMats.TileHover += pnlTopMats_TileHover;
             // 
             // tabBottom
             // 
@@ -237,13 +241,15 @@
             pnlBottomMats.AutoScroll = true;
             pnlBottomMats.BackColor = System.Drawing.SystemColors.ControlDark;
             pnlBottomMats.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnlBottomMats.ImageButtonMargin = 3;
+            pnlBottomMats.ImageButtonSize = new System.Drawing.Size(80, 80);
             pnlBottomMats.Location = new System.Drawing.Point(3, 3);
             pnlBottomMats.Margin = new System.Windows.Forms.Padding(0);
             pnlBottomMats.Name = "pnlBottomMats";
-            pnlBottomMats.OnCommandKey = null;
             pnlBottomMats.Size = new System.Drawing.Size(372, 458);
             pnlBottomMats.TabIndex = 0;
             pnlBottomMats.TileClicked += pnlBottomMats_TileClicked;
+            pnlBottomMats.TileHover += pnlBottomMats_TileHover;
             // 
             // tabSimilarCombinations
             // 
@@ -261,18 +267,20 @@
             pnlSimilarCombinations.AutoScroll = true;
             pnlSimilarCombinations.BackColor = System.Drawing.SystemColors.ControlDark;
             pnlSimilarCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnlSimilarCombinations.ImageButtonMargin = 3;
+            pnlSimilarCombinations.ImageButtonSize = new System.Drawing.Size(80, 80);
             pnlSimilarCombinations.Location = new System.Drawing.Point(3, 3);
             pnlSimilarCombinations.Margin = new System.Windows.Forms.Padding(0);
             pnlSimilarCombinations.Name = "pnlSimilarCombinations";
-            pnlSimilarCombinations.OnCommandKey = null;
             pnlSimilarCombinations.Size = new System.Drawing.Size(372, 458);
             pnlSimilarCombinations.TabIndex = 0;
             pnlSimilarCombinations.TileClicked += pnlSimilarCombinations_TileClicked;
+            pnlSimilarCombinations.TileHover += pnlSimilarCombinations_TileHover;
             // 
             // toolTip1
             // 
             toolTip1.AutoPopDelay = 5000;
-            toolTip1.InitialDelay = 200;
+            toolTip1.InitialDelay = 150;
             toolTip1.ReshowDelay = 100;
             // 
             // ttTop
@@ -286,6 +294,12 @@
             ttBottom.AutoPopDelay = 5000;
             ttBottom.InitialDelay = 200;
             ttBottom.ReshowDelay = 100;
+            // 
+            // timerFilterRefresher
+            // 
+            timerFilterRefresher.Enabled = true;
+            timerFilterRefresher.Interval = 150;
+            timerFilterRefresher.Tick += timerFilterRefresher_Tick;
             // 
             // MaterialPickerForm
             // 
@@ -328,14 +342,15 @@
         private System.Windows.Forms.TabControl tcMaterials;
         private System.Windows.Forms.TabPage tabTop;
         private System.Windows.Forms.TabPage tabBottom;
-        private Controls.Pickers.ImageButtonPanel pnlTopMats;
-        private Controls.Pickers.ImageButtonPanel pnlBottomMats;
+        private Controls.ImageButtonContainer pnlTopMats;
+        private Controls.ImageButtonContainer pnlBottomMats;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolTip ttTop;
         private System.Windows.Forms.ToolTip ttBottom;
         private System.Windows.Forms.Label lblHtmlCode;
         private System.Windows.Forms.TextBox tbxHtmlColorCode;
         private System.Windows.Forms.TabPage tabSimilarCombinations;
-        private Controls.Pickers.ImageButtonPanel pnlSimilarCombinations;
+        private Controls.ImageButtonContainer pnlSimilarCombinations;
+        private System.Windows.Forms.Timer timerFilterRefresher;
     }
 }

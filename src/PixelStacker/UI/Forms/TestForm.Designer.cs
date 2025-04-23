@@ -28,34 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.imageButtonPanel1 = new PixelStacker.UI.Controls.Pickers.ImageButtonPanel();
-            this.SuspendLayout();
+            imageButtonContainer1 = new PixelStacker.UI.Controls.ImageButtonContainer();
+            SuspendLayout();
             // 
-            // imageButtonPanel1
+            // imageButtonContainer1
             // 
-            this.imageButtonPanel1.AutoScroll = true;
-            this.imageButtonPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.imageButtonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageButtonPanel1.Location = new System.Drawing.Point(0, 0);
-            this.imageButtonPanel1.Name = "imageButtonPanel1";
-            this.imageButtonPanel1.OnCommandKey = null;
-            this.imageButtonPanel1.Size = new System.Drawing.Size(651, 388);
-            this.imageButtonPanel1.TabIndex = 1;
+            imageButtonContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            imageButtonContainer1.Location = new System.Drawing.Point(0, 0);
+            imageButtonContainer1.Name = "imageButtonContainer1";
+            imageButtonContainer1.Size = new System.Drawing.Size(651, 388);
+            imageButtonContainer1.TabIndex = 0;
             // 
             // TestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 388);
-            this.Controls.Add(this.imageButtonPanel1);
-            this.Name = "TestForm";
-            this.Text = "TestForm";
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(651, 388);
+            Controls.Add(imageButtonContainer1);
+            Name = "TestForm";
+            Text = "TestForm";
+            ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Controls.Pickers.ImageButtonPanel imageButtonPanel1;
+        private Controls.ImageButtonContainer imageButtonContainer1;
     }
 }

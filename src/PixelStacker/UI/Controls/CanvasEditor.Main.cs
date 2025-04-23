@@ -1,21 +1,12 @@
 ﻿using PixelStacker.EditorTools;
 using PixelStacker.Extensions;
 using PixelStacker.Logic.CanvasEditor;
-using PixelStacker.Logic.CanvasEditor.History;
-using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
-using PixelStacker.Resources;
 using PixelStacker.Resources.Themes;
 using PixelStacker.UI.Helpers;
-using SkiaSharp;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 

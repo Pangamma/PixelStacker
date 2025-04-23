@@ -105,7 +105,8 @@ namespace PixelStacker.Logic.Engine
             CancellationToken? worker,
             SKBitmap preprocessedImage,
             IColorMapper mapper,
-            MaterialPalette palette
+            MaterialPalette palette,
+            bool isSideView
             )
         {
             preprocessedImage = preprocessedImage.Copy();
@@ -115,6 +116,7 @@ namespace PixelStacker.Logic.Engine
                 IsCustomized = false,
                 PreprocessedImage = preprocessedImage,
                 MaterialPalette = palette,
+                IsSideView = isSideView,
                 CanvasData = new CanvasData(palette, new int[preprocessedImage.Width, preprocessedImage.Height])
             };
             ProgressX.Report(0, Resources.Text.RenderEngine_ConvertingToBlocks);

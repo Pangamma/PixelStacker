@@ -2,7 +2,7 @@
 using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
-using PixelStacker.UI.Controls.Pickers;
+using PixelStacker.UI.Controls;
 using SixLabors.ImageSharp.ColorSpaces;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,8 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using PixelStacker.Logic.Extensions;
+using System.Threading.Tasks;
+using SkiaSharp;
 
 namespace PixelStacker.UI.Forms
 {
@@ -62,15 +64,23 @@ namespace PixelStacker.UI.Forms
 
                 {
                     string toFind = value.IsMultiLayer ? value.Top.PixelStackerID : Materials.Air.PixelStackerID;
-                    pnlTopMats.ModifyButtons((d, b) =>
+                    pnlTopMats.ImageButtons.ForEach((b) =>
                     {
-                        b.IsChecked = d.GetData<Material>().PixelStackerID == toFind;
+                        bool shouldCheck = b.GetData<Material>().PixelStackerID == toFind;
+                        if (b.IsChecked != shouldCheck)
+                        {
+                            b.IsChecked = shouldCheck;
+                        }
                     });
                 }
                 {
-                    pnlBottomMats.ModifyButtons((d, b) =>
+                    pnlBottomMats.ImageButtons.ForEach((b) =>
                     {
-                        b.IsChecked = d.GetData<Material>().PixelStackerID == value.Bottom.PixelStackerID;
+                        bool shouldCheck = b.GetData<Material>().PixelStackerID == value.Bottom.PixelStackerID;
+                        if (b.IsChecked != shouldCheck)
+                        {
+                            b.IsChecked = shouldCheck;
+                        }
                     });
                 }
             }
@@ -116,8 +126,8 @@ namespace PixelStacker.UI.Forms
         {
             this.InitializeTabs();
             var needle = tbxMaterialFilter.Text.ToLowerInvariant();
-            await this.SetSearchFilterAsync(needle, this.pnlBottomMats);
-            await this.SetSearchFilterAsync(needle, this.pnlTopMats);
+            await this.SetSearchFilterAsync(needle, this.pnlBottomMats, GetImageButtonData_Lower());
+            await this.SetSearchFilterAsync(needle, this.pnlTopMats, GetImageButtonData_Upper());
         }
 
         private void MaterialPickerForm_Disposed(object sender, EventArgs e)
@@ -126,7 +136,7 @@ namespace PixelStacker.UI.Forms
             AppEvents.OnAdvancedModeChange -= AppEvents_OnAdvancedModeChange;
         }
 
-        
+
         private void UpdateMaterialComboTab()
         {
             if (this.SelectedCombo == null)
@@ -134,30 +144,7 @@ namespace PixelStacker.UI.Forms
                 return;
             }
 
-            int MAX_PULL = 50;
-            bool isv = this.Options.IsSideView;
-            var c = this.SelectedCombo.GetAverageColor(isv);
-
-            List<MaterialCombination> mats = MaterialPalette.FromResx()
-                .ToCombinationList().Where(x => !x.Bottom.IsAdvanced).ToList();
-
-            var singleLayers = mats.Where(x => !x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistance(c)).Take(MAX_PULL/2+10);
-            var doubleLayers = mats.Where(x => x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistance(c)).Take(MAX_PULL/2+10);
-
-            mats = singleLayers.Union(doubleLayers)
-                .OrderBy(x => c.GetAverageColorDistance(x.GetColorsInImage(isv)))
-                .Take(MAX_PULL)
-                .ToList();
-
-            List<ImageButtonData> items = new List<ImageButtonData>();
-            items.AddRange(mats.Select(x => new ImageButtonData()
-            {
-                Data = x,
-                Image = x.GetImage(isv),
-                Text = x.ToString(),
-            }));
-
-            pnlSimilarCombinations.InitializeButtons(items);
+            pnlSimilarCombinations.ImageButtons = GetImageButtonData_Both();
         }
 
         private void imgTopMaterial_Click(object sender, EventArgs e)
@@ -199,6 +186,45 @@ namespace PixelStacker.UI.Forms
                     "Weird! Add logic for the new tab index. Thanks.");
             }
 
+        }
+
+        public void pnlTopMats_TileHover(object sender, ImageButtonClickEventArgs e)
+        {
+            var m = e.ImageButtonData?.GetData<Material>();
+            string text = m?.Label ?? this._selectedCombo.Top.Label;
+            if (text != lblTopMaterial.Text)
+            {
+                lblTopMaterial.Text = text;
+            }
+        }
+
+        public void pnlBottomMats_TileHover(object sender, ImageButtonClickEventArgs e)
+        {
+            var m = e.ImageButtonData?.GetData<Material>();
+            string text = m?.Label ?? this._selectedCombo.Bottom.Label;
+            if (text != lblBottomMaterial.Text)
+            {
+                lblBottomMaterial.Text = text;
+            }
+        }
+
+        public void pnlSimilarCombinations_TileHover(object sender, ImageButtonClickEventArgs e)
+        {
+            var m = e.ImageButtonData?.GetData<MaterialCombination>();
+            {
+                string text = m?.Bottom.Label ?? this._selectedCombo.Bottom.Label;
+                if (text != lblBottomMaterial.Text)
+                {
+                    lblBottomMaterial.Text = text;
+                }
+            }
+            {
+                string text = m?.Top.Label ?? this._selectedCombo.Top.Label;
+                if (text != lblTopMaterial.Text)
+                {
+                    lblTopMaterial.Text = text;
+                }
+            }
         }
 
         public void pnlTopMats_TileClicked(object sender, ImageButtonClickEventArgs e)
@@ -243,6 +269,17 @@ namespace PixelStacker.UI.Forms
             {
                 this.Hide();
                 e.Cancel = true;
+            }
+        }
+
+        private async void timerFilterRefresher_Tick(object sender, EventArgs e)
+        {
+            if (filterNeedsRefresh)
+            {
+                filterNeedsRefresh = false;
+                var needle = tbxMaterialFilter.Text.ToLowerInvariant();
+                await this.SetSearchFilterAsync(needle, this.pnlBottomMats, GetImageButtonData_Lower());
+                await this.SetSearchFilterAsync(needle, this.pnlTopMats, GetImageButtonData_Upper());
             }
         }
     }

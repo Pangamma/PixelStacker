@@ -28,18 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // SkHybridControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::PixelStacker.Resources.UIResources.bg_imagepanel;
-            this.DoubleBuffered = true;
-            this.Name = "SkHybridControl";
-            this.Size = new System.Drawing.Size(445, 315);
-            this.Resize += new System.EventHandler(this.SkHybridControl_Resize);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            DoubleBuffered = true;
+            Name = "SkHybridControl";
+            Size = new System.Drawing.Size(445, 315);
+            Resize += SkHybridControl_Resize;
+            ResumeLayout(false);
 
         }
 

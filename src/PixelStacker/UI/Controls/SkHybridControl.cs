@@ -23,7 +23,6 @@ namespace PixelStacker.UI.Controls
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
         public event EventHandler<GenericSKPaintSurfaceEventArgs> PaintSurface;
 
-
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
         public bool BoxShadowOnEdges { get; set; } = false;
 
@@ -51,17 +50,10 @@ namespace PixelStacker.UI.Controls
                 control.MouseUp += this.SkHybridControl_MouseUp;
                 control.MouseDoubleClick += this.SkHybridControl_MouseDoubleClick;
                 control.MouseClick += this.SkHybridControl_MouseClick;
+                control.MouseWheel += this.SkHybridControl_MouseWheel;
 
                 this.Controls.Add(control);
             }
-
-            ThemeManager.OnThemeChange += this.OnThemeChange;
-            this.OnThemeChange(this, ThemeManager.Theme);
-        }
-
-        private void OnThemeChange(object sender, ThemeChangeEventArgs e)
-        {
-            this.BackgroundImage = ThemeHelper.bg_imagepanel;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -124,6 +116,7 @@ namespace PixelStacker.UI.Controls
             });
         }
 
+        private void SkHybridControl_MouseWheel(object sender, MouseEventArgs e) => this.OnMouseWheel(e);
         private void SkHybridControl_MouseDoubleClick(object sender, MouseEventArgs e) => this.OnMouseDoubleClick(e);
         private void SkHybridControl_MouseDown(object sender, MouseEventArgs e) => this.OnMouseDown(e);
         private void SkHybridControl_MouseMove(object sender, MouseEventArgs e) => this.OnMouseMove(e);
@@ -131,7 +124,7 @@ namespace PixelStacker.UI.Controls
         private void SkHybridControl_MouseClick(object sender, MouseEventArgs e) => this.OnMouseClick(e);
         private void SkHybridControl_Resize(object sender, EventArgs e)
         {
-            var tmp = BoxShadow; 
+            var tmp = BoxShadow;
             BoxShadow = null;
             tmp.DisposeSafely();
 

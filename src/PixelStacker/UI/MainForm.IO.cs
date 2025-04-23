@@ -6,9 +6,11 @@ using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using SkiaSharp;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -59,6 +61,9 @@ namespace PixelStacker.UI
                         break;
                     case "pxlzip":
                         formatter = new PixelStackerProjectFormatter();
+                        break;
+                    case "nbt":
+                        formatter = new StructureBlockFormatter();
                         break;
                     case "schem":
                         formatter = new Schem2Formatter();
@@ -126,6 +131,7 @@ namespace PixelStacker.UI
                 await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
                 {
                     var proj = await pxlzipFormatter.ImportAsync(_path, worker);
+                    proj.IsSideView = this.Options.IsSideView;
 
                     worker.ThrowIfCancellationRequested();
 

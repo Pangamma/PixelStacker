@@ -45,7 +45,7 @@ namespace PixelStacker.Logic.Model
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void DrawImages(SKCanvas canvas, IEnumerable<SKRect> rects, SKImage image)
         {
-            using var paint = new SKPaint { BlendMode = SKBlendMode.SrcOver };
+            using var paint = new SKPaint { BlendMode = SKBlendMode.SrcOver, IsAntialias = false };
             foreach (var tileRect in rects)
             {
                 canvas.DrawImage(image, tileRect, Constants.SAMPLE_OPTS_NONE, paint);

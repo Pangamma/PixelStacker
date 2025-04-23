@@ -143,7 +143,7 @@ namespace PixelStacker.Logic.IO.Formatters
         {
             bool isv = canvas.IsSideView;
             bool isMultiLayer = canvas.CanvasData.Any(x => canvas.MaterialPalette[x.PaletteID].IsMultiLayer);
-            var details = Schem2Formatter.ConvertCanvasToDetails(canvas);
+            var details = IExportFormatter.ConvertCanvasToDetails(canvas);
             var tag = new NbtCompound();
             tag.Add(new NbtInt("Version", SCHEMATIC_VERSION));
             tag.Add(new NbtInt("MinecraftDataVersion", Constants.DataVersion));
@@ -165,7 +165,6 @@ namespace PixelStacker.Logic.IO.Formatters
 
             foreach (var region in new int[0])
             {
-
             }
 
 
@@ -173,70 +172,5 @@ namespace PixelStacker.Logic.IO.Formatters
             byte[] bbData = null;
             return Task.FromResult(bbData);
         }
-
-        //private boolean readSubRegionsFromTag(NBTTagCompound tag, int version)
-        //{
-        //    tag = tag.getCompoundTag("Regions");
-
-        //    for (String regionName : tag.getKeySet())
-        //    {
-        //        if (tag.getTag(regionName).getId() == Constants.NBT.TAG_COMPOUND)
-        //        {
-        //            NBTTagCompound regionTag = tag.getCompoundTag(regionName);
-        //            BlockPos regionPos = NBTUtils.readBlockPos(regionTag.getCompoundTag("Position"));
-        //            BlockPos regionSize = NBTUtils.readBlockPos(regionTag.getCompoundTag("Size"));
-
-        //            if (regionPos != null && regionSize != null)
-        //            {
-        //                this.subRegions.put(regionName, new SubRegion(regionPos, regionSize));
-
-        //                if (version >= 2)
-        //                {
-        //                    this.blockEntities.put(regionName, this.readBlockEntitiesFromListTag(regionTag.getTagList("TileEntities", Constants.NBT.TAG_COMPOUND)));
-        //                    this.entities.put(regionName, this.readEntitiesFromListTag(regionTag.getTagList("Entities", Constants.NBT.TAG_COMPOUND)));
-        //                }
-        //                else if (version == 1)
-        //                {
-        //                    this.blockEntities.put(regionName, this.readTileEntitiesFromNBT_v1(regionTag.getTagList("TileEntities", Constants.NBT.TAG_COMPOUND)));
-        //                    this.entities.put(regionName, this.readEntitiesFromNBT_v1(regionTag.getTagList("Entities", Constants.NBT.TAG_COMPOUND)));
-        //                }
-
-        //                if (version >= 3)
-        //                {
-        //                    this.pendingBlockTicks.put(regionName, this.readBlockTicksFromNBT(regionTag.getTagList("PendingBlockTicks", Constants.NBT.TAG_COMPOUND)));
-        //                }
-
-        //                NBTBase nbtBase = regionTag.getTag("BlockStates");
-
-        //                // There are no convenience methods in NBTTagCompound yet in 1.12, so we'll have to do it the ugly way...
-        //                if (nbtBase != null && nbtBase.getId() == Constants.NBT.TAG_LONG_ARRAY)
-        //                {
-        //                    Vec3i size = new Vec3i(Math.abs(regionSize.getX()), Math.abs(regionSize.getY()), Math.abs(regionSize.getZ()));
-        //                    NBTTagList paletteTag = regionTag.getTagList("BlockStatePalette", Constants.NBT.TAG_COMPOUND);
-        //                    long[] blockStateArr = ((IMixinNBTTagLongArray)nbtBase).getArray();
-        //                    int paletteSize = paletteTag.tagCount();
-
-        //                    LitematicaBlockStateContainerFull container = LitematicaBlockStateContainerFull.createContainer(paletteSize, blockStateArr, size);
-
-        //                    if (container == null)
-        //                    {
-        //                        InfoUtils.printErrorMessage("litematica.error.schematic_read_from_file_failed.region_container",
-        //                                regionName, this.getFile() != null ? this.getFile().getName() : "<null>");
-        //                        return false;
-        //                    }
-
-        //                    this.readPaletteFromLitematicaFormatTag(paletteTag, container.getPalette());
-        //                    this.blockContainers.put(regionName, container);
-        //                }
-        //                else
-        //                {
-        //                    return false;
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    return true;
-        //}
     }
 }

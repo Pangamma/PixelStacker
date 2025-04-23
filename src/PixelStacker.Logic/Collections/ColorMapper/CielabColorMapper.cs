@@ -25,7 +25,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         public float[] ToComponents(SKColor c) => new float[] { c.Red, c.Green, c.Blue };
 
         // You should also customize this as well.
-        public int GetColorDistance(SKColor a, SKColor b) => a.GetColorDistance(b);
+        public int GetColorDistance(SKColor a, SKColor b) => a.GetColorDistanceSquared(b);
 
 
         public void SetSeedData(List<MaterialCombination> combos, MaterialPalette palette, bool isSideView)

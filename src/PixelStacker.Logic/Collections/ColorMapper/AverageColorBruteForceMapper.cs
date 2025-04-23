@@ -35,7 +35,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
             }
 
             if (c.Alpha < 32) return Palette[Constants.MaterialCombinationIDForAir];
-            var found = Combos.MinBy(x => x.GetAverageColor(IsSideView).GetColorDistance(c));
+            var found = Combos.MinBy(x => x.GetAverageColor(IsSideView).GetColorDistanceSquared(c));
             Cache[c] = found;
             return found;
         }
@@ -49,7 +49,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         public List<MaterialCombination> FindBestMatches(SKColor c, int maxMatches)
         {
             if (c.Alpha < 32) return new List<MaterialCombination>() { Palette[Constants.MaterialCombinationIDForAir] };
-            var found = Combos.OrderBy(x => x.GetAverageColor(IsSideView).GetColorDistance(c))
+            var found = Combos.OrderBy(x => x.GetAverageColor(IsSideView).GetColorDistanceSquared(c))
                 .Take(maxMatches).ToList();
 
             return found;
