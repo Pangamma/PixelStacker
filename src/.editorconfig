@@ -5,3 +5,11 @@ dotnet_diagnostic.IDE0079.severity = silent
 
 # IDE1006: Must use pascal casing everywhere even if method was auto generated??
 dotnet_diagnostic.IDE1006.severity = silent
+
+# I strongly disagree with what these messages are telling me to do.
+# Who comes up with these nonsensical nag messages??
+dotnet_diagnostic.IDE0305.severity = silent
+dotnet_diagnostic.IDE0090.severity = silent
+dotnet_diagnostic.IDE0028.severity = silent
+dotnet_diagnostic.NUnit2045.severity = silent
+

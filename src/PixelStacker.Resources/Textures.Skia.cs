@@ -25,8 +25,7 @@ namespace PixelStacker.Resources
         {
             get
             {
-                if (_air == null)
-                    _air = SKBitmap.Decode((byte[])ResourceManager.GetObject("air"))
+                _air ??= SKBitmap.Decode((byte[])ResourceManager.GetObject("air"))
                     .Copy(SKColorType.Rgba8888);
                 return _air;
             }
@@ -37,8 +36,7 @@ namespace PixelStacker.Resources
         {
             get
             {
-                if (_barrier == null)
-                    _barrier = SKBitmap.Decode((byte[])ResourceManager.GetObject("barrier"))
+                _barrier ??= SKBitmap.Decode((byte[])ResourceManager.GetObject("barrier"))
                     .Copy(SKColorType.Rgba8888);
                 return _barrier;
             }
@@ -49,8 +47,7 @@ namespace PixelStacker.Resources
         {
             get
             {
-                if (_disabled == null)
-                    _disabled = SKBitmap.Decode((byte[])ResourceManager.GetObject("disabled"))
+                _disabled ??= SKBitmap.Decode((byte[])ResourceManager.GetObject("disabled"))
                     .Copy(SKColorType.Rgba8888);
                 return _disabled;
             }
@@ -58,7 +55,7 @@ namespace PixelStacker.Resources
 
         private static readonly string TextureFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", "Textures", "x16");
 
-        private static Dictionary<string, SKBitmap> TextureCache = new();
+        private static readonly Dictionary<string, SKBitmap> TextureCache = [];
         public static SKBitmap GetBitmap(string textureName, int rotationDegrees = 0)
         {
             string cacheKey = $"{rotationDegrees}--{textureName}";

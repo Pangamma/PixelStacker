@@ -424,10 +424,7 @@ namespace PixelStacker.UI
                     foreach (var mat in existingProfile.Materials)
                     {
                         var material = Materials.FromPixelStackerID(mat.Key);
-                        if (material != null)
-                        {
-                            material.IsEnabledF(this.Options, mat.Value);
-                        }
+                        material?.IsEnabledF(this.Options, mat.Value);
                     }
                 }
             }

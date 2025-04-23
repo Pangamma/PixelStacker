@@ -211,7 +211,6 @@ namespace PixelStacker.CodeGenerator.BlockRipper
 
             var sideTextures = textureNodes.GroupBy(node => node.TextureForEast).ToArray();
 
-            int countMissing = 0;
             string output = "";
             List<string> outputLines = new List<string>();
             // Match textures with blocks in a reasonable way.
