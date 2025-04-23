@@ -428,9 +428,8 @@ namespace PixelStacker.UI
                     }
                 }
             }
-
-            tbxMaterialFilter.Text = "enabled";
-            await SetSearchFilter("enabled", CancellationToken.None);
+            //tbxMaterialFilter.Text = "enabled";
+            await SetSearchFilter(tbxMaterialFilter.Text, CancellationToken.None);
         }
 
         private void btnEditColorProfiles_Click(object sender, EventArgs e)
@@ -715,7 +714,7 @@ namespace PixelStacker.UI
             if (keyData == Keys.Escape)
             {
                 var task = this.TryHideAsync();
-                task.Wait();
+                //task.Wait(1000);
                 return true;
             }
 

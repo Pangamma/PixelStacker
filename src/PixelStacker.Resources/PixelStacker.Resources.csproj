@@ -9,14 +9,17 @@
     <None Remove="Images\Pixelart\**" />
     <Compile Remove="Images\Pixelart\**" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Remove="Images\Textures\x16\*.png" />
-  </ItemGroup>
-  <ItemGroup>
+	  <None Remove="Images\Textures\Custom\*.png" />
+	  <None Remove="Images\Textures\x16\*.png" />
 	  <Content Include="Images\Textures\x16\*.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Images\Textures\Custom\*.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+  </ItemGroup>
+  <ItemGroup>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Localization\ResxContainer.Designer.cs">

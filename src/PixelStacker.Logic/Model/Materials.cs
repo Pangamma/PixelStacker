@@ -11,26 +11,6 @@ using System.Linq;
 
 Crafter
 
-
-Needs investigation:
-Shulker Box
-White Shulker Box
-Light Gray Shulker Box
-Gray Shulker Box
-Black Shulker Box
-Brown Shulker Box
-Red Shulker Box
-Orange Shulker Box
-Yellow Shulker Box
-Lime Shulker Box
-Green Shulker Box
-Cyan Shulker Box
-Light Blue Shulker Box
-Blue Shulker Box
-Purple Shulker Box
-Magenta Shulker Box
-Pink Shulker Box
-
 Rejected due to instable state:
 Certain states of Creaking Heart
 Respawn Anchor
@@ -68,9 +48,27 @@ namespace PixelStacker.Logic.Model
 
         public static Material FromPixelStackerID(string pixelStackerID)
         {
-            return List.FirstOrDefault(x => x.PixelStackerID == pixelStackerID);
+            return Dictionary[pixelStackerID];
         }
 
+        private static Dictionary<string, Material> _Dictionary = null;
+        public static Dictionary<string, Material> Dictionary { 
+            get 
+            { 
+                if (_Dictionary == null)
+                {
+                    _Dictionary = List.ToDictionary(k => k.PixelStackerID, v => v);
+                }
+                return _Dictionary;
+            } 
+        }
+
+        /// <summary>
+        /// Extra means it is added into the category, but doesn't quite fit with 
+        /// the other items so it should be appended to the end of the list in any 
+        /// sorting attempts.
+        /// </summary>
+        private const string TAG_EXTRA = "extra";
         private static List<Material> _List = null;
         public static List<Material> List
         {
@@ -98,10 +96,31 @@ namespace PixelStacker.Logic.Model
                         TODO: Add shulker boxes maybe?
                         Add crafter
                      */
-
                     _List = new List<Material>()
                     {
                         new Material("1.7", false, "Air", "AIR", "Air", Textures.air, Textures.air, $"minecraft:air", $"minecraft:air", "minecraft:air"),
+
+                        // WHITE, LIGHT GRAY, GRAY, BLACK
+                        // BROWN, RED, ORANGE, YELLOW, LIME, GREEN,
+                        // CYAN, LIGHT BLUE, BLUE, PURPLE, MAGENTA, PINK
+                        //
+                        new Material("1.11", true, "Shulker", "SHULKER_00", "White Shulker Box", Textures.GetBitmap("white_shulker_box"), Textures.GetCustomBitmap("white_shulker_box_side"), $"minecraft:white_shulker_box", $"minecraft:white_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_01", "Orange Shulker Box", Textures.GetBitmap("orange_shulker_box"), Textures.GetCustomBitmap("orange_shulker_box_side"), $"minecraft:orange_shulker_box", $"minecraft:orange_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_02", "Magenta Shulker Box", Textures.GetBitmap("magenta_shulker_box"), Textures.GetCustomBitmap("magenta_shulker_box_side"), $"minecraft:magenta_shulker_box", $"minecraft:magenta_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_03", "Light Blue Shulker Box", Textures.GetBitmap("light_blue_shulker_box"), Textures.GetCustomBitmap("light_blue_shulker_box_side"), $"minecraft:light_blue_shulker_box", $"minecraft:light_blue_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_04", "Yellow Shulker Box", Textures.GetBitmap("yellow_shulker_box"), Textures.GetCustomBitmap("yellow_shulker_box_side"), $"minecraft:yellow_shulker_box", $"minecraft:yellow_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_05", "Lime Shulker Box", Textures.GetBitmap("lime_shulker_box"), Textures.GetCustomBitmap("lime_shulker_box_side"), $"minecraft:lime_shulker_box", $"minecraft:lime_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_06", "Pink Shulker Box",  Textures.GetBitmap("pink_shulker_box"), Textures.GetCustomBitmap("pink_shulker_box_side"), $"minecraft:pink_shulker_box", $"minecraft:pink_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_07", "Gray Shulker Box",Textures.GetBitmap("gray_shulker_box"), Textures.GetCustomBitmap("gray_shulker_box_side"), $"minecraft:gray_shulker_box", $"minecraft:gray_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_08", "Light Gray Shulker Box",  Textures.GetBitmap("light_gray_shulker_box"), Textures.GetCustomBitmap("light_gray_shulker_box_side"), $"minecraft:light_gray_shulker_box", $"minecraft:light_gray_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_09", "Cyan Shulker Box", Textures.GetBitmap("cyan_shulker_box"), Textures.GetCustomBitmap("cyan_shulker_box_side"), $"minecraft:cyan_shulker_box", $"minecraft:cyan_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_10", "Purple Shulker Box",  Textures.GetBitmap("purple_shulker_box"), Textures.GetCustomBitmap("purple_shulker_box_side"), $"minecraft:purple_shulker_box", $"minecraft:purple_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_11", "Blue Shulker Box",  Textures.GetBitmap("blue_shulker_box"), Textures.GetCustomBitmap("blue_shulker_box_side"), $"minecraft:blue_shulker_box", $"minecraft:blue_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_12", "Brown Shulker Box", Textures.GetBitmap("brown_shulker_box"), Textures.GetCustomBitmap("brown_shulker_box_side"), $"minecraft:brown_shulker_box", $"minecraft:brown_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_13", "Green Shulker Box",  Textures.GetBitmap("green_shulker_box"), Textures.GetCustomBitmap("green_shulker_box_side"), $"minecraft:green_shulker_box", $"minecraft:green_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_14", "Red Shulker Box", Textures.GetBitmap("red_shulker_box"), Textures.GetCustomBitmap("red_shulker_box_side"), $"minecraft:red_shulker_box", $"minecraft:red_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_15", "Black Shulker Box", Textures.GetBitmap("black_shulker_box"), Textures.GetCustomBitmap("black_shulker_box_side"), $"minecraft:black_shulker_box", $"minecraft:black_shulker_box", ""),
+                        new Material("1.11", true, "Shulker", "SHULKER_XX", "Shulker Box", Textures.GetBitmap("shulker_box"), Textures.GetCustomBitmap("shulker_box_side"), $"minecraft:shulker_box", $"minecraft:shulker_box", ""){ Tags = [TAG_EXTRA] },
 
                         new Material("1.7", false, "Glass", "GLASS_00", "White Glass", Textures.GetBitmap("white_stained_glass"), Textures.GetBitmap("white_stained_glass"), $"minecraft:white_stained_glass", $"minecraft:white_stained_glass", "minecraft:stained_glass"),
                         new Material("1.7", false, "Glass", "GLASS_01", "Orange Glass", Textures.GetBitmap("orange_stained_glass"), Textures.GetBitmap("orange_stained_glass"), $"minecraft:orange_stained_glass", $"minecraft:orange_stained_glass", "minecraft:stained_glass"),
@@ -119,8 +138,8 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", false, "Glass", "GLASS_13", "Green Glass",  Textures.GetBitmap("green_stained_glass"), Textures.GetBitmap("green_stained_glass"), $"minecraft:green_stained_glass", $"minecraft:green_stained_glass", "minecraft:stained_glass"),
                         new Material("1.7", false, "Glass", "GLASS_14", "Red Glass", Textures.GetBitmap("red_stained_glass"), Textures.GetBitmap("red_stained_glass"), $"minecraft:red_stained_glass", $"minecraft:red_stained_glass", "minecraft:stained_glass"),
                         new Material("1.7", false, "Glass", "GLASS_15", "Black Glass", Textures.GetBitmap("black_stained_glass"), Textures.GetBitmap("black_stained_glass"), $"minecraft:black_stained_glass", $"minecraft:black_stained_glass", "minecraft:stained_glass"),
-                        new Material("1.7", true, "Glass", "GLASS_CLR", "Clear Glass", Textures.GetBitmap("glass"), Textures.GetBitmap("glass"), $"minecraft:glass", $"minecraft:glass", "minecraft:glass"),
-                        new Material("1.17", true, "Glass", "GLASS_TINTED", "Tinted Glass",  Textures.GetBitmap("tinted_glass"), Textures.GetBitmap("tinted_glass"), $"minecraft:tinted_glass", $"minecraft:tinted_glass", ""),
+                        new Material("1.7", true, "Glass", "GLASS_CLR", "Clear Glass", Textures.GetBitmap("glass"), Textures.GetBitmap("glass"), $"minecraft:glass", $"minecraft:glass", "minecraft:glass"){Tags = [TAG_EXTRA] },
+                        new Material("1.17", true, "Glass", "GLASS_TINTED", "Tinted Glass",  Textures.GetBitmap("tinted_glass"), Textures.GetBitmap("tinted_glass"), $"minecraft:tinted_glass", $"minecraft:tinted_glass", ""){Tags = [TAG_EXTRA] },
 
                         new Material("1.7", false, "Wool", "WOOL_00", "White Wool", Textures.GetBitmap("white_wool"), Textures.GetBitmap("white_wool"), $"minecraft:white_wool", $"minecraft:white_wool", "minecraft:wool"),
                         new Material("1.7", false, "Wool", "WOOL_01", "Orange Wool", Textures.GetBitmap("orange_wool"), Textures.GetBitmap("orange_wool"), $"minecraft:orange_wool", $"minecraft:orange_wool", "minecraft:wool"),
@@ -139,22 +158,23 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", false, "Wool", "WOOL_14", "Red Wool",  Textures.GetBitmap("red_wool"), Textures.GetBitmap("red_wool"), $"minecraft:red_wool", $"minecraft:red_wool", "minecraft:wool"),
                         new Material("1.7", false, "Wool", "WOOL_15", "Black Wool",  Textures.GetBitmap("black_wool"), Textures.GetBitmap("black_wool"), $"minecraft:black_wool", $"minecraft:black_wool", "minecraft:wool"),
 
-                        new Material("1.12", false, "Concrete", "CONC_00", "White Concrete", Textures.GetBitmap("white_concrete"), Textures.GetBitmap("white_concrete"), $"minecraft:white_concrete", $"minecraft:white_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_01", "Orange Concrete", Textures.GetBitmap("orange_concrete"), Textures.GetBitmap("orange_concrete"), $"minecraft:orange_concrete", $"minecraft:orange_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_02", "Magenta Concrete", Textures.GetBitmap("magenta_concrete"), Textures.GetBitmap("magenta_concrete"), $"minecraft:magenta_concrete", $"minecraft:magenta_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_03", "Light Blue Concrete",Textures.GetBitmap("light_blue_concrete"), Textures.GetBitmap("light_blue_concrete"), $"minecraft:light_blue_concrete", $"minecraft:light_blue_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_04", "Yellow Concrete",  Textures.GetBitmap("yellow_concrete"), Textures.GetBitmap("yellow_concrete"), $"minecraft:yellow_concrete", $"minecraft:yellow_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_05", "Lime Concrete",  Textures.GetBitmap("lime_concrete"), Textures.GetBitmap("lime_concrete"), $"minecraft:lime_concrete", $"minecraft:lime_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_06", "Pink Concrete", Textures.GetBitmap("pink_concrete"), Textures.GetBitmap("pink_concrete"), $"minecraft:pink_concrete", $"minecraft:pink_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_07", "Gray Concrete",  Textures.GetBitmap("gray_concrete"), Textures.GetBitmap("gray_concrete"), $"minecraft:gray_concrete", $"minecraft:gray_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_08", "Light Gray Concrete",  Textures.GetBitmap("light_gray_concrete"), Textures.GetBitmap("light_gray_concrete"), $"minecraft:light_gray_concrete", $"minecraft:light_gray_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_09", "Cyan Concrete", Textures.GetBitmap("cyan_concrete"), Textures.GetBitmap("cyan_concrete"), $"minecraft:cyan_concrete", $"minecraft:cyan_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_10", "Purple Concrete",  Textures.GetBitmap("purple_concrete"), Textures.GetBitmap("purple_concrete"), $"minecraft:purple_concrete", $"minecraft:purple_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_11", "Blue Concrete",  Textures.GetBitmap("blue_concrete"), Textures.GetBitmap("blue_concrete"), $"minecraft:blue_concrete", $"minecraft:blue_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_12", "Brown Concrete", Textures.GetBitmap("brown_concrete"), Textures.GetBitmap("brown_concrete"), $"minecraft:brown_concrete", $"minecraft:brown_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_13", "Green Concrete",Textures.GetBitmap("green_concrete"), Textures.GetBitmap("green_concrete"), $"minecraft:green_concrete", $"minecraft:green_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_14", "Red Concrete", Textures.GetBitmap("red_concrete"), Textures.GetBitmap("red_concrete"), $"minecraft:red_concrete", $"minecraft:red_concrete", "minecraft:concrete"),
-                        new Material("1.12", false, "Concrete", "CONC_15", "Black Concrete", Textures.GetBitmap("black_concrete"), Textures.GetBitmap("black_concrete"), $"minecraft:black_concrete", $"minecraft:black_concrete", "minecraft:concrete"),
+                        new Material("1.7", true, "Carpet", "CARPET_00", "White Carpet", Textures.GetBitmap("white_wool"), Textures.GetBitmap("white_wool"), $"minecraft:white_carpet", $"minecraft:white_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_01", "Orange Carpet", Textures.GetBitmap("orange_wool"), Textures.GetBitmap("orange_wool"), $"minecraft:orange_carpet", $"minecraft:orange_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_02", "Magenta Carpet", Textures.GetBitmap("magenta_wool"), Textures.GetBitmap("magenta_wool"), $"minecraft:magenta_carpet", $"minecraft:magenta_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_03", "Light Blue Carpet", Textures.GetBitmap("light_blue_wool"), Textures.GetBitmap("light_blue_wool"), $"minecraft:light_blue_carpet", $"minecraft:light_blue_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_04", "Yellow Carpet", Textures.GetBitmap("yellow_wool"), Textures.GetBitmap("yellow_wool"), $"minecraft:yellow_carpet", $"minecraft:yellow_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_05", "Lime Carpet", Textures.GetBitmap("lime_wool"), Textures.GetBitmap("lime_wool"), $"minecraft:lime_carpet", $"minecraft:lime_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_06", "Pink Carpet", Textures.GetBitmap("pink_wool"), Textures.GetBitmap("pink_wool"), $"minecraft:pink_carpet", $"minecraft:pink_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_07", "Gray Carpet", Textures.GetBitmap("gray_wool"), Textures.GetBitmap("gray_wool"), $"minecraft:gray_carpet", $"minecraft:gray_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_08", "Light Gray Carpet", Textures.GetBitmap("light_gray_wool"), Textures.GetBitmap("light_gray_wool"), $"minecraft:light_gray_carpet", $"minecraft:light_gray_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_09", "Cyan Carpet", Textures.GetBitmap("cyan_wool"), Textures.GetBitmap("cyan_wool"), $"minecraft:cyan_carpet", $"minecraft:cyan_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_10", "Purple Carpet", Textures.GetBitmap("purple_wool"), Textures.GetBitmap("purple_wool"), $"minecraft:purple_carpet", $"minecraft:purple_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_11", "Blue Carpet", Textures.GetBitmap("blue_wool"), Textures.GetBitmap("blue_wool"), $"minecraft:blue_carpet", $"minecraft:blue_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_12", "Brown Carpet", Textures.GetBitmap("brown_wool"), Textures.GetBitmap("brown_wool"), $"minecraft:brown_carpet", $"minecraft:brown_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_13", "Green Carpet", Textures.GetBitmap("green_wool"), Textures.GetBitmap("green_wool"), $"minecraft:green_carpet", $"minecraft:green_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_14", "Red Carpet", Textures.GetBitmap("red_wool"), Textures.GetBitmap("red_wool"), $"minecraft:red_carpet", $"minecraft:red_carpet", "minecraft:carpet"),
+                        new Material("1.7", true, "Carpet", "CARPET_15", "Black Carpet", Textures.GetBitmap("black_wool"), Textures.GetBitmap("black_wool"), $"minecraft:black_carpet", $"minecraft:black_carpet", "minecraft:carpet"),
+                        new Material("1.17", true, "Carpet", "CARPET_MOSS", "Moss Carpet", Textures.GetBitmap("moss_block"), Textures.GetBitmap("moss_block"), $"minecraft:moss_carpet", $"minecraft:moss_carpet", "") {Tags = [TAG_EXTRA] },
 
                         new Material("1.12", false, "Powder", "PWDR_00", "White Powder", Textures.GetBitmap("white_concrete_powder"), Textures.GetBitmap("white_concrete_powder"), $"minecraft:white_concrete_powder", $"minecraft:white_concrete_powder", "minecraft:concrete_powder"),
                         new Material("1.12", false, "Powder", "PWDR_01", "Orange Powder", Textures.GetBitmap("orange_concrete_powder"), Textures.GetBitmap("orange_concrete_powder"), $"minecraft:orange_concrete_powder", $"minecraft:orange_concrete_powder", "minecraft:concrete_powder"),
@@ -172,8 +192,25 @@ namespace PixelStacker.Logic.Model
                         new Material("1.12", false, "Powder", "PWDR_13", "Green Powder", Textures.GetBitmap("green_concrete_powder"), Textures.GetBitmap("green_concrete_powder"), $"minecraft:green_concrete_powder", $"minecraft:green_concrete_powder", "minecraft:concrete_powder"),
                         new Material("1.12", false, "Powder", "PWDR_14", "Red Powder", Textures.GetBitmap("red_concrete_powder"), Textures.GetBitmap("red_concrete_powder"), $"minecraft:red_concrete_powder", $"minecraft:red_concrete_powder", "minecraft:concrete_powder"),
                         new Material("1.12", false, "Powder", "PWDR_15", "Black Powder",Textures.GetBitmap("black_concrete_powder"), Textures.GetBitmap("black_concrete_powder"), $"minecraft:black_concrete_powder", $"minecraft:black_concrete_powder", "minecraft:concrete_powder"),
-                        new Material("1.7", false, "Powder", "SAND_00", "Sand", Textures.GetBitmap("sand"), Textures.GetBitmap("sand"), $"minecraft:sand", $"minecraft:sand", "minecraft:sand"),
-                        new Material("1.7", false, "Powder", "SAND_01", "Sand Red", Textures.GetBitmap("red_sand"), Textures.GetBitmap("red_sand"), $"minecraft:red_sand", $"minecraft:red_sand", "minecraft:sand"),
+                        new Material("1.7", false, "Powder", "SAND_00", "Sand", Textures.GetBitmap("sand"), Textures.GetBitmap("sand"), $"minecraft:sand", $"minecraft:sand", "minecraft:sand"){Tags = [TAG_EXTRA] },
+                        new Material("1.7", false, "Powder", "SAND_01", "Sand Red", Textures.GetBitmap("red_sand"), Textures.GetBitmap("red_sand"), $"minecraft:red_sand", $"minecraft:red_sand", "minecraft:sand"){Tags = [TAG_EXTRA] },
+
+                        new Material("1.12", false, "Concrete", "CONC_00", "White Concrete", Textures.GetBitmap("white_concrete"), Textures.GetBitmap("white_concrete"), $"minecraft:white_concrete", $"minecraft:white_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_01", "Orange Concrete", Textures.GetBitmap("orange_concrete"), Textures.GetBitmap("orange_concrete"), $"minecraft:orange_concrete", $"minecraft:orange_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_02", "Magenta Concrete", Textures.GetBitmap("magenta_concrete"), Textures.GetBitmap("magenta_concrete"), $"minecraft:magenta_concrete", $"minecraft:magenta_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_03", "Light Blue Concrete",Textures.GetBitmap("light_blue_concrete"), Textures.GetBitmap("light_blue_concrete"), $"minecraft:light_blue_concrete", $"minecraft:light_blue_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_04", "Yellow Concrete",  Textures.GetBitmap("yellow_concrete"), Textures.GetBitmap("yellow_concrete"), $"minecraft:yellow_concrete", $"minecraft:yellow_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_05", "Lime Concrete",  Textures.GetBitmap("lime_concrete"), Textures.GetBitmap("lime_concrete"), $"minecraft:lime_concrete", $"minecraft:lime_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_06", "Pink Concrete", Textures.GetBitmap("pink_concrete"), Textures.GetBitmap("pink_concrete"), $"minecraft:pink_concrete", $"minecraft:pink_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_07", "Gray Concrete",  Textures.GetBitmap("gray_concrete"), Textures.GetBitmap("gray_concrete"), $"minecraft:gray_concrete", $"minecraft:gray_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_08", "Light Gray Concrete",  Textures.GetBitmap("light_gray_concrete"), Textures.GetBitmap("light_gray_concrete"), $"minecraft:light_gray_concrete", $"minecraft:light_gray_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_09", "Cyan Concrete", Textures.GetBitmap("cyan_concrete"), Textures.GetBitmap("cyan_concrete"), $"minecraft:cyan_concrete", $"minecraft:cyan_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_10", "Purple Concrete",  Textures.GetBitmap("purple_concrete"), Textures.GetBitmap("purple_concrete"), $"minecraft:purple_concrete", $"minecraft:purple_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_11", "Blue Concrete",  Textures.GetBitmap("blue_concrete"), Textures.GetBitmap("blue_concrete"), $"minecraft:blue_concrete", $"minecraft:blue_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_12", "Brown Concrete", Textures.GetBitmap("brown_concrete"), Textures.GetBitmap("brown_concrete"), $"minecraft:brown_concrete", $"minecraft:brown_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_13", "Green Concrete",Textures.GetBitmap("green_concrete"), Textures.GetBitmap("green_concrete"), $"minecraft:green_concrete", $"minecraft:green_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_14", "Red Concrete", Textures.GetBitmap("red_concrete"), Textures.GetBitmap("red_concrete"), $"minecraft:red_concrete", $"minecraft:red_concrete", "minecraft:concrete"),
+                        new Material("1.12", false, "Concrete", "CONC_15", "Black Concrete", Textures.GetBitmap("black_concrete"), Textures.GetBitmap("black_concrete"), $"minecraft:black_concrete", $"minecraft:black_concrete", "minecraft:concrete"),
 
                         new Material("1.7", false, "Clay", "TERRA_00", "White Terracotta", Textures.GetBitmap("white_terracotta"), Textures.GetBitmap("white_terracotta"), $"minecraft:white_terracotta", $"minecraft:white_terracotta", "minecraft:stained_hardened_clay"),
                         new Material("1.7", false, "Clay", "TERRA_01", "Orange Terracotta",  Textures.GetBitmap("orange_terracotta"), Textures.GetBitmap("orange_terracotta"), $"minecraft:orange_terracotta", $"minecraft:orange_terracotta", "minecraft:stained_hardened_clay"),
@@ -191,8 +228,8 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", false, "Clay", "TERRA_13", "Green Terracotta", Textures.GetBitmap("green_terracotta"), Textures.GetBitmap("green_terracotta"), $"minecraft:green_terracotta", $"minecraft:green_terracotta", "minecraft:stained_hardened_clay"),
                         new Material("1.7", false, "Clay", "TERRA_14", "Red Terracotta",  Textures.GetBitmap("red_terracotta"), Textures.GetBitmap("red_terracotta"), $"minecraft:red_terracotta", $"minecraft:red_terracotta", "minecraft:stained_hardened_clay"),
                         new Material("1.7", false, "Clay", "TERRA_15", "Black Terracotta", Textures.GetBitmap("black_terracotta"), Textures.GetBitmap("black_terracotta"), $"minecraft:black_terracotta", $"minecraft:black_terracotta", "minecraft:stained_hardened_clay"),
-                        new Material("1.7", false, "Clay", "CLAY_HARD_00", "Hardened Terracotta", Textures.GetBitmap("terracotta"), Textures.GetBitmap("terracotta"), $"minecraft:terracotta", $"minecraft:terracotta", "minecraft:hardened_clay"),
-                        new Material("1.7", false, "Clay", "CLAY_SOFT_00", "Clay", Textures.GetBitmap("clay"), Textures.GetBitmap("clay"), $"minecraft:clay", $"minecraft:clay", "minecraft:clay"),
+                        new Material("1.7", false, "Clay", "CLAY_HARD_00", "Hardened Terracotta", Textures.GetBitmap("terracotta"), Textures.GetBitmap("terracotta"), $"minecraft:terracotta", $"minecraft:terracotta", "minecraft:hardened_clay"){Tags = [TAG_EXTRA] },
+                        new Material("1.7", false, "Clay", "CLAY_SOFT_00", "Clay", Textures.GetBitmap("clay"), Textures.GetBitmap("clay"), $"minecraft:clay", $"minecraft:clay", "minecraft:clay"){Tags = [TAG_EXTRA] },
 
                         new Material("1.21.5", false, "Planks", "PALE_OAK_PLANKS", "Pale Oak Planks", Textures.GetBitmap("pale_oak_planks"), Textures.GetBitmap("pale_oak_planks"), $"minecraft:pale_oak_planks", $"minecraft:pale_oak_planks", ""),
                         new Material("1.7", false, "Planks", "PLANK_OAK", "Planks Oak", Textures.GetBitmap("oak_planks"), Textures.GetBitmap("oak_planks"), $"minecraft:oak_planks", $"minecraft:oak_planks", "minecraft:planks"),
@@ -206,7 +243,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.16", false, "Planks", "PLANK_WARPED", "Planks Warped", Textures.GetBitmap("warped_planks"), Textures.GetBitmap("warped_planks"), $"minecraft:warped_planks", $"minecraft:warped_planks", ""),
                         new Material("1.20", false, "Planks", "PLANK_CHERRY", "Planks Cherry", Textures.GetBitmap("cherry_planks"), Textures.GetBitmap("cherry_planks"), $"minecraft:cherry_planks", $"minecraft:cherry_planks", "minecraft:planks"),
                         new Material("1.20", false, "Planks", "PLANK_BAMBOO", "Planks Bamboo", Textures.GetBitmap("bamboo_planks"), Textures.GetBitmap("bamboo_planks"), $"minecraft:bamboo_planks", $"minecraft:bamboo_planks", "minecraft:planks"),
-                        new Material("1.20", false, "Planks", "PLANK_BAMBOOMOSAIC", "Mosaics Bamboo", Textures.GetBitmap("bamboo_mosaic"), Textures.GetBitmap("bamboo_mosaic"), $"minecraft:bamboo_mosaic", $"minecraft:bamboo_mosaic", "minecraft:planks"),
+                        new Material("1.20", false, "Planks", "PLANK_BAMBOOMOSAIC", "Mosaics Bamboo", Textures.GetBitmap("bamboo_mosaic"), Textures.GetBitmap("bamboo_mosaic"), $"minecraft:bamboo_mosaic", $"minecraft:bamboo_mosaic", "minecraft:planks") { Tags = [TAG_EXTRA] },
 
                         new Material("1.21.5", false, "Stripped", "STRIPPED_PALE_OAK_WOOD", "Stripped Pale Oak Wood", Textures.GetBitmap("stripped_pale_oak_log", 90), Textures.GetBitmap("stripped_pale_oak_log", 90), $"minecraft:stripped_pale_oak_wood[axis=x]", $"minecraft:stripped_pale_oak_wood[axis=x]", ""),
                         new Material("1.13", false, "Stripped", "STRIP_LOG_OAK", "Stripped Oak", Textures.GetBitmap("stripped_oak_log", 90), Textures.GetBitmap("stripped_oak_log", 90), $"minecraft:stripped_oak_log[axis=x]", $"minecraft:stripped_oak_log[axis=x]", ""),
@@ -232,8 +269,8 @@ namespace PixelStacker.Logic.Model
                         new Material("1.16", false, "Logs Top", "STUMP_LOG_CRIMSON", "Crimson Stem (Top)", Textures.GetBitmap("stripped_crimson_stem_top"), Textures.GetBitmap("stripped_crimson_stem_top"), $"minecraft:stripped_crimson_stem[axis=y]", $"minecraft:stripped_crimson_stem[axis=z]", ""),
                         new Material("1.16", false, "Logs Top", "STUMP_LOG_WARPED", "Warped Stem (Top)", Textures.GetBitmap("stripped_warped_stem_top"), Textures.GetBitmap("stripped_warped_stem_top"), $"minecraft:stripped_warped_stem[axis=y]", $"minecraft:stripped_warped_stem[axis=z]", ""),
                         new Material("1.20", false, "Logs Top", "STUMP_LOG_CHERRY", "Stripped Cherry (Top)", Textures.GetBitmap("stripped_cherry_log_top"), Textures.GetBitmap("stripped_cherry_log_top"), $"minecraft:stripped_cherry_log[axis=y]", $"minecraft:stripped_cherry_log[axis=z]", ""),
-                        new Material("1.20", false, "Logs Top", "STUMP_LOG_BAMBOO_2", "Block of Bamboo (Top)", Textures.GetBitmap("bamboo_block_top"), Textures.GetBitmap("bamboo_block_top"), $"minecraft:bamboo_block[axis=y]", $"minecraft:bamboo_block[axis=z]", ""),
                         new Material("1.20", false, "Logs Top", "STUMP_LOG_BAMBOO", "Stripped Bamboo (Top)", Textures.GetBitmap("stripped_bamboo_block_top"), Textures.GetBitmap("stripped_bamboo_block_top"), $"minecraft:stripped_bamboo_block[axis=y]", $"minecraft:stripped_bamboo_block[axis=z]", ""),
+                        new Material("1.20", false, "Logs Top", "STUMP_LOG_BAMBOO_2", "Block of Bamboo (Top)", Textures.GetBitmap("bamboo_block_top"), Textures.GetBitmap("bamboo_block_top"), $"minecraft:bamboo_block[axis=y]", $"minecraft:bamboo_block[axis=z]", ""),
 
                         new Material("1.21.5", false, "Logs", "BARK_LOG_PALE_OAK", "Pale Oak Wood", Textures.GetBitmap("pale_oak_log", 90), Textures.GetBitmap("pale_oak_log", 90), $"minecraft:pale_oak_wood[axis=x]", $"minecraft:pale_oak_wood[axis=x]", ""),
                         new Material("1.13", false, "Logs", "BARK_LOG_OAK", "Bark Oak", Textures.GetBitmap("oak_log"), Textures.GetBitmap("oak_log"), $"minecraft:oak_log[axis=x]", $"minecraft:oak_log[axis=x]", ""),
@@ -259,9 +296,9 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", false, "Good", "SMOOTH_SANDSTONE", "Smooth Sandstone", Textures.GetBitmap("sandstone_top"), Textures.GetBitmap("sandstone_top"), $"minecraft:smooth_sandstone", $"minecraft:smooth_sandstone", "minecraft:sandstone"),
                         new Material("1.7", false, "Good", "SNOW_BLK", "Snow", Textures.GetBitmap("snow"), Textures.GetBitmap("snow"), $"minecraft:snow_block", $"minecraft:snow_block", "minecraft:snow"),
                         new Material("1.7", false, "Good", "HAY_BLK_TOP", "Hay Block (Top)",  Textures.GetBitmap("hay_block_top"), Textures.GetBitmap("hay_block_top"), $"minecraft:hay_block[axis=y]", $"minecraft:hay_block[axis=z]", ""),
-                        new Material("1.7", true, "Good", "HAY_BLK", "Hay Block",  Textures.GetBitmap("hay_block_side"), Textures.GetBitmap("hay_block_side"), $"minecraft:hay_block[axis=x]", $"minecraft:hay_block[axis=x]", "minecraft:hay_block"),
                         new Material("1.7", false, "Good", "SMOOTH_QRTZ", "Smooth Quartz Block", Textures.GetBitmap("quartz_block_bottom"), Textures.GetBitmap("quartz_block_bottom"), $"minecraft:smooth_quartz", $"minecraft:smooth_quartz", "minecraft:quartz_block"),
                         new Material("1.21.5", false, "Good", "PALE_MOSS_BLK", "Pale Moss Block", Textures.GetBitmap("pale_moss_block"), Textures.GetBitmap("pale_moss_block"), $"minecraft:pale_moss_block", $"minecraft:pale_moss_block", ""),
+                        new Material("1.17", false, "Good", "MOSS_BLOCK", "Moss Block", Textures.GetBitmap("moss_block"), Textures.GetBitmap("moss_block"), $"minecraft:moss_block", $"minecraft:moss_block", ""),
 
                         new Material("1.8", true, "Okay", "SLIME_BLK", "Slime Block", Textures.GetBitmap("slime_block"), Textures.GetBitmap("slime_block"), $"minecraft:slime_block", $"minecraft:slime_block", ""),
                         new Material("1.15", true, "Okay", "HONEY_BLK", "Honey Block", Textures.GetBitmap("honey_block_top"), Textures.GetBitmap("honey_block_side"), $"minecraft:honey_block", $"minecraft:honey_block", ""),
@@ -270,7 +307,6 @@ namespace PixelStacker.Logic.Model
                         new Material("1.15", true, "Okay", "BEE_NEST", "Bee Nest", Textures.GetBitmap("bee_nest_top"), Textures.GetBitmap("bee_nest_side"), $"minecraft:bee_nest[facing=west]", $"minecraft:bee_nest[facing=west]", ""),
                         new Material("1.7", false, "Okay", "BEDROCK", "Bedrock", Textures.GetBitmap("bedrock"), Textures.GetBitmap("bedrock"), $"minecraft:bedrock", $"minecraft:bedrock", "minecraft:bedrock"),
                         new Material("1.7", false, "Okay", "COBBLE", "Cobblestone", Textures.GetBitmap("cobblestone"), Textures.GetBitmap("cobblestone"), $"minecraft:cobblestone", $"minecraft:cobblestone", "minecraft:cobblestone"),
-                        new Material("1.17", false, "Okay", "MOSS_BLOCK", "Moss Block", Textures.GetBitmap("moss_block"), Textures.GetBitmap("moss_block"), $"minecraft:moss_block", $"minecraft:moss_block", ""),
                         new Material("1.17", false, "Okay", "DRIPSTONE", "Dripstone", Textures.GetBitmap("dripstone_block"), Textures.GetBitmap("dripstone_block"), $"minecraft:dripstone_block", $"minecraft:dripstone_block", "minecraft:dripstone_block"),
                         new Material("1.7", false, "Okay", "ENDSTONE", "Endstone", Textures.GetBitmap("end_stone"), Textures.GetBitmap("end_stone"), $"minecraft:end_stone", $"minecraft:end_stone", "minecraft:end_stone"),
                         new Material("1.7", false, "Okay", "NETHERRACK", "Netherrack", Textures.GetBitmap("netherrack"), Textures.GetBitmap("netherrack"), $"minecraft:netherrack", $"minecraft:netherrack", "minecraft:netherrack"),
@@ -278,6 +314,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.9", false, "Okay", "PURPUR_BLK", "Purpur Block", Textures.GetBitmap("purpur_block"), Textures.GetBitmap("purpur_block"), $"minecraft:purpur_block", $"minecraft:purpur_block", "minecraft:purpur_block"),
                         new Material("1.9", false, "Okay", "PURPUR_PLR_TOP", "Purpur Pillar (Top)", Textures.GetBitmap("purpur_pillar_top"), Textures.GetBitmap("purpur_pillar_top"), $"minecraft:purpur_pillar[axis=y]", $"minecraft:purpur_pillar[axis=z]", ""),
                         new Material("1.9", false, "Okay", "PURPUR_PLR_SIDE", "Purpur Pillar (Side)", Textures.GetBitmap("purpur_pillar", 90), Textures.GetBitmap("purpur_pillar", 90), $"minecraft:purpur_pillar[axis=x]", $"minecraft:purpur_pillar[axis=x]", ""),
+                        new Material("1.7", true, "Okay", "HAY_BLK", "Hay Block",  Textures.GetBitmap("hay_block_side"), Textures.GetBitmap("hay_block_side"), $"minecraft:hay_block[axis=x]", $"minecraft:hay_block[axis=x]", "minecraft:hay_block"),
 
                         new Material("1.7", false, "Okay", "ICE_PACKED", "Packed Ice", Textures.GetBitmap("packed_ice"), Textures.GetBitmap("packed_ice"), $"minecraft:packed_ice", $"minecraft:packed_ice", "minecraft:packed_ice"),
                         new Material("1.7", false, "Okay", "SPONGE", "Sponge", Textures.GetBitmap("sponge"), Textures.GetBitmap("sponge"), $"minecraft:sponge", $"minecraft:sponge", "minecraft:sponge"),
@@ -444,24 +481,6 @@ namespace PixelStacker.Logic.Model
                         new Material("1.12", false, "Terracotta", "GLAZED_14", "Red Terracotta", Textures.GetBitmap("red_glazed_terracotta"), Textures.GetBitmap("red_glazed_terracotta"), $"minecraft:red_glazed_terracotta", $"minecraft:red_glazed_terracotta", "minecraft:red_glazed_terracotta"),
                         new Material("1.12", false, "Terracotta", "GLAZED_15", "Black Terracotta", Textures.GetBitmap("black_glazed_terracotta"), Textures.GetBitmap("black_glazed_terracotta"), $"minecraft:black_glazed_terracotta", $"minecraft:black_glazed_terracotta", "minecraft:black_glazed_terracotta"),
 
-                        new Material("1.7", true, "Carpet", "CARPET_00", "White Carpet", Textures.GetBitmap("white_wool"), Textures.GetBitmap("white_wool"), $"minecraft:white_carpet", $"minecraft:white_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_01", "Orange Carpet", Textures.GetBitmap("orange_wool"), Textures.GetBitmap("orange_wool"), $"minecraft:orange_carpet", $"minecraft:orange_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_02", "Magenta Carpet", Textures.GetBitmap("magenta_wool"), Textures.GetBitmap("magenta_wool"), $"minecraft:magenta_carpet", $"minecraft:magenta_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_03", "Light Blue Carpet", Textures.GetBitmap("light_blue_wool"), Textures.GetBitmap("light_blue_wool"), $"minecraft:light_blue_carpet", $"minecraft:light_blue_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_04", "Yellow Carpet", Textures.GetBitmap("yellow_wool"), Textures.GetBitmap("yellow_wool"), $"minecraft:yellow_carpet", $"minecraft:yellow_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_05", "Lime Carpet", Textures.GetBitmap("lime_wool"), Textures.GetBitmap("lime_wool"), $"minecraft:lime_carpet", $"minecraft:lime_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_06", "Pink Carpet", Textures.GetBitmap("pink_wool"), Textures.GetBitmap("pink_wool"), $"minecraft:pink_carpet", $"minecraft:pink_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_07", "Gray Carpet", Textures.GetBitmap("gray_wool"), Textures.GetBitmap("gray_wool"), $"minecraft:gray_carpet", $"minecraft:gray_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_08", "Light Gray Carpet", Textures.GetBitmap("light_gray_wool"), Textures.GetBitmap("light_gray_wool"), $"minecraft:light_gray_carpet", $"minecraft:light_gray_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_09", "Cyan Carpet", Textures.GetBitmap("cyan_wool"), Textures.GetBitmap("cyan_wool"), $"minecraft:cyan_carpet", $"minecraft:cyan_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_10", "Purple Carpet", Textures.GetBitmap("purple_wool"), Textures.GetBitmap("purple_wool"), $"minecraft:purple_carpet", $"minecraft:purple_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_11", "Blue Carpet", Textures.GetBitmap("blue_wool"), Textures.GetBitmap("blue_wool"), $"minecraft:blue_carpet", $"minecraft:blue_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_12", "Brown Carpet", Textures.GetBitmap("brown_wool"), Textures.GetBitmap("brown_wool"), $"minecraft:brown_carpet", $"minecraft:brown_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_13", "Green Carpet", Textures.GetBitmap("green_wool"), Textures.GetBitmap("green_wool"), $"minecraft:green_carpet", $"minecraft:green_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_14", "Red Carpet", Textures.GetBitmap("red_wool"), Textures.GetBitmap("red_wool"), $"minecraft:red_carpet", $"minecraft:red_carpet", "minecraft:carpet"),
-                        new Material("1.7", true, "Carpet", "CARPET_15", "Black Carpet", Textures.GetBitmap("black_wool"), Textures.GetBitmap("black_wool"), $"minecraft:black_carpet", $"minecraft:black_carpet", "minecraft:carpet"),
-                        new Material("1.17", true, "Carpet", "CARPET_MOSS", "Moss Carpet", Textures.GetBitmap("moss_block"), Textures.GetBitmap("moss_block"), $"minecraft:moss_carpet", $"minecraft:moss_carpet", ""),
-
                         new Material("1.19", false, "Dirt", "MUD_PKD", "Packed Mud", Textures.GetBitmap("packed_mud"), Textures.GetBitmap("packed_mud"), $"minecraft:packed_mud", $"minecraft:packed_mud", ""),
                         new Material("1.17", false, "Dirt", "DIRT_ROOTED", "Rooted Dirt", Textures.GetBitmap("rooted_dirt"), Textures.GetBitmap("rooted_dirt"), $"minecraft:rooted_dirt", $"minecraft:rooted_dirt", ""),
                         new Material("1.7", false, "Dirt", "DIRT", "Dirt", Textures.GetBitmap("dirt"), Textures.GetBitmap("dirt"), $"minecraft:dirt", $"minecraft:dirt", "minecraft:dirt"),
@@ -573,6 +592,28 @@ namespace PixelStacker.Logic.Model
                     ////    .ForEach(m => m.Roughness = (int) (n * diff + diff + m.GetTextureRoughness(true)));
                     //Materials._List = Materials._List.OrderBy(x => x.Roughness).ToList();
                 }
+
+                List<Material> mats = new List<Material>();
+                var groups = _List.GroupBy(x => x.Category);
+                List<string> ORDER_COLORS = [  "brown", "red", "orange", "yellow", "lime", "green", "cyan", "light blue", "blue", "purple", "magenta", "pink", "white", "light gray", "gray", "black",];
+                foreach(var group in groups)
+                {
+                    if (group.Any(x => x.Label.ToLower().StartsWith(ORDER_COLORS[1])))
+                    {
+                        var sorted = group.Where(x => !x.Tags.Contains(TAG_EXTRA)).OrderBy(x => ORDER_COLORS.FindIndex(oc => x.Label.ToLower().StartsWith(oc))).ToList();
+                        sorted = sorted.Concat(group.Where(x => x.Tags.Contains(TAG_EXTRA))).ToList();
+                        mats.AddRange(sorted);
+                    }
+                    else
+                    {
+                        var sorted = group.ToList();
+                        //group.Where(x => !x.Tags.Contains(TAG_EXTRA)).OrderByColor(m => m.GetAverageColor(false));
+                        //sorted = sorted.Concat(group.Where(x => x.Tags.Contains(TAG_EXTRA)));
+                        mats.AddRange(sorted);
+                    }
+                }
+                _List = mats;
+
                 return _List;
             }
         }

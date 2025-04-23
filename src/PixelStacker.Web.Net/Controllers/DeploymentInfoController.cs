@@ -36,8 +36,9 @@ namespace PixelStacker.Web.Net.Controllers
 
             output["PixelStacker_Version"] = Constants.Version;
 
+#if DEBUG
             output["Extra"] = DeploymentInfoController.ExtraProperties;
-
+#endif
 
             return new JsonResult(output, new System.Text.Json.JsonSerializerOptions()
             {

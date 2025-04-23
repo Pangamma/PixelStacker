@@ -1,65 +1,74 @@
-.m-highlight-feature[role="banner"]{
-	margin-top:0px;
+.m-highlight-feature[role="banner"] {
+    margin-top: 0px;
 }
 
-.c-content-placement .c-paragraph, .m-content-placement-item .c-paragraph{
-	padding-top: 12px !important;
+.c-content-placement .c-paragraph,
+.m-content-placement-item .c-paragraph {
+    padding-top: 12px !important;
 }
 
-.m-content-placement-item .c-hyperlink, .c-content-placement .c-hyperlink {
-	padding: 10px 0;
-	margin-right: 16px;
-	display: inline-block;
+.m-content-placement-item .c-hyperlink,
+.c-content-placement .c-hyperlink {
+    padding: 10px 0;
+    margin-right: 16px;
+    display: inline-block;
 }
 
-.m-content-placement-item .c-hyperlink, .c-content-placement .c-hyperlink.f-lean {
-	padding: 0;
+.m-content-placement-item .c-hyperlink,
+.c-content-placement .c-hyperlink.f-lean {
+    padding: 0;
 }
 
-.c-content-placement, .m-content-placement-item {
-	margin-bottom: 20px;
+.c-content-placement,
+.m-content-placement-item {
+    margin-bottom: 20px;
 }
 
-@media screen and (max-width: 539px){
-	.hide-on-mobile{
-		display:none !important;
-	}
+@media screen and (max-width: 539px) {
+    .hide-on-mobile {
+        display: none !important;
+    }
 }
 
 /* 539 = mobile */
-@media screen and (min-width: 540px){
-	.show-on-mobile{
-		display:none !important;
-	}
+@media screen and (min-width: 540px) {
+    .show-on-mobile {
+        display: none !important;
+    }
 }
 
 [data-js-href]:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 [data-js-href]:hover img {
-	opacity: 0.9;
+    opacity: 0.9;
 }
 
 [data-js-href]:hover a.f-href-target {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 [data-js-href]:hover h2 {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 .image-card picture {
-	box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.208);
-	display: block;
-	position: relative;
+    box-shadow: 0 3.2px 7.2px 0 rgba(0, 0, 0, .132), 0 0.6px 1.8px 0 rgba(0, 0, 0, .208);
+    display: block;
+    position: relative;
+}
+
+.f-pixelate img,
+.f-pixelate picture {
+    image-rendering: pixelated;
 }
 
 kbd {
     display: inline-block;
     margin: 0 .1em;
     padding: .1em .6em;
-    font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 11px;
     line-height: 1.4;
     color: #242729;
@@ -67,6 +76,6 @@ kbd {
     background-color: #e1e3e5;
     border: 1px solid #adb3b8;
     border-radius: 3px;
-    box-shadow: 0 1px 0 rgba(12,13,14,0.2), 0 0 0 2px #fff inset;
+    box-shadow: 0 1px 0 rgba(12, 13, 14, 0.2), 0 0 0 2px #fff inset;
     white-space: nowrap;
 }

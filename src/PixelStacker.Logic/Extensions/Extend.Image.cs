@@ -178,7 +178,7 @@ namespace PixelStacker.Extensions
                 SKColor color = bitmapData[i];
 
                 callback(i % oW, i / oW, color);
-                if (worker != null)
+                if (worker != null && i % oW == 0)
                 {
                     ProgressX.Report(100 * (i / oW) / oH);
                     worker?.SafeThrowIfCancellationRequested();

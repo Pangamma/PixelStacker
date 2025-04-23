@@ -1,4 +1,5 @@
-﻿using PixelStacker.Logic.Utilities;
+﻿using PixelStacker.Extensions;
+using PixelStacker.Logic.Utilities;
 using PixelStacker.UI.Forms;
 using System;
 
@@ -27,7 +28,11 @@ namespace PixelStacker.UI
                 this.MaterialOptions.OnColorPaletteRecompileRequested = (token) =>
                 {
                     ProgressX.Report(40, Resources.Text.Progress_CompilingColorMap);
-                    this.ColorMapper.SetSeedData(this.Palette.ToValidCombinationList(this.Options), this.Palette, this.Options.IsSideView);
+                    this.InvokeEx(c =>
+                    {
+                        var combos = c.Palette.ToValidCombinationList(this.Options);
+                        c.ColorMapper.SetSeedData(combos, this.Palette, this.Options.IsSideView);
+                    });
                     ProgressX.Report(100, Resources.Text.Progress_CompiledColorMap);
                 };
             }

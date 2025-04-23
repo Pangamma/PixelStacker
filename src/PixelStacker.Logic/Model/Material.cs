@@ -93,7 +93,7 @@ namespace PixelStacker.Logic.Model
 
         private static readonly string[] ValidMinecraftVersions = new string[] {
             "NEW", "1.7", // 1.7 and 1.12 will contain inaccuracies where I was originally "rounding" up or down.
-            "1.8", "1.9", "1.10",
+            "1.8", "1.9", "1.10", "1.11",
             "1.12", "1.13", "1.14", "1.15", "1.16",
             "1.17", "1.19", "1.20", "1.21.5"
         };

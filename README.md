@@ -12,4 +12,4 @@ A program built to make multi layer pixel art using blocks from Minecraft. It in
 
 [Join me on Discord](https://discord.gg/UH7uMh2)  
 
-[How does the algorithm work?](https://github.com/Pangamma/PixelStacker/tree/master/docs/algorithm/README.md)  
+[How does the algorithm work?](https://github.com/Pangamma/PixelStacker/tree/master/docs/algorithm-color-selection/README.md)  

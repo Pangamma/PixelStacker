@@ -120,6 +120,7 @@ namespace PixelStacker.UI.Forms
         {
             this.SelectedCombo = e.MaterialCombination;
             UpdateMaterialComboTab();
+            this.Refresh();
         }
 
         private async void AppEvents_OnAdvancedModeChange(object sender, OptionsChangeEvent<bool> e)

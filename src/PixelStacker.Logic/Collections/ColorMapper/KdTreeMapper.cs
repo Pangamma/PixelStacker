@@ -41,13 +41,13 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
         public MaterialCombination FindBestMatch(SKColor c)
         {
+            if (Cache.TryGetValue(c, out MaterialCombination mc))
+            {
+                return mc;
+            }
+
             lock (Padlock)
             {
-                if (Cache.TryGetValue(c, out MaterialCombination mc))
-                {
-                    return mc;
-                }
-
                 if (c.Alpha < 32)return Palette[Constants.MaterialCombinationIDForAir];
                 var closest = KdTree.GetNearestNeighbours(new float[] { c.Red, c.Green, c.Blue }, 10);
                 var found = closest.MinBy(x => c.GetAverageColorDistance(x.Value.GetColorsInImage(this.IsSideView)));

@@ -170,7 +170,7 @@ namespace PixelStacker.CodeGenerator.BlockRipper
                         node.BlockIdAndNamespace = blockIdAndNamespace;
                         node.BlockStateData = variantKvp.Key == "*" ? "" : $"[{variantKvp.Key}]";
                         node.TextureForUp = TextureResolver.GetTextureForSide(blockState, modelDef, variant, "up", (modelKey) => ModelDefinition.GetEffectiveModel(modelFile, allBlockModels));
-                        node.TextureForEast = TextureResolver.GetTextureForSide(blockState, modelDef, variant, "east", (modelKey) => ModelDefinition.GetEffectiveModel(modelFile, allBlockModels));
+                        node.TextureForWest = TextureResolver.GetTextureForSide(blockState, modelDef, variant, "west", (modelKey) => ModelDefinition.GetEffectiveModel(modelFile, allBlockModels));
                         node.IsSameTextureOnAllSides = TextureResolver.IsSameTextureOnAllSides(blockState, modelDef, variant, (modelKey) => ModelDefinition.GetEffectiveModel(modelFile, allBlockModels));
                         textureNodes.Add(node);
                     }
@@ -209,7 +209,7 @@ namespace PixelStacker.CodeGenerator.BlockRipper
              var upTextures = textureNodes.GroupBy(node => node.TextureForUp).ToArray();
             //upTextures = upTextures.Where(g =>  g.Any(t => alreadyInUse.Contains(t.GetMatchyMatchyString()))).ToArray();
 
-            var sideTextures = textureNodes.GroupBy(node => node.TextureForEast).ToArray();
+            var sideTextures = textureNodes.GroupBy(node => node.TextureForWest).ToArray();
 
             string output = "";
             List<string> outputLines = new List<string>();
@@ -223,11 +223,11 @@ namespace PixelStacker.CodeGenerator.BlockRipper
                     .ThenBy(x => x.BlockStateData.Length).ToList();
 
                 // When you can find the same texture on both top and bottom, with the same block ID data.
-                var sideTexturesThatHaveSameTextureOnAllSides = sideTexturesToUse.Where(x => x.TextureForEast == x.TextureForUp).ToList();
+                var sideTexturesThatHaveSameTextureOnAllSides = sideTexturesToUse.Where(x => x.TextureForWest == x.TextureForUp).ToList();
                 if (sideTexturesThatHaveSameTextureOnAllSides.Count > 0)
                 {
                     var sideNode = sideTexturesToUse.FirstOrDefault();
-                    string line = @$"new Material(""{McVersion}"", false, ""Other"", ""PIXELSTACKER_ID"", ""{sideNode.Label}"", Textures.GetBitmap(""{sideNode.TextureForUp_ResourceName}""), Textures.GetBitmap(""{ sideNode.TextureForEast_ResourceName}""), $""{sideNode.BlockIdAndNamespaceAndData}"", $""{sideNode.BlockIdAndNamespaceAndData}"", """"),";
+                    string line = @$"new Material(""{McVersion}"", false, ""Other"", ""PIXELSTACKER_ID"", ""{sideNode.Label}"", Textures.GetBitmap(""{sideNode.TextureForUp_ResourceName}""), Textures.GetBitmap(""{ sideNode.TextureForWest_ResourceName}""), $""{sideNode.BlockIdAndNamespaceAndData}"", $""{sideNode.BlockIdAndNamespaceAndData}"", """"),";
                     output += line + "\n";
                     outputLines.Add(line);
                     Debug.WriteLine(line);
@@ -249,7 +249,7 @@ namespace PixelStacker.CodeGenerator.BlockRipper
 
                     var sideNode = sideTexturesToUse.FirstOrDefault();
                     var topNode = upTextureGroup.FirstOrDefault();
-                    string line = @$"new Material(""{McVersion}"", false, ""Other"", ""PIXELSTACKER_ID"", ""{sideNode.Label}"", Textures.GetBitmap(""{topNode.TextureForUp_ResourceName}""), Textures.GetBitmap(""{sideNode.TextureForEast_ResourceName}""), $""{topNode.BlockIdAndNamespaceAndData}"", $""{sideNode.BlockIdAndNamespaceAndData}"", """"),";
+                    string line = @$"new Material(""{McVersion}"", false, ""Other"", ""PIXELSTACKER_ID"", ""{sideNode.Label}"", Textures.GetBitmap(""{topNode.TextureForUp_ResourceName}""), Textures.GetBitmap(""{sideNode.TextureForWest_ResourceName}""), $""{topNode.BlockIdAndNamespaceAndData}"", $""{sideNode.BlockIdAndNamespaceAndData}"", """"),";
                     output += line + "\n";
                     outputLines.Add(line);
                     Debug.WriteLine(line);
@@ -263,7 +263,7 @@ namespace PixelStacker.CodeGenerator.BlockRipper
 
                 {
                     var sideNode = sideTexturesToUse.FirstOrDefault();
-                    string line = @$"new Material(""{McVersion}"", false, ""Other"", ""PIXELSTACKER_ID"", ""{sideNode.Label}"", Textures.GetBitmap(""{sideNode.TextureForUp_ResourceName}""), Textures.GetBitmap(""{sideNode.TextureForEast_ResourceName}""), $""{sideNode.BlockIdAndNamespaceAndData}"", $""{sideNode.BlockIdAndNamespaceAndData}"", """"),";
+                    string line = @$"new Material(""{McVersion}"", false, ""Other"", ""PIXELSTACKER_ID"", ""{sideNode.Label}"", Textures.GetBitmap(""{sideNode.TextureForUp_ResourceName}""), Textures.GetBitmap(""{sideNode.TextureForWest_ResourceName}""), $""{sideNode.BlockIdAndNamespaceAndData}"", $""{sideNode.BlockIdAndNamespaceAndData}"", """"),";
                     output += line + "\n";
                     outputLines.Add(line);
                     Debug.WriteLine(line);

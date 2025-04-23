@@ -49,12 +49,12 @@ namespace PixelStacker.CodeGenerator.BlockRipper
         /// <summary>
         /// minecraft:blocks/dirt
         /// </summary>
-        public string TextureForEast { get; set; }
+        public string TextureForWest { get; set; }
 
         /// <summary>
         /// dirt
         /// </summary>
-        public string TextureForEast_ResourceName => TextureForEast.Split("/").Last();
+        public string TextureForWest_ResourceName => TextureForWest.Split("/").Last();
 
         public bool IsSameTextureOnAllSides { get; set; }
 
@@ -66,7 +66,7 @@ namespace PixelStacker.CodeGenerator.BlockRipper
         }
         public override string ToString()
         {
-            return $"Up={TextureForUp}, East={TextureForEast}, Id={BlockIdAndNamespace}{BlockStateData}";
+            return $"Up={TextureForUp}, East={TextureForWest}, Id={BlockIdAndNamespace}{BlockStateData}";
         }
     }
 }

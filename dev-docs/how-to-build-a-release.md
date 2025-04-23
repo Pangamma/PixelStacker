@@ -6,7 +6,7 @@ This guide covers the build and packaging process for deploying the desktop appl
 
 ## Building 
 1. Open up developer command prompt in VS via: Tools > Command Line > Developer Command prompt
-2. Type into console, `%cd%/PixelStacker/Properties/PublishProfiles/publish.bat`
+2. Type into console, `%cd%\PixelStacker\Properties\PublishProfiles\publish-solo-zipped.bat`
 3. Your files will be zipped into `%cd%/PixelStacker/bin/publish`
 
 ## Code signing

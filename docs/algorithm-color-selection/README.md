@@ -4,10 +4,10 @@ Creating in-game pixel art from input images is a very interesting process. Ther
 <img src="colors.jpg" width="600px">
 
 ## 1. Reduce the size of the input image
-Each pixel of the original image will need to be scanned and analyzed to figure out which in-game materials will produce the best match for that color. You should always downsize your art before beginning the process to achieve better results. Mostly because larger images are boring to look at. The program can still handle 8k images depending on your computer specs. But again, if you're making pixel art out of 8k images... I mean. Why? Can you even call it pixel art at that scale?
+Each pixel of the original image will need to be scanned and analyzed to figure out which in-game materials will produce the best match for that color. You should always downsize your art before beginning the process to achieve better results. Mostly because larger images are boring to look at. The program can still handle 8k images depending on your computer specs. But again, if you're making pixel art out of 8k images... Why? Can you even call it pixel art at that scale?
 
 ## 2. Reduce the color space to improve efficiency
-Moving on. The best possible match for each input color will be cached for reuse. This is especially helpful if the number of unique colors in the image is not very high. There are a couple of ways to reduce the number of unique cache entries by reducing the total number of colors that need to be mapped.
+Next, let's talk about improving efficiency. The best possible match for each input color will be cached for reuse. This is especially helpful if the number of unique colors in the image is not very high. There are a couple of ways to reduce the number of unique cache entries by reducing the total number of colors that need to be mapped.
 
 ### Flattening the colors
 The image below shows the effects of flattening the color space in an image. On the left, the R (red) value is 255. On the right, it is 0. As you move from top to bottom, the level of flattening increases. Most people do not notice much of a difference between the first and second row. It is a difference between 255 unique values and 51 unique values though. This is just the red channel! If you perform this same operation on red, green, and blue channels, you can reduce the possibilities by 125x.  

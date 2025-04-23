@@ -33,7 +33,7 @@ namespace PixelStacker
                 var form = new MainForm();
                 ErrorReporter.MF = form;
                 //var form = new TestForm();
-            Application.Run(form);
+                Application.Run(form);
 
 #if !DEBUG
             }

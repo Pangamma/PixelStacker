@@ -33,7 +33,7 @@ function printImageCard($imgURL, $header, $text, $cta, $href, $dataGrid) {
 </div>';
 
     html = html
-		.replace(/{{dataGrid}}/g,$dataGrid || 'col-4')
+        .replace(/{{dataGrid}}/g, $dataGrid || 'col-4')
         .replace(/{{imgURL}}/g, $imgURL)
         .replace(/{{href}}/g, $href)
         .replace(/{{cta}}/g, $cta)

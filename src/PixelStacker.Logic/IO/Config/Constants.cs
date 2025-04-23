@@ -4,7 +4,7 @@ namespace PixelStacker.Logic.IO.Config
 {
     public static class Constants
     {
-        public const string Version = "1.21.5a";
+        public const string Version = "1.21.5b";
         public const string Website = "https://taylorlove.info/pixelstacker";
         [System.Obsolete("Switch to using DefaultTextureSize, bc that is what this should represent.", true)]
         public const int TextureSize = 16;

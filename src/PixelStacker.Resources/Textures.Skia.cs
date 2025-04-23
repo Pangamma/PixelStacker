@@ -54,18 +54,30 @@ namespace PixelStacker.Resources
         }
 
         private static readonly string TextureFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", "Textures", "x16");
+        private static readonly string CustomFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", "Textures", "Custom");
 
         private static readonly Dictionary<string, SKBitmap> TextureCache = [];
         public static SKBitmap GetBitmap(string textureName, int rotationDegrees = 0)
         {
-            string cacheKey = $"{rotationDegrees}--{textureName}";
+            string filePath = Path.Combine(TextureFolder, textureName + ".png");
+            return GetBitmapFromPath(filePath, rotationDegrees);
+        }
+
+        public static SKBitmap GetCustomBitmap(string textureName, int rotationDegrees = 0)
+        {
+            string filePath = Path.Combine(CustomFolder, textureName + ".png");
+            return GetBitmapFromPath(filePath, rotationDegrees);
+        }
+
+        public static SKBitmap GetBitmapFromPath(string filePath, int rotationDegrees = 0)
+        {
+            string cacheKey = $"{rotationDegrees}--{filePath}";
 
             if (TextureCache.TryGetValue(cacheKey, out SKBitmap value))
             {
                 return value;
             }
 
-            string filePath = Path.Combine(TextureFolder, textureName + ".png");
 
             if (!File.Exists(filePath))
                 throw new FileNotFoundException($"Texture not found: {filePath}");

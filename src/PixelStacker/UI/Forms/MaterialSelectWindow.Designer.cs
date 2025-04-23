@@ -31,168 +31,166 @@ namespace PixelStacker.UI
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialSelectWindow));
-            this.dlgSave = new System.Windows.Forms.SaveFileDialog();
-            this.flowVertical = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowRow1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panelFilter = new System.Windows.Forms.Panel();
-            this.lblFilter = new System.Windows.Forms.Label();
-            this.tbxMaterialFilter = new System.Windows.Forms.ComboBox();
-            this.panelColorProfile = new System.Windows.Forms.Panel();
-            this.btnEditColorProfiles = new System.Windows.Forms.Button();
-            this.lblColorProfile = new System.Windows.Forms.Label();
-            this.ddlColorProfile = new System.Windows.Forms.ComboBox();
-            this.customFlowLayoutPanel1 = new PixelStacker.UI.Controls.CustomFlowLayoutPanel();
-            this.cbxIsMultiLayer = new System.Windows.Forms.CheckBox();
-            this.cbxRequire2ndLayer = new System.Windows.Forms.CheckBox();
-            this.cbxIsSideView = new System.Windows.Forms.CheckBox();
-            this.lblInfo = new System.Windows.Forms.Label();
-            this.materialPanel = new PixelStacker.UI.Controls.CustomPanel();
-            this.flowVertical.SuspendLayout();
-            this.flowRow1.SuspendLayout();
-            this.panelFilter.SuspendLayout();
-            this.panelColorProfile.SuspendLayout();
-            this.customFlowLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
+            dlgSave = new System.Windows.Forms.SaveFileDialog();
+            flowVertical = new System.Windows.Forms.FlowLayoutPanel();
+            flowRow1 = new System.Windows.Forms.FlowLayoutPanel();
+            panelFilter = new System.Windows.Forms.Panel();
+            lblFilter = new System.Windows.Forms.Label();
+            tbxMaterialFilter = new System.Windows.Forms.ComboBox();
+            panelColorProfile = new System.Windows.Forms.Panel();
+            btnEditColorProfiles = new System.Windows.Forms.Button();
+            lblColorProfile = new System.Windows.Forms.Label();
+            ddlColorProfile = new System.Windows.Forms.ComboBox();
+            customFlowLayoutPanel1 = new CustomFlowLayoutPanel();
+            cbxIsMultiLayer = new System.Windows.Forms.CheckBox();
+            cbxRequire2ndLayer = new System.Windows.Forms.CheckBox();
+            cbxIsSideView = new System.Windows.Forms.CheckBox();
+            lblInfo = new System.Windows.Forms.Label();
+            materialPanel = new CustomPanel();
+            flowVertical.SuspendLayout();
+            flowRow1.SuspendLayout();
+            panelFilter.SuspendLayout();
+            panelColorProfile.SuspendLayout();
+            customFlowLayoutPanel1.SuspendLayout();
+            SuspendLayout();
             // 
             // dlgSave
             // 
-            this.dlgSave.DefaultExt = "json";
-            resources.ApplyResources(this.dlgSave, "dlgSave");
+            dlgSave.DefaultExt = "json";
+            resources.ApplyResources(dlgSave, "dlgSave");
             // 
             // flowVertical
             // 
-            this.flowVertical.BackColor = System.Drawing.Color.Transparent;
-            this.flowVertical.Controls.Add(this.flowRow1);
-            this.flowVertical.Controls.Add(this.customFlowLayoutPanel1);
-            resources.ApplyResources(this.flowVertical, "flowVertical");
-            this.flowVertical.Name = "flowVertical";
+            flowVertical.BackColor = System.Drawing.Color.Transparent;
+            flowVertical.Controls.Add(flowRow1);
+            flowVertical.Controls.Add(customFlowLayoutPanel1);
+            resources.ApplyResources(flowVertical, "flowVertical");
+            flowVertical.Name = "flowVertical";
             // 
             // flowRow1
             // 
-            resources.ApplyResources(this.flowRow1, "flowRow1");
-            this.flowRow1.BackColor = System.Drawing.Color.Transparent;
-            this.flowRow1.Controls.Add(this.panelFilter);
-            this.flowRow1.Controls.Add(this.panelColorProfile);
-            this.flowRow1.Name = "flowRow1";
+            resources.ApplyResources(flowRow1, "flowRow1");
+            flowRow1.BackColor = System.Drawing.Color.Transparent;
+            flowRow1.Controls.Add(panelFilter);
+            flowRow1.Controls.Add(panelColorProfile);
+            flowRow1.Name = "flowRow1";
             // 
             // panelFilter
             // 
-            this.panelFilter.BackColor = System.Drawing.SystemColors.Control;
-            this.panelFilter.Controls.Add(this.lblFilter);
-            this.panelFilter.Controls.Add(this.tbxMaterialFilter);
-            resources.ApplyResources(this.panelFilter, "panelFilter");
-            this.panelFilter.Name = "panelFilter";
+            panelFilter.BackColor = System.Drawing.SystemColors.Control;
+            panelFilter.Controls.Add(lblFilter);
+            panelFilter.Controls.Add(tbxMaterialFilter);
+            resources.ApplyResources(panelFilter, "panelFilter");
+            panelFilter.Name = "panelFilter";
             // 
             // lblFilter
             // 
-            resources.ApplyResources(this.lblFilter, "lblFilter");
-            this.lblFilter.Name = "lblFilter";
+            resources.ApplyResources(lblFilter, "lblFilter");
+            lblFilter.Name = "lblFilter";
             // 
             // tbxMaterialFilter
             // 
-            this.tbxMaterialFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.tbxMaterialFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.tbxMaterialFilter.FormattingEnabled = true;
-            resources.ApplyResources(this.tbxMaterialFilter, "tbxMaterialFilter");
-            this.tbxMaterialFilter.Name = "tbxMaterialFilter";
-            this.tbxMaterialFilter.TextChanged += new System.EventHandler(this.ddlMaterialSearch_TextChanged);
+            tbxMaterialFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            tbxMaterialFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            tbxMaterialFilter.FormattingEnabled = true;
+            resources.ApplyResources(tbxMaterialFilter, "tbxMaterialFilter");
+            tbxMaterialFilter.Name = "tbxMaterialFilter";
+            tbxMaterialFilter.TextChanged += ddlMaterialSearch_TextChanged;
             // 
             // panelColorProfile
             // 
-            this.panelColorProfile.BackColor = System.Drawing.SystemColors.Control;
-            this.panelColorProfile.Controls.Add(this.btnEditColorProfiles);
-            this.panelColorProfile.Controls.Add(this.lblColorProfile);
-            this.panelColorProfile.Controls.Add(this.ddlColorProfile);
-            resources.ApplyResources(this.panelColorProfile, "panelColorProfile");
-            this.panelColorProfile.Name = "panelColorProfile";
+            panelColorProfile.BackColor = System.Drawing.SystemColors.Control;
+            panelColorProfile.Controls.Add(btnEditColorProfiles);
+            panelColorProfile.Controls.Add(lblColorProfile);
+            panelColorProfile.Controls.Add(ddlColorProfile);
+            resources.ApplyResources(panelColorProfile, "panelColorProfile");
+            panelColorProfile.Name = "panelColorProfile";
             // 
             // btnEditColorProfiles
             // 
-            resources.ApplyResources(this.btnEditColorProfiles, "btnEditColorProfiles");
-            this.btnEditColorProfiles.Name = "btnEditColorProfiles";
-            this.btnEditColorProfiles.UseVisualStyleBackColor = true;
-            this.btnEditColorProfiles.Click += new System.EventHandler(this.btnEditColorProfiles_Click);
+            resources.ApplyResources(btnEditColorProfiles, "btnEditColorProfiles");
+            btnEditColorProfiles.Name = "btnEditColorProfiles";
+            btnEditColorProfiles.UseVisualStyleBackColor = true;
+            btnEditColorProfiles.Click += btnEditColorProfiles_Click;
             // 
             // lblColorProfile
             // 
-            resources.ApplyResources(this.lblColorProfile, "lblColorProfile");
-            this.lblColorProfile.Name = "lblColorProfile";
+            resources.ApplyResources(lblColorProfile, "lblColorProfile");
+            lblColorProfile.Name = "lblColorProfile";
             // 
             // ddlColorProfile
             // 
-            this.ddlColorProfile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.ddlColorProfile.FormattingEnabled = true;
-            this.ddlColorProfile.Items.AddRange(new object[] {
-            resources.GetString("ddlColorProfile.Items"),
-            resources.GetString("ddlColorProfile.Items1")});
-            resources.ApplyResources(this.ddlColorProfile, "ddlColorProfile");
-            this.ddlColorProfile.Name = "ddlColorProfile";
-            this.ddlColorProfile.SelectedValueChanged += new System.EventHandler(this.ddlColorProfile_SelectedValueChanged);
+            ddlColorProfile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            ddlColorProfile.FormattingEnabled = true;
+            ddlColorProfile.Items.AddRange(new object[] { resources.GetString("ddlColorProfile.Items"), resources.GetString("ddlColorProfile.Items1") });
+            resources.ApplyResources(ddlColorProfile, "ddlColorProfile");
+            ddlColorProfile.Name = "ddlColorProfile";
+            ddlColorProfile.SelectedValueChanged += ddlColorProfile_SelectedValueChanged;
             // 
             // customFlowLayoutPanel1
             // 
-            resources.ApplyResources(this.customFlowLayoutPanel1, "customFlowLayoutPanel1");
-            this.customFlowLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
-            this.customFlowLayoutPanel1.Controls.Add(this.cbxIsMultiLayer);
-            this.customFlowLayoutPanel1.Controls.Add(this.cbxRequire2ndLayer);
-            this.customFlowLayoutPanel1.Controls.Add(this.cbxIsSideView);
-            this.customFlowLayoutPanel1.Controls.Add(this.lblInfo);
-            this.customFlowLayoutPanel1.Name = "customFlowLayoutPanel1";
-            this.customFlowLayoutPanel1.OnCommandKey = null;
+            resources.ApplyResources(customFlowLayoutPanel1, "customFlowLayoutPanel1");
+            customFlowLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
+            customFlowLayoutPanel1.Controls.Add(cbxIsMultiLayer);
+            customFlowLayoutPanel1.Controls.Add(cbxRequire2ndLayer);
+            customFlowLayoutPanel1.Controls.Add(cbxIsSideView);
+            customFlowLayoutPanel1.Controls.Add(lblInfo);
+            customFlowLayoutPanel1.Name = "customFlowLayoutPanel1";
+            customFlowLayoutPanel1.OnCommandKey = null;
             // 
             // cbxIsMultiLayer
             // 
-            resources.ApplyResources(this.cbxIsMultiLayer, "cbxIsMultiLayer");
-            this.cbxIsMultiLayer.Name = "cbxIsMultiLayer";
-            this.cbxIsMultiLayer.UseVisualStyleBackColor = true;
-            this.cbxIsMultiLayer.CheckedChanged += new System.EventHandler(this.cbxIsMultiLayer_CheckedChanged);
+            resources.ApplyResources(cbxIsMultiLayer, "cbxIsMultiLayer");
+            cbxIsMultiLayer.Name = "cbxIsMultiLayer";
+            cbxIsMultiLayer.UseVisualStyleBackColor = true;
+            cbxIsMultiLayer.CheckedChanged += cbxIsMultiLayer_CheckedChanged;
             // 
             // cbxRequire2ndLayer
             // 
-            resources.ApplyResources(this.cbxRequire2ndLayer, "cbxRequire2ndLayer");
-            this.cbxRequire2ndLayer.Name = "cbxRequire2ndLayer";
-            this.cbxRequire2ndLayer.UseVisualStyleBackColor = true;
-            this.cbxRequire2ndLayer.CheckedChanged += new System.EventHandler(this.cbxRequire2ndLayer_CheckedChanged);
+            resources.ApplyResources(cbxRequire2ndLayer, "cbxRequire2ndLayer");
+            cbxRequire2ndLayer.Name = "cbxRequire2ndLayer";
+            cbxRequire2ndLayer.UseVisualStyleBackColor = true;
+            cbxRequire2ndLayer.CheckedChanged += cbxRequire2ndLayer_CheckedChanged;
             // 
             // cbxIsSideView
             // 
-            resources.ApplyResources(this.cbxIsSideView, "cbxIsSideView");
-            this.cbxIsSideView.Name = "cbxIsSideView";
-            this.cbxIsSideView.UseVisualStyleBackColor = true;
-            this.cbxIsSideView.CheckedChanged += new System.EventHandler(this.cbxIsSideView_CheckedChanged);
+            resources.ApplyResources(cbxIsSideView, "cbxIsSideView");
+            cbxIsSideView.Name = "cbxIsSideView";
+            cbxIsSideView.UseVisualStyleBackColor = true;
+            cbxIsSideView.CheckedChanged += cbxIsSideView_CheckedChanged;
             // 
             // lblInfo
             // 
-            resources.ApplyResources(this.lblInfo, "lblInfo");
-            this.lblInfo.Name = "lblInfo";
+            resources.ApplyResources(lblInfo, "lblInfo");
+            lblInfo.Name = "lblInfo";
             // 
             // materialPanel
             // 
-            resources.ApplyResources(this.materialPanel, "materialPanel");
-            this.materialPanel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.materialPanel.Name = "materialPanel";
-            this.materialPanel.OnCommandKey = null;
+            resources.ApplyResources(materialPanel, "materialPanel");
+            materialPanel.BackColor = System.Drawing.SystemColors.Control;
+            materialPanel.Name = "materialPanel";
+            materialPanel.OnCommandKey = null;
             // 
             // MaterialSelectWindow
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.materialPanel);
-            this.Controls.Add(this.flowVertical);
-            this.Name = "MaterialSelectWindow";
-            this.ShowInTaskbar = false;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialSelectWindow_FormClosing);
-            this.VisibleChanged += new System.EventHandler(this.MaterialSelectWindow_VisibleChanged);
-            this.Resize += new System.EventHandler(this.MaterialSelectWindow_Resize);
-            this.flowVertical.ResumeLayout(false);
-            this.flowVertical.PerformLayout();
-            this.flowRow1.ResumeLayout(false);
-            this.panelFilter.ResumeLayout(false);
-            this.panelFilter.PerformLayout();
-            this.panelColorProfile.ResumeLayout(false);
-            this.customFlowLayoutPanel1.ResumeLayout(false);
-            this.customFlowLayoutPanel1.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(materialPanel);
+            Controls.Add(flowVertical);
+            Name = "MaterialSelectWindow";
+            ShowInTaskbar = false;
+            FormClosing += MaterialSelectWindow_FormClosing;
+            VisibleChanged += MaterialSelectWindow_VisibleChanged;
+            Resize += MaterialSelectWindow_Resize;
+            flowVertical.ResumeLayout(false);
+            flowVertical.PerformLayout();
+            flowRow1.ResumeLayout(false);
+            panelFilter.ResumeLayout(false);
+            panelFilter.PerformLayout();
+            panelColorProfile.ResumeLayout(false);
+            customFlowLayoutPanel1.ResumeLayout(false);
+            customFlowLayoutPanel1.PerformLayout();
+            ResumeLayout(false);
 
         }
 
