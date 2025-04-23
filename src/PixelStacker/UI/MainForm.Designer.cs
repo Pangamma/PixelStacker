@@ -32,13 +32,18 @@ namespace PixelStacker.UI
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            Logic.IO.Config.PanZoomSettings panZoomSettings3 = new Logic.IO.Config.PanZoomSettings();
+            Logic.IO.Config.PanZoomSettings panZoomSettings1 = new Logic.IO.Config.PanZoomSettings();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             reOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            advancedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toggleAdvancedModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            checkSpigotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            checkGithubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,8 +64,8 @@ namespace PixelStacker.UI
             toggleBorderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             layerFilteringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             showTopLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            showBottomLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             showBothLayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            showBottomLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             visualEnhancementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toggleShadowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             textureSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,7 +115,7 @@ namespace PixelStacker.UI
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { openToolStripMenuItem, reOpenToolStripMenuItem, saveToolStripMenuItem, saveAsToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { openToolStripMenuItem, reOpenToolStripMenuItem, saveToolStripMenuItem, saveAsToolStripMenuItem, advancedToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             fileToolStripMenuItem.Text = "File";
@@ -148,6 +153,41 @@ namespace PixelStacker.UI
             saveAsToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
             saveAsToolStripMenuItem.Text = "Save As";
             saveAsToolStripMenuItem.Click += saveAsToolStripMenuItem_Click;
+            // 
+            // advancedToolStripMenuItem
+            // 
+            advancedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toggleAdvancedModeToolStripMenuItem, checkForUpdatesToolStripMenuItem });
+            advancedToolStripMenuItem.Name = "advancedToolStripMenuItem";
+            advancedToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
+            advancedToolStripMenuItem.Text = "Advanced";
+            // 
+            // toggleAdvancedModeToolStripMenuItem
+            // 
+            toggleAdvancedModeToolStripMenuItem.Name = "toggleAdvancedModeToolStripMenuItem";
+            toggleAdvancedModeToolStripMenuItem.Size = new System.Drawing.Size(248, 26);
+            toggleAdvancedModeToolStripMenuItem.Text = "Enable advanced mode";
+            toggleAdvancedModeToolStripMenuItem.Click += toggleAdvancedModeToolStripMenuItem_Click;
+            // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            checkForUpdatesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { checkSpigotToolStripMenuItem, checkGithubToolStripMenuItem });
+            checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(248, 26);
+            checkForUpdatesToolStripMenuItem.Text = "Check for updates";
+            // 
+            // checkSpigotToolStripMenuItem
+            // 
+            checkSpigotToolStripMenuItem.Name = "checkSpigotToolStripMenuItem";
+            checkSpigotToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            checkSpigotToolStripMenuItem.Text = "Check Spigot";
+            checkSpigotToolStripMenuItem.Click += checkSpigotToolStripMenuItem_Click;
+            // 
+            // checkGithubToolStripMenuItem
+            // 
+            checkGithubToolStripMenuItem.Name = "checkGithubToolStripMenuItem";
+            checkGithubToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            checkGithubToolStripMenuItem.Text = "Check Github";
+            checkGithubToolStripMenuItem.Click += checkGithubToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
@@ -245,10 +285,11 @@ namespace PixelStacker.UI
             // 
             // preRenderToolStripMenuItem
             // 
+            preRenderToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             preRenderToolStripMenuItem.Name = "preRenderToolStripMenuItem";
             preRenderToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.R;
             preRenderToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
-            preRenderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_PreRender;
+            preRenderToolStripMenuItem.Text = "Pre-Render";
             preRenderToolStripMenuItem.Click += preRenderToolStripMenuItem_Click;
             // 
             // viewToolStripMenuItem
@@ -303,14 +344,6 @@ namespace PixelStacker.UI
             showTopLayerToolStripMenuItem.Text = "Show Top Layer";
             showTopLayerToolStripMenuItem.Click += showTopLayerToolStripMenuItem_Click;
             // 
-            // showBottomLayerToolStripMenuItem
-            // 
-            showBottomLayerToolStripMenuItem.Name = "showBottomLayerToolStripMenuItem";
-            showBottomLayerToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down;
-            showBottomLayerToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
-            showBottomLayerToolStripMenuItem.Text = "Show Bottom Layer";
-            showBottomLayerToolStripMenuItem.Click += showBottomLayerToolStripMenuItem_Click;
-            // 
             // showBothLayersToolStripMenuItem
             // 
             showBothLayersToolStripMenuItem.Checked = true;
@@ -320,6 +353,14 @@ namespace PixelStacker.UI
             showBothLayersToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             showBothLayersToolStripMenuItem.Text = "Show Both Layers";
             showBothLayersToolStripMenuItem.Click += showBothLayersToolStripMenuItem_Click;
+            // 
+            // showBottomLayerToolStripMenuItem
+            // 
+            showBottomLayerToolStripMenuItem.Name = "showBottomLayerToolStripMenuItem";
+            showBottomLayerToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down;
+            showBottomLayerToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
+            showBottomLayerToolStripMenuItem.Text = "Show Bottom Layer";
+            showBottomLayerToolStripMenuItem.Click += showBottomLayerToolStripMenuItem_Click;
             // 
             // visualEnhancementsToolStripMenuItem
             // 
@@ -331,7 +372,7 @@ namespace PixelStacker.UI
             // toggleShadowsToolStripMenuItem
             // 
             toggleShadowsToolStripMenuItem.Name = "toggleShadowsToolStripMenuItem";
-            toggleShadowsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            toggleShadowsToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             toggleShadowsToolStripMenuItem.Text = "Render Shadows";
             toggleShadowsToolStripMenuItem.Click += toggleShadowsToolStripMenuItem_Click;
             // 
@@ -339,7 +380,7 @@ namespace PixelStacker.UI
             // 
             textureSizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tsTextureSize16, tsTextureSize32, tsTextureSize64 });
             textureSizeToolStripMenuItem.Name = "textureSizeToolStripMenuItem";
-            textureSizeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            textureSizeToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             textureSizeToolStripMenuItem.Text = "Texture Size";
             // 
             // tsTextureSize16
@@ -564,7 +605,7 @@ namespace PixelStacker.UI
             imageViewer.BackgroundImage = (System.Drawing.Image)resources.GetObject("imageViewer.BackgroundImage");
             imageViewer.Location = new System.Drawing.Point(0, 28);
             imageViewer.Name = "imageViewer";
-            imageViewer.PanZoomSettings = panZoomSettings3;
+            imageViewer.PanZoomSettings = panZoomSettings1;
             imageViewer.Size = new System.Drawing.Size(800, 393);
             imageViewer.TabIndex = 5;
             // 
@@ -682,5 +723,10 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem darkUIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem smoothThemeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem preRenderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem advancedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toggleAdvancedModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkSpigotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkGithubToolStripMenuItem;
     }
 }

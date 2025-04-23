@@ -113,6 +113,7 @@ namespace PixelStacker.UI
 
             this.dlgSave.Title = global::PixelStacker.Resources.Text.Action_Save;
             this.dlgOpen.Title = global::PixelStacker.Resources.Text.MainForm_Open_Title;
+
             //this.aboutToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_About;
             //this.helpToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Help;
             //this.dlgSaveSettings.Title = global::PixelStacker.Resources.Text.MainMenu_SaveSettings;
@@ -141,7 +142,11 @@ namespace PixelStacker.UI
             this.gridOptionsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.GridOptions;
             this.gridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Grid;
 
-
+            this.advancedToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Advanced;
+            this.checkForUpdatesToolStripMenuItem.Text =  global::PixelStacker.Resources.Text.CheckForUpdates;
+            this.checkGithubToolStripMenuItem.Text =  global::PixelStacker.Resources.Text.CheckGithub;
+            this.checkSpigotToolStripMenuItem.Text =  global::PixelStacker.Resources.Text.CheckSpigot;
+            this.toggleAdvancedModeToolStripMenuItem.Text = this.Options.IsAdvancedModeEnabled ? Resources.Text.DisableAdvancedMode : Resources.Text.EnableAdvancedMode;
             this.toggleBorderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleBorder;
             this.toggleGridToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ToggleGrid;
             this.viewToolStripMenuItem.Text = global::PixelStacker.Resources.Text.Action_View;

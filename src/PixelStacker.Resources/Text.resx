@@ -189,6 +189,9 @@ Aka Pangamma</value>
   <data name="Action_View" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
@@ -227,6 +230,15 @@ Aka Pangamma</value>
   </data>
   <data name="CanvasEditor_ZFilter_Top" xml:space="preserve">
     <value>Top layer only</value>
+  </data>
+  <data name="CheckForUpdates" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="CheckGithub" xml:space="preserve">
+    <value>Check Github</value>
+  </data>
+  <data name="CheckSpigot" xml:space="preserve">
+    <value>Check Spigot</value>
   </data>
   <data name="ColorReducer_Algorithm" xml:space="preserve">
     <value>Quantizer Algorithm</value>
@@ -298,6 +310,12 @@ f(251) =&gt; 250</value>
   </data>
   <data name="DDL_SelectProfile" xml:space="preserve">
     <value>Select profile</value>
+  </data>
+  <data name="DisableAdvancedMode" xml:space="preserve">
+    <value>Disable advanced mode</value>
+  </data>
+  <data name="EnableAdvancedMode" xml:space="preserve">
+    <value>Enable advanced mode</value>
   </data>
   <data name="ErrorSender_ErrorOccurred" xml:space="preserve">
     <value>An error has occurred.</value>

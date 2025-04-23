@@ -1,4 +1,8 @@
-﻿using System.Windows.Forms;
+﻿using PixelStacker.IO;
+using PixelStacker.Logic.Model;
+using System.Collections.Generic;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace PixelStacker.UI
 {
@@ -18,11 +22,6 @@ namespace PixelStacker.UI
             this.imageViewer.Visible = true;
             this.canvasEditor.ResumeLayout(true);
             this.imageViewer.ResumeLayout(true);
-        }
-
-        private void preRenderToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            DoPreprocessLoadedImage();
         }
     }
 }

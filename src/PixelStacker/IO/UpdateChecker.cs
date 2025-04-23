@@ -135,6 +135,53 @@ namespace PixelStacker.IO
         }
 
 
+        public async static Task CheckForUpdatesManually(bool checkGithub, CancellationToken cancelToken)
+        {
+            try
+            {
+                ProgressX.Report(75, "Checking for updates");
+                bool isAdv = checkGithub;
+
+                UpdateInfo latestVersion =
+                    isAdv ? (await DoGithubRequest())
+                    : (await DoSpigotRequest() ?? await DoGithubRequest());
+
+                if (latestVersion?.Version == null)
+                {
+                    ProgressX.Report(100, "No updates available.");
+                    return;
+                }
+
+                if (latestVersion.Version == Constants.Version)
+                {
+                    ProgressX.Report(100, "You are already using the latest version of PixelStacker");
+                    return;
+                }
+
+                if (!IsNewerVersionAvailable(latestVersion.Version, Constants.Version))
+                {
+                    ProgressX.Report(100, "Already using the latest version of PixelStacker");
+                    return;
+                }
+
+
+                ProgressX.Report(100, "A new version is available!");
+                var result = MessageBox.Show("A new update for PixelStacker is available. Would you like to download it? Say YES to go to the download page. Say NO to ignore this update.\n\n"
+                    + "[" + latestVersion.Title + "]:\n"
+                    + latestVersion.ChangeLog, "A new update is available.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                     
+                if (result == DialogResult.Yes)
+                {
+                    Process.Start("explorer", latestVersion.URL);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+
         private static async Task<string> DoRequest(string URL)
         {
             try
