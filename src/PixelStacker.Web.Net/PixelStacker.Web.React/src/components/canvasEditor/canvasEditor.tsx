@@ -25,7 +25,7 @@ export class CanvasEditor extends React.PureComponent<
     CanvasEditorProps,
     CanvasEditorState
 > {
-    private refCanvas: React.RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
+    private refCanvas: React.RefObject<HTMLCanvasElement | null> = React.createRef<HTMLCanvasElement>();
     private resizeLimiter: RateLimiter = new RateLimiter(100);
     private setStateAsync = setStateAsyncFactory(this);
     private paintTimerTask?: number;

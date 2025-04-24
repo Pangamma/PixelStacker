@@ -15,8 +15,8 @@ interface FileUploaderProps {
     MaxHeight: number;
 }
 
-export class FileUploader extends React.PureComponent<FileUploaderProps>{
-    private refFilePicker: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
+export class FileUploader extends React.PureComponent<FileUploaderProps> {
+    private refFilePicker: React.RefObject<HTMLInputElement | null> = React.createRef<HTMLInputElement>();
     private api: PixelStackerAPI = new PixelStackerAPI();
     private zip: JSZip = new JSZip();
 
@@ -47,7 +47,7 @@ export class FileUploader extends React.PureComponent<FileUploaderProps>{
 
                     let width = image.width;
                     let height = image.height;
-                    if ((width > Constants.MAX_WIDTH) || (height > Constants.MAX_HEIGHT)){
+                    if ((width > Constants.MAX_WIDTH) || (height > Constants.MAX_HEIGHT)) {
                         if (width > height) {
                             height = height * (Constants.MAX_WIDTH / width);
                             width = Constants.MAX_WIDTH;
