@@ -21,6 +21,11 @@ namespace PixelStacker.Logic.Model
         public bool IsAdvanced { get; set; } = false;
 
         /// <summary>
+        /// This is a hidden property not covered by constructors. 
+        /// Used on carpets.
+        /// </summary>
+        public bool IsObsolete { get; set; } = false;
+        /// <summary>
         /// True only if AIR.
         /// </summary>
         public bool IsAir { get; set; }
@@ -136,8 +141,18 @@ namespace PixelStacker.Logic.Model
 
         private string SettingsKey { get { return string.Format("BLOCK_{0}", PixelStackerID); } }
 
+        /// <summary>
+        /// Used by picker and select forms.
+        /// </summary>
+        /// <param name="opts"></param>
+        /// <returns></returns>
         public bool IsVisibleF(Options opts)
         {
+            if (IsObsolete)
+            {
+                return false;
+            }
+
             if (PixelStackerID == "AIR")
             {
                 return false;
@@ -156,6 +171,12 @@ namespace PixelStacker.Logic.Model
 #pragma warning disable CS0618 // Type or member is obsolete
             opts ??= Options.GetInMemoryFallback;
 #pragma warning restore CS0618 // Type or member is obsolete
+
+            if (IsObsolete)
+            {
+                return false;
+            }
+
             if (PixelStackerID == "AIR")
             {
                 return false;

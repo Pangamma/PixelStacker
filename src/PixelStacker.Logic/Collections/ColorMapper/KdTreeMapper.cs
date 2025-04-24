@@ -48,7 +48,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
             lock (Padlock)
             {
-                if (c.Alpha < 32)return Palette[Constants.MaterialCombinationIDForAir];
+                if (c.Alpha < 32) return Palette[Constants.MaterialCombinationIDForAir];
                 var closest = KdTree.GetNearestNeighbours(new float[] { c.Red, c.Green, c.Blue }, 10);
                 var found = closest.MinBy(x => c.GetAverageColorDistance(x.Value.GetColorsInImage(this.IsSideView)));
                 Cache[c] = found.Value;

@@ -34,11 +34,11 @@ namespace PixelStacker.UI.Forms
             );
 
             tbxMaterialFilter.AutoCompleteCustomSource.AddRange(
-                Materials.List.Select(x => x.Category.ToLowerInvariant()).Distinct().ToArray()
+                Materials.List.Where(x => !x.IsObsolete).Select(x => x.Category.ToLowerInvariant()).Distinct().ToArray()
             );
 
             tbxMaterialFilter.AutoCompleteCustomSource.AddRange(
-                Materials.List.Select(x => x.Label.ToLowerInvariant()).Distinct().ToArray()
+                Materials.List.Where(x => !x.IsObsolete).Select(x => x.Label.ToLowerInvariant()).Distinct().ToArray()
             );
 
             tbxMaterialFilter.AutoCompleteCustomSource.AddRange(
@@ -118,8 +118,8 @@ namespace PixelStacker.UI.Forms
             
             var air = MaterialPalette.FromResx().GetMaterialCombinationByMaterials(Materials.Air, Materials.Air);
 
-            var singleLayers = mats.Where(x => !x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistanceSquared(c)).Take(MAX_PULL/2+10);
-            var doubleLayers = mats.Where(x => x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistanceSquared(c)).Take(MAX_PULL/2+10);
+            var singleLayers = mats.Where(x => !x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistanceSquared(c)).Take(40);
+            var doubleLayers = mats.Where(x => x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistanceSquared(c)).Take(10);
 
             mats = singleLayers.Union(doubleLayers)
                 .OrderBy(x => c.GetAverageColorDistance(x.GetColorsInImage(isv)))

@@ -124,6 +124,7 @@ namespace PixelStacker.Logic.Model
         {
             var list = this.FromPaletteID.Values
             .Where(mc => !mc.Bottom.IsAir && !mc.Top.IsAir)
+            .Where(mc => !mc.Bottom.IsObsolete && !mc.Top.IsObsolete)
             .Where(mc => mc.Bottom.CanBeUsedAsBottomLayer)
             .Where(mc => opts.IsMultiLayerRequired ? mc.IsMultiLayer : true)
             .Where(mc => mc.Bottom.IsEnabledF(opts) && mc.Top.IsEnabledF(opts))
