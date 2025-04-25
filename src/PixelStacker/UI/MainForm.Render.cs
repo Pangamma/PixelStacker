@@ -197,7 +197,7 @@ namespace PixelStacker.UI
                     await c.canvasEditor.SetCanvas(worker, c.RenderedCanvas, () => c.TransformPanZoomSettings(c.CurrentlyVisiblePanel, VisiblePanel.Editor), c.Options.ViewerSettings.ToReadonlyClone());
                 });
 
-                ProgressX.Report(0, "Showing block plan in the viewing window.");
+                ProgressX.Report(100, "Showing block plan in the viewing window.");
                 self.InvokeEx(cc =>
                 {
                     cc.ShowCanvasEditor();

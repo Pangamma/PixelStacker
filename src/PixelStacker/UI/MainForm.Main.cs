@@ -93,11 +93,13 @@ namespace PixelStacker.UI
                 if (progressBar1.Value != val)
                 {
                     progressBar1.Value = val;
+                    progressBar1.Invalidate();
                 }
 
                 if (lblProgress.Text != str)
                 {
                     lblProgress.Text = str;
+                    progressBar1.Invalidate();
                 }
             });
         }

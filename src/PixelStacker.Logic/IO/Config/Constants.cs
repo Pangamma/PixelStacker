@@ -4,7 +4,7 @@ namespace PixelStacker.Logic.IO.Config
 {
     public static class Constants
     {
-        public const string Version = "1.21.5b";
+        public const string Version = "1.21.5c";
         public const string Website = "https://taylorlove.info/pixelstacker";
         [System.Obsolete("Switch to using DefaultTextureSize, bc that is what this should represent.", true)]
         public const int TextureSize = 16;
@@ -23,7 +23,7 @@ namespace PixelStacker.Logic.IO.Config
         /// -1 means no limit.
         /// </summary>
 #if DEBUG
-        public const int MAX_THREADS_FOR_UI = -1;
+        public const int MAX_THREADS_FOR_UI = 1;
 #else
         public const int MAX_THREADS_FOR_UI = -1;
 #endif

@@ -153,7 +153,7 @@ namespace PixelStacker.Logic.Model
                 return false;
             }
 
-            if (PixelStackerID == "AIR")
+            if (IsAir)
             {
                 return false;
             }
@@ -168,19 +168,19 @@ namespace PixelStacker.Logic.Model
 
         public bool IsEnabledF(Options opts)
         {
-#pragma warning disable CS0618 // Type or member is obsolete
-            opts ??= Options.GetInMemoryFallback;
-#pragma warning restore CS0618 // Type or member is obsolete
-
             if (IsObsolete)
             {
                 return false;
             }
 
-            if (PixelStackerID == "AIR")
+            if (IsAir)
             {
                 return false;
             }
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            opts ??= Options.GetInMemoryFallback;
+#pragma warning restore CS0618 // Type or member is obsolete
 
             if (IsAdvanced && !opts.IsAdvancedModeEnabled)
             {
