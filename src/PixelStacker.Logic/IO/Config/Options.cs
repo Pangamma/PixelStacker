@@ -38,9 +38,6 @@ namespace PixelStacker.Logic.IO.Config
         /// </summary>
         public Dictionary<string, bool> EnableStates { get; set; } = new Dictionary<string, bool>();
 
-        [Obsolete("Avoid this.", false)]
-        public Dictionary<string, string> CustomValues { get; set; } = new Dictionary<string, string>();
-
         /// <summary>
         /// TRUE if stained glass panes can be layered ontop of regular blocks
         /// </summary>
@@ -105,24 +102,6 @@ namespace PixelStacker.Logic.IO.Config
         private string MakeKey(string input)
         {
             return input.Replace(' ', '_');
-        }
-
-        private void SetValue<T>(string key, T val) where T : struct
-        {
-            key = MakeKey(key);
-            CustomValues[key] = val.ToString();
-        }
-
-        private T? GetValue<T>(string key) where T : struct
-        {
-            key = MakeKey(key);
-            if (CustomValues.ContainsKey(key))
-            {
-                var val = CustomValues[key].ToNullable<T>();
-                return val;
-            }
-
-            return null;
         }
 
         public void Save() => StorageProvider.Save(this);

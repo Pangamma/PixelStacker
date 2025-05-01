@@ -52,15 +52,16 @@ namespace PixelStacker.Logic.Model
         }
 
         private static Dictionary<string, Material> _Dictionary = null;
-        public static Dictionary<string, Material> Dictionary { 
-            get 
-            { 
+        public static Dictionary<string, Material> Dictionary
+        {
+            get
+            {
                 if (_Dictionary == null)
                 {
                     _Dictionary = List.ToDictionary(k => k.PixelStackerID, v => v);
                 }
                 return _Dictionary;
-            } 
+            }
         }
 
         /// <summary>
@@ -229,7 +230,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.7", false, "Clay", "TERRA_15", "Black Terracotta", Textures.GetBitmap("black_terracotta"), Textures.GetBitmap("black_terracotta"), $"minecraft:black_terracotta", $"minecraft:black_terracotta", "minecraft:stained_hardened_clay"),
                         new Material("1.7", false, "Clay", "CLAY_HARD_00", "Hardened Terracotta", Textures.GetBitmap("terracotta"), Textures.GetBitmap("terracotta"), $"minecraft:terracotta", $"minecraft:terracotta", "minecraft:hardened_clay"){Tags = [TAG_EXTRA] },
                         new Material("1.7", false, "Clay", "CLAY_SOFT_00", "Clay", Textures.GetBitmap("clay"), Textures.GetBitmap("clay"), $"minecraft:clay", $"minecraft:clay", "minecraft:clay"){Tags = [TAG_EXTRA] },
-                        
+
                         new Material("1.7", false, "Planks", "PLANK_DOK", "Planks Dark Oak", Textures.GetBitmap("dark_oak_planks"), Textures.GetBitmap("dark_oak_planks"), $"minecraft:dark_oak_planks", $"minecraft:dark_oak_planks", "minecraft:planks"),
                         new Material("1.19", false, "Planks", "PLANK_MANGROVE", "Planks Mangrove", Textures.GetBitmap("mangrove_planks"), Textures.GetBitmap("mangrove_planks"), $"minecraft:mangrove_planks", $"minecraft:mangrove_planks", "minecraft:planks"),
                         new Material("1.7", false, "Planks", "PLANK_ACA", "Planks Acacia", Textures.GetBitmap("acacia_planks"), Textures.GetBitmap("acacia_planks"), $"minecraft:acacia_planks", $"minecraft:acacia_planks", "minecraft:planks"),
@@ -594,8 +595,8 @@ namespace PixelStacker.Logic.Model
 
                 List<Material> mats = new List<Material>();
                 var groups = _List.GroupBy(x => x.Category);
-                List<string> ORDER_COLORS = [  "brown", "red", "orange", "yellow", "lime", "green", "cyan", "light blue", "blue", "purple", "magenta", "pink", "white", "light gray", "gray", "black",];
-                foreach(var group in groups)
+                List<string> ORDER_COLORS = ["brown", "red", "orange", "yellow", "lime", "green", "cyan", "light blue", "blue", "purple", "magenta", "pink", "white", "light gray", "gray", "black",];
+                foreach (var group in groups)
                 {
                     if (group.Any(x => x.Label.ToLower().StartsWith(ORDER_COLORS[1])))
                     {

@@ -159,7 +159,6 @@ namespace PixelStacker.Extensions
         /// <returns></returns>
         public static void ToViewStream(this SKBitmap origImage, CancellationToken? worker, Action<int, int, SKColor> callback)
         {
-
             if (origImage.ColorType != SKColorType.Rgba8888)
             {
                 throw new ArgumentException("PixelFormat MUST be PixelFormat.Format32bppArgb.");

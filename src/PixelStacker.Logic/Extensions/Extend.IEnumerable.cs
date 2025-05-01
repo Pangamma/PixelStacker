@@ -15,6 +15,22 @@ namespace PixelStacker.Extensions
             return items.Where(item => keys.Add(selector(item)));
         }
 
+        public static IEnumerable<T> DistinctByApproximately<T>(this IEnumerable<T> source, Func<T, double> selector, double tolerance)
+        {
+            var seen = new List<double>();
+
+            foreach (var item in source)
+            {
+                double value = selector(item);
+
+                if (!seen.Any(seenValue => Math.Abs(seenValue - value) <= tolerance))
+                {
+                    seen.Add(value);
+                    yield return item;
+                }
+            }
+        }
+
         public static TKey Median<T, TKey>(this IEnumerable<T> items, Func<T, TKey> selector)
         {
             if (!items.Any()) throw new InvalidOperationException("List cannot be empty.");

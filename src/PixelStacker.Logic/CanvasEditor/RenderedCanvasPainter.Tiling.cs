@@ -1,5 +1,4 @@
-﻿using PixelStacker.Extensions;
-using PixelStacker.Logic.Extensions;
+﻿using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
@@ -46,7 +45,7 @@ namespace PixelStacker.Logic.CanvasEditor
                 images.Add(new SKImage[size.GetLength(0), size.GetLength(1)]);
             }
 
-            await Task.Delay(1);
+            await Task.Delay(TimeSpan.FromMicroseconds(1)).ConfigureAwait(true);
 
             #region LAYER 0
             {
@@ -84,7 +83,7 @@ namespace PixelStacker.Logic.CanvasEditor
                         {
                             var bmToAdd = CreateLayer0Image(worker ?? CancellationToken.None, data, srs, srcRect, dstRect);
                             images[0][cWf, cHf] = bmToAdd;
-                            Task.Delay(1).Wait();
+                            Task.Delay(TimeSpan.FromMicroseconds(1)).Wait(5);
                             int nVal = Interlocked.Increment(ref chunksFinishedSoFar);
                             ProgressX.Report(100 * nVal / totalChunksToRender);
                         };
@@ -206,10 +205,11 @@ namespace PixelStacker.Logic.CanvasEditor
                             }
 
                             images[l][x, y] = SKImage.FromBitmap(bm);
-                            await Task.Delay(1); // Add a small delay to allow the ProgressX.Report call to update the UI.
+                            await Task.Delay(TimeSpan.FromMicroseconds(1)); // Add a small delay to allow the ProgressX.Report call to update the UI.
                             int nVal = Interlocked.Increment(ref chunksFinishedSoFar);
                             ProgressX.Report(100 * nVal / totalChunksToRender);
-                        });
+                        })
+                        .ConfigureAwait(true);
                     }
                 }
             }

@@ -115,7 +115,7 @@ namespace PixelStacker.IO
                     if (changeLog.Length < latestVersion.ChangeLog.Length) changeLog += "...";
                     var result = MessageBox.Show("A new update for PixelStacker is available. Would you like to download it? Say YES to go to the download page. Say NO to ignore this update.\n\n"
                         + "[" + latestVersion.Title + "]:\n"
-                        + changeLog, "A new update is available.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        + changeLog, "A new update is available.", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
                     if (result == DialogResult.No)
                     {
                         settings.SkipNotifyIfVersionIs = latestVersion.Version;
@@ -171,7 +171,7 @@ namespace PixelStacker.IO
                 ProgressX.Report(100, "A new version is available!");
                 var result = MessageBox.Show("A new update for PixelStacker is available. Would you like to download it? Say YES to go to the download page. Say NO to ignore this update.\n\n"
                     + "[" + latestVersion.Title + "]:\n"
-                    + changeLog, "A new update is available.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    + changeLog, "A new update is available.", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
                      
                 if (result == DialogResult.Yes)
                 {

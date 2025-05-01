@@ -123,7 +123,7 @@ namespace PixelStacker.Logic.Engine.Quantizer
         /// <param name="sourceImage"></param>
         /// <exception cref="OperationCanceledException"></exception>
         /// <returns></returns>
-        public static SkiaSharp.SKBitmap RenderImage(CancellationToken? _worker, SkiaSharp.SKBitmap sourceImage, QuantizerSettings settings, QuantizerAlgorithmOptions opts = null)
+        public static SKBitmap RenderImage(CancellationToken? _worker, SkiaSharp.SKBitmap sourceImage, QuantizerSettings settings, QuantizerAlgorithmOptions opts = null)
         {
             int w = sourceImage.Width;
             int h = sourceImage.Height;

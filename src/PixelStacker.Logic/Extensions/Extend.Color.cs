@@ -135,6 +135,8 @@ namespace PixelStacker.Logic.Extensions
         /// Returns the Hue-Saturation-Lightness (HSL) hue
         /// value, in degrees, for this <see cref='PixelStacker.Core.Model.Drawing.PxColor'/> .  
         /// If R == G == B, the hue is meaningless, and the return value is 0.
+        /// 
+        /// Value between 0 and 360.0
         /// </summary>
         public static double GetHue(this SKColor c)
         {
@@ -199,6 +201,7 @@ namespace PixelStacker.Logic.Extensions
 
         /// <summary>
         ///   The Hue-Saturation-Lightness (HSL) saturation for this
+        ///   Value between 0 and 1.
         ///    <see cref='PixelStacker.Core.Model.Drawing.PxColor'/>
         /// </summary>
         public static float GetSaturation(this SKColor c)
@@ -242,8 +245,9 @@ namespace PixelStacker.Logic.Extensions
 
 
         /// <summary>
-        ///       Returns the Hue-Saturation-Lightness (HSL) lightness
-        ///       for this <see cref='PixelStacker.Core.Model.Drawing.PxColor'/> .
+        ///   Returns the Hue-Saturation-Lightness (HSL) lightness
+        ///   Value between 0 and 1.
+        ///   for this <see cref='PixelStacker.Core.Model.Drawing.PxColor'/> .
         /// </summary>
         public static float GetBrightness(this SKColor c)
         {

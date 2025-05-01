@@ -42,7 +42,7 @@ namespace PixelStacker.Logic.Model
             {
                 this.Top = Materials.Air;
                 this.Bottom = Materials.Air;
-                Console.WriteLine($"Failed to load.");
+                Console.WriteLine($"Failed to load.", ex);
             }
 #else
             CheckValidity(mBottom, mTop);
