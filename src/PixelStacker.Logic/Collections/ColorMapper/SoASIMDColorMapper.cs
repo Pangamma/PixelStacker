@@ -138,5 +138,10 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         {
             return isSeeded;
         }
+
+        public int CalculateColorDistance(SKColor c, SKColor c2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

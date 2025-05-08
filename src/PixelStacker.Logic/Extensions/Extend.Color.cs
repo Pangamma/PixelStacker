@@ -47,6 +47,19 @@ namespace PixelStacker.Logic.Extensions
             return result;
         }
 
+        /// <summary>
+        /// h = h* 360f;
+		///	s = s* 100f;
+		///	l = l* 100f;
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static float[] ToHslArray(this SKColor c)
+        {
+            c.ToHsl(out float h, out float s, out float l);
+            return new float[] { h, s, l };
+        }
+
         public static SKColor ToLAB(this SKColor color)
         {
             float[] xyz = new float[3];
@@ -401,14 +414,37 @@ namespace PixelStacker.Logic.Extensions
             int dB = c.Blue - toMatch.Blue;
             int dHue = (int)GetDegreeDistance(c.GetHue(), toMatch.GetHue());
 
-           int diff =
-                dR * dR
-                + dG * dG
-                + dB * dB
-                + (int)Math.Sqrt(dHue * dHue * dHue)
-                ;
+            int diff =
+                 dR * dR
+                 + dG * dG
+                 + dB * dB
+                 + (int)Math.Sqrt(dHue * dHue * dHue)
+                 ;
 
             return diff;
+        }
+
+        /// <summary>
+        /// Custom color matching algorithm
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static int GetColorDistance(this SKColor c, SKColor toMatch)
+        {
+            int dR = c.Red - toMatch.Red;
+            int dG = c.Green - toMatch.Green;
+            int dB = c.Blue - toMatch.Blue;
+            int dHue = (int)GetDegreeDistance(c.GetHue(), toMatch.GetHue());
+
+            int diff =
+                 dR * dR
+                 + dG * dG
+                 + dB * dB
+                 + (int)Math.Sqrt(dHue * dHue * dHue)
+                 ;
+
+            //return diff;
+            return (int)Math.Sqrt(diff);
         }
 
         /// <summary>
@@ -430,7 +466,7 @@ namespace PixelStacker.Logic.Extensions
                 + (int)Math.Sqrt(dHue * dHue * dHue)
                 ;
 
-            return diff;
+            return (int)Math.Sqrt(diff);
         }
 
         public static SKColor Normalize(this SKColor c, int fragmentSize)

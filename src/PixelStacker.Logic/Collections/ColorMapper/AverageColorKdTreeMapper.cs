@@ -51,7 +51,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
             {
                 if (c.Alpha < 32) return Palette[Constants.MaterialCombinationIDForAir];
                 var closest = KdTree.GetNearestNeighbours(new float[] { c.Red, c.Green, c.Blue }, 10);
-                var found = closest.MinBy(x => x.Value.GetAverageColor(IsSideView).GetColorDistanceSquared(c));
+                var found = closest.MinBy(x => this.CalculateColorDistance(c, x.Value.GetAverageColor(IsSideView)));
                 Cache[c] = found.Value;
                 return found.Value;
             }
@@ -69,7 +69,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
             {
                 if (c.Alpha < 32) return new List<MaterialCombination>() { Palette[Constants.MaterialCombinationIDForAir] };
                 var closest = KdTree.GetNearestNeighbours(new float[] { c.Red, c.Green, c.Blue }, 10);
-                var found = closest.OrderBy(x => x.Value.GetAverageColor(IsSideView).GetColorDistanceSquared(c))
+                var found = closest.OrderBy(x => this.CalculateColorDistance(c, x.Value.GetAverageColor(IsSideView)))
                     .Take(maxMatches).Select(x => x.Value).ToList();
 
                 return found;
@@ -77,5 +77,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         }
 
         public bool IsSeeded() => this.KdTree != null;
+
+        public int CalculateColorDistance(SKColor c, SKColor c2) => c.GetColorDistanceSquared(c2);
     }
 }

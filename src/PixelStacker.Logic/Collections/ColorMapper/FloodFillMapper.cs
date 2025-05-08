@@ -123,8 +123,8 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
             // BATTLE TIME
             SKColor c = new SKColor((byte)node.R, (byte)node.G, (byte)node.B, (byte) 255);
-            long distExisting = c.GetAverageColorDistance(Palette[existing.Value].GetColorsInImage(this.IsSideView));
-            long distNew = c.GetAverageColorDistance(node.Value.GetColorsInImage(this.IsSideView));
+            long distExisting = c.GetAverageColorDistance(Palette[existing.Value].GetColorsInImage(this.IsSideView), this.CalculateColorDistance);
+            long distNew = c.GetAverageColorDistance(node.Value.GetColorsInImage(this.IsSideView), this.CalculateColorDistance);
             if (distNew >= distExisting) return false;
             Cache[node.R, node.G, node.B] = node.PaletteID;
             return true;
@@ -144,7 +144,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 #if FAIL_FAST
             throw new Exception("Impossible! Did you forget to set the seed data?");
 #else
-            var foundMc = Combos.MinBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView)));
+            var foundMc = Combos.MinBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView), this.CalculateColorDistance));
             SKColor found = foundMc.GetAverageColor(this.IsSideView);
             Cache[found.Red, found.Green, found.Blue] = Palette[foundMc];
             return foundMc;
@@ -159,11 +159,14 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         /// <returns></returns>
         public List<MaterialCombination> FindBestMatches(SKColor c, int maxMatches)
         {
-            var found = Combos.OrderBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView)))
+            var found = Combos.OrderBy(x => c.GetAverageColorDistance(x.GetColorsInImage(this.IsSideView), this.CalculateColorDistance))
                 .Take(maxMatches).ToList();
 
             return found;
         }
+
+        public int CalculateColorDistance(SKColor c, SKColor c2) => c.GetColorDistance(c2);
+
         #endregion TRASH2
     }
 }

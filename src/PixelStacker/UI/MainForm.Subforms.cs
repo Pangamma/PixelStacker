@@ -77,7 +77,8 @@ namespace PixelStacker.UI
                 new KdTreeMapper(),
                 new AverageColorKdTreeMapper(),
                 new SrgbKdTreeMapper(),
-                new CielabColorMapper()
+                new CielabColorMapper(),
+                new HslKdTreeMapper()
             };
 
             Dictionary<string, IColorMapper> items = mappers.ToDictionary(x => x.AlgorithmTitle, v => v);

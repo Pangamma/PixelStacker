@@ -10,6 +10,8 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         void SetSeedData(List<MaterialCombination> combos, MaterialPalette mats, bool isSideView);
         MaterialCombination FindBestMatch(SKColor c);
         List<MaterialCombination> FindBestMatches(SKColor c, int maxMatches);
+        
+        int CalculateColorDistance(SKColor c, SKColor c2);
 
         /// <summary>
         /// 0-100 how accurate this is when compared to the SeparateColorBruteForce algorithm.
