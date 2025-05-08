@@ -11,6 +11,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 {
     public sealed class SoASIMDColorMapper : IColorMapper
     {
+        public string AlgorithmTitle => "SoASIMD";
         private List<MaterialCombination> combos;
         private float[] R;
         private float[] G;
@@ -23,6 +24,8 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         public double AccuracyRating => 51.389;
 
         public double SpeedRating => 100.5;
+
+        private bool isSeeded = false;
 
         private int ClosestMatch(Vector3 colour)
         {
@@ -122,6 +125,8 @@ namespace PixelStacker.Logic.Collections.ColorMapper
                     (R[i], G[i], B[i]) = (vecColor.X, vecColor.Y, vecColor.Z);
                 }
             }
+
+            isSeeded = true;
         }
         
         public List<MaterialCombination> FindBestMatches(SKColor c, int maxMatches)
@@ -131,7 +136,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
         public bool IsSeeded()
         {
-            throw new NotImplementedException();
+            return isSeeded;
         }
     }
 }

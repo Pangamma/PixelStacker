@@ -41,6 +41,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
     public class FloodFillMapper : IColorMapper
     {
+        public string AlgorithmTitle => "Flood Fill";
         public bool IsSeeded() => Combos != null;
 
         // [R,G,B] => null || MaterialCombinationPaletteID

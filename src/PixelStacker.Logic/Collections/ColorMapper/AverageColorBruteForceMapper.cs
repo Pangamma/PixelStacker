@@ -9,6 +9,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 {
     public class AverageColorBruteForceMapper : IColorMapper
     {
+        public string AlgorithmTitle => "Average Color Brute Force";
         private Dictionary<SKColor, MaterialCombination> Cache { get; set; } = new Dictionary<SKColor, MaterialCombination>();
         public List<MaterialCombination> Combos { get; private set; }
         public bool IsSideView { get; private set; }

@@ -1,6 +1,9 @@
 ﻿using PixelStacker.IO;
+using PixelStacker.Logic.Collections.ColorMapper;
 using PixelStacker.Logic.Model;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 

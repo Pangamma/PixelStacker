@@ -10,6 +10,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 {
     public class SrgbKdTreeMapper : IColorMapper
     {
+        public string AlgorithmTitle => "Srgb KdTree";
         public double AccuracyRating => 0;
         public double SpeedRating => 0;
 

@@ -127,6 +127,9 @@
   <data name="hyper-dimension" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\pixelart\hyper-dimension.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="lighthouse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Pixelart\lighthouse.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="pink-girl" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\pixelart\pink-girl.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

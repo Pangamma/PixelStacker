@@ -20,5 +20,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         /// Milliseconds taken from a benchmark test.
         /// </summary>
         double SpeedRating { get; }
+
+        string AlgorithmTitle { get; }
     }
 }

@@ -10,6 +10,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 {
     public class KdTreeMapper : IColorMapper
     {
+        public string AlgorithmTitle => "Unique Color KdTree";
         public double AccuracyRating => 99.127;
         public double SpeedRating => 232.1;
 

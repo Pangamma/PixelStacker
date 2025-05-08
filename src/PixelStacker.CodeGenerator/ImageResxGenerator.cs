@@ -33,6 +33,7 @@ namespace PixelStacker.CodeGenerator
         }
         
         [TestMethod]
+        [Obsolete("This is more dynamic now.")]
         public void ImageResx_Textures()
         {
             string resxPath = Path.Combine(RootDir, "PixelStacker.Resources", "Textures.resx");

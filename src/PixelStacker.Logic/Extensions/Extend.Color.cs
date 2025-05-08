@@ -401,7 +401,7 @@ namespace PixelStacker.Logic.Extensions
             int dB = c.Blue - toMatch.Blue;
             int dHue = (int)GetDegreeDistance(c.GetHue(), toMatch.GetHue());
 
-            int diff =
+           int diff =
                 dR * dR
                 + dG * dG
                 + dB * dB

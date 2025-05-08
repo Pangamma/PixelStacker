@@ -1,10 +1,10 @@
 #if SKIA_SHARP
 #pragma warning disable IDE1006 // Naming Styles
-namespace PixelStacker.Resources
-{
-    using SkiaSharp;
+namespace PixelStacker.Resources {
+	using System;
+	using SkiaSharp;
 
-    public class DevResources {
+	public class DevResources {
 
         private static global::System.Resources.ResourceManager resourceMan;
         public static global::System.Resources.ResourceManager ResourceManager {
@@ -44,6 +44,16 @@ namespace PixelStacker.Resources
                     _hyper_dimension = SKBitmap.Decode((byte[])ResourceManager.GetObject("hyper-dimension"))
                     .Copy(SKColorType.Rgba8888);
                 return _hyper_dimension;
+            }
+        }
+
+        private static SKBitmap _lighthouse = null;
+        public static SKBitmap lighthouse {
+            get {
+                if (_lighthouse == null)
+                    _lighthouse = SKBitmap.Decode((byte[])ResourceManager.GetObject("lighthouse"))
+                    .Copy(SKColorType.Rgba8888);
+                return _lighthouse;
             }
         }
 
