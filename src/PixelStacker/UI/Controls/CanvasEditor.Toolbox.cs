@@ -49,30 +49,30 @@ namespace PixelStacker.UI.Controls
             }
 
             e.Result = Task.CompletedTask;
+            this.RepaintUIRequested = true;
         }
 
         private void BgWorkerBufferedChangeQueue_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
             {
-                this.RepaintRequested = false;
+                this.RepaintImageTilesRequested = false;
+            }
+            else
+            {
+                // Success.
+                this.RepaintUIRequested = true;
             }
         }
 
 
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         private void timerBufferedChangeQueue_Tick(object sender, System.EventArgs e)
         {
             if (this.Painter == null) return;
             if (bgWorkerBufferedChangeQueue.IsBusy) return;
-            if (this.RepaintRequested == false) return;
+            if (this.RepaintImageTilesRequested == false) return;
             bgWorkerBufferedChangeQueue.RunWorkerAsync();
-            //if (this.Painter == null) return;
-
-            //IsRenderingBuffer = true;
-            //await this.Painter.DoRenderFromHistoryBuffer();
-            //IsRenderingBuffer = false;
-            //this.RepaintRequested = true;
         }
 
         private void setWorldEditOriginHereToolStripMenuItem_Click(object sender, System.EventArgs e)

@@ -5,6 +5,7 @@ using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources.Themes;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -170,21 +171,17 @@ namespace PixelStacker.UI
         private void undoToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             if (this.IsCanvasEditorVisible == false) return;
-            if (this.canvasEditor.Painter.History.IsUndoEnabled)
-            {
-                this.canvasEditor.Painter.History.UndoChange();
-                this.canvasEditor.RepaintRequested = true;
-            }
+            if (!this.canvasEditor.Painter.History.IsUndoEnabled) return;
+            this.canvasEditor.Painter.History.UndoChange();
+            this.canvasEditor.RepaintImageTilesRequested = true;
         }
 
         private void redoToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             if (this.IsCanvasEditorVisible == false) return;
-            if (this.canvasEditor.Painter.History.IsRedoEnabled)
-            {
-                this.canvasEditor.Painter.History.RedoChange();
-                this.canvasEditor.RepaintRequested = true;
-            }
+            if (!this.canvasEditor.Painter.History.IsRedoEnabled) return;
+            this.canvasEditor.Painter.History.RedoChange();
+            this.canvasEditor.RepaintImageTilesRequested = true;
         }
 
         private void preRenderToolStripMenuItem_Click(object sender, System.EventArgs e)

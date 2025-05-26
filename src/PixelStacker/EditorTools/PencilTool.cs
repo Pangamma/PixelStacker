@@ -1,6 +1,7 @@
 ﻿using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.UI.Controls;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -47,7 +48,7 @@ namespace PixelStacker.EditorTools
             if (e.Button != MouseButtons.Left) return;
             IsDragging = false;
             this.CanvasEditor.Painter.History.FlushHistoryBufferAndFlushVisualBufferThenRenderIt();
-            this.CanvasEditor.RepaintRequested = true;
+            this.CanvasEditor.RepaintImageTilesRequested = true;
         }
 
         public override void OnMouseMove(MouseEventArgs e)
@@ -76,6 +77,8 @@ namespace PixelStacker.EditorTools
                 var colorToUse = MaterialCombination.GetMcToPaintWith(this.Options.Tools.ZLayerFilter, Palette, colorToUseTmp, cd);
                 painter.History.AppendToVisualBuffer(Palette[cd], Palette[colorToUse], p);
             }
+
+            this.CanvasEditor.RepaintImageTilesRequested = true;
         }
     }
 }

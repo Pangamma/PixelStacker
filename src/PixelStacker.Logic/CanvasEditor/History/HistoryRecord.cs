@@ -27,7 +27,7 @@ namespace PixelStacker.Logic.CanvasEditor.History
                 });
             }
 
-            return RenderRecord.SplitRecordsIintoSMallerChunks(output);
+            return RenderRecord.SplitRecordsIntoSmallerChunks(output);
         }
     }
 }

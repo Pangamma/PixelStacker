@@ -24,7 +24,7 @@ namespace PixelStacker.Logic.CanvasEditor.History
         public RenderRecordType RenderMode { get; set; } = RenderRecordType.BLOCKS_ONLY;
 
 
-        public static List<RenderRecord> SplitRecordsIintoSMallerChunks(IEnumerable<RenderRecord> r)
+        public static List<RenderRecord> SplitRecordsIntoSmallerChunks(IEnumerable<RenderRecord> r)
         {
             var rSplit = new List<RenderRecord>();
             

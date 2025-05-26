@@ -42,8 +42,5 @@ namespace PixelStacker.Logic.IO.Formatters
             byte[] result = Encoding.UTF8.GetBytes(sb.ToString());
             return Task.FromResult(result);
         }
-
-        public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker = null)
-            => File.WriteAllBytes(filePath, await this.ExportAsync(canvas, worker));
     }
 }

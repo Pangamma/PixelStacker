@@ -79,7 +79,15 @@ namespace PixelStacker.UI
                 {
                     ProgressX.Report(0, "Saving changes.");
                     PixelStackerProjectData proj = new PixelStackerProjectData(this.RenderedCanvas, this.Options);
-                    await formatter.ExportAsync(fName, proj, worker);
+                    if (formatter is IExportImageFormatter imgFormatter)
+                    {
+                        var srs = this.Options.ViewerSettings.ToReadonlyClone();
+                        await imgFormatter.SaveToFile(fName, proj, srs, worker);
+                    } 
+                    else
+                    {
+                        await formatter.SaveToFile(fName, proj, worker);
+                    }
                     ProgressX.Report(100, "File saved.");
                 }));
             }

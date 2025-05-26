@@ -91,7 +91,7 @@ namespace PixelStacker.EditorTools
 
 
                 painter.History.FlushHistoryBufferAndFlushVisualBufferThenRenderIt();
-                this.CanvasEditor.RepaintRequested = true;
+                this.CanvasEditor.RepaintImageTilesRequested = true;
             }
             //));
         }

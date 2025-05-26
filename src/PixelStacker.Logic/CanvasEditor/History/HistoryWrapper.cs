@@ -47,7 +47,7 @@ namespace PixelStacker.Logic.CanvasEditor.History
                 }
             }
 
-            return RenderRecord.SplitRecordsIintoSMallerChunks(output);
+            return RenderRecord.SplitRecordsIntoSmallerChunks(output);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace PixelStacker.Logic.CanvasEditor.History
                     });
 
                 //this.RenderQueue.Enqueue(rSplit);
-                this.RenderQueue.Enqueue(RenderRecord.SplitRecordsIintoSMallerChunks(r));
+                this.RenderQueue.Enqueue(RenderRecord.SplitRecordsIntoSmallerChunks(r));
             }
         }
 

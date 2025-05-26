@@ -40,13 +40,6 @@ namespace PixelStacker.Logic.IO.Formatters
         public bool CanImportFile(string filePath)
             => filePath.EndsWith("pxlzip");
 
-        public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker = null)
-        {
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-            var data = await this.ExportAsync(canvas, worker);
-            await File.WriteAllBytesAsync(filePath, data, worker ?? CancellationToken.None);
-        }
 
         public async Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker)
         {

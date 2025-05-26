@@ -9,9 +9,11 @@ namespace PixelStacker.UI.Controls
 {
     public partial class CanvasEditor
     {
-        private bool IsPainting { get; set; } = false;
+        public bool RepaintImageTilesRequested { get; set; } = false;
 
-        public bool RepaintRequested { get; set; } = false;
+        public bool RepaintUIRequested { get; set; } = false;
+        private bool IsRepaintingUI { get; set; } = false;
+
 
         private void restrictZoom()
         {
@@ -81,7 +83,7 @@ namespace PixelStacker.UI.Controls
                 this.restrictZoom();
                 this.PanZoomSettings.imageX = ((int)Math.Round(panelPoint.X - imagePoint.X * this.PanZoomSettings.zoomLevel));
                 this.PanZoomSettings.imageY = ((int)Math.Round(panelPoint.Y - imagePoint.Y * this.PanZoomSettings.zoomLevel));
-                this.RepaintRequested = true;
+                this.RepaintUIRequested = true;
             }
         }
 
@@ -110,11 +112,8 @@ namespace PixelStacker.UI.Controls
         private Point previousCursorPosition = new Point(0, 0);
         private Point previousPointOnImage = new Point(0, 0);
 
-        private RateLimit MouseMove_RateLimiter = new RateLimit(10, 100);
         private void ImagePanel_MouseMove(object sender, MouseEventArgs e)
         {
-            this.RepaintRequested = true;
-
             var pt = GetPointOnImage(e.Location, this.PanZoomSettings, EstimateProp.Floor);
             var cd = this.Canvas?.CanvasData;
 
@@ -137,7 +136,7 @@ namespace PixelStacker.UI.Controls
                 //    + $"Top: {mc.Top.Label}, Bottom: {mc.Bottom.Label}";
 
                 previousPointOnImage = pt;
-                this.RepaintRequested = true;
+                this.RepaintUIRequested = true;
             }
 
 

@@ -126,13 +126,6 @@ namespace PixelStacker.Logic.IO.Formatters
             return msOut.ToArray();
         }
 
-        public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker = null)
-        {
-            if (File.Exists(filePath)) File.Delete(filePath);
-            byte[] data = await ExportAsync(canvas, worker);
-            File.WriteAllBytes(filePath, data);
-        }
-
         public Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
         {
             bool isv = canvas.IsSideView;

@@ -1,4 +1,9 @@
 ﻿using System;
+using PixelStacker.Logic.Model;
+using System.Threading;
+using System.IO;
+using System.Threading.Tasks;
+using PixelStacker.Logic.IO.Config;
 
 namespace PixelStacker.Logic.IO.Formatters
 {
@@ -42,6 +47,24 @@ namespace PixelStacker.Logic.IO.Formatters
                 default:
                     throw new ArgumentException(nameof(format));
             }
+        }
+
+        public static async Task SaveToFile(this IExportFormatter format, string filePath, PixelStackerProjectData canvas, CancellationToken? worker)
+        {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+
+            byte[] data = await format.ExportAsync(canvas, worker);
+            await File.WriteAllBytesAsync(filePath, data);
+        }
+
+        public static async Task SaveToFile(this IExportImageFormatter format, string filePath, PixelStackerProjectData canvas, IReadonlyCanvasViewerSettings srs, CancellationToken? worker)
+        {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+
+            byte[] data = await format.ExportAsync(canvas, srs, worker);
+            await File.WriteAllBytesAsync(filePath, data);
         }
 
         public static (string contentType, string fileExt) GetContentTypeData(this ExportFormat format)

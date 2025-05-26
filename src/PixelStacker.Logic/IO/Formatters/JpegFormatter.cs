@@ -11,18 +11,9 @@ namespace PixelStacker.Logic.IO.Formatters
 {
     public class JpegFormatter : IExportImageFormatter
     {
-        public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker)
+        private int CalcMaxTileSize(int w, int h, int defaultTextureSize)
         {
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-
-            byte[] data = await this.ExportAsync(canvas, worker);
-            await File.WriteAllBytesAsync(filePath, data);
-        }
-
-        private int CalcMaxTileSize(int w, int h)
-        {
-            int calculatedTextureSize = Constants.DefaultTextureSize;
+            int calculatedTextureSize = defaultTextureSize;
 
             do
             {
@@ -61,7 +52,7 @@ namespace PixelStacker.Logic.IO.Formatters
                 IsCustomized = false
             }, srs, 1);
 
-            int tileSize = CalcMaxTileSize(canvas.Width, canvas.Height);
+            int tileSize = CalcMaxTileSize(canvas.Width, canvas.Height, srs.TextureSize);
             int vWidth = tileSize * canvas.Width;
             int vHeight = tileSize * canvas.Height;
 

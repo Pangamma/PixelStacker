@@ -88,7 +88,7 @@ namespace PixelStacker.UI.Controls
                     var pz = pzFunc() ?? PanZoomSettings.CalculateDefaultPanZoomSettings(canvas.Width, canvas.Height, this.Width, this.Height);
                     c.PanZoomSettings = pz;
                     c.Painter = painter;
-                    c.RepaintRequested = true;
+                    c.RepaintUIRequested = true;
                     // Do not set these until ready
 
                     await (c.MaterialPickerForm?.SetCanvas(canvas) ?? Task.CompletedTask);

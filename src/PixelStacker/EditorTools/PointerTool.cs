@@ -155,7 +155,7 @@ namespace PixelStacker.EditorTools
                 Point point = e.Location;
                 this.CanvasEditor.PanZoomSettings.imageX = this.CanvasEditor.PanZoomSettings.initialImageX - (this.initialDragPoint.X - point.X);
                 this.CanvasEditor.PanZoomSettings.imageY = this.CanvasEditor.PanZoomSettings.initialImageY - (this.initialDragPoint.Y - point.Y);
-                this.CanvasEditor.RepaintRequested = true;
+                this.CanvasEditor.RepaintUIRequested = true;
             }
         }
     }

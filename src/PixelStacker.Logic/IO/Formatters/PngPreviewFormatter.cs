@@ -9,15 +9,6 @@ namespace PixelStacker.Logic.IO.Formatters
 {
     public class PngPreviewFormatter : IExportFormatter
     {
-        public async Task ExportAsync(string filePath, PixelStackerProjectData canvas, CancellationToken? worker)
-        {
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-
-            byte[] data = await this.ExportAsync(canvas, worker);
-            await File.WriteAllBytesAsync(filePath, data);
-        }
-
         public Task<byte[]> ExportAsync(PixelStackerProjectData canvas, CancellationToken? worker = null)
         {
             using SKBitmap bm = new SKBitmap(canvas.Width, canvas.Height, SKColorType.Rgba8888, SKAlphaType.Premul);

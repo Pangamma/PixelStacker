@@ -15,11 +15,12 @@ namespace PixelStacker.UI.Controls
         [System.Diagnostics.DebuggerStepThrough]
         private void timerPaint_Tick(object sender, EventArgs e)
         {
-            if (this.RepaintRequested && !this.IsPainting)
+            if (this.RepaintUIRequested && !this.IsRepaintingUI)
             {
                 // Force repaint on skcontrol
-                skiaControl.Refresh();
-                this.RepaintRequested = false;
+                //skiaControl.Refresh();
+                this.Refresh();
+                this.RepaintUIRequested = false;
                 if (lblHoverInfo.Text != this.HoverText)
                     lblHoverInfo.Text = this.HoverText;
             }
@@ -33,7 +34,7 @@ namespace PixelStacker.UI.Controls
 
         private void skiaControl_PaintSurface(object sender, Controls.GenericSKPaintSurfaceEventArgs e)
         {
-            IsPainting = true;
+            IsRepaintingUI = true;
             SKSurface surface = e.Surface;
             var g = surface.Canvas;
 
@@ -81,7 +82,7 @@ namespace PixelStacker.UI.Controls
                     pTest);
             }
 
-            IsPainting = false;
+            IsRepaintingUI = false;
         }
 
         protected override void OnPaint(PaintEventArgs e)

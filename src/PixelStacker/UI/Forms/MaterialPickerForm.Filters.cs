@@ -121,8 +121,7 @@ namespace PixelStacker.UI.Forms
             var singleLayers = mats.Where(x => !x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistanceSquared(c)).Take(40);
             var doubleLayers = mats.Where(x => x.IsMultiLayer).OrderBy(x => x.GetAverageColor(isv).GetColorDistanceSquared(c)).Take(10);
 
-            mats = singleLayers.Union(doubleLayers)
-                .OrderBy(x => c.GetAverageColorDistance(x.GetColorsInImage(isv)))
+            mats = doubleLayers.Union(singleLayers)
                 .Take(MAX_PULL)
                 .ToList();
 
