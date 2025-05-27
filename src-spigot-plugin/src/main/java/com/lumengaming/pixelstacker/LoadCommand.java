@@ -287,9 +287,12 @@ public class LoadCommand implements CommandExecutor, TabCompleter {
         queryParams.put("enableDithering", Boolean.toString(req.enableDithering));
         queryParams.put("isMultiLayer", Boolean.toString(req.isMultiLayer));
         queryParams.put("isSideView", Boolean.toString(req.isSideView));
-        if (req.maxHeight != null && req.maxHeight != -1) queryParams.put("maxHeight", Integer.toString(req.maxHeight));
-        if (req.maxWidth != null && req.maxWidth != -1) queryParams.put("maxWidth", Integer.toString(req.maxWidth));
-        if (req.quantizedColorCount != null) queryParams.put("quantizedColorCount", Integer.toString(req.quantizedColorCount));
+
+        if (req.maxHeight == null || req.maxHeight == -1) req.maxHeight = 4000;
+        if (req.maxWidth == null || req.maxWidth == -1) req.maxWidth = 4000;
+        queryParams.put("maxHeight", Integer.toString(req.maxHeight));
+        queryParams.put("maxWidth", Integer.toString(req.maxWidth));
+        if (req.quantizedColorCount != null && req.quantizedColorCount != -1) queryParams.put("quantizedColorCount", Integer.toString(req.quantizedColorCount));
         if (req.rgbBucketSize != null) queryParams.put("rgbBucketSize", Integer.toString(req.rgbBucketSize));
         String query = queryParams.entrySet()
             .stream()

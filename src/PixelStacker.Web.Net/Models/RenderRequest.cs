@@ -40,6 +40,8 @@ namespace PixelStacker.Web.Net.Models
 
     public class BaseRenderRequest
     {
+        [AcceptableStringValues("Average Color KdTree", "HSL Unique Color KdTree", "Unique Color KdTree", "Srgb KdTree")]
+        public string ColorMapperAlgorithm { get; set; } = null;
         public ExportFormat Format { get; set; } = ExportFormat.Jpeg;
 
         public bool IsSideView { get; set; } = false;

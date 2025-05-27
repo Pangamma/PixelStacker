@@ -6,11 +6,8 @@ using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using SkiaSharp;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 

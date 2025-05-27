@@ -29,65 +29,75 @@ namespace PixelStacker.Web.Net.Controllers
         }
     }
 
+
+    public static class ColorMapperContainer
+    {
+        public static Lazy<string> DefaultColorMapperAlgorithmTitle = new Lazy<string>(() => {
+            IColorMapper instance = Activator.CreateInstance(typeof(KdTreeMapper)) as IColorMapper;
+            return instance.AlgorithmTitle;
+        });
+
+        public static Lazy<Dictionary<string, Type>> ColorMapperTypes = new Lazy<Dictionary<string, Type>>(() => {
+            var interfaceType = typeof(IColorMapper);
+            var typesThatImplementIColorMapper = interfaceType.Assembly.GetExportedTypes()
+                .Where(t => interfaceType.IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
+                .Select(x =>
+                {
+                    IColorMapper instance = Activator.CreateInstance(x) as IColorMapper;
+                    return instance;
+                })
+                .Where(x => x.AlgorithmTitle.Contains("KdTree"))
+                .ToDictionary(k => k.AlgorithmTitle, v => v.GetType());
+            return typesThatImplementIColorMapper;
+        });
+
+        private static object Padlock = new { };
+        private static Dictionary<string, IColorMapper> MapperCache = new Dictionary<string, IColorMapper>();
+
+        public static IColorMapper GetColorMapper(bool isSideView, bool isMultiLayer, string colorMapperAlgorithm)
+        {
+            string cacheKey = string.Format("{0}:{1}:{2}", isSideView ? "1" : "0", isMultiLayer ? "1" : "0", colorMapperAlgorithm);
+
+            if (MapperCache.TryGetValue(cacheKey, out var value)) 
+            {
+                return value;
+            }
+
+            lock(Padlock)
+            {
+                if (MapperCache.TryGetValue(cacheKey, out var value2))
+                {
+                    return value2;
+                }
+
+                var mapper = CreateColorMapper(isSideView, isMultiLayer, colorMapperAlgorithm);
+                MapperCache[cacheKey] = mapper;
+                return mapper;
+            }
+        }
+
+        private static IColorMapper CreateColorMapper(bool isSideView, bool isMultiLayer, string colorMapperAlgorithm)
+        {
+            if (!ColorMapperTypes.Value.TryGetValue(colorMapperAlgorithm, out Type found))
+            {
+                throw new ArgumentException("This is not a supported algorithm type.", nameof(colorMapperAlgorithm));
+            }
+
+            var cm = Activator.CreateInstance(found) as IColorMapper;
+            var palette = MaterialPalette.FromResx();
+            var opts = new StaticJsonOptionsProvider().Load();
+            var combosAvailable = palette.ToValidCombinationList(opts);
+            if (!isMultiLayer) combosAvailable = combosAvailable.Where(x => !x.IsMultiLayer && x.Bottom.CanBeUsedAsBottomLayer).ToList();
+            cm.SetSeedData(combosAvailable, palette, isSideView);
+            return cm;
+        }
+    }
+
     public class RenderController : BaseApiController
     {
         // TODO make this into an LRU to avoid mem crashes and leaks from abusive actors
         const string contentType = "image/jpeg"; // PNG
         private static LruCache<string, FileNode> Cache { get; set; } = new LruCache<string, FileNode>(100, TimeSpan.FromHours(24));
-
-        #region COLOR MAPPERS
-        private static IColorMapper GetMapper(bool isv, bool isMultilayer)
-        {
-            if (isv)
-            {
-                return isMultilayer ? ColorMapperSideView.Value : ColorMapperSideViewSingleLayer.Value;
-            }
-            else
-            {
-                return isMultilayer ? ColorMapperTopView.Value : ColorMapperTopViewSingleLayer.Value;
-            }
-        }
-
-        private static Lazy<IColorMapper> ColorMapperSideView = new Lazy<IColorMapper>(() =>
-        {
-            var cm = new KdTreeMapper();
-            var palette = MaterialPalette.FromResx();
-            var opts = new StaticJsonOptionsProvider().Load();
-            var combosAvailable = palette.ToValidCombinationList(opts);
-            cm.SetSeedData(combosAvailable, palette, true);
-            return cm;
-        });
-
-        private static Lazy<IColorMapper> ColorMapperSideViewSingleLayer = new Lazy<IColorMapper>(() =>
-        {
-            var cm = new KdTreeMapper();
-            var palette = MaterialPalette.FromResx();
-            var opts = new StaticJsonOptionsProvider().Load();
-            var combosAvailable = palette.ToValidCombinationList(opts).Where(x => x.IsMultiLayer == false).ToList();
-            cm.SetSeedData(combosAvailable, palette, true);
-            return cm;
-        });
-
-        private static Lazy<IColorMapper> ColorMapperTopView = new Lazy<IColorMapper>(() =>
-        {
-            var cm = new KdTreeMapper();
-            var palette = MaterialPalette.FromResx();
-            var opts = new StaticJsonOptionsProvider().Load();
-            var combosAvailable = palette.ToValidCombinationList(opts);
-            cm.SetSeedData(combosAvailable, palette, false);
-            return cm;
-        });
-
-        private static Lazy<IColorMapper> ColorMapperTopViewSingleLayer = new Lazy<IColorMapper>(() =>
-        {
-            var cm = new KdTreeMapper();
-            var palette = MaterialPalette.FromResx();
-            var opts = new StaticJsonOptionsProvider().Load();
-            var combosAvailable = palette.ToValidCombinationList(opts).Where(x => x.IsMultiLayer == false).ToList();
-            cm.SetSeedData(combosAvailable, palette, false);
-            return cm;
-        });
-        #endregion
 
         [HttpGet]
 #if !DEBUG
@@ -176,12 +186,16 @@ namespace PixelStacker.Web.Net.Controllers
                     IsEnabled = false
                 }
             });
-            var canvas = await engine.RenderCanvasAsync(null, preprocessed, ColorMapperTopView.Value, palette, false);
+
+            bool isMultiLayer = true;
+            bool isSideView = false;
+            var mapper = ColorMapperContainer.GetColorMapper(isSideView, isMultiLayer, ColorMapperContainer.DefaultColorMapperAlgorithmTitle.Value);
+            var canvas = await engine.RenderCanvasAsync(null, preprocessed, mapper, palette, isSideView);
             IExportFormatter exporter = new JpegFormatter();
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
             {
                 CanvasData = canvas.CanvasData,
-                IsSideView = false,
+                IsSideView = isSideView,
                 MaterialPalette = palette,
                 PreprocessedImage = canvas.PreprocessedImage,
                 //WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
@@ -210,7 +224,13 @@ namespace PixelStacker.Web.Net.Controllers
                     MaxColorCount = model.QuantizedColorCount ?? 256
                 }
             });
-            var mapper = GetMapper(isv, model.IsMultiLayer);
+
+            if (string.IsNullOrEmpty(model.ColorMapperAlgorithm) || !ColorMapperContainer.ColorMapperTypes.Value.ContainsKey(model.ColorMapperAlgorithm))
+            {
+                model.ColorMapperAlgorithm = ColorMapperContainer.DefaultColorMapperAlgorithmTitle.Value;
+            }
+            
+            var mapper = ColorMapperContainer.GetColorMapper(isv, model.IsMultiLayer, model.ColorMapperAlgorithm);
             var canvas = await engine.RenderCanvasAsync(null, preprocessed, mapper, palette, isv);
             IExportFormatter exporter = model.Format.GetFormatter();
 

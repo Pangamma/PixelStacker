@@ -26,6 +26,14 @@ namespace PixelStacker.Web.Net.Controllers
         const int MATS_PER_PAGE = MAX_HEIGHT * MAX_WIDTH;
 
         [HttpGet]
+        public Task<JsonResult> ColorMapperAlgorithms()
+        {
+            var data = ColorMapperContainer.ColorMapperTypes.Value.Keys.ToList();
+            return Task.FromResult(Json(data));
+        }
+
+
+        [HttpGet]
         public Task<JsonResult> MaterialList()
         {
             var data = new List<object>();

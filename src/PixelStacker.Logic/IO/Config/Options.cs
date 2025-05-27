@@ -53,12 +53,6 @@ namespace PixelStacker.Logic.IO.Config
         [Category("Colors")]
         public bool IsSideView { get; set; } = false;
 
-        /// <summary>
-        /// When material filters are enabled, shadows will be rendered to help the viewer 
-        /// percieve depth. This helps to visibly separate the different layers from each other.
-        /// </summary>
-        public bool IsShadowRenderingSkipped { get; set; } = false;
-
         //public int GridSize { get; set; } = 16;
         //public Color GridColor { get; set; } = Color.Black;
         //public bool Rendered_IsShowGrid { get; set; } = false;
