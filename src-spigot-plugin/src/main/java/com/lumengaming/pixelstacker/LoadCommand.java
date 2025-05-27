@@ -1,6 +1,5 @@
 package com.lumengaming.pixelstacker;
 
-import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -83,8 +82,11 @@ public class LoadCommand implements CommandExecutor {
         String apiKey = PixelStackerConfig.Get().ApiKey;
         byte[] apiResponseData;
         
+        long before = System.currentTimeMillis();
         try {
+            cs.sendMessage("§8Command received. Please wait while your request finishes processing.");
             HttpResponse<byte[]> apiResponse = this.sendImageToApiForRendering(req, apiKey, downloadedImage);
+            
             apiResponseData = apiResponse.body();
             
             if (apiResponse.statusCode() != 200) {
@@ -104,6 +106,7 @@ public class LoadCommand implements CommandExecutor {
             p.sendMessage("§cA problem occurred when reaching the PixelStacker API. See console for more details.");
             return true;
         }
+        long after = System.currentTimeMillis();
         
         
         
@@ -127,7 +130,8 @@ public class LoadCommand implements CommandExecutor {
             Logger.getLogger(LoadCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        p.sendMessage("§aYour picture has been loaded. Paste it with //paste.");  
+        long elapsed = after - before;
+        p.sendMessage("§dYour picture was processed in "+elapsed+"ms. Paste it with //paste.");  
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(req, RenderRequest.class);      
         p.sendMessage("§8" + jsonInputString);  
@@ -254,7 +258,6 @@ public class LoadCommand implements CommandExecutor {
         if (req.maxWidth != null) queryParams.put("maxWidth", Integer.toString(req.maxWidth));
         if (req.quantizedColorCount != null) queryParams.put("quantizedColorCount", Integer.toString(req.quantizedColorCount));
         if (req.rgbBucketSize != null) queryParams.put("rgbBucketSize", Integer.toString(req.rgbBucketSize));
-        
         String query = queryParams.entrySet()
             .stream()
             .map(e -> String.format("%s=%s",
@@ -285,7 +288,6 @@ public class LoadCommand implements CommandExecutor {
 
     
         URI uri = new URI(endpoint + "?"+ query);
-        System.out.println("URL: "+uri.toString());
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
