@@ -86,6 +86,12 @@ public class LoadCommand implements CommandExecutor {
         try {
             cs.sendMessage("§8Command received. Please wait while your request finishes processing.");
             HttpResponse<byte[]> apiResponse = this.sendImageToApiForRendering(req, apiKey, downloadedImage);
+            var headers = apiResponse.headers().map();
+            var headerKey = headers.keySet().stream().filter(x -> x.equalsIgnoreCase("x-responsetimems")).findFirst();
+            if (headerKey.isPresent()) {
+                String value = headers.get(headerKey.get()).get(0);
+                before = System.currentTimeMillis() - Long.parseLong(value);
+            }
             
             apiResponseData = apiResponse.body();
             
