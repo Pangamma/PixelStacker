@@ -1,0 +1,12 @@
+name: PixelStacker
+version: '1.0'
+api-version: 1.21
+author: Pangamma
+#website: CustomPlugin
+main: com.lumengaming.pixelstacker.PixelStackerMain
+description: Generate photos with minecraft blocks.
+depend: [WorldEdit]
+commands:
+  pixelstacker:
+    description: 'Enable or disable PVP mode.'
+    aliases: ['px']
