@@ -1,5 +1,5 @@
 name: PixelStacker
-version: '1.1'
+version: '1.1.1'
 api-version: 1.21
 author: Pangamma
 #website: CustomPlugin
@@ -8,5 +8,5 @@ description: Generate photos with minecraft blocks.
 depend: [WorldEdit]
 commands:
   pixelstacker:
-    description: 'Enable or disable PVP mode.'
-    aliases: ['px']
+    description: 'Generate pixel art.'
+    aliases: ['px', 'pixelartgenerator']

@@ -6,11 +6,11 @@ package com.lumengaming.pixelstacker;
  */
 public class RenderRequest {
     public String format = "schem2";
-    public boolean isSideView = true;
-    public boolean isMultiLayer = false;
-    public boolean enableDithering = false;
-    public Integer maxHeight = 256;
-    public Integer maxWidth = 256;
+    public Boolean isSideView = true;
+    public Boolean isMultiLayer = false;
+    public Boolean enableDithering = false;
+    public Integer maxHeight = -1;
+    public Integer maxWidth = -1;
     public Integer rgbBucketSize = null;
     public Integer quantizedColorCount = null;
 }

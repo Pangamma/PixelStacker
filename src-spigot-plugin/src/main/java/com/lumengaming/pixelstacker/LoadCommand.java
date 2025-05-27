@@ -23,8 +23,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,13 +34,14 @@ import java.util.stream.Collectors;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 /**
  *
  * @author prota
  */
-public class LoadCommand implements CommandExecutor {
+public class LoadCommand implements CommandExecutor, TabCompleter {
     private final PixelStackerMain plugin;
 
     public LoadCommand(PixelStackerMain plugin) {
@@ -65,11 +68,12 @@ public class LoadCommand implements CommandExecutor {
         
         Player p = (Player) cs;
         RenderRequest req = this.parseCommandArguments(p, args);
-        String url = args.length > 1 ? args[1] : "";
-        if (url.isBlank() || req == null) {
+        String url = args.length > 1 ? args[args.length-1] : "";
+        
+        if (url.isBlank() || req == null || !url.startsWith("http")) {
             return true;
         }
-        
+
         byte[] downloadedImage;
         try {
             downloadedImage = downloadImageToBytes(url);
@@ -157,7 +161,6 @@ public class LoadCommand implements CommandExecutor {
         req.maxWidth = def.maxWidth;
         req.quantizedColorCount = def.quantizedColorCount;
         req.rgbBucketSize = def.rgbBucketSize;
-
         try {
             if (!args[0].equalsIgnoreCase("load")) {
                 printHelp(p);
@@ -170,9 +173,43 @@ public class LoadCommand implements CommandExecutor {
             }
             
             String url;
-            switch(args.length) {
+            int a = 1;
+            switch (args.length) {
+                case 2:
+                    url = args[a++];
+                    break;
+                case 3:
+                    req.isSideView = args[a].equalsIgnoreCase("V") || args[a].equalsIgnoreCase("vertical");
+                    a++;
+                    url = args[a++];
+                    break;
+                case 4:
+                    req.isSideView = args[a].equalsIgnoreCase("V") || args[a].equalsIgnoreCase("vertical");
+                    a++;
+                    req.isMultiLayer = parseBoolFromArg(args[a++]);
+                    url = args[a++];
+                    break;
+                case 6:
+                    req.isSideView = args[a].equalsIgnoreCase("V") || args[a].equalsIgnoreCase("vertical");
+                    a++;
+                    req.isMultiLayer = parseBoolFromArg(args[a++]);
+                    req.maxWidth = Integer.parseInt(args[a++]);
+                    req.maxHeight = Integer.parseInt(args[a++]);
+                    url = args[a++];
+                    break;
                 case 9:
-                    req.quantizedColorCount = Integer.parseInt(args[8]);
+                    req.isSideView = args[a].equalsIgnoreCase("V") || args[a].equalsIgnoreCase("vertical");
+                    a++;
+                    req.isMultiLayer = parseBoolFromArg(args[a++]);
+                    req.maxWidth = Integer.parseInt(args[a++]);
+                    req.maxHeight = Integer.parseInt(args[a++]);
+                    req.rgbBucketSize = Integer.parseInt(args[a++]);
+                    if (!Arrays.stream(new int[]{1, 5, 15, 17, 51}).anyMatch(i -> i == req.rgbBucketSize)) {
+                        p.sendMessage("§cThe rgb bucket size provided was not a valid value.");
+                        printHelp(p);
+                        return null;
+                    }   req.enableDithering = this.parseBoolFromArg(args[a++]);
+                    req.quantizedColorCount = Integer.parseInt(args[a++]);
                     if (req.quantizedColorCount == -1) {
                         req.quantizedColorCount = null;
                     }
@@ -180,31 +217,20 @@ public class LoadCommand implements CommandExecutor {
                         p.sendMessage("§cThe quantized color count is invalid. Please check available options.");
                         printHelp(p);
                         return null;
-                    }
-                    req.enableDithering = this.parseBoolFromArg(args[7]);
-//                case 7:
-                    req.rgbBucketSize = Integer.parseInt(args[6]);
-                    if (!Arrays.stream(new int[]{1, 5, 15, 17, 51}).anyMatch(i -> i == req.rgbBucketSize)) {
-                        p.sendMessage("§cThe rgb bucket size provided was not a valid value.");
-                        printHelp(p);
-                        return null;
-                    }
-                case 6:
-                    req.isMultiLayer = this.parseBoolFromArg(args[5]);
-//                case 5:
-                    req.maxHeight = Integer.parseInt(args[4]);
-                    req.maxWidth = Integer.parseInt(args[3]);
-                    req.isSideView = args[2].equalsIgnoreCase("V") || args[2].equalsIgnoreCase("vertical");
-                case 2: 
-                    url = args[1];
+                    }   
+                    url = args[a++];
                     break;
                 default:
                     printHelp(p);
                     return null;
             }
-                    
+            
+            if (url == null || !url.startsWith("http")) {
+                printHelp(p);
+                return null;
+            }
+            
             return req;
-                
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException aioe) {
             printHelp(p);
         }
@@ -222,10 +248,10 @@ public class LoadCommand implements CommandExecutor {
     public void printHelp(CommandSender cs) {
         cs.sendMessage("§cInvalid syntax. Try following this syntax.");
         cs.sendMessage("§7/pixelstacker load <url>");
-//        cs.sendMessage("§c/pixelstacker load <url> <orientation> <maxWidth> <maxHeight>");
-        cs.sendMessage("§8/pixelstacker load <url> <orientation> <maxWidth> <maxHeight> <multiLayer>");
-//        cs.sendMessage("§c/pixelstacker load <url> <orientation> <maxWidth> <maxHeight> <multiLayer> <rgbBucketSize>");
-        cs.sendMessage("§7/pixelstacker load <url> <orientation> <maxWidth> <maxHeight> <multiLayer> <rgbBucketSize> <dither> <maxColors>");
+        cs.sendMessage("§8/pixelstacker load <orientation> <url>");
+        cs.sendMessage("§7/pixelstacker load <orientation> <multiLayer> <url>");
+        cs.sendMessage("§8/pixelstacker load <orientation> <multiLayer> <maxWidth> <maxHeight> <url>");
+        cs.sendMessage("§7/pixelstacker load <orientation> <multiLayer> <maxWidth> <maxHeight> <rgbBucketSize> <dither> <maxColors> <url>");
         cs.sendMessage("§cAvailable arguments with acceptable values:");
         cs.spigot().sendMessage(CText.hoverText("§7- orientation: H, Horizontal, V, Vertical", "Controls the orientation of the build."));
         cs.spigot().sendMessage(CText.hoverText("§8- maxWidth: [4 ... 4000]", "200 is good for most use cases."));
@@ -256,12 +282,13 @@ public class LoadCommand implements CommandExecutor {
     public static HttpResponse<byte[]> sendImageToApiForRendering(RenderRequest req, String apiKey, byte[] imageBytes) throws IOException, InterruptedException, URISyntaxException {
         String endpoint = "https://taylorlove.info/projects/pixelstacker/api/Render/ByFileAdvanced";
         HashMap<String, String> queryParams = new HashMap<>();
+        
         queryParams.put("format", req.format);
         queryParams.put("enableDithering", Boolean.toString(req.enableDithering));
         queryParams.put("isMultiLayer", Boolean.toString(req.isMultiLayer));
         queryParams.put("isSideView", Boolean.toString(req.isSideView));
-        if (req.maxHeight != null) queryParams.put("maxHeight", Integer.toString(req.maxHeight));
-        if (req.maxWidth != null) queryParams.put("maxWidth", Integer.toString(req.maxWidth));
+        if (req.maxHeight != null && req.maxHeight != -1) queryParams.put("maxHeight", Integer.toString(req.maxHeight));
+        if (req.maxWidth != null && req.maxWidth != -1) queryParams.put("maxWidth", Integer.toString(req.maxWidth));
         if (req.quantizedColorCount != null) queryParams.put("quantizedColorCount", Integer.toString(req.quantizedColorCount));
         if (req.rgbBucketSize != null) queryParams.put("rgbBucketSize", Integer.toString(req.rgbBucketSize));
         String query = queryParams.entrySet()
@@ -317,5 +344,68 @@ public class LoadCommand implements CommandExecutor {
             }
         }
         return null; // or a default message
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender cs, Command cmnd, String string, String[] args) {
+        var output = new ArrayList<String>();
+        int currentArg = args.length - 1;
+        switch(currentArg) {
+            // /pixelstacker ___
+            case 0:
+                output.add("load");
+                return output;
+            
+            // ./pixelstacker load ___
+            case 1:
+                output.add("<url / orientation>");
+                output.add("H"); 
+//                output.add("horizontal");
+                output.add("V"); 
+//                output.add("vertical");
+                return output;
+            // ./pixelstacker load <orientation> ___
+            case 2:
+                output.add("<url / multiLayer>");
+                output.add("T"); 
+                output.add("F");
+//                output.add("false");output.add("true"); 
+                return output;
+            // ./pixelstacker load <orientation> <multiLayer> ____
+            case 3:
+                output.add("<url / maxWidth>");
+                return output;
+            // ./pixelstacker load <orientation> <multiLayer> <maxWidth> ____
+            case 4:
+                output.add("<maxHeight>");
+                return output;
+            // ./pixelstacker load <orientation> <multiLayer> <maxWidth> <maxHeight> ___
+            case 5:
+                output.add("<url / rgbBucketSize>");
+                output.add("1"); output.add("5"); output.add("15"); output.add("17"); output.add("51");
+                return output;
+            // ./pixelstacker load <orientation> <multiLayer> <maxWidth> <maxHeight> <rgbBucketSize> ____
+            case 6:
+                output.add("<dither>");
+                output.add("T"); 
+//                output.add("true"); 
+                output.add("F"); 
+                //output.add("false");
+                return output;
+            // ./pixelstacker load <orientation> <multiLayer> <maxWidth> <maxHeight> <rgbBucketSize> <dither> ___
+            case 7:
+                output.add("<maxColors>");
+                output.add("-1"); 
+                output.add("2");output.add("4");output.add("8");output.add("16");
+                output.add("32");output.add("64");output.add("128");output.add("256");
+                return output;
+            // ./pixelstacker load <orientation> <multiLayer> <maxWidth> <maxHeight> <rgbBucketSize> <dither> <maxColors> ___
+            case 8:
+                output.add("<url>");
+                return output;
+            
+            default:
+                return output;
+        }
     }
 }

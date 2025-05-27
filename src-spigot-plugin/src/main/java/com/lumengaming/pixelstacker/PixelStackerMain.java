@@ -30,7 +30,9 @@ public class PixelStackerMain extends JavaPlugin {
         }
         PixelStackerConfig.Save();
         
-        this.getCommand("pixelstacker").setExecutor(new LoadCommand(this));
+        var cmd = new LoadCommand(this);
+        this.getCommand("pixelstacker").setExecutor(cmd);
+        this.getCommand("pixelstacker").setTabCompleter(cmd);
     }
 
     @Override
