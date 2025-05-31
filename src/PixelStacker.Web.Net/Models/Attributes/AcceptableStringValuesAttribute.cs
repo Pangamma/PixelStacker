@@ -16,6 +16,11 @@ namespace PixelStacker.Web.Net.Models.Attributes
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null)
+            {
+                return ValidationResult.Success;
+            }
+
             if (AllowableValues?.Contains(value?.ToString()) == true)
             {
                 return ValidationResult.Success;

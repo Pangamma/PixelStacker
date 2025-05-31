@@ -174,6 +174,7 @@ public class LoadCommand implements CommandExecutor, TabCompleter {
             
             String url;
             int a = 1;
+            int m = 0;
             switch (args.length) {
                 case 2:
                     url = args[a++];
@@ -193,16 +194,16 @@ public class LoadCommand implements CommandExecutor, TabCompleter {
                     req.isSideView = args[a].equalsIgnoreCase("V") || args[a].equalsIgnoreCase("vertical");
                     a++;
                     req.isMultiLayer = parseBoolFromArg(args[a++]);
-                    req.maxWidth = Integer.parseInt(args[a++]);
-                    req.maxHeight = Integer.parseInt(args[a++]);
+                    m = Integer.parseInt(args[a++]); if (m != -1) { req.maxWidth = m; }
+                    m = Integer.parseInt(args[a++]); if (m != -1) { req.maxHeight = m; }
                     url = args[a++];
                     break;
                 case 9:
                     req.isSideView = args[a].equalsIgnoreCase("V") || args[a].equalsIgnoreCase("vertical");
                     a++;
                     req.isMultiLayer = parseBoolFromArg(args[a++]);
-                    req.maxWidth = Integer.parseInt(args[a++]);
-                    req.maxHeight = Integer.parseInt(args[a++]);
+                    m = Integer.parseInt(args[a++]); if (m != -1) { req.maxWidth = m; }
+                    m = Integer.parseInt(args[a++]); if (m != -1) { req.maxHeight = m; }
                     req.rgbBucketSize = Integer.parseInt(args[a++]);
                     if (!Arrays.stream(new int[]{1, 5, 15, 17, 51}).anyMatch(i -> i == req.rgbBucketSize)) {
                         p.sendMessage("§cThe rgb bucket size provided was not a valid value.");
@@ -282,7 +283,6 @@ public class LoadCommand implements CommandExecutor, TabCompleter {
     public static HttpResponse<byte[]> sendImageToApiForRendering(RenderRequest req, String apiKey, byte[] imageBytes) throws IOException, InterruptedException, URISyntaxException {
         String endpoint = "https://taylorlove.info/projects/pixelstacker/api/Render/ByFileAdvanced";
         HashMap<String, String> queryParams = new HashMap<>();
-        
         queryParams.put("format", req.format);
         queryParams.put("enableDithering", Boolean.toString(req.enableDithering));
         queryParams.put("isMultiLayer", Boolean.toString(req.isMultiLayer));
@@ -294,6 +294,7 @@ public class LoadCommand implements CommandExecutor, TabCompleter {
         queryParams.put("maxWidth", Integer.toString(req.maxWidth));
         if (req.quantizedColorCount != null && req.quantizedColorCount != -1) queryParams.put("quantizedColorCount", Integer.toString(req.quantizedColorCount));
         if (req.rgbBucketSize != null) queryParams.put("rgbBucketSize", Integer.toString(req.rgbBucketSize));
+        
         String query = queryParams.entrySet()
             .stream()
             .map(e -> String.format("%s=%s",
