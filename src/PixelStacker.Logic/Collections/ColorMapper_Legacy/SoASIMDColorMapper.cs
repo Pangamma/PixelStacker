@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
-    public sealed class SoASIMDColorMapper : IColorMapper
+    public sealed class SoASIMDColorMapper : ILegacyColorMapper
     {
         public string AlgorithmTitle => "SoASIMD";
         private List<MaterialCombination> combos;

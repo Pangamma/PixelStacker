@@ -1,4 +1,7 @@
 @use 'sass:math';
+@use "sass:map";
+@use "sass:color";
+
 // S E T T I N G S:
 $c-navbar-m-header-height: 50;
 $c-navbar-m-title-height: $c-navbar-m-header-height;
@@ -55,22 +58,34 @@ $icon-codes-map: (
 
 @function get-icon-code($name, $literal: true) {
   @if $literal == true {
-    @return map-get($icon-codes-map, $name);
+    @return map.get($icon-codes-map, $name);
   }
   @else {
     @return var(--mt-icon-code-#{$name});
   }
 }
 
+
 @function contrasting-color($color) {
-  $color-light: math.div(lightness($color), 100%);
-	$color-lightness: abs($color-light);
-	@if ($color-lightness > .50){
-		@return black;
-	} @else {
-		@return white;
-	}
+    $color-light: math.div(color.channel($color, 'lightness', $space: hsl), 100%);
+    $color-lightness: abs($color-light);
+
+    @if ($color-lightness > .50){
+        @return black;
+    } @else {
+        @return white;
+    }
 }
+
+// @function contrasting-color($color) {
+//   $color-light: math.div(lightness($color), 100%);
+// 	$color-lightness: abs($color-light);
+// 	@if ($color-lightness > .50){
+// 		@return black;
+// 	} @else {
+// 		@return white;
+// 	}
+// }
 
 //<editor-fold defaultstate="collapsed" desc="THEME">
 @mixin c-navbar-theme-helper($nav-theme-L0-bg, $nav-theme-L1-bg){
@@ -400,9 +415,20 @@ $nav-theme-Lx-bc: null){
 .c-navbar{
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 14px;
     min-width: 320px;
     display: block;
+
+    button, a {
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    ul {
+        // Undo weird tab that shows up for some reason.
+        padding-inline-start: unset;
+        box-sizing: border-box;
+    }
 
     /* TODO: Make this work on mobile. */
     &.f-fixed {
@@ -448,7 +474,7 @@ $nav-theme-Lx-bc: null){
                 text-decoration: underline;
             }
         }
-
+        
         // This works at every level, but the content can be overridden.
         &.f-nav-menu > button {
             padding: 0px 38px 0px 26px;

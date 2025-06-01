@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using PixelStacker.Logic.Collections.ColorMapper;
 using System.Threading;
+using PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas;
 
 namespace PixelStacker.Logic.API
 {
@@ -54,12 +55,12 @@ namespace PixelStacker.Logic.API
             IColorMapper mapper = null;
             if (model.CustomColorMapper == null)
             {
-                mapper = GetMapper(isv, model.IsMultiLayer);
-            } 
+                mapper = ColorMapperContainer.GetColorMapper(isv, model.IsMultiLayer, model.TextureMatchingStrategy, model.ColorDistanceFormulaType);
+            }
             else
             {
                 mapper = model.CustomColorMapper;
-                if (!mapper.IsSeeded())
+                if (!mapper.IsSeeded)
                 {
                     throw new ArgumentException("CustomColorMapper must be seeded already.");
                 }
@@ -95,57 +96,5 @@ namespace PixelStacker.Logic.API
                 return new FileNode(data, contentType);
             }
         }
-
-        private static IColorMapper GetMapper(bool isv, bool isMultilayer)
-        {
-            if (isv)
-            {
-                return isMultilayer ? ColorMapperSideView.Value : ColorMapperSideViewSingleLayer.Value;
-            }
-            else
-            {
-                return isMultilayer ? ColorMapperTopView.Value : ColorMapperTopViewSingleLayer.Value;
-            }
-        }
-
-        private static Lazy<IColorMapper> ColorMapperTopView = new Lazy<IColorMapper>(() =>
-        {
-            var cm = new KdTreeMapper();
-            var palette = MaterialPalette.FromResx();
-            var opts = new StaticJsonOptionsProvider().Load();
-            var combosAvailable = palette.ToValidCombinationList(opts);
-            cm.SetSeedData(combosAvailable, palette, false);
-            return cm;
-        });
-
-        private static Lazy<IColorMapper> ColorMapperTopViewSingleLayer = new Lazy<IColorMapper>(() =>
-        {
-            var cm = new KdTreeMapper();
-            var palette = MaterialPalette.FromResx();
-            var opts = new StaticJsonOptionsProvider().Load();
-            var combosAvailable = palette.ToValidCombinationList(opts).Where(x => x.IsMultiLayer == false).ToList();
-            cm.SetSeedData(combosAvailable, palette, false);
-            return cm;
-        });
-
-        private static Lazy<IColorMapper> ColorMapperSideView = new Lazy<IColorMapper>(() =>
-        {
-            var cm = new KdTreeMapper();
-            var palette = MaterialPalette.FromResx();
-            var opts = new StaticJsonOptionsProvider().Load();
-            var combosAvailable = palette.ToValidCombinationList(opts);
-            cm.SetSeedData(combosAvailable, palette, true);
-            return cm;
-        });
-
-        private static Lazy<IColorMapper> ColorMapperSideViewSingleLayer = new Lazy<IColorMapper>(() =>
-        {
-            var cm = new KdTreeMapper();
-            var palette = MaterialPalette.FromResx();
-            var opts = new StaticJsonOptionsProvider().Load();
-            var combosAvailable = palette.ToValidCombinationList(opts).Where(x => x.IsMultiLayer == false).ToList();
-            cm.SetSeedData(combosAvailable, palette, true);
-            return cm;
-        });
     }
 }

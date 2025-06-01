@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.IO.Config;
@@ -8,10 +9,12 @@ using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Model;
 using PixelStacker.Web.Net.Models;
 using PixelStacker.Web.Net.Utility;
+using SixLabors.ImageSharp.ColorSpaces;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PixelStacker.Web.Net.Controllers
@@ -26,70 +29,6 @@ namespace PixelStacker.Web.Net.Controllers
         {
             this.Data = data;
             this.ContentType = ct;
-        }
-    }
-
-
-    public static class ColorMapperContainer
-    {
-        public static Lazy<string> DefaultColorMapperAlgorithmTitle = new Lazy<string>(() => {
-            IColorMapper instance = Activator.CreateInstance(typeof(KdTreeMapper)) as IColorMapper;
-            return instance.AlgorithmTitle;
-        });
-
-        public static Lazy<Dictionary<string, Type>> ColorMapperTypes = new Lazy<Dictionary<string, Type>>(() => {
-            var interfaceType = typeof(IColorMapper);
-            var typesThatImplementIColorMapper = interfaceType.Assembly.GetExportedTypes()
-                .Where(t => interfaceType.IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
-                .Select(x =>
-                {
-                    IColorMapper instance = Activator.CreateInstance(x) as IColorMapper;
-                    return instance;
-                })
-                .Where(x => x.AlgorithmTitle.Contains("KdTree"))
-                .ToDictionary(k => k.AlgorithmTitle, v => v.GetType());
-            return typesThatImplementIColorMapper;
-        });
-
-        private static object Padlock = new { };
-        private static Dictionary<string, IColorMapper> MapperCache = new Dictionary<string, IColorMapper>();
-
-        public static IColorMapper GetColorMapper(bool isSideView, bool isMultiLayer, string colorMapperAlgorithm)
-        {
-            string cacheKey = string.Format("{0}:{1}:{2}", isSideView ? "1" : "0", isMultiLayer ? "1" : "0", colorMapperAlgorithm);
-
-            if (MapperCache.TryGetValue(cacheKey, out var value)) 
-            {
-                return value;
-            }
-
-            lock(Padlock)
-            {
-                if (MapperCache.TryGetValue(cacheKey, out var value2))
-                {
-                    return value2;
-                }
-
-                var mapper = CreateColorMapper(isSideView, isMultiLayer, colorMapperAlgorithm);
-                MapperCache[cacheKey] = mapper;
-                return mapper;
-            }
-        }
-
-        private static IColorMapper CreateColorMapper(bool isSideView, bool isMultiLayer, string colorMapperAlgorithm)
-        {
-            if (!ColorMapperTypes.Value.TryGetValue(colorMapperAlgorithm, out Type found))
-            {
-                throw new ArgumentException("This is not a supported algorithm type.", nameof(colorMapperAlgorithm));
-            }
-
-            var cm = Activator.CreateInstance(found) as IColorMapper;
-            var palette = MaterialPalette.FromResx();
-            var opts = new StaticJsonOptionsProvider().Load();
-            var combosAvailable = palette.ToValidCombinationList(opts);
-            if (!isMultiLayer) combosAvailable = combosAvailable.Where(x => !x.IsMultiLayer && x.Bottom.CanBeUsedAsBottomLayer).ToList();
-            cm.SetSeedData(combosAvailable, palette, isSideView);
-            return cm;
         }
     }
 
@@ -189,7 +128,7 @@ namespace PixelStacker.Web.Net.Controllers
 
             bool isMultiLayer = true;
             bool isSideView = false;
-            var mapper = ColorMapperContainer.GetColorMapper(isSideView, isMultiLayer, ColorMapperContainer.DefaultColorMapperAlgorithmTitle.Value);
+            var mapper = ColorMapperContainer.GetColorMapper(isSideView, isMultiLayer, TextureMatchingStrategy.Smooth, ColorDistanceFormulaType.RgbWithHue);
             var canvas = await engine.RenderCanvasAsync(null, preprocessed, mapper, palette, isSideView);
             IExportFormatter exporter = new JpegFormatter();
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
@@ -225,12 +164,7 @@ namespace PixelStacker.Web.Net.Controllers
                 }
             });
 
-            if (string.IsNullOrEmpty(model.ColorMapperAlgorithm) || !ColorMapperContainer.ColorMapperTypes.Value.ContainsKey(model.ColorMapperAlgorithm))
-            {
-                model.ColorMapperAlgorithm = ColorMapperContainer.DefaultColorMapperAlgorithmTitle.Value;
-            }
-            
-            var mapper = ColorMapperContainer.GetColorMapper(isv, model.IsMultiLayer, model.ColorMapperAlgorithm);
+            var mapper = ColorMapperContainer.GetColorMapper(model.IsSideView, model.IsMultiLayer, model.TextureMatchingStrategy, model.ColorDistanceFormula);
             var canvas = await engine.RenderCanvasAsync(null, preprocessed, mapper, palette, isv);
             IExportFormatter exporter = model.Format.GetFormatter();
 

@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Web.Net.Models.Attributes;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -40,8 +43,6 @@ namespace PixelStacker.Web.Net.Models
 
     public class BaseRenderRequest
     {
-        [AcceptableStringValues("Average Color KdTree", "HSL Unique Color KdTree", "Unique Color KdTree", "Srgb KdTree")]
-        public string ColorMapperAlgorithm { get; set; } = null;
         public ExportFormat Format { get; set; } = ExportFormat.Jpeg;
 
         public bool IsSideView { get; set; } = false;
@@ -63,5 +64,8 @@ namespace PixelStacker.Web.Net.Models
         [Range(2, 256)]
         public int? QuantizedColorCount { get; set; } = null;
         public bool EnableDithering { get; set; } = false;
+
+        public ColorDistanceFormulaType ColorDistanceFormula { get; set; } = ColorDistanceFormulaType.RgbWithHue;
+        public TextureMatchingStrategy TextureMatchingStrategy { get; set; } = TextureMatchingStrategy.Smooth;
     }
 }

@@ -174,7 +174,7 @@ namespace PixelStacker.UI
             await Task.Run(() => TaskManager.Get.StartAsync(async (worker) =>
             {
                 var engine = new RenderCanvasEngine();
-                if (!this.ColorMapper.IsSeeded())
+                if (!this.ColorMapper.IsSeeded)
                 {
                     var validCombos = this.Palette.ToValidCombinationList(Options);
                     this.ColorMapper.SetSeedData(validCombos,

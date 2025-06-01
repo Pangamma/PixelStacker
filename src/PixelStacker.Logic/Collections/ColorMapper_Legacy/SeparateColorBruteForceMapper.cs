@@ -7,7 +7,7 @@ using SkiaSharp;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
-    public class SeparateColorBruteForceMapper : IColorMapper
+    public class SeparateColorBruteForceMapper : ILegacyColorMapper
     {
         public string AlgorithmTitle => "Unique Color Brute Force";
         private Dictionary<SKColor, MaterialCombination> Cache { get; set; } = new Dictionary<SKColor, MaterialCombination>();

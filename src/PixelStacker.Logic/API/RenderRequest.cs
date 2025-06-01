@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas;
 using PixelStacker.Logic.IO.Formatters;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,18 @@ namespace PixelStacker.Logic.API
         /// This is optional.
         /// </summary>
         public IColorMapper CustomColorMapper { get; set; } = null;
+
+        /// <summary>
+        /// Not required if custom color mapper is set.
+        /// </summary>
+        public TextureMatchingStrategy TextureMatchingStrategy { get; set; } = TextureMatchingStrategy.Smooth;
+
+        /// <summary>
+        /// Not required if custom color mapper is set.
+        /// </summary>
+        public ColorDistanceFormulaType ColorDistanceFormulaType { get; set; } = ColorDistanceFormulaType.RgbWithHue; 
+
+
 
         public ExportFormat Format { get; set; } = ExportFormat.Jpeg;
 

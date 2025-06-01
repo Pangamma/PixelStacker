@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -6,8 +7,8 @@ using PixelStacker.Web.Net.Controllers;
 using System;
 
 Console.WriteLine($"Starting app at {DeploymentInfoController.DeploymentTime.Value}");
-
 Host.CreateDefaultBuilder(args)
+    .UseSystemd()
     .ConfigureAppConfiguration((hostingContext, config) =>
     {
         string envName = hostingContext.HostingEnvironment.EnvironmentName;

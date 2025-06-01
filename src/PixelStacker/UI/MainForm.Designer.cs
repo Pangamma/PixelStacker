@@ -32,7 +32,7 @@ namespace PixelStacker.UI
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            Logic.IO.Config.PanZoomSettings panZoomSettings1 = new Logic.IO.Config.PanZoomSettings();
+            Logic.IO.Config.PanZoomSettings panZoomSettings2 = new Logic.IO.Config.PanZoomSettings();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +102,7 @@ namespace PixelStacker.UI
             canvasEditor = new CanvasEditor();
             dlgOpen = new System.Windows.Forms.OpenFileDialog();
             dlgSave = new System.Windows.Forms.SaveFileDialog();
+            textureRoughnessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -229,7 +230,7 @@ namespace PixelStacker.UI
             // 
             // generationToolStripMenuItem
             // 
-            generationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { selectMaterialsToolStripMenuItem, preprocessingToolStripMenuItem, ditheringToolStripMenuItem, sizingToolStripMenuItem, orientationToolStripMenuItem, renderToolStripMenuItem, preRenderToolStripMenuItem, colorMatchAlgorithmToolStripMenuItem });
+            generationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { selectMaterialsToolStripMenuItem, preprocessingToolStripMenuItem, ditheringToolStripMenuItem, sizingToolStripMenuItem, orientationToolStripMenuItem, renderToolStripMenuItem, preRenderToolStripMenuItem, colorMatchAlgorithmToolStripMenuItem, textureRoughnessToolStripMenuItem });
             generationToolStripMenuItem.Name = "generationToolStripMenuItem";
             generationToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             generationToolStripMenuItem.Text = "Generate";
@@ -309,7 +310,7 @@ namespace PixelStacker.UI
             colorMatchAlgorithmToolStripMenuItem.BackColor = System.Drawing.Color.Aqua;
             colorMatchAlgorithmToolStripMenuItem.Name = "colorMatchAlgorithmToolStripMenuItem";
             colorMatchAlgorithmToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
-            colorMatchAlgorithmToolStripMenuItem.Text = "Color Match Algorithm";
+            colorMatchAlgorithmToolStripMenuItem.Text = "Color Match Formula";
             colorMatchAlgorithmToolStripMenuItem.Click += colorMatchAlgorithmToolStripMenuItem_Click;
             // 
             // viewToolStripMenuItem
@@ -627,7 +628,7 @@ namespace PixelStacker.UI
             imageViewer.Location = new System.Drawing.Point(0, 28);
             imageViewer.Margin = new System.Windows.Forms.Padding(4);
             imageViewer.Name = "imageViewer";
-            imageViewer.PanZoomSettings = panZoomSettings1;
+            imageViewer.PanZoomSettings = panZoomSettings2;
             imageViewer.Size = new System.Drawing.Size(800, 393);
             imageViewer.TabIndex = 5;
             // 
@@ -641,8 +642,8 @@ namespace PixelStacker.UI
             canvasEditor.Name = "canvasEditor";
             canvasEditor.Options = null;
             canvasEditor.PanZoomSettings = null;
-            canvasEditor.RepaintUIRequested = false;
             canvasEditor.RepaintImageTilesRequested = false;
+            canvasEditor.RepaintUIRequested = false;
             canvasEditor.Size = new System.Drawing.Size(800, 393);
             canvasEditor.TabIndex = 6;
             // 
@@ -658,6 +659,14 @@ namespace PixelStacker.UI
             dlgSave.DefaultExt = "pxlzip";
             dlgSave.Filter = "Schem (1.13+)|*.schem|PNG|*.png|Small PNG|*.sm.png|Block Counts CSV|*.csv|PixelStacker Project|*.pxlzip|Structure Block|*.nbt";
             dlgSave.FileOk += dlgSave_FileOk;
+            // 
+            // textureRoughnessToolStripMenuItem
+            // 
+            textureRoughnessToolStripMenuItem.BackColor = System.Drawing.Color.Aqua;
+            textureRoughnessToolStripMenuItem.Name = "textureRoughnessToolStripMenuItem";
+            textureRoughnessToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
+            textureRoughnessToolStripMenuItem.Text = "Texture roughness";
+            textureRoughnessToolStripMenuItem.Click += colorMatchRoughnessPreferenceToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -754,5 +763,6 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem checkGithubToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorMatchAlgorithmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoAltStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem textureRoughnessToolStripMenuItem;
     }
 }

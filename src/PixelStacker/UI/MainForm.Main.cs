@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using SkiaSharp;
 using PixelStacker.UI.Helpers;
 using PixelStacker.Resources.Themes;
+using PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas;
 
 namespace PixelStacker.UI
 {
@@ -30,7 +31,8 @@ namespace PixelStacker.UI
         public MainForm()
         {
             this.Options = new WinFormsOptionsProvider().Load();
-            this.ColorMapper = new KdTreeMapper();
+            var formula = new RgbWithHueDistanceFormula();
+            this.ColorMapper = new KdTreeColorMapper(formula, TextureMatchingStrategy.Smooth);
             this.Palette = MaterialPalette.FromResx();
             this.snapManager = new SnapManager(this);
             InitializeComponent();

@@ -57,6 +57,7 @@ namespace PixelStacker.UI
             this.textureSizeToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
             this.themesToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = false);
             this.colorMatchAlgorithmToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
+            this.textureRoughnessToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsAdvancedOnly = true);
             this.layerFilteringToolStripMenuItem.ModifyRecursive((x, tag) => tag.IsCanvasEditorRequired = true);
 
             {

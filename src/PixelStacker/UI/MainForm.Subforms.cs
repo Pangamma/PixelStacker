@@ -1,5 +1,7 @@
 ﻿using PixelStacker.Extensions;
 using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas;
+using PixelStacker.Logic.Extensions;
 using PixelStacker.Logic.Utilities;
 using PixelStacker.UI.Forms;
 using System;
@@ -70,20 +72,9 @@ namespace PixelStacker.UI
             }
         }
 
-        private void colorMatchAlgorithmToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void colorMatchRoughnessPreferenceToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            string title = "Select an algorithm";
-            IColorMapper[] mappers = new IColorMapper[] {
-                new KdTreeMapper(),
-                new AverageColorKdTreeMapper(),
-                new SrgbKdTreeMapper(),
-                new CielabColorMapper(),
-                new HslKdTreeMapper()
-            };
-
-            Dictionary<string, IColorMapper> items = mappers.ToDictionary(x => x.AlgorithmTitle, v => v);
-
-
+            string title = "Select a preference";
             Form prompt = new Form()
             {
                 Width = 300,
@@ -96,17 +87,17 @@ namespace PixelStacker.UI
             };
 
             ListBox listBox = new ListBox() { Dock = DockStyle.Fill };
-            listBox.Items.AddRange(items.Keys.Cast<object>().ToArray());
-            listBox.SelectedItem = this.ColorMapper.AlgorithmTitle;
+            listBox.Items.AddRange(Enum.GetNames(typeof(TextureMatchingStrategy)).Cast<object>().ToArray());
+            listBox.SelectedItem = this.ColorMapper.DistanceFormula.Key;
             listBox.SelectedValueChanged += (object sender, System.EventArgs e) =>
             {
                 if (listBox.SelectedItem != null)
                 {
                     string displayText = listBox.GetItemText(listBox.SelectedItem);
-
-                    if (displayText != null && items.TryGetValue(displayText, out IColorMapper value))
+                    if (displayText != null)
                     {
-                        this.ColorMapper = value;
+                        var strat = displayText.ToNullable<TextureMatchingStrategy>() ?? TextureMatchingStrategy.Smooth;
+                        this.ColorMapper = ColorMapperContainer.CreateColorMapper(strat, this.ColorMapper.DistanceFormula.Key);
                         renderToolStripMenuItem_Click(sender, null);
                     }
                 }
@@ -122,11 +113,84 @@ namespace PixelStacker.UI
                 Height = 30
             };
 
-            okButton.Click += (sender, e) => {
+            okButton.Click += (sender, e) =>
+            {
                 string displayText = listBox.GetItemText(listBox.SelectedItem);
-                if (displayText != null && items.TryGetValue(displayText, out IColorMapper value))
+                if (displayText != null)
                 {
-                    this.ColorMapper = value;
+                    var strat = displayText.ToNullable<TextureMatchingStrategy>() ?? TextureMatchingStrategy.Smooth;
+                    this.ColorMapper = ColorMapperContainer.CreateColorMapper(strat, this.ColorMapper.DistanceFormula.Key);
+                    renderToolStripMenuItem_Click(sender, null);
+                }
+                prompt.Close();
+            };
+
+            prompt.AcceptButton = okButton;
+
+            var layout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                RowCount = 2,
+                ColumnCount = 1,
+                Padding = new Padding(10),
+            };
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F)); // ListBox takes most space
+            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));       // Button fits content
+            layout.Controls.Add(listBox, 0, 0);
+            layout.Controls.Add(okButton, 0, 1);
+            prompt.Controls.Add(layout);
+
+            prompt.Show(this);
+        }
+
+        private void colorMatchAlgorithmToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            string title = "Select a formula";
+            Form prompt = new Form()
+            {
+                Width = 300,
+                Height = 400,
+                Text = title,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+
+            ListBox listBox = new ListBox() { Dock = DockStyle.Fill };
+            listBox.Items.AddRange(Enum.GetNames(typeof(ColorDistanceFormulaType)).Cast<object>().ToArray());
+            listBox.SelectedItem = this.ColorMapper.DistanceFormula.Key;
+            listBox.SelectedValueChanged += (object sender, System.EventArgs e) =>
+            {
+                if (listBox.SelectedItem != null)
+                {
+                    string displayText = listBox.GetItemText(listBox.SelectedItem);
+                    if (displayText != null)
+                    {
+                        var strat = displayText.ToNullable<ColorDistanceFormulaType>() ?? ColorDistanceFormulaType.RgbWithHue;
+                        this.ColorMapper = ColorMapperContainer.CreateColorMapper(this.ColorMapper.TextureMatchingStrategy, strat);
+                        renderToolStripMenuItem_Click(sender, null);
+                    }
+                }
+            };
+
+            Button okButton = new Button()
+            {
+                Text = "OK",
+                DialogResult = DialogResult.OK,
+                Dock = DockStyle.Bottom,
+                Anchor = AnchorStyles.Right,
+                Width = 80,
+                Height = 30
+            };
+
+            okButton.Click += (sender, e) =>
+            {
+                string displayText = listBox.GetItemText(listBox.SelectedItem);
+                if (displayText != null)
+                {
+                    var strat = displayText.ToNullable<ColorDistanceFormulaType>() ?? ColorDistanceFormulaType.RgbWithHue;
+                    this.ColorMapper = ColorMapperContainer.CreateColorMapper(this.ColorMapper.TextureMatchingStrategy, strat);
                     renderToolStripMenuItem_Click(sender, null);
                 }
                 prompt.Close();

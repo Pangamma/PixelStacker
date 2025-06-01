@@ -9,7 +9,7 @@ using System;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
-    public class HslKdTreeMapper : IColorMapper
+    public class HslKdTreeMapper : ILegacyColorMapper
     {
         public string AlgorithmTitle => "HSL Unique Color KdTree";
         public double AccuracyRating => 99.127;

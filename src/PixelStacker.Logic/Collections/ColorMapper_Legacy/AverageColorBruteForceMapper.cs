@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
-    public class AverageColorBruteForceMapper : IColorMapper
+    public class AverageColorBruteForceMapper : ILegacyColorMapper
     {
         public string AlgorithmTitle => "Average Color Brute Force";
         private Dictionary<SKColor, MaterialCombination> Cache { get; set; } = new Dictionary<SKColor, MaterialCombination>();

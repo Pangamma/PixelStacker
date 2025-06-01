@@ -44,7 +44,7 @@ namespace PixelStacker.CodeGenerator
         // Local file paths
         private static string SolutionRootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
         private static string UPLOAD_API_FROM_DIR = Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "bin", "Release", "net8.0", "publish");
-        private static string UPLOAD_UI_FROM_DIR = Path.Combine(SolutionRootDir, "PixelStacker.Web.Net", "PixelStacker.Web.React", "dist");
+        private static string UPLOAD_UI_FROM_DIR = Path.Combine(SolutionRootDir, "PixelStacker.Web.React", "dist");
 
         // Remote file paths
         private const string SSH_WORKINGDIR_ROOT = "/var/www/vhosts/taylorlove.info";

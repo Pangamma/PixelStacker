@@ -1,9 +1,11 @@
 ﻿# Install to /etc/systemd/system/pixelstacker.web.net.service
 # Enable on startup with systemctl enable pixelstacker.web.net
+# https://swimburger.net/blog/dotnet/how-to-run-a-dotnet-core-console-app-as-a-service-using-systemd-on-linux
 [Unit]
 Description=PixelStacker web demo
 #
 [Service]
+Type=notify
 WorkingDirectory=/var/www/vhosts/taylorlove.info/services/pixelstacker.web.net
 ExecStart=/var/www/vhosts/taylorlove.info/services/pixelstacker.web.net/PixelStacker.Web.Net
 Restart=always

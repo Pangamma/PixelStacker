@@ -82,7 +82,30 @@ export class App extends React.PureComponent<AppProps, AppState> {
               text: 'Open', shortcutKeys: 'CTRL + O', onClick: async () => {
                 this.refFileUploader.current?.doPickFile();
               }
-            },
+            }, {
+              text: 'Click for tips',
+              items: [
+                {
+                  text: "Scroll to zoom in and out.", onClick: async () => { }
+                },
+                {
+                  text: `Demo size is capped at ${Constants.MAX_WIDTH}x${Constants.MAX_HEIGHT}`, onClick: async () => { }
+                }
+              ]
+            }, {
+              text: "Links",
+              items: [
+                { text: "Try the web API", to: "https://taylorlove.info/projects/pixelstacker/swagger/index.html" },
+                { text: "Features", to: "https://taylorlove.info/pixelstacker/" },
+                { text: "Source code", to: "https://github.com/Pangamma/PixelStacker" },
+                {
+                  text: "Downloads", items: [
+                    { text: "Desktop version", to: "https://www.spigotmc.org/resources/pixelstacker-photo-realistic-pixel-art-generator.46812/" },
+                    { text: "Spigot version", to: "https://www.spigotmc.org/resources/pixel-art-generator.125439/" }
+                  ]
+                }
+              ]
+            }
               // {
               //   text: 'File', items: [
               //     {

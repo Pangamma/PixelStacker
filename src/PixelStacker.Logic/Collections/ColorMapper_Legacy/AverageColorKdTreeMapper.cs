@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
-    public class CielabColorMapper : IColorMapper
+    public class AverageColorKdTreeMapper : ILegacyColorMapper
     {
-        public string AlgorithmTitle => "Cielab KdTree";
+        public string AlgorithmTitle => "Average Color KdTree";
         public double AccuracyRating => 0;
         public double SpeedRating => 0;
 
@@ -20,14 +20,6 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         private MaterialPalette Palette;
         private KdTree<float, MaterialCombination> KdTree;
         private object Padlock = new { };
-
-
-        // You can customize this.
-        public float[] ToComponents(SKColor c) => new float[] { c.Red, c.Green, c.Blue };
-
-        // You should also customize this as well.
-        public int CalculateColorDistance(SKColor a, SKColor b) => a.GetColorDistance(b);
-
 
         public void SetSeedData(List<MaterialCombination> combos, MaterialPalette palette, bool isSideView)
         {
@@ -41,27 +33,25 @@ namespace PixelStacker.Logic.Collections.ColorMapper
 
                 foreach (var cb in combos)
                 {
-                    var c = cb.GetAverageColor(isSideView).ToLAB();
-                    float[] metrics = ToComponents(c);
+                    var c = cb.GetAverageColor(isSideView);
+                    float[] metrics = new float[] { c.Red, c.Green, c.Blue };
                     KdTree.Add(metrics, cb);
                 }
             }
         }
 
-
         public MaterialCombination FindBestMatch(SKColor c)
         {
-            c = c.ToLAB();
+            if (Cache.TryGetValue(c, out MaterialCombination mc))
+            {
+                return mc;
+            }
+
             lock (Padlock)
             {
-                if (Cache.TryGetValue(c, out MaterialCombination mc))
-                {
-                    return mc;
-                }
-
                 if (c.Alpha < 32) return Palette[Constants.MaterialCombinationIDForAir];
-                var closest = KdTree.GetNearestNeighbours(ToComponents(c), 10);
-                var found = closest.MinBy(x => c.GetAverageColorDistance(x.Value.GetColorsInImage(this.IsSideView), (a,b) => this.CalculateColorDistance(a,b.ToLAB())));
+                var closest = KdTree.GetNearestNeighbours(new float[] { c.Red, c.Green, c.Blue }, 10);
+                var found = closest.MinBy(x => this.CalculateColorDistance(c, x.Value.GetAverageColor(IsSideView)));
                 Cache[c] = found.Value;
                 return found.Value;
             }
@@ -75,12 +65,11 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         /// <returns></returns>
         public List<MaterialCombination> FindBestMatches(SKColor c, int maxMatches)
         {
-            c = c.ToLAB();
             lock (Padlock)
             {
                 if (c.Alpha < 32) return new List<MaterialCombination>() { Palette[Constants.MaterialCombinationIDForAir] };
-                var closest = KdTree.GetNearestNeighbours(ToComponents(c), 10);
-                var found = closest.OrderBy(x => c.GetAverageColorDistance(x.Value.GetColorsInImage(this.IsSideView), (a, b) => this.CalculateColorDistance(a, b.ToLAB())))
+                var closest = KdTree.GetNearestNeighbours(new float[] { c.Red, c.Green, c.Blue }, 10);
+                var found = closest.OrderBy(x => this.CalculateColorDistance(c, x.Value.GetAverageColor(IsSideView)))
                     .Take(maxMatches).Select(x => x.Value).ToList();
 
                 return found;
@@ -88,5 +77,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         }
 
         public bool IsSeeded() => this.KdTree != null;
+
+        public int CalculateColorDistance(SKColor c, SKColor c2) => c.GetColorDistanceSquared(c2);
     }
 }

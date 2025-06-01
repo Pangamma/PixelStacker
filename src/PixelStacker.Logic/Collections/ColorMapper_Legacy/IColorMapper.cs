@@ -4,7 +4,10 @@ using SkiaSharp;
 
 namespace PixelStacker.Logic.Collections.ColorMapper
 {
-    public interface IColorMapper
+    /// <summary>
+    /// Consists of a color matching algorithm, and a storage algorithm.
+    /// </summary>
+    public interface ILegacyColorMapper
     {
         bool IsSeeded();
         void SetSeedData(List<MaterialCombination> combos, MaterialPalette mats, bool isSideView);
