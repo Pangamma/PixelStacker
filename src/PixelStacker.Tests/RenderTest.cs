@@ -6,6 +6,7 @@ using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Model;
 using PixelStacker.Resources;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,13 +35,15 @@ namespace PixelStacker.Tests
                         DitherAlgorithm = "No dithering"
                     }
                 });
+
             var palette = MaterialPalette.FromResx();
-            var mapper = new KdTreeMapper();
+            var mapper = ColorMapperContainer.CreateColorMapper(TextureMatchingStrategy.Rough, Logic.Collections.ColorMapper.DistanceFormulas.ColorDistanceFormulaType.RgbWithHue);
             var combos = palette.ToValidCombinationList(opts);
             mapper.SetSeedData(combos, palette, false);
 
             var canvas = await engine.RenderCanvasAsync(null, img, mapper, palette, opts.IsSideView);
-            await new PixelStackerProjectFormatter().ExportAsync("Test.pxlzip", new PixelStackerProjectData(canvas, opts), null);
+            var data = await new PixelStackerProjectFormatter().ExportAsync(new PixelStackerProjectData(canvas, opts), null);
+            File.WriteAllBytes("RenderTest.pxlzip", data);
         }
     }
 }

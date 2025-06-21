@@ -10,6 +10,7 @@ using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Resources;
 using PixelStacker.Logic.IO.Config;
+using System.IO;
 
 namespace PixelStacker.Tests
 {
@@ -27,7 +28,7 @@ namespace PixelStacker.Tests
             Options opts = new MemoryOptionsProvider().Load();
             MaterialPalette palette = MaterialPalette.FromResx();
             this.Options = opts;
-            var mapper = new KdTreeMapper();
+            var mapper = ColorMapperContainer.CreateColorMapper(TextureMatchingStrategy.Smooth, Logic.Collections.ColorMapper.DistanceFormulas.ColorDistanceFormulaType.RgbWithHue);
             var combos = palette.ToValidCombinationList(opts);
             mapper.SetSeedData(combos, palette, false);
 
@@ -99,7 +100,8 @@ namespace PixelStacker.Tests
         public async Task IE_PixelStackerProjectFormat()
         {
             var formatter = new PixelStackerProjectFormatter();
-            await formatter.ExportAsync("io_test.zip", new PixelStackerProjectData(Canvas, this.Options), null);
+            var data = await formatter.ExportAsync(new PixelStackerProjectData(Canvas, this.Options), null);
+            File.WriteAllBytes("io_test.zip", data);
             var canv = await formatter.ImportAsync("io_test.zip", null);
             Assert.AreEqual(Canvas.WorldEditOrigin, canv.WorldEditOrigin);
             Assert.AreEqual(JsonConvert.SerializeObject(Canvas.MaterialPalette), JsonConvert.SerializeObject(canv.MaterialPalette));
@@ -112,7 +114,8 @@ namespace PixelStacker.Tests
         public async Task IE_PngFormat()
         {
             var formatter = new PngFormatter();
-            await formatter.ExportAsync("io_test.png", new PixelStackerProjectData(Canvas, this.Options), null);
+            var data = await formatter.ExportAsync(new PixelStackerProjectData(Canvas, this.Options), null);
+            File.WriteAllBytes("io_test.png", data);
         }
     }
 }

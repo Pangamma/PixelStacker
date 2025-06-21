@@ -33,6 +33,8 @@ export class FileUploader extends React.PureComponent<FileUploaderProps> {
 
   // converts HEIC or other image formats to image/png type
   private readFileAsync = (file: File) => {
+    const maxWidth = this.props.MaxWidth;
+    const maxHeight = this.props.MaxHeight;
     return new Promise<Blob>((resolve, reject) => {
       var reader = new FileReader();
 
@@ -47,13 +49,13 @@ export class FileUploader extends React.PureComponent<FileUploaderProps> {
 
           let width = image.width;
           let height = image.height;
-          if ((width > Constants.MAX_WIDTH) || (height > Constants.MAX_HEIGHT)) {
+          if ((width > maxWidth) || (height > maxHeight)) {
             if (width > height) {
-              height = height * (Constants.MAX_WIDTH / width);
-              width = Constants.MAX_WIDTH;
+              height = height * (maxWidth / width);
+              width = maxWidth;
             } else {
-              width = width * (Constants.MAX_HEIGHT / height);
-              height = Constants.MAX_HEIGHT;
+              width = width * (maxHeight / height);
+              height = maxHeight;
             }
           }
 

@@ -130,7 +130,7 @@ namespace PixelStacker.Web.Net.Controllers
             bool isSideView = false;
             var mapper = ColorMapperContainer.GetColorMapper(isSideView, isMultiLayer, TextureMatchingStrategy.Smooth, ColorDistanceFormulaType.RgbWithHue);
             var canvas = await engine.RenderCanvasAsync(null, preprocessed, mapper, palette, isSideView);
-            IExportFormatter exporter = new JpegFormatter();
+            IExportImageFormatter exporter = new JpegFormatter();
             byte[] data = await exporter.ExportAsync(new PixelStackerProjectData()
             {
                 CanvasData = canvas.CanvasData,
@@ -139,6 +139,12 @@ namespace PixelStacker.Web.Net.Controllers
                 PreprocessedImage = canvas.PreprocessedImage,
                 //WorldEditOrigin = new int[] { (int)canvas.WorldEditOrigin.X, (int)canvas.WorldEditOrigin.Y }
                 WorldEditOrigin = null
+            }, 
+            new CanvasViewerSettings() 
+            { 
+                IsShadowRenderingEnabled = false,
+                IsSolidColors = false,
+                TextureSize = Constants.DefaultTextureSize,
             }, null);
 
             return new FileNode(data, ExportFormat.Jpeg.GetContentTypeData().contentType);

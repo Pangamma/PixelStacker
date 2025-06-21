@@ -12,6 +12,8 @@ import { Constants } from './constants';
 interface AppProps { }
 interface AppState {
   renderedCanvas?: RenderedCanvas;
+  maxWidth: number; // Purely used for updating the state.
+  maxHeight: number;
 }
 
 export class App extends React.PureComponent<AppProps, AppState> {
@@ -22,7 +24,9 @@ export class App extends React.PureComponent<AppProps, AppState> {
     super(props);
     (window as any)['progressX'] = ProgressX;
     this.state = {
-      renderedCanvas: undefined
+      renderedCanvas: undefined,
+      maxWidth: Constants.MAX_WIDTH,
+      maxHeight: Constants.MAX_HEIGHT
     }
   }
 
@@ -89,7 +93,21 @@ export class App extends React.PureComponent<AppProps, AppState> {
                   text: "Scroll to zoom in and out.", onClick: async () => { }
                 },
                 {
-                  text: `Demo size is capped at ${Constants.MAX_WIDTH}x${Constants.MAX_HEIGHT}`, onClick: async () => { }
+                  text: `Current size cap: ${this.state.maxWidth}x${this.state.maxHeight}`, onClick: async () => { 
+                    const numbr = window.prompt("Should a new max size be used? Provide a number between 16 and 4000 for the new max height and max width.");
+                    if (numbr) {
+                      let parsed = parseInt(numbr, 10);
+                      if (!isNaN(parsed)) {
+                        parsed = Math.max(4, Math.min(4000, parsed));
+                        await new Promise<void>((resolve) => { 
+                          this.setState({
+                            maxHeight: parsed,
+                            maxWidth: parsed
+                          }, () => resolve());
+                        });
+                      }
+                    }
+                  }
                 }
               ]
             }, {
@@ -178,8 +196,8 @@ export class App extends React.PureComponent<AppProps, AppState> {
             />
             <FileUploader
               ref={this.refFileUploader}
-              MaxHeight={Constants.MAX_HEIGHT}
-              MaxWidth={Constants.MAX_WIDTH}
+              MaxHeight={this.state.maxHeight}
+              MaxWidth={this.state.maxWidth}
               onLoadFileStart={() => {
                 if (!!this.refEditor.current)
                   this.refEditor.current.setState({ isLoading: true });

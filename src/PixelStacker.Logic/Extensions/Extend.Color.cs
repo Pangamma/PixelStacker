@@ -48,9 +48,9 @@ namespace PixelStacker.Logic.Extensions
         }
 
         /// <summary>
-        /// h = h* 360f;
-		///	s = s* 100f;
-		///	l = l* 100f;
+        /// h = [0 - 360f];
+		///	s = [0 - 100f];
+		///	l = [0 - 100f];
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>

@@ -42,7 +42,6 @@ namespace PixelStacker.Logic.Utilities
                 if (percent > 100) StatusPercent = 100;
                 if (percent < 0) StatusPercent = 0;
             }
-
         }
 
         public static void Report(int percent, IDummyArg arg = null, [CallerFilePath] string filePath = "", [CallerMemberName] string methodName = null, [CallerLineNumber] int lineNumber = 0)

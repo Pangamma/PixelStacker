@@ -36,7 +36,7 @@ namespace PixelStacker.Benchmarks.ColorMap
 
             var opts = new MemoryOptionsProvider().Load();
             MaterialPalette palette = MaterialPalette.FromResx();
-            var mapper = new KdTreeMapper();
+            var mapper = ColorMapperContainer.CreateColorMapper(TextureMatchingStrategy.Smooth, Logic.Collections.ColorMapper.DistanceFormulas.ColorDistanceFormulaType.RgbWithHue);
             var combos = palette.ToValidCombinationList(opts);
             mapper.SetSeedData(combos, palette, false);
             var engine = new RenderCanvasEngine();

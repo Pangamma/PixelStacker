@@ -6,10 +6,11 @@
 		<!-- ;USE_GPU;DEBUG_GPU -->
 		<DefineConstants>$(DefineConstants);TRACE;SKIA_SHARP</DefineConstants>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
 		<DefineConstants>$(DefineConstants);DEBUG;FAIL_FAST</DefineConstants>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Release)'=='Release'">
-		<DefineConstants>$(DefineConstants);RELEASE;</DefineConstants>
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+	</PropertyGroup>
 	</PropertyGroup>
 </Project>

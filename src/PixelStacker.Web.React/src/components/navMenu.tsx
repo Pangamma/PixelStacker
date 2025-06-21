@@ -1,9 +1,16 @@
-import { Logger } from '@/utils/logger';
 import { RateLimiter } from '@/utils/rateLimiter';
 import { forceUpdateAsyncFactory, setStateAsyncFactory } from '@/utils/stateSetter';
 import * as React from 'react';
 import './navMenu.scss';
 // import { Link } from 'react-router-dom';
+
+interface TreeNodeMetaData {
+    text: string;
+    to?: string;
+    shortcutKeys?: string;
+    onClick?: () => Promise<void>;
+    isExpanded: boolean;
+}
 
 /**
  * 
@@ -12,11 +19,11 @@ import './navMenu.scss';
  * TODO: Whatever was going on with component.openElement (.f-flip)
  */
 export type NavMenuItemProps = {
-    items?: NavMenuItemProps[];
     text: string;
-    shortcutKeys?: string;
     to?: string;
+    shortcutKeys?: string;
     onClick?: () => Promise<void>;
+    items?: NavMenuItemProps[];
 }
 
 export interface NavMenuProps {
@@ -46,14 +53,6 @@ type NavMenuState = {
     forcedHeightOfSubMenus?: number;
 }
 
-
-interface TreeNodeMetaData {
-    text: string;
-    to?: string;
-    isExpanded: boolean;
-    onClick?: () => Promise<void>;
-    shortcutKeys?: string;
-}
 
 interface TreeNode<T> {
     uniqueId: string;
@@ -175,6 +174,19 @@ export class NavMenu extends React.PureComponent<NavMenuProps, NavMenuState> {
         window.removeEventListener('resize', this.onResize);
         this.resizeLimiter.cancel();
         document.getElementsByTagName('body')[0].style.overflowY = 'auto';
+    }
+
+    public componentDidUpdate(prevProps: Readonly<NavMenuProps>, prevState: Readonly<NavMenuState>, snapshot?: any): void {
+        if (prevProps.defaultItems !== this.props.defaultItems) {
+            this.initTreeMapFromProps();
+            this.setState({
+                isMobile: false,
+                mobileTitleText: this.props.title,
+                isMobileExpanded: false,
+                isMobileLeftArrowVisible: false,
+                isMobileRightArrowVisible: false
+            });
+        }
     }
 
     // -------  Focus Listeners  ----------------------------------------------------------------------
@@ -478,11 +490,11 @@ export class NavMenu extends React.PureComponent<NavMenuProps, NavMenuState> {
         } else if (!!onClick) {
             return (<li className='f-nav-link' key={uniqueId}>
                 <button tabIndex={tabIndex} onClick={async () => {
+                    document.body.focus();
                     await this.doCloseElementRecursive(this.root);
                     await this.setStateAsync({ isMobileExpanded: false });
                     await this.forceUpdateAsync();
                     await onClick();
-                    Logger.debug('Clicked');
                 }}>{text}</button>
                 {/* <Link to={{state: }} tabIndex={tabIndex}
                     onClick={async () => {
@@ -499,6 +511,8 @@ export class NavMenu extends React.PureComponent<NavMenuProps, NavMenuState> {
     }
 
     public render(): React.ReactNode {
+        console.warn("re-rendering nav menu", this.props.defaultItems[1].items?.[1]);
+        console.warn("re-rendering nav menu ___ state", this.state);
         const { title, isFixed, colorTheme } = this.props;
         const { isMobileExpanded, isMobile, mobileTitleText,
             isMobileLeftArrowVisible,

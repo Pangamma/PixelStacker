@@ -10,46 +10,33 @@ using SkiaSharp;
 
 namespace PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas
 {
-    public class HslFloatMath : FloatMath
+    public class HslFloatMathLegacy : FloatMath
     {
         public override float DistanceSquaredBetweenPoints(float[] a, float[] b)
         {
-            float sum = 0;
+            // Hue is the point on the circle
+            // Saturation is radius.
+            // Lightness is X/Y.
 
-            for(int i = 0; i < a.Length; i++)
-            {
-                float tmp = Subtract(a[i], b[i]);
-                sum += tmp * tmp;
-            }
-
-
+            float dHue = ExtendColor.GetDegreeDistance(a[0], b[0]);
+            float dSat = a[1] - b[1];
+            float dLightness = a[2] - b[2];
+            float sum
+                = (float) Math.Sqrt(dHue * dHue * dHue)
+                + dSat * dSat
+                + dLightness * dLightness
+                ;
             return sum;
         }
     }
 
-    public class HslDistanceFormula : IColorDistanceFormula
+    public class HslDistanceFormulaLegacy : IColorDistanceFormula
     {
         public TypeMath<float> KdTreeMath => new HslFloatMath();
 
         public ColorDistanceFormulaType Key => ColorDistanceFormulaType.Hsl;
 
         string IColorDistanceFormula.Label => "HSL";
-
-        private static float[] ConvertHslToXYZ(float[] hsl)
-        {
-            const double fromDegreesToRadians = (Math.PI / 180);
-            float rSaturation = hsl[1]; // Saturation
-            double hueRadians = (hsl[0] * fromDegreesToRadians);
-
-            float[] xyz = [
-                (float)(rSaturation * Math.Cos(hueRadians)),
-                (float)(rSaturation * Math.Sin(hueRadians)),
-                hsl[2] // Lightness is up/down on the cylinder.
-            ];
-
-            return xyz;
-        }
-
 
         /// <summary>
         /// Returns [H, S, L]
@@ -59,7 +46,6 @@ namespace PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas
         public float[] CalculateDimensionsForKdTree(SKColor c)
         {
             float[] f1 = c.ToHslArray();
-            f1 = ConvertHslToXYZ(f1);
             return f1;
         }
 
@@ -68,7 +54,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas
             float[] f1 = CalculateDimensionsForKdTree(c);
             float[] f2 = CalculateDimensionsForKdTree(c2);
             float distanceSquared = this.KdTreeMath.DistanceSquaredBetweenPoints(f1, f2);
-            return (int)(Math.Sqrt(distanceSquared) * 1000);
+            return (int)Math.Sqrt(distanceSquared);
         }
     }
 }

@@ -115,13 +115,13 @@ namespace PixelStacker.UI
 
             okButton.Click += (sender, e) =>
             {
-                string displayText = listBox.GetItemText(listBox.SelectedItem);
-                if (displayText != null)
-                {
-                    var strat = displayText.ToNullable<TextureMatchingStrategy>() ?? TextureMatchingStrategy.Smooth;
-                    this.ColorMapper = ColorMapperContainer.CreateColorMapper(strat, this.ColorMapper.DistanceFormula.Key);
-                    renderToolStripMenuItem_Click(sender, null);
-                }
+                //string displayText = listBox.GetItemText(listBox.SelectedItem);
+                //if (displayText != null)
+                //{
+                //    var strat = displayText.ToNullable<TextureMatchingStrategy>() ?? TextureMatchingStrategy.Smooth;
+                //    this.ColorMapper = ColorMapperContainer.CreateColorMapper(strat, this.ColorMapper.DistanceFormula.Key);
+                //    renderToolStripMenuItem_Click(sender, null);
+                //}
                 prompt.Close();
             };
 
@@ -186,13 +186,13 @@ namespace PixelStacker.UI
 
             okButton.Click += (sender, e) =>
             {
-                string displayText = listBox.GetItemText(listBox.SelectedItem);
-                if (displayText != null)
-                {
-                    var strat = displayText.ToNullable<ColorDistanceFormulaType>() ?? ColorDistanceFormulaType.RgbWithHue;
-                    this.ColorMapper = ColorMapperContainer.CreateColorMapper(this.ColorMapper.TextureMatchingStrategy, strat);
-                    renderToolStripMenuItem_Click(sender, null);
-                }
+                //string displayText = listBox.GetItemText(listBox.SelectedItem);
+                //if (displayText != null)
+                //{
+                //    var strat = displayText.ToNullable<ColorDistanceFormulaType>() ?? ColorDistanceFormulaType.RgbWithHue;
+                //    this.ColorMapper = ColorMapperContainer.CreateColorMapper(this.ColorMapper.TextureMatchingStrategy, strat);
+                //    renderToolStripMenuItem_Click(sender, null);
+                //}
                 prompt.Close();
             };
 

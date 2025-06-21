@@ -661,13 +661,44 @@ namespace PixelStacker.Tests
                     bm.SetPixel(x, y, c);
                 }
             }
-            
+
             canvas.Save();
             using var ms = new MemoryStream();
             bool isSuccessfulEncode = bm.Encode(ms, SKEncodedImageFormat.Jpeg, 90);
             ms.Seek(0, SeekOrigin.Begin);
             var bs = ms.ToArray();
             await File.WriteAllBytesAsync("hsl_brick.png", bs);
+        }
+
+
+        [TestMethod]
+        public async Task Show_sl_Brick()
+        {
+            int width = 550;
+            int height = 350;
+            SKBitmap bm = new SKBitmap(width, height, SKColorType.Rgba8888, SKAlphaType.Premul);
+            using SKCanvas canvas = new SKCanvas(bm);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    float hue = 0; //  x * 360.0f / width;
+                    float lightness = 100 - y * 100.0f / height;
+                    float sat = 100 - x * 100.0f / width;
+                    var c = SKColor.FromHsl(hue, sat, lightness);
+                    var satPrime = c.GetSaturation();
+                    var briPrime = c.GetBrightness();
+                    bm.SetPixel(x, y, c);
+                }
+            }
+
+            canvas.Save();
+            using var ms = new MemoryStream();
+            bool isSuccessfulEncode = bm.Encode(ms, SKEncodedImageFormat.Jpeg, 90);
+            ms.Seek(0, SeekOrigin.Begin);
+            var bs = ms.ToArray();
+            await File.WriteAllBytesAsync("sl_brick.png", bs);
         }
     }
 }

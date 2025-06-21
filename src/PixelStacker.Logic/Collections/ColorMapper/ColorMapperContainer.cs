@@ -15,7 +15,7 @@ namespace PixelStacker.Logic.Collections.ColorMapper
         private static Dictionary<string, IColorMapper> MapperCache = new Dictionary<string, IColorMapper>();
 
         public static IColorMapper GetColorMapper(
-            bool isSideView, bool isMultiLayer, 
+            bool isSideView, bool isMultiLayer,
             TextureMatchingStrategy textureMatchingStrategy,
             ColorDistanceFormulaType colorDistanceFormula)
         {
