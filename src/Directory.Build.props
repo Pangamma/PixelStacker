@@ -12,5 +12,4 @@
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
 	</PropertyGroup>
-	</PropertyGroup>
 </Project>
