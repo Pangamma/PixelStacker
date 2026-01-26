@@ -1,0 +1,8 @@
+<Project>
+  <Target Name="AddApiServerFlag" BeforeTargets="PrepareForBuild">
+    <!-- Only apply when the Web project is in the build graph -->
+    <PropertyGroup Condition="'$(BuildingProject)' == 'PixelStacker.Web.Net'">
+      <DefineConstants>API_SERVER;$(DefineConstants)</DefineConstants>
+    </PropertyGroup>
+  </Target>
+</Project>

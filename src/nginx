@@ -1,0 +1,91 @@
+location ~* \.(eot|otf|ttf|woff|woff2)$ {
+	add_header Access-Control-Allow-Origin *;
+	proxy_set_header Access-Control-Allow-Origin *;
+}
+
+# For any location at /api and below that subdirectory. For https://taylorlove.info/api ApiCore.
+location /api/ {
+	# Redirect all traffic to port 5002 at 127.0.0.1
+	proxy_pass http://localhost:5002/;
+	proxy_http_version  1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection keep-alive;
+
+	# Dynamic code will read this and see if localhost or deployed settings should be used or not.
+	proxy_set_header Host $host;
+	proxy_cache_bypass  $http_upgrade;
+	proxy_set_header X-Real-IP $remote_addr; # remote IP addr again?
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # remote IP addr
+	proxy_set_header X-Forwarded-Proto $scheme;
+	proxy_redirect off;
+}
+
+
+# https://stackoverflow.com/a/63158944/1582837
+proxy_ssl_server_name on;
+location ^~ /projects/subnet93/ {
+    rewrite "(?i)/projects/subnet93(.*)" /api$1  break;
+    proxy_set_header Host "subnet93.gum.click";
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_pass https://subnet93.gum.click:443;
+    proxy_redirect off;
+}
+
+location ^~ /projects/subnet92/ {
+    rewrite "(?i)/projects/subnet92(.*)" /$1  break;
+    proxy_set_header Host "subnet93.gum.click";
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass https://subnet93.gum.click/mainPageApi/;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+
+
+# https://stackoverflow.com/questions/53207059/react-nginx-routing-to-subdirectory
+#location ^~ /projects/housemap {
+#	alias /var/www/vhosts/taylorlove.info/httpdocs/projects/housemap;
+#	try_files $uri $uri/ /projects/housemap/index.html;
+#}
+
+
+# github proxy
+location ^~ /pixelstacker/ {
+    rewrite "(?i)/pixelstacker(.*)" /PixelStacker$1  break;
+    proxy_pass https://pangamma.github.io:443;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host pangamma.github.io;
+    proxy_redirect off;
+}
+		
+# React, but in a private directory.
+location ^~ /projects/pixelstacker/demo {
+    # Set the document root to a private folder outside of httpdocs.
+    # root /var/www/vhosts/taylorlove.info/services/pixelstacker.web.net/wwwroot/dist;
+    root /var/www/vhosts/taylorlove.info/httpdocs/projects/pixelstacker.web.react;
+
+    # Redirect requests without the trailing slash (at /demo) to HAVE the trailing slash.
+    rewrite ^/projects/pixelstacker/demo$  /projects/pixelstacker/demo/ redirect;
+
+    # /demo should give the index.html file for the react app.
+    try_files $uri $uri/index.html index.html;
+
+    # Redirect all files after /demo/ to the correct folder directory.
+    rewrite "(?i)/projects/pixelstacker/demo/(.*)" /$1  break;
+}
+
+		
+# .net core app forwarding
+location /projects/pixelstacker/ {
+    proxy_pass http://localhost:5005/;
+    proxy_http_version  1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection keep-alive;
+    proxy_set_header Host $host;
+    proxy_cache_bypass  $http_upgrade;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Real-IP $remote_addr; # remote IP addr again?
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # remote IP addr
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_redirect off;
+}

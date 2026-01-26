@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PixelStacker.Web.Net.AppStart;
 using PixelStacker.Web.Net.Controllers;
+using PixelStacker.Web.Net.Socket;
 using PixelStacker.Web.Net.Utility;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -24,6 +26,7 @@ namespace PixelStacker.Web.Net
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ChatService>();
             services.AddMvc(options =>
             {
                 options.EnableEndpointRouting = false;
@@ -51,14 +54,16 @@ namespace PixelStacker.Web.Net
             forwardedHeadersOptions.KnownNetworks.Clear();
             forwardedHeadersOptions.KnownProxies.Clear();
 
+
             app
                 .UseForwardedHeaders()
-                .UseHttpsRedirection()
+                //.UseHttpsRedirection() // TODO: Make it so it allows socket connections to through.
                 .UseMiddleware<CorsHandler>()
                 .UseMiddleware<ErrorHandler>()
                 .UseStaticFiles()   // Add static files  BEFORE adding routing calls.
             ;
 
+            #region ApiControllers
             string pathFolder = env.IsProduction() ? "/projects/pixelstacker" : "";
 
 #if API_INCLUDES_DEMO
@@ -103,10 +108,22 @@ namespace PixelStacker.Web.Net
                     );
                 }
             ));
+            #endregion ApiControllers
 
+            #region Web Sockets
+            {
+                // new WebSocket("wss://localhost:53739/socket")
+                // new WebSocket("ws://localhost:5005/socket")
+                app.UseWebSockets().UseWebSocketChatService();
+            }
+            #endregion Web Sockets
 
-            app.UseSwagger(SwaggerConfig.UseSwagger);
-            app.UseSwaggerUI(SwaggerConfig.UseSwaggerUI);
+            #region SWAGGER
+            {
+                app.UseSwagger(SwaggerConfig.UseSwagger);
+                app.UseSwaggerUI(SwaggerConfig.UseSwaggerUI);
+            }
+            #endregion SWAGGER
         }
     }
 }

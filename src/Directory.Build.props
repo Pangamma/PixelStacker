@@ -12,5 +12,10 @@
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(IsWebApiBuild)' == 'true'">
+		<DefineConstants>$(DefineConstants);API_SERVER</DefineConstants>
 	</PropertyGroup>
+    <Target Name="DebugProps" BeforeTargets="BeforeBuild">
+	    <Message Text=" ✅ Directory.Build.props is loaded! $(IsWebApiBuild)" Importance="High" />
+    </Target>
 </Project>
