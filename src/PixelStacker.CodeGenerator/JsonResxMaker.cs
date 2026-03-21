@@ -107,7 +107,7 @@ namespace PixelStacker.CodeGenerator
                     parsed[kvp.Key] = translated;
                 }
 
-                File.WriteAllText(jsonFilePath, JsonConvert.SerializeObject(parsed, new JsonSerializerSettings()
+                File.WriteAllText(jsonFilePath, JsonConvert.SerializeObject(parsed.OrderBy(k => k.Key).ToDictionary(k => k.Key, v => v.Value), new JsonSerializerSettings()
                 {
                     Formatting = Newtonsoft.Json.Formatting.Indented
                 }));
