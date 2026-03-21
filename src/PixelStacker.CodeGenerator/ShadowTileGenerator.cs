@@ -156,6 +156,12 @@ namespace PixelStacker.CodeGenerator
                     File.WriteAllBytes(saveFile, ms.ToArray());
                 }
             }
+
+            // Touch Shadows.resx so MSBuild's GenerateResource task re-embeds the updated sprites.
+            // Without this, incremental builds skip re-embedding because Shadows.resx's timestamp
+            // hasn't changed, even though the PNG files it references have.
+            string shadowsResxPath = Path.Combine(rootShadowsPath, "..", "Shadows.resx");
+            File.SetLastWriteTimeUtc(shadowsResxPath, DateTime.UtcNow);
         }
 
         //public void GenerateShadowTiles(int depth)

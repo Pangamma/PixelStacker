@@ -114,6 +114,13 @@ namespace PixelStacker.CodeGenerator
                     Formatting = Newtonsoft.Json.Formatting.Indented
                 }));
             }
+
+            // Touch ResxContainer.resx so MSBuild's GenerateResource task re-embeds the updated
+            // locale JSON files. Without this, incremental builds skip re-embedding because
+            // ResxContainer.resx's timestamp hasn't changed, even though the JSON files it
+            // references have.
+            string resxContainerPath = RootDir + "\\PixelStacker.Resources\\Localization\\ResxContainer.resx";
+            File.SetLastWriteTimeUtc(resxContainerPath, DateTime.UtcNow);
         }
 
         protected static Dictionary<string, string> ReadResxIntoDictionary(string resxFilePath)

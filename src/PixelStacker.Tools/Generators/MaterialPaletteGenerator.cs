@@ -47,6 +47,12 @@ namespace PixelStacker.Tools.Generators
             {
                 string json = JsonConvert.SerializeObject(palette, Formatting.Indented);
                 File.WriteAllText(filePath, json);
+
+                // Touch Data.resx so MSBuild's GenerateResource task re-embeds the updated JSON.
+                // Without this, incremental builds skip re-embedding because Data.resx's timestamp
+                // hasn't changed, even though the file it references (materialPalette.json) has.
+                string resxPath = RootDir + "\\PixelStacker.Resources\\Data.resx";
+                File.SetLastWriteTimeUtc(resxPath, DateTime.UtcNow);
             }
         }
     }

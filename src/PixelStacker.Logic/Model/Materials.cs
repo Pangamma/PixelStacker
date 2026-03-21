@@ -378,6 +378,7 @@ namespace PixelStacker.Logic.Model
                         new Material("1.17", false, "Other", "DEEPSLATE_TILE", "Deepslate Tiles", Textures.GetBitmap("deepslate_tiles"), Textures.GetBitmap("deepslate_tiles"), $"minecraft:deepslate_tiles", $"minecraft:deepslate_tiles", ""),
                         new Material("1.17", false, "Other", "POLISH_DEEPSLATE", "Polished Deepslatee", Textures.GetBitmap("polished_deepslate"), Textures.GetBitmap("polished_deepslate"), $"minecraft:polished_deepslate", $"minecraft:polished_deepslate", ""),
                         new Material("1.17", false, "Other", "TUFF", "Tuff", Textures.GetBitmap("tuff"), Textures.GetBitmap("tuff"), $"minecraft:tuff", $"minecraft:tuff", ""),
+                        new Material("1.21.5", false, "Other", "POLISHED_TUFF", "Polished Tuff", Textures.GetBitmap("polished_tuff"), Textures.GetBitmap("polished_tuff"), $"minecraft:polished_tuff", $"minecraft:polished_tuff", ""),
                         new Material("1.21.5", false, "Other", "CHZL_TUFF", "Chiseled Tuff", Textures.GetBitmap("chiseled_tuff_top"), Textures.GetBitmap("chiseled_tuff"), $"minecraft:chiseled_tuff", $"minecraft:chiseled_tuff", ""),
 
                         new Material("1.7", false, "Ores (Solid)", "SLD_ORE_C", "Coal Block", Textures.GetBitmap("coal_block"), Textures.GetBitmap("coal_block"), $"minecraft:coal_block", $"minecraft:coal_block", "minecraft:coal_block"),
