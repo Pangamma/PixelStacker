@@ -496,6 +496,9 @@ me as a </value>
   <data name="MainMenu_OtherOptions" xml:space="preserve">
     <value>Other Options</value>
   </data>
+  <data name="MainMenu_ColorMatchFormula" xml:space="preserve">
+    <value>Color Match Formula</value>
+  </data>
   <data name="MainMenu_PreRender" xml:space="preserve">
     <value>Pre-Render</value>
   </data>
@@ -537,6 +540,12 @@ me as a </value>
   </data>
   <data name="MainMenu_ToggleProgress" xml:space="preserve">
     <value>Toggle Progress</value>
+  </data>
+  <data name="MainMenu_TextureRoughness" xml:space="preserve">
+    <value>Texture Roughness</value>
+  </data>
+  <data name="MainMenu_TextureSize" xml:space="preserve">
+    <value>Texture Size</value>
   </data>
   <data name="MainMenu_ToggleTextures" xml:space="preserve">
     <value>Toggle Textures</value>

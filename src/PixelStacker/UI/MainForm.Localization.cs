@@ -157,6 +157,9 @@ namespace PixelStacker.UI
             this.selectMaterialsToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_SelectMaterials;
             this.renderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Render;
             this.preRenderToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_PreRender;
+            this.colorMatchAlgorithmToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ColorMatchFormula;
+            this.textureRoughnessToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_TextureRoughness;
+            this.textureSizeToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_TextureSize;
 
             this.preprocessingToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_ColorReduction;
             this.ditheringToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Dithering;

@@ -1133,6 +1133,15 @@ namespace PixelStacker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color Match Formula.
+        /// </summary>
+        public static string MainMenu_ColorMatchFormula {
+            get {
+                return ResourceManager.GetString("MainMenu_ColorMatchFormula", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Pre-Render.
         /// </summary>
         public static string MainMenu_PreRender {
@@ -1258,6 +1267,24 @@ namespace PixelStacker.Resources {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Texture Roughness.
+        /// </summary>
+        public static string MainMenu_TextureRoughness {
+            get {
+                return ResourceManager.GetString("MainMenu_TextureRoughness", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Texture Size.
+        /// </summary>
+        public static string MainMenu_TextureSize {
+            get {
+                return ResourceManager.GetString("MainMenu_TextureSize", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Toggle Textures.
         /// </summary>

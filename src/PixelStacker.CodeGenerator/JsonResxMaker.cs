@@ -72,7 +72,9 @@ namespace PixelStacker.CodeGenerator
                 return false;
             });
 
-            File.WriteAllText(enJsonFilePath, JsonConvert.SerializeObject(keys.OrderBy(k => k.Key).ToDictionary(k => k.Key, v => v.Value), new JsonSerializerSettings()
+            foreach (var kvp in keys) parsedEnglishKeys[kvp.Key] = kvp.Value;
+            foreach (var kvp in keysToBeRemoved.ToList()) parsedEnglishKeys.Remove(kvp.Key);
+            File.WriteAllText(enJsonFilePath, JsonConvert.SerializeObject(parsedEnglishKeys.OrderBy(k => k.Key).ToDictionary(k => k.Key, v => v.Value), new JsonSerializerSettings()
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented
             }));
