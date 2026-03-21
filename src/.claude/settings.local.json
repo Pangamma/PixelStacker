@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l /d/git/PixelStacker/src/PixelStacker.Logic/Engine/*.cs)",
+      "WebFetch(domain:minecraft.wiki)",
+      "Bash(find D:/git/PixelStacker/src -type f -name *SKHybrid* -o -name *GenericSKPaint*)",
+      "Bash(dotnet build:*)"
+    ]
+  }
+}

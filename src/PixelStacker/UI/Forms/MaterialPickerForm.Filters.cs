@@ -19,6 +19,9 @@ namespace PixelStacker.UI.Forms
     {
         public RenderedCanvas Canvas { get; private set; }
 
+        private List<ImageButtonData> _allUpperTiles;
+        private List<ImageButtonData> _allLowerTiles;
+
         private bool filterNeedsRefresh = false;
         private void tbxSearchFilter_TextChanged(object sender, EventArgs e)
         {
@@ -143,8 +146,10 @@ namespace PixelStacker.UI.Forms
 
         private void InitializeTabs()
         {
-            pnlBottomMats.ImageButtons = GetImageButtonData_Lower();
-            pnlTopMats.ImageButtons = GetImageButtonData_Upper();
+            _allLowerTiles = GetImageButtonData_Lower();
+            _allUpperTiles = GetImageButtonData_Upper();
+            pnlBottomMats.ImageButtons = _allLowerTiles;
+            pnlTopMats.ImageButtons = _allUpperTiles;
             this.UpdateMaterialComboTab();
         }
 
@@ -237,8 +242,8 @@ namespace PixelStacker.UI.Forms
         internal async Task SetCanvas(RenderedCanvas canvas)
         {
             this.Canvas = canvas;
-            await SetSearchFilterAsync("", this.pnlBottomMats, GetImageButtonData_Lower());
-            await SetSearchFilterAsync("", this.pnlTopMats, GetImageButtonData_Upper());
+            await SetSearchFilterAsync("", this.pnlBottomMats, _allLowerTiles);
+            await SetSearchFilterAsync("", this.pnlTopMats, _allUpperTiles);
         }
     }
 }

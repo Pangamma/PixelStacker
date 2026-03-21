@@ -127,8 +127,8 @@ namespace PixelStacker.UI.Forms
         {
             this.InitializeTabs();
             var needle = tbxMaterialFilter.Text.ToLowerInvariant();
-            await this.SetSearchFilterAsync(needle, this.pnlBottomMats, GetImageButtonData_Lower());
-            await this.SetSearchFilterAsync(needle, this.pnlTopMats, GetImageButtonData_Upper());
+            await this.SetSearchFilterAsync(needle, this.pnlBottomMats, _allLowerTiles);
+            await this.SetSearchFilterAsync(needle, this.pnlTopMats, _allUpperTiles);
         }
 
         private void MaterialPickerForm_Disposed(object sender, EventArgs e)
@@ -279,8 +279,8 @@ namespace PixelStacker.UI.Forms
             {
                 filterNeedsRefresh = false;
                 var needle = tbxMaterialFilter.Text.ToLowerInvariant();
-                await this.SetSearchFilterAsync(needle, this.pnlBottomMats, GetImageButtonData_Lower());
-                await this.SetSearchFilterAsync(needle, this.pnlTopMats, GetImageButtonData_Upper());
+                await this.SetSearchFilterAsync(needle, this.pnlBottomMats, _allLowerTiles);
+                await this.SetSearchFilterAsync(needle, this.pnlTopMats, _allUpperTiles);
             }
         }
     }

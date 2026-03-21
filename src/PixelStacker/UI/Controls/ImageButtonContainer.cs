@@ -41,6 +41,8 @@ namespace PixelStacker.UI.Controls
         public int ImageButtonMargin { get; set; } = 3; 
         
         private int? hoveredIndex = null;
+        private SKBitmap _checkedFrameCache;
+        private SKBitmap CheckedFrame => _checkedFrameCache ??= UIResources.selected_frame_128.BitmapToSKBitmap();
 
 
 
@@ -75,32 +77,18 @@ namespace PixelStacker.UI.Controls
             int? take = null
             )
         {
-            try
-            {
-                IEnumerable<ImageButtonData> remaining = allItems;
+            IEnumerable<ImageButtonData> remaining = allItems;
 
-                if (filter != null)
-                {
-                    remaining = remaining.Where(x => filter(x));
-                }
+            if (filter != null)
+                remaining = remaining.Where(x => filter(x));
 
-                if (orderBy != null)
-                {
-                    remaining = remaining.OrderBy(x => orderBy(x));
-                }
+            if (orderBy != null)
+                remaining = remaining.OrderBy(x => orderBy(x));
 
+            if (take != null)
+                remaining = remaining.Take(take.Value);
 
-                if (take != null)
-                {
-                    remaining = remaining.Take(take.Value);
-                }
-
-                this.ImageButtons = remaining.ToList();
-            }
-            finally
-            {
-                this.Refresh();
-            }
+            this.ImageButtons = remaining.ToList();
         }
 
 
@@ -109,54 +97,43 @@ namespace PixelStacker.UI.Controls
             int tileWidth = ImageButtonSize.Width;
             int tileHeight = ImageButtonSize.Height;
             int margin = ImageButtonMargin;
+            int cellWidth = tileWidth + margin * 2;
+            int cellHeight = tileHeight + margin * 2;
 
             int totalWidth = skHybridControl.Width;
-            int cols = Math.Max(1, totalWidth / (tileWidth + margin * 2));
-            int xOffset = (totalWidth - cols * (tileWidth + margin * 2)) / 2;
+            int cols = Math.Max(1, totalWidth / cellWidth);
+            int xOffset = (totalWidth - cols * cellWidth) / 2;
 
-            int scrolledY = -AutoScrollPosition.Y;
-            Point translated = new Point(e.X, e.Y + scrolledY);
+            // e.Y is already in skHybridControl virtual coords (the control is scroll-sized).
+            // Adding scrolledY again would double the offset and break hit testing.
+            int ax = e.X - xOffset;
+            int ay = e.Y;
 
-            for (int i = 0; i < ImageButtons.Count; i++)
+            int? newIndex = null;
+            if (ax >= 0 && ay >= 0 && ImageButtons.Count > 0)
             {
-                int row = i / cols;
-                int col = i % cols;
+                int col = ax / cellWidth;
+                int xInCell = ax % cellWidth;
+                int row = ay / cellHeight;
+                int yInCell = ay % cellHeight;
 
-                int x = col * (tileWidth + margin * 2) + xOffset;
-                int y = row * (tileHeight + margin * 2) + margin + scrolledY;
-                //var (x, y, _, _) = GetTileBounds(i);
-
-
-                Rectangle bounds = new Rectangle(x, y, tileWidth, tileHeight);
-                if (bounds.Contains(translated))
+                // tile occupies [0, tileWidth) in x, [margin, margin+tileHeight) in y within each cell
+                if (col < cols && xInCell < tileWidth && yInCell >= margin && yInCell < margin + tileHeight)
                 {
-                    if (hoveredIndex != i)
-                    {
-                        hoveredIndex = i;
-                        skHybridControl.Refresh();
-                        if (this.TileHover != null)
-                        {
-                            this.TileHover.Invoke(this, new ImageButtonClickEventArgs()
-                            {
-                                ImageButtonData = ImageButtons[i]
-                            });
-                        }
-                    }
-                    return;
+                    int idx = row * cols + col;
+                    if (idx < ImageButtons.Count)
+                        newIndex = idx;
                 }
             }
 
-            if (hoveredIndex != null)
+            if (newIndex != hoveredIndex)
             {
-                hoveredIndex = null;
+                hoveredIndex = newIndex;
                 skHybridControl.Refresh();
-                if (this.TileHover != null)
+                TileHover?.Invoke(this, new ImageButtonClickEventArgs
                 {
-                    this.TileHover.Invoke(this, new ImageButtonClickEventArgs()
-                    {
-                        ImageButtonData = null
-                    });
-                }
+                    ImageButtonData = newIndex.HasValue ? ImageButtons[newIndex.Value] : null
+                });
             }
         }
 
@@ -167,54 +144,57 @@ namespace PixelStacker.UI.Controls
             var rect = e.Rect;
 
             canvas.Clear(SKColors.LightGray);
-            //canvas.Translate(0, AutoScrollPosition.Y); // scrolls with the mouse
 
             int tileWidth = ImageButtonSize.Width;
             int tileHeight = ImageButtonSize.Height;
             int xMargin = ImageButtonMargin;
             int yMargin = ImageButtonMargin;
+            int cellWidth = tileWidth + xMargin * 2;
+            int cellHeight = tileHeight + yMargin * 2;
 
             int totalWidth = rect.Width;
-            int cols = Math.Max(1, totalWidth / (tileWidth + xMargin * 2));
-            int xOffset = (totalWidth - cols * (tileWidth + xMargin * 2)) / 2;
+            int cols = Math.Max(1, totalWidth / cellWidth);
+            int xOffset = (totalWidth - cols * cellWidth) / 2;
+
+            // rect.Height is the full virtual surface height (skHybridControl fills DisplayRectangle).
+            // Use the actual visible viewport height for culling instead.
+            int scrollY = -AutoScrollPosition.Y;
+            int viewportHeight = this.ClientSize.Height;
+            int firstRow = Math.Max(0, scrollY / cellHeight - 1);
+            int lastRow = (scrollY + viewportHeight) / cellHeight + 1;
+            int firstIdx = firstRow * cols;
+            int lastIdx = Math.Min(ImageButtons.Count - 1, (lastRow + 1) * cols - 1);
 
             using SKPaint borderPaint = new SKPaint { Color = new SKColor(0, 0, 0), IsStroke = true, StrokeWidth = 2 };
             using SKPaint bgPaint = new SKPaint { Color = new SKColor(207, 207, 207) };
-            using var checkedFrame = UIResources.selected_frame_128.BitmapToSKBitmap();
+            using var highlight = new SKPaint { Color = new SKColor(0, 0, 0, 16) };
 
-            for (int i = 0; i < ImageButtons.Count; i++)
+            for (int i = firstIdx; i <= lastIdx; i++)
             {
                 int row = i / cols;
                 int col = i % cols;
 
-                int x = col * (tileWidth + xMargin * 2) + xOffset;
-                int y = row * (tileHeight + yMargin * 2) + yMargin;
-
-                //var (x, y, _, _) = GetTileBounds(i);
-                // Skip rendering if not visible
-                if (y + tileHeight < -AutoScrollPosition.Y || y > -AutoScrollPosition.Y + rect.Height)
-                    continue;
+                int x = col * cellWidth + xOffset;
+                int y = row * cellHeight + yMargin;
 
                 var imgRect = new SKRect(x, y, x + tileWidth, y + tileHeight);
                 canvas.DrawRect(imgRect, bgPaint);
 
                 var data = ImageButtons[i];
-                if (data.Image != null)
+                if (data.CachedImage != null)
                 {
-                    using var img = SKImage.FromBitmap(data.Image);
-                    canvas.DrawImage(img, imgRect, Constants.SAMPLE_OPTS_NONE, bgPaint);
+                    canvas.DrawImage(data.CachedImage, imgRect, Constants.SAMPLE_OPTS_NONE, bgPaint);
                 }
 
                 if (hoveredIndex == i)
                 {
-                    using var highlight = new SKPaint { Color = new SKColor(0, 0, 0, 16) };
                     canvas.DrawRect(x, y, tileWidth, tileHeight, highlight);
                 }
 
                 canvas.DrawRect(x, y, tileWidth, tileHeight, borderPaint);
                 if (data.IsChecked)
                 {
-                    canvas.DrawBitmap(checkedFrame, imgRect, bgPaint);
+                    canvas.DrawBitmap(CheckedFrame, imgRect, bgPaint);
                 }
             }
         }
@@ -264,10 +244,25 @@ namespace PixelStacker.UI.Controls
 
     public class ImageButtonData
     {
-        public SKBitmap Image { get; set; }
+        private SKBitmap _image;
+        private SKImage _cachedImage;
+
+        public SKBitmap Image
+        {
+            get => _image;
+            set
+            {
+                if (_image == value) return;
+                _image = value;
+                var old = _cachedImage;
+                _cachedImage = value != null ? SKImage.FromBitmap(value) : null;
+                old?.Dispose();
+            }
+        }
+
+        public SKImage CachedImage => _cachedImage;
         public string Text { get; set; }
         public bool IsChecked { get; set; }
-
         public object Data { get; set; }
         public T GetData<T>() => (T)Data;
     }

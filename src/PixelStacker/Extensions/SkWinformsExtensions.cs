@@ -1,6 +1,8 @@
 ﻿using SkiaSharp;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace PixelStacker.Extensions
 {
@@ -48,16 +50,26 @@ namespace PixelStacker.Extensions
 
         public static SKBitmap BitmapToSKBitmap(this Bitmap bitmap)
         {
-            var info = new SKImageInfo(bitmap.Width, bitmap.Height);
-            var skiaBitmap = new SKBitmap(info);
+            var skInfo = new SKImageInfo(bitmap.Width, bitmap.Height, SKColorType.Bgra8888, SKAlphaType.Premul);
+            var skiaBitmap = new SKBitmap(skInfo);
 
-            for (int i = 0; i < bitmap.Width; i++)
+            var bmpData = bitmap.LockBits(
+                new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                ImageLockMode.ReadOnly,
+                PixelFormat.Format32bppArgb);
+            try
             {
-                for (int j = 0; j < bitmap.Height; j++)
-                {
-                    Color color = bitmap.GetPixel(i, j);
-                    skiaBitmap.SetPixel(i, j, new SKColor(color.R, color.G, color.B, color.A));
-                }
+                // Copy into SKBitmap's own allocated pixel buffer (not a pointer alias).
+                // SetPixels() stores a raw pointer — using it with locked memory causes
+                // an AccessViolationException after UnlockBits frees the GDI+ memory.
+                int byteCount = skiaBitmap.RowBytes * skiaBitmap.Height;
+                byte[] pixels = new byte[byteCount];
+                Marshal.Copy(bmpData.Scan0, pixels, 0, byteCount);
+                Marshal.Copy(pixels, 0, skiaBitmap.GetPixels(), byteCount);
+            }
+            finally
+            {
+                bitmap.UnlockBits(bmpData);
             }
 
             return skiaBitmap;
@@ -65,18 +77,34 @@ namespace PixelStacker.Extensions
 
         public static Bitmap SKBitmapToBitmap(this SKBitmap bitmap)
         {
-            var info = new Bitmap(bitmap.Width, bitmap.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-            for (int i = 0; i < bitmap.Width; i++)
+            // Ensure the bitmap is in a compatible format for direct copy
+            SKBitmap source = bitmap;
+            bool needsDispose = false;
+            if (bitmap.ColorType != SKColorType.Bgra8888)
             {
-                for (int j = 0; j < bitmap.Height; j++)
-                {
-                    SKColor color = bitmap.GetPixel(i, j);
-                    info.SetPixel(i, j, Color.FromArgb((int)color.Alpha, (int)color.Red, (int)color.Green, (int)color.Blue));
-                }
+                source = bitmap.Copy(SKColorType.Bgra8888);
+                needsDispose = true;
             }
 
-            return info;
+            var result = new Bitmap(source.Width, source.Height, PixelFormat.Format32bppArgb);
+            var bmpData = result.LockBits(
+                new Rectangle(0, 0, source.Width, source.Height),
+                ImageLockMode.WriteOnly,
+                PixelFormat.Format32bppArgb);
+            try
+            {
+                int byteCount = source.RowBytes * source.Height;
+                byte[] pixels = new byte[byteCount];
+                Marshal.Copy(source.GetPixels(), pixels, 0, byteCount); // SKBitmap → managed byte[]
+                Marshal.Copy(pixels, 0, bmpData.Scan0, byteCount);
+            }
+            finally
+            {
+                result.UnlockBits(bmpData);
+                if (needsDispose) source.Dispose();
+            }
+
+            return result;
         }
 
         /// <summary>

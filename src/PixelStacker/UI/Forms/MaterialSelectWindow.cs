@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using PixelStacker.Extensions;
 using PixelStacker.IO;
 using PixelStacker.Logic.Collections;
@@ -32,7 +32,6 @@ namespace PixelStacker.UI
         // *                   C O N S T R U C T I O N                                            *
         // *-----------------+--------------------------------------------------------------------*
         private Regex regexMatName = new Regex(@"minecraft:([a-zA-Z_09]+)(.*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private OrderedDictionary<string, MaterialSelectTile> materialTiles = new OrderedDictionary<string, MaterialSelectTile>();
         private Dictionary<string, CategoryReferenceContainer> categoryRefs = new Dictionary<string, CategoryReferenceContainer>();
         public Action<CancellationToken> OnColorPaletteRecompileRequested;
         private bool AreMaterialsCombined = false;
@@ -55,8 +54,6 @@ namespace PixelStacker.UI
         /// <summary>
         /// Called when form is first loaded as well as any time it is brought back.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MaterialSelectWindow_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
@@ -70,86 +67,71 @@ namespace PixelStacker.UI
         private void InitializeMaterialTiles()
         {
             this.materialPanel.SuspendLayout();
-            var matGroups = Materials.List.Where(m => m.PixelStackerID != "AIR").GroupBy(m => m.Category)
-                .Append(new FakeGrouping<Material>())
+            this.materialPanel.SuspendDrawing();
+
+            // Set left padding once for the checkbox overlay area
+            var padding = materialPanel.Padding;
+            padding.Left = 96;
+            materialPanel.Padding = padding;
+
+            var matGroups = Materials.List.Where(m => m.PixelStackerID != "AIR")
+                .GroupBy(m => m.Category)
                 .Reverse()
                 .ToArray();
 
-            for (int y = 0; y < matGroups.Length; y++)
+            foreach (var mg in matGroups)
             {
-                var mg = matGroups[y];
-                var matsInCat = mg.ToList();
-                var cRef = new CategoryReferenceContainer();
-                this.categoryRefs[mg.Key] = cRef;
-                var tiles = mg.Select(m => new MaterialSelectTile()
-                {
-                    Opts = this.Options,
-                    Material = m,
-                    Visible = true
-                }).ToList();
-                cRef.Tiles = tiles;
-                {
-                    Padding margin = materialPanel.Padding;
-                    margin.Left = 96; // tiles[0].Width * 2;
-                    materialPanel.Padding = margin;
-                }
-
-                /// -----------------------
-                ////// The checkbox and label
-                {
-                    var cbxCategory = new CheckBoxExtended();
-                    cRef.Checkbox = cbxCategory;
-                    cRef.Checkbox.BackColor = Color.Transparent;
-                    cRef.Checkbox.Size = new Size(82, 60);
-                    cRef.Checkbox.TextAlign = ContentAlignment.TopLeft;
-                    cRef.Checkbox.CheckAlign = ContentAlignment.TopLeft;
-                    cRef.Checkbox.MaximumSize = new Size(85, 60);
-                    cRef.Checkbox.AutoSize = false;
-                    cRef.Checkbox.Text = mg.Key;
-                    this.materialPanel.Controls.Add(cRef.Checkbox);
-                    cbxCategory.CheckedChanged += (sender, evt) =>
-                    {
-                        var visibleTiles = cRef.Tiles.Where(t => t.Visible && t.Material.IsEnabledF(this.Options) != cbxCategory.Checked);
-                        foreach (var t in visibleTiles)
-                        {
-                            t.Material.IsEnabledF(this.Options, cbxCategory.Checked);
-                        }
-                        cRef.TilePanel.Invalidate();
-                    };
-                }
-
-                ////// The flow layout
-                var matList = new CustomFlowLayoutPanel();
-                matList.OnCommandKey = (msg, key) => this.ProcessCmdKeyFromTileGrid(msg, key);
-                matList.Controls.AddRange(tiles.ToArray());
-                cRef.TilePanel = matList;
-                {
-                    //Padding margin = matList.Padding;
-                    //margin.Bottom = 16;
-                    //margin.Top = 8;
-                    //matList.Padding = margin;
-                }
-
-                this.materialPanel.Controls.Add(matList);
-                matList.AutoSize = true;
-                matList.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                matList.Dock = DockStyle.Top;
-
-                foreach (var m in tiles)
-                {
-                    this.materialTiles[m.Material.PixelStackerID] = m;
-                    this.materialTiles[m.Material.PixelStackerID].MouseEnter += this.OnMouseEnter_Tile;
-                    this.materialTiles[m.Material.PixelStackerID].MouseLeave += this.OnMouseLeave_Tile;
-                    this.materialTiles[m.Material.PixelStackerID].MouseClick += this.OnMouseClick_Tile;
-                }
+                CreateCategoryRef(mg.Key, mg.ToList(), visible: true);
             }
 
+            // The "*" combined panel contains all materials; hidden until search is active
+            var allMats = Materials.List.Where(m => m.PixelStackerID != "AIR").ToList();
+            CreateCategoryRef("*", allMats, visible: false);
+
             this.materialPanel.ResumeLayout();
+            this.materialPanel.ResumeDrawing();
             RepositionCheckboxes();
         }
 
+        private void CreateCategoryRef(string key, List<Material> mats, bool visible)
+        {
+            var cRef = new CategoryReferenceContainer();
+            cRef.Tiles = mats;
+            this.categoryRefs[key] = cRef;
+
+            var cbxCategory = new CheckBoxExtended();
+            cRef.Checkbox = cbxCategory;
+            cbxCategory.BackColor = Color.Transparent;
+            cbxCategory.Size = new Size(82, 60);
+            cbxCategory.TextAlign = ContentAlignment.TopLeft;
+            cbxCategory.CheckAlign = ContentAlignment.TopLeft;
+            cbxCategory.MaximumSize = new Size(85, 60);
+            cbxCategory.AutoSize = false;
+            cbxCategory.Text = key;
+            cbxCategory.Visible = visible;
+            this.materialPanel.Controls.Add(cbxCategory);
+            cbxCategory.CheckedChanged += (sender, evt) =>
+            {
+                foreach (var m in cRef.TilePanel.VisibleMaterials)
+                {
+                    if (m.IsEnabledF(this.Options) != cbxCategory.Checked)
+                        m.IsEnabledF(this.Options, cbxCategory.Checked);
+                }
+                cRef.TilePanel.Invalidate();
+            };
+
+            var gridPanel = new MaterialCategoryGridPanel(this.Options);
+            gridPanel.SetVisibleMaterials(mats);
+            gridPanel.Dock = DockStyle.Top;
+            gridPanel.Visible = visible;
+            gridPanel.MaterialClicked += (s, mat) => RefreshCheckboxStates();
+            gridPanel.MaterialHovered += (s, mat) => { lblInfo.Text = mat?.Label ?? ""; };
+            cRef.TilePanel = gridPanel;
+            this.materialPanel.Controls.Add(gridPanel);
+        }
+
         /// <summary>
-        /// This ALREADY makes the call to SetVisibleMaterials at the end.
+        /// Called when form is first loaded as well as any time it is brought back.
         /// </summary>
         private void LoadFromSettings()
         {
@@ -166,9 +148,9 @@ namespace PixelStacker.UI
                 this.ddlColorProfile.Items.AddRange(fis.Select(x => x.Name).ToArray());
             }
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning disable CS4014
             SetVisibleMaterials(Materials.List ?? new List<Material>());
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning restore CS4014
         }
 
         private void InitializeAutoComplete()
@@ -192,75 +174,12 @@ namespace PixelStacker.UI
                 {
                     string blockIdAndNBT = x.GetBlockNameAndData(false).ToLowerInvariant();
                     var match = regexMatName.Match(blockIdAndNBT);
-                    if (match.Success)
-                    {
-                        return match.Groups[1].Value;
-                    }
-                    else
-                    {
-                        return blockIdAndNBT;
-                    }
+                    return match.Success ? match.Groups[1].Value : blockIdAndNBT;
                 }).Distinct().ToArray()
             );
         }
 
         #endregion Constructor Stuff
-
-        #region Mouse Listeners
-        // *-----------------+--------------------------------------------------------------------*
-        // *                   M O U S E _ L I S T E N E R S                                      *
-        // *-----------------+--------------------------------------------------------------------*
-        private void OnMouseLeave_Tile(object sender, EventArgs e)
-        {
-            if (this.lblInfo.Text != "")
-            {
-                this.lblInfo.Text = "";
-            }
-        }
-
-        private void OnMouseEnter_Tile(object sender, EventArgs e)
-        {
-            this.lblInfo.Text = ((MaterialSelectTile)sender).Material.Label;
-        }
-
-        private PixelStacker.WF.Components.MaterialSelectTile previouslyClickedTile = null;
-        private void OnMouseClick_Tile(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                var currentTile = (PixelStacker.WF.Components.MaterialSelectTile)sender;
-                if (!Control.ModifierKeys.HasFlag(Keys.Shift) || previouslyClickedTile == null)
-                {
-                    previouslyClickedTile = currentTile;
-                }
-                else
-                {
-                    string categoryKey = this.AreMaterialsCombined ? "*" : this.previouslyClickedTile.Material.Category;
-                    var cRef = this.categoryRefs[categoryKey];
-
-                    // go time.
-                    int idxA = cRef.TilePanel.Controls.IndexOf(previouslyClickedTile);
-                    int idxB = cRef.TilePanel.Controls.IndexOf(currentTile);
-
-                    // Maybe going across different categories.
-                    if (idxA == -1 || idxB == -1) return;
-
-
-                    int minI = Math.Min(idxA, idxB);
-                    int maxI = Math.Max(idxA, idxB);
-                    cRef.TilePanel.Controls.OfType<PixelStacker.WF.Components.MaterialSelectTile>()
-                        .Skip(minI).Take(maxI - minI).ToList()
-                        .ForEach(x =>
-                        {
-                            x.Material.IsEnabledF(this.Options, !Control.ModifierKeys.HasFlag(Keys.Control));
-                            x.Invalidate();
-                        });
-
-                    RefreshCheckboxStates();
-                }
-            }
-        }
-        #endregion Mouse Listeners
 
         #region Checkboxes
         // *-----------------+--------------------------------------------------------------------*
@@ -274,19 +193,16 @@ namespace PixelStacker.UI
             RateLimit.Check(3, 2000);
             foreach (var kvp in this.categoryRefs)
             {
-                var matsInCat = kvp.Value.Tiles;
-                var numEnabled = matsInCat.Count(x => x.Material.IsEnabledF(this.Options));
-                var numTotal = matsInCat.Count;
+                var mats = kvp.Value.Tiles;
+                var numEnabled = mats.Count(x => x.IsEnabledF(this.Options));
+                var numTotal = mats.Count;
                 var newCbxState = (numEnabled > numTotal / 2) ? CheckState.Checked : CheckState.Unchecked;
                 kvp.Value.Checkbox.SetCheckStateWithoutRaisingEvents(newCbxState);
             }
         }
 
         /// <summary>
-        /// We tried every type of layout available, and each of them was a bit buggy.
-        /// We had 6 devs try to get it to work. Finally we decided to just manually
-        /// reposition the checkboxes. It works. Checkboxes will be aligned to the
-        /// left of the grid area they represent.
+        /// Manually reposition the checkboxes to align with their grid panels.
         /// </summary>
         private void RepositionCheckboxes()
         {
@@ -405,10 +321,8 @@ namespace PixelStacker.UI
             bool isChecked = cbx.CheckState == CheckState.Checked;
             this.Options.IsSideView = isChecked;
 
-            this.materialTiles.ToList().ForEach(x =>
-            {
-                x.Value.Invalidate();
-            });
+            foreach (var cRef in categoryRefs.Values)
+                cRef.TilePanel.InvalidateBitmapCache();
         }
 
         private async void ddlColorProfile_SelectedValueChanged(object sender, EventArgs e)
@@ -428,7 +342,6 @@ namespace PixelStacker.UI
                     }
                 }
             }
-            //tbxMaterialFilter.Text = "enabled";
             await SetSearchFilter(tbxMaterialFilter.Text, CancellationToken.None);
         }
 
@@ -439,7 +352,6 @@ namespace PixelStacker.UI
 
             if (result == DialogResult.OK)
             {
-                //Prompt
                 string profileLabel = null;
                 string path = this.dlgSave.FileName;
 
@@ -484,18 +396,12 @@ namespace PixelStacker.UI
 
         #endregion Controls on top.
 
-        private KeyValuePair<string, CategoryReferenceContainer> GetCategoryRefForMaterialTile(MaterialSelectTile currentTile)
-        {
-            return this.categoryRefs.FirstOrDefault(x => x.Value.Tiles.Contains(currentTile));
-        }
-
         // *-----------------+--------------------------------------------------------------------*
         // *                   S E A R C H                                                        *
         // *-----------------+--------------------------------------------------------------------*
         private DelayThrottle searchLimiter = new DelayThrottle(TimeSpan.FromMilliseconds(400));
         private void ddlMaterialSearch_TextChanged(object sender, EventArgs e)
         {
-            var start = DateTime.Now;
             string needle = this.tbxMaterialFilter.Text.ToLowerInvariant();
 
             Task.Run((async () => {
@@ -516,48 +422,31 @@ namespace PixelStacker.UI
             materialPanel.SuspendDrawing();
             materialPanel.SuspendLayout();
 
-            int i = 0;
-            var visibleSet = mats.ToDictionary(k => k.PixelStackerID, v => i++);
+            var visibleSet = new HashSet<string>(mats.Select(m => m.PixelStackerID));
 
-            foreach (var kvp in categoryRefs)
+            if (AreMaterialsCombined)
             {
-                if (_worker?.SafeIsCancellationRequested() == true)
+                var cRef = categoryRefs["*"];
+                var visible = cRef.Tiles.Where(m => visibleSet.Contains(m.PixelStackerID)).ToList();
+                cRef.TilePanel.SetVisibleMaterials(visible);
+                bool hasAny = visible.Count > 0;
+                cRef.TilePanel.Visible = hasAny;
+                cRef.Checkbox.Visible = hasAny;
+            }
+            else
+            {
+                foreach (var kvp in categoryRefs)
                 {
-                    materialPanel.ResumeLayout();
-                    materialPanel.ResumeDrawing();
-                    _worker?.SafeThrowIfCancellationRequested();
-                    await Task.Yield();
+                    if (kvp.Key == "*") continue;
+                    var cRef = kvp.Value;
+                    var visible = cRef.Tiles
+                        .Where(m => m.IsVisibleF(Options) && visibleSet.Contains(m.PixelStackerID))
+                        .ToList();
+                    cRef.TilePanel.SetVisibleMaterials(visible);
+                    bool hasAny = visible.Count > 0;
+                    cRef.TilePanel.Visible = hasAny;
+                    cRef.Checkbox.Visible = hasAny;
                 }
-
-                var tilePanel = kvp.Value.TilePanel;
-                tilePanel.SuspendDrawing();
-                tilePanel.SuspendLayout();
-
-                bool hasVisibleTile = false;
-
-                foreach (var tile in kvp.Value.Tiles)
-                {
-                    var key = tile.Material.PixelStackerID;
-                    var mat = tile.Material;
-                    var opts = this.Options;
-                    bool b1 = mat.IsVisibleF(opts);
-                    bool b2 = visibleSet.ContainsKey(key);
-                    bool shouldBeVisible = mat.IsVisibleF(this.Options) && visibleSet.ContainsKey(key);
-                    if (tile.Visible != shouldBeVisible)
-                    {
-                        tile.Visible = shouldBeVisible;
-                        //tile.Invalidate(); // force redraw
-                    }
-
-                    if (shouldBeVisible)
-                        hasVisibleTile = true;
-                }
-
-                kvp.Value.Checkbox.Visible = hasVisibleTile;
-                tilePanel.Visible = hasVisibleTile;
-
-                tilePanel.ResumeLayout();
-                tilePanel.ResumeDrawing();
             }
 
             materialPanel.ResumeLayout();
@@ -565,62 +454,26 @@ namespace PixelStacker.UI
 
             RefreshCheckboxStates();
             RepositionCheckboxes();
-            this.Refresh();
         }
-
 
         private void SetMaterialsCombinedMode(bool shouldBeCombined)
         {
-            this.materialPanel.SuspendLayout();
-            var targetRef = categoryRefs["*"];
+            if (AreMaterialsCombined == shouldBeCombined) return;
+            AreMaterialsCombined = shouldBeCombined;
 
-            if (AreMaterialsCombined && !shouldBeCombined)
+            materialPanel.SuspendLayout();
+            materialPanel.SuspendDrawing();
+
+            foreach (var kvp in categoryRefs)
             {
-                // Switch to SPLIT mode
-                AreMaterialsCombined = shouldBeCombined;
-                // First we REMOVE the combined element.
-                this.materialPanel.Controls.Remove(targetRef.Checkbox);
-                this.materialPanel.Controls.Remove(targetRef.TilePanel);
-                targetRef.TilePanel.ClearControlsQuick();
-
-                // Then we populate the sub groups
-                foreach (var tileGroup in targetRef.Tiles.GroupBy(tr => tr.Material.Category))
-                {
-                    var cRef = this.categoryRefs[tileGroup.Key];
-                    cRef.Tiles.AddRange(tileGroup);
-                    cRef.TilePanel.AddControlsQuick(tileGroup.ToArray());
-                    this.materialPanel.Controls.Add(cRef.Checkbox);
-                    this.materialPanel.Controls.Add(cRef.TilePanel);
-                }
-                targetRef.Tiles.Clear();
-            }
-            else if (!AreMaterialsCombined && shouldBeCombined)
-            {
-                targetRef.Tiles.Clear();
-                targetRef.TilePanel.ClearControlsQuick();
-
-                // Switch to combined mode
-                AreMaterialsCombined = shouldBeCombined;
-                foreach (var cRefKvp in categoryRefs)
-                {
-                    var cRef = cRefKvp.Value;
-                    if (cRefKvp.Key != "*")
-                    {
-                        this.materialPanel.Controls.Remove(cRef.Checkbox);
-                        this.materialPanel.Controls.Remove(cRef.TilePanel);
-                        targetRef.Tiles.AddRange(cRef.Tiles);
-                        cRef.Tiles.Clear();
-                        cRef.TilePanel.ClearControlsQuick();
-                    }
-                }
-
-                // Lastly we CONSTRUCT the combined element.
-                this.materialPanel.Controls.Add(targetRef.Checkbox);
-                this.materialPanel.Controls.Add(targetRef.TilePanel);
-                targetRef.TilePanel.AddControlsQuick(targetRef.Tiles.ToArray());
+                bool isStar = kvp.Key == "*";
+                bool show = shouldBeCombined ? isStar : !isStar;
+                kvp.Value.TilePanel.Visible = show;
+                kvp.Value.Checkbox.Visible = show;
             }
 
-            this.materialPanel.ResumeLayout();
+            materialPanel.ResumeLayout();
+            materialPanel.ResumeDrawing();
             RepositionCheckboxes();
         }
 
@@ -645,23 +498,19 @@ namespace PixelStacker.UI
                     .Take(20).ToList();
 
                 await SetVisibleMaterials(found, _worker);
+                this.materialPanel.ResumeDrawing();
+                return;
             }
-
-            var foo = Materials.List.SelectMany(x => x.Tags).Distinct().ToArray();
 
             var newList = Materials.List.Where(x =>
             {
                 if (!x.IsVisibleF(this.Options)) return false;
 
                 if (needle == "on" || needle == "enabled" || needle == "active")
-                {
                     return x.IsEnabledF(this.Options);
-                }
 
                 if (needle == "off" || needle == "disabled" || needle == "inactive")
-                {
                     return !x.IsEnabledF(this.Options);
-                }
 
                 if (string.IsNullOrWhiteSpace(needle)) return true;
                 if (x.Label.StartsWithOrContains(needle, 3)) return true;
@@ -671,13 +520,8 @@ namespace PixelStacker.UI
 
                 string blockIdAndNBT = x.GetBlockNameAndData(false).ToLowerInvariant();
                 var match = regexMatName.Match(blockIdAndNBT);
-                if (match.Success)
-                {
-                    if (match.Groups[1].Value.StartsWithOrContains(needle, 3))
-                    {
-                        return true;
-                    }
-                }
+                if (match.Success && match.Groups[1].Value.StartsWithOrContains(needle, 3))
+                    return true;
 
                 return false;
             }).ToList();
@@ -685,8 +529,6 @@ namespace PixelStacker.UI
             _worker?.SafeThrowIfCancellationRequested();
             await Task.Yield();
 
-
-            int cnt = newList.Count;
             await SetVisibleMaterials(newList, _worker);
             this.materialPanel.ResumeDrawing();
         }
@@ -709,12 +551,26 @@ namespace PixelStacker.UI
         private void MaterialSelectWindow_Resize(object sender, EventArgs e)
             => RepositionCheckboxes();
 
+        protected override void OnResizeBegin(EventArgs e)
+        {
+            base.OnResizeBegin(e);
+            materialPanel.SuspendDrawing();
+            materialPanel.SuspendLayout();
+        }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            base.OnResizeEnd(e);
+            materialPanel.ResumeLayout();
+            materialPanel.ResumeDrawing();
+            RepositionCheckboxes();
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Escape)
             {
                 var task = this.TryHideAsync();
-                //task.Wait(1000);
                 return true;
             }
 
@@ -726,24 +582,26 @@ namespace PixelStacker.UI
         {
             if (keyData.HasFlag(Keys.A) && keyData.HasFlag(Keys.Control))
             {
-                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
+                foreach (var kvp in categoryRefs)
                 {
-                    kvp.Value.Material.IsEnabledF(this.Options, true);
-                    kvp.Value.Invalidate();
-                });
-
+                    if (!kvp.Value.TilePanel.Visible) continue;
+                    foreach (var mat in kvp.Value.TilePanel.VisibleMaterials)
+                        mat.IsEnabledF(this.Options, true);
+                    kvp.Value.TilePanel.Invalidate();
+                }
                 RefreshCheckboxStates();
-
                 return true;
             }
 
             if (keyData.HasFlag(Keys.D) && keyData.HasFlag(Keys.Control))
             {
-                this.materialTiles.Where(kvp => kvp.Value.Visible).ToList().ForEach(kvp =>
+                foreach (var kvp in categoryRefs)
                 {
-                    kvp.Value.Material.IsEnabledF(this.Options, false);
-                    kvp.Value.Invalidate();
-                });
+                    if (!kvp.Value.TilePanel.Visible) continue;
+                    foreach (var mat in kvp.Value.TilePanel.VisibleMaterials)
+                        mat.IsEnabledF(this.Options, false);
+                    kvp.Value.TilePanel.Invalidate();
+                }
                 RefreshCheckboxStates();
                 return true;
             }
@@ -754,8 +612,8 @@ namespace PixelStacker.UI
         private class CategoryReferenceContainer
         {
             public CheckBoxExtended Checkbox { get; set; }
-            public List<MaterialSelectTile> Tiles { get; set; } = new List<MaterialSelectTile>();
-            public CustomFlowLayoutPanel TilePanel { get; internal set; }
+            public List<Material> Tiles { get; set; } = new List<Material>();
+            public MaterialCategoryGridPanel TilePanel { get; internal set; }
         }
 
         private class FakeGrouping<V> : IGrouping<string, V>
