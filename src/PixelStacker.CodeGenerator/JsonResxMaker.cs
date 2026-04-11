@@ -22,7 +22,7 @@ namespace PixelStacker.CodeGenerator
         private string[] OutputLocales = new string[] {
             "da-dk", "de-de", "es-es", "fr-fr",
             "it-it", "ja-jp", "ko-kr", "nl-nl",
-            "sv-se", "zh-cn", "zu-zu"
+            "ru-ru", "sv-se", "zh-cn", "zu-zu"
         };
 
         public JsonResxMaker()

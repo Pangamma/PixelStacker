@@ -475,6 +475,9 @@ me as a </value>
   <data name="MainMenu_Lang_Italian" xml:space="preserve">
     <value>Italian</value>
   </data>
+  <data name="MainMenu_Lang_Russian" xml:space="preserve">
+    <value>Russian</value>
+  </data>
   <data name="MainMenu_Lang_Japanese" xml:space="preserve">
     <value>Japanese</value>
   </data>
