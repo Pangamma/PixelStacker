@@ -25,6 +25,7 @@ namespace PixelStacker.UI
                 case "ja": return UIResources.country_jp;
                 case "ko": return UIResources.country_kr;
                 case "sv": return UIResources.country_se;
+                case "ru": return UIResources.country_ru;
                 case "it": return UIResources.country_it;
                 default:
                     System.Diagnostics.Debug.WriteLine("Unknown locale detected. " + locale.TwoLetterISOLanguageName);
@@ -46,6 +47,7 @@ namespace PixelStacker.UI
                 case "ja": return global::PixelStacker.Resources.Text.MainMenu_Lang_Japanese;
                 case "ko": return global::PixelStacker.Resources.Text.MainMenu_Lang_Korean;
                 case "sv": return global::PixelStacker.Resources.Text.MainMenu_Lang_Swedish;
+                case "ru": return global::PixelStacker.Resources.Text.MainMenu_Lang_Russian;
                 case "it": return global::PixelStacker.Resources.Text.MainMenu_Lang_Italian;
                 default:
                     System.Diagnostics.Debug.WriteLine("Unknown locale detected. " + locale.TwoLetterISOLanguageName);
@@ -96,6 +98,7 @@ namespace PixelStacker.UI
             this.dutchToolStripMenuItem.Image = UIResources.country_nl;
             this.frenchToolStripMenuItem.Image = UIResources.country_fr;
             this.swedishToolStripMenuItem.Image = UIResources.country_se;
+            this.russianToolStripMenuItem.Image = UIResources.country_ru;
 
 
             this.dutchToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Dutch;
@@ -108,6 +111,7 @@ namespace PixelStacker.UI
             this.chineseSimplifiedToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Chinese;
             this.englishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_English;
             this.swedishToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Swedish;
+            this.russianToolStripMenuItem.Text = global::PixelStacker.Resources.Text.MainMenu_Lang_Russian;
             this.languageToolStripMenuItem.Image = MainForm.GetLanguageImage(CultureInfo.CurrentUICulture);
             this.languageToolStripMenuItem.Text = MainForm.GetLanguageName(CultureInfo.CurrentUICulture);
 
@@ -233,6 +237,9 @@ namespace PixelStacker.UI
 
         private void koreanToolStripMenuItem_Click(object sender, EventArgs e)
         => this.ApplyLocalization(CultureInfo.GetCultureInfo("ko-KR"));
+
+        private void russianToolStripMenuItem_Click(object sender, EventArgs e)
+        => this.ApplyLocalization(CultureInfo.GetCultureInfo("ru-RU"));
 
         private void spanishToolStripMenuItem_Click(object sender, EventArgs e)
         => this.ApplyLocalization(CultureInfo.GetCultureInfo("es-ES"));

@@ -90,6 +90,7 @@ namespace PixelStacker.UI
             japaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             koreanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             spanishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            russianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             swedishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             themesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             lightUIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -465,7 +466,7 @@ namespace PixelStacker.UI
             // languageToolStripMenuItem
             // 
             languageToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { englishToolStripMenuItem, chineseSimplifiedToolStripMenuItem, danishToolStripMenuItem, dutchToolStripMenuItem, frenchToolStripMenuItem, germanToolStripMenuItem, italianToolStripMenuItem, japaneseToolStripMenuItem, koreanToolStripMenuItem, spanishToolStripMenuItem, swedishToolStripMenuItem });
+            languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { englishToolStripMenuItem, chineseSimplifiedToolStripMenuItem, danishToolStripMenuItem, dutchToolStripMenuItem, frenchToolStripMenuItem, germanToolStripMenuItem, italianToolStripMenuItem, japaneseToolStripMenuItem, koreanToolStripMenuItem, russianToolStripMenuItem, spanishToolStripMenuItem, swedishToolStripMenuItem });
             languageToolStripMenuItem.Image = (System.Drawing.Image)resources.GetObject("languageToolStripMenuItem.Image");
             languageToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             languageToolStripMenuItem.MergeIndex = 50;
@@ -545,6 +546,14 @@ namespace PixelStacker.UI
             koreanToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
             koreanToolStripMenuItem.Text = "Korean";
             koreanToolStripMenuItem.Click += koreanToolStripMenuItem_Click;
+            // 
+            // russianToolStripMenuItem
+            // 
+            russianToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            russianToolStripMenuItem.Name = "russianToolStripMenuItem";
+            russianToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            russianToolStripMenuItem.Text = "Russian";
+            russianToolStripMenuItem.Click += russianToolStripMenuItem_Click;
             // 
             // spanishToolStripMenuItem
             // 
@@ -710,6 +719,7 @@ namespace PixelStacker.UI
         private System.Windows.Forms.ToolStripMenuItem germanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem japaneseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem koreanToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem russianToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spanishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;

@@ -51,7 +51,7 @@ namespace PixelStacker.Resources
             return dic ?? new Dictionary<string, string>();
         }
        
-        private static string[] SupportedLocales = new string[] { "en-US", "ko-KR", "ja-JP", "fr-FR", "de-DE", "es-ES", "zh-CN", "da-DK", "nl-NL", "sv-SE", "zu-ZU", "it-IT" };
+        private static string[] SupportedLocales = new string[] { "en-US", "ko-KR", "ja-JP", "fr-FR", "de-DE", "es-ES", "zh-CN", "da-DK", "nl-NL", "sv-SE", "zu-ZU", "it-IT", "ru-RU" };
         public static string GetSupportedLocale(string attemptedLocale = null)
         {
             attemptedLocale ??= System.Globalization.CultureInfo.CurrentUICulture.Name;
