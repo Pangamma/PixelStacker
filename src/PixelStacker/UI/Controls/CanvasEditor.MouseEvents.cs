@@ -2,6 +2,7 @@
 using PixelStacker.Logic.Model;
 using PixelStacker.Logic.Utilities;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,8 +10,10 @@ namespace PixelStacker.UI.Controls
 {
     public partial class CanvasEditor
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool RepaintImageTilesRequested { get; set; } = false;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool RepaintUIRequested { get; set; } = false;
         private bool IsRepaintingUI { get; set; } = false;
 

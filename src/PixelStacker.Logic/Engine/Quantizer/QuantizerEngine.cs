@@ -41,7 +41,7 @@ namespace PixelStacker.Logic.Engine.Quantizer
             var opts = new QuantizerAlgorithmOptions();
             IQuantizer q = GetQuantizerByAlgorithmName(algo);
 
-            opts.DithererList = new OrderedDictionary<string, IDither>
+            opts.DithererList = new PixelStacker.Logic.Collections.OrderedDictionary<string, IDither>
             {
                 { "No dithering", null },
                 { "Atkinson", KnownDitherings.Atkinson },

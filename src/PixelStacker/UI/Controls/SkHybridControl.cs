@@ -24,6 +24,7 @@ namespace PixelStacker.UI.Controls
         public event EventHandler<GenericSKPaintSurfaceEventArgs> PaintSurface;
 
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool BoxShadowOnEdges { get; set; } = false;
 
         public SkHybridControl()

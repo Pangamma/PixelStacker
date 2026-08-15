@@ -36,6 +36,7 @@ namespace PixelStacker.WF.Components
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public PanZoomSettings PanZoomSettings { get; set; }
 
         public ImageViewer()

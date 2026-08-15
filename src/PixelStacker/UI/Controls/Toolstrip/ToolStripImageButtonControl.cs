@@ -15,6 +15,7 @@ namespace PixelStacker.UI.Controls.Toolstrip
         }
 
         [Category("PixelStacker")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Bitmap Image { get; set; } = null;
 
         protected override void OnPaint(PaintEventArgs e)

@@ -20,7 +20,7 @@ namespace PixelStacker.CodeGenerator
     public class ImageTextureUpdater
     {
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-        private string McVersion = "1.21.5";
+        private string McVersion = "26.2";
         private string PxImageDir => Path.Combine(RootDir, "PixelStacker.Resources", "Images", "Textures", "x16");
         private string McImageJar => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             ".minecraft", "versions", McVersion, McVersion + ".jar");
@@ -32,9 +32,11 @@ namespace PixelStacker.CodeGenerator
             var dstDir = new DirectoryInfo(PxImageDir);
             Dictionary<string, string> nameToPaths = new Dictionary<string, string>();
             dstDir.GetFilesRecursively(f => nameToPaths[f.Name] = f.FullName);
+            int updatedCount = 0;
+            int unchangedCount = 0;
             GetJarFiles(McImageJar, (f) =>
             {
-                if (nameToPaths.ContainsKey(f.Name))
+                if (nameToPaths.TryGetValue(f.Name, out string existingPath))
                 {
                     using (var zipStream = f.Open())
                     {
@@ -50,12 +52,30 @@ namespace PixelStacker.CodeGenerator
                                 return;
                             }
 
-                            File.WriteAllBytes(nameToPaths[f.Name], arr);
+                            // Different PNG encoders can produce different bytes (compression, color type,
+                            // metadata, etc.) for the same image, which makes a raw byte comparison useless.
+                            // Decode both and compare actual pixel colors so we only touch files that truly changed.
+                            SKBitmap existingBm = SKBitmap.Decode(existingPath);
+                            bool isUnchanged = existingBm != null
+                                && existingBm.Width == bm.Width
+                                && existingBm.Height == bm.Height
+                                && existingBm.Pixels.SequenceEqual(bm.Pixels);
+
+                            if (isUnchanged)
+                            {
+                                unchangedCount++;
+                                return;
+                            }
+
+                            File.WriteAllBytes(existingPath, arr);
+                            updatedCount++;
                             //canvas.CanvasData = await CanvasData.FromBitmapAsync(canvas.MaterialPalette, bm, worker);
                         }
                     }
                 }
             });
+
+            Debug.WriteLine($"Updated {updatedCount} texture(s), left {unchangedCount} unchanged.");
         }
 
         public void GetJarFiles(string filePath, Action<ZipArchiveEntry> actn)

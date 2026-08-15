@@ -6,7 +6,7 @@ namespace PixelStacker.Logic.Engine.Quantizer.Enums
 {
     public class QuantizerAlgorithmOptions
     {
-        public OrderedDictionary<string, IDither> DithererList = new OrderedDictionary<string, IDither>() { { "No dithering", null } };
+        public PixelStacker.Logic.Collections.OrderedDictionary<string, IDither> DithererList = new PixelStacker.Logic.Collections.OrderedDictionary<string, IDither>() { { "No dithering", null } };
         public List<int> MaxColorCountsList = new List<int>() { 256 };
 
         /// <summary>

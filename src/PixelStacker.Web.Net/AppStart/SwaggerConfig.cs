@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using PixelStacker.Web.Net.Models.Attributes;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -12,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json.Nodes;
 
 namespace PixelStacker.Web.Net.AppStart
 {
@@ -79,7 +79,7 @@ namespace PixelStacker.Web.Net.AppStart
 
     public class DefaultValueFilter : IParameterFilter
     {
-        public void Apply(OpenApiParameter parameter, ParameterFilterContext context)
+        public void Apply(IOpenApiParameter parameter, ParameterFilterContext context)
         {
             var meta = context.ApiParameterDescription.ModelMetadata as DefaultModelMetadata;
             if (meta is null) return;
@@ -90,7 +90,7 @@ namespace PixelStacker.Web.Net.AppStart
             {
                 if (attr.Value != null)
                 {
-                    parameter.Schema.Example = OpenApiAnyFactory.CreateFromJson(Newtonsoft.Json.JsonConvert.SerializeObject(attr.Value));
+                    ((OpenApiSchema)parameter.Schema).Example = JsonNode.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(attr.Value));
                     return;
                 }
             }
@@ -118,7 +118,7 @@ namespace PixelStacker.Web.Net.AppStart
                         string json = !defVal.GetType().IsEnum
                         ? Newtonsoft.Json.JsonConvert.SerializeObject(defVal)
                         : Newtonsoft.Json.JsonConvert.SerializeObject(defVal.ToString());
-                        parameter.Schema.Example = OpenApiAnyFactory.CreateFromJson(json);
+                        ((OpenApiSchema)parameter.Schema).Example = JsonNode.Parse(json);
                     }
                 }
             }
@@ -127,7 +127,7 @@ namespace PixelStacker.Web.Net.AppStart
 
     public class AcceptableValuesFilter : IParameterFilter
     {
-        public void Apply(OpenApiParameter parameter, ParameterFilterContext context)
+        public void Apply(IOpenApiParameter parameter, ParameterFilterContext context)
         {
             var meta = context.ApiParameterDescription.ModelMetadata as DefaultModelMetadata;
             if (meta is null) return;
@@ -139,7 +139,7 @@ namespace PixelStacker.Web.Net.AppStart
                 parameter.Schema.Enum.Clear();
                 foreach (var val in attr.AllowableValues)
                 {
-                    parameter.Schema.Enum.Add(new OpenApiInteger(val));
+                    parameter.Schema.Enum.Add(JsonValue.Create(val));
                 }
             }
 
@@ -148,7 +148,7 @@ namespace PixelStacker.Web.Net.AppStart
                 parameter.Schema.Enum.Clear();
                 foreach (var val in attr.AllowableValues)
                 {
-                    parameter.Schema.Enum.Add(new OpenApiString(val));
+                    parameter.Schema.Enum.Add(JsonValue.Create(val));
                 }
             }
         }
@@ -156,14 +156,14 @@ namespace PixelStacker.Web.Net.AppStart
 
     public class EnumSchemaFilter : ISchemaFilter
     {
-        public void Apply(OpenApiSchema model, SchemaFilterContext context)
+        public void Apply(IOpenApiSchema model, SchemaFilterContext context)
         {
             if (context.Type.IsEnum)
             {
                 model.Enum.Clear();
                 Enum.GetNames(context.Type)
                     .ToList()
-                    .ForEach(n => model.Enum.Add(new OpenApiString(n)));
+                    .ForEach(n => model.Enum.Add(JsonValue.Create(n)));
             }
         }
     }

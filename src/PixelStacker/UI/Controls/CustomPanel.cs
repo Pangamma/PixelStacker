@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,6 +12,7 @@ namespace PixelStacker.UI.Controls
             DoubleBuffered = true;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Func<Message, Keys, bool> OnCommandKey { get; set; } = null;
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

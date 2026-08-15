@@ -1,6 +1,7 @@
 ﻿using PixelStacker.Logic.IO.Config;
 using SkiaSharp;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -8,6 +9,7 @@ namespace PixelStacker.UI.Forms
 {
     public partial class GridSettingsForm : Form
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Options Options { get; set; }
         public GridSettingsForm()
         {

@@ -10,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using PixelStacker.Logic.Extensions;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using SkiaSharp;
 
@@ -21,6 +22,7 @@ namespace PixelStacker.UI.Forms
         private MaterialCombination _selectedCombo = null;
         private Options Options;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MaterialCombination SelectedCombo
         {
             get => this._selectedCombo;

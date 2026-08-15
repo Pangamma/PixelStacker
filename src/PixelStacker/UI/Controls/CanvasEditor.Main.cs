@@ -7,6 +7,7 @@ using PixelStacker.Logic.Utilities;
 using PixelStacker.Resources.Themes;
 using PixelStacker.UI.Helpers;
 using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,11 +19,14 @@ namespace PixelStacker.UI.Controls
         public RenderedCanvasPainter Painter;
 
         public RenderedCanvas Canvas { get; private set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public PanZoomSettings PanZoomSettings { get; set; }
 
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MainForm MainForm { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Options Options { get; set; }
 
         public CanvasEditor()

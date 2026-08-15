@@ -81,14 +81,14 @@ namespace PixelStacker.Tools.Analyzers
     public class ColorMapComparison
     {
         public string Label { get; }
-        public ColorMapComparison(IColorMapper mapper, bool isBaseline = false)
+        public ColorMapComparison(ILegacyColorMapper mapper, bool isBaseline = false)
         {
             this.Mapper = mapper;
             this.IsBaseline = isBaseline;
             this.Label = mapper.GetType().Name;
         }
 
-        public IColorMapper Mapper { get; set; }
+        public ILegacyColorMapper Mapper { get; set; }
         public bool IsBaseline { get; set; }
         public long Hits { get; set; }
     }

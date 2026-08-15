@@ -2,6 +2,7 @@
 using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace PixelStacker.WF.Components
         private Bitmap _cachedBitmap;
         private bool _cachedIsSideView;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Material Material
         {
             get => _material;
@@ -25,6 +27,7 @@ namespace PixelStacker.WF.Components
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Options Opts { get; set; } = null;
 
         private Bitmap GetCachedBitmap(bool isv)

@@ -18,9 +18,11 @@ namespace PixelStacker.UI.Controls
     [ToolboxItemFilter("PixelStacker.UI.Controls.ImageButton", ToolboxItemFilterType.Require)]
     public partial class ImageButton : UserControl
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ImageButtonPushState PushState { get; set; } = ImageButtonPushState.Normal;
 
         private bool _isChecked = false;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsChecked
         {
             get => _isChecked;
@@ -35,6 +37,7 @@ namespace PixelStacker.UI.Controls
         }
 
         private Bitmap _image;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public SkiaSharp.SKBitmap Image
         {
             set

@@ -11,7 +11,9 @@ namespace PixelStacker
 {
     public partial class ErrorSender : Form, ILocalized
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Exception CurrentException { get; set; } = null;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ErrorReportInfo ReportInfo { get; internal set; }
 
         public ErrorSender()

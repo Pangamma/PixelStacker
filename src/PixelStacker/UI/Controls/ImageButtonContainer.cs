@@ -24,6 +24,7 @@ namespace PixelStacker.UI.Controls
 
 
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<ImageButtonData> ImageButtons { get => _imageButtons; set {
                 _imageButtons = value ?? new List<ImageButtonData>();
                 UpdateScrollSize();
@@ -34,11 +35,13 @@ namespace PixelStacker.UI.Controls
 
 
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Size ImageButtonSize { get; set; } = new Size(80, 80);
 
 
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Always)]
-        public int ImageButtonMargin { get; set; } = 3; 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public int ImageButtonMargin { get; set; } = 3;
         
         private int? hoveredIndex = null;
         private SKBitmap _checkedFrameCache;

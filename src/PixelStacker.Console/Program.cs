@@ -1,4 +1,5 @@
 ﻿using PixelStacker.Logic.Collections.ColorMapper;
+using PixelStacker.Logic.Collections.ColorMapper.DistanceFormulas;
 using PixelStacker.Logic.Engine;
 using PixelStacker.Logic.Engine.Quantizer.Enums;
 using PixelStacker.Logic.IO.Config;
@@ -6,6 +7,7 @@ using PixelStacker.Logic.IO.Formatters;
 using PixelStacker.Logic.Model;
 using PixelStacker.Resources;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,7 +26,8 @@ namespace PixelStacker.Console
         public async Task IE_PixelStackerProjectFormat()
         {
             var formatter = new PixelStackerProjectFormatter();
-            await formatter.ExportAsync("io_test.pxlzip", ProjecData, null);
+            byte[] data = await formatter.ExportAsync(ProjecData, null);
+            await File.WriteAllBytesAsync("io_test.pxlzip", data);
             var canv = await formatter.ImportAsync("io_test.pxlzip", null);
         }
 
@@ -39,7 +42,7 @@ namespace PixelStacker.Console
             var opts = new MemoryOptionsProvider().Load();
             this.Options = opts;
             MaterialPalette palette = MaterialPalette.FromResx();
-            var mapper = new KdTreeMapper();
+            var mapper = new KdTreeColorMapper(new RgbWithHueDistanceFormula(), TextureMatchingStrategy.Smooth);
             var combos = palette.ToValidCombinationList(opts).Where(x => x.IsMultiLayer).ToList();
             mapper.SetSeedData(combos, palette, false);
 

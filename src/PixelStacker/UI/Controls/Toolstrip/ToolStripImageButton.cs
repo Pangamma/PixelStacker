@@ -15,8 +15,7 @@ namespace PixelStacker.UI.Controls.Toolstrip
     {
         private ToolStripImageButtonControl Component;
 
-        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        //[EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Category("PixelStacker")]
         [Description("Set the image or icon to display")]
         public Bitmap ButtonImage
@@ -26,6 +25,7 @@ namespace PixelStacker.UI.Controls.Toolstrip
         }
 
         [Category("PixelStacker")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Color Color { get; set; }
         //public ToolStripImageButtonControl Picker => this.Control as ToolStripImageButtonControl;
         public ToolStripImageButton() : base(CreateControlInstance())

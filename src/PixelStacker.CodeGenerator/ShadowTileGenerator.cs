@@ -2,6 +2,7 @@
 using PixelStacker.Extensions;
 using PixelStacker.Logic.Extensions;
 using SkiaSharp;
+using System;
 using System.IO;
 
 namespace PixelStacker.CodeGenerator
