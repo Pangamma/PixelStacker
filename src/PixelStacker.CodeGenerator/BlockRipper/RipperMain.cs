@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using PixelStacker.Logic.IO.Config;
 using PixelStacker.Logic.Model;
 using PixelStacker.Resources;
 using SkiaSharp;
@@ -32,7 +33,7 @@ namespace PixelStacker.CodeGenerator.BlockRipper
     public class RipperMain
     {
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-        private string McVersion = "1.21.5";
+        private string McVersion = Constants.GameVersionText;
         private string PxImageDir => Path.Combine(RootDir, "PixelStacker.Resources", "Images", "Textures", "x16");
         private string McImageJar => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             ".minecraft", "versions", McVersion, McVersion + ".jar");
@@ -41,8 +42,60 @@ namespace PixelStacker.CodeGenerator.BlockRipper
         {
             PropertyNameCaseInsensitive = true,
             WriteIndented = true,
-            DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+            DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+            Converters = { new TextureValueJsonConverter() }
         };
+
+        /// <summary>
+        /// Newer model files can define a "textures" entry either as a plain string (e.g. "block/stone")
+        /// or as an object (e.g. { "sprite": "block/redstone_dust_dot", "force_translucent": true }) for
+        /// textures that need special rendering flags. We only care about the sprite path, so unwrap it
+        /// to a plain string either way.
+        /// </summary>
+        private class TextureValueJsonConverter : System.Text.Json.Serialization.JsonConverter<string>
+        {
+            public override string Read(ref System.Text.Json.Utf8JsonReader reader, Type typeToConvert, System.Text.Json.JsonSerializerOptions options)
+            {
+                if (reader.TokenType == System.Text.Json.JsonTokenType.String)
+                {
+                    return reader.GetString();
+                }
+
+                if (reader.TokenType == System.Text.Json.JsonTokenType.StartObject)
+                {
+                    string sprite = null;
+                    while (reader.Read() && reader.TokenType != System.Text.Json.JsonTokenType.EndObject)
+                    {
+                        if (reader.TokenType == System.Text.Json.JsonTokenType.PropertyName)
+                        {
+                            string propName = reader.GetString();
+                            reader.Read();
+                            if (string.Equals(propName, "sprite", StringComparison.OrdinalIgnoreCase) && reader.TokenType == System.Text.Json.JsonTokenType.String)
+                            {
+                                sprite = reader.GetString();
+                            }
+                            else
+                            {
+                                reader.Skip();
+                            }
+                        }
+                    }
+                    return sprite;
+                }
+
+                if (reader.TokenType == System.Text.Json.JsonTokenType.Null)
+                {
+                    return null;
+                }
+
+                throw new System.Text.Json.JsonException($"Unexpected token {reader.TokenType} when reading a texture string value.");
+            }
+
+            public override void Write(System.Text.Json.Utf8JsonWriter writer, string value, System.Text.Json.JsonSerializerOptions options)
+            {
+                writer.WriteStringValue(value);
+            }
+        }
 
         /**
          * For a block located at \assets\minecraft\models\block\foo.json,  the reference for this would be... 
@@ -198,11 +251,14 @@ namespace PixelStacker.CodeGenerator.BlockRipper
             //}
             
             
-            var alreadyInUse = Materials.List.Select(m => { return m.GetBlockNameAndData(false) + "@" + m.GetBlockNameAndData(true); }).Distinct().ToList();
+            var alreadyInUse = Materials.List.Select(m => { return m.GetBlockNameAndData(false) + "@" + m.GetBlockNameAndData(true); }).Distinct().ToHashSet();
             textureNodes.ForEach(texture => {
                 string needle = $"{texture.BlockIdAndNamespaceAndData}@{texture.BlockIdAndNamespaceAndData}";
                 texture.AlreadyInUseByPixelStacker = alreadyInUse.Contains(needle);
             });
+
+            // Skip emitting a line for a top/side combo that's already registered in the materials list.
+            bool IsAlreadyRegistered(string topId, string sideId) => alreadyInUse.Contains($"{topId}@{sideId}");
 
             //textureNodes = textureNodes.Where(x => x.IsSameTextureOnAllSides).ToList();
             //textureNodes = textureNodes.Where(x => !x.AlreadyInUseByPixelStacker).ToList();
@@ -227,6 +283,11 @@ namespace PixelStacker.CodeGenerator.BlockRipper
                 if (sideTexturesThatHaveSameTextureOnAllSides.Count > 0)
                 {
                     var sideNode = sideTexturesToUse.FirstOrDefault();
+                    if (IsAlreadyRegistered(sideNode.BlockIdAndNamespaceAndData, sideNode.BlockIdAndNamespaceAndData))
+                    {
+                        continue;
+                    }
+
                     string line = @$"new Material(""{McVersion}"", false, ""Other"", ""PIXELSTACKER_ID"", ""{sideNode.Label}"", Textures.GetBitmap(""{sideNode.TextureForUp_ResourceName}""), Textures.GetBitmap(""{ sideNode.TextureForWest_ResourceName}""), $""{sideNode.BlockIdAndNamespaceAndData}"", $""{sideNode.BlockIdAndNamespaceAndData}"", """"),";
                     output += line + "\n";
                     outputLines.Add(line);
@@ -249,6 +310,11 @@ namespace PixelStacker.CodeGenerator.BlockRipper
 
                     var sideNode = sideTexturesToUse.FirstOrDefault();
                     var topNode = upTextureGroup.FirstOrDefault();
+                    if (IsAlreadyRegistered(topNode.BlockIdAndNamespaceAndData, sideNode.BlockIdAndNamespaceAndData))
+                    {
+                        continue;
+                    }
+
                     string line = @$"new Material(""{McVersion}"", false, ""Other"", ""PIXELSTACKER_ID"", ""{sideNode.Label}"", Textures.GetBitmap(""{topNode.TextureForUp_ResourceName}""), Textures.GetBitmap(""{sideNode.TextureForWest_ResourceName}""), $""{topNode.BlockIdAndNamespaceAndData}"", $""{sideNode.BlockIdAndNamespaceAndData}"", """"),";
                     output += line + "\n";
                     outputLines.Add(line);
@@ -263,6 +329,11 @@ namespace PixelStacker.CodeGenerator.BlockRipper
 
                 {
                     var sideNode = sideTexturesToUse.FirstOrDefault();
+                    if (IsAlreadyRegistered(sideNode.BlockIdAndNamespaceAndData, sideNode.BlockIdAndNamespaceAndData))
+                    {
+                        continue;
+                    }
+
                     string line = @$"new Material(""{McVersion}"", false, ""Other"", ""PIXELSTACKER_ID"", ""{sideNode.Label}"", Textures.GetBitmap(""{sideNode.TextureForUp_ResourceName}""), Textures.GetBitmap(""{sideNode.TextureForWest_ResourceName}""), $""{sideNode.BlockIdAndNamespaceAndData}"", $""{sideNode.BlockIdAndNamespaceAndData}"", """"),";
                     output += line + "\n";
                     outputLines.Add(line);

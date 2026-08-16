@@ -4,7 +4,13 @@ namespace PixelStacker.Logic.IO.Config
 {
     public static class Constants
     {
-        public const string Version = "1.21.5f";
+        // Data version of MC build. Can be found on wiki.
+        // TODO: Auto calc this based on selected materials
+        // https://minecraft.fandom.com/wiki/Java_Edition_1.18.1
+        public const int DataVersion = 4903;
+        public const string GameVersionText = "26.2";
+        public const string Version = $"{GameVersionText}a";
+
         public const string Website = "https://taylorlove.info/pixelstacker";
         [System.Obsolete("Switch to using DefaultTextureSize, bc that is what this should represent.", true)]
         public const int TextureSize = 16;
@@ -32,10 +38,6 @@ namespace PixelStacker.Logic.IO.Config
         public const string Obs_AsyncPreferred = "Switch to async";
         public const string Obs_Static = "Avoid static properties. We want to have one instance per web user.";
 
-        // Data version of MC build. Can be found on wiki.
-        // TODO: Auto calc this based on selected materials
-        // https://minecraft.fandom.com/wiki/Java_Edition_1.18.1
-        public const int DataVersion = 4325;
         public const int MaterialCombinationIDForAir = 0;
         public const string MaterialPixelStackerIDForAir = "AIR";
         public const int BlockID_Unavailable = 166; // barrier

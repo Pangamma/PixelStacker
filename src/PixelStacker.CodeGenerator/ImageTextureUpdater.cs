@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PixelStacker.Logic.Model;
+using PixelStacker.Logic.IO.Config;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace PixelStacker.CodeGenerator
     public class ImageTextureUpdater
     {
         private string RootDir = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { "\\PixelStacker.CodeGenerator\\bin\\" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-        private string McVersion = "26.2";
+        private string McVersion = Constants.GameVersionText;
         private string PxImageDir => Path.Combine(RootDir, "PixelStacker.Resources", "Images", "Textures", "x16");
         private string McImageJar => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             ".minecraft", "versions", McVersion, McVersion + ".jar");

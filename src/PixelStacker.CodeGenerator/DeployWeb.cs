@@ -85,13 +85,13 @@ namespace PixelStacker.CodeGenerator
                 ssh.Connect();
 
                 string result = "";
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; [ -d {DEPLOY_UI_TO_REMOTE_DIR} ] && echo exists || echo does not exist;").Result.Trim();
+                result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; [ -d {DEPLOY_UI_TO_REMOTE_DIR} ] && echo exists || echo does not exist;\"").Result.Trim();
 
                 // Remove old dir if it still  exists.
                 bool deployDirStillExists = result == "exists";
                 if (deployDirStillExists)
                 {
-                    result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {DEPLOY_UI_TO_REMOTE_DIR};").Result;
+                    result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; rm -rf {DEPLOY_UI_TO_REMOTE_DIR};\"").Result;
                 }
 
                 var ftp = GetFtpClientFromPool();
@@ -101,16 +101,16 @@ namespace PixelStacker.CodeGenerator
                 RecursiveZipUpload(UPLOAD_UI_FROM_DIR, DEPLOY_UI_TO_REMOTE_DIR, ssh);
 
                 DeployWeb.sw.WriteLine("Deprecating ancient deployment");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {MOVE_DEPLOYED_UI_TO_REMOTE_DIR} {MOVE_DEPLOYED_UI_TO_REMOTE_DIR}-old;").Result;
+                result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; mv {MOVE_DEPLOYED_UI_TO_REMOTE_DIR} {MOVE_DEPLOYED_UI_TO_REMOTE_DIR}-old;\"").Result;
 
                 DeployWeb.sw.WriteLine("Swapping to new deployment");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {DEPLOY_UI_TO_REMOTE_DIR} {MOVE_DEPLOYED_UI_TO_REMOTE_DIR};").Result;
+                result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; mv {DEPLOY_UI_TO_REMOTE_DIR} {MOVE_DEPLOYED_UI_TO_REMOTE_DIR};\"").Result;
 
                 //DeployWeb.sw.WriteLine("Setting permissions on the main executable.");
-                //result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{MOVE_DEPLOYED_UI_TO_REMOTE_DIR}; chmod 754 ./{MAIN_UI_ARTIFACT_TO_CHMOD};").Result;
+                //result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}/{MOVE_DEPLOYED_UI_TO_REMOTE_DIR}; chmod 754 ./{MAIN_UI_ARTIFACT_TO_CHMOD};\"").Result;
 
                 DeployWeb.sw.WriteLine("Cleaning up old files");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {MOVE_DEPLOYED_UI_TO_REMOTE_DIR}-old;").Result;
+                result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; rm -rf {MOVE_DEPLOYED_UI_TO_REMOTE_DIR}-old;\"").Result;
             }
 
             clients.ForEach(x => x.Dispose());
@@ -135,13 +135,13 @@ namespace PixelStacker.CodeGenerator
                 ssh.Connect();
 
                 string result = "";
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; [ -d {DEPLOY_API_TO_REMOTE_DIR} ] && echo exists || echo does not exist;").Result.Trim();
+                result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; [ -d {DEPLOY_API_TO_REMOTE_DIR} ] && echo exists || echo does not exist;\"").Result.Trim();
 
                 // Remove old dir if it still  exists.
                 bool deployDirStillExists = result == "exists";
                 if (deployDirStillExists)
                 {
-                    result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {DEPLOY_API_TO_REMOTE_DIR};").Result;
+                    result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; rm -rf {DEPLOY_API_TO_REMOTE_DIR};\"").Result;
                 }
 
                 var ftp = GetFtpClientFromPool();
@@ -151,22 +151,22 @@ namespace PixelStacker.CodeGenerator
                 RecursiveZipUpload(UPLOAD_API_FROM_DIR, DEPLOY_API_TO_REMOTE_DIR, ssh);
 
                 DeployWeb.sw.WriteLine("Stopping old service");
-                string svcStopResult = ssh.CreateCommand($"systemctl stop {SERVICE_NAME}").Execute();
+                string svcStopResult = ssh.CreateCommand($"sudo systemctl stop {SERVICE_NAME}").Execute();
 
                 DeployWeb.sw.WriteLine("Deprecating ancient deployment");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {MOVE_DEPLOYED_API_TO_REMOTE_DIR} {MOVE_DEPLOYED_API_TO_REMOTE_DIR}-old;").Result;
+                result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; mv {MOVE_DEPLOYED_API_TO_REMOTE_DIR} {MOVE_DEPLOYED_API_TO_REMOTE_DIR}-old;\"").Result;
 
                 DeployWeb.sw.WriteLine("Swapping to new deployment");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; mv {DEPLOY_API_TO_REMOTE_DIR} {MOVE_DEPLOYED_API_TO_REMOTE_DIR};").Result;
+                result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; mv {DEPLOY_API_TO_REMOTE_DIR} {MOVE_DEPLOYED_API_TO_REMOTE_DIR};\"").Result;
 
                 DeployWeb.sw.WriteLine("Setting permissions on the main executable.");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{MOVE_DEPLOYED_API_TO_REMOTE_DIR}; chmod 754 ./{MAIN_API_ARTIFACT_TO_CHMOD};").Result;
+                result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}/{MOVE_DEPLOYED_API_TO_REMOTE_DIR}; chmod 754 ./{MAIN_API_ARTIFACT_TO_CHMOD};\"").Result;
 
                 DeployWeb.sw.WriteLine("Starting new service");
-                string svcStartResult = ssh.CreateCommand($"systemctl start {SERVICE_NAME}").Execute();
+                string svcStartResult = ssh.CreateCommand($"sudo systemctl start {SERVICE_NAME}").Execute();
 
                 DeployWeb.sw.WriteLine("Cleaning up old files");
-                result = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT};  rm -rf {MOVE_DEPLOYED_API_TO_REMOTE_DIR}-old;").Result;
+                result = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}; rm -rf {MOVE_DEPLOYED_API_TO_REMOTE_DIR}-old;\"").Result;
             }
 
             clients.ForEach(x => x.Dispose());
@@ -270,13 +270,13 @@ namespace PixelStacker.CodeGenerator
                 ftp.UploadFile(localZipFilePath, remoteZipFilePath, FluentFTP.FtpRemoteExists.Overwrite, true, FtpVerify.None);
 
                 DeployWeb.sw.WriteLine("Unzipping...");
-                var cmdResult = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{remoteDirToUploadTo};  unzip deployment.zip;").Result;
+                var cmdResult = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}/{remoteDirToUploadTo}; unzip deployment.zip;\"").Result;
 
                 DeployWeb.sw.WriteLine("Removing zip file on remote server.");
-                var cmdResult2 = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}/{remoteDirToUploadTo}; rm ./deployment.zip;").Result;
+                var cmdResult2 = ssh.RunCommand($"sudo bash -c \"cd {SSH_WORKINGDIR_ROOT}/{remoteDirToUploadTo}; rm ./deployment.zip;\"").Result;
 
                 DeployWeb.sw.WriteLine($"Chowning the unzipped files to {CHOWN}");
-                var cmdResult3 = ssh.RunCommand($"cd {SSH_WORKINGDIR_ROOT}; chown -R {CHOWN} {remoteDirToUploadTo};").Result;
+                var cmdResult3 = ssh.RunCommand($"sudo chown -R {CHOWN} {SSH_WORKINGDIR_ROOT}/{remoteDirToUploadTo};").Result;
             }
             catch (Exception ex)
             {

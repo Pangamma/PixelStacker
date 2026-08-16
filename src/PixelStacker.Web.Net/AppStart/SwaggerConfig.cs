@@ -79,6 +79,20 @@ namespace PixelStacker.Web.Net.AppStart
 
     public class DefaultValueFilter : IParameterFilter
     {
+        // parameter.Schema can be a concrete OpenApiSchema or an OpenApiSchemaReference ($ref wrapper);
+        // Example is only settable on the concrete schema, so references need to go through RecursiveTarget.
+        private static void SetExample(IOpenApiSchema schema, JsonNode example)
+        {
+            if (schema is OpenApiSchema concrete)
+            {
+                concrete.Example = example;
+            }
+            else if (schema is OpenApiSchemaReference reference && reference.RecursiveTarget is OpenApiSchema target)
+            {
+                target.Example = example;
+            }
+        }
+
         public void Apply(IOpenApiParameter parameter, ParameterFilterContext context)
         {
             var meta = context.ApiParameterDescription.ModelMetadata as DefaultModelMetadata;
@@ -90,7 +104,7 @@ namespace PixelStacker.Web.Net.AppStart
             {
                 if (attr.Value != null)
                 {
-                    ((OpenApiSchema)parameter.Schema).Example = JsonNode.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(attr.Value));
+                    SetExample(parameter.Schema, JsonNode.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(attr.Value)));
                     return;
                 }
             }
@@ -118,7 +132,7 @@ namespace PixelStacker.Web.Net.AppStart
                         string json = !defVal.GetType().IsEnum
                         ? Newtonsoft.Json.JsonConvert.SerializeObject(defVal)
                         : Newtonsoft.Json.JsonConvert.SerializeObject(defVal.ToString());
-                        ((OpenApiSchema)parameter.Schema).Example = JsonNode.Parse(json);
+                        SetExample(parameter.Schema, JsonNode.Parse(json));
                     }
                 }
             }
@@ -127,6 +141,21 @@ namespace PixelStacker.Web.Net.AppStart
 
     public class AcceptableValuesFilter : IParameterFilter
     {
+        // Same reference-vs-concrete issue as DefaultValueFilter.SetExample: resolve to the concrete
+        // schema first, and Enum may not be pre-initialized on it.
+        private static void SetEnum(IOpenApiSchema schema, IEnumerable<JsonNode> values)
+        {
+            var concrete = schema as OpenApiSchema ?? (schema as OpenApiSchemaReference)?.RecursiveTarget;
+            if (concrete is null) return;
+
+            concrete.Enum ??= new List<JsonNode>();
+            concrete.Enum.Clear();
+            foreach (var value in values)
+            {
+                concrete.Enum.Add(value);
+            }
+        }
+
         public void Apply(IOpenApiParameter parameter, ParameterFilterContext context)
         {
             var meta = context.ApiParameterDescription.ModelMetadata as DefaultModelMetadata;
@@ -136,20 +165,12 @@ namespace PixelStacker.Web.Net.AppStart
 
             foreach (var attr in propAttrs.OfType<AcceptableIntValuesAttribute>())
             {
-                parameter.Schema.Enum.Clear();
-                foreach (var val in attr.AllowableValues)
-                {
-                    parameter.Schema.Enum.Add(JsonValue.Create(val));
-                }
+                SetEnum(parameter.Schema, attr.AllowableValues.Select(val => (JsonNode)JsonValue.Create(val)));
             }
 
             foreach (var attr in propAttrs.OfType<AcceptableStringValuesAttribute>())
             {
-                parameter.Schema.Enum.Clear();
-                foreach (var val in attr.AllowableValues)
-                {
-                    parameter.Schema.Enum.Add(JsonValue.Create(val));
-                }
+                SetEnum(parameter.Schema, attr.AllowableValues.Select(val => (JsonNode)JsonValue.Create(val)));
             }
         }
     }

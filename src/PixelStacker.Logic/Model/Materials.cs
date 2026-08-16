@@ -351,6 +351,8 @@ namespace PixelStacker.Logic.Model
                         new Material("1.21.5", false, "Bricks", "CHZL_TUFF_BRICKS", "Chiseled Tuff Bricks", Textures.GetBitmap("chiseled_tuff_bricks_top"), Textures.GetBitmap("chiseled_tuff_bricks"), $"minecraft:chiseled_tuff_bricks", $"minecraft:chiseled_tuff_bricks", ""),
                         new Material("1.21.5", false, "Bricks", "CHZL_RESIN_BRICKS", "Chiseled Resin Bricks", Textures.GetBitmap("chiseled_resin_bricks"), Textures.GetBitmap("chiseled_resin_bricks"), $"minecraft:chiseled_resin_bricks", $"minecraft:chiseled_resin_bricks", ""),
                         new Material("1.21.5", false, "Bricks", "RESIN_BRICKS", "Resin Bricks", Textures.GetBitmap("resin_bricks"), Textures.GetBitmap("resin_bricks"), $"minecraft:resin_bricks", $"minecraft:resin_bricks", ""),
+                        new Material("26.2", false, "Bricks", "CINNABAR_BRICKS", "Cinnabar Bricks", Textures.GetBitmap("cinnabar_bricks"), Textures.GetBitmap("cinnabar_bricks"), $"minecraft:cinnabar_bricks", $"minecraft:cinnabar_bricks", ""),
+                        new Material("26.2", false, "Bricks", "SULFUR_BRICKS", "Sulfur Bricks", Textures.GetBitmap("sulfur_bricks"), Textures.GetBitmap("sulfur_bricks"), $"minecraft:sulfur_bricks", $"minecraft:sulfur_bricks", ""),
                         new Material("1.21.5", false, "Other", "RESIN_BLK", "Block of Resin", Textures.GetBitmap("resin_block"), Textures.GetBitmap("resin_block"), $"minecraft:resin_block", $"minecraft:resin_block", ""),
 
                         new Material("1.16", true, "Nether", "LODESTONE", "Lodestone", Textures.GetBitmap("lodestone_top"), Textures.GetBitmap("lodestone_side"), $"minecraft:lodestone", $"minecraft:lodestone", ""),
@@ -380,6 +382,13 @@ namespace PixelStacker.Logic.Model
                         new Material("1.17", false, "Other", "TUFF", "Tuff", Textures.GetBitmap("tuff"), Textures.GetBitmap("tuff"), $"minecraft:tuff", $"minecraft:tuff", ""),
                         new Material("1.21.5", false, "Other", "POLISHED_TUFF", "Polished Tuff", Textures.GetBitmap("polished_tuff"), Textures.GetBitmap("polished_tuff"), $"minecraft:polished_tuff", $"minecraft:polished_tuff", ""),
                         new Material("1.21.5", false, "Other", "CHZL_TUFF", "Chiseled Tuff", Textures.GetBitmap("chiseled_tuff_top"), Textures.GetBitmap("chiseled_tuff"), $"minecraft:chiseled_tuff", $"minecraft:chiseled_tuff", ""),
+                        new Material("26.2", false, "Other", "CINNABAR", "Cinnabar", Textures.GetBitmap("cinnabar"), Textures.GetBitmap("cinnabar"), $"minecraft:cinnabar", $"minecraft:cinnabar", ""),
+                        new Material("26.2", false, "Other", "POLISHED_CINNABAR", "Polished Cinnabar", Textures.GetBitmap("polished_cinnabar"), Textures.GetBitmap("polished_cinnabar"), $"minecraft:polished_cinnabar", $"minecraft:polished_cinnabar", ""),
+                        new Material("26.2", false, "Other", "CHZL_CINNABAR", "Chiseled Cinnabar", Textures.GetBitmap("chiseled_cinnabar"), Textures.GetBitmap("chiseled_cinnabar"), $"minecraft:chiseled_cinnabar", $"minecraft:chiseled_cinnabar", ""),
+                        new Material("26.2", false, "Other", "SULFUR", "Sulfur", Textures.GetBitmap("sulfur"), Textures.GetBitmap("sulfur"), $"minecraft:sulfur", $"minecraft:sulfur", ""),
+                        new Material("26.2", false, "Other", "POLISHED_SULFUR", "Polished Sulfur", Textures.GetBitmap("polished_sulfur"), Textures.GetBitmap("polished_sulfur"), $"minecraft:polished_sulfur", $"minecraft:polished_sulfur", ""),
+                        new Material("26.2", false, "Other", "CHZL_SULFUR", "Chiseled Sulfur", Textures.GetBitmap("chiseled_sulfur"), Textures.GetBitmap("chiseled_sulfur"), $"minecraft:chiseled_sulfur", $"minecraft:chiseled_sulfur", ""),
+                        new Material("26.2", false, "Other", "POTENT_SULFUR", "Potent Sulfur", Textures.GetBitmap("potent_sulfur"), Textures.GetBitmap("potent_sulfur"), $"minecraft:potent_sulfur", $"minecraft:potent_sulfur", ""),
 
                         new Material("1.7", false, "Ores (Solid)", "SLD_ORE_C", "Coal Block", Textures.GetBitmap("coal_block"), Textures.GetBitmap("coal_block"), $"minecraft:coal_block", $"minecraft:coal_block", "minecraft:coal_block"),
                         new Material("1.7", false, "Ores (Solid)", "SLD_ORE_I", "Iron Block", Textures.GetBitmap("iron_block"), Textures.GetBitmap("iron_block"), $"minecraft:iron_block", $"minecraft:iron_block", "minecraft:iron_block"),

@@ -107,7 +107,7 @@ namespace PixelStacker.WF.Components
                 paint.Shader = bgShader;
                 paint.IsDither = true;
                 canvas.DrawRect(e.Rect, paint);
-                canvas.DrawBitmap(bgImg, 0, 0);
+                canvas.DrawBitmap(bgImg, 0, 0, SKSamplingOptions.Default);
             }
 
             // Render the image they are looking at.
@@ -128,7 +128,8 @@ namespace PixelStacker.WF.Components
                 {
                     canvas.DrawBitmap(bitmap: img,
                         source: rectSRC,
-                        dest: rectDST);
+                        dest: rectDST, 
+                        SKSamplingOptions.Default);
                 }
             }
         }
