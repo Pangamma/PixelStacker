@@ -7,8 +7,8 @@ namespace PixelStacker.Logic.IO.Config
         // Data version of MC build. Can be found on wiki.
         // TODO: Auto calc this based on selected materials
         // https://minecraft.fandom.com/wiki/Java_Edition_1.18.1
-        public const int DataVersion = 4903;
-        public const string GameVersionText = "26.2";
+        public const int DataVersion = 5023;
+        public const string GameVersionText = "26.3";
         public const string Version = $"{GameVersionText}a";
 
         public const string Website = "https://taylorlove.info/pixelstacker";
